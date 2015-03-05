@@ -1,0 +1,221 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 40px;
+    padding-top: 80px;
+    font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body > .container {
+    padding: 60px 15px 0;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.logo-text {
+    text-transform: uppercase;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    display: inline;
+    color: #555;
+}
+
+footer {
+    padding: 0px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    box-shadow: 1px 0px 1px #999999;
+}
+
+footer span.copyright {
+    line-height: 40px;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    text-transform: none;
+}
+footer ul.quicklinks {
+    margin-bottom: 0;
+    line-height: 40px;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    text-transform: none;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: transparent;
+}
+.navbar-default .navbar-brand {
+    color: #4bbffe;
+    font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:active,
+.navbar-default .navbar-brand.active {
+    color: #18adfe;
+}
+.navbar-default .navbar-collapse {
+    border-color: rgba(255, 255, 255, 0.02);
+}
+.navbar-default .navbar-toggle {
+    background-color: #4bbffe;
+    border-color: #4bbffe;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #4bbffe;
+}
+.navbar-default .nav li a {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #777777;
+}
+.navbar-default .nav li a:hover,
+.navbar-default .nav li a:focus {
+    color: #0193e2;
+    outline: none;
+}
+.navbar-default .navbar-nav > .active > a {
+    border-radius: 0;
+    color: white;
+    background-color: #4bbffe;
+}
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: white;
+    background-color: #18adfe;
+}
+@media (min-width: 768px) {
+    .navbar-default {
+        background-color: white;
+        opacity: 1;
+        padding: 5px 0;
+        /*-webkit-transition: padding 0.3s;
+        -moz-transition: padding 0.3s;
+        transition: padding 0.3s;*/
+        border: none;
+        box-shadow: 0px 1px 1px #999999;
+    }
+    .navbar-default .navbar-brand {
+        font-size: 1.5em;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    .navbar-default .navbar-nav > .active > a {
+        border-radius: 3px;
+    }
+}
+
+ul.module-buttons {
+    padding-left: 10px;
+}
+
+ul.module-buttons li a {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 100;
+    border-radius: 100%;
+    /*border: 3px solid #e1e1e1;*/
+    border: 3px solid white;
+    text-align: center;
+    display: block;
+    background-color: white;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    margin-top: 6px;
+    margin-left: 0px;
+}
+
+ul.module-buttons li a h4 {
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: -8px;
+    margin-left: -7px;
+    color: #777;
+}
+
+ul.module-buttons li a:hover h4 {
+    color: #555;
+}
+
+ul.module-buttons li a:hover {
+    border: 3px solid white;
+    cursor: hand;
+}
+
+ul.module-buttons li a.disabled h4,
+ul.module-buttons li a.disabled:hover h4 {
+    cursor: not-allowed;
+    color: #e1e1e1;
+}
+
+ul.module-buttons li a.selected,
+ul.module-buttons li a.selected:hover {
+    border: 3px solid #e1e1e1;
+    cursor: default;
+}
+
+ul.module-buttons li a.selected h4,
+ul.module-buttons li a.selected:hover h4 {
+    color: #777;
+}
+
+ul.user-buttons li a {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+ul.user-buttons li a span {
+    color: #777;
+}
+
+ul.user-buttons li a:hover span {
+    cursor: hand;
+    color: #555;
+}
+
+ul.user-buttons li a span {
+    text-transform: none;
+    font-size: 14px;
+    line-height: 14px;
+    margin: 0;
+}
+
+form.navbar-form div {
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+div.modules .row {
+    margin-top: 50px;
+}
+
+div.modules a {
+    color: #555;
+    text-decoration: none;
+}
+
+div.modules a:hover {
+    color: black;
+    cursor: hand;
+}
