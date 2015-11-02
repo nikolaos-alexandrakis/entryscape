@@ -6,11 +6,11 @@
     <title>List sample</title>
     <script>
         if (document.location.search.indexOf("debug=true") === -1) {
-            document.write('<link rel="stylesheet" href="release/suite/entryscape-suite/style.css"/>');
-            document.write('<script src="release/suite/all.js"><\/script>');
+            document.write('<link rel="stylesheet" href="release/publicCatalog/entryscape-suite/style.css"/>');
+            document.write('<script src="release/publicCatalog/all.js"><\/script>');
         } else {
             document.write('<link rel="stylesheet" href="style.css"/>');
-            document.write('<script data-main="config/suiteConfig" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
+            document.write('<script data-main="config/publicCatalogConfig" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
         }
     </script>
 </head>
