@@ -13,6 +13,7 @@ require.config({
         "jquery": "jquery/src",
         "sizzle": "jquery/src/sizzle/dist/sizzle",
         "jquery.mousewheel": "select2/src/js/jquery.mousewheel.shim",
+        "typeahead": "typeahead.js/dist/typeahead.jquery",
         "requireLib": "requirejs/require",
         "vis": "vis/dist/vis",
         "config": "empty:" //Because we define it inline below.
