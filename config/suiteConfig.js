@@ -117,8 +117,11 @@ define("config", [], {
             },
             {
                 name: "admin",
-                faClass: "cogs",
-                views: []
+                faClass: "cogs", //faClass: "wrench",
+                hierarchy: {
+                    "view": "adminstart",
+                    "subViews": ["adminusers", "admingroups", "admincontexts"]
+                }
             },
             {
                 name: "search",
@@ -154,6 +157,21 @@ define("config", [], {
                 "class": "entryscape-catalog/graph/Browser",
                 "faClass": "line-chart",
                 "title": {en: "Visualization", sv: "Visualisering"}
+            },
+            {"name": "adminstart", "class": "entryscape-commons/nav/Cards",
+                "title": {en: "Administration", sv: "Administration"}
+            },
+            {"name": "adminusers", "class": "entryscape-admin/users/List",
+                "faClass": "user",
+                "title": {en: "Users", sv: "Användare"}
+            },
+            {"name": "admingroups", "class": "entryscape-admin/groups/List",
+                "faClass": "users",
+                "title": {en: "Groups", sv: "Grupper"}
+            },
+            {"name": "admincontexts", "class": "entryscape-admin/contexts/List",
+                "faClass": "building",
+                "title": {en: "Workspaces", sv: "Arbetsytor"}
             }
         ]
     },
