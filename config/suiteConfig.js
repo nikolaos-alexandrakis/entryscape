@@ -14,6 +14,9 @@ require.config({
         "sizzle": "jquery/src/sizzle/dist/sizzle",
         "jquery.mousewheel": "select2/src/js/jquery.mousewheel.shim",
         "typeahead": "typeahead.js/dist/typeahead.jquery",
+        "jstree": "jstree/src/jstree",
+        "jstree.dnd": "jstree/src/jstree.dnd",
+        "jstree.wholerow": "jstree/src/jstree.wholerow",
         "requireLib": "requirejs/require",
         "vis": "vis/dist/vis",
         "config": "empty:" //Because we define it inline below.
@@ -47,16 +50,32 @@ require.config({
     },
     deps: [
         "entryscape-commons/commonDeps",
+        "entryscape-commons/nav/Cards",
         "entryscape-catalog/catalog/List",
         "entryscape-catalog/catalog/Catalog",
         "entryscape-catalog/files/List",
         "entryscape-catalog/datasets/List",
         "entryscape-catalog/responsibles/List",
+        "entryscape-terms/scheme/List",
+        "entryscape-terms/concept/Concepts",
+        "entryscape-admin/contexts/List",
+        "entryscape-admin/groups/List",
+        "entryscape-admin/users/List",
         "i18n!nls/catalog",
         "i18n!nls/catalogfiles",
         "i18n!nls/catalogpublic",
         "i18n!nls/dataset",
         "i18n!nls/responsible",
+        "i18n!nls/admincontext",
+        "i18n!nls/admingroup",
+        "i18n!nls/adminuser",
+        "i18n!nls/layout",
+        "i18n!nls/list",
+        "i18n!nls/modules",
+        "i18n!nls/rdforms",
+        "i18n!nls/scheme",
+        "i18n!nls/signin",
+        "i18n!nls/concept",
         "select2/select2/i18n/sv" //Explicit load of swedish language for select2 (no require-nls support)
     ]
 });
@@ -78,6 +97,8 @@ define("config", [], {
     },
     itemstore: {
         bundles: [
+            "./libs/entryscape-terms/templates/terms.json",
+            "./libs/rdforms/templates/skos.json",
             "./libs/rdforms/templates/dcterms.json",
             "./libs/rdforms/templates/foaf.json",
             "./libs/rdforms/templates/vcard.json",
@@ -108,7 +129,13 @@ define("config", [], {
             {
                 name: "terms",
                 faClass: "sitemap",
-                views: []
+                hierarchy: {
+                    "view": "termsstart",
+                    "subViews": [{
+                        view: "termsoptions",
+                        subViews: ["concepts"]
+                    }]
+                }
             },
             {
                 name: "workbench",
@@ -130,8 +157,7 @@ define("config", [], {
             }
         ],
         views: [
-            {
-                "name": "start", "class": "entryscape-commons/nav/Start",
+            {"name": "start", "class": "entryscape-commons/nav/Start",
                 "title": {en: "Start", sv: "Start"}
             },
             {"name": "cataloglist", "class": "entryscape-catalog/catalog/List", "title": {en: "Catalogs", sv: "Kataloger"}
@@ -139,21 +165,18 @@ define("config", [], {
             {"name": "catalog", "class": "entryscape-catalog/catalog/Catalog"},
             {"name": "catalogfiles", "class": "entryscape-catalog/files/List", faClass: "files-o",
                 "title": {en: "Files", sv: "Filer"}},
-            {
-                "name": "datasets",
+            {"name": "datasets",
                 "class": "entryscape-catalog/datasets/List",
                 faClass: "cubes",
                 "title": {en: "Datasets", sv: "Datamängder"},
                 "constructorParams": {createAndRemoveDistributions: true}
             },
-            {
-                "name": "responsibles",
+            {"name": "responsibles",
                 "class": "entryscape-catalog/responsibles/List",
                 faClass: "phone",
                 "title": {en: "Responsibles", sv: "Ansvariga"}
             },
-            {
-                "name": "catalogbrowser",
+            {"name": "catalogbrowser",
                 "class": "entryscape-catalog/graph/Browser",
                 "faClass": "line-chart",
                 "title": {en: "Visualization", sv: "Visualisering"}
@@ -172,6 +195,17 @@ define("config", [], {
             {"name": "admincontexts", "class": "entryscape-admin/contexts/List",
                 "faClass": "building",
                 "title": {en: "Workspaces", sv: "Arbetsytor"}
+            },
+            {"name": "termsstart", "class": "entryscape-terms/scheme/List",
+                "title": {en: "Terms", sv: "Termer"}
+            },
+            {"name": "termsoptions",
+                "class": "entryscape-commons/gce/Cards",
+                "constructorParams": {entryId: "skos"}
+            },
+            {"name": "concepts", "class": "entryscape-terms/concept/Concepts",
+                "faClass": "tree",
+                "title": {en: "Hierarchy", sv: "Hierarki"}
             }
         ]
     },

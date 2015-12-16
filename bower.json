@@ -23,6 +23,7 @@
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#master",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#master",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#master",
     "fuelux": "~3.6.2",
     "flag-icon-css": "latest"
   },
@@ -35,6 +36,7 @@
   "resolutions": {
     "util": "1.10.4",
     "dijit": "1.10.4",
-    "dojo": "1.10.4"
+    "dojo": "1.10.4",
+    "jstree": "~3.2.1"
   }
 }

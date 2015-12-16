@@ -17,6 +17,8 @@
 @import "libs/entryscape-catalog/catalog/catalog.css";
 @import "libs/entryscape-catalog/datasets/dataset.css";
 @import "libs/entryscape-catalog/public/public.css";
+@import "libs/jstree-bootstrap-theme/dist/themes/proton/style.css";
+@import "libs/entryscape-terms/concept/style.css";
 
 /* Fonts */
 @import "libs/fontawesome/css/font-awesome.min.css";
