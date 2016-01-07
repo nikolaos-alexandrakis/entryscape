@@ -51,8 +51,8 @@ require.config({
     deps: [
         "entryscape-commons/commonDeps",
         "entryscape-commons/nav/Cards",
+        "entryscape-commons/gce/Cards",
         "entryscape-catalog/catalog/List",
-        "entryscape-catalog/catalog/Catalog",
         "entryscape-catalog/files/List",
         "entryscape-catalog/datasets/List",
         "entryscape-catalog/responsibles/List",
@@ -103,6 +103,7 @@ define("config", [], {
             "./libs/rdforms/templates/foaf.json",
             "./libs/rdforms/templates/vcard.json",
             "./libs/rdforms/templates/odrs.json",
+            "./libs/entryscape-catalog/templates/dcat-ap_props.json",
             "./libs/entryscape-catalog/templates/dcat-ap.json"
         ]
     },
@@ -162,7 +163,10 @@ define("config", [], {
             },
             {"name": "cataloglist", "class": "entryscape-catalog/catalog/List", "title": {en: "Catalogs", sv: "Kataloger"}
             },
-            {"name": "catalog", "class": "entryscape-catalog/catalog/Catalog"},
+            {"name": "catalog",
+                "class": "entryscape-commons/gce/Cards",
+                "constructorParams": {entryId: "dcat"}
+            },
             {"name": "catalogfiles", "class": "entryscape-catalog/files/List", faClass: "files-o",
                 "title": {en: "Files", sv: "Filer"}},
             {"name": "datasets",
