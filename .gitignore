@@ -2,3 +2,4 @@
 release/
 merged-nls/
 libs/
+/config/local.js
