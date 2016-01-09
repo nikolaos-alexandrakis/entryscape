@@ -6,9 +6,6 @@
 @import "libs/entryscape-commons/rdforms/rdforms.css";
 @import "libs/entryscape-commons/list/list.css";
 @import "libs/entryscape-commons/query/style.css";
-@import "libs/rdforms/view/bootstrap/base.css";
-@import "libs/fuelux/dist/css/fuelux.min.css";
-@import "libs/select2/dist/css/select2.min.css";
 @import "libs/rdforms/apps/editor/editor.css";
 @import "libs/entryscape-commons/nav/entryscape.css";
 @import "libs/vis/dist/vis.css";

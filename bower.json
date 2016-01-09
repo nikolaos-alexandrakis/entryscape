@@ -25,7 +25,9 @@
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#master",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#master",
     "fuelux": "~3.6.2",
-    "flag-icon-css": "latest"
+    "flag-icon-css": "latest",
+    "r.js": "~2.1.22",
+    "sizzle": "~2.3.0"
   },
   "license": "AGPLv3",
   "private": true,

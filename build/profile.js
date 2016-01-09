@@ -1,5 +1,7 @@
 ({
-    include: ['requireLib'],
+    mainConfigFile: "../config/deps.js",
+    include: ['requireLib', "config/deps"],
+    dir: "../release/",
     baseUrl: "../libs", //Relative to build directory (not relative the html files).
     name: "all",
     create: true,
