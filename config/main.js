@@ -23,6 +23,13 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     "./libs/entryscape-catalog/templates/dcat-ap.json"
                 ]
             },
+            catalog: {
+                catalogTemplateId: "dcat:OnlyCatalog",
+                datasetTemplateId: "dcat:OnlyDataset",
+                distributionTemplateId: "dcat:OnlyDistribution",
+                contactTemplateId: "dcat:contactPoint",
+                agentTemplateId: "dcat:foaf:Agent"
+            },
             site: {
                 siteClass: "spa/Site",
                 controlClass: "entryscape-commons/nav/Layout",
