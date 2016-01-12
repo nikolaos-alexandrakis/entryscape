@@ -154,5 +154,5 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     }
                 ]
             }
-        });
+        }, local);
 });
