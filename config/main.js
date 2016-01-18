@@ -34,6 +34,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                 siteClass: "spa/Site",
                 controlClass: "entryscape-commons/nav/Layout",
                 startView: "start",
+                sidebar: {wide: false, always: true, replaceTabs: true},
                 modules: [
                     {
                         name: "catalog",
@@ -42,6 +43,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "view": "cataloglist",
                             "subViews": [{
                                 view: "catalog",
+                                sidebar: true,
                                 subViews: ["catalogfiles", "datasets", "responsibles", "catalogbrowser"]
                             }]
                         }
@@ -70,6 +72,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     {
                         name: "admin",
                         faClass: "cogs", //faClass: "wrench",
+                        startView: "adminusers",
                         hierarchy: {
                             "view": "adminstart",
                             "subViews": ["adminusers", "admingroups", "admincontexts"]
@@ -89,10 +92,12 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     {
                         "name": "cataloglist",
                         "class": "entryscape-catalog/catalog/List",
-                        "title": {en: "Catalogs", sv: "Kataloger"}
+                        "title": {en: "Catalogs", sv: "Kataloger"},
+                        "constructorParams": {rowClickView: "datasets"}
                     },
                     {
                         "name": "catalog",
+                        labelCrumb: true,
                         "class": "entryscape-commons/gce/Cards",
                         "constructorParams": {entryId: "dcat"}
                     },
@@ -111,7 +116,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "responsibles",
                         "class": "entryscape-catalog/responsibles/List",
                         faClass: "phone",
-                        "title": {en: "Responsibles", sv: "Ansvariga"}
+                        "title": {en: "Respons&shy;ibles", sv: "Ansvariga"}
                     },
                     {
                         "name": "catalogbrowser",
