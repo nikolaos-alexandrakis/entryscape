@@ -60,7 +60,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "view": "termsstart",
                             "subViews": [{
                                 view: "termsoptions",
-                                subViews: ["concepts"]
+                                sidebar: true,
+                                subViews: ["termsoverview", "concepts"]
                             }]
                         }
                     },
@@ -145,17 +146,25 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     },
                     {
                         "name": "termsstart", "class": "entryscape-terms/scheme/List",
-                        "title": {en: "Terms", sv: "Termer"}
+                        "title": {en: "Vocabularies", sv: "Vokabulärer"},
+                        "constructorParams": {rowClickView: "termsoverview"}
                     },
                     {
                         "name": "termsoptions",
                         "class": "entryscape-commons/gce/Cards",
+                        labelCrumb: true,
                         "constructorParams": {entryId: "skos"}
                     },
                     {
+                        "name": "termsoverview", "class": "entryscape-terms/overview/Overview",
+                        "faClass": "eye",
+                        "title": {en: "Overview", sv: "Översikt"}
+                    },
+                    {
                         "name": "concepts", "class": "entryscape-terms/concept/Concepts",
-                        "faClass": "tree",
-                        "title": {en: "Hierarchy", sv: "Hierarki"}
+                        "faClass": "list",
+                        "wide": true,
+                        "title": {en: "Terms", sv: "Termer"}
                     }
                 ]
             }
