@@ -40,7 +40,8 @@ require.config({
         },
         "jquery": {
             "jquery": "jquery", //Reset (override general mapping) to normal path (jquerys has dependencies to specific modules).
-            "jquery/selector": "jquery/selector-sizzle" //Always use the jquery sizzle selector engine.
+            "jquery/selector": "jquery/selector-sizzle", //Always use the jquery sizzle selector engine.
+            "external/sizzle/dist/sizzle": "sizzle"
         },
         "bootstrap": {
             "jquery": "jquery", //Reset (override general mapping) to normal path (bootstraps has dependencies to specific dependencies).
