@@ -44,7 +44,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "catalog",
                                 sidebar: true,
-                                subViews: ["catalogfiles", "datasets", "responsibles", "catalogbrowser"]
+                                subViews: ["datasets", "catalogfiles", "responsibles", "catalogbrowser"]
                             }]
                         }
                     },
@@ -110,7 +110,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "datasets",
                         "class": "entryscape-catalog/datasets/List",
                         faClass: "cubes",
-                        "title": {en: "Datasets", sv: "Datamängder"},
+                        "title": {en: "Datasets", sv: "Data&shy;mängder"},
                         "constructorParams": {createAndRemoveDistributions: true}
                     },
                     {
@@ -123,7 +123,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "catalogbrowser",
                         "class": "entryscape-catalog/graph/Browser",
                         "faClass": "line-chart",
-                        "title": {en: "Visualization", sv: "Visualisering"}
+                        "title": {en: "Visualization", sv: "Visual&shy;isering"}
                     },
                     {
                         "name": "adminstart", "class": "entryscape-commons/nav/Cards",
