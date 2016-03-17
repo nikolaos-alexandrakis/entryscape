@@ -10,6 +10,7 @@ require.config({
         "bootstrap": "bootstrap-amd/lib",
         "select2": "select2/src/js",
         "moment": "moment/moment",
+        "momentl": "moment/locale",
         "jquery": "jquery/src",
         "sizzle": "sizzle/dist/sizzle",
         "jquery.mousewheel": "select2/src/js/jquery.mousewheel.shim",
@@ -18,7 +19,8 @@ require.config({
         "jstree.dnd": "jstree/src/jstree.dnd",
         "jstree.wholerow": "jstree/src/jstree.wholerow",
         "requireLib": "requirejs/require",
-        "vis": "vis/dist/vis"
+        "vis": "vis/dist/vis",
+        "leaflet": "leaflet/dist/leaflet"
     },
     packages: [ //Config defined using packages to allow for main.js when requiring just config.
         {
@@ -57,6 +59,7 @@ require.config({
     },
     deps: [
         "entryscape-commons/commonDeps",
+        "momentl/nn",
         "entryscape-commons/nav/Cards",
         "entryscape-commons/gce/Cards",
         "entryscape-catalog/catalog/List",
