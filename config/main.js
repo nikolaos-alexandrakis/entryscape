@@ -100,7 +100,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "catalog",
                         labelCrumb: true,
                         "class": "entryscape-commons/gce/Cards",
-                        "constructorParams": {entryId: "dcat"}
+                        "constructorParams": {entryType: "dcat:Catalog"}
                     },
                     {
                         "name": "catalogfiles", "class": "entryscape-catalog/files/List", faClass: "files-o",
@@ -153,7 +153,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "termsoptions",
                         "class": "entryscape-commons/gce/Cards",
                         labelCrumb: true,
-                        "constructorParams": {entryId: "skos"}
+                        "constructorParams": {entryType: "skos:ConceptScheme"}
                     },
                     {
                         "name": "termsoverview", "class": "entryscape-terms/overview/Overview",
