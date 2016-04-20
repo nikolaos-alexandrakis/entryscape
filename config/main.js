@@ -44,7 +44,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "catalog",
                                 sidebar: true,
-                                subViews: ["datasets", "catalogfiles", "responsibles", "catalogbrowser"]
+                                subViews: ["datasets", "catalogfiles", "responsibles"]
                             }]
                         }
                     },
@@ -118,12 +118,6 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "class": "entryscape-catalog/responsibles/List",
                         faClass: "phone",
                         "title": {en: "Respons&shy;ibles", sv: "Ansvariga"}
-                    },
-                    {
-                        "name": "catalogbrowser",
-                        "class": "entryscape-catalog/graph/Browser",
-                        "faClass": "line-chart",
-                        "title": {en: "Visualization", sv: "Visual&shy;isering"}
                     },
                     {
                         "name": "adminstart", "class": "entryscape-commons/nav/Cards",
