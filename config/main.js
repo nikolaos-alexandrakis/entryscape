@@ -20,7 +20,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     "./libs/rdforms/templates/vcard.json",
                     "./libs/rdforms/templates/odrs.json",
                     "./libs/entryscape-catalog/templates/dcat-ap_props.json",
-                    "./libs/entryscape-catalog/templates/dcat-ap.json"
+                    "./libs/entryscape-catalog/templates/dcat-ap.json",
+                    "./libs/entryscape-commons/templates/esc.json"
                 ]
             },
             catalog: {
@@ -44,7 +45,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "catalog",
                                 sidebar: true,
-                                subViews: ["datasets", "catalogfiles", "responsibles"]
+                                subViews: ["datasets", "responsibles"]
                             }]
                         }
                     },

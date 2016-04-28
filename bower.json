@@ -24,6 +24,7 @@
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#master",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#master",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#master",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#master",
     "fuelux": "~3.6.2",
     "flag-icon-css": "latest",
     "r.js": "~2.1.22",
