@@ -20,7 +20,8 @@ require.config({
         "jstree.wholerow": "jstree/src/jstree.wholerow",
         "requireLib": "requirejs/require",
         "vis": "vis/dist/vis",
-        "leaflet": "leaflet/dist/leaflet"
+        "leaflet": "leaflet/dist/leaflet",
+        "md5": "md5/js/md5.min"
     },
     packages: [ //Config defined using packages to allow for main.js when requiring just config.
         {

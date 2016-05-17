@@ -28,7 +28,8 @@
     "fuelux": "~3.6.2",
     "flag-icon-css": "latest",
     "r.js": "~2.1.22",
-    "sizzle": "~2.3.0"
+    "sizzle": "~2.3.0",
+    "md5": "https://github.com/blueimp/JavaScript-MD5.git#master"
   },
   "license": "AGPLv3",
   "private": true,
