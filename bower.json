@@ -26,7 +26,7 @@
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
     "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
     "fuelux": "~3.6.2",
-    "flag-icon-css": "latest",
+    "flag-icon-css": "2.2.0",
     "r.js": "~2.1.22",
     "sizzle": "~2.3.0",
     "md5": "https://github.com/blueimp/JavaScript-MD5.git#master"
