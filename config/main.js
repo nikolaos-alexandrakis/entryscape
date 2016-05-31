@@ -34,7 +34,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
             site: {
                 siteClass: "spa/Site",
                 controlClass: "entryscape-commons/nav/Layout",
-                startView: "start",
+                startView: "signin",
                 sidebar: {wide: false, always: true, replaceTabs: true},
                 modules: [
                     {
@@ -118,7 +118,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "responsibles",
                         "class": "entryscape-catalog/responsibles/List",
                         faClass: "phone",
-                        "title": {en: "Respons&shy;ibles", sv: "Ansvariga"}
+                        "title": {en: "Contacts", sv: "Kontakter"}
                     },
                     {
                         "name": "adminstart", "class": "entryscape-commons/nav/Cards",
@@ -160,6 +160,12 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "faClass": "list",
                         "wide": true,
                         "title": {en: "Terms", sv: "Termer"}
+                    },
+                    {
+                        "name": "signin",
+                        "title": {en: "Sign in/out", sv: "Logga in/ut"},
+                        "class": "entryscape-commons/nav/Signin",
+                        "constructorParams": {nextView: "start"}
                     }
                 ]
             }
