@@ -45,7 +45,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "catalog",
                                 sidebar: true,
-                                subViews: ["datasets", "responsibles"]
+                                subViews: ["datasets", "publishers", "contacts"]
                             }]
                         }
                     },
@@ -115,10 +115,18 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "constructorParams": {createAndRemoveDistributions: true}
                     },
                     {
-                        "name": "responsibles",
+                        "name": "publishers",
                         "class": "entryscape-catalog/responsibles/List",
-                        faClass: "phone",
-                        "title": {en: "Contacts", sv: "Kontakter"}
+                        "faClass": "users",
+                        "title": {en: "Publishers", sv: "Tillhanda&shy;hållande organisa&shy;tioner"},
+                        "constructorParams": {publishers: true, contacts: false}
+                    },
+                    {
+                        "name": "contacts",
+                        "class": "entryscape-catalog/responsibles/List",
+                        "faClass": "phone",
+                        "title": {en: "Contacts", sv: "Kontakter"},
+                        "constructorParams": {publishers: false, contacts: true}
                     },
                     {
                         "name": "adminstart", "class": "entryscape-commons/nav/Cards",
