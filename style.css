@@ -21,7 +21,8 @@
 @import "libs/entryscape-terms/overview/style.css";
 @import "libs/leaflet/dist/leaflet.css";
 @import "libs/entryscape-catalog/files/files.css";
-
+@import "libs/entryscape-workbench/bench/eswBench.css";
+@import "libs/entryscape-workbench/bench/eswEntryType.css";
 
 /* Fonts */
 @import "libs/fontawesome/css/font-awesome.min.css";

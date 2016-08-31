@@ -69,7 +69,10 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     {
                         name: "workbench",
                         faClass: "table",
-                        views: []
+                        hierarchy: {
+                            "view": "workbenchstart",
+                            "subViews": ["bench"]
+                        }
                     },
                     {
                         name: "admin",
@@ -149,7 +152,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     },
                     {
                         "name": "termsstart", "class": "entryscape-terms/scheme/List",
-                        "title": {en: "Vocabularies", sv: "Vokabulärer"},
+                        "title": {en: "Terminologies", sv: "Terminologier"},
                         "constructorParams": {rowClickView: "termsoverview"}
                     },
                     {
@@ -166,7 +169,6 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     {
                         "name": "concepts", "class": "entryscape-terms/concept/Concepts",
                         "faClass": "list",
-                        "wide": true,
                         "title": {en: "Terms", sv: "Termer"}
                     },
                     {
@@ -174,6 +176,14 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "title": {en: "Sign in/out", sv: "Logga in/ut"},
                         "class": "entryscape-commons/nav/Signin",
                         "constructorParams": {nextView: "start"}
+                    },
+                    {
+                        "name": "workbenchstart", "class": "entryscape-workbench/space/List",
+                        "title": {en: "Workspaces", sv: "Arbetsytor"}
+                    },
+                    {
+                        "name": "bench", "class": "entryscape-workbench/bench/Bench",
+                        "faClass": "question"
                     }
                 ]
             }
