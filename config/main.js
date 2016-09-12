@@ -62,7 +62,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "termsoptions",
                                 sidebar: true,
-                                subViews: ["termsoverview", "concepts"]
+                                subViews: ["termsoverview", "concepts", "collections"]
                             }]
                         }
                     },
@@ -170,6 +170,11 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "name": "concepts", "class": "entryscape-terms/concept/Concepts",
                         "faClass": "list",
                         "title": {en: "Terms", sv: "Termer"}
+                    },
+                    {
+                        "name": "collections", "class": "entryscape-terms/collection/List",
+                        "faClass": "bookmark",
+                        "title": {en: "Collections", sv: "Collections"}
                     },
                     {
                         "name": "signin",
