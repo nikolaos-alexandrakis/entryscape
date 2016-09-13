@@ -23,6 +23,12 @@
 @import "libs/entryscape-catalog/files/files.css";
 @import "libs/entryscape-workbench/bench/eswBench.css";
 @import "libs/entryscape-workbench/bench/eswEntryType.css";
+@import "libs/entryscape-commons/comments/escoComment.css";
+@import "libs/entryscape-commons/progress/escoProgress.css";
+@import "libs/entryscape-commons/comments/escoCommentDialog.css";
+@import "libs/entryscape-catalog/candidates/escaCandidateRow.css";
+@import "libs/entryscape-catalog/candidates/candidate.css";
+
 
 /* Fonts */
 @import "libs/fontawesome/css/font-awesome.min.css";

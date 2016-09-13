@@ -29,7 +29,47 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                 datasetTemplateId: "dcat:OnlyDataset",
                 distributionTemplateId: "dcat:OnlyDistribution",
                 contactTemplateId: "dcat:contactPoint",
-                agentTemplateId: "dcat:foaf:Agent"
+                agentTemplateId: "dcat:foaf:Agent",
+                // By default collaboration around catalogs are enabled
+                //catalogCollaboration: true
+                checklist: [{
+                    name: "value",
+                    label: {en: "Added value", sv: "Mervärde"},
+                    mandatory: true
+                }, {
+                    name: "requested",
+                    label: {en: "Requested"},
+                    description: {en: "Someone asked for this dataset or indirectly by asking for features that can be accomplished via this dataset."},
+                    mandatory: true
+                }, {
+                    name: "privacy",
+                    label: {en: "No privacy issues"}
+                    //mandatory: true
+                }, {
+                    name: "owner",
+                    label: {en: "Clear ownership"}
+                    //mandatory: true
+                }, {
+                    name: "license",
+                    label: {en: "License clear"}
+                    //mandatory: true
+                    /*,
+                     template: "dcat:license"*/
+                }, {
+                    name: "accessibility",
+                    label: {en: "Data accessible"}
+                    //mandatory: true
+                }, {
+                    name: "formats",
+                    label: {en: "Established format(s)"}
+                    //mandatory: true
+                }, {
+                    name: "publication",
+                    label: {en: "Known publication cost"}
+                }, {
+                    name: "maintenance",
+                    label: {en: "Maintenance plan"}
+                }]
             },
             site: {
                 siteClass: "spa/Site",
@@ -45,7 +85,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "catalog",
                                 sidebar: true,
-                                subViews: ["datasets", "publishers", "contacts"]
+                                subViews: ["datasets", "publishers", "contacts", "candidatedatasets"]
                             }]
                         }
                     },
@@ -130,6 +170,12 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "faClass": "phone",
                         "title": {en: "Contacts", sv: "Kontakter"},
                         "constructorParams": {publishers: false, contacts: true}
+                    },
+                    {
+                        "name": "candidatedatasets",
+                        "title": {en: "Candidate datasets", sv: "Kandidat&shy;data&shy;mängder"},
+                        "class": "entryscape-catalog/candidates/CandidateList",
+                        faClass: "tasks"
                     },
                     {
                         "name": "adminstart", "class": "entryscape-commons/nav/Cards",
