@@ -21,6 +21,7 @@
 @import "libs/entryscape-terms/overview/style.css";
 @import "libs/leaflet/dist/leaflet.css";
 @import "libs/entryscape-catalog/files/files.css";
+@import "libs/entryscape-commons/create/escoEntryType.css";
 @import "libs/entryscape-workbench/bench/eswBench.css";
 @import "libs/entryscape-workbench/bench/eswEntryType.css";
 @import "libs/entryscape-commons/comments/escoComment.css";

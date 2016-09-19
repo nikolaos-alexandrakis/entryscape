@@ -4,6 +4,7 @@ require.config({
         "entryscape-suite": "..",
         "nls": "../merged-nls",
         "theme": "entryscape-commons/theme",
+        "localtheme": "../theme",
         "text": "requirejs-text/text",
         "i18n": "di18n/i18n",
         "fuelux": "fuelux/js",
