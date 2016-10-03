@@ -10,27 +10,11 @@
     "amd"
   ],
   "dependencies": {
-    "bootstrap": "3.x",
-    "dojo": "1.10.4",
-    "dijit": "1.10.4",
-    "dojox": "1.10.4",
-    "fontawesome": "4.3.0",
-    "util": "dojo-util#1.10.4",
-    "di18n": "https://bitbucket.org/metasolutions/di18n.git#develop",
-    "store": "https://bitbucket.org/metasolutions/entrystore.js.git#develop",
-    "spa": "https://bitbucket.org/metasolutions/spa.git#develop",
-    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
-    "fuelux": "~3.6.2",
-    "flag-icon-css": "2.2.0",
-    "r.js": "~2.1.22",
-    "sizzle": "~2.3.0",
-    "md5": "https://github.com/blueimp/JavaScript-MD5.git#master"
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop"
   },
   "license": "AGPLv3",
   "private": true,
@@ -39,9 +23,9 @@
     "libs"
   ],
   "resolutions": {
-    "util": "1.10.4",
-    "dijit": "1.10.4",
-    "dojo": "1.10.4",
-    "jstree": "~3.2.1"
+    "di18n": "develop",
+    "jstree": "~3.2.1",
+    "dojo": "1.11.2",
+    "dijit": "1.11.2"
   }
 }
