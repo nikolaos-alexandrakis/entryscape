@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmér <matthias@metasolutions.se>"
@@ -10,11 +10,11 @@
     "amd"
   ],
   "dependencies": {
-    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
-    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
-    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop"
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#0.9",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.0",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.0",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#0.9",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.0"
   },
   "license": "AGPLv3",
   "private": true,
@@ -23,7 +23,7 @@
     "libs"
   ],
   "resolutions": {
-    "di18n": "develop",
+    "di18n": "0.3",
     "jstree": "~3.2.1",
     "dojo": "1.11.2",
     "dijit": "1.11.2"
