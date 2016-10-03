@@ -1,0 +1,31 @@
+{
+  "name": "entryscape-suite",
+  "version": "1.0.0",
+  "authors": [
+    "Hannes Ebner <hannes@metasolutions.se>",
+    "Matthias Palmér <matthias@metasolutions.se>"
+  ],
+  "description": "The EntryScape platform.",
+  "moduleType": [
+    "amd"
+  ],
+  "dependencies": {
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#0.9",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.0",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.0",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#0.9",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.0"
+  },
+  "license": "AGPLv3",
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "libs"
+  ],
+  "resolutions": {
+    "di18n": "0.3",
+    "jstree": "~3.2.1",
+    "dojo": "1.11.2",
+    "dijit": "1.11.2"
+  }
+}
