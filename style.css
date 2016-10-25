@@ -13,6 +13,7 @@
 @import "libs/entryscape-commons/nav/entryscape.css";
 @import "libs/vis/dist/vis.css";
 @import "libs/entryscape-commons/query/style.css";
+/*@import "libs/entryscape-commons/acl/acl.css";*/
 @import "libs/entryscape-catalog/catalog/catalog.css";
 @import "libs/entryscape-catalog/datasets/dataset.css";
 @import "libs/jstree-bootstrap-theme/dist/themes/proton/style.css";
@@ -22,6 +23,11 @@
 @import "libs/entryscape-catalog/files/files.css";
 @import "libs/entryscape-commons/create/escoEntryType.css";
 @import "libs/entryscape-workbench/bench/eswBench.css";
+@import "libs/entryscape-commons/comments/escoComment.css";
+@import "libs/entryscape-commons/progress/escoProgress.css";
+@import "libs/entryscape-commons/comments/escoCommentDialog.css";
+@import "libs/entryscape-catalog/candidates/escaCandidateRow.css";
+@import "libs/entryscape-catalog/candidates/candidate.css";
 @import "libs/entryscape-commons/create/escoEntryType.css";
 @import "libs/entryscape-commons/rdforms/escoSkosChooser.css";
 
