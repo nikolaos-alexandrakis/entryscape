@@ -22,6 +22,12 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     "./libs/entryscape-catalog/templates/dcat-ap_props.json",
                     "./libs/entryscape-catalog/templates/dcat-ap.json",
                     "./libs/entryscape-commons/templates/esc.json"
+                ],
+                choosers: [
+                    "entryscape-commons/rdforms/EntryChooser",
+                    "entryscape-commons/rdforms/SkosChooser",
+                    "entryscape-commons/rdforms/GeonamesChooser",
+                    "entryscape-commons/rdforms/GeoChooser"
                 ]
             },
             catalog: {
