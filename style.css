@@ -23,6 +23,7 @@
 @import "libs/entryscape-commons/create/escoEntryType.css";
 @import "libs/entryscape-workbench/bench/eswBench.css";
 @import "libs/entryscape-commons/create/escoEntryType.css";
+@import "libs/entryscape-commons/rdforms/escoSkosChooser.css";
 
 /* Fonts */
 @import "libs/fontawesome/css/font-awesome.min.css";

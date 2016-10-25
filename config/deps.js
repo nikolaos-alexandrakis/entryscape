@@ -75,6 +75,8 @@ require.config({
         "entryscape-admin/contexts/List",
         "entryscape-admin/groups/List",
         "entryscape-admin/users/List",
+        "entryscape-workbench/space/List",
+        "entryscape-workbench/bench/List",
         "i18n!nls/modules",
         "i18n!nls/catalog",
         "i18n!nls/catalogfiles",
