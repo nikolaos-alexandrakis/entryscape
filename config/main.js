@@ -36,6 +36,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                 distributionTemplateId: "dcat:OnlyDistribution",
                 contactTemplateId: "dcat:contactPoint",
                 agentTemplateId: "dcat:foaf:Agent",
+                resultsTemplateId: "esc:DatasetCandidate",
                 // By default collaboration around catalogs are enabled
                 //catalogCollaboration: true
                 "checklist": [{
