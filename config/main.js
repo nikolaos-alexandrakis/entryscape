@@ -184,6 +184,12 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         faClass: "tasks"
                     },
                     {
+                        "name": "results",
+                        "title": {en: "Results", sv: "Resultat"},
+                        "class": "entryscape-catalog/results/ResultsList",
+                        faClass: "trophy"
+                    },
+                    {
                         "name": "adminstart", "class": "entryscape-commons/nav/Cards",
                         "title": {en: "Administration", sv: "Administration"}
                     },
