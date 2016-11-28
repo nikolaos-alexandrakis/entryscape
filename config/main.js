@@ -21,7 +21,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     "./libs/rdforms/templates/odrs.json",
                     "./libs/entryscape-catalog/templates/dcat-ap_props.json",
                     "./libs/entryscape-catalog/templates/dcat-ap.json",
-                    "./libs/entryscape-commons/templates/esc.json"
+                    "./libs/entryscape-commons/templates/esc.json",
+                    "./libs/entryscape-catalog/templates/results.json"
                 ],
                 choosers: [
                     "entryscape-commons/rdforms/EntryChooser",
@@ -36,7 +37,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                 distributionTemplateId: "dcat:OnlyDistribution",
                 contactTemplateId: "dcat:contactPoint",
                 agentTemplateId: "dcat:foaf:Agent",
-                resultsTemplateId: "esc:DatasetCandidate",
+                resultsTemplateId: "esterms:Results",
                 // By default collaboration around catalogs are enabled
                 //catalogCollaboration: true
                 "checklist": [{
