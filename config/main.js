@@ -243,6 +243,68 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                         "faClass": "question"
                     }
                 ]
-            }
+            },
+            entitytypes: [
+                {
+                    name: "publisher",
+                    label: {en: "Publisher"},
+                    rdfType: ["http://xmlns.com/foaf/0.1/Agent", "http://xmlns.com/foaf/0.1/Person", "http://xmlns.com/foaf/0.1/Organization"],
+                    template: "dcat:foaf:Agent",
+                    includeInternal: true,
+                    includeFile: false,
+                    includeLink: false,
+                    inlineCreation: true
+                },
+                {
+                    name: "contactPoint",
+                    label: {en: "Contact point"},
+                    rdfType: ["http://www.w3.org/2006/vcard/ns#Individual", "http://www.w3.org/2006/vcard/ns#Organization", "http://www.w3.org/2006/vcard/ns#Kind"],
+                    template: "dcat:contactPoint",
+                    includeInternal: true,
+                    includeFile: false,
+                    includeLink: false,
+                    inlineCreation: true
+                },
+                {
+                    name: "dataset",
+                    label: {en: "Dataset"},
+                    rdfType: ["http://www.w3.org/ns/dcat#Dataset"],
+                    template: "dcat:OnlyDataset",
+                    includeInternal: true,
+                    includeFile: false,
+                    includeLink: false,
+                    inlineCreation: false
+                },
+                {
+                    name: "catalog",
+                    label: {en: "catalog"},
+                    rdfType: ["http://www.w3.org/ns/dcat#Catalog"],
+                    template: "dcat:OnlyCatalog",
+                    includeInternal: true,
+                    includeFile: false,
+                    includeLink: false,
+                    inlineCreation: false
+                }
+            ],
+            contexttypes: [
+                {
+                    name: "catalogContext",
+                    rdfType: "http://entryscape.com/terms/CatalogContext",
+                    entryType:"dcat:Catalog"
+                },
+                {
+                    name: "terminologyContext",
+                    rdfType: "http://entryscape.com/terms/TerminologyContext",
+                    entryType: "skos:ConceptScheme"
+                },
+                {
+                    name: "workbenchContext",
+                    rdfType: "http://entryscape.com/terms/WorkbenchContext"
+                },
+                {
+                    name: "context",
+                    rdfType: "http://entryscape.com/terms/Context"
+                }
+            ]
         }, local);
 });
