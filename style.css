@@ -31,6 +31,9 @@
 @import "libs/entryscape-commons/create/escoEntryType.css";
 @import "libs/entryscape-commons/rdforms/escoSkosChooser.css";
 @import "libs/entryscape-admin/groups/esadRole.css";
+@import "libs/entryscape-commons/list/common/escoDropdownRow.css";
+@import "libs/entryscape-catalog-portal/search/espoCatalog.css";
+@import "libs/entryscape-catalog-portal/dataset/dataset.css";
 
 
 /* Fonts */
