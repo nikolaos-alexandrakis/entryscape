@@ -38,43 +38,99 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                 agentTemplateId: "dcat:foaf:Agent",
                 // By default collaboration around catalogs are enabled
                 //catalogCollaboration: true
-                checklist: [{
-                    name: "value",
-                    label: {en: "Added value", sv: "Mervärde"},
+                "checklist": [{
+                    name: "noPrivacyIssues",
+                    label: {
+                        sv: "Inga sekretessbelagda eller personuppgifter ingår i datamängden",
+                        en: "The dataset does not contain confidential or personal information"
+                    },
+                    description: {
+                        sv: "Om genomgång av datamängd visat på hinder iform av sekretessbelagd information eller personuppgifter så redovisas detta som kommentarer på datamängden. Eventuella alternativ för publicering av delar av datamängden ska också redovisas.",
+                        en: "If the review of the dataset revealed obstacles such as confidential or personal information this is documented as comments on the dataset. Possible alternatives such as partial publication of the dataset should also be presented as comments."
+                    },
                     mandatory: true
                 }, {
-                    name: "requested",
-                    label: {en: "Requested"},
-                    description: {en: "Someone asked for this dataset or indirectly by asking for features that can be accomplished via this dataset."},
+                    name: "clearLicense",
+                    label: {
+                        sv: "Upphovsrätten är klargjord",
+                        en: "Copyright is cleared"
+                    },
+                    description: {
+                        sv: "Det upphovsrättskydd som gäller för datamängden har klargjorts. Om erkännande krävs i samband med vidarutnyttjande är det också viktigt att det tydliggörs, redovisa i så fall ägare av upphovsrätten och annan relevant information i en kommentar på datamängden.",
+                        en: "The copyright and ownership rights of the dataset have been cleared. If recognition is required in connection with re-use, it is important that the name of the copyright holder and other relevant information are provided as comments."
+                    },
                     mandatory: true
                 }, {
-                    name: "privacy",
-                    label: {en: "No privacy issues"}
-                    //mandatory: true
+                    name: "clearOwnership",
+                    label: {
+                        sv: "Dataägare i organisationen är identifierad",
+                        en: "Data owner within the organization is identified"
+                    },
+                    description: {
+                        sv: "Ansvar för datamängden i organisationen är känd. Kontaktpunkt, i form av en person eller funktionsadress lämnas som kommentar på datamängden.",
+                        en: "The responsible for the dataset is known within the organization. The contact point, in the form of an email address, should be provided as comment on the dataset."
+                    },
+                    mandatory: true
                 }, {
-                    name: "owner",
-                    label: {en: "Clear ownership"}
-                    //mandatory: true
+                    name: "digitallyAccessible",
+                    label: {
+                        sv: "Datamängden är tillgänglig digitalt",
+                        en: "The dataset can be digitally accessed"
+                    },
+                    description: {
+                        sv: "Datamängden finns tillgänglig i kända format. Hur man kommer åt datamängden i respektive format är också klargjort.",
+                        en: "The dataset is available in known formats. It is clear how the dataset's respective formats can be accessed."
+                    }
                 }, {
-                    name: "license",
-                    label: {en: "License clear"}
-                    //mandatory: true
-                    /*,
-                     template: "dcat:license"*/
+                    name: "addedValue",
+                    label: {
+                        sv: "Publicering av datamängden innebär ett tydligt mervärde",
+                        en: "The publication of the dataset implies a clear added value"
+                    },
+                    description: {
+                        sv: "Datamängden medför ökad transparens, innovation eller effektivisering. Effektivisering omfattar förbättringar inom såväl den egna organisationen som externt.",
+                        en: "The dataset contributes to increased transparency, innovation or efficiency. Efficiency includes improvements both within the own organization as well as externally."
+                    }
                 }, {
-                    name: "accessibility",
-                    label: {en: "Data accessible"}
-                    //mandatory: true
+                    name: "demand",
+                    label: {
+                        sv: "Datamängden är efterfrågad",
+                        en: "The dataset is sought after"
+                    },
+                    description: {
+                        sv: "Datamängden är efterfrågad antingen inom den egna organisationen eller externt. Detta innebär att minst en målgrupp till datamängden är identifierad.",
+                        en: "The dataset is sought after within the own organization or externally. This means that at least one target group for the dataset has been identified."
+                    }
                 }, {
-                    name: "formats",
-                    label: {en: "Established format(s)"}
-                    //mandatory: true
+                    name: "formatDemand",
+                    label: {
+                        sv: "Efterfrågade format eller protokoll stöds",
+                        en: "Requested formats or protocols are supported"
+                    },
+                    description: {
+                        sv: "Datamängden är tillgänglig i de format och protokoll som efterfrågas. Om nya format efterfrågats görs en kommentar om vilka på datamängden, t.ex. om API önskas för målgruppen.",
+                        en: "The dataset is available in the formats and protocols that have been requested. It should be noted as a comment if additional formats or protocols are requested, e.g., if an API is requested by a target group."
+                    }
                 }, {
-                    name: "publication",
-                    label: {en: "Known publication cost"}
+                    name: "addedCost",
+                    label: {
+                        sv: "Resurser, kostnader och effektiviseringar är kända",
+                        en: "Resources, costs and increased efficiency are known"
+                    },
+                    description: {
+                        sv: "Resurser för publicering och eventuella engångskostnader är kända och sammanvägda med eventuell intern effektivisering. Nya kostnader för framtagning eller underhåll av datamängd lämnas som kommentar.",
+                        en: "Resources for publication and any one-time costs are known and weighted with possible improvements of internal efficiency. Additional costs for obtaining or maintaining the dataset are provided as comment."
+                    }
                 }, {
-                    name: "maintenance",
-                    label: {en: "Maintenance plan"}
+                    name: "maintenancePlan",
+                    label: {
+                        sv: "Plan för underhåll av datamängden finns",
+                        en: "A plan for maintenance of the dataset is available"
+                    },
+                    description: {
+                        sv: "Plan och metod för underhåll av datamängden i den frekvens som krävs är undersökt och klargjort.",
+                        en: "Plan and method for maintenance of the dataset in the required frequency have been investigated and clarified."
+                    }
                 }]
             },
             site: {
