@@ -253,7 +253,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     includeInternal: true,
                     includeFile: false,
                     includeLink: false,
-                    inlineCreation: true
+                    inlineCreation: true,
+                    module: "catalog"
                 },
                 {
                     name: "contactPoint",
@@ -263,7 +264,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     includeInternal: true,
                     includeFile: false,
                     includeLink: false,
-                    inlineCreation: true
+                    inlineCreation: true,
+                    module: "catalog"
                 },
                 {
                     name: "dataset",
@@ -273,7 +275,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     includeInternal: true,
                     includeFile: false,
                     includeLink: false,
-                    inlineCreation: false
+                    inlineCreation: false,
+                    module: "catalog"
                 },
                 {
                     name: "catalog",
@@ -283,7 +286,8 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                     includeInternal: true,
                     includeFile: false,
                     includeLink: false,
-                    inlineCreation: false
+                    inlineCreation: false,
+                    module: "catalog"
                 }
             ],
             contexttypes: [
