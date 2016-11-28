@@ -147,7 +147,7 @@ define(["entryscape-commons/merge", "config/local"], function(merge, local) {
                             "subViews": [{
                                 view: "catalog",
                                 sidebar: true,
-                                subViews: ["datasets", "publishers", "contacts", "candidatedatasets"]
+                                subViews: ["datasets", "publishers", "contacts", "candidatedatasets", "results"]
                             }]
                         }
                     },
