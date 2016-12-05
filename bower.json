@@ -16,7 +16,7 @@
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
     "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
     "entryscape-catalog-portal": "https://bitbucket.org/metasolutions/entryscape-catalog-portal.git#develop",
-    "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git"
+    "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git#master"
   },
   "license": "AGPLv3",
   "private": true,
@@ -28,6 +28,9 @@
     "di18n": "develop",
     "jstree": "~3.2.1",
     "dojo": "1.11.2",
-    "dijit": "1.11.2"
+    "dijit": "1.11.2",
+    "md5": "2.3.1",
+    "r.js": "~2.3.1",
+    "util": "1.10.4"
   }
 }

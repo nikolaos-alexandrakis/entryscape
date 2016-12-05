@@ -1,4 +1,4 @@
-define([], {
+__entryscape_config = {
     entrystore: {
         repository: "http://localhost:8080/store/"
     },
@@ -53,5 +53,8 @@ define([], {
             includeFile: true,
             includeLink: true
         }
-    ]
-});
+    ],
+    site: {
+        moduleList: ["catalog", "admin"]
+    }
+};
