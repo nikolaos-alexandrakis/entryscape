@@ -6,7 +6,7 @@
     name: "all",
     create: true,
     optimize: "uglify", //"none",
-    optimizeCss: "standard",
+    optimizeCss: "none",
     locale: "en",
     extraLocale: ["sv"],
     skipDirOptimize: true,

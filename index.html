@@ -7,12 +7,23 @@
     <title>EntryScape</title>
     <script src="config/local.js"></script>
     <script>
-        if (document.location.search.indexOf("debug=true") === -1) {
-            document.write('<link rel="stylesheet" href="release/entryscape-suite/style.css"/>');
+        var search = document.location.search;
+        var css = function(url) {
+            document.write('<link rel="stylesheet" href="'+url+'"/>');
+        };
+        if (search.indexOf("localbuild") > 0) {
+            css("libs/fontawesome/css/font-awesome.min.css");
+            css("release/style.css");
             document.write('<script src="release/all.js"><\/script>');
-        } else {
-            document.write('<link rel="stylesheet" href="style.css"/>');
+        } else if (search.indexOf("debug") > 0) {
+            css("libs/fontawesome/css/font-awesome.min.css");
+            css("style.css");
             document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
+        } else {
+            var path = "https://static.entryscape.com/suite/latest/";
+            css(path+"style.css");
+            css("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+            document.write('<script src="'+path+'spa.js"><\/script>');
         }
     </script>
 </head>
