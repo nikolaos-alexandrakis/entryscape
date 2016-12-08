@@ -7,29 +7,25 @@
     <title>EntryScape</title>
     <script src="config/local.js"></script>
     <script>
-        var search = document.location.search;
-        var localbuild = search.indexOf("localbuild") > 0;
-        var debug = search.indexOf("debug") > 0;
-        var css = function(url) {document.write('<link rel="stylesheet" href="'+url+'"/>');};
+        var localbuild = document.location.search.indexOf("localbuild") > 0;
+        var debug = document.location.search.indexOf("debug") > 0;
+        var path = localbuild || debug ? "" : "https://static.entryscape.com/";
+        var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
 
-        if (localbuild || debug) {
-            css("libs/fontawesome/css/font-awesome.min.css");
-            css("libs/fuelux/dist/css/fuelux.min.css");
-            css("libs/flag-icon-css/css/flag-icon.min.css");
-            if (localbuild) {
-                css("release/style.css");
-                document.write('<script src="release/all.js"><\/script>');
-            } else {
-                css("style.css");
-                document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
-            }
+        css("libs/fontawesome/css/font-awesome.min.css");
+        css("libs/fuelux/dist/css/fuelux.min.css");
+        css("libs/flag-icon-css/css/flag-icon.min.css");
+        css("libs/jstree-bootstrap-theme/dist/themes/proton/style.css");
+
+        if (localbuild) {
+            css("release/style.css");
+            document.write('<script src="release/all.js"><\/script>');
+        } else if (debug) {
+            css("style.css");
+            document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
         } else {
-            var path = "https://static.entryscape.com/suite/latest/";
-            css(path+"style.css");
-            css("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
-            css("https://www.fuelcdn.com/fuelux/3.13.0/css/fuelux.min.css");
-            css("https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.7.0/css/flag-icon.min.css")
-            document.write('<script src="'+path+'spa.js"><\/script>');
+            css("suite/latest/style.css");
+            document.write('<script src="'+path+'suite/latest/spa.js"><\/script>');
         }
     </script>
 </head>

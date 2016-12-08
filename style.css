@@ -10,12 +10,9 @@
 @import "libs/entryscape-commons/acl/acl.css";
 @import "libs/rdforms/apps/editor/editor.css";
 @import "libs/entryscape-commons/nav/entryscape.css";
-@import "libs/vis/dist/vis.css";
 @import "libs/entryscape-commons/query/style.css";
-/*@import "libs/entryscape-commons/acl/acl.css";*/
 @import "libs/entryscape-catalog/catalog/catalog.css";
 @import "libs/entryscape-catalog/datasets/dataset.css";
-@import "libs/jstree-bootstrap-theme/dist/themes/proton/style.css";
 @import "libs/entryscape-terms/concept/style.css";
 @import "libs/entryscape-terms/overview/style.css";
 @import "libs/leaflet/dist/leaflet.css";
@@ -33,7 +30,6 @@
 @import "libs/entryscape-commons/list/common/escoDropdownRow.css";
 @import "libs/entryscape-catalog-portal/search/espoCatalog.css";
 @import "libs/entryscape-catalog-portal/dataset/dataset.css";
-
 
 /* Fonts */
 @import "https://fonts.googleapis.com/css?family=Montserrat:400,700";
