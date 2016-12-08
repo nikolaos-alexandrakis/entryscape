@@ -15,6 +15,7 @@
         if (localbuild || debug) {
             css("libs/fontawesome/css/font-awesome.min.css");
             css("libs/fuelux/dist/css/fuelux.min.css");
+            css("libs/flag-icon-css/css/flag-icon.min.css");
             if (localbuild) {
                 css("release/style.css");
                 document.write('<script src="release/all.js"><\/script>');
@@ -27,6 +28,7 @@
             css(path+"style.css");
             css("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
             css("https://www.fuelcdn.com/fuelux/3.13.0/css/fuelux.min.css");
+            css("https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.7.0/css/flag-icon.min.css")
             document.write('<script src="'+path+'spa.js"><\/script>');
         }
     </script>
