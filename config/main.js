@@ -8,7 +8,8 @@ define([
         return merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
             theme: {
                 appName: "EntryScape",
-                oneRowNavbar: false
+                oneRowNavbar: false,
+                localTheme: false
             },
             locale: {
                 fallback: "en",
@@ -19,16 +20,14 @@ define([
             },
             itemstore: {
                 "!bundles": [
-                    "./libs/entryscape-terms/templates/terms.json",
-                    "./libs/rdforms/templates/skos.json",
-                    "./libs/rdforms/templates/dcterms.json",
-                    "./libs/rdforms/templates/foaf.json",
-                    "./libs/rdforms/templates/vcard.json",
-                    "./libs/rdforms/templates/odrs.json",
-                    "./libs/entryscape-catalog/templates/dcat-ap_props.json",
-                    "./libs/entryscape-catalog/templates/dcat-ap.json",
-                    "./libs/entryscape-commons/templates/esc.json",
-                    "./libs/entryscape-catalog/templates/results.json"
+                    "templates/skos/skos",
+                    "templates/dcterms/dcterms",
+                    "templates/foaf/foaf",
+                    "templates/vcard/vcard",
+                    "templates/odrs/odrs",
+                    "templates/dcat-ap/dcat-ap_props",
+                    "templates/dcat-ap/dcat-ap",
+                    "templates/entryscape/esc"
                 ]
             },
             site: {

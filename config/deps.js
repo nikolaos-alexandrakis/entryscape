@@ -2,9 +2,10 @@ require.config({
     baseUrl: "./libs", //Path relative to bootstrapping html file.
     paths: {   //Paths relative baseUrl, only those that deviate from baseUrl/{modulename} are explicitly listed.
         "entryscape-suite": "..",
+        "templates": "rdforms-templates",
+//            "https://static.entryscape.com/rdforms/latest"
         "nls": "../merged-nls",
-        "theme": "entryscape-commons/theme",
-        "localtheme": "../theme",
+        "theme": "../theme",
         "text": "requirejs-text/text",
         "i18n": "di18n/i18n",
         "fuelux": "fuelux/js",
@@ -41,7 +42,8 @@ require.config({
             //Make sure i18n, dojo/i18n and di18n/i18n are all treated as a SINGLE module named i18n.
             //(We have mapped i18n to be the module provided in di18n/i18n, see paths above.)
             "dojo/i18n": "i18n",
-            "di18n/i18n": "i18n"
+            "di18n/i18n": "i18n",
+            "dojo/hccss": "dojo/has"
         },
         "jquery": {
             "jquery": "jquery", //Reset (override general mapping) to normal path (jquerys has dependencies to specific modules).
@@ -98,7 +100,6 @@ require.config({
         "i18n!nls/adminuser",
         "i18n!nls/layout",
         "i18n!nls/list",
-        "i18n!nls/modules",
         "i18n!nls/rdforms",
         "i18n!nls/scheme",
         "i18n!nls/signin",
@@ -121,6 +122,14 @@ require.config({
         "entryscape-commons/rdforms/GeoChooser",
         "entryscape-commons/rdforms/SkosChooser",
         "entryscape-commons/rdforms/EntryChooser",
+        "templates/skos/skos",
+        "templates/dcterms/dcterms",
+        "templates/foaf/foaf",
+        "templates/vcard/vcard",
+        "templates/odrs/odrs",
+        "templates/dcat-ap/dcat-ap_props",
+        "templates/dcat-ap/dcat-ap",
+        "templates/entryscape/esc",
         "select2/select2/i18n/sv" //Explicit load of swedish language for select2 (no require-nls support)
     ]
 });
