@@ -2,10 +2,11 @@ define([
     "entryscape-commons/merge",
     "entryscape-admin/config/adminConfig",
     "entryscape-catalog/config/catalogConfig",
+    "entryscape-catalog-portal/config/catalogPortalConfig",
     "entryscape-terms/config/termsConfig",
     "entryscape-workbench/config/workbenchConfig"
-], function(merge, adminConfig, catalogConfig, termsConfig, workbenchConfig) {
-        return merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
+], function(merge, adminConfig, catalogConfig, catalogPortalConfig, termsConfig, workbenchConfig) {
+        return merge(adminConfig, catalogConfig, catalogPortalConfig, termsConfig, workbenchConfig, {
             theme: {
                 appName: "EntryScape",
                 oneRowNavbar: false,
@@ -45,21 +46,6 @@ define([
                     {
                         "name": "start", "class": "entryscape-commons/nav/Start",
                         "title": {en: "Start", sv: "Start"}
-                    },
-                    {
-                        "name": "datasetsearch",
-                        "class": "entryscape-catalog-portal/search/List",
-                        "title": {en: "Search", sv: "Sök"}
-                    },
-                    {
-                        "name": "catalogsearch",
-                        "class": "entryscape-catalog-portal/search/Catalog",
-                        "title": {en: "Search datasets", sv: "Sök datamängder"}
-                    },
-                    {
-                        "name": "public",
-                        "class": "entryscape-catalog-portal/public/Public",
-                        "title": {en: "Dataset", sv: "Datamängd"}
                     }
                 ],
                 modules: [{
