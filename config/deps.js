@@ -100,6 +100,7 @@ require.config({
         "i18n!nls/adminuser",
         "i18n!nls/layout",
         "i18n!nls/list",
+        "i18n!nls/dialogs",
         "i18n!nls/rdforms",
         "i18n!nls/scheme",
         "i18n!nls/signin",
