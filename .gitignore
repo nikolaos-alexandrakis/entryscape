@@ -4,3 +4,4 @@ merged-nls/
 libs/
 /config/local.js
 /*.iml
+/theme

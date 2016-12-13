@@ -13,4 +13,5 @@ cp -a ../libs/entryscape-commons/nls/* ../merged-nls
 cp -a ../libs/entryscape-admin/nls/* ../merged-nls
 cp -a ../libs/entryscape-workbench/nls/* ../merged-nls
 cp -a ../libs/entryscape-catalog/nls/* ../merged-nls
+cp -a ../libs/entryscape-catalog-portal/nls/* ../merged-nls
 cp -a ../libs/entryscape-terms/nls/* ../merged-nls
