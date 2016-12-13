@@ -10,12 +10,12 @@
     "amd"
   ],
   "dependencies": {
-    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#0.10",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.1",
-    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.1.1",
-    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#0.10",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.1",
-    "entryscape-catalog-portal": "https://bitbucket.org/metasolutions/entryscape-catalog-portal.git#1.1"
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
+    "entryscape-catalog-portal": "https://bitbucket.org/metasolutions/entryscape-catalog-portal.git#develop"
   },
   "license": "AGPLv3",
   "private": true,
