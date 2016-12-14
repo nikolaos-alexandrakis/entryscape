@@ -5,7 +5,7 @@ __entryscape_config = {
     reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
     itemstore: {
         "bundles": [
-            "./libs/entryscape-workbench/templates/art-example.json"
+            "entryscape-workbench/templates/art-example"
         ]
     },
     entrychooser: {
@@ -53,8 +53,5 @@ __entryscape_config = {
             includeFile: true,
             includeLink: true
         }
-    ],
-    site: {
-        moduleList: ["catalog", "admin"]
-    }
+    ]
 };
