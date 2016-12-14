@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmér <matthias@metasolutions.se>"
@@ -14,7 +14,7 @@
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.1",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.1.1",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#0.10",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.1",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.1.1",
     "entryscape-catalog-portal": "https://bitbucket.org/metasolutions/entryscape-catalog-portal.git#1.1"
   },
   "license": "AGPLv3",
