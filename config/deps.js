@@ -109,6 +109,8 @@ require.config({
         "i18n!nls/escoEntryType",
         "i18n!nls/escoComment",
         "i18n!nls/escoProgress",
+        "i18n!nls/escoSkosChooser",
+        "i18n!nls/escoEntryChooser",
         "i18n!nls/results",
         "i18n!nls/estImport",
         "i18n!nls/termsoverview",
