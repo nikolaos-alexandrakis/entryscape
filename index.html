@@ -15,6 +15,7 @@
         var debug = document.location.search.indexOf("debug") > 0;
         var path = localbuild || debug ? "" : "https://static.entryscape.com/";
         var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
+        var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || "stable";
 
         css("libs/fontawesome/css/font-awesome.min.css");
         css("libs/fuelux/dist/css/fuelux.min.css");
@@ -29,7 +30,7 @@
             document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
         } else {
             css("suite/latest/style.css");
-            document.write('<script src="'+path+'suite/latest/spa.js"><\/script>');
+            document.write('<script src="'+path+'suite/' + version + '/spa.js"><\/script>');
         }
     </script>
 </head>
