@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#0.10",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.1",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.1.1",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.1.1",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#0.10",
     "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.1.3",
