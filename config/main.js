@@ -39,18 +39,18 @@ define([
                 views: [
                     {
                         "name": "signin",
-                        "title": {en: "Sign in/out", sv: "Logga in/ut"},
+                        "title": {en: "Sign in/out", sv: "Logga in/ut",  da: "Login/ud"},
                         "class": "entryscape-commons/nav/Signin",
                         "constructorParams": {nextView: "start"}
                     },
                     {
                         "name": "start", "class": "entryscape-commons/nav/Start",
-                        "title": {en: "Start", sv: "Start"}
+                        "title": {en: "Start", sv: "Start", da: "Start"}
                     }
                 ],
                 modules: [{
                     name: "catalogsearch",
-                    title: {en: "Search", sv: "Sök"},
+                    title: {en: "Search", sv: "Sök", da: "Søg"},
                     faClass: "search",
                     hierarchy: {
                         "view": "catalogsearch",
