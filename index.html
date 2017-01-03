@@ -23,7 +23,7 @@
         css("libs/flag-icon-css/css/flag-icon.min.css");
         css("libs/jstree-bootstrap-theme/dist/themes/proton/style.css");
 
-        if (localbuild) {
+        if (localbuild && !debug) {
             css("release/style.css");
             document.write('<script src="release/all.js"><\/script>');
         } else if (debug) {
