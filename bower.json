@@ -24,7 +24,7 @@
     "libs"
   ],
   "resolutions": {
-    "di18n": "0.3",
+    "di18n": "develop",
     "jstree": "~3.2.1",
     "dojo": "1.11.2",
     "dijit": "1.11.2"

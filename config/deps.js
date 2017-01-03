@@ -11,8 +11,6 @@ require.config({
         "fuelux": "fuelux/js",
         "bootstrap": "bootstrap-amd/lib",
         "select2": "select2/src/js",
-        "moment": "moment/moment",
-        "momentl": "moment/locale",
         "jquery": "jquery/src",
         "sizzle": "sizzle/dist/sizzle",
         "jquery.mousewheel": "select2/src/js/jquery.mousewheel.shim",
@@ -31,6 +29,10 @@ require.config({
             name: "config",
             location: "../config",
             main: "main"
+        },
+        {
+            name: "moment",
+            main: "moment"
         }
     ],
     map: {
@@ -64,7 +66,8 @@ require.config({
     },
     deps: [
         "entryscape-commons/commonDeps",
-        "momentl/nn",
+        "moment/locale/nb",
+        "moment/locale/sv",
         "entryscape-commons/nav/Cards",
         "entryscape-commons/gce/Cards",
         "entryscape-catalog/catalog/List",
