@@ -1,0 +1,42 @@
+__entryscape_config = {
+    entrystore: {
+        repository: "https://jrc.entryscape.net/store/",
+        resourceBase: {
+            "dcat:Catalog": "https://data.europa.eu/89h/esc_${contextId}_${entryId}",
+            "dcat:Dataset": "https://data.europa.eu/89h/esc_${contextId}_${entryId}",
+            "dcat:Distribution": "https://data.europa.eu/89h/esc_${contextId}_${entryId}",
+            "vcard:Kind": "https://data.europa.eu/89h/esc_${contextId}_${entryId}",
+            "foaf:Agent": "https://data.europa.eu/89h/esc_${contextId}_${entryId}"
+        }
+    },
+    entrychooser: {
+        "http://purl.org/dc/terms/publisher": "repository",
+        "http://purl.org/dc/terms/creator": "repository",
+        "http://www.w3.org/ns/dcat#contactPoint": "repository"
+    },
+    itemstore: {
+        "!bundles": [
+            "templates/dcterms/dcterms",
+            "templates/foaf/foaf",
+            "templates/vcard/foaf",
+            "templates/odrs/odrs",
+            "templates/dcat-ap/dcat-ap_props",
+            "theme/dcat-ap"
+        ],
+        geonamesStart: "6255148"
+    },
+    catalog: {
+        catalogTemplateId: "jrc:dcat:OnlyCatalog",
+        datasetTemplateId: "jrc:dcat:OnlyDataset",
+        distributionTemplateId: "jrc:dcat:OnlyDistribution",
+        contactTemplateId: "jrc:dcat:contactPoint",
+        agentTemplateId: "jrc:dcat:foaf:Agent",
+        createWithoutPublisher: true,
+        sharedResponsiblesContext: "responsibles",
+		defaultAgentType: "foaf:Person"
+    },
+    site: {
+            "!moduleList": ["catalog", "browse", "admin"],
+    },
+    reCaptchaSiteKey: "6Lc_7BETAAAAAOxzBAVaqoUfQiOTbn6lk8oB99pX"
+};

@@ -58,7 +58,8 @@ require.config({
         },
         "store/rest": {
             "dojo/request": "dojo/request/xhr", //Force using xhr since we know we are in the browser
-            "dojo/request/iframe": "dojo/request/iframe" //Override above line for iframe path.
+            "dojo/request/iframe": "dojo/request/iframe", //Override above line for iframe path.
+            "dojo/request/script": "dojo/request/script"
         },
         "rdforms/template/bundleLoader": {
             "dojo/request": "dojo/request/xhr"  //Force using xhr since we know we are in the browser

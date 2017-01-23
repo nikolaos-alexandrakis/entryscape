@@ -49,8 +49,8 @@ define([
                     }
                 ],
                 modules: [{
-                    name: "catalogsearch",
-                    title: {en: "Search", sv: "Sök", da: "Søg"},
+                    name: "search",
+                    title: {en: "Search"},
                     faClass: "search",
                     hierarchy: {
                         "view": "catalogsearch",
@@ -58,8 +58,19 @@ define([
                             view: "public"
                         }]
                     }
-                }],
-                moduleList: ["catalog", "terms", "workbench", "catalogsearch", "admin"]
+                }, {
+                    name: "catalogsearch", //Remove this module in next release (same as search with old name).
+                    title: {en: "Search"},
+                    faClass: "search",
+                    hierarchy: {
+                        "view": "catalogsearch",
+                        "subViews": [{
+                            view: "public"
+                        }]
+                    }
+                }
+                ],
+                moduleList: ["catalog", "terms", "workbench", "search", "admin"]
             },
             catalog: {
                 previewURL: "#view=public&resource=${url}"
