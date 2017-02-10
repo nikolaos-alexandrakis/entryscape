@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "metasolutions-grunt": "git+https://bitbucket.org/metasolutions/grunt.git#master",
+    "grunt": "1.0.1",
+    "grunt-available-tasks": "^0.6.3",
+    "grunt-cli": "1.2.0"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "grunt-bower-install-task": "0.0.4"
+  }
+}

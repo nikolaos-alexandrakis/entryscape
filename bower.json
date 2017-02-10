@@ -14,8 +14,7 @@
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
-    "entryscape-catalog-portal": "https://bitbucket.org/metasolutions/entryscape-catalog-portal.git#develop"
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop"
   },
   "license": "AGPLv3",
   "private": true,

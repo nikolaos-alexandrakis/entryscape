@@ -2,11 +2,10 @@ define([
     "entryscape-commons/merge",
     "entryscape-admin/config/adminConfig",
     "entryscape-catalog/config/catalogConfig",
-    "entryscape-catalog-portal/config/catalogPortalConfig",
     "entryscape-terms/config/termsConfig",
     "entryscape-workbench/config/workbenchConfig"
-], function(merge, adminConfig, catalogConfig, catalogPortalConfig, termsConfig, workbenchConfig) {
-        return merge(adminConfig, catalogConfig, catalogPortalConfig, termsConfig, workbenchConfig, {
+], function(merge, adminConfig, catalogConfig, termsConfig, workbenchConfig) {
+        return merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
             theme: {
                 appName: "EntryScape",
                 oneRowNavbar: false,
@@ -55,7 +54,7 @@ define([
                     hierarchy: {
                         "view": "catalogsearch",
                         "subViews": [{
-                            view: "public"
+                            view: "dataset"
                         }]
                     }
                 }, {
@@ -65,15 +64,12 @@ define([
                     hierarchy: {
                         "view": "catalogsearch",
                         "subViews": [{
-                            view: "public"
+                            view: "dataset"
                         }]
                     }
                 }
                 ],
                 moduleList: ["catalog", "terms", "workbench", "search", "admin"]
-            },
-            catalog: {
-                previewURL: "#view=public&resource=${url}"
             }
         }, __entryscape_config);
 });
