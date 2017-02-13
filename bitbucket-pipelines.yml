@@ -14,7 +14,7 @@ pipelines:
           - echo $ES_VERSION
           # We allow anything between x.y and x.y.z-SNAPSHOT
           - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
-          - bower install --allow-root
-#          - ( cd build && ./build.sh )
-#          - ( cd release && rsync -arz --delete * "deploy@meta1.metasolutions.se:/var/www/entrystore.org/js/$ESJS_VERSION/" )
-#          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta1.metasolutions.se "cd /var/www/entrystore.org/js/; rm latest; ln -s $ESJS_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta1.metasolutions.se "cd /var/www/entrystore.org/js/; rm stable; ln -s $ESJS_VERSION stable" ; fi
+          - npm install
+          - grunt build
+          - ( cd release && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/test/$ES_VERSION/" )
+          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite/test; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite/test; rm stable; ln -s $ES_VERSION stable" ; fi
