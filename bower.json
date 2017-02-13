@@ -1,11 +1,11 @@
 {
   "name": "entryscape-suite",
-  "version": "1.1.0",
+  "version": "1.2.0-SNAPSHOT",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmér <matthias@metasolutions.se>"
   ],
-  "description": "The EntryScape platform.",
+  "description": "The EntryScape platform",
   "moduleType": [
     "amd"
   ],
