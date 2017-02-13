@@ -7,21 +7,15 @@ Follow the installation instructions [for EntryStore](http://entrystore.org/#!In
 
 ### EntryScape (this repository)
 
-Make sure you have npm and bower (npm install bower) installed.
+Make sure you have npm installed.
 
-    $> bower install
-    $> npm install requirejs
-    $> cd merged-nls/
-    $> ./merge.sh
+    $> npm install
+    $> grunt build
 
-You need to configure the URL to the Entrystore installation. You do this in the config file `suiteConfig.js` (both reside in the config directory). You only need to change the line with a comment starting with "CHANGE THIS LINE".
+Furthermore, you need to provide a local configuration, see the examples in `config/local.js_example_basic` and `config/local.js_example_options`.
 
-You should now be able to test the application by launching the public.html and edit.html files by appending ?debug=true.
-To get it to work without that flag you need to build:
+As a minimum you need to make sure the `repository` key points to a working EntryStore installation.
 
-    $> cd ../build
-    $> ./build-suite.sh
-
-Note that the config files will be part of the build, hence if you change the config files you need to rebuild.
+You should now be able to run EntryScape Suite by pointing your browser to the `index.html` file. Note that you can debug by appending `?debug=true`. (Debugging only works if you have installed all dependencies, this is done in the build step, but you can do it explicitly via `grunt install`.
 
 Note also that the EntryScape web-application should run on the same domain and port as EntryStore unless you activate CORS in EntryStore.
