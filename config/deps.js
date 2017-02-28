@@ -79,6 +79,7 @@ require.config({
         "entryscape-catalog/results/ResultsList",
         "entryscape-terms/scheme/List",
         "entryscape-terms/concept/Concepts",
+        "entryscape-terms/concept/List",
         "entryscape-terms/collection/List",
         "entryscape-terms/overview/Overview",
         "entryscape-admin/contexts/List",
