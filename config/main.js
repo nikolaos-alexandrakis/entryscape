@@ -14,6 +14,7 @@ define([
             locale: {
                 fallback: "en",
                 supported: [
+                    {lang: "de", flag: "de", label: "Deutsch", labelEn: "German"},
                     {lang: "en", flag: "gb", label: "English", labelEn: "English"},
                     {lang: "sv", flag: "se", label: "Svenska", labelEn: "Swedish"}
                 ]
@@ -38,13 +39,13 @@ define([
                 views: [
                     {
                         "name": "signin",
-                        "title": {en: "Sign in/out", sv: "Logga in/ut",  da: "Login/ud"},
+                        "title": {en: "Sign in/out", sv: "Logga in/ut", da: "Login/ud", de: "An-/Abmelden"},
                         "class": "entryscape-commons/nav/Signin",
                         "constructorParams": {nextView: "start"}
                     },
                     {
                         "name": "start", "class": "entryscape-commons/nav/Start",
-                        "title": {en: "Start", sv: "Start", da: "Start"}
+                        "title": {en: "Start", sv: "Start", da: "Start", de: "Start"}
                     }
                 ],
                 modules: [{
