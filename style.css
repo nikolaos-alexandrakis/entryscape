@@ -31,3 +31,10 @@
 @import "libs/entryscape-catalog/search/escaSearch.css";
 @import "libs/entryscape-catalog/public/dataset.css";
 @import "libs/entryscape-commons/tree/skos/escoConceptRow.css";
+@import "libs/entryscape-commons/placeholder/escoPlaceholder.css";
+@import "libs/entryscape-workbench/bench/eswoListAndContentView.css";
+@import "libs/entryscape-workbench/bench/eswoReplaceDialog.css";
+@import "libs/entryscape-workbench/contentview/eswoContentViewer.css";
+@import "libs/entryscape-workbench/contentview/eswoTextComponent.css";
+@import "libs/entryscape-workbench/contentview/eswoTextView.css";
+@import "libs/entryscape-workbench/space/eswoConfigureEntitytypes.css";

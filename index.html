@@ -17,6 +17,10 @@
         var path = localbuild || debug ? "" : "https://static.entryscape.com/";
         var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
         var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || "stable";
+        var require = {};
+        if (debug) {
+            require.config = {"dojo/has": {"config-deferredInstrumentation": true}};
+        }
 
         css("libs/fontawesome/css/font-awesome.min.css");
         css("libs/fuelux/dist/css/fuelux.min.css");

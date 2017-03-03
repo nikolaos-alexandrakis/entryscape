@@ -104,7 +104,5 @@ require.config({
         "templates/dcat-ap/dcat-ap",
         "templates/entryscape/esc",
         "select2/select2/i18n/sv" //Explicit load of swedish language for select2 (no require-nls support)
-    ],
-    config: document.location.search.indexOf("debug=true") !== -1 ? {
-        "dojo/has": {"config-deferredInstrumentation": true} } : {}
+    ]
 });
