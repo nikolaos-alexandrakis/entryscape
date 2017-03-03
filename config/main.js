@@ -14,9 +14,10 @@ define([
             locale: {
                 fallback: "en",
                 supported: [
-                    {lang: "de", flag: "de", label: "Deutsch", labelEn: "German"},
-                    {lang: "en", flag: "gb", label: "English", labelEn: "English"},
-                    {lang: "sv", flag: "se", label: "Svenska", labelEn: "Swedish"}
+                    {lang: "en", flag: "gb", label: "English", labelEn: "English", shortDatePattern:"MMM dd"},
+                    {lang: "sv", flag: "se", label: "Svenska", labelEn: "Swedish", shortDatePattern:"dd MMM"},
+                    {lang: "de", flag: "de", label: "Deutsch", labelEn: "German", shortDatePattern:"dd.MMM"}
+                    //{lang: "nb", flag: "no", label: "Norsk", labelEn: "Norwegian", shortDatePattern:"dd.MMM"}
                 ]
             },
             itemstore: {
