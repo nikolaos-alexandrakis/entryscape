@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     grunt.config.merge({
         nls: {
-            langs: ["en", "sv", "da"],
+            langs: ["en", "sv", "da", "de"],
             depRepositories: ["entryscape-commons", "entryscape-admin", "entryscape-catalog", "entryscape-terms", "entryscape-workbench"]
         },
         update: {
