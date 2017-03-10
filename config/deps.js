@@ -69,6 +69,8 @@ require.config({
         "entryscape-commons/commonDeps",
         "moment/locale/nb",
         "moment/locale/sv",
+        "moment/locale/da",
+        "moment/locale/de",
         "entryscape-commons/nav/Cards",
         "entryscape-commons/gce/Cards",
         "entryscape-catalog/catalog/List",
