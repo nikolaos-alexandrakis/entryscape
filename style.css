@@ -17,7 +17,6 @@
 @import "libs/entryscape-terms/overview/style.css";
 @import "libs/leaflet/dist/leaflet.css";
 @import "libs/entryscape-catalog/files/files.css";
-@import "libs/entryscape-commons/create/escoEntryType.css";
 @import "libs/entryscape-workbench/bench/eswoBench.css";
 @import "libs/entryscape-commons/comments/escoComment.css";
 @import "libs/entryscape-commons/progress/escoProgress.css";
@@ -37,4 +36,4 @@
 @import "libs/entryscape-workbench/contentview/eswoContentViewer.css";
 @import "libs/entryscape-workbench/contentview/eswoTextComponent.css";
 @import "libs/entryscape-workbench/contentview/eswoTextView.css";
-@import "libs/entryscape-workbench/space/eswoConfigureEntitytypes.css";
+@import "libs/entryscape-commons/rdforms/escoPresentExpandable.css";
