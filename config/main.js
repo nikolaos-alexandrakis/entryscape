@@ -52,6 +52,7 @@ define([
                 modules: [{
                     name: "search",
                     title: {en: "Search"},
+                    "productName": "Search",
                     faClass: "search",
                     hierarchy: {
                         "view": "catalogsearch",
