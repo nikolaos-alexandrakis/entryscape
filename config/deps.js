@@ -66,6 +66,12 @@ require.config({
         }
     },
     deps: [
+	"dojo/text!entryscape-commons/theme/cookie_en.html",
+	"dojo/text!entryscape-commons/theme/cookie_sv.html",
+	"dojo/text!entryscape-commons/theme/cookie_de.html",
+	"dojo/text!entryscape-commons/theme/privacy_en.html",
+	"dojo/text!entryscape-commons/theme/privacy_sv.html",
+	"dojo/text!entryscape-commons/theme/privacy_de.html",
         "entryscape-commons/commonDeps",
         "moment/locale/nb",
         "moment/locale/sv",
