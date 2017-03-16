@@ -1,0 +1,6 @@
+__entryscape_config = {
+    entrystore: {
+        repository: "http://localhost:8080/store/"
+    },
+    reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph"
+};

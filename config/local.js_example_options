@@ -11,6 +11,9 @@ __entryscape_config = {
     entrychooser: {
         "http://purl.org/dc/terms/subject": "repository"
     },
+    site: {
+        "!moduleList": ["terms", "workbench", "admin"]
+    },
     entitytypes: [
         {
             name: "art",

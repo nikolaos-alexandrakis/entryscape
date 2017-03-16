@@ -2,11 +2,10 @@ define([
     "entryscape-commons/merge",
     "entryscape-admin/config/adminConfig",
     "entryscape-catalog/config/catalogConfig",
-    "entryscape-catalog-portal/config/catalogPortalConfig",
     "entryscape-terms/config/termsConfig",
     "entryscape-workbench/config/workbenchConfig"
-], function(merge, adminConfig, catalogConfig, catalogPortalConfig, termsConfig, workbenchConfig) {
-        return merge(adminConfig, catalogConfig, catalogPortalConfig, termsConfig, workbenchConfig, {
+], function(merge, adminConfig, catalogConfig, termsConfig, workbenchConfig) {
+        return merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
             theme: {
                 appName: "EntryScape",
                 oneRowNavbar: false,
@@ -15,8 +14,10 @@ define([
             locale: {
                 fallback: "en",
                 supported: [
-                    {lang: "en", flag: "gb", label: "English", labelEn: "English"},
-                    {lang: "sv", flag: "se", label: "Svenska", labelEn: "Swedish"}
+                    {lang: "de", flag: "de", label: "Deutsch", labelEn: "German", shortDatePattern:"dd. MMM"},
+                    {lang: "en", flag: "gb", label: "English", labelEn: "English", shortDatePattern:"MMM dd"},
+                    {lang: "sv", flag: "se", label: "Svenska", labelEn: "Swedish", shortDatePattern:"dd MMM"}
+                    //{lang: "nb", flag: "no", label: "Norsk", labelEn: "Norwegian", shortDatePattern:"dd.MMM"}
                 ]
             },
             itemstore: {
@@ -39,30 +40,39 @@ define([
                 views: [
                     {
                         "name": "signin",
-                        "title": {en: "Sign in/out", sv: "Logga in/ut"},
+                        "title": {en: "Sign in/out", sv: "Logga in/ut", da: "Login/ud", de: "An-/Abmelden"},
                         "class": "entryscape-commons/nav/Signin",
                         "constructorParams": {nextView: "start"}
                     },
                     {
                         "name": "start", "class": "entryscape-commons/nav/Start",
-                        "title": {en: "Start", sv: "Start"}
+                        "title": {en: "Start", sv: "Start", da: "Start", de: "Start"}
                     }
                 ],
                 modules: [{
-                    name: "catalogsearch",
-                    title: {en: "Search", sv: "Sök"},
+                    name: "search",
+                    title: {en: "Search"},
+                    "productName": "Search",
                     faClass: "search",
                     hierarchy: {
                         "view": "catalogsearch",
                         "subViews": [{
-                            view: "public"
+                            view: "dataset"
                         }]
                     }
-                }],
-                moduleList: ["catalog", "terms", "workbench", "catalogsearch", "admin"]
-            },
-            catalog: {
-                previewURL: "#view=public&resource=${url}"
+                }, {
+                    name: "catalogsearch", //Remove this module in next release (same as search with old name).
+                    title: {en: "Search"},
+                    faClass: "search",
+                    hierarchy: {
+                        "view": "catalogsearch",
+                        "subViews": [{
+                            view: "dataset"
+                        }]
+                    }
+                }
+                ],
+                moduleList: ["catalog", "terms", "workbench", "search", "admin"]
             }
         }, __entryscape_config);
 });
