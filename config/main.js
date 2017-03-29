@@ -37,41 +37,40 @@ define([
                 controlClass: "entryscape-commons/nav/Layout",
                 startView: "signin",
                 sidebar: {wide: false, always: true, replaceTabs: true},
-                views: [
-                    {
-                        "name": "signin",
+                views: {
+                    "signin": {
                         "title": {en: "Sign in/out", sv: "Logga in/ut", da: "Login/ud", de: "An-/Abmelden"},
                         "class": "entryscape-commons/nav/Signin",
                         "constructorParams": {nextView: "start"}
                     },
-                    {
-                        "name": "start", "class": "entryscape-commons/nav/Start",
+                    "start": {
+                        "class": "entryscape-commons/nav/Start",
                         "title": {en: "Start", sv: "Start", da: "Start", de: "Start"}
                     }
-                ],
-                modules: [{
-                    name: "search",
-                    title: {en: "Search"},
-                    "productName": "Search",
-                    faClass: "search",
-                    hierarchy: {
-                        "view": "catalogsearch",
-                        "subViews": [{
-                            view: "dataset"
-                        }]
+                },
+                modules: {
+                    "search": {
+                        title: {en: "Search"},
+                        "productName": "Search",
+                        faClass: "search",
+                        hierarchy: {
+                            "view": "catalogsearch",
+                            "subViews": [{
+                                view: "dataset"
+                            }]
+                        }
+                    },
+                    "catalogsearch": { //Remove this module in next release (same as search with old name).
+                        title: {en: "Search"},
+                        faClass: "search",
+                        hierarchy: {
+                            "view": "catalogsearch",
+                            "subViews": [{
+                                view: "dataset"
+                            }]
+                        }
                     }
-                }, {
-                    name: "catalogsearch", //Remove this module in next release (same as search with old name).
-                    title: {en: "Search"},
-                    faClass: "search",
-                    hierarchy: {
-                        "view": "catalogsearch",
-                        "subViews": [{
-                            view: "dataset"
-                        }]
-                    }
-                }
-                ],
+                },
                 moduleList: ["catalog", "terms", "workbench", "search", "admin"]
             }
         }, __entryscape_config);
