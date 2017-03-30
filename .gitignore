@@ -1,6 +1,7 @@
 .idea/
 release/
 /nls/merged
+/merged-nls
 libs/
 /config/local.js
 /*.iml
