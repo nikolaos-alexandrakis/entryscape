@@ -1,0 +1,3 @@
+[submodule "config/js"]
+	path = config/js
+	url = https://valentinoh@bitbucket.org/metasolutions/entryscape-js.git
