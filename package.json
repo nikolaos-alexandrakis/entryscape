@@ -4,7 +4,6 @@
     "grunt": "1.0.1",
     "grunt-available-tasks": "^0.6.3",
     "grunt-cli": "1.2.0",
-    "grunt-contrib-requirejs": "^1.0.0",
-    "metasolutions-grunt": "git+https://bitbucket.org/metasolutions/grunt.git#master"
+    "grunt-contrib-requirejs": "^1.0.0"
   }
 }
