@@ -37,6 +37,9 @@ require.config({
       main: 'moment',
     },
   ],
+  shim: {
+    'mithril/mithril': { exports: 'm' },
+  },
   map: {
     '*': {
       jquery: 'jquery/jquery',  // In general, use the main module (for all unqualified jquery
@@ -49,6 +52,7 @@ require.config({
       'dojo/i18n': 'i18n',
       'di18n/i18n': 'i18n',
       'dojo/hccss': 'dojo/has',
+      mithril: 'mithril/mithril',
     },
     jquery: {
       jquery: 'jquery', // Reset (override general mapping) to normal path (jquerys has
