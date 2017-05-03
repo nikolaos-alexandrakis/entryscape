@@ -75,6 +75,7 @@ require.config({
     },
   },
   deps: [
+    'config',
     'dojo/text!entryscape-commons/theme/cookie.html',
     'dojo/text!entryscape-commons/theme/cookie_sv.html',
     'dojo/text!entryscape-commons/theme/cookie_de.html',
