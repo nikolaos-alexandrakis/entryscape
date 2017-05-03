@@ -1,11 +1,12 @@
 define([
+    "dojo/_base/kernel",
     "entryscape-commons/merge",
     "entryscape-admin/config/adminConfig",
     "entryscape-catalog/config/catalogConfig",
     "entryscape-terms/config/termsConfig",
     "entryscape-workbench/config/workbenchConfig"
-], function(merge, adminConfig, catalogConfig, termsConfig, workbenchConfig) {
-        return merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
+], function(kernel, merge, adminConfig, catalogConfig, termsConfig, workbenchConfig) {
+        var config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
             theme: {
                 appName: "EntryScape",
                 oneRowNavbar: false,
@@ -74,4 +75,16 @@ define([
                 moduleList: ["catalog", "terms", "workbench", "search", "admin"]
             }
         }, __entryscape_config);
+
+    var bestlang;
+    for (var i = 0; i < config.locale.supported.length; i++) {
+        var l = config.locale.supported[i].lang;
+        if (kernel.locale.indexOf(l) === 0) {
+            if (bestlang == null || bestlang.length < l.length) {
+                bestlang = l;
+            }
+        }
+    }
+    kernel.locale = bestlang || config.locale.fallback;
+    return config;
 });
