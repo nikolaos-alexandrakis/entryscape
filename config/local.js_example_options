@@ -3,6 +3,14 @@ __entryscape_config = {
         repository: "http://localhost:8080/store/"
     },
     reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
+     theme: {
+        appName: "", //Shown after logo
+        logoFileName: "logo.png",
+        oneRowNavbar: false, //Will try to fit breadcrumbs after logo if true.
+        showModuleNameInHeader: false, //Shows current module in header if true, otherwise all modules are shown as icons
+        localTheme: true, //If a local theme should be used
+        localHTML: true //Will check for privacy[_xx].html and cookie[_xx].html in local theme folder (only use together with localTheme)
+    },
     itemstore: {
         "bundles": [
             "entryscape-workbench/templates/art-example"
