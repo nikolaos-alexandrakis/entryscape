@@ -25,6 +25,7 @@ require.config({
     vis: 'vis/dist/vis',
     leaflet: 'leaflet/dist/leaflet',
     md5: 'md5/js/md5.min',
+    mithril: 'mithril/mithril.min',
   },
   packages: [ // Config defined using packages to allow for main.js when requiring just config.
     {
@@ -38,7 +39,7 @@ require.config({
     },
   ],
   shim: {
-    'mithril/mithril': { exports: 'm' },
+    'mithril': { exports: 'm' },
   },
   map: {
     '*': {
@@ -52,7 +53,6 @@ require.config({
       'dojo/i18n': 'i18n',
       'di18n/i18n': 'i18n',
       'dojo/hccss': 'dojo/has',
-      mithril: 'mithril/mithril',
     },
     jquery: {
       jquery: 'jquery', // Reset (override general mapping) to normal path (jquerys has
