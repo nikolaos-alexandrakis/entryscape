@@ -26,7 +26,7 @@ require.config({
     leaflet: 'leaflet/dist/leaflet',
     md5: 'md5/js/md5.min',
     d3: 'd3/d3.min',
-    mithriljs: 'mithriljs/mithril.min',
+    mithril: 'mithril/mithril',
   },
   packages: [ // Config defined using packages to allow for main.js when requiring just config.
     {
@@ -40,7 +40,7 @@ require.config({
     },
   ],
   shim: {
-    mithriljs: { exports: 'm' },
+    mithril: { exports: 'm' },
   },
   map: {
     '*': {
