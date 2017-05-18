@@ -26,7 +26,6 @@ require.config({
     leaflet: 'leaflet/dist/leaflet',
     md5: 'md5/js/md5.min',
     d3: 'd3/d3.min',
-    mithril: 'mithril/mithril',
   },
   packages: [ // Config defined using packages to allow for main.js when requiring just config.
     {
@@ -38,10 +37,11 @@ require.config({
       name: 'moment',
       main: 'moment',
     },
+    {
+      name: 'mithril',
+      main: 'mithril',
+    },
   ],
-  shim: {
-    mithril: { exports: 'm' },
-  },
   map: {
     '*': {
       jquery: 'jquery/jquery',  // In general, use the main module (for all unqualified jquery
