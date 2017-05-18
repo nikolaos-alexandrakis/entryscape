@@ -86,6 +86,7 @@ require.config({
     'moment/locale/sv',
     'moment/locale/da',
     'moment/locale/de',
+    'mithril',
     'entryscape-commons/nav/Cards',
     'entryscape-commons/gce/Cards',
     'entryscape-catalog/catalog/List',
