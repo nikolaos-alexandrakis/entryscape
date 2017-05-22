@@ -38,12 +38,13 @@ require.config({
       main: 'moment',
     },
     {
-      name: 'mithril',
+      name: 'mithriljs',
       main: 'mithril',
     },
   ],
   map: {
     '*': {
+      mithril: 'entryscape-commons/shim/mithril',
       jquery: 'jquery/jquery',  // In general, use the main module (for all unqualified jquery
       // dependencies).
       'jquery/selector': 'jquery/selector-sizzle', // Always use the jquery sizzle selector engine.
