@@ -54,7 +54,6 @@ require.config({
       'dojo/i18n': 'i18n',
       'di18n/i18n': 'i18n',
       'dojo/hccss': 'dojo/has',
-      'babel-polyfill': 'entryscape-commons/shim/polyfill',
     },
     jquery: {
       jquery: 'jquery', // Reset (override general mapping) to normal path (jquerys has
@@ -77,7 +76,6 @@ require.config({
     },
   },
   deps: [
-    'babel-polyfill',
     'config',
     'dojo/text!entryscape-commons/theme/privacy_en.html',
     'dojo/text!entryscape-commons/theme/privacy_sv.html',
