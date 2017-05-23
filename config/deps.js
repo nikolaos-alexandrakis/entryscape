@@ -41,10 +41,16 @@ require.config({
       name: 'mithriljs',
       main: 'mithril',
     },
+    {
+      name: 'babel-polyfill',
+      location: 'babel-polyfill/dist',
+      main: 'polyfill',
+    },
   ],
   map: {
     '*': {
       mithril: 'entryscape-commons/shim/mithril',
+      polyfill: 'entryscape-commons/shim/polyfill',
       jquery: 'jquery/jquery',  // In general, use the main module (for all unqualified jquery
       // dependencies).
       'jquery/selector': 'jquery/selector-sizzle', // Always use the jquery sizzle selector engine.
@@ -77,6 +83,7 @@ require.config({
     },
   },
   deps: [
+    'polyfill',
     'config',
     'dojo/text!entryscape-commons/theme/privacy_en.html',
     'dojo/text!entryscape-commons/theme/privacy_sv.html',
