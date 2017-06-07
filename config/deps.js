@@ -71,7 +71,7 @@ require.config({
     bootstrap: {
       jquery: 'jquery', // Reset (override general mapping) to normal path (bootstraps has
       // dependencies to specific dependencies).
-      'jquery/selector': 'jquery/selector-sizzle' // Always use the jquery sizzle selector engine.
+      'jquery/selector': 'jquery/selector-sizzle', // Always use the jquery sizzle selector engine.
     },
     'store/rest': {
       'dojo/request': 'dojo/request/xhr', // Force using xhr since we know we are in the browser
