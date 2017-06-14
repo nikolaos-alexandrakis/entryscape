@@ -29,7 +29,13 @@ define([
           labelEn: 'English',
           shortDatePattern: 'MMM dd',
         },
-        { lang: 'sv', flag: 'se', label: 'Svenska', labelEn: 'Swedish', shortDatePattern: 'dd MMM' },
+        {
+          lang: 'sv',
+          flag: 'se',
+          label: 'Svenska',
+          labelEn: 'Swedish',
+          shortDatePattern: 'dd MMM',
+        },
         // {lang: "nb", flag: "no", label: "Norsk", labelEn: "Norwegian", shortDatePattern:"dd.MMM"}
       ],
     },
@@ -46,9 +52,11 @@ define([
       ],
     },
     site: {
-      siteClass: 'spa/Site',
+      siteClass: 'entryscape-commons/nav/Site',
       controlClass: 'entryscape-commons/nav/Layout',
-      startView: 'signin',
+      signinView: 'signin',
+      permissionView: 'permission',
+      startView: 'start',
       sidebar: { wide: false, always: true, replaceTabs: true },
       views: {
         signin: {
