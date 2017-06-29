@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = (grunt) => {
   grunt.task.loadTasks('config/js/tasks');
 
   grunt.config.merge({
