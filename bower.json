@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "1.3.1",
+  "version": "1.4.0-SNAPSHOT",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmér <matthias@metasolutions.se>"
@@ -10,11 +10,11 @@
     "amd"
   ],
   "dependencies": {
-    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#1.1",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.3",
-    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.3",
-    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#1.1.1",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.3.1",
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git"
   },
   "license": "AGPLv3",
@@ -24,11 +24,9 @@
     "libs"
   ],
   "resolutions": {
-    "entryscape-commons": "1.3.1",
-    "entryscape-terms": "1.1.1",
-    "rdforms-templates": "essu1.3",
-    "rdfjson": "1.1",
-    "di18n": "0.4",
+    "rdforms-templates": "master",
+    "rdfjson": "develop",
+    "di18n": "develop",
     "jstree": "~3.2.1",
     "dojo": "1.11.2",
     "dijit": "1.11.2",
