@@ -24,7 +24,7 @@
     "libs"
   ],
   "resolutions": {
-    "rdforms-templates": "master",]
+    "rdforms-templates": "master",
     "rdforms": "develop",
     "rdfjson": "develop",
     "di18n": "develop",
