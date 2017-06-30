@@ -48,7 +48,7 @@ define([
     site: {
       siteClass: 'entryscape-commons/nav/Site',
       controlClass: 'entryscape-commons/nav/Layout',
-      startView: 'start',
+      startView: 'signin',
       sidebar: { wide: false, always: true, replaceTabs: true },
       views: {
         signin: {
