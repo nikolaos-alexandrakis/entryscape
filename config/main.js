@@ -46,7 +46,7 @@ define([
       ],
     },
     site: {
-      siteClass: 'spa/Site',
+      siteClass: 'entryscape-commons/nav/Site',
       controlClass: 'entryscape-commons/nav/Layout',
       startView: 'signin',
       sidebar: { wide: false, always: true, replaceTabs: true },
