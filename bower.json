@@ -3,7 +3,7 @@
   "version": "1.4.0-SNAPSHOT",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
-    "Matthias PalmÃ©r <matthias@metasolutions.se>"
+    "Matthias Palmér <matthias@metasolutions.se>"
   ],
   "description": "The EntryScape platform",
   "moduleType": [
@@ -24,7 +24,8 @@
     "libs"
   ],
   "resolutions": {
-    "rdforms-templates": "master",
+    "rdforms-templates": "master",]
+    "rdforms": "develop",
     "rdfjson": "develop",
     "di18n": "develop",
     "jstree": "~3.2.1",
