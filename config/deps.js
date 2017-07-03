@@ -106,6 +106,7 @@ require.config({
     'entryscape-catalog/responsibles/List',
     'entryscape-catalog/candidates/CandidateList',
     'entryscape-catalog/results/ResultsList',
+    'entryscape-catalog/ideas/IdeasList',
     'entryscape-catalog/overview/Overview',
     'entryscape-terms/scheme/List',
     'entryscape-terms/concept/Concepts',
