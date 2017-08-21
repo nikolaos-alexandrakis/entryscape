@@ -1,18 +1,15 @@
 # EntryScape Platform
 
-## Installation
+First you must have an Entrystore instance running and also serve EntryScape Suite from the same host. Alternatively you can activate CORS in the entrystore instance. You can find out more about installing entrystore at [http://entrystore.org](http://entrystore.org). Secondly, you need to make sure you have git, npm and grunt installed. Third, you need to download dependencies and configure EntryScape Suite:
 
-### EntryStore
-Follow the installation instructions [for EntryStore](http://entrystore.org/#!InstallationEntryStore.md). (Use develop branch.)
+    npm install
+    grunt install
+    git submodule init
+    git submodule update
+    cd config
+    cp local.js_example local.js
 
-### EntryScape (this repository)
-
-Make sure you have npm installed.
-
-    $> npm install
-    $> grunt build
-
-Furthermore, you need to provide a local configuration, see the examples in `config/local.js_example_basic` and `config/local.js_example_options`.
+Finally, you need to provide a local configuration, see the examples in `config/local.js_example_basic` and `config/local.js_example_options`.
 
 As a minimum you need to make sure the `repository` key points to a working EntryStore installation.
 
