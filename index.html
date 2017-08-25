@@ -20,8 +20,6 @@
         var require = {};
 
         css("libs/fontawesome/css/font-awesome.min.css");
-        css("libs/bmd/dist/css/bootstrap-material-design.css");
-        css("libs/bmd/dist/css/ripples.min.css");
         css("libs/fuelux/dist/css/fuelux.min.css");
         css("libs/flag-icon-css/css/flag-icon.min.css");
         css("libs/jstree-bootstrap-theme/dist/themes/proton/style.css");
@@ -37,6 +35,8 @@
             css("suite/" + version + "/style.css");
             document.write('<script src="'+path+'suite/' + version + '/all.js"><\/script>');
         }
+        css("libs/bmd/dist/css/bootstrap-material-design.css");
+        css("libs/bmd/dist/css/ripples.min.css");
     </script>
 </head>
 <body class="nav-md">
