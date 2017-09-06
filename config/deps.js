@@ -13,6 +13,7 @@ require.config({
     fuelux: 'fuelux/js',
     bootstrap: 'bootstrap-amd/lib',
     bmd: 'bmd/dist',
+    bmddtp: "bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker",
     select2: 'select2/src/js',
     jquery: 'jquery/src',
     sizzle: 'sizzle/dist/sizzle',
