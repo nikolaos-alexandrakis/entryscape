@@ -64,6 +64,10 @@ define([
           class: 'entryscape-commons/nav/Signin',
           constructorParams: { nextView: 'start' },
         },
+        permission: {
+          title: { en: 'You do not have permission to view this page', sv: 'Logga in/ut', da: 'Login/ud', de: 'An-/Abmelden' },
+          class: 'entryscape-commons/nav/Permission',
+        },
         start: {
           class: 'entryscape-commons/nav/Start',
           title: { en: 'Start', sv: 'Start', da: 'Start', de: 'Start' },
