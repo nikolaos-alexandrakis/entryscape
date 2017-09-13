@@ -1,3 +1,10 @@
+@import "libs/bootstrap/dist/css/bootstrap.min.css";
+@import "libs/rdforms/view/bmd/base.css";
+@import "libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css";
+@import "libs/leaflet/dist/leaflet.css";
+@import "libs/bmd/dist/css/bootstrap-material-design.css";
+@import "libs/bmd/dist/css/ripples.min.css";
+
 @import "libs/entryscape-commons/module.css";
 @import "libs/entryscape-catalog/module.css";
 @import "libs/entryscape-terms/module.css";
