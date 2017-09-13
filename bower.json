@@ -10,11 +10,11 @@
     "amd"
   ],
   "dependencies": {
-    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#bmd",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#bmd",
-    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#bmd",
-    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#bmd",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#bmd",
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git"
   },
   "license": "AGPLv3",
@@ -25,7 +25,7 @@
   ],
   "resolutions": {
     "rdforms-templates": "master",
-    "rdforms": "bmd",
+    "rdforms": "develop",
     "rdfjson": "develop",
     "di18n": "develop",
     "jstree": "~3.2.1",
