@@ -15,6 +15,7 @@
         var localbuild = document.location.search.indexOf("localbuild") > 0 ||
                 (__entryscape_config && __entryscape_config.localBuild);
         var debug = document.location.search.indexOf("debug") > 0;
+        var publicView = document.location.search.indexOf("publicView") > 0;
         var path = localbuild || debug ? "" : "https://static.entryscape.com/";
         var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
         var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || "stable";
