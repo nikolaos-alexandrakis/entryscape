@@ -79,21 +79,12 @@ define([
           productName: 'Search',
           faClass: 'search',
           hierarchy: {
-            view: 'catalogsearch',
+            view: 'search',
             subViews: [{
               view: 'dataset',
             }],
           },
-        },
-        catalogsearch: { // Remove this module in next release (same as search with old name).
-          title: { en: 'Search' },
-          faClass: 'search',
-          hierarchy: {
-            view: 'catalogsearch',
-            subViews: [{
-              view: 'dataset',
-            }],
-          },
+          public: true,
         },
       },
       moduleList: ['catalog', 'terms', 'workbench', 'search', 'admin'],
