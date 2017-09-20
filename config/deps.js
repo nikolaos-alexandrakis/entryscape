@@ -103,7 +103,6 @@ require.config({
     'moment/locale/da',
     'moment/locale/de',
     'mithril',
-    'entryscape-commons/bmd/all',
     'entryscape-commons/nav/Cards',
     'entryscape-commons/gce/Cards',
     'entryscape-commons/contentview/ImageView',
@@ -147,5 +146,6 @@ require.config({
     'templates/entryscape/esc',
     'select2/select2/i18n/sv', // Explicit load of swedish language for select2 (no require-nls
     // support)
+    'entryscape-commons/bmd/all',
   ],
 });
