@@ -24,6 +24,8 @@ pipelines:
   custom:
     build-and-deploy:
       - step:
+          caches:
+            - node
           script:
             - node --version
             - npm --version
