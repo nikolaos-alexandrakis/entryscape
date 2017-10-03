@@ -28,7 +28,6 @@ require.config({
     vis: 'vis/dist/vis',
     leaflet: 'leaflet/dist/leaflet',
     md5: 'md5/js/md5.min',
-    d3: 'd3/d3.min',
   },
   packages: [ // Config defined using packages to allow for main.js when requiring just config.
     {
