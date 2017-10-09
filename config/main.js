@@ -53,6 +53,7 @@ define([
     },
     site: {
       siteClass: 'entryscape-commons/nav/Site',
+      routerClass: 'entryscape-commons/nav/Router',
       controlClass: 'entryscape-commons/nav/Layout',
       signinView: 'signin',
       permissionView: 'permission',
