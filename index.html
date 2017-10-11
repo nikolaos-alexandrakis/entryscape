@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>EntryScape</title>
     <script src="config/local.js"></script>
     <script>
         var localbuild = document.location.search.indexOf("localbuild") > 0 ||
                 (__entryscape_config && __entryscape_config.localBuild);
         var debug = document.location.search.indexOf("debug") > 0;
+        var publicView = document.location.search.indexOf("publicView") > 0;
         var path = localbuild || debug ? "" : "https://static.entryscape.com/";
         var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
         var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || "stable";
@@ -37,7 +39,7 @@
         }
     </script>
 </head>
-<body>
+<body class="nav-md">
    <div id="controlNode"></div>
 </body>
 </html>

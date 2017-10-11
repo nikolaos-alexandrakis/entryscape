@@ -12,6 +12,9 @@ require.config({
     i18n: 'di18n/i18n',
     fuelux: 'fuelux/js',
     bootstrap: 'bootstrap-amd/lib',
+    bmd: 'bmd/dist',
+    bmddtp: "bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker",
+    selectize: "selectize/js/selectize",
     select2: 'select2/src/js',
     jquery: 'jquery/src',
     sizzle: 'sizzle/dist/sizzle',
@@ -25,7 +28,6 @@ require.config({
     vis: 'vis/dist/vis',
     leaflet: 'leaflet/dist/leaflet',
     md5: 'md5/js/md5.min',
-    d3: 'd3/d3.min',
   },
   packages: [ // Config defined using packages to allow for main.js when requiring just config.
     {
@@ -45,6 +47,11 @@ require.config({
       name: 'babel-polyfill',
       location: 'babel-polyfill/dist',
       main: 'polyfill',
+    },
+    {
+      name: 'select2',
+      location: 'select2/src/js',
+      main: "jquery.select2"
     },
   ],
   map: {
@@ -71,7 +78,7 @@ require.config({
     bootstrap: {
       jquery: 'jquery', // Reset (override general mapping) to normal path (bootstraps has
       // dependencies to specific dependencies).
-      'jquery/selector': 'jquery/selector-sizzle' // Always use the jquery sizzle selector engine.
+      'jquery/selector': 'jquery/selector-sizzle', // Always use the jquery sizzle selector engine.
     },
     'store/rest': {
       'dojo/request': 'dojo/request/xhr', // Force using xhr since we know we are in the browser
@@ -106,6 +113,7 @@ require.config({
     'entryscape-catalog/responsibles/List',
     'entryscape-catalog/candidates/CandidateList',
     'entryscape-catalog/results/ResultsList',
+    'entryscape-catalog/ideas/IdeasList',
     'entryscape-catalog/overview/Overview',
     'entryscape-terms/scheme/List',
     'entryscape-terms/concept/Concepts',
@@ -137,5 +145,6 @@ require.config({
     'templates/entryscape/esc',
     'select2/select2/i18n/sv', // Explicit load of swedish language for select2 (no require-nls
     // support)
+    'entryscape-commons/bmd/all',
   ],
 });
