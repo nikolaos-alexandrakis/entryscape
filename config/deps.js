@@ -1,5 +1,5 @@
 require.config({
-  baseUrl: './libs', // Path relative to bootstrapping html file.
+  baseUrl: '/libs', // Path relative to bootstrapping html file.
   paths: {
     // Paths relative baseUrl, only those that deviate from baseUrl/{modulename} are explicitly
     // listed.
