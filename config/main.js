@@ -53,11 +53,11 @@ define([
     },
     site: {
       baseUrl: 'http://local.entryscape.com', // without trailing slash
-      siteClass: 'entryscape-commons/nav/Site',
-      controlClass: 'entryscape-commons/nav/Layout',
+      siteClass: 'entryscape-commons/nav/Site', // mandatory
+      controlClass: 'entryscape-commons/nav/Layout', // mandatory
+      startView: 'start', // mandatory
       signinView: 'signin',
       permissionView: 'permission',
-      startView: '/catalog',
       sidebar: { wide: false, always: true, replaceTabs: true },
       views: {
         signin: {
