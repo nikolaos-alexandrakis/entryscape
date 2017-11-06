@@ -41,16 +41,18 @@
     </script>
     <script>
       /**
-       * if there's a localconfig load the script
+       * if there's a localconfig query param load a script src
        *
-       * Values:
-       *  - true, expected file '/config/local.js.local'
-       *  - relative or absolute to domain string
-       *
+       * path values and respective script src:
+       *  - true                    -> src = '/theme/local.js.local'
+       *  - starts with '.' or '/'  -> src = path
+       *  - starts with other char  -> src = /theme/path
        */
       if (queryParamsMap.get('localconfig')) {
-        const src = queryParamsMap.get('localconfig') === 'true' ? '/config/local.js.local' :
-          queryParamsMap.get('localconfig');
+        const localPath = queryParamsMap.get('localconfig');
+        const src = localPath === 'true' ?
+          '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
+            localPath : `/theme${localPath}`);
         js(src);
       }
     </script>
