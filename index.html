@@ -25,8 +25,8 @@
        * {Map} queryParamsMap
        */
       window.queryParams = window.location.search;
+      window.queryParamsMap = new Map();
 
-      const queryParamsMap = new Map();
       const query = queryParams.substring(1);
       const vars = query.split('&');
       for (let i = 0; i < vars.length; i++) {
@@ -60,7 +60,7 @@
       /**
        * if __entryscape_config_dev is defined already then override values in __entryscape_config
        */
-      if (__entryscape_config_dev) {
+      if (window.__entryscape_config_dev) {
         Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
