@@ -73,16 +73,16 @@ define([
             en: 'You do not have permission to view this page',
             sv: 'Logga in/ut',
             da: 'Login/ud',
-            de: 'An-/Abmelden'
+            de: 'An-/Abmelden',
           },
           class: 'entryscape-commons/nav/Permission',
-          route: '/permission'
+          route: '/permission',
         },
         start: {
           name: 'start',
           class: 'entryscape-commons/nav/Start',
           title: { en: 'Start', sv: 'Start', da: 'Start', de: 'Start' },
-          route: '/start'
+          route: '/start',
         },
       },
       modules: {
