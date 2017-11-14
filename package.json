@@ -20,13 +20,13 @@
     "q": "^1.5.0"
   },
   "devDependencies": {
-    "entryscape-js": "https://bitbucket.org/metasolutions/entryscape-js.git",
+    "entryscape-js": "git+https://bitbucket.org/metasolutions/entryscape-js.git",
     "precommit-hook": "^3.0.0"
   },
   "pre-commit": [
     "lint"
   ],
   "scripts": {
-    "lint": "dev/hook.sh"
+    "lint": "node_modules/entryscape-js/dev/hook.sh"
   }
 }
