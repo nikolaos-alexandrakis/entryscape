@@ -18,20 +18,40 @@
     <title>EntryScape</title>
     <script src="/config/local.js"></script>
     <script>
+      const paramsToMap = (params, arr, seperator = '&') => {
+        const vars = params.split(seperator);
+
+        for (let i = 0; i < vars.length; i++) {
+          const pair = vars[i].split('=');
+          arr.set(pair[0], pair[1]);
+        }
+      };
+
       /**
        * get query params
        *
        * {String} queryParams
        * {Map} queryParamsMap
        */
+      window.hashParams = window.location.hash;
+      window.hashParamsMap = new Map();
       window.queryParams = window.location.search;
       window.queryParamsMap = new Map();
 
-      const query = queryParams.substring(1);
-      const vars = query.split('&');
-      for (let i = 0; i < vars.length; i++) {
-        const pair = vars[i].split('=');
-        queryParamsMap.set(pair[0], pair[1]);
+      paramsToMap(hashParams.substring(1), hashParamsMap);
+      paramsToMap(queryParams.substring(1), queryParamsMap);
+    </script>
+    <script>
+      /** HACK redirect any hash params that look like
+       * #view=datasets&resource=http://www.entryscape.com/someEntryURI
+       * to /catalog/:context/datasets/:dataset
+       */
+
+      if (hashParamsMap.get('view') === 'dataset' && hashParamsMap.has('resource')) {
+        const resourceURI = hashParamsMap.get('resource');
+        const entryPart = resourceURI.split('/store/');
+        const [context, resourceString, dataset] = entryPart[1].split('/');
+        location.href = `/catalog/${context}/datasets/${dataset}${queryParams}`;
       }
     </script>
     <script>
