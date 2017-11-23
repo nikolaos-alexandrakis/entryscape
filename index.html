@@ -50,7 +50,7 @@
       if (hashParamsMap.get('view') === 'dataset' && hashParamsMap.has('resource')) {
         const resourceURI = hashParamsMap.get('resource');
         const entryPart = resourceURI.split('/store/');
-        const [context, resourceString, dataset] = entryPart[1].split('/');
+        const [context, resourceString, dataset] = entryPart[1].split('/'); // TODO huge guess
         location.href = `/catalog/${context}/datasets/${dataset}${queryParams}`;
       }
     </script>
