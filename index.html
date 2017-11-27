@@ -90,10 +90,10 @@
       const version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
       require = {};
 
-      css(`/${path}libs/fontawesome/css/font-awesome.min.css`);
-      css(`/${path}libs/fuelux/dist/css/fuelux.min.css`);
-      css(`/${path}libs/flag-icon-css/css/flag-icon.min.css`);
-      css(`/${path}libs/jstree-bootstrap-theme/dist/themes/proton/style.css`);
+      css(`${path}libs/fontawesome/css/font-awesome.min.css`);
+      css(`${path}libs/fuelux/dist/css/fuelux.min.css`);
+      css(`${path}libs/flag-icon-css/css/flag-icon.min.css`);
+      css(`${path}libs/jstree-bootstrap-theme/dist/themes/proton/style.css`);
 
       /**
        * load the right css/js for the given config/queryParams
@@ -106,7 +106,7 @@
         css(`/${path}style.css`);
         js('/libs/requirejs/require.js', '/config/deps');
       } else {
-        css(`suite/${version}/style.css`);
+        css(`${path}suite/${version}/style.css`);
         js(`${path}suite/${version}/all.js`);
       }
     </script>
