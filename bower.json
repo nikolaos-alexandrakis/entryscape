@@ -24,11 +24,11 @@
     "libs"
   ],
   "resolutions": {
-    "rdfjson": "1.2",
+    "rdfjson": "develop",
     "jstree": "~3.2.1",
     "dojo": "1.11.2",
     "dijit": "1.11.2",
     "bootstrap": "3.3.7",
-    "jquery": "~3.2.1"
+    "jquery": "latest"
   }
 }
