@@ -52,7 +52,6 @@ define([
       ],
     },
     site: {
-      baseUrl: 'http://local.entryscape.com', // without trailing slash
       siteClass: 'entryscape-commons/nav/Site', // mandatory
       controlClass: 'entryscape-commons/nav/Layout', // mandatory
       startView: 'start', // mandatory
