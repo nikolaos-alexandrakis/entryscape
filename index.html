@@ -85,15 +85,16 @@
       }
 
       const path = queryParamsMap.get('localbuild') || queryParamsMap.get('debug') ? '' :
-        'https://static.entryscape.com/';
+        'https://static.entryscape.com';
 
       const version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
       require = {};
 
-      css(`${path}libs/fontawesome/css/font-awesome.min.css`);
-      css(`${path}libs/fuelux/dist/css/fuelux.min.css`);
-      css(`${path}libs/flag-icon-css/css/flag-icon.min.css`);
-      css(`${path}libs/jstree-bootstrap-theme/dist/themes/proton/style.css`);
+
+      css(`${path}/libs/fontawesome/css/font-awesome.min.css`);
+      css(`${path}/libs/fuelux/dist/css/fuelux.min.css`);
+      css(`${path}/libs/flag-icon-css/css/flag-icon.min.css`);
+      css(`${path}/libs/jstree-bootstrap-theme/dist/themes/proton/style.css`);
 
       /**
        * load the right css/js for the given config/queryParams
