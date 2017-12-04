@@ -1,9 +1,9 @@
 {
   "name": "entryscape-suite",
-  "version": "1.4.0-SNAPSHOT",
+  "version": "1.5.0-SNAPSHOT",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
-    "Matthias Palm�r <matthias@metasolutions.se>"
+    "Matthias Palmer <matthias@metasolutions.se>"
   ],
   "description": "The EntryScape platform",
   "moduleType": [
@@ -24,15 +24,11 @@
     "libs"
   ],
   "resolutions": {
-    "rdforms-templates": "master",
-    "rdforms": "develop",
     "rdfjson": "develop",
-    "di18n": "develop",
     "jstree": "~3.2.1",
     "dojo": "1.11.2",
     "dijit": "1.11.2",
     "bootstrap": "3.3.7",
-    "jquery": "3.2.1",
-    "mithril": "1.1.1"
+    "jquery": "3.2.1"
   }
 }

@@ -52,25 +52,36 @@ define([
       ],
     },
     site: {
-      siteClass: 'entryscape-commons/nav/Site',
-      controlClass: 'entryscape-commons/nav/Layout',
+      siteClass: 'entryscape-commons/nav/Site', // mandatory
+      controlClass: 'entryscape-commons/nav/Layout', // mandatory
+      startView: 'start', // mandatory
       signinView: 'signin',
       permissionView: 'permission',
-      startView: 'start',
       sidebar: { wide: false, always: true, replaceTabs: true },
       views: {
         signin: {
+          name: 'signin',
           title: { en: 'Sign in/out', sv: 'Logga in/ut', da: 'Login/ud', de: 'An-/Abmelden' },
           class: 'entryscape-commons/nav/Signin',
           constructorParams: { nextView: 'start' },
+          route: '/signin',
         },
         permission: {
-          title: { en: 'You do not have permission to view this page', sv: 'Logga in/ut', da: 'Login/ud', de: 'An-/Abmelden' },
+          name: 'permission',
+          title: {
+            en: 'You do not have permission to view this page',
+            sv: 'Logga in/ut',
+            da: 'Login/ud',
+            de: 'An-/Abmelden',
+          },
           class: 'entryscape-commons/nav/Permission',
+          route: '/permission',
         },
         start: {
+          name: 'start',
           class: 'entryscape-commons/nav/Start',
           title: { en: 'Start', sv: 'Start', da: 'Start', de: 'Start' },
+          route: '/start',
         },
       },
       modules: {
@@ -78,12 +89,7 @@ define([
           title: { en: 'Search' },
           productName: 'Search',
           faClass: 'search',
-          hierarchy: {
-            view: 'search',
-            subViews: [{
-              view: 'dataset',
-            }],
-          },
+          startView: 'catalog__search',
           public: true,
         },
       },
