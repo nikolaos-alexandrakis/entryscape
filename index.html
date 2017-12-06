@@ -84,7 +84,7 @@
         Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
-      const path = queryParamsMap.get('localbuild') || queryParamsMap.get('debug') ? '' :
+      const path = queryParamsMap.has('localbuild') || queryParamsMap.has('debug') ? '' :
         'https://static.entryscape.com';
 
       const version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
@@ -99,10 +99,10 @@
       /**
        * load the right css/js for the given config/queryParams
        */
-      if (queryParamsMap.get('localbuild') && !queryParamsMap.get('debug')) {
+      if (queryParamsMap.has('localbuild') && !queryParamsMap.has('debug')) {
         css('release/style.css', path);
         js('release/all.js');
-      } else if (queryParamsMap.get('debug')) {
+      } else if (queryParamsMap.has('debug')) {
         require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
         css(`${path}/style.css`);
         js('/libs/requirejs/require.js', '/config/deps');
