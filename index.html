@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"/>
@@ -18,12 +18,12 @@
     <title>EntryScape</title>
     <script src="/config/local.js"></script>
     <script>
-      const paramsToMap = function(params, arr, seperator = '&') {
-        const vars = params.split(seperator);
+      var paramsToMap = function(params, arr, seperator = '&') {
+        var vars = params.split(seperator);
 
         for (let i = 0; i < vars.length; i++) {
-          const pair = vars[i].split('=');
-          arr[pair[0]] = pair[1];
+          var pair = vars[i].split('=');
+          arr[pair[0]] = pair[1] || true;
         }
       };
 
@@ -48,16 +48,24 @@
        */
 
       if (hashParamsMap.view === 'dataset' && hashParamsMap.resource) {
-        const resourceURI = hashParamsMap.resource;
-        const entryPart = resourceURI.split('/store/');
-        const [context, resourceString, dataset] = entryPart[1].split('/'); // TODO huge guess
-        location.href = `/catalog/${context}/datasets/${dataset}${queryParams}`;
+        var resourceURI = hashParamsMap.resource;
+        var entryPart = resourceURI.split('/store/');
+        var earr = entryPart[1].split('/'); // TODO huge guess
+        var context = earr[0];
+        var resourceString = earr[1];
+        var dataset = earr[2];
+        location.href = '/catalog/'+context+'/datasets/'+dataset+queryParams;
       }
     </script>
     <script>
-      const css = (href) => document.write(`<link rel="stylesheet" href="${href}"/>`);
-      const js = (src, dataMain = "") =>
-        document.write(`\x3Cscript data-main="${dataMain}" src="${src}">\x3C/script>`);
+      var css = function(href) {
+        document.write('<link rel="stylesheet" href="'+href+'"/>');
+      };
+      var js = function(src, dataMain) {
+        dataMain = dataMain || '';
+        document.write('\x3Cscript data-main="'+dataMain+'" src="'+src+'">\x3C/script>');
+      };
+
     </script>
     <script>
       /**
@@ -69,10 +77,10 @@
        *  - starts with other char  -> src = /theme/path
        */
       if (queryParamsMap.localconfig) {
-        const localPath = queryParamsMap.localconfig;
-        const src = localPath === 'true' ?
+        var localPath = queryParamsMap.localconfig;
+        var src = localPath === 'true' ?
           '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-            localPath : `/theme${localPath}`);
+            localPath : '/theme'+localPath);
         js(src);
       }
     </script>
@@ -84,17 +92,17 @@
         Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
-      const path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
+      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
         'https://static.entryscape.com';
 
-      const version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
+      var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
       require = {};
 
 
-      css(`${path}/libs/fontawesome/css/font-awesome.min.css`);
-      css(`${path}/libs/fuelux/dist/css/fuelux.min.css`);
-      css(`${path}/libs/flag-icon-css/css/flag-icon.min.css`);
-      css(`${path}/libs/jstree-bootstrap-theme/dist/themes/proton/style.css`);
+      css(path+'/libs/fontawesome/css/font-awesome.min.css');
+      css(path+'/libs/fuelux/dist/css/fuelux.min.css');
+      css(path+'/libs/flag-icon-css/css/flag-icon.min.css');
+      css(path+'/libs/jstree-bootstrap-theme/dist/themes/proton/style.css');
 
       /**
        * load the right css/js for the given config/queryParams
@@ -104,11 +112,11 @@
         js('release/all.js');
       } else if (queryParamsMap.debug) {
         require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
-        css(`${path}/style.css`);
+        css(path+'/style.css');
         js('/libs/requirejs/require.js', '/config/deps');
       } else {
-        css(`${path}/suite/${version}/style.css`);
-        js(`${path}/suite/${version}/all.js`);
+        css(path+'/suite/${version}/style.css');
+        js(path+'/suite/${version}/all.js');
       }
     </script>
 </head>
