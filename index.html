@@ -18,7 +18,8 @@
     <title>EntryScape</title>
     <script src="/config/local.js"></script>
     <script defer>
-      var paramsToMap = function(params, arr, seperator = '&') {
+      var paramsToMap = function(params, arr, seperator) {
+        seperator = seperator || '&';
         var vars = params.split(seperator);
 
         for (let i = 0; i < vars.length; i++) {
