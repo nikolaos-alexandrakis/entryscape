@@ -17,7 +17,7 @@
           crossorigin="anonymous">
     <title>EntryScape</title>
     <script src="/config/local.js"></script>
-    <script>
+    <script defer>
       var paramsToMap = function(params, arr, seperator = '&') {
         var vars = params.split(seperator);
 
@@ -40,8 +40,7 @@
 
       paramsToMap(hashParams.substring(1), hashParamsMap);
       paramsToMap(queryParams.substring(1), queryParamsMap);
-    </script>
-    <script>
+
       /** HACK redirect any hash params that look like
        * #view=datasets&resource=http://www.entryscape.com/someEntryURI
        * to /catalog/:context/datasets/:dataset
@@ -56,8 +55,7 @@
         var dataset = earr[2];
         location.href = '/catalog/'+context+'/datasets/'+dataset+queryParams;
       }
-    </script>
-    <script>
+
       var css = function(href) {
         document.write('<link rel="stylesheet" href="'+href+'"/>');
       };
@@ -66,8 +64,6 @@
         document.write('\x3Cscript data-main="'+dataMain+'" src="'+src+'">\x3C/script>');
       };
 
-    </script>
-    <script>
       /**
        * if there's a localconfig query param load a script src
        *
@@ -83,8 +79,7 @@
             localPath : '/theme'+localPath);
         js(src);
       }
-    </script>
-    <script defer>
+
       /**
        * if __entryscape_config_dev is defined already then override values in __entryscape_config
        */
