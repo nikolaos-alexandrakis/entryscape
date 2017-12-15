@@ -18,12 +18,12 @@
     <title>EntryScape</title>
     <script src="/config/local.js"></script>
     <script>
-      const paramsToMap = (params, arr, seperator = '&') => {
+      const paramsToMap = function(params, arr, seperator = '&') {
         const vars = params.split(seperator);
 
         for (let i = 0; i < vars.length; i++) {
           const pair = vars[i].split('=');
-          arr.set(pair[0], pair[1]);
+          arr[pair[0]] = pair[1];
         }
       };
 
@@ -34,9 +34,9 @@
        * {Map} queryParamsMap
        */
       window.hashParams = window.location.hash;
-      window.hashParamsMap = new Map();
+      window.hashParamsMap = {};
       window.queryParams = window.location.search;
-      window.queryParamsMap = new Map();
+      window.queryParamsMap = {};
 
       paramsToMap(hashParams.substring(1), hashParamsMap);
       paramsToMap(queryParams.substring(1), queryParamsMap);
@@ -47,8 +47,8 @@
        * to /catalog/:context/datasets/:dataset
        */
 
-      if (hashParamsMap.get('view') === 'dataset' && hashParamsMap.has('resource')) {
-        const resourceURI = hashParamsMap.get('resource');
+      if (hashParamsMap.view === 'dataset' && hashParamsMap.resource) {
+        const resourceURI = hashParamsMap.resource;
         const entryPart = resourceURI.split('/store/');
         const [context, resourceString, dataset] = entryPart[1].split('/'); // TODO huge guess
         location.href = `/catalog/${context}/datasets/${dataset}${queryParams}`;
@@ -68,8 +68,8 @@
        *  - starts with '.' or '/'  -> src = path
        *  - starts with other char  -> src = /theme/path
        */
-      if (queryParamsMap.get('localconfig')) {
-        const localPath = queryParamsMap.get('localconfig');
+      if (queryParamsMap.localconfig) {
+        const localPath = queryParamsMap.localconfig;
         const src = localPath === 'true' ?
           '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
             localPath : `/theme${localPath}`);
@@ -84,7 +84,7 @@
         Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
-      const path = queryParamsMap.has('localbuild') || queryParamsMap.has('debug') ? '' :
+      const path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
         'https://static.entryscape.com';
 
       const version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
@@ -99,10 +99,10 @@
       /**
        * load the right css/js for the given config/queryParams
        */
-      if (queryParamsMap.has('localbuild') && !queryParamsMap.has('debug')) {
+      if (queryParamsMap.localbuild && !queryParamsMap.debug) {
         css('release/style.css', path);
         js('release/all.js');
-      } else if (queryParamsMap.has('debug')) {
+      } else if (queryParamsMap.debug) {
         require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
         css(`${path}/style.css`);
         js('/libs/requirejs/require.js', '/config/deps');
