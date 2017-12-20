@@ -5,7 +5,11 @@ __entryscape_config = {
     reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
      theme: {
         appName: "", //Shown after logo
-        logoFileName: "logo.png",
+        logo: { // logo configuration
+           icon: '', // icon only logo (file). Defaults to EntryScape logo if needed
+           full: 'goteborg.png', // logo with icon and text (file). Text is ignored
+           text: 'EntryScape', // Part of Logo, either appName or text are used. appName has precedence
+        },
         oneRowNavbar: false, //Will try to fit breadcrumbs after logo if true.
         showModuleNameInHeader: false, //Shows current module in header if true, otherwise all modules are shown as icons
         localTheme: true, //If a local theme should be used
