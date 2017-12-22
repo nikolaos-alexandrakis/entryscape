@@ -103,7 +103,7 @@
       /**
        * load the right css/js for the given config/queryParams
        */
-      if (queryParamsMap.localbuild && !queryParamsMap.debug) {
+      if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
         css('release/style.css', path);
         js('release/all.js');
       } else if (queryParamsMap.debug) {
