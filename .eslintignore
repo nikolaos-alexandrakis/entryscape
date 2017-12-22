@@ -1,0 +1,6 @@
+# common libs
+libs/*
+node_modules/*
+release/*
+nls/*
+tests/*

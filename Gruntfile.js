@@ -1,5 +1,5 @@
 module.exports = (grunt) => {
-  grunt.task.loadTasks('config/js/tasks');
+  grunt.task.loadTasks('node_modules/entryscape-js/tasks');
 
   grunt.config.merge({
     nls: {

@@ -1,5 +1,5 @@
 require.config({
-  baseUrl: './libs', // Path relative to bootstrapping html file.
+  baseUrl: '/libs', // Path relative to bootstrapping html file.
   paths: {
     // Paths relative baseUrl, only those that deviate from baseUrl/{modulename} are explicitly
     // listed.
@@ -13,8 +13,8 @@ require.config({
     fuelux: 'fuelux/js',
     bootstrap: 'bootstrap-amd/lib',
     bmd: 'bmd/dist',
-    bmddtp: "bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker",
-    selectize: "selectize/js/selectize",
+    bmddtp: 'bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker',
+    selectize: 'selectize/js/selectize',
     select2: 'select2/src/js',
     jquery: 'jquery/src',
     sizzle: 'sizzle/dist/sizzle',
@@ -51,7 +51,7 @@ require.config({
     {
       name: 'select2',
       location: 'select2/src/js',
-      main: "jquery.select2"
+      main: 'jquery.select2',
     },
   ],
   map: {

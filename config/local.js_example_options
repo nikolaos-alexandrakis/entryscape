@@ -5,11 +5,26 @@ __entryscape_config = {
     reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
      theme: {
         appName: "", //Shown after logo
-        logoFileName: "logo.png",
+        logo: { // logo configuration
+           icon: '', // icon only logo (file). Defaults to EntryScape logo if needed
+           full: 'goteborg.png', // logo with icon and text (file). Text is ignored
+           text: 'EntryScape', // Part of Logo, either appName or text are used. appName has precedence
+        },
         oneRowNavbar: false, //Will try to fit breadcrumbs after logo if true.
         showModuleNameInHeader: false, //Shows current module in header if true, otherwise all modules are shown as icons
         localTheme: true, //If a local theme should be used
-        localHTML: true //Will check for privacy[_xx].html and cookie[_xx].html in local theme folder (only use together with localTheme)
+        localHTML: true //Will check for privacy[_xx].html and cookie[_xx].html in local theme folder (only use together with localTheme),
+        footer:
+        {
+            text : { en : '<a href="https://sandbox.oppnadata.se"> Sandbox.oppnadata.se </a> is a service to upload open data in the data portal created for <a href = "http: // www. government.se/regeringsopdrag/2016/07/contract-secretaryarchive-for-conditional-authorities-work-with-to-account-data-forvidderutnyttjande/&quot;"> governments mission to the National Archives </a> by <a target="_blank" href="http://www.metasolutions.se">MetaSolutions AB </a> ',
+                sv: '<a href="https://sandbox.oppnadata.se">Sandbox.oppnadata.se</a> är en tjänst för att ladda upp öppna data i dataportalen framtagen för <a href="http://www.regeringen.se/regeringsuppdrag/2016/07/uppdrag-till-riksarkivet-att-framja-statliga-myndigheters-arbete-med-att-tillgangliggora-data-for-vidareutnyttjande/&quot;">regeringens uppdrag till Riksarkivet</a>av <a target="_blank" href="http://www.metasolutions.se"> MetaSolutions AB </a> ',},
+            buttons: [
+                { text : 'entryscape-commons/theme/privacy_en', link : {en: "Imprint"}, textHeader : {en: "Imprint", sv: "Header på svenska"}, faIcon: "angle-double-right", },
+                { text : 'entryscape-commons/theme/privacy_en',link : {en: "Data protection"}, textHeader : {en: 'Data protection', sv: "Header på svenska"}, faIcon: "angle-double-right", },
+                //{ text : "path/to/file.html", link : {en: "impressum"}, textHeader: {'Impressum bla bla'}, faIcon: "facode"}
+            ]
+        },
+
     },
     itemstore: {
         "bundles": [

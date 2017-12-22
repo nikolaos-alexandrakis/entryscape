@@ -1,45 +1,122 @@
 <!DOCTYPE html>
-<html><head>
+<html>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
     <title>EntryScape</title>
-    <script src="config/local.js"></script>
-    <script>
-        var localbuild = document.location.search.indexOf("localbuild") > 0 ||
-                (__entryscape_config && __entryscape_config.localBuild);
-        var debug = document.location.search.indexOf("debug") > 0;
-        var publicView = document.location.search.indexOf("publicView") > 0;
-        var path = localbuild || debug ? "" : "https://static.entryscape.com/";
-        var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
-        var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || "stable";
-        var require = {};
+    <script src="/config/local.js"></script>
+    <script defer>
+      var paramsToMap = function(params, arr, seperator) {
+        seperator = seperator || '&';
+        var vars = params.split(seperator);
 
-        css("libs/fontawesome/css/font-awesome.min.css");
-        css("libs/fuelux/dist/css/fuelux.min.css");
-        css("libs/flag-icon-css/css/flag-icon.min.css");
-        css("libs/jstree-bootstrap-theme/dist/themes/proton/style.css");
-
-        if (localbuild && !debug) {
-            css("release/style.css");
-            document.write('<script src="release/all.js"><\/script>');
-        } else if (debug) {
-            require.config = {"dojo/has": {"config-deferredInstrumentation": true}};
-            css("style.css");
-            document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
-        } else {
-            css("suite/" + version + "/style.css");
-            document.write('<script src="'+path+'suite/' + version + '/all.js"><\/script>');
+        for (let i = 0; i < vars.length; i++) {
+          var pair = vars[i].split('=');
+          arr[pair[0]] = pair[1] || true;
         }
+      };
+
+      /**
+       * get query params
+       *
+       * {String} queryParams
+       * {Map} queryParamsMap
+       */
+      window.hashParams = window.location.hash;
+      window.hashParamsMap = {};
+      window.queryParams = window.location.search;
+      window.queryParamsMap = {};
+
+      paramsToMap(hashParams.substring(1), hashParamsMap);
+      paramsToMap(queryParams.substring(1), queryParamsMap);
+
+      /** HACK redirect any hash params that look like
+       * #view=datasets&resource=http://www.entryscape.com/someEntryURI
+       * to /catalog/:context/datasets/:dataset
+       */
+
+      if (hashParamsMap.view === 'dataset' && hashParamsMap.resource) {
+        var resourceURI = hashParamsMap.resource;
+        var entryPart = resourceURI.split('/store/');
+        var earr = entryPart[1].split('/'); // TODO huge guess
+        var context = earr[0];
+        var resourceString = earr[1];
+        var dataset = earr[2];
+        location.href = '/catalog/'+context+'/datasets/'+dataset+queryParams;
+      }
+
+      var css = function(href) {
+        document.write('<link rel="stylesheet" href="'+href+'"/>');
+      };
+      var js = function(src, dataMain) {
+        dataMain = dataMain || '';
+        document.write('\x3Cscript data-main="'+dataMain+'" src="'+src+'">\x3C/script>');
+      };
+
+      /**
+       * if there's a localconfig query param load a script src
+       *
+       * path values and respective script src:
+       *  - true                    -> src = '/theme/local.js.local'
+       *  - starts with '.' or '/'  -> src = path
+       *  - starts with other char  -> src = /theme/path
+       */
+      if (queryParamsMap.localconfig) {
+        var localPath = queryParamsMap.localconfig;
+        var src = localPath === 'true' ?
+          '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
+            localPath : '/theme'+localPath);
+        js(src);
+      }
+
+      /**
+       * if __entryscape_config_dev is defined already then override values in __entryscape_config
+       */
+      if (window.__entryscape_config_dev) {
+        Object.assign(__entryscape_config, __entryscape_config_dev);
+      }
+
+      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
+        'https://static.entryscape.com';
+
+      var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
+      require = {};
+
+
+      css(path+'/libs/fontawesome/css/font-awesome.min.css');
+      css(path+'/libs/fuelux/dist/css/fuelux.min.css');
+      css(path+'/libs/flag-icon-css/css/flag-icon.min.css');
+      css(path+'/libs/jstree-bootstrap-theme/dist/themes/proton/style.css');
+
+      /**
+       * load the right css/js for the given config/queryParams
+       */
+      if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
+        css('release/style.css', path);
+        js('release/all.js');
+      } else if (queryParamsMap.debug) {
+        require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
+        css(path+'/style.css');
+        js('/libs/requirejs/require.js', '/config/deps');
+      } else {
+        css(path+'/suite/'+version+'/style.css');
+        js(path+'/suite/'+version+'/all.js');
+      }
     </script>
 </head>
 <body class="nav-md">
-   <div id="controlNode"></div>
+<div id="controlNode"></div>
 </body>
 </html>
