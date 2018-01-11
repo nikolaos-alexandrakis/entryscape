@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmer <matthias@metasolutions.se>"
@@ -14,7 +14,7 @@
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.5",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.5",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#1.3",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.5.1",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.5.2",
     "di18n": "https://bitbucket.org/metasolutions/di18n.git#0.5",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git"
   },
