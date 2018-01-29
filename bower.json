@@ -16,7 +16,8 @@
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#1.3",
     "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.5.2",
     "di18n": "https://bitbucket.org/metasolutions/di18n.git#0.5",
-    "mithriljs": "https://github.com/MithrilJS/mithril.js.git"
+    "mithriljs": "https://github.com/MithrilJS/mithril.js.git",
+    "jquery": "~3.2.1"
   },
   "license": "AGPLv3",
   "private": true,
