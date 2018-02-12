@@ -4,8 +4,6 @@ First you must have an Entrystore instance running and also serve EntryScape Sui
 
     npm install
     grunt install
-    git submodule init
-    git submodule update
     cd config
     cp local.js_example local.js
 
@@ -13,6 +11,6 @@ Finally, you need to provide a local configuration, see the examples in `config/
 
 As a minimum you need to make sure the `repository` key points to a working EntryStore installation.
 
-You should now be able to run EntryScape Suite by pointing your browser to the `index.html` file. Note that you can debug by appending `?debug=true`. (Debugging only works if you have installed all dependencies, this is done in the build step, but you can do it explicitly via `grunt install`.
+You should now be able to run EntryScape Suite by pointing your browser to the `index.html` file. Note that you can debug by appending `?debug`. (Debugging only works if you have installed all dependencies, this is done in the build step, but you can do it explicitly via `grunt install`.
 
 Note also that the EntryScape web-application should run on the same domain and port as EntryStore unless you activate CORS in EntryStore.
