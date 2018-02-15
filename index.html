@@ -104,8 +104,8 @@
        * load the right css/js for the given config/queryParams
        */
       if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
-        css('release/style.css', path);
-        js('release/all.js');
+        css('/release/style.css', path);
+        js('/release/all.js');
       } else if (queryParamsMap.debug) {
         require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
         css(path+'/style.css');
