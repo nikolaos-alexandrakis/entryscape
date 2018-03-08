@@ -80,7 +80,7 @@ require.config({
       // dependencies to specific dependencies).
       'jquery/selector': 'jquery/selector-sizzle', // Always use the jquery sizzle selector engine.
     },
-    'store/rest': {
+    'store/Rest': {
       'dojo/request': 'dojo/request/xhr', // Force using xhr since we know we are in the browser
       'dojo/request/iframe': 'dojo/request/iframe', // Override above line for iframe path.
       'dojo/request/script': 'dojo/request/script',
