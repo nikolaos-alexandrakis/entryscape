@@ -10,6 +10,11 @@ __entryscape_config = {
            full: 'goteborg.png', // logo with icon and text (file). Text is ignored
            text: 'EntryScape', // Part of Logo, either appName or text are used. appName has precedence
         },
+        default: {
+          appName: 'EntryScape',
+          logo: 'https://static.entryscape.com/resources/entryscape.svg',
+          themePath: 'entryscape-commons/theme/',
+        },
         oneRowNavbar: false, //Will try to fit breadcrumbs after logo if true.
         showModuleNameInHeader: false, //Shows current module in header if true, otherwise all modules are shown as icons
         localTheme: true, //If a local theme should be used
