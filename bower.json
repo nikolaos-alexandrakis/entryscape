@@ -17,7 +17,7 @@
     "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
-    "di18n": "https://bitbucket.org/metasolutions/di18n.git#0.5",
+    "di18n": "https://bitbucket.org/metasolutions/di18n.git#develop",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git",
     "jquery": "~3.2.1"
   },
@@ -33,7 +33,6 @@
     "jstree": "~3.2.1",
     "dojo": "1.12.2",
     "dijit": "1.12.2",
-    "di18n": "0.5",
     "bootstrap": "3.3.7",
     "jquery": "~3.2.1"
   }
