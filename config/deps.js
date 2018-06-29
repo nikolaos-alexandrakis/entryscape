@@ -132,7 +132,7 @@ require.config({
     'entryscape-catalog/search/Search',
     'entryscape-catalog/search/DatasetSearch',
     'entryscape-commons/rdforms/GeonamesChooser',
-    'entryscape-commons/rdforms/GeoChooser',
+    'entryscape-commons/rdforms/spatial/GeoChooser',
     'entryscape-commons/rdforms/SkosChooser',
     'entryscape-commons/rdforms/EntryChooser',
     'templates/skos/skos',
