@@ -16,6 +16,7 @@
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
     "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
+    "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git#master",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
     "di18n": "https://bitbucket.org/metasolutions/di18n.git#develop",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git",
@@ -28,8 +29,6 @@
     "libs"
   ],
   "resolutions": {
-    "rdforms": "develop",
-    "rdfjson": "develop",
     "jstree": "~3.2.1",
     "dojo": "1.12.2",
     "dijit": "1.12.2",
