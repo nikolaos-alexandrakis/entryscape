@@ -131,6 +131,7 @@ require.config({
     'entryscape-catalog/public/Public',
     'entryscape-catalog/search/Search',
     'entryscape-catalog/search/DatasetSearch',
+    'entryscape-catalog/documents/DocumentsList',
     'entryscape-commons/rdforms/GeonamesChooser',
     'entryscape-commons/rdforms/GeoChooser',
     'entryscape-commons/rdforms/SkosChooser',
