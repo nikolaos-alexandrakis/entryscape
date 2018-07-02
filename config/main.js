@@ -11,6 +11,11 @@ define([
       appName: 'EntryScape',
       oneRowNavbar: false,
       localTheme: false,
+      default: {
+        appName: 'EntryScape',
+        logo: '/assets/entryscape.svg',
+        themePath: 'entryscape-commons/theme/',
+      },
     },
     locale: {
       fallback: 'en',
@@ -95,7 +100,7 @@ define([
       },
       moduleList: ['catalog', 'terms', 'workbench', 'search', 'admin'],
     },
-  }, __entryscape_config);
+  }, __entryscape_config, window.__entryscape_config_dev || {});
 
   let bestlang;
   for (let i = 0; i < config.locale.supported.length; i++) {

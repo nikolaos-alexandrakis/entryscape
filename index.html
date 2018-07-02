@@ -76,16 +76,9 @@
       if (queryParamsMap.localconfig) {
         var localPath = queryParamsMap.localconfig;
         var src = localPath === 'true' ?
-          '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-            localPath : '/theme'+localPath);
+          '/config/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
+            localPath : '/config/'+localPath);
         js(src);
-      }
-
-      /**
-       * if __entryscape_config_dev is defined already then override values in __entryscape_config
-       */
-      if (window.__entryscape_config_dev) {
-        Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
       var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
