@@ -7,3 +7,4 @@ libs/
 /*.iml
 /theme
 /node_modules
+package-lock.json

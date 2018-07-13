@@ -76,16 +76,9 @@
       if (queryParamsMap.localconfig) {
         var localPath = queryParamsMap.localconfig;
         var src = localPath === 'true' ?
-          '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-            localPath : '/theme'+localPath);
+          '/config/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
+            localPath : '/config/'+localPath);
         js(src);
-      }
-
-      /**
-       * if __entryscape_config_dev is defined already then override values in __entryscape_config
-       */
-      if (window.__entryscape_config_dev) {
-        Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
       var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
@@ -104,8 +97,8 @@
        * load the right css/js for the given config/queryParams
        */
       if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
-        css('release/style.css', path);
-        js('release/all.js');
+        css('/release/style.css', path);
+        js('/release/all.js');
       } else if (queryParamsMap.debug) {
         require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
         css(path+'/style.css');

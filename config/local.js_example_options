@@ -1,6 +1,8 @@
 __entryscape_config = {
     entrystore: {
         repository: "http://localhost:8080/store/"
+        defaultSolrLimit: 15,
+        defaultSolrQuery: 'all' // only all or title is supported, title is default.
     },
     reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
      theme: {
@@ -9,6 +11,11 @@ __entryscape_config = {
            icon: '', // icon only logo (file). Defaults to EntryScape logo if needed
            full: 'goteborg.png', // logo with icon and text (file). Text is ignored
            text: 'EntryScape', // Part of Logo, either appName or text are used. appName has precedence
+        },
+        default: {
+          appName: 'EntryScape',
+          logo: 'https://static.entryscape.com/resources/entryscape.svg',
+          themePath: 'entryscape-commons/theme/',
         },
         oneRowNavbar: false, //Will try to fit breadcrumbs after logo if true.
         showModuleNameInHeader: false, //Shows current module in header if true, otherwise all modules are shown as icons
