@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "1.6.0-SNAPSHOT",
+  "version": "1.6.0",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmer <matthias@metasolutions.se>"
@@ -10,15 +10,15 @@
     "amd"
   ],
   "dependencies": {
-    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
-    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
-    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
-    "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git#master",
-    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
-    "di18n": "https://bitbucket.org/metasolutions/di18n.git#develop",
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#1.4",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.6",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.6",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#1.4",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.6",
+    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#8.0",
+    "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git#essu1.6",
+    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#1.4",
+    "di18n": "https://bitbucket.org/metasolutions/di18n.git#0.5",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git",
     "jquery": "~3.2.1"
   },
