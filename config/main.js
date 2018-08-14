@@ -13,9 +13,10 @@ define([
       localTheme: false,
       default: {
         appName: 'EntryScape',
-        logo: '/assets/entryscape.svg',
+        logo: 'https://static.entryscape.com/assets/entryscape.svg',
         themePath: 'entryscape-commons/theme/',
       },
+      assetsPath: 'https://static.entryscape.com/assets/',
     },
     locale: {
       fallback: 'en',

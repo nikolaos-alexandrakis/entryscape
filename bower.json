@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmer <matthias@metasolutions.se>"
@@ -14,7 +14,7 @@
     "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.6",
     "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.6",
     "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#1.4",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.6.1",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.6.2",
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#8.1",
     "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git#essu1.6",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#1.4",
@@ -34,7 +34,7 @@
     "dijit": "1.12.2",
     "bootstrap": "3.3.7",
     "jquery": "~3.2.1",
-    "entryscape-commons": "1.6.1",
+    "entryscape-commons": "1.6.2",
     "rdforms": "8.1"
   }
 }
