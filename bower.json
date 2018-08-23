@@ -1,6 +1,6 @@
 {
   "name": "entryscape-suite",
-  "version": "1.6.3",
+  "version": "2.0-SNAPSHOT",
   "authors": [
     "Hannes Ebner <hannes@metasolutions.se>",
     "Matthias Palmer <matthias@metasolutions.se>"
@@ -10,15 +10,15 @@
     "amd"
   ],
   "dependencies": {
-    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#1.4",
-    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#1.6.1",
-    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#1.6",
-    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#1.4",
-    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#1.6.3",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#8.1.1",
+    "entryscape-workbench": "https://bitbucket.org/metasolutions/entryscape-workbench.git#develop",
+    "entryscape-catalog": "https://bitbucket.org/metasolutions/entryscape-catalog.git#develop",
+    "entryscape-admin": "https://bitbucket.org/metasolutions/entryscape-admin.git#develop",
+    "entryscape-terms": "https://bitbucket.org/metasolutions/entryscape-terms.git#develop",
+    "entryscape-commons": "https://bitbucket.org/metasolutions/entryscape-commons.git#develop",
+    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "rdforms-templates": "https://bitbucket.org/metasolutions/rdforms-templates.git#essu1.6.3",
-    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#1.4",
-    "di18n": "https://bitbucket.org/metasolutions/di18n.git#0.5",
+    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
+    "di18n": "https://bitbucket.org/metasolutions/di18n.git#develop",
     "mithriljs": "https://github.com/MithrilJS/mithril.js.git",
     "jquery": "~3.2.1"
   },
@@ -34,9 +34,9 @@
     "dijit": "1.12.2",
     "bootstrap": "3.3.7",
     "jquery": "~3.2.1",
-    "entryscape-commons": "1.6.3",
-    "entryscape-catalog": "1.6.1",
+    "entryscape-commons": "develop",
+    "entryscape-catalog": "develop",
     "rdforms-templates": "essu1.6.3",
-    "rdforms": "8.1.1"
+    "rdforms": "develop"
   }
 }
