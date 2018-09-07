@@ -1,4 +1,0 @@
-# Ignore bower.json when merging since it has different dependencies in master and develop.
-# Requires that you have created a "ours" merge driver and bound it to the "true" command,
-# you can do that by executing: git config --global merge.ours.driver true
-bower.json merge=ours
