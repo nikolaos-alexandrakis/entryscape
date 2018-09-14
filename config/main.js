@@ -1,8 +1,8 @@
-import merge from 'entryscape-commons/merge';
-import adminConfig from 'entryscape-admin/config/adminConfig';
-import catalogConfig from 'entryscape-catalog/config/catalogConfig';
-import termsConfig from 'entryscape-terms/config/termsConfig';
-import workbenchConfig from 'entryscape-workbench/config/workbenchConfig';
+import merge from 'commons/merge';
+import adminConfig from 'admin/config/adminConfig';
+import catalogConfig from 'catalog/config/catalogConfig';
+import termsConfig from 'terms/config/termsConfig';
+import workbenchConfig from 'workbench/config/workbenchConfig';
 import {i18n} from 'esi18n';
 
 const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
