@@ -5,6 +5,12 @@ import termsConfig from 'terms/config/termsConfig';
 import workbenchConfig from 'workbench/config/workbenchConfig';
 import {i18n} from 'esi18n';
 
+import Site from 'commons/nav/Site';
+import Layout from 'commons/nav/Layout';
+import Signin from 'commons/nav/Signin';
+import Permission from 'commons/nav/Permission';
+import Start from 'commons/nav/Start';
+
 const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
   theme: {
     appName: 'EntryScape',
@@ -56,9 +62,10 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       'templates/entryscape/esc',
     ],
   },
+
   site: {
-    siteClass: 'entryscape-commons/nav/Site', // mandatory
-    controlClass: 'entryscape-commons/nav/Layout', // mandatory
+    siteClass: Site, // mandatory
+    controlClass: Layout, // mandatory
     startView: 'start', // mandatory
     signinView: 'signin',
     permissionView: 'permission',
@@ -67,7 +74,7 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       signin: {
         name: 'signin',
         title: {en: 'Sign in/out', sv: 'Logga in/ut', da: 'Login/ud', de: 'An-/Abmelden'},
-        class: 'entryscape-commons/nav/Signin',
+        class: Signin,
         constructorParams: {nextView: 'start'},
         route: '/signin',
       },
@@ -79,12 +86,12 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
           da: 'Login/ud',
           de: 'An-/Abmelden',
         },
-        class: 'entryscape-commons/nav/Permission',
+        class: Permission,
         route: '/permission',
       },
       start: {
         name: 'start',
-        class: 'entryscape-commons/nav/Start',
+        class: Start,
         title: {en: 'Start', sv: 'Start', da: 'Start', de: 'Start'},
         route: '/start',
       },
