@@ -16,7 +16,7 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <title>EntryScape</title>
-    <script src="/config/local.js"></script>
+    <script src="./src/config/local.js"></script>
     <script defer>
       var paramsToMap = function(params, arr, seperator) {
         seperator = seperator || '&';
@@ -76,35 +76,39 @@
       if (queryParamsMap.localconfig) {
         var localPath = queryParamsMap.localconfig;
         var src = localPath === 'true' ?
-          '/config/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-            localPath : '/config/'+localPath);
+          '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
+            localPath : '/theme'+localPath);
         js(src);
       }
 
-      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' :
-        'https://static.entryscape.com';
+      /**
+       * if __entryscape_config_dev is defined already then override values in __entryscape_config
+       */
+      if (window.__entryscape_config_dev) {
+        Object.assign(__entryscape_config, __entryscape_config_dev);
+      }
+
+      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' : 'https://static.entryscape.com';
 
       var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
-      require = {};
 
-
-      css(path+'/libs/fontawesome/css/font-awesome.min.css');
-      css(path+'/libs/fuelux/dist/css/fuelux.min.css');
-      css(path+'/libs/flag-icon-css/css/flag-icon.min.css');
-      css(path+'/libs/jstree-bootstrap-theme/dist/themes/proton/style.css');
+      // TODO ?
+      // css(path+'/libs/fontawesome/css/font-awesome.min.css');
+      // css(path+'/libs/fuelux/dist/css/fuelux.min.css');
+      // css(path+'/libs/flag-icon-css/css/flag-icon.min.css');
+      // css(path+'/libs/jstree-bootstrap-theme/dist/themes/proton/style.css');
 
       /**
        * load the right css/js for the given config/queryParams
        */
       if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
-        css('/release/style.css', path);
-        js('/release/all.js');
+        css('/dist/style.css', path); // TODO suite.style.css
+        js('/dist/suite.all.js');
       } else if (queryParamsMap.debug) {
-        require.config = { 'dojo/has': { 'config-deferredInstrumentation': true } };
-        css(path+'/style.css');
-        js('/libs/requirejs/require.js', '/config/deps');
+        // css(path+'/style.css'); // TODO
+        js(path+'/dist/suite.all.js');
       } else {
-        css(path+'/suite/'+version+'/style.css');
+        // css(path+'/suite/'+version+'/style.css');
         js(path+'/suite/'+version+'/all.js');
       }
     </script>
