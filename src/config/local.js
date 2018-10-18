@@ -106,5 +106,52 @@ __entryscape_config = {
       importDialog: false,
     },
   },
+  entitytypes: {
+    "workofart": {
+      label: {en: "Work of Art", sv: "Konstverk"},
+      rdfType: "https://opendata.statenskonstrad.se/terms/WorkOfArt",
+      template: "skr:WorkOfArt",
+      includeInternal: true,
+      inlineCreation: true,
+      templateLevel: "recommended"
+    },
+    "artist": {
+      label: {en: "Artist", sv: "Konstnär"},
+      rdfType: "https://opendata.statenskonstrad.se/terms/Artist",
+      template: "foaf:Person",
+      includeInternal: true,
+      inlineCreation: true,
+      templateLevel: "recommended"
+    },
+    "image": {
+      label: {en: "Image", sv: "Bild"},
+      rdfType: "http://schema.org/ImageObject",
+      template: "foaf:Image",
+      includeFile: true,
+      includeLink: true,
+      includeInternal: true,
+      inlineCreation: true,
+      templateLevel: "recommended",
+      contentviewers: ['imageview']
+    },
+    "location": {
+      label: {en: "Property Unit", sv: "Fastighet"},
+      rdfType: "http://www.cadastralvocabulary.org/CaLAThe/PropertyUnit",
+      template: "skr:PropertyUnit",
+      includeInternal: true,
+      includeLink: true,
+      inlineCreation: true,
+      templateLevel: "recommended"
+    },
+    "address": {
+      label: {en: "Address", sv: "Adress"},
+      rdfType: "http://schema.org/PostalAddress",
+      template: "skr:PostalAddress",
+      includeInternal: true,
+      includeLink: true,
+      inlineCreation: true,
+      templateLevel: "recommended"
+    }
+  },
   reCaptchaSiteKey: '6LeraBITAAAAAETQ_-wpGZOJ7a9jKRpF1g8OYc2O',
 };

@@ -6,7 +6,7 @@ import termsSiteConfig from 'terms/config/site';
 
 import Site from 'commons/nav/Site';
 import Layout from 'commons/nav/Layout';
-import Start from 'registry/nav/Start';
+import Start from 'commons/nav/Start';
 import Signin from 'commons/nav/Signin';
 import Permission from 'commons/nav/Permission';
 
