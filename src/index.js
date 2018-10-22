@@ -15,7 +15,6 @@ import 'bmd/dist/css/bootstrap-material-design.css';
 import 'bmd/dist/css/ripples.css';
 import 'bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css';
 import 'font-awesome/css/font-awesome.css';
-import "commons/module.css";
 import "chartist/dist/chartist.min.css"; // TODO ?
 
 import initDefaults from './defaults';
