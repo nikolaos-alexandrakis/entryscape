@@ -57,9 +57,6 @@
         location.href = '/catalog/'+context+'/datasets/'+dataset+queryParams;
       }
 
-      var css = function(href) {
-        document.write('<link rel="stylesheet" href="'+href+'"/>');
-      };
       var js = function(src, dataMain) {
         dataMain = dataMain || '';
         document.write('\x3Cscript data-main="'+dataMain+'" src="'+src+'">\x3C/script>');
@@ -86,27 +83,6 @@
        */
       if (window.__entryscape_config_dev) {
         Object.assign(__entryscape_config, __entryscape_config_dev);
-      }
-
-      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' : 'https://static.entryscape.com';
-
-      var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
-
-      // TODO ?
-      // css(path+'/libs/fontawesome/css/font-awesome.min.css');
-      // css(path+'/libs/fuelux/dist/css/fuelux.min.css');
-      // css(path+'/libs/flag-icon-css/css/flag-icon.min.css');
-      // css(path+'/libs/jstree-bootstrap-theme/dist/themes/proton/style.css');
-
-      /**
-       * load the right css/js for the given config/queryParams
-       */
-      if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
-        css('/style.css', path); // TODO suite.style.css
-      } else if (queryParamsMap.debug) {
-        // css(path+'/style.css'); // TODO
-      } else {
-        // css(path+'/suite/'+version+'/style.css');
       }
     </script>
 </head>
