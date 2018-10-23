@@ -7,7 +7,7 @@ import adminDefaults from 'admin/defaults'; // init catalog
 import siteConfig from './config/site';
 
 export default () => {
-  registry.setSiteConfig(siteConfig);
+  registry.set('siteConfig', siteConfig);
   commonsDefaults();
   catalogDefaults();
   termsDefaults();
