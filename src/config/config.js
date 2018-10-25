@@ -54,7 +54,7 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       'templates/dcat-ap/dcat-ap_props',
       'templates/dcat-ap/dcat-ap',
       'templates/entryscape/esc',
-      'templates/example/art',
+      // 'templates/example/art',
     ],
   },
 }, __entryscape_config, window.__entryscape_config_dev || {});

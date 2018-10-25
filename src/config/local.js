@@ -1,7 +1,7 @@
 __entryscape_config = {
   staticBuildVersion: '1.5.2',
   entrystore: {
-    repository: 'https://dev.entryscape.com/store',
+    repository: 'https://v.dev.entryscape.com/store',
   },
   registry: {
     type2template: {
