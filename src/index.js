@@ -19,4 +19,4 @@ import "chartist/dist/chartist.min.css"; // TODO ?
 
 import initDefaults from './defaults';
 
-initDefaults(); // init defaults
+export default initDefaults(); // init defaults

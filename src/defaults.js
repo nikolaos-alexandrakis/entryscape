@@ -13,4 +13,5 @@ export default () => {
   termsDefaults();
   workbenchDefaults();
   adminDefaults();
+  return registry;
 };
