@@ -1,5 +1,4 @@
 __entryscape_config = {
-  staticBuildVersion: '1.5.2',
   entrystore: {
     repository: 'https://v.dev.entryscape.com/store',
   },
@@ -32,11 +31,6 @@ __entryscape_config = {
       full: 'logo.png', // logo with icon and text (file). Text is ignored
       text: 'EntryScape', // Part of Logo, either appName or text are used. appName has precedence
     },
-  },
-  itemstore: {
-    bundles: [
-      'templates/rdfs/rdfs',
-    ],
   },
   entitytypes: {
     art: {

@@ -6,6 +6,13 @@ import termsConfig from 'terms/config/config';
 import {i18n} from 'esi18n';
 
 const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
+  entryscape: {
+    static: {
+      url: 'https://static.entryscape.com/',
+      app: 'suite',
+      version: 'latest',
+    }
+  },
   theme: {
     appName: 'EntryScape',
     oneRowNavbar: false,
@@ -45,16 +52,15 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
     ],
   },
   itemstore: {
-    '!bundles': [
-      'templates/skos/skos',
-      'templates/dcterms/dcterms',
-      'templates/foaf/foaf',
-      'templates/vcard/vcard',
-      'templates/odrs/odrs',
-      'templates/dcat-ap/dcat-ap_props',
-      'templates/dcat-ap/dcat-ap',
-      'templates/entryscape/esc',
-      // 'templates/example/art',
+    'defaultBundles': [
+      'skos',
+      'dcterms',
+      'foaf',
+      'vcard',
+      'odrs',
+      'dcat-ap_props',
+      'dcat-ap',
+      'esc',
     ],
   },
 }, __entryscape_config, window.__entryscape_config_dev || {});

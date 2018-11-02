@@ -86,7 +86,7 @@
 
       var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' : 'https://static.entryscape.com';
 
-      var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || 'stable';
+      var version = (__entryscape_config && __entryscape_config.entryscape.static.version) || 'stable';
 
       /**
        * load the right css/js for the given config/queryParams
