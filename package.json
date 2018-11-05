@@ -60,6 +60,7 @@
     "pre-commit": "^1.2.2",
     "q": "^1.5.0",
     "raw-loader": "^0.5.1",
+    "request": "*",
     "style-loader": "^0.20.3",
     "svg-inline-loader": "^0.8.0",
     "ttf-loader": "^1.0.2",
@@ -71,8 +72,7 @@
     "webpack-merge": "^4.1.4",
     "webpack-node-externals": "^1.6.0",
     "webpack-sources": "^1.2.0",
-    "yalc": "^1.0.0-pre.23",
-    "request": "*"
+    "yalc": "^1.0.0-pre.23"
   },
   "scripts": {
     "build:suite": "webpack --config webpack.suite.js --mode=production",

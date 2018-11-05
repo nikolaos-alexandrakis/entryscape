@@ -1108,7 +1108,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-loader@^8.0.2:
+babel-loader@^8.0.2, babel-loader@^8.0.4:
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.4.tgz#7bbf20cbe4560629e2e41534147692d3fecbdce6"
   dependencies:
@@ -3245,7 +3245,7 @@ escope@^3.6.0:
 
 "esi18n@https://bitbucket.org/metasolutions/esi18n.git#develop":
   version "1.0.0"
-  resolved "https://bitbucket.org/metasolutions/esi18n.git#dc02756af6a126c8de2c18fb1ce6d9c184c91f26"
+  resolved "https://bitbucket.org/metasolutions/esi18n.git#d3fbe1ff6c1df882052c2ecae5fdd7c694bd14b3"
   dependencies:
     dojo "^1.14.1"
     lodash-es "^4.17.10"
@@ -7310,11 +7310,13 @@ rc@^1.1.2, rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#8ea544e3dbb0f6761f033bb118a3380f6b7b900e"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#73ac2f6c54241f0e8483264376d34631d9d1fa50"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
-    babel-loader "^8.0.2"
+    "@babel/plugin-syntax-dynamic-import" "^7.0.0"
+    "@babel/polyfill" "^7.0.0"
+    babel-loader "^8.0.4"
     bootstrap "^3.3.7"
     bootstrap-material-datetimepicker "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#amd"
     bootstrap-material-design "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd"

@@ -205,15 +205,6 @@ export default {
     }],
   },
   itemstore: {
-    bundles: [
-      'templates/dcterms/dcterms',
-      'templates/foaf/foaf',
-      'templates/vcard/vcard',
-      'templates/odrs/odrs',
-      'templates/dcat-ap/dcat-ap_props',
-      'templates/dcat-ap/dcat-ap',
-      'templates/entryscape/esc',
-    ],
     choosers: [
       'EntryChooser',
       'GeonamesChooser',
