@@ -1,4 +1,5 @@
 import TreeModel from 'commons/tree/TreeModel';
+import 'jstree';
 
 export default class extends TreeModel {
   constructor(params) {

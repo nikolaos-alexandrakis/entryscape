@@ -1,8 +1,9 @@
 import m from 'mithril';
 import config from 'config';
+import leaflet from 'leaflet';
 import utils from '../utils';
 import '../escoSpatial.css';
-let leaflet;
+// let leaflet;
 
 const Map = (vnode) => {
 
@@ -123,8 +124,9 @@ const Map = (vnode) => {
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
       unfocusInputs = vnode.attrs.unfocusInputs;
 
-     import(/* webpackChunkName: "leaflet" */ 'leaflet').then( leafletImport => {
-       leaflet = leafletImport.default;
+     // import([> webpackChunkName: "leaflet" <] 'leaflet').then( leafletImport => {
+       // leaflet = leafletImport.default;
+       console.log(leaflet);
         const map = getConstructedMap(vnode.dom);
         state.map = map;
 
@@ -135,8 +137,8 @@ const Map = (vnode) => {
           this.addEditControls(map);
         }
 
-        m.redraw();
-      });
+        // m.redraw();
+      // });
     },
     onbeforeupdate(vnode, oldVnode) {
       const oldValue = oldVnode.attrs.value;

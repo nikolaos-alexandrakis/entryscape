@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const path = require('path');
 const DojoWebpackPlugin = require('dojo-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const getAlias = (name, type = 'module') => path.resolve(path.join(__dirname, 'src', type, name, 'src'));
 
@@ -112,7 +113,7 @@ module.exports = (env, argv) => {
   if (argv.mode === 'production') {
     config = merge(config, {
       optimization: {
-        minimize: true,
+        minimizer: [ new UglifyJsPlugin() ],
       },
     });
   }
