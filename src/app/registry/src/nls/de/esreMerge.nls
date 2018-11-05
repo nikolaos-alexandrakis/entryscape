@@ -1,0 +1,10 @@
+{
+  "mergeHeader": "Zusammenführen mehrerer Kataloge",
+  "mainCatalogHeader": "Hauptkatalog",
+  "mergeCatalogListHeader": "Kataloge, welche mit dem Hauptkatalog zusammengeführt werden",
+  "addMergeCatalog": "Hinzufügen",
+  "loadTitle": "Katalog laden",
+  "loadButton": "Laden",
+  "loadButtonTitle": "Katalog als RDF laden",
+  "mergeCatalogsButtonIntoMain": "Zusammenführen"
+}

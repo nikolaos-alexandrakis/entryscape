@@ -1,0 +1,14 @@
+{
+  "pipelineResultRowHeader": "Organisationsdetails und Harvesting Status",
+  "pipelineResultRowButton": "Schließen",
+  "orgId": "Organisationskennung",
+  "userId": "E-Mail-Adresse",
+  "dcatAPI": "Harvestingquelle",
+  "psiPage": "PSI-Daten-Webadresse",
+  "notFound": "Nicht gefunden",
+  "openSeparateReportWindow": "Direktverweis",
+  "openSeparateReportWindowTitle": "Ein neues Fenster mit diesen Informationen öffnen",
+  "harvestingLatestX": "{{PLURAL:$1|Letzter Harvesting-Versuch|Die letzten $1 Harvesting-Versuche}}",
+  "pRcreateButtonLabel": "Neu laden",
+  "pRcreatePopoverTitle": "Erstellt neuen Hintergrundjob, um den Katalog von der Harvestingquelle zu laden und zu validieren"
+}

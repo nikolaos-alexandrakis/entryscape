@@ -1,0 +1,4 @@
+{
+  "upgradeToDataset": "Vill du uppgradera kandidaten till en reguljär datamängd?",
+  "mandatoryFail": "Du kan inte uppgradera då följande obligatoriska steg i checklistan inte är markerade som klara:"
+}

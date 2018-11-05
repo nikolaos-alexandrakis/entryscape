@@ -1,0 +1,9 @@
+{
+  "root": {
+    "downgradeToCdataset": "Do you want downgrade this dataset to a candidate dataset?",
+    "downgradeFail": "This dataset is public and therefore cannot be downgraded."
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

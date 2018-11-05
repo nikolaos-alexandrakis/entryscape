@@ -1,0 +1,14 @@
+{
+  "root": {
+    "popoverHelpTitle": "Imported metadata",
+    "popoverHelpContent": "This panel contains metadata that has been imported or harvested from other systems. Imported metadata cannot be edited as changes are overwritten upon reimport/reharvest. Use the form below to provide metadata in addition to the imported metadata.",
+    "externalMetadataHeader": "Imported metadata",
+    "showmoreTitle": "Click to see more metadata",
+    "showmoreLabel": "Show more",
+    "showlessTitle": "Click to see less metadata",
+    "showlessLabel": "Show less"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

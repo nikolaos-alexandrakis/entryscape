@@ -1,0 +1,31 @@
+{
+  "root": {
+    "createCollectionButton": "Create collection",
+    "createCollectionHeader": "Create collection",
+    "createCollection": "Create collection",
+    "createCollectionPopoverTitle": "Create collection",
+    "manageMembers": "Concepts",
+    "manageMembersTitle": "Manage concepts in collection",
+    "manageMembersHeader": "Manage concepts",
+    "manageMembersButton": "Save",
+    "removeCollection": "Remove",
+    "removeCollectionTitle": "Remove collection",
+    "removeEntryConfirm": "Do you want to remove the collection?",
+    "editCollection": "Edit",
+    "editCollectionTitle": "Edit collection metadata",
+    "collectionMembers": "The collection contains {{PLURAL:$1|one concept|$1 concepts}}",
+    "manageMemberAbortOrNot": "The concepts of this collection have changed, discard changes?",
+    "discardMemberChanges": "Discard changes",
+    "continueMemberChanges": "Keep editing",
+    "collectionExportTitle": "Download collection",
+    "collectionConflictMessage": "The collection has been modified by another user and needs to be reloaded before you can continue.",
+    "collectionConflictOk": "OK",
+    "collectionConflictResolved": "The collection has been reloaded. You may have to perform your changes again.",
+    "emptyListWarning": "Collections you create will appear here",
+    "reasonForRevisionMessage": "Concepts have been added and/or removed since the previous revision",
+    "noRevertSameGraphExcludeTitle": "There is nothing to revert. The latest revision is identical except for information that cannot be reverted easily (e.g. relationships to member concepts).",
+    "revertExcludeMessage": "Concepts will neither be added nor removed from the collection."
+  },
+  "sv": true,
+  "de": true
+}

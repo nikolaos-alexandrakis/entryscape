@@ -1,0 +1,12 @@
+{
+  "root": {
+    "exportText": "The export includes all concepts of the collection.",
+    "exportFormatSelect": "Select format",
+    "exportURLLabel": "Web address of collection",
+    "downloadLabel": "Download collection",
+    "downloadButton": "Download collection",
+    "exportHeaderLabel": "Collection export"
+  },
+  "sv": true,
+  "de": true
+}

@@ -1,0 +1,12 @@
+{
+  "deleteLinkedEntry": "Entfernen",
+  "editLinkedEntry": "Bearbeiten",
+  "saveLinkedEntry": "Speichern",
+  "cancelLinkedEntry": "Abbrechen",
+  "addLinkedEntryButtonLabel": "Hinzufügen",
+  "contentViewDialogHeader": "Information",
+  "contentViewDialogCloseLabel": "Schließen",
+  "loadingImage": "Bild wird geladen",
+  "imageCannotBeLoaded": "Bild konnte nicht geladen werden",
+  "noImageProvided": "Kein Bild vorhanden"
+}

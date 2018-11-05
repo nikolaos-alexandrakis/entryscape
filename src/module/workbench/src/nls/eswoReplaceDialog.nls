@@ -1,0 +1,13 @@
+{
+  "root": {
+    "replaceFileHeader": "Change file",
+    "replaceLinkHeader": "Change link",
+    "replaceFileFooterButton": "Change file",
+    "replaceLinkFooterButton": "Change link",
+    "currentLink": "Current link",
+    "newFile": "New file",
+    "newLink": "New link"
+  },
+  "sv": true,
+  "de": true
+}

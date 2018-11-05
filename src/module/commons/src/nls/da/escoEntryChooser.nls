@@ -1,0 +1,8 @@
+{
+  "searchForHeader": "Søg efter entitet for '$1'",
+  "errorMessage": "Ingen entiteter fundet for '$1'. En entitet for '$1' skal oprettes før at den kan vælges i denna liste.",
+  "searchLabel": "Søg",
+  "createLabel": "Opret",
+  "createEntryType": "Opret '$1'",
+  "currentValueMark": "nuværende værdi"
+}

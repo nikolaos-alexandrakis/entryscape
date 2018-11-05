@@ -1,0 +1,8 @@
+{
+  "exportText": "Der Export beinhaltet alle Top- und Narrow-Concepts der Terminologie, jedoch keine Sammlungen.",
+  "exportFormatSelect": "Format wählen",
+  "exportURLLabel": "Webadresse der Terminologie",
+  "downloadLabel": "Terminologie herunterladen",
+  "downloadButton": "Terminologie herunterladen",
+  "exportHeaderLabel": "Terminologieexport"
+}

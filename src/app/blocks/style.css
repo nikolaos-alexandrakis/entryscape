@@ -1,0 +1,253 @@
+@import "libs/rdforms/view/bootstrap/base.css";
+@import "libs/entryscape-commons/list/list.css";
+@import "libs/entryscape-commons/errors/errors.css";
+@import "libs/entryscape-commons/query/style.css";
+@import "libs/selectize/css/selectize.bootstrap3.css";
+@import "libs/chartist/dist/chartist.min.css";
+@import "fixes.css";
+
+/* --- RDForms different defaults --- */
+
+.entryscape .rdformsPresenter .rdformsField {
+    background: transparent;
+}
+
+/* --- Slider block --- */
+
+.entryscape .slider-container {
+  max-width: 400px;
+  min-width: 300px;
+}
+.entryscape .slider-img{
+  width: 100%;
+}
+
+/* --- List block, common card classes --- */
+.entryscape .cardList-body {
+  max-width: 400px;
+  min-width: 300px;
+  box-shadow: 0px 1px 5px #555;
+  background-color: white !important;
+  position: relative;
+  top: 0;
+  transition: all .1s ease-in;
+  margin: 10px;
+  display: inline-block;
+}
+.entryscape .cardList-header {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.entryscape .cardList-body:hover {
+  top: -2px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.entryscape .cardList-title {
+  margin: 1em;
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+.entryscape .cardList-description {
+  margin: 1em;
+  margin-top: 0;
+  padding: .5rem;
+  line-height: 1.6em;
+}
+
+.entryscape .img-container {
+  max-width: 400px;
+}
+
+.entryscape img {
+  width: 100%;
+  max-height: 100%;
+}
+.entryscape .cardLayout>*>*>.entryList.regular  {
+  column-count: 1;
+  column-gap: 10px;
+    max-width: 1200px;
+}
+
+@media (min-width: 620px) {
+    .entryscape .cardLayout>*>*>.entryList.regular {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 960px) {
+    .entryscape .cardLayout>*>*>.entryList.regular {
+        column-count: 3;
+    }
+}
+
+/* Error code style */
+.entryscape-boot-error {
+    color: red;
+    text-decoration: underline;
+    overflow: hidden;
+}
+.entryscape-boot-error:hover {
+    color: darkred;
+    cursor: pointer;
+    overflow: visible;
+}
+
+/* --- MultiSearch css --- */
+
+.selectize-control.multi .selectize-input > div.item {
+    padding: 2px 4px !important; /* important needed because of important from commons */
+}
+
+.selectize-control.multi .selectize-input .group {
+    padding-right: 5px;
+}
+
+.selectize-control.multi .selectize-input .fa-remove {
+    padding-left: 5px;
+}
+
+/* --- Pagination not visible per default --- */
+
+.multiplePages .entryPaginationFiller {
+    display: none !important;
+}
+
+/* --- Facet css --- */
+.entryscape .block_facet h3 {
+    width: 100%;
+    padding: 5px 10px;
+    border-bottom: 1px solid grey;
+    margin: 10px 0px;
+}
+
+.entryscape .block_facet ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.entryscape .block_facet li {
+    line-height: 27px;
+    display: block;
+    padding: 2px 33px 2px 10px;
+    cursor: pointer;
+    position: relative;
+}
+.entryscape .block_facet li.selected {
+    background: white;
+    cursor: default;
+}
+
+.entryscape .block_facet li:hover {
+    background: white;
+}
+
+.entryscape .block_facet>button {
+    margin-right: 10px;
+}
+
+.entryscape .block_facet li>button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 4px 10px;
+}
+
+.entryscape .block_facet .occurence {
+    margin-left: 6px;
+}
+
+.popover-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.popover-content {
+    font-size: small;
+}
+
+/* --- specific layout - move elsewhere --- */
+
+.entryList .vmiddle.entryControls {
+    vertical-align: top;
+}
+
+.entryList .entryRow .entryControls button {
+    visibility: visible;
+}
+
+.esbTag {
+    padding: 3px 10px;
+    border: 1px solid lightgrey;
+    background: white;
+    margin-right: 5px;
+    line-height: 30px;
+}
+
+.esbIndent {
+    margin: 0px 15px;
+}
+
+.esbRowHead--pullRight {
+    float:right;
+    margin-top:10px;
+}
+
+.expanded .esbRowHead {
+    max-height: 800px;
+}
+
+.esbRowHead {
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height 0.5s linear 0s;
+    margin: 0 0 0 15px;
+}
+
+.esbRowHead--large {
+    margin-bottom: 15px;
+}
+
+.esbRowExpand {
+    margin: 15px;
+}
+
+.esbRowExpand .escoList .entryList .regular > div {
+    background: white;
+    border-top: 1px solid #ededed;
+}
+
+.esbRowExpand .escoList .entryList .regular > div:first-child {
+    border-top-width: 0px;
+}
+
+.esbRowHead>.label {
+    margin-right: 10px;
+}
+
+.esbRowHead>.pull-right.btn {
+    margin-left: 10px;
+}
+
+/*-- Generic layout classes --*/
+
+.esbMain {
+    max-width: 1200px;
+    margin: 20px;
+}
+
+.esb2Col {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px;
+}
+.esb2Col__sidebar {
+    max-width: 300px;
+    margin-right: 20px;
+    background: #ededed;
+}

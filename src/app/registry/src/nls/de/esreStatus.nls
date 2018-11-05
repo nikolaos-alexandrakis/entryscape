@@ -1,0 +1,14 @@
+{
+  "creationDateTitle": "Quelle überprüft am ${date}",
+  "listSearchPlaceholder": "Suchen nach... (es müssen mindestens 3 Zeichen eingegeben werden)",
+  "organizationLabel": "Bezirk/Verwaltungsbehörde",
+  "otherOrgLabel": "Organisationsname",
+  "psiPageLabel": "PSI-Daten-Webadresse",
+  "dcatAPLabel": "Datensätze",
+  "checkedLabel": "Überprüft",
+  "organizationTitle": "Organisation im öffentlichen Sektor, z.B. Gemeinde oder Behörde",
+  "otherOrgTitle": "Organisation im privaten Sektor, z.B. Unternehmen oder NGO",
+  "psiPageTitle": "Webseite für Open Data/PSI-Daten gefunden",
+  "dcatAPTitle": "Maschinenlesbarer Katalog mit Datensätzen gefundenen",
+  "checkedTitle": "Zeitpunkt der letzten Überprüfung der Organisation"
+}

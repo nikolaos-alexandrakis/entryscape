@@ -1,0 +1,17 @@
+{
+  "root": {
+    "createButton": "Create",
+    "createHeader": "Create new document",
+    "createButtonLabel": "Create document",
+    "createPopoverMessage": "Create a document either as link or by uploading a file",
+    "replaceLinkMenu": "Change link",
+    "replaceLinkMenuTitle": "Change link",
+    "replaceFileMenu": "Change file",
+    "replaceFileMenuTitle": "Change file",
+    "confirmDocumentRemove": "Do you want to remove this document?",
+    "downloadButton": "Download",
+    "downloadButtonTitle": "Download file"
+  },
+  "sv": true,
+  "de": true
+}

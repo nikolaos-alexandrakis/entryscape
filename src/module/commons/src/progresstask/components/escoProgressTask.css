@@ -1,0 +1,19 @@
+.escoProgressTask__resultListRow {
+    border: 0px;
+}
+.escoProgressTask__resultListRowIcon {
+   font-size: 24px;
+}
+.escoProgressTask__resultListRowSubTaskName {
+    font-size: 11px;
+}
+.escoProgressTask__resultListRowTaskName {
+    font-size: 16px;
+}
+.escoProgressTask__progressbar {
+    line-height: 30px;
+    font-size: 15px;
+}
+.escoProgressTask__progressbarDiv {
+    height: 30px;
+}

@@ -1,0 +1,10 @@
+{
+  "root": {
+    "manageFilesHeader": "Manage files",
+    "manageFilesFooterButton": "Done",
+    "reActivateAPI": "An API is already activated, do you want to refresh it?"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

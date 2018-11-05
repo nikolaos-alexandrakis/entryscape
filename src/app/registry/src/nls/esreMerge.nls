@@ -1,0 +1,14 @@
+{
+    "root": {
+        "mergeHeader": "Merge multiple catalogs",
+        "mainCatalogHeader": "Main catalog",
+        "mergeCatalogListHeader": "Catalogs to merge into main catalog",
+        "addMergeCatalog": "Add",
+        "loadTitle": "Load a catalog",
+        "loadButton": "Load",
+        "loadButtonTitle": "Load catalog as RDF",
+        "mergeCatalogsButtonIntoMain": "Merge"
+    },
+    "sv": true,
+    "de": true
+}

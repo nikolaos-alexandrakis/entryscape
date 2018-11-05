@@ -1,0 +1,5 @@
+{
+  "entityTypesHeader": "Wählen Sie Objekttypen für dieses Projekt",
+  "entityTypesFooter": "Speichern",
+  "errorMessage": "Das Projekt muss mit mindestens einem Objekttyp konfiguriert sein."
+}

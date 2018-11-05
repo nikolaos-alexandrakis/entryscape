@@ -1,0 +1,18 @@
+{
+    "root": {
+        "pipelineResultRowHeader": "Organization information and harvesting status",
+        "pipelineResultRowButton": "Close",
+        "openSeparateReportWindow": "Direct link",
+        "openSeparateReportWindowTitle": "Open a new window with this information",
+        "orgId": "Organization identifier",
+        "userId": "Email address",
+        "harvestingLatestX": "Latest {{PLURAL:$1|harvest|$1 harvesting}} attempts",
+        "dcatAPI": "Harvesting source",
+        "psiPage": "PSI-data web page",
+        "notFound": "Not found",
+        "pRcreateButtonLabel": "Reharvest",
+        "pRcreatePopoverTitle": "Adds a new background job to fetch and validate catalog from harvesting source"
+    },
+    "sv": true,
+    "de": true
+}

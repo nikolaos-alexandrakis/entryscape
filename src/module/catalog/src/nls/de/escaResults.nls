@@ -1,0 +1,13 @@
+{
+  "createEntryName": "Showcase",
+  "privateResultTitle": "Dieser Showcase ist nicht öffentlich, hier klicken um die Zugriffsrechte zu ändern",
+  "privateDisabledResultTitle": "Dieser Katalog ist nicht öffentlich, daher können Sie diesen Showcase nicht öffentlich machen",
+  "publicResultTitle": "Dieser Showcase ist öffentlich, hier klicken um die Zugriffsrechte zu ändern",
+  "confirmRemoveResult": "Soll dieser Showcase entfernt werden?",
+  "createHeader": "Showcase erstellen",
+  "createButtonLabel": "Showcase erstellen",
+  "createPopoverTitle": "Showcase zu einem Datensatz hinzufügen",
+  "createButton": "Showcase erstellen",
+  "editEntry": "Bearbeiten",
+  "emptyListWarning": "Showcases, die Sie erstellen, werden hier angezeigt"
+}

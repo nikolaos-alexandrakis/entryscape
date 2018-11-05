@@ -1,0 +1,9 @@
+{
+  "root": {
+    "showIdeasDialogHeader": "Ideas for dataset \"$1\"",
+    "emptyListWarning": "There are no ideas for this dataset."
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

@@ -1,0 +1,32 @@
+{
+  "root": {
+    "createTerm": "Create concept",
+    "selectedTermDesc": "Create concept in",
+    "termLabelPlaceholder": "Name of concept",
+    "saveButton": "Save",
+    "saveProcessingButton": "Saving...",
+    "revertButton": "Revert",
+    "revertProcessingButton": "Reverting...",
+    "deleteButton": "Delete",
+    "deleteProcessingButton": "Deleting...",
+    "conceptChangedMessage": "You have unsaved changes, if you continue those changes will be lost.",
+    "continueAbandonChanges": "Continue",
+    "continueEditing": "Cancel",
+    "cannotRemoveTermTree": "The concept has subconcepts, you have to remove those first.",
+    "confirmRemoveTerm": "Remove concept \"$1\"?",
+    "concurrentConflictMessage": "At least one concept has been modified by another user. The tree needs to be reloaded before you can continue.",
+    "concurrentConflictOk": "OK",
+    "treeInconsistentMessage": "There seems to be a problem with this terminology.",
+    "treeInconsistentPromptLabel": "Repair now",
+    "treeFixSuccessMessage": "The terminology has been repaired.",
+    "treeFixErrorMessage": "The terminology could not be repaired.",
+    "cannotReorderTerm": "Changing the order of concepts on the same level is not supported.",
+    "emptyListWarning": "Concepts you create will appear here",
+    "emptyTreeWarning": "Details of the concept you select will appear here",
+    "reasonForRevisionMessage": "The concept's position in the hierarchy, which children it has or which collections it belongs to have changed since the previous revision.",
+    "noRevertSameGraphExcludeTitle": "There is nothing to revert. Latest revision is identical except for information that cannot be easily reverted (e.g. its place in the hierarchy, it's subconcepts as well as its membership in collections).",
+    "revertExcludeMessage": "The concept's position in the hierarchy, its children and its membership in collections will not be modified."
+  },
+  "sv": true,
+  "de": true
+}

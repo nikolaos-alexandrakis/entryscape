@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" />
+
+
+  <script src="https://static.entryscape.com/libs/jquery/dist/jquery.min.js"></script>
+  <script src="https://static.entryscape.com/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://static.entryscape.com/libs/fontawesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <title>ES Cards detail view</title>
+</head>
+
+<body>
+
+<header class="nav--header">
+
+  <button  class="btn--green btn--xl"type="button" name="button" onclick="window.location.href = 'javascript:history.back()'">
+    <i class="fas fa-chevron-left"></i>
+    <span>Gå tillbaka</span>
+  </button>
+</header>
+
+<main class="main--flex">
+  <div class="WorkOfArt__wrapper column">
+    <div data-entryscape="slider" data-entryscape-property="schema:image"
+         data-entryscape-caption="dc:rights"
+         data-entryscape-fallback="https://images.pexels.com/photos/821652/pexels-photo-821652.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></div>
+    <div class="WorkOfArt__description" data-entryscape="text" data-entryscape-content="${dcterms:description}"></div>
+    <div class="WorkOfArt__map">
+      <p>Hitta hit</p>
+      <div data-entryscape="map"></div>
+    </div>
+  </div>
+
+    <div class="WorkOfArt__metadata">
+      <span data-entryscape="skrArtist"></span>
+      <div data-entryscape="viewMetadata"
+           data-entryscape-template="skr:WorkOfArt"
+           data-entryscape-filterpredicates="schema:image,dcterms:description,dcterms:creator,schema:address,schema:location,skr:environment"
+           data-entryscape-onecol="true"></div>
+      <div data-entryscape="viewMetadata"
+           data-entryscape-template="skr:PostalAddress"
+           data-entryscape-relation="schema:address"
+           data-entryscape-onecol="true"></div>
+      <div data-entryscape="viewMetadata"
+           data-entryscape-template="skr:PropertyUnit"
+           data-entryscape-relation="schema:location"
+           data-entryscape-onecol="true"></div>
+    </div>
+
+</main>
+<script src="skr.js"></script>
+<script src="../init.js"></script>
+</body>
+</html>

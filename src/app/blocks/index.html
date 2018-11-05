@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+
+    <script src="libs/jquery/dist/jquery.min.js"></script>
+    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap-theme.min.css"/>
+
+    <title>EntryScape Blocks</title>
+</head>
+<body>
+    <span data-entryscape="true" data-entryscape-component="link" data-entryscape-content="Hej ho <strong>${label}</strong>" data-entryscape-template="dcat:OnlyDataset" data-entryscape-relation-invers="dcat:dataset" data-entryscape-entry="4" data-entryscape-context="3" data-entryscape-define="entry"></span>
+
+    <span data-entryscape="true" data-entryscape-component="viewMetadata" data-entryscape-use="entry"  data-entryscape-template="dcat:OnlyDataset" data-entryscape-click="http://example.com/"></span>
+
+    <span data-entryscape="true" data-entryscape-component="search" data-entryscape-rdftype="dcat:Dataset" data-entryscape-template="dcat:OnlyDataset" data-entryscape-click="http://example.com/"></span>
+
+    <script src="config/local.js"></script>
+    <script>
+        var localbuild = document.location.search.indexOf("localbuild") > 0 ||
+                (__entryscape_config && __entryscape_config.localBuild);
+        var debug = document.location.search.indexOf("debug") > 0;
+        var path = localbuild || debug ? "" : "https://static.entryscape.com/";
+        var css = function(url) {document.write('<link rel="stylesheet" href="'+path+url+'"/>');};
+        var version = (__entryscape_config && __entryscape_config.staticBuildVersion) || "stable";
+
+        css("libs/fontawesome/css/font-awesome.min.css");
+        css("libs/fuelux/dist/css/fuelux.min.css");
+        css("libs/flag-icon-css/css/flag-icon.min.css");
+        css("libs/jstree-bootstrap-theme/dist/themes/proton/style.css");
+
+        if (localbuild && !debug) {
+            css("dist/style.css");
+            document.write('<script src="dist/all.js"><\/script>');
+        } else if (debug) {
+            css("style.css");
+            document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
+        } else {
+            css("blocks/latest/blocks.css");
+            document.write('<script src="'+path+'blocks/' + version + '/blocks.js"><\/script>');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<div>
+    <div data-dojo-attach-point="dialog">
+        <header>
+            <span class="navbar-brand sidebarTitle" data-dojo-attach-point="nls,titleNode">geoNamesHeader</span>
+        </header>
+        <div class="geonamesChooser">
+            <ol class="breadcrumb" data-dojo-attach-point="path">
+            </ol>
+
+            <div class="selection bs-callout bs-callout-success">
+                <h4 data-dojo-attach-point="name"></h4>
+                <label data-dojo-attach-point="nls">latitude</label>:&nbsp;<span data-dojo-attach-point="lat"></span><br>
+                <label data-dojo-attach-point="nls">longitude</label>:&nbsp;<span data-dojo-attach-point="lng"></span><br>
+                <label data-dojo-attach-point="nls">population</label>:&nbsp;<span data-dojo-attach-point="pop"></span>
+                <button type="button" class="btn btn-success pull-right"
+                        data-dojo-attach-event="onClick: select"
+                        data-dojo-attach-point="nls,doneLabelNode">geoNameSelect</button>
+
+            </div>
+            <div class="childGeonames">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-dojo-attach-point="subdivision"></div>
+                    <div class="list-group" data-dojo-attach-point="list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

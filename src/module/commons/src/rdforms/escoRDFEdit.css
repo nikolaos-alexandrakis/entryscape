@@ -1,0 +1,33 @@
+.escoRDFEdit {
+    position: relative;
+    min-height: 200px;
+}
+
+.escoRDFEdit .nav-tabs li a {
+    cursor: default;
+}
+
+.escoRDFEdit .tab-content .tab-pane {
+    height: 100%;
+}
+
+.escoRDFEdit .tab-content {
+    position: absolute;
+    top: 41px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.escoRDFEdit .tab-content textarea {
+    width: 100%;
+    height: 95%;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    overflow: auto;
+    font-family: monospace;
+}
+
+.escoRDFEdit .tab-content .form-group{
+    height: 100%;
+}

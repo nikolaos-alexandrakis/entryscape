@@ -1,0 +1,13 @@
+{
+  "changeOrganizationHeader": "Ändern der Organisation auf ",
+  "changeOrganizationButton": "Ändern",
+  "psiLabel": "Öffentlicher Sektor",
+  "regularLabel": "Übrige",
+  "orgIdPlaceholder": "Geben Sie die Organisationskennung ein",
+  "psiURLPlaceholder": "http(s)://...",
+  "psiURL": "Öffentliche PSI-Daten-Webadresse",
+  "orgId": "Organisationskennung",
+  "emptyPsiURL": "Sie müssen eine PSI-Daten-Webadresse angeben",
+  "notValidOrgId": "Geben Sie eine gültige Organisationskennung ein",
+  "emptyOrgId": "Sie müssen eine Organisationskennung eingeben"
+}

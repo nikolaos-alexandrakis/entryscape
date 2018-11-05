@@ -1,0 +1,29 @@
+<div class = "panel panel-default"  data-dojo-attach-point="__external">
+    <div class ="panel-heading" >
+        <span data-dojo-attach-point="nls">externalMetadataHeader</span>
+        <div class="pull-right">
+            <a data-dojo-attach-point="__help" class=${bid}__link style="color: black;">
+                <i class="fa fa-question-circle"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body ${bid}__presenterPanel" data-dojo-attach-point="__presenterPanel">
+        <div class=${bid}__presenter" data-dojo-attach-point="__presenter"></div>
+        <div data-dojo-attach-point="__shader" class="${bid}__shader" style="display: none"></div>
+    </div>
+    <div class="panel-footer ${bid}__panelFooter" data-dojo-attach-point="__footerPanel">
+        <div class="text-center" data-dojo-attach-point="__showMore">
+            <span class="${bid}__expandHide" data-dojo-attach-point="nls" title="showmoreTitle" data-dojo-attach-event="onClick:showMore">
+                <i data-dojo-attach-point="__showMoreIcon" class="fa fa-angle-double-down"></i>
+                <span data-dojo-attach-point="nls">showmoreLabel</span>
+            </span>
+        </div>
+        <div class="text-center" data-dojo-attach-point="__showLess" style="display: none">
+            <span class="${bid}__expandHide" data-dojo-attach-point="nls" title="showlessTitle" data-dojo-attach-event="onClick:showLess">
+                <i class="fa fa-angle-double-up" ></i>
+                <span data-dojo-attach-point="nls">showlessLabel</span>
+            </span>
+        </div>
+    </div>
+</div>

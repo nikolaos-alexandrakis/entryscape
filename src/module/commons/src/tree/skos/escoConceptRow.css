@@ -1,0 +1,13 @@
+.escoConceptRow__name {
+}
+
+.escoConceptRow__path {
+    font-size: x-small;
+    font-weight: normal;
+    /* margin-left: 1em; */
+    color:#535353;
+}
+
+.escoConceptRow__icon {
+    margin-right: 8px;
+}

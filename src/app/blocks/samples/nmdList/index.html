@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="https://static.entryscape.com/libs/jquery/dist/jquery.min.js"></script>
+    <script src="https://static.entryscape.com/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/fontawesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+
+    <title>SKR Blocks</title>
+</head>
+<body>
+<section class="action-panel contact-form form rounded-blue-box" style="display: block;">
+    <h2>Sökformulär</h2>
+    <div class="container layout-1">
+        <div class="sub">
+            <label for="kommun"><span>Geografiskt område (kommun): </span></label>
+            <div
+                    id="kommun"
+                    name="kommun"
+                    data-entryscape="searchFilter"
+                    data-entryscape-collection="spatial">
+            </div>
+        </div>
+    </div>
+    <hr class="formDivider">
+    <div class="container layout-1">
+        <div class="sub">
+            <label for="myndighet"><span>Publicerande myndighet: </span></label>
+            <div
+                    id="myndighet"
+                    name="myndighet"
+                    data-entryscape="searchFilter"
+                    data-entryscape-collection="organization">
+            </div>
+        </div>
+    </div>
+    <hr class="formDivider">
+    <div class="container layout-1">
+        <div  class="sub">
+            <label for="foretag"><span>Företag/Verksamhetsutövare: </span></label>
+            <div
+                    id="foretag"
+                    name="foretag"
+                    data-entryscape="simpleSearch"
+                    data-entryscape-collection="verksamhetsutovare"
+                    data-entryscape-plain-input="true"
+                    data-entryscape-placeholder="Verksamhet">
+            </div>
+        </div>
+        <div class="sub">
+            <label for="organisationsnummer"><span>Organisationsnummer: </span></label>
+            <div
+                    id="organisationsnummer"
+                    name="organisationsnummer"
+                    data-entryscape="simpleSearch"
+                    data-entryscape-collection="organisationsnummer"
+                    data-entryscape-plain-input="true"
+                    data-entryscape-placeholder="0000">
+            </div>
+        </div>
+    </div>
+    <div class="container layout-1">
+        <div class="sub">
+            <label for="anlaggning"><span>Anläggningsnamn: </span></label>
+            <div
+                    id="anlaggning"
+                    name="anlaggning"
+                    data-entryscape="simpleSearch"
+                    data-entryscape-plain-input="true"
+                    data-entryscape-collection="objektNamn"
+                    data-entryscape-placeholder="Anläggning">
+            </div>
+        </div>
+    </div>
+    <hr class="formDivider">
+    <div class="container layout-1">
+        <div class="sub">
+            <label for="bransch"><span>Bransch: </span></label>
+            <div
+                    id="bransch"
+                    name="Bransch"
+                    data-entryscape="searchFilter"
+                    data-entryscape-collection="bransch">
+            </div>
+        </div>
+    </div>
+    <hr class="formDivider">
+    <div class="container layout-1">
+        <div class="sub">
+            <div class="searchfilters"><label>Dokumenttyp:</label>
+                <div
+                        data-entryscape="searchFilter"
+                        data-entryscape-collection="documenttype">
+                </div>
+            </div>
+        </div>
+        <div class="sub box_underkategori">
+                  <span
+                          data-entryscape="collectionText"
+                          data-entryscape-empty="<label class='dokumenttyp'>Underkategori:</label><div class='underkategori'>Välj ett värde för dokumenttyp först</div><br>"
+                          data-entryscape-template="<label>Underkategori - {{value}}:</label>"
+                          data-entryscape-collection="documenttype">
+                  </span>
+            <div
+                    data-entryscape="searchFilter"
+                    data-entryscape-if="documenttype"
+                    data-entryscape-collection="subject">
+            </div>
+        </div>
+    </div>
+    <div class="container layout-1">
+        <div class="sub">
+            <label for="arendebeteckning"><span>Ärendebeteckning: </span></label>
+            <div
+                    id="anlaggnarendebeteckninging"
+                    name="arendebeteckning"
+                    data-entryscape="simpleSearch"
+                    data-entryscape-plain-input="true"
+                    data-entryscape-property="nvvdok:arendebeteckning"
+                    data-entryscape-collection="arendebeteckning"
+                    data-entryscape-placeholder="Ärende">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div data-entryscape="nmdSearch"></div>
+<script src="nmd.js"></script>
+    <script src="../init.js"></script>
+</body>
+</html>

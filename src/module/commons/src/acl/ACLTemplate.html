@@ -1,0 +1,30 @@
+<div class="acl inheritedSharingMode">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="radio radio-primary">
+                <label data-dojo-attach-event="click:changeToInheritedSharing">
+                    <input type="radio" name="sharing" value="i" data-dojo-attach-point="inheritedOption">
+                    <div data-dojo-attach-point="nls">inheritedSharingLabel</div>
+                </label>
+            </div>
+            <div class="radio radio-primary">
+                <label data-dojo-attach-event="click:changeToCustomSharing">
+                    <input type="radio" name="sharing" value="o" data-dojo-attach-point="customOption">
+                    <div data-dojo-attach-point="nls">customSharingLabel</div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="inheritedSharing">
+        <div data-dojo-attach-point="contextAclListNode"></div>
+    </div>
+    <div class="explicitSharing">
+        <div data-dojo-attach-point="aclListNode"></div>
+    </div>
+    <div class="explicitSharing alert alert-info">
+        <div data-dojo-attach-point="nls">noteInheritedRights</div>
+        <span data-dojo-attach-point="nls">contextOwnersLabel</span>
+        <ul data-dojo-attach-point="ownersList"></ul>
+        <div class="principalName" data-dojo-attach-point="noContextOwners,nls">noContextOwners</div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+.idea/
+release/
+/nls/merged
+/merged-nls
+libs/
+/config/local.js
+/*.iml
+/theme
+/node_modules
+package-lock.json
+dist/

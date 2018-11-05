@@ -1,0 +1,12 @@
+{
+  "deleteLinkedEntry": "Ta bort",
+  "editLinkedEntry": "Redigera",
+  "saveLinkedEntry": "Spara",
+  "cancelLinkedEntry": "Avbryt",
+  "addLinkedEntryButtonLabel": "Lägg till",
+  "contentViewDialogHeader": "Information",
+  "contentViewDialogCloseLabel": "Stäng",
+  "loadingImage": "Laddar bild",
+  "imageCannotBeLoaded": "Bilden kunde inte laddas",
+  "noImageProvided": "Ingen bild angiven"
+}

@@ -1,0 +1,9 @@
+{
+  "popoverHelpTitle": "Importerade metadata",
+  "popoverHelpContent": "Denna panel innehåller metadata som har importerats eller skördats från andra system. Importerade metadata kan inte redigeras då eventuella lokala förändringar skulle förkastas vid återimport. Använd formuläret nedan för att tillhandahålla metadata utöver de importerade metadata.",
+  "externalMetadataHeader": "Importerade metadata",
+  "showmoreTitle": "Klicka här för att se mer metadata",
+  "showmoreLabel": "Visa mer",
+  "showlessTitle": "Klicka här för att se mindre metadata",
+  "showlessLabel": "Visa mindre"
+}

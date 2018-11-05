@@ -1,0 +1,21 @@
+<div>
+    <form data-dojo-attach-point="commentForm" onsubmit="return false;">
+        <div class="form-group ${bid}">
+            <label for="${id}-subject" class="${bid}__Label"
+                   data-dojo-attach-point="nls">subject</label>
+            <input id="${id}-subject" class="form-control ${bid}__subjectInput"
+                   data-dojo-attach-point="nls,__subjectInput"
+                   placeholder="subjectInput_placeholder" required>
+            <div class="text-danger" role="alert" style="display:none"
+                 data-dojo-attach-point="__subjectInputStatus"></div>
+            <label for="${id}-comment" class="${bid}__Label"
+                   data-dojo-attach-point="nls">comment</label>
+            <textarea class="form-control" class="${bid}_commentInput"
+                      data-dojo-attach-point="nls,__commentInput" rows="4"
+                      id="${id}-comment" placeholder="commentInput_placeholder" required></textarea>
+            <div class="text-danger" role="alert" style="display:none"
+                 data-dojo-attach-point="__commentInputStatus"></div>
+        </div>
+        <div data-dojo-attach-point="__commentsList"></div>
+    </form>
+</div>

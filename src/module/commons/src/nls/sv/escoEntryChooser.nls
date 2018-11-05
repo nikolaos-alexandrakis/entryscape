@@ -1,0 +1,8 @@
+{
+  "searchForHeader": "Sök efter entitet för fält \"$1\"",
+  "errorMessage": "Inga entiteter hittades för fält \"$1\". En entitet behöver skapas innan den kan väljas i denna lista.",
+  "searchLabel": "Sök",
+  "createLabel": "Skapa",
+  "createEntryType": "Skapa \"$1\"",
+  "currentValueMark": "aktuellt värde"
+}

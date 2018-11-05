@@ -1,0 +1,18 @@
+{
+  "root": {
+    "createEntryName": "idea",
+    "privateResultTitle": "This idea is not public, click to change",
+    "privateDisabledResultTitle": "The surrounding catalog is not public, therefore you cannot make the idea public",
+    "publicResultTitle": "This idea is public, click to change",
+    "confirmRemoveIdea": "Do you want to delete this idea?",
+    "createHeader": "Create idea",
+    "createButtonLabel": "Create idea",
+    "createPopoverTitle": "Create an idea for a dataset",
+    "createButton": "Create idea",
+    "editEntry": "Edit",
+    "emptyListWarning": "Ideas you create will appear here"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

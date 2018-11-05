@@ -1,0 +1,40 @@
+<div>
+    <div>
+        <div>
+            <label data-dojo-attach-point="nls">apiStatusLabel</label> <span data-dojo-attach-point="apiStatus"></span>
+            <button class="btn btn-sm btn-primary ${bid}__refreshButton" data-dojo-attach-point="__apiRefreshButton"
+                    data-dojo-attach-event="click:refreshAPIStatus">
+                <span data-dojo-attach-point="nls">refreshAPIState</span></button>
+        </div>
+        <div class="form-group">
+            <label data-dojo-attach-point="nls">apiId</label> <span data-dojo-attach-point="apiId"></span><br>
+            <label data-dojo-attach-point="nls">apiAlias</label>
+            <input type="text" class="form-control" placeholder="apiAliasNamePlaceholder" data-dojo-attach-point="nls,apiAlias"/>
+            <div class="${bid}__aliasButtons">
+                <label class="btn btn-sm alert alert-danger ${bid}__aliasError"  style="display: none" data-dojo-attach-point="__aliasError"></label>
+                <button type="button" class="btn btn-sm btn-primary pull-right ${bid}__saveAlias" data-dojo-attach-point="nls,saveButton" data-dojo-attach-event="click:saveAlias">
+                    apiSaveAlias</button>
+                <button type="button" class="btn btn-sm btn-default pull-right" data-dojo-attach-point="nls,removeButton" data-dojo-attach-event="click:removeAlias">
+                    apiRemoveAlias</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="${bid}__apiInfo" data-dojo-attach-point="apiInfo" style="display:none;">
+        <label data-dojo-attach-point="nls">searchExampleLabel</label>
+        <a class="spaExplicitLink" data-dojo-attach-point="nls,searchExampleLink"
+            title="searchExampleTitle"
+            target="_blank"></a><br>
+        <div class="${bid}__apiTable" >
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th data-dojo-attach-point="nls">columnLabel</th>
+                </tr>
+                </thead>
+                <tbody data-dojo-attach-point="apiColumnsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

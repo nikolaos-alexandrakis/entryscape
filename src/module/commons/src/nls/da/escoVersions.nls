@@ -1,0 +1,14 @@
+{
+  "versionsHeader": "Revisionshistorik",
+  "versionsCloseButton": "Luk",
+  "revertLabel": "Gendan",
+  "revertTitle": "Gendan vil oprette en ny revision baseret på denne revision",
+  "noRevertSameGraphTitle": "Der er intet at gendanne, den seneste revision er identisk.",
+  "revertMessage": "Ønsker du at gendanne til denne revision? En kopi af denne revision vil blive den seneste revision, ingen mellemliggende revision vil blive tabt.",
+  "revertConfirm": "Gendan",
+  "revertReject": "Annuller",
+  "revisionLabel": "Revision ${revision} af ${user}",
+  "noUserNameRevision": "${datetime}, af unavngiven bruger med ID ${id}",
+  "currentRevision": "(seneste revision)",
+  "currentRevisionRevertTitle": "Ingen årsag til at gendanne til den seneste revision."
+}

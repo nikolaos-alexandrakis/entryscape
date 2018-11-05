@@ -1,0 +1,13 @@
+{
+  "apiRegenerateHeader": "Genindlæs API",
+  "apiProgressFooterButton": "Gennemført",
+  "apiCreateHeader": "Opret API",
+  "apiInitialized": "Initialiseret",
+  "apiFileProcessed": "${number} af ${totalFiles} filer er blevet bearbejdet",
+  "apiProgressError": "Noget gik galt under bearbejdelse af input dataene. Tjek inputtet og genindlæs.",
+  "apiProgressButtonError": "OK",
+  "apiGenerationTask": "Generer API",
+  "nlsProgressCancel": "Annuller",
+  "nlsProgressDone": "Gennemført",
+  "nlsProgressSuccess": "API er blevet genereret successfuldt"
+}

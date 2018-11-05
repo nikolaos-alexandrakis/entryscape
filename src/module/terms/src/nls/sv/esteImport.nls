@@ -1,0 +1,21 @@
+{
+  "importLinkOption": "Ifrån webbadress",
+  "importFileOption": "Med filuppladdning",
+  "importLinkLabel": "Ange en webbadress till en terminologi i SKOS-format:",
+  "importFileLabel": "Välj en fil innehållandes en terminologi i SKOS-format:",
+  "linkInputPlaceholder": "Ange en webbadress att importera ifrån",
+  "fileInputPlaceholder": "Bläddra och välj fil",
+  "fileInputBrowse": "Bläddra",
+  "noConceptSchemeInSKOS": "Ingen top-level-container hittades (skos:ConceptScheme).",
+  "noSKOS": "Ingen terminologi hittades: ",
+  "noResponseFromLink": "Inga data hittades på den angivna webbadressen",
+  "loadFromLinkProblem": "Det gick inte att ladda data: ",
+  "uploadTask": "Ladda upp fil",
+  "analysisTask": "Analysera struktur",
+  "importTask": "Importera begrepp",
+  "nlsProgressCancel": "Avbryt",
+  "nlsProgressDone": "Klart",
+  "nlsProgressSuccess": "Terminologin har importerats",
+  "nlsNumberOfConceptsImported": "${importedConcepts} av ${totalConcepts} begrepp har importerats",
+  "fileTooBigToUpload": "Storleken på filen överstiger den tillåtna gränsen på ${size} bytes."
+}

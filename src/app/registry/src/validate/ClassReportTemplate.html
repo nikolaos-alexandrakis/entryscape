@@ -1,0 +1,24 @@
+<div class="panel panel-default classReport">
+    <div class="panel-heading" role="tab" id="${id}_heading">
+        <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse"
+               data-target="#${id}_collapse" aria-expanded="false" aria-controls="${id}_collapse">
+                <i class="pull-left fa fa-fw fa-chevron-down"></i>
+                <i class="pull-left fa fa-fw fa-chevron-right"></i>
+                <span data-dojo-attach-point="headingNode"></span>
+                <div class="pull-right problems" data-dojo-attach-point="problems"></div></a>
+        </h4>
+    </div>
+    <div id="${id}_collapse" class="panel-collapse collapse table" role="tabpanel"
+         aria-labelledby="${id}_heading" data-dojo-attach-point="panel">
+        <table class="table" data-dojo-attach-point="reportTable">
+            <thead>
+            <tr>
+                <th data-dojo-attach-point="nls">severity</th>
+                <th data-dojo-attach-point="nls">path</th>
+                <th data-dojo-attach-point="nls">problem</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>

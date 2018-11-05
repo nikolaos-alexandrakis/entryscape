@@ -1,0 +1,51 @@
+.entryscapeCards--noBanner {
+    margin-top: 10%;
+}
+a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: none;
+}
+
+.square-service-block.entryscape-intro {
+    padding: 36px 40px 20px 40px;
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 10px
+}
+
+.entryscape-intro button {
+    margin-left: 10px;
+}
+.square-service-block {
+    position:relative;
+    overflow:hidden;
+    margin: 5px -10px;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+.square-service-block>a {
+    display: block;
+    padding: 40px 20px;
+    text-align: center;
+    width: 100%;
+}
+.square-service-block a:hover .ssb-icon,
+.square-service-block a:hover h2.ssb-title {
+    color: #333;
+}
+
+.ssb-icon {
+    color: #165b98;
+    display: inline-block;
+    font-size: 32px;
+    margin: 0 0 20px;
+}
+
+h2.ssb-title {
+
+    color: #165b98;
+    font-size: 16px;
+    font-weight: 400;
+    margin:0;
+    padding:0;
+}

@@ -1,0 +1,9 @@
+{
+  "popoverHelpTitle": "Importierte Metadaten",
+  "popoverHelpContent": "Dieses Panel enthält Metadaten, die von anderen Systemen importiert oder geharvested wurden. Importierte Metadaten können nicht bearbeitet werden, da etwaige Änderungen bei einem erneuten Import überschrieben werden würden. Verwenden Sie das untenstehende Formular, um zusätzliche Metadaten zu den importierten Metadaten bereitzustellen.",
+  "externalMetadataHeader": "Importierte Metadaten",
+  "showmoreTitle": "Hier klicken, um mehr Metadaten anzuzeigen",
+  "showmoreLabel": "Mehr anzeigen",
+  "showlessTitle": "Hier klicken, um weniger Metadaten anzuzeigen",
+  "showlessLabel": "Weniger anzeigen"
+}

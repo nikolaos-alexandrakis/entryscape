@@ -1,0 +1,16 @@
+{
+  "root": {
+    "deleteLinkedEntry": "Delete",
+    "editLinkedEntry": "Edit",
+    "saveLinkedEntry": "Save",
+    "cancelLinkedEntry": "Cancel",
+    "addLinkedEntryButtonLabel": "Add",
+    "contentViewDialogHeader": "Information",
+    "contentViewDialogCloseLabel": "Close",
+    "loadingImage": "Loading image",
+    "imageCannotBeLoaded": "Image could not be loaded",
+    "noImageProvided": "No image provided"
+  },
+  "sv": true,
+  "de": true
+}

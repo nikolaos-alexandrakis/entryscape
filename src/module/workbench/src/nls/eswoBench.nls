@@ -1,0 +1,20 @@
+{
+  "root": {
+    "createButton": "Create",
+    "createHeader": "Create new \"$1\"",
+    "import": "Import",
+    "replaceLinkMenu": "Change link",
+    "replaceLinkMenuTitle": "Change link",
+    "replaceFileMenu": "Change file",
+    "replaceFileMenuTitle": "Change file",
+    "privateTitle": "This entity is not public, click to change",
+    "privateDisabledTitle": "The surrounding project is not public, therefore you cannot make this entity public",
+    "publicTitle": "This entity is public, click to change",
+    "selectEntitytypeMessage": "Select an entity type",
+    "downloadButton": "Download",
+    "downloadButtonTitle": "Download file",
+    "headerInfo": ""
+  },
+  "sv": true,
+  "de": true
+}

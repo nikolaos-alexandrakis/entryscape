@@ -1,0 +1,13 @@
+{
+  "apiRegenerateHeader": "API aktualisieren",
+  "apiProgressFooterButton": "Fertig",
+  "apiCreateHeader": "API erstellen",
+  "apiInitialized": "Initialisiert",
+  "apiFileProcessed": "Datei ${number} wurde behandelt",
+  "apiProgressError": "Bei der Bearbeitung der tabellarischen Daten ist ein Fehler aufgetreten. Ändern Sie die Dateien und aktualisieren Sie die API.",
+  "apiProgressButtonError": "OK",
+  "apiGenerationTask": "API wird erstellt",
+  "nlsProgressCancel": "Abbrechen",
+  "nlsProgressDone": "Fertig",
+  "nlsProgressSuccess": "Die API wurde erstellt"
+}

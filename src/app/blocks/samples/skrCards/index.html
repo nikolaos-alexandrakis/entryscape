@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="https://static.entryscape.com/libs/jquery/dist/jquery.min.js"></script>
+    <script src="https://static.entryscape.com/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/fontawesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+
+    <link rel="stylesheet" href="style.css"/>
+
+    <title>SKR Blocks</title>
+</head>
+<body>
+
+
+<div class="skr_container">
+    <div class="sidebar grid">
+        <span data-entryscape="facets" class="facets"></span>
+    </div>
+    <div class="facets--mobile hidden">
+        <button class="btn--close btn--green btn--large" type="button" name="button-close">X</button>
+        <span data-entryscape="facets"></span>
+    </div>
+    <div class="main--2columns grid">
+        <div class="main-header">
+            <span data-entryscape="multiSearch" data-entryscape-placeholder="Sök efter konstverk..."></span>
+            <div class="btn--wrapper">
+                <button class="btn--search btn--green btn--filter--mobile"  type="button" name="Filter">Filter</button>
+                <button class="btn--search btn--green" type="button" name="reset">
+                    <span data-entryscape="clear"></span>
+                    <span>Rensa</span></button>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div data-entryscape="skrList"
+                 data-entryscape-click="details.html?debug=true"></div>
+        </div>
+    </div>
+</div>
+
+<script src="skr.js"></script>
+<script src="../init.js"></script>
+</body>
+</html>

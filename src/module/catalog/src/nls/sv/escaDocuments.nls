@@ -1,0 +1,13 @@
+{
+  "createButton": "Skapa",
+  "createHeader": "Skapa nytt dokument",
+  "createButtonLabel": "Skapa dokument",
+  "createPopoverMessage": "Skapa ett dokument antingen som länk eller genom att ladda upp en fil",
+  "replaceLinkMenu": "Ändra länk",
+  "replaceLinkMenuTitle": "Ändra länk",
+  "replaceFileMenu": "Ändra fil",
+  "replaceFileMenuTitle": "Ändra fil",
+  "confirmDocumentRemove": "Vill du ta bort detta dokument?",
+  "downloadButton": "Ladda ner",
+  "downloadButtonTitle": "Ladda ner fil"
+}

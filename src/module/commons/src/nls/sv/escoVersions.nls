@@ -1,0 +1,14 @@
+{
+  "versionsHeader": "Versionshistorik",
+  "versionsCloseButton": "Stäng",
+  "revertLabel": "Återställ",
+  "revertTitle": "När du återställer skapas en ny version baserat på denna version",
+  "noRevertSameGraphTitle": "Det finns inget att återställa, senaste versionen är identisk.",
+  "revertMessage": "Vill du återställa denna version? En kopia av versionen kommer bli den senaste, inga mellanliggande versioner kommer förloras.",
+  "revertConfirm": "Återställ",
+  "revertReject": "Avbryt",
+  "revisionLabel": "Version ${revision} skapades av ${user}",
+  "noUserNameRevision": "${datetime}, skapades av användare utan namn med id ${id}",
+  "currentRevision": "(senaste versionen)",
+  "currentRevisionRevertTitle": "Du kan inte återställa till den senaste versionen."
+}

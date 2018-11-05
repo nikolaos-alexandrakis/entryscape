@@ -1,0 +1,9 @@
+{
+  "popoverHelpTitle": "Importeret metadata",
+  "popoverHelpContent": "Dette panel indeholder metadata som er imporeteret eller høstet fra andre systemer. Importerede metadata kan ikke editeres da ændringer bliver overskrevet ved genimport/genhøstning. Brug formularen herunder for at tilføje metadata udover de importerede.",
+  "externalMetadataHeader": "Importerede metadata",
+  "showmoreTitle": "Tryk her for at se flere metadata",
+  "showmoreLabel": "Vis mere",
+  "showlessTitle": "Tryk her for at se færre metadata",
+  "showlessLabel": "Vis mindre"
+}

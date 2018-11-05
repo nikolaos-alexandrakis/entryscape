@@ -1,0 +1,10 @@
+{
+  "linkLabel": "Link",
+  "fileLabel": "Fil",
+  "linkInput_placeholder": "Hvis tom, en web adresse bliver skabt for denne entitet",
+  "linkInputExternal_placeholder": "En web adresse er nødvendig",
+  "linkNotValid": "Ikke valid web adresse, den skal starte med \"http://\" eller \"https://\"",
+  "browseFile": "Udforsk",
+  "internalLink": "En web adresse bliver genereret for denne entitet",
+  "filePathInput_placeholder": "Vælg fil"
+}

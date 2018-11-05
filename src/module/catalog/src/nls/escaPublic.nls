@@ -1,0 +1,12 @@
+{
+  "root": {
+    "datasetBelongsToCatalog": "This dataset belongs to catalog",
+    "accessDistributionsOfDataset": "You can access the dataset via its distributions",
+    "datasetDetails": "Dataset details",
+    "resultsOfDataset": "Showcases in which the dataset has been used",
+    "directLink": "Direct link"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

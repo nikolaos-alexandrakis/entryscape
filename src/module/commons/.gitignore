@@ -1,0 +1,9 @@
+.idea
+libs
+/*.iml
+*.vim
+.gruntoptions.json
+/node_modules
+.jshintignore
+.jshintrc
+package-lock.json

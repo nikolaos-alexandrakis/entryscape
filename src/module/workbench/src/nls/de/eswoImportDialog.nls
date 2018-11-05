@@ -1,0 +1,5 @@
+{
+  "importRDFHeader": "Importieren von RDF",
+  "importRDFButton": "Importieren",
+  "importInformation": "Geben Sie eine RDF-Datei oder eine Webadresse einer RDF-Quelle an, von der \"${entityType}\" erkannt und importiert wird. Beachten Sie, dass jeder \"${entityType}\" explizit (mit rdf:type) als Klasse \"${rdfType}\" typisiert sein muss."
+}

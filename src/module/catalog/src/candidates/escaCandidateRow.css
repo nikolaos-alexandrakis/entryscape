@@ -1,0 +1,22 @@
+.escaCandidateRow__outerProgressBar {
+    border: grey;
+    width: 100px;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.escaCandidateRow__progressBar {
+    border-left-color: #5cb85c;
+    border-left-style: solid;
+    height: 11px;
+}
+
+.escaCandidateRow__progressBar--incomplete {
+    border-left-color: #ff5722;
+}
+
+.escaCandidateRow .entryRow .entryRowCol3 {
+    text-align: center;
+}

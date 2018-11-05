@@ -1,0 +1,30 @@
+{
+  "root": {
+    "listHeader": "My terminologies",
+    "createButtonLabel": "Create terminology",
+    "createPopoverTitle": "Create a new terminology",
+    "publicSchemeTitle": "The terminology is public, click to change",
+    "privateSchemeTitle": "The terminology is not public, click to change",
+    "schemeSharingNoAccess": "You cannot change the sharing settings of this terminology as you are not its owner.",
+    "confirmRemoveScheme": "Remove this terminology and all its contained concepts?",
+    "schemeSharingProblem": "The sharing settings of this terminology are complex and need to be managed using EntryScape Admin.",
+    "schemeMemberTitle": "Sharing settings",
+    "schemeImportTitle": "Import terminology",
+    "createSchemeName": "Terminology name",
+    "createSchemeNamePlaceholder": "Enter a name for the terminology",
+    "createSchemeDesc": "Terminology description",
+    "createSchemeDescPlaceholder": "Enter a description for the terminology",
+    "createSchemeNote": "The terminology's name and description can be changed later",
+    "insufficientInfoToCreateScheme": "You need to fill in all the fields to create a terminology",
+    "missingMandatoryFields": "You need to provide all mandatory fields",
+    "loadfailed": "Unable to load data from the provided web address",
+    "collectionExportTitle": "Download terminology",
+    "emptyListWarning": "Terminologies you create will appear here",
+    "reasonForRevisionMessage": "Concepts have been added and/or removed on the first level of the terminology since the previous revision.",
+    "noRevertSameGraphExcludeTitle": "There is nothing to revert. Latest revision is identical except for information that cannot be easily reverted (e.g. which concepts that are positioned on the first level).",
+    "revertExcludeMessage": "Concepts will neither be added nor removed from the first level.",
+    "headerInfo": ""
+  },
+  "sv": true,
+  "de": true
+}

@@ -1,0 +1,13 @@
+{
+  "createButton": "Erstellen",
+  "createHeader": "Neues Dokument erstellen",
+  "createButtonLabel": "Dokument erstellen",
+  "createPopoverMessage": "Dokument erstellen, entweder als Link oder durch Hochladen einer Datei",
+  "replaceLinkMenu": "Link ändern",
+  "replaceLinkMenuTitle": "Link ändern",
+  "replaceFileMenu": "Datei ändern",
+  "replaceFileMenuTitle": "Datei ändern",
+  "confirmDocumentRemove": "Möchten Sie dieses Dokument entfernen?",
+  "downloadButton": "Herunterladen",
+  "downloadButtonTitle": "Datei herunterladen"
+}

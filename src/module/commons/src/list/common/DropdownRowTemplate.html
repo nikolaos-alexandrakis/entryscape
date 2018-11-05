@@ -1,0 +1,30 @@
+<div>
+    <div class="col1hidden col3hidden entryRow" data-dojo-attach-point="rowNode" tabindex="0">
+        <div class="flex-wrapper">
+            <div class="entryRowCol1 vmiddle" data-dojo-attach-point="col1Node">
+                <div class="dropdown" data-dojo-attach-point="dropdownTest">
+                    <div id="${id}_dropdownRowMenu" data-dojo-attach-point="dropdownRowMenu"
+                         class="btn btn-default ${bid}__menu" data-toggle="dropdown">
+                        <span class="${bid}__statusIcon" data-dojo-attach-point="statusIcon"></span>
+                        <span class="caret" data-dojo-attach-point="dropdownIcon"></span>
+                    </div>
+                    <ul class="${bid}__menuList dropdown-menu" aria-labelledby="${id}_dropdownRowMenu"
+                        data-dojo-attach-point="dropdownRowMenuList">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="entryName vmiddle" data-dojo-attach-point="col2Node">
+                <span data-dojo-attach-point="nameNode"></span>
+                <a data-dojo-attach-point="nameNodeLink"></a>
+            </div>
+        </div>
+
+
+        <div>
+            <div class="entryRowCol3 vmiddle" data-dojo-attach-point="col3Node"></div>
+            <div class="entryControls vmiddle" data-dojo-attach-point="buttonsNode"></div>
+        </div>
+
+    </div>
+</div>

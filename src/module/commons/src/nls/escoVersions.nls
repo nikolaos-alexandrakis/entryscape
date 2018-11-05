@@ -1,0 +1,19 @@
+{
+  "root": {
+    "versionsHeader": "Revision history",
+    "versionsCloseButton": "Close",
+    "revertLabel": "Revert",
+    "revertTitle": "Revert will create a new revision based on this revision",
+    "noRevertSameGraphTitle": "There is nothing to revert, the latest revision is identical.",
+    "revertMessage": "Do you want to revert to this revision? A copy of this revision will become the latest revision, no intermediate revision will be lost.",
+    "revertConfirm": "Revert",
+    "revertReject": "Cancel",
+    "revisionLabel": "Revision ${revision} by ${user}",
+    "noUserNameRevision": "${datetime}, by unnamed user with ID ${id}",
+    "currentRevision": "(latest revision)",
+    "currentRevisionRevertTitle": "No reason to revert to the latest revision."
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

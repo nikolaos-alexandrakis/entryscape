@@ -1,0 +1,17 @@
+<div>
+    <div class="${bid}__viewComponentsList" data-dojo-attach-point="__viewComponentsList">
+    </div>
+    <div class="${bid}__add">
+        <div data-dojo-attach-point="__add" style="display: none;">
+            <div data-dojo-attach-point="__editor">
+            </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-success btn-raised pull-right"
+                data-dojo-attach-event="onClick: add"
+                data-dojo-attach-point="__addNode"
+                style="display:none">
+            <span data-dojo-attach-point="nls, __addButtonLabelNode">addLinkedEntryButtonLabel
+            </span>
+        </button>
+    </div>
+</div>

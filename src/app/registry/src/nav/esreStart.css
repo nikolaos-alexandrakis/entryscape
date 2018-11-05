@@ -1,0 +1,58 @@
+.esreStart__banner {
+    margin-top: 2em;
+}
+.esreStart__banner .well {
+    padding-right: 60px;
+    padding-left: 60px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    margin-bottom: 30px;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+}
+
+.esreStart__banner .well p {
+    line-height: 1.4;
+}
+
+.esreStart__banner .btn.pull-right {
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.esreStart__cards {
+    margin-top: 30px;
+    margin-right: -30px;
+    margin-left: -30px;
+}
+
+@media (min-width: 768px) {
+    .esreStart__card {
+        height: 150px;
+    }
+}
+
+.esreStart__card {
+    color: #555;
+    cursor: pointer;
+    display: block;
+    padding: 20px;
+}
+
+.esreStart__card:hover {
+    background: white;
+    position: relative;
+    z-index: 2000;
+    text-decoration: none;
+    color: #1c7cd1;
+}
+
+.esreStart__cardHeader {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.esreStart__cardParagraph {
+    font-size: larger;
+}

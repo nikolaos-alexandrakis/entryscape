@@ -1,0 +1,10 @@
+{
+  "root": {
+    "confirm": "Yes",
+    "reject": "No",
+    "ok": "OK"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

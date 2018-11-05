@@ -1,0 +1,30 @@
+<div class="container-fluid spaView ${bid}">
+    <div class="${bid}__placeholder" data-dojo-attach-point="__placeholder">
+    </div>
+    <div class="${bid}__catalogs">
+        <div class="col-xs-4 col-sm-4 col-md-4 ${bid}__sidebar sidebar"
+             data-dojo-attach-point="__sidebar">
+            <div class="row ${bid}__controls" style="display: none"
+                 data-dojo-attach-point="__catalogControls">
+                <div class="col-md-12">
+                </div>
+            </div>
+            <div data-dojo-attach-point="__catalog" class="${bid}__catalog">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="${bid}__selected_catalog"><span
+                                data-dojo-attach-point="__label"></span>
+                            <a class="${bid}__back pull-right" role="button"
+                               data-dojo-attach-point="__back"><i class="fa fa-times"></i></a>
+                        </h4>
+                        <div class="${bid}__catalogMetadata"
+                             data-dojo-attach-point="__catalogMetadata"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-dojo-attach-point="__catalogList" class="list-group ${bid}__catalogList"></div>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 ${bid}__main" data-dojo-attach-point="__main">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{
+    "root": {
+        "psiDataPageStatus": "PSI-data web page",
+        "dcatStatus": "DCAT-AP source",
+        "harvestingResult": "Harvesting status",
+        "validationResult": "Validation result",
+        "mergeResult": "Changes",
+        "validationError": "Mandatory values missing",
+        "validationWarning": "Recommended values missing",
+        "validationDeprecated": "Deprecated values present",
+        "validationReport": "See validation report",
+        "mergeAdded": "Datasets added",
+        "mergeUpdated": "Datasets updated",
+        "mergeRemoved": "Datasets removed",
+        "mergeUnchanged": "Datasets unchanged",
+        "modifiedDateTitle": "Checked at ${date}",
+        "titleDatasets": "{{PLURAL:$1|One dataset|$1 datasets}} found",
+        "noDatasets": "No datasets found",
+        "noData": "No harvesting information yet",
+        "jobPending": "Job pending",
+        "jobRunning": "Job running",
+        "jobFailed": "Job failed",
+        "jobCompleted": "Job completed",
+        "foundText": "Found",
+        "notFoundText": "Not found",
+        "formatStatus": "Unsupported format (only RDF/XML supported)",
+        "invalidRDFStatus": "Invalid RDF detected"
+    },
+    "sv": true,
+    "de": true
+}

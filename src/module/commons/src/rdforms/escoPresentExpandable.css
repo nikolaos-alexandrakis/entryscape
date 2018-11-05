@@ -1,0 +1,33 @@
+.escoPresentExpandable {
+}
+
+.escoPresentExpandable__expandHide {
+    color: black;
+    cursor: pointer;
+}
+
+.escoPresentExpandable__presenterPanel {
+    overflow:hidden;
+    padding-bottom: 0px;
+    position: relative;
+}
+
+.escoPresentExpandable__presenter {
+    margin: 5px;
+}
+
+.escoPresentExpandable__panelFooter {
+    border-top: 0px;
+    padding: 3px 15px;
+}
+
+.escoPresentExpandable__shader {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 35px;
+    z-index: 2000;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    pointer-events: none;
+}

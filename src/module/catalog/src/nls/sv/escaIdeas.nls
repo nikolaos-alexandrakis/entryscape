@@ -1,0 +1,13 @@
+{
+  "createEntryName": "idé",
+  "privateResultTitle": "Idén är inte publik, klicka för att ändra",
+  "privateDisabledResultTitle": "Den omgivande katalogen är inte publik, därför kan du inte göra idén publik",
+  "publicResultTitle": "Idén är publik, klicka för att ändra",
+  "confirmRemoveIdea": "Vill du ta bort denna idé?",
+  "createHeader": "Skapa idé",
+  "createButtonLabel": "Skapa idé",
+  "createPopoverTitle": "Skapa en idé för en datamängd",
+  "createButton": "Skapa idé",
+  "editEntry": "Redigera",
+  "emptyListWarning": "Idéer som du skapar kommer att visas här"
+}

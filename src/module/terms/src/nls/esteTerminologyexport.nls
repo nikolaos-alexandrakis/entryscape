@@ -1,0 +1,12 @@
+{
+  "root": {
+    "exportText": "The export contains all top and narrower concepts, but no collections.",
+    "exportFormatSelect": "Select format",
+    "exportURLLabel": "Web address to terminology",
+    "downloadLabel": "Download terminology",
+    "downloadButton": "Download terminology",
+    "exportHeaderLabel": "Terminology export"
+  },
+  "sv": true,
+  "de": true
+}

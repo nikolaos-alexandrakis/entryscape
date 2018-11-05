@@ -1,0 +1,30 @@
+{
+  "root": {
+    "listHeader": "Candidate datasets in catalog \"$1\"",
+    "editHeader": "Edit candidate dataset",
+    "saveEditedEntry": "Save changes",
+    "createCandidate": "Create candidate dataset",
+    "createCandidatePopoverTitle": "Create candidate dataset",
+    "createCandidatePopoverMessage": "Use candidate datasets when you have ideas that need vetting or when you want to follow a procedure and work through checklists before you upgrade to regular datasets.",
+    "createCandidateDatasetButton": "Create",
+    "createCandidateDatasetHeader": "Create candidate",
+    "progressMenu": "Checklist",
+    "progressTitle": "A checklist of things to consider before upgrading to a regular dataset",
+    "progressBarTitle": "${checked} (${mandatory} mandatory) of ${total} (${totalMandatory} mandatory) step{{PLURAL:${total}||s}} are marked as finished in checklist",
+    "commentMenuTitle": "Add comment",
+    "commentMenu": "Comments",
+    "commentHeader": "Comments for candidate dataset \"${name}\"",
+    "commentFooterButton": "Post comment",
+    "commentTitle": "There {{PLURAL:$1|is one comment|are $1 comments}}.",
+    "upgrade": "Upgrade",
+    "upgradeTitle": "Upgrade to regular dataset",
+    "listSearchPlaceholder": "Search for candidate dataset...",
+    "removeCdatasetAndComments": "Remove this candidate dataset and associated {{PLURAL:$1|comment|comments}}?",
+    "removeCdataset": "Remove this candidate dataset?",
+    "failedToRemoveCDatasetComments": "Failed to remove some of the candidate dataset's comments. Aborting and not removing the candidate dataset itself.",
+    "emptyListWarning": "Candidate datasets you create will appear here"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

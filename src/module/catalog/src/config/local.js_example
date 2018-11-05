@@ -1,0 +1,64 @@
+__entryscape_config = {
+    entrystore: {
+        repository: "http://localhost:8080/store/",
+        resourceBase: "http://example.com/${contextId}_${entryId}",
+        premiumGroup: "premium"
+    },
+    reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
+    itemstore: {
+            appendLanguages: [{"value": "no", label: {"en": "Norwegian", "no": "Norsk"}}]
+    },
+    entrychooser: {
+        "http://purl.org/dc/terms/publisher": "repository",
+        "http://www.w3.org/ns/dcat#contactPoint": "repository"
+    },
+    // fix for ESCO-43, added shortDatePattern and changed lang: "no" to lang: "nb"
+    locale: {
+        "!supported": [
+           {lang: "de", flag: "de", label: "Deutsch", labelEn: "German", shortDatePattern:"dd. MMM"},
+           {lang: "en", flag: "gb", label: "English", labelEn: "English", shortDatePattern:"MMM dd"},
+           {lang: "nb", flag: "no", label: "Norsk", labelEn: "Norwegian", shortDatePattern:"dd. MMM"},
+           {lang: "sv", flag: "se", label: "Svenska", labelEn: "Swedish", shortDatePattern:"dd MMM"}
+        ]
+    },
+    catalog: {
+        previewURL: "http://localhost:8080/esca-portal/?debug=true#view=public&resource=${url}",
+        createWithoutPublisher: true,
+
+        // By default any number of catalogs are allowed per user
+        catalogLimit: 1,
+        catalogLimitDialog: "theme/restrictions",
+        catalogLimitExceptionGroup: "premium",
+
+        // By default any number of datasets are allowed per catalog
+        datasetLimit: 3,
+        datasetLimitDialog: "theme/privacy",
+        datasetLimitExceptionGroup: "premium",
+        datasetLimitCandidateUpgradeDialog: "theme/restrictions",
+
+        // Disallow publishing of catalogs by providing a text that will be shown in a sidedialog.
+        disallowCatalogPublishingDialog: "theme/restrictions",
+
+        maxFileSizeForAPI: 25000000,
+        sharedResponsiblesContext: "1"
+
+        // By default both distribution creation alternatives are shown. If you
+        // do not want to display particular distribution creation alternative,
+        // set to false and uncomment.
+        //accessDistribution: false,
+        //fileuploadDistribution: false,
+        //disallowFileuploadDistributionDialog: "theme/restrictions",
+
+        // By default collaboration around catalogs are enabled
+        //catalogCollaboration: true
+        disallowCatalogCollaborationDialog: "theme/restrictions"
+
+        //Hides the option to upload a file as a distribution
+        excludeFileuploadDistribution: true,
+    },
+    entitytypes: {
+        "publisher": {
+          allContexts: true, //Allow publishers from all contexts to be seen.
+        }
+      }
+};

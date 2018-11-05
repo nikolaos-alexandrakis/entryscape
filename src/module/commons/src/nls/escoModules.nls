@@ -1,0 +1,13 @@
+{
+  "root": {
+    "catalog-title": "Catalog",
+    "terms-title": "Terms",
+    "import-title": "Import",
+    "admin-title": "Admin",
+    "workbench-title": "Workbench",
+    "search-title": "Search"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

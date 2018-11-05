@@ -1,0 +1,13 @@
+{
+  "notConnected": "Åtgärden genomfördes inte då du tappat kontakten med servern. Försöker återställa kontakten ${time}...",
+  "tryNow": "Försök nu",
+  "loading": "Laddar data...",
+  "genericProblem": "Ett okänt fel har inträffat. Försök ladda om EntryScape om problemet kvarstår.",
+  "conflictProblem": "Någon har ändrat i resursen som du jobbar med och hindrar dina ändringar från att sparas. Ladda om och försök igen.",
+  "showDetails": "Visa detaljer",
+  "hideDetails": "Göm detaljer",
+  "closeDialog": "Stäng",
+  "signedOut": "Du har loggats ut och den åtgärd du försökte utföra är endast tillåten för inloggade användare.",
+  "signIn": "Logga in",
+  "restrictionHeader": "Åtgärden är inte tillåten"
+}

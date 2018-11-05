@@ -1,0 +1,38 @@
+.esreSource {
+    position: relative;
+    height: 100%;
+}
+
+.esreSource__header {
+    position: absolute;
+}
+
+.esreSource__button {
+    margin-left: 20px;
+}
+
+.esreSource .escoRDFEdit {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    right: 0px;
+    bottom: 70px;
+}
+
+.esreSource .buttonRow {
+    position: absolute;
+    height: 54px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+}
+
+.esreSource .rdfValidationMessage {
+    vertical-align: middle;
+    padding: 8px;
+    display: inline-block;
+}
+
+.sidebarMode .esreSource {
+    margin-left: 15px;
+}

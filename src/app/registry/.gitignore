@@ -1,0 +1,11 @@
+.idea
+/libs
+/nls/merged
+/release
+/config/local.js
+/dist
+/*.iml
+/node_modules
+.gruntoptions.json
+package-lock.json
+*.vim

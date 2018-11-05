@@ -1,0 +1,27 @@
+{
+  "root": {
+    "listHeader": "My projects",
+    "createButtonLabel": "Create project",
+    "createPopoverTitle": "Create project",
+    "createPopoverMessage": "Each project contains a set of entities that are administered together.",
+    "publicWorkspaceTitle": "The project is public, click to change",
+    "privateWorkspaceTitle": "The project is not public, click to change",
+    "workspaceSharingNoAccess": "You cannot change the sharing settings of this project as you are not its owner.",
+    "confirmRemoveWorkspace": "Remove this project including all its contained entities?",
+    "workspaceSharingProblem": "The sharing configuration of this project is advanced and needs to be managed using EntryScape Admin.",
+    "workspaceMemberTitle": "Sharing settings",
+    "workspaceConfigure": "Configure entity types",
+    "workspaceConfigureTitle": "Configure entity types",
+    "createWorkspaceHeader": "Create project",
+    "createWorkspaceName": "Project name",
+    "createWorkspaceNamePlaceholder": "Enter a name for the project",
+    "createWorkspaceDesc": "Project description",
+    "createWorkspaceDescPlaceholder": "Enter a description for the project",
+    "createWorkspaceNote": "The project's name and description can be changed later.",
+    "createWorkspaceButton": "Create project",
+    "insufficientInfoToCreateWorkspace": "You need to provide values for all fields to create a project.",
+    "emptyListWarning": "Projects you create will appear here"
+  },
+  "sv": true,
+  "de": true
+}

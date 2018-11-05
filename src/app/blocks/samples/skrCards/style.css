@@ -1,0 +1,14 @@
+@import "skr.css";
+html {
+    font-size: 16px;
+}
+
+body {
+    background-color: white;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+body, html {
+    margin: 0px;
+}

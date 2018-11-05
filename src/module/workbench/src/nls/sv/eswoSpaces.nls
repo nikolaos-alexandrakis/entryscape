@@ -1,0 +1,23 @@
+{
+  "listHeader": "Mina projekt",
+  "createButtonLabel": "Skapa projekt",
+  "createPopoverTitle": "Skapa projekt",
+  "createPopoverMessage": "Varje projekt innehåller en mängd entiteter som förvaltas gemensamt.",
+  "publicWorkspaceTitle": "Projektet är publikt, klicka för att ändra",
+  "privateWorkspaceTitle": "Projektet är inte publikt, klicka för att ändra",
+  "workspaceSharingNoAccess": "Du kan inte ändra delningsinställningarna av detta projekt då du inte är dess ägare.",
+  "confirmRemoveWorkspace": "Ta bort projektet med alla dess entiteter?",
+  "workspaceSharingProblem": "Delningsinställningarna av detta projekt är avancerade och behöver hanteras i EntryScape Admin.",
+  "workspaceMemberTitle": "Delningsinställningar",
+  "createWorkspaceHeader": "Skapa projekt",
+  "createWorkspaceName": "Projektets namn",
+  "createWorkspaceNamePlaceholder": "Ange ett namn för projektet",
+  "createWorkspaceDesc": "Projektets beskrivning",
+  "createWorkspaceDescPlaceholder": "Ange en beskrivning för projektet",
+  "createWorkspaceNote": "Projektets namn och beskrivning kan ändras senare.",
+  "createWorkspaceButton": "Skapa projekt",
+  "insufficientInfoToCreateWorkspace": "Alla fält måste vara ifyllda innan projektet kan skapas.",
+  "workspaceConfigure": "Konfigurera entitetstyper",
+  "workspaceConfigureTitle": "Konfigurera entitetstyper",
+  "emptyListWarning": "Projekt som du skapar kommer att visas här"
+}

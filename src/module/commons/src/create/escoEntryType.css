@@ -1,0 +1,55 @@
+.escoEntryType__inputBlocks {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.escoEntryType--fileLabelVisible .escoEntryType__inputBlocks,
+.escoEntryType--linkLabelVisible .escoEntryType__inputBlocks {
+    margin-top: -15px;
+}
+
+.escoEntryType__filePathInput[disabled] {
+    cursor: pointer;
+}
+
+.escoEntryType__file {
+    margin-top: -9px;
+}
+
+.escoEntryType__fileUploadButton {
+    vertical-align: text-bottom !important;
+}
+
+.escoEntryType--linkLabelVisible .escoEntryType__optionBlock,
+.escoEntryType--fileLabelVisible .escoEntryType__optionBlock,
+.escoEntryType__linkLabel,
+.escoEntryType__fileLabel,
+.escoEntryType__linkBlock,
+.escoEntryType__fileBlock {
+    display: none;
+}
+
+.escoEntryType__linkLabel,
+.escoEntryType__fileLabel{
+    font-weight: normal;
+    color: black;
+}
+
+.escoEntryType--linkOption .escoEntryType__linkBlock,
+.escoEntryType--fileOption .escoEntryType__fileBlock,
+.escoEntryType--linkLabelVisible .escoEntryType__linkBlock,
+.escoEntryType--fileLabelVisible .escoEntryType__fileBlock,
+.escoEntryType--linkLabelVisible .escoEntryType__linkLabel,
+.escoEntryType--fileLabelVisible .escoEntryType__fileLabel {
+    display: block;
+}
+
+.escoEntryType--internalLink .escoEntryType__anyLinkInput,
+.escoEntryType__onlyInternalLink {
+    display: none;
+}
+
+.escoEntryType--internalLink .escoEntryType__onlyInternalLink {
+    display: block;
+    margin-top: 20px;
+}

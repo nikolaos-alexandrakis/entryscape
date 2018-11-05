@@ -1,0 +1,14 @@
+{
+  "pipelineResultRowHeader": "Organisationsinformation och skördningsstatus",
+  "pipelineResultRowButton": "Stäng",
+  "orgId": "Organisationsnummer",
+  "userId": "E-postadress",
+  "dcatAPI": "Skördningskälla",
+  "psiPage": "PSI-data webbsida",
+  "notFound": "Hittades inte",
+  "openSeparateReportWindow": "Direktlänk",
+  "openSeparateReportWindowTitle": "Öppna ett nytt fönster med den här informationen",
+  "harvestingLatestX": "Senaste {{PLURAL:$1|skördningsförsök|$1 skördningsförsök}}",
+  "pRcreateButtonLabel": "Skörda om",
+  "pRcreatePopoverTitle": "Lägg till nytt bakgrundsjobb för att hämta och validera katalog från skördningskälla"
+}

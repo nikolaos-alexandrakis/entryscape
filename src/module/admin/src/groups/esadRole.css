@@ -1,0 +1,31 @@
+.esadRole__role {
+    color: black;
+    background-color: white;
+    border-color: white;
+}
+.esadRole__role.btn-default.disabled {
+    background-color: white;
+    border-color: white;
+}
+.esadRole__roleMenuIcon.fa-shield.esadRole__roleDisabled {
+    padding-right: 18px;
+}
+.esadRole__roleMenuIcon {
+    padding-top: 5px ;
+    padding-right: 5px
+}
+.esadRole__roleMenu {
+    min-width: 125px;
+    cursor: pointer;
+    text-align: left;
+}
+.esadRole__roleIcon {
+    padding-top: 2px ;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.esadRole__roleText {
+    font-size: small;
+    padding-left: 8px;
+}

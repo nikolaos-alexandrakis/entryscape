@@ -1,0 +1,15 @@
+{
+  "createButtonLabel": "Lägg till fil",
+  "createPopoverTitle": "Lägg till fil",
+  "createHeader": "Lägg till fil för distributionen",
+  "createButton": "Lägg till fil",
+  "headerTitle": "Filer för distributionen",
+  "replaceMenu": "Ersätt fil",
+  "replaceMenuTitle": "Ersätt fil",
+  "confirmRemoveFile": "Vill du ta bort denna fil?",
+  "editFileLabel": "Redigera fil",
+  "editFileTitle": "Redigera filens metadata",
+  "removeFileTitle": "Ta bort fil",
+  "removeFileLabel": "Ta bort fil",
+  "downloadButtonTitle": "Ladda ner"
+}

@@ -1,0 +1,9 @@
+{
+  "root": {
+    "upgradeToDataset": "Do you want to upgrade this candidate dataset to a regular dataset?",
+    "mandatoryFail": "This dataset candidate cannot be upgraded because the following mandatory steps of the checklist are not completed: "
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="https://static.entryscape.com/libs/jquery/dist/jquery.min.js"></script>
+    <script src="https://static.entryscape.com/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/fontawesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+
+    <title>Cards list</title>
+</head>
+<body>
+    <div data-entryscape="searchList"
+         data-entryscape-entrystore="https://opendata.statenskonstrad.se/store"
+         data-entryscape-rdftype="https://opendata.statenskonstrad.se/terms/WorkOfArt"
+         data-entryscape-context="9"
+         data-entryscape-layout="cards"
+         data-entryscape-limit="10"
+         data-entryscape-rowhead='{{image property="schema:image" faallback="/bild_saknas.jpg"}} <div class="cardList-header"><div class="cardList-title">{{text}}</div> <div class="cardList-title__date" {{text content="${dcterms:created}"}}></div></div> <div class="cardList-description">{{text content="${dcterms:description}"}}  </div> </div>'
+         data-entryscape-listplaceholder="<h3>No matching results</h3>"></div>
+    <script src="../init.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "creationDateTitle": "Källan kollad senast ${date}",
+  "listSearchPlaceholder": "Sök efter (minst tre bokstäver) ...",
+  "organizationLabel": "Organisation",
+  "otherOrgLabel": "Organisation",
+  "psiPageLabel": "PSI-sida",
+  "dcatAPLabel": "Datamängder",
+  "checkedLabel": "Kontrollerad",
+  "organizationTitle": "Organisation inom den offentliga sektorn, t.ex. kommun eller myndighet",
+  "otherOrgTitle": "Organisation inom den privata sektorn, t.ex. företag eller icke-statliga organisationer",
+  "psiPageTitle": "Särskild webbsida för öppna data/PSI-data hittades",
+  "dcatAPTitle": "Maskinläsbar katalog med datamängd hittades",
+  "checkedTitle": "Tid då organisationen senast kontrollerades"
+}

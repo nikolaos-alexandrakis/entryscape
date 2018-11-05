@@ -1,0 +1,9 @@
+{
+  "root": {
+    "showResultsDialogHeader": "Showcases for dataset \"$1\"",
+    "emptyListWarning": "There are no showcases for this dataset."
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

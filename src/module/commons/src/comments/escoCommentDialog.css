@@ -1,0 +1,29 @@
+.escoCommentDialog {
+    margin-bottom: 70px;
+}
+.escoCommentDialog  textarea{
+    height: 50px;
+}
+
+label.escoCommentDialog__Label {
+    padding-top: 5px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.escoCommentDialog__subjectInput {
+
+}
+
+.escoCommentDialog__commentInputLabel {
+    padding-top: 5px;
+}
+
+
+.escoCommentDialog__commentInput {
+
+}
+
+.escoCommentDialog__postComment {
+    margin-top: 10px;
+}

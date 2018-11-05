@@ -1,0 +1,73 @@
+.escoComment {
+    border: 1px solid lightgrey;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+
+.escoComment__subject {
+    font-weight: bold;
+}
+
+.escoComment__commentFooter {
+}
+
+.escoComment__commentFooterButton {
+    margin-top: -2px;
+    color: black;
+}
+
+.escoComment__commentInput {
+    margin-top: 5px;
+    resize: vertical;
+}
+
+.escoComment__commentFooterButtonIcon {
+    margin-left: 5px;
+}
+
+.escoComment__commentReply {
+    padding-bottom: 50px;
+    padding-right: 10px;
+    padding-left: 10px
+}
+
+.escoComment__replySubjectLabel {
+    padding-top: 5px;
+}
+
+.escoComment__commentReplyPost {
+    margin-top: 5px;
+}
+
+.escoComment__commentReplyCancel {
+    margin-top: 5px;
+    margin-right: 5px
+}
+
+.escoComment__commentsList {
+    padding-left: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding-right: 10px;
+}
+
+.escoComment__commentEditButtons {
+    padding-top: 5px;
+}
+
+.escoComment--leftPadding .btn-default {
+    margin-right: 5px;
+}
+
+.escoComment--reply .escoComment__subject {
+    display: none;
+}
+
+.escoComment--replyWithoutSubject .escoComment__replySubjectLabel,
+.escoComment--replyWithoutSubject .escoComment__replyLabel,
+.escoComment--replyWithoutSubject .escoComment__replySubject {
+    display: none;
+}
+.escoComment--replyWithoutSubject .escoComment__reply {
+    margin-top: 5px;
+}

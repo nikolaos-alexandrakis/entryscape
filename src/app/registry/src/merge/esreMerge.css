@@ -1,0 +1,31 @@
+.esreMerge {
+    margin-top: 10px;
+}
+
+.esreMerge__addMergeCatalogButton {
+    margin: 0;
+}
+
+.sidebarMode .esreMerge {
+    margin-left: 15px;
+}
+
+.esreMerge__mergeCatalogs {
+    margin-left: 20px;
+}
+
+.esreMerge__header {
+    margin-bottom: 20px;
+}
+
+.esreMerge .list-group{
+    margin-top: 10px;
+}
+
+
+
+.esreMerge .panel.panel-default .panel-heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

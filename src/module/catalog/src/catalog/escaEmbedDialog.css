@@ -1,0 +1,12 @@
+.escaEmbedDialog__optionLabel {
+    padding-left: 10px;
+}
+.escaEmbedDialog__setTabLabel {
+    vertical-align: top;
+    padding-left: 12px;
+    font-weight: 100;
+    color: #333;
+}
+.escaEmbedDialog__top {
+    padding-top: 10px;
+}

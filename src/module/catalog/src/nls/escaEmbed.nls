@@ -1,0 +1,12 @@
+{
+  "root": {
+    "embedHeader": "Embed code",
+    "faLabel": "Font Awesome",
+    "imgLabel": "Theme images from the European Data Portal",
+    "chkNewTab": "Open dataset links in new window",
+    "previewButton": "Preview"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

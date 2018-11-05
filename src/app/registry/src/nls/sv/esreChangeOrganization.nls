@@ -1,0 +1,13 @@
+{
+  "changeOrganizationHeader": "Ändra organisation till ",
+  "changeOrganizationButton": "Ändra",
+  "psiLabel": "Offentlig sektor",
+  "regularLabel": "Övriga",
+  "orgIdPlaceholder": "Ange organisationsnummer",
+  "psiURLPlaceholder": "http(s)://...",
+  "psiURL": "Offentlig PSI-data webbsida",
+  "orgId": "Organisationsnummer",
+  "emptyPsiURL": "PSI-data webbsida får inte vara tom",
+  "notValidOrgId": "Ange giltig organisationsnummer",
+  "emptyOrgId": "Organisationsnummer får inte vara tom"
+}

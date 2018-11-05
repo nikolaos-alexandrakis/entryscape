@@ -1,0 +1,19 @@
+{
+  "validationReport": "Validierungsbericht",
+  "instancesHeader": "{{PLURAL:${nr}|Eine Instanz|${nr} Instanzen}} der Klasse ${class}:",
+  "severity": "Schwere",
+  "path": "Eigenschaft",
+  "problem": "Problem",
+  "error": "Fehler",
+  "errorTitle": "{{PLURAL:$1|1 Fehler|$1 Fehler}}",
+  "warning": "Warnung",
+  "warningTitle": "{{PLURAL:$1|1 Warnung|$1 Warnungen}}",
+  "deprecated": "Überholter Wert",
+  "deprecatedTitle": "{{PLURAL:$1|Ein überholter Wert|$1 überholte Werte}}",
+  "report_few": "Zu wenige Werte",
+  "report_many": "Zu viele Werte",
+  "report_disjoint": "Ein einzelner Wert wird erwartet",
+  "reportHead": "${URI} hat {{PLURAL:${errors}|einen Fehler|${errors} Fehler}} und {{PLURAL:${warnings}|eine Warnung|${warnings} Warnungen}}:",
+  "closeValidationDialog": "Schließen",
+  "viewValidation": "Validierungsbericht ansehen"
+}

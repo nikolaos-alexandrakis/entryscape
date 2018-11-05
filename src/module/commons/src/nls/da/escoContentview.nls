@@ -1,0 +1,12 @@
+{
+  "deleteLinkedEntry": "Slet",
+  "editLinkedEntry": "Rediger",
+  "saveLinkedEntry": "Gem",
+  "cancelLinkedEntry": "Annuller",
+  "addLinkedEntryButtonLabel": "Tilføj",
+  "contentViewDialogHeader": "Information",
+  "contentViewDialogCloseLabel": "Luk",
+  "loadingImage": "Indlæser billede",
+  "imageCannotBeLoaded": "Billedet kunne ikke indlæses",
+  "noImageProvided": "Intet billede til rådighed"
+}

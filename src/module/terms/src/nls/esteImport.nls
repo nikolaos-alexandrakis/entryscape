@@ -1,0 +1,25 @@
+{
+  "root": {
+    "importLinkOption": "From web address",
+    "importFileOption": "Via file upload",
+    "importLinkLabel": "Provide a URL to a terminology in SKOS format:",
+    "importFileLabel": "Choose a file with a terminology in SKOS format:",
+    "linkInputPlaceholder": "Enter web address to import from",
+    "fileInputPlaceholder": "Browse and select a file",
+    "fileInputBrowse": "Browse",
+    "noConceptSchemeInSKOS": "No top level container (skos:ConceptScheme) found.",
+    "noSKOS": "No terminology found: ",
+    "noResponseFromLink": "No data was found at the provided web address",
+    "loadFromLinkProblem": "There was a problem loading the data: ",
+    "uploadTask": "Upload file",
+    "analysisTask": "Analyze scheme",
+    "importTask": "Import concepts",
+    "nlsProgressCancel": "Cancel",
+    "nlsProgressDone": "Done",
+    "nlsProgressSuccess": "Your terminology was successfully imported",
+    "nlsNumberOfConceptsImported": "${importedConcepts} of ${totalConcepts} concepts have been imported",
+    "fileTooBigToUpload": "The size of the file exceeds the allowed limit of ${size} bytes."
+  },
+  "sv": true,
+  "de": true
+}

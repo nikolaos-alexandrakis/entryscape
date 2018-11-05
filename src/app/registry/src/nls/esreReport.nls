@@ -1,0 +1,23 @@
+{
+    "root": {
+        "validationReport": "Validation report",
+        "instancesHeader": "{{PLURAL:${nr}|One instance|${nr} instances}} of class ${class}:",
+        "severity": "Severity",
+        "path": "Property",
+        "problem": "Problem",
+        "error": "Error",
+        "errorTitle": "{{PLURAL:$1|1 error|$1 errors}}",
+        "warning": "Warning",
+        "warningTitle": "{{PLURAL:$1|1 warning|$1 warnings}}",
+        "deprecated": "Deprecated value",
+        "deprecatedTitle": "{{PLURAL:$1|1 deprecated value|$1 deprecated values}}",
+        "report_few": "Too few values",
+        "report_many": "Too many values",
+        "report_disjoint": "A single value is expected",
+        "reportHead": "${URI} has {{PLURAL:${errors}|one error|${errors} errors}} and {{PLURAL:${warnings}|one warning|${warnings} warnings}}:",
+        "closeValidationDialog": "Close",
+        "viewValidation": "View validation report"
+    },
+    "sv": true,
+    "de": true
+}

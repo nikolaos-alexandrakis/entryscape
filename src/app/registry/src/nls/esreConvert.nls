@@ -1,0 +1,15 @@
+{
+    "root": {
+        "convertHeader": "Convert from DCAT-AP 1.0 to DCAT-AP 1.1",
+        "toBeConverted": "The following {{PLURAL:$1|value|$1 values}} will be changed if converted",
+        "issueType": "What to change",
+        "onSubject": "On subject",
+        "from": "From value",
+        "to": "To value",
+        "predicateFix": "Predicate",
+        "objectFix": "Object",
+        "convertButton": "Convert"
+    },
+    "sv": true,
+    "de": true
+}

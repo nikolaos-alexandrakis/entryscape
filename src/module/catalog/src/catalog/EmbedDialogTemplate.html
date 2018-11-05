@@ -1,0 +1,25 @@
+<div>
+    <div class="btn-group btn-group-justified theme-formats">
+        <a class="btn btn-default active" data-dojo-attach-point="__faOption" data-dojo-attach-event="click:faOption" autocomplete="off" style="text-transform: none;">
+            <span data-dojo-attach-point="nls"  class="${bid}__optionLabel">faLabel</span>
+        </a>
+        <a class="btn btn-default" data-dojo-attach-event="click:imgOption" data-dojo-attach-point="__imgOption" style="text-transform: none;">
+            <span data-dojo-attach-point="nls" class="${bid}__optionLabel">imgLabel</span>
+        </a>
+    </div>
+    <div class="checkbox ${bid}__top">
+        <label><input type="checkbox" data-dojo-attach-event="onClick:setOpenTab" checked>
+            <span class="checkbox-material ${bid}__setTabLabel" data-dojo-attach-point="nls">chkNewTab</span></label>
+    </div>
+    <div class="${bid}__top">
+        <label for="${id}-embed" class="" data-dojo-attach-point="nls">Snippet</label>
+        <textarea class="form-control" class="" data-dojo-attach-point="nls,__embedInput" rows="4" id="${id}-embed" readonly></textarea>
+    </div>
+    <div class="${bid}__top">
+        <button type="button" class="btn btn-success btn-raised pull-right"
+                data-dojo-attach-event="onClick:preview" data-dojo-attach-point="nls,__preview">previewButton
+        </button>
+    </div>
+    <div data-dojo-attach-point="__dialogContainer">
+    </div>
+</div>

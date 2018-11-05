@@ -1,0 +1,68 @@
+<div class="${bid} panel panel-default ${bid}--leftPadding ${bid}--replyWithoutSubject">
+    <div class="${bid}__subject panel-heading" data-dojo-attach-point="__subject">A title of some sort</div>
+    <div class="panel-body">
+        <div data-dojo-attach-point="__commentDisplay">
+        </div>
+        <div data-dojo-attach-point="__commentEditNode" style="display: none">
+            <textarea class="form-control ${bid}__commentInput" disabled data-dojo-attach-point="__commentInput"
+                      rows="4"></textarea>
+            <div data-dojo-attach-point="__commentEditButtons" style="display: none" class="${bid}__commentEditButtons">
+                <button type="button" class="btn btn-primary pull-right"
+                        data-dojo-attach-point="__commentEditSave" data-dojo-attach-event="onclick:editSave">
+                    <span data-dojo-attach-point="nls">commentEditSave</span></button>
+                <button type="button" class="btn btn-default pull-right"
+                        data-dojo-attach-point="__commentEditCancel"
+                        data-dojo-attach-event="onclick:editCancel">
+                    <span data-dojo-attach-point="nls">commentEditCancel</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="${bid}__commentFooter panel-footer">
+        <span data-dojo-attach-point="__userInfo"></span>
+        <span data-dojo-attach-point="__dateInfo"></span>
+        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton"
+                data-dojo-attach-event="onclick:deleteComment">
+            <i class="fa fa-trash-o fa-lg"></i><span class="${bid}__commentFooterButtonIcon"
+                                                     data-dojo-attach-point="nls">deleteComment</span></button>
+        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton"
+                data-dojo-attach-point="__editComment" disabled data-dojo-attach-event="onclick:editComment">
+            <i class="fa fa-pencil" aria-hidden="true"></i><span class="${bid}__commentFooterButtonIcon"
+                                                                 data-dojo-attach-point="nls">editComment</span>
+        </button>
+        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton" data-dojo-attach-point="nls"
+                data-dojo-attach-event="onclick:replyComment">
+            <i class="fa fa-reply" aria-hidden="true"></i><span class="${bid}__commentFooterButtonIcon"
+                                                                data-dojo-attach-point="nls">replyComment</span>
+        </button>
+        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton"
+                data-dojo-attach-event="onclick:toggleReplies">
+            <i class="fa fa-caret-right" data-dojo-attach-point="__replyIcon" aria-hidden="true"></i><span
+                class="${bid}__commentFooterButtonIcon" data-dojo-attach-point="nls,__replies">reply</span></button>
+    </div>
+    <div>
+        <div class="${bid}__commentReply" style="display:none;" data-dojo-attach-point="__commentReply">
+            <label for="${id}-subject" class="${bid}__replySubjectLabel"
+                   data-dojo-attach-point="nls">subject</label>
+            <input id="${id}-subject" class="form-control ${bid}__replySubject"
+                   data-dojo-attach-point="subjectNode"/>
+            <label for="${id}-comment" class="${bid}__replyLabel"
+                   data-dojo-attach-point="nls">comment</label>
+            <textarea class="form-control ${bid}__reply" data-dojo-attach-point="nls,commentNode" rows="4"
+                      id="${id}-comment" placeholder="replyPlaceholder"></textarea>
+            <button type="button" class="btn btn-primary pull-right ${bid}__commentReplyPost"
+                    data-dojo-attach-point="nls,postReplyButton" data-dojo-attach-event="onclick:postReply">
+                <span data-dojo-attach-point="nls">postReply</span>
+            </button>
+            <button type="button" class="btn btn-default pull-right ${bid}__commentReplyCancel"
+                    data-dojo-attach-point="nls,cancelReplyButton" data-dojo-attach-event="onclick:cancelReply">
+                <span data-dojo-attach-point="nls">cancelReply</span>
+            </button>
+        </div>
+        <div>
+            <div class="${bid}__commentsList" data-dojo-attach-point="__commentsList" style="display: none;">
+            </div>
+        </div>
+
+    </div>
+</div>
+

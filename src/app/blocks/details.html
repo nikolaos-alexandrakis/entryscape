@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" />
+  <script src="https://static.entryscape.com/libs/jquery/dist/jquery.min.js"></script>
+  <script src="https://static.entryscape.com/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript " src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js "></script>
+  <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://static.entryscape.com/libs/fontawesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="./skr_cards_merged.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/css/lightbox.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/js/lightbox.js" charset="utf-8"></script>
+
+  <title>ES Cards detail view</title>
+</head>
+
+<body>
+
+  <header>
+
+    <button  class="btn--green btn--xl"type="button" name="button" onclick="window.location.href = 'javascript:history.back()'">
+    <i class="fas fa-chevron-left"></i>
+    <span>Gå tillbaka</span>
+  </button>
+  </header>
+
+  <main class="main--flex">
+    <div class="wrapper column">
+      <div data-entryscape="slider" data-entryscape-property="schema:image"
+           data-entryscape-caption="dc:rights"
+           data-entryscape-fallback="https://images.pexels.com/photos/821652/pexels-photo-821652.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></div>
+      <div class="description" data-entryscape="text" data-entryscape-content="${dcterms:description}"></div>
+      <div class="map">
+        <p>Hitta hit</p>
+        <div data-entryscape="map"></div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="metadata">
+          <h4>Konstverk</h4>
+        <div data-entryscape="viewMetadata"
+             data-entryscape-template="skr:WorkOfArt"
+             data-entryscape-filterpredicates="schema:image,dcterms:description,dcterms:creator,schema:address,schema:location"
+             data-entryscape-onecol="true"></div>
+        <h4>Konstnär</h4>
+        <div data-entryscape="viewMetadata"
+             data-entryscape-template="skr:Artist"
+             data-entryscape-relation="dcterms:creator"
+             data-entryscape-onecol="true"></div>
+        <h4>Adress</h4>
+        <div data-entryscape="viewMetadata"
+             data-entryscape-template="skr:PostalAddress"
+             data-entryscape-relation="schema:address"
+             data-entryscape-onecol="true"></div>
+        <h4>Fastighet</h4>
+        <div data-entryscape="viewMetadata"
+             data-entryscape-template="skr:PropertyUnit"
+             data-entryscape-relation="schema:location"
+             data-entryscape-onecol="true"></div>
+      </div>
+
+    </div>
+  </main>
+<script src="skr.js">
+  </script>
+
+<script>
+  var debug = document.location.search.indexOf('debug') > 0;
+  var path = debug ? '' : 'https://static.entryscape.com/';
+  var css = function (url) {
+    document.write('<link rel="stylesheet" href="' + path + url + '"/>');
+  };
+
+  var js = function (url) {
+    document.write('<script src="' + path + url + '"/><\/script>');
+  };
+
+  if (debug) {
+    css('style.css');
+    document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
+  } else {
+    css('blocks/0.11/style.css');
+    document.write('<script src="skr.js" type="text/javascript"><\/script>');
+    js('blocks/0.11/all.js');
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+.eswoReplaceDialog__label {
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.eswoReplaceDialog__input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    min-height: 34px;
+    padding-right: 28px;
+    margin-left: 2em;
+    padding-left: 0.5em;
+}

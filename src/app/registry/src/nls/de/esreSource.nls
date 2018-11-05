@@ -1,0 +1,15 @@
+{
+  "header": "Geben Sie eine Katalogquelle an",
+  "information": "Parsing- und Validierungsinformationen",
+  "informationError": "Parsing- und Validierungswarnungen",
+  "noRDF": "Kein Katalog gefunden. Sie werden nun an die Ansicht \"Katalogquelle\" weitergeleitet, wo Sie einen Katalog von einer Datei oder einem Link laden oder manuell eingeben können.",
+  "noRDFProceed": "OK",
+  "validationMessage": "Es {{PLURAL:${errors}|wurde ein Fehler|wurden ${errors} Fehler}} und {{PLURAL:${warnings}|eine Warnung|${warnings} Warnungen}} gefunden",
+  "mandatoryMissing": "Für die folgenden obligatorischen Top-Level Klassen wurden keine Instanzen gefunden: ",
+  "download": "Download",
+  "upload": "Von Link oder Datei laden",
+  "example": "Beispiel laden",
+  "signinRequirement": "Sie müssen angemeldet sein, um Kataloge von einer Datei oder von einem Link laden zu können.",
+  "signinRequirementOk": "OK",
+  "exploreHeader": "Datensätze im Katalog untersuchen"
+}

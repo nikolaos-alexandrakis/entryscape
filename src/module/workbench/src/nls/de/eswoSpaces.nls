@@ -1,0 +1,23 @@
+{
+  "listHeader": "Meine Projekte",
+  "createButtonLabel": "Projekt erstellen",
+  "createPopoverTitle": "Projekt erstellen",
+  "createPopoverMessage": "Jedes Projekt enthält eine Reihe von Objekten welche zusammen verwaltet werden.",
+  "publicWorkspaceTitle": "Das Projekt ist öffentlich, hier klicken um die Zugriffsrechte zu ändern",
+  "privateWorkspaceTitle": "Das Projekt ist nicht öffentlich, hier klicken um Zugriffsrechte zu ändern",
+  "workspaceSharingNoAccess": "Sie können die Teilungseinstellungen dieses Projektes nicht ändern da Sie nicht dessen Eigentümer sind.",
+  "confirmRemoveWorkspace": "Soll dieses Projekt inklusive aller seiner Objekte entfernt werden?",
+  "workspaceSharingProblem": "Die Komplexität der Teilungseinstellungen dieses Projektes erfordern dass diese in EntryScape Admin geändert werden.",
+  "workspaceMemberTitle": "Teilungseinstellungen",
+  "createWorkspaceHeader": "Projekt erstellen",
+  "createWorkspaceName": "Projektname",
+  "createWorkspaceNamePlaceholder": "Geben Sie einen Namen für das Projekt ein",
+  "createWorkspaceDesc": "Projektbeschreibung",
+  "createWorkspaceDescPlaceholder": "Geben Sie eine Beschreibung für das Projekt ein",
+  "createWorkspaceNote": "Name und Beschreibung des Projektes können später geändert werden.",
+  "createWorkspaceButton": "Projekt erstellen",
+  "insufficientInfoToCreateWorkspace": "Sie müssen Werte für alle Felder angeben um ein Projekt zu erstellen.",
+  "workspaceConfigure": "Objekttypen konfigurieren",
+  "workspaceConfigureTitle": "Objekttypen konfigurieren",
+  "emptyListWarning": "Projekte die Sie erstellen werden hier angezeigt werden"
+}

@@ -1,0 +1,15 @@
+{
+  "root": {
+    "lastUpdatedLabel": "updated",
+    "createdLabel": "created",
+    "datasetLabel": "Datasets",
+    "candidateLabel": "Candidates",
+    "showcaseLabel": "Showcases",
+    "publisherLabel": "Publishers",
+    "contactLabel": "Contacts",
+    "ideaLabel": "Ideas"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

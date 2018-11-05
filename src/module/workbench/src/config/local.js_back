@@ -1,0 +1,87 @@
+/* eslint camelcase: off */
+__entryscape_config = {
+    entrystore: {
+        repository: "http://localhost:8080/store/"
+    },
+    reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph",
+    itemstore: {
+        "bundles": [
+            "templates/skos/skos",
+            "entryscape-workbench/templates/art-example",
+            "templates/rdfs/rdfs"
+        ]
+    },
+    entrychooser: {
+        "http://purl.org/dc/terms/subject": "repository"
+    },
+    entitytypes: [
+        {
+            name: "art",
+            label: {en: "Piece of art"},
+            rdfType: "http://example.com/PieceOfArt",
+            template: "art:PieceOfArt",
+            includeInternal: true,
+            inlineCreation: true
+        }, {
+            name: "artist",
+            label: {en: "Artist"},
+            rdfType: "http://example.com/Artist",
+            template: "art:Artist",
+            includeInternal: true,
+            inlineCreation: true
+        }, {
+            name: "image",
+            label: {en: "Image"},
+            rdfType: "http://xmlns.com/foaf/0.1/Image",
+            template: "art:Image",
+            includeFile: true,
+            inlineCreation: true
+        },
+        {
+            name: "exhibition",
+            label: {en: "Exhibition"},
+            rdfType: "http://example.com/Exhibition",
+            template: "art:Exhibition",
+            includeLink: true,
+            inlineCreation: true
+        },
+        {
+            name: "place",
+            label: {en: "Place"},
+            rdfType: "http://example.com/Place",
+            template: "art:Place",
+            includeInternal: true,
+            inlineCreation: true
+        },
+        {
+            name: "document",
+            label: {en: "Document"},
+            rdfType: "http://xmlns.com/foaf/0.1/Document",
+            template: "art:Document",
+            includeFile: true,
+            includeLink: true,
+            inlineCreation: true
+        },
+        {
+            name: "country",
+            label: {en: "Country"},
+            rdfType: "http://www.geonames.org/ontology#Feature",
+            template: "gn:Feature",
+            includeFile: false,
+            includeLink: true,
+            includeInternal: false,
+            inlineCreation: true
+        }
+    ],
+    skosmapping: [
+        {
+            "property": "http://example.com/artMethod",
+            "skosinSchemeRURI": ["http://localhost:8080/store/6/resource/skos","http://localhost:8080/store/4/resource/skos"]//chenage with correct URIs
+        },
+        {
+            "property": "art:method",//wrong mapping to test
+            "skosinSchemeRURI": "http://localhost:/"
+        },
+
+    ]
+};

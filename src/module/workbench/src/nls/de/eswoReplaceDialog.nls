@@ -1,0 +1,9 @@
+{
+  "replaceFileHeader": "Datei ändern",
+  "replaceLinkHeader": "Link ändern",
+  "replaceFileFooterButton": "Datei ändern",
+  "replaceLinkFooterButton": "Link ändern",
+  "currentLink": "Aktueller Link",
+  "newFile": "Neue Datei",
+  "newLink": "Neuer Link"
+}

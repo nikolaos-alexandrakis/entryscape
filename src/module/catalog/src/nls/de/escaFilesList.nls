@@ -1,0 +1,15 @@
+{
+  "createButtonLabel": "Datei hinzufügen",
+  "createPopoverTitle": "Datei hinzufügen",
+  "createHeader": "Datei zu Distribution hinzufügen",
+  "createButton": "Datei hinzufügen",
+  "headerTitle": "Dateien der Distribution",
+  "replaceMenu": "Datei ersetzen",
+  "replaceMenuTitle": "Datei ersetzen",
+  "confirmRemoveFile": "Wollen Sie diese Datei entfernen?",
+  "editFileLabel": "Datei bearbeiten",
+  "editFileTitle": "Metadaten dieser Datei ändern",
+  "removeFileTitle": "Datei entfernen",
+  "removeFileLabel": "Datei entfernen",
+  "downloadButtonTitle": "Herunterladen"
+}

@@ -1,0 +1,10 @@
+{
+  "root": {
+    "lastUpdatedLabel": "Updated",
+    "createdLabel": "Created",
+    "configuredEntitiesLabel": "Configured entity types",
+    "collectionLabel": "Collections"
+  },
+  "sv": true,
+  "de": true
+}

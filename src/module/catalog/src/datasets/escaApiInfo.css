@@ -1,0 +1,22 @@
+.escaApiInfo__refreshButton {
+    margin-left: 5px
+}
+.escaApiInfo__aliasButtons {
+    margin-top: 5px;
+}
+.escaApiInfo__aliasButtons .btn{
+  color: #4f4f4f !important;
+  border: 1px solid #4f4f4f;
+}
+.escaApiInfo__saveAlias {
+    margin-left: 5px
+}
+.escaApiInfo__apiInfo {
+    margin-top: 45px
+}
+.escaApiInfo__apiTable {
+    margin-top: 5px;
+}
+.escaApiInfo__aliasError {
+    padding: 5px;
+}

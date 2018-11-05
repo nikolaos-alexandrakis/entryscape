@@ -1,0 +1,9 @@
+{
+  "root": {
+    "importRDFHeader": "Import from RDF",
+    "importRDFButton": "Import",
+    "importInformation": "Provide an RDF file or a link to an RDF source from where \"${entityType}\" will be detected and imported. Note that each \"${entityType}\" must be typed explicitly (via rdf:type) with the class \"${rdfType}\" to be detected."
+  },
+  "sv": true,
+  "de": true
+}

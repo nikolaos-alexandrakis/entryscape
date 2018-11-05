@@ -1,0 +1,57 @@
+/**
+ * Wraps an array (possibly asynchrounous loaded) into a class that looks like a store/List.
+ * @see {store/List}
+ */
+class ArrayList {
+
+  /**
+   * Parameters may be:
+   * arr - an array of entries to be used,
+   *      if not provided the loadEntries method must be overrided
+   * limit - an integer specifying the page limit.
+   *
+   * @param {object} params
+   */
+  constructor(params) {
+    this.limit = 20;
+    this.entries = params.arr;
+    this.limit = params.limit != null ? params.limit : this.limit;
+  }
+
+  /**
+   * Resets the cached entries, if used the loadEntries method should be properly implemented.
+   */
+  refresh() {
+    delete this.entries;
+  }
+
+  /**
+   * Implement this method if asynchronous loading of entries is needed.
+   * Make sure to store the array of entries in this.entries before
+   * the returned promise is resolved.
+   *
+   * @return {Promise}
+   */
+  loadEntries() {
+  }
+
+  getEntries(page) {
+    return new Promise((resolve) => {
+      if (this.entries == null) {
+        return this.loadEntries().then(this.getEntries.bind(this, page));
+      }
+      resolve(this.entries.slice(page * this.getLimit(), (page + 1) * this.getLimit()));
+    });
+  }
+
+  getLimit() {
+    return this.limit;
+  }
+
+  getSize() {
+    return this.entries == null ? -1 : this.entries.length;
+  }
+}
+
+export {ArrayList};
+export default ArrayList;

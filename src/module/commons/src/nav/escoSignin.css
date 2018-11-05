@@ -1,0 +1,115 @@
+.escoSignin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.escoSignin > * {
+  width: 350px;
+}
+@media (max-width: 991px) {
+  .escoSignin > * {
+    width: initial;
+  }
+}
+
+.escoSignin .logo-text {
+    text-align: center;
+    margin: 20px
+}
+
+.escoSignin .well {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.escoSignin.signindialog {
+    margin-top: 0px;
+}
+
+.escoSignin.signindialog .resetButton,
+.signupButton {
+    padding-left: 0px;
+}
+
+.escoSignin a.resetButton {
+    font-size: 12px;
+    float: right;
+    color: #337ab7;
+    text-transform: none;
+    padding: 6px 12px;
+}
+
+.escoSignin a.signupButton {
+    font-size: 12px;
+    color: #333;
+    text-transform: none;
+    padding: 10px;
+}
+
+.escoSignin .createAccount {
+    text-align: center;
+}
+
+.signup .signup-info {
+    cursor: pointer;
+}
+
+.escoSignin.escoSignin--signout .escoSignin__signin,
+.escoSignin__signout {
+    display: none;
+}
+
+.escoSignin.escoSignin--signout .escoSignin__signout {
+    display: block;
+}
+
+.escoSignin.signindialog .signinButton {
+    display: none;
+}
+
+.escoSignin .signinButton {
+    border-radius: 1px;
+    color: #FFF !important;
+}
+
+.escoSignin__external,
+.escoSignin__internal,
+.escoSignin__or {
+    display: none;
+}
+
+.escoSignin--external .escoSignin__external,
+.escoSignin--internal .escoSignin__internal {
+    display: block;
+}
+
+.escoSignin--external.escoSignin--internal .escoSignin__or {
+    display: block;
+}
+
+.escoSignin__externalImage {
+    float:left;
+    width: 60px;
+    margin: 0 25px 10px 0;
+}
+
+.escoSignin__externalMessage {
+    font-size: 14px;
+}
+.escoSignin__externalButton {
+    margin-top: 25px;
+}
+
+.escoSignin__externalButtonIcon {
+    margin-left: 10px;
+}
+
+.escoSignin__or {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -15px;
+    padding: 10px;
+    text-align: center;
+}

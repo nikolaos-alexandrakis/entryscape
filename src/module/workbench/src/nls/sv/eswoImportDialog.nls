@@ -1,0 +1,5 @@
+{
+  "importRDFHeader": "Importera från RDF",
+  "importRDFButton": "Importera",
+  "importInformation": "Tillhandahålla en RDF-fil eller länk tillen RDF-källa ifrån '${entityType}' kan detekteras och importeras. Observera att varje '${entityType}' måste ha en explicit typning (rdf:type) med '${rdfType}' för att kunna detekteras."
+}

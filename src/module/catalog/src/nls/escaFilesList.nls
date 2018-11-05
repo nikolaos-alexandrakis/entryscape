@@ -1,0 +1,20 @@
+{
+  "root": {
+    "createButtonLabel": "Add file",
+    "createPopoverTitle": "Add file",
+    "createHeader": "Add file to distribution",
+    "createButton": "Add file",
+    "headerTitle": "Files of distribution",
+    "replaceMenu": "Replace file",
+    "replaceMenuTitle": "Replace file",
+    "confirmRemoveFile": "Do you want to remove this file?",
+    "editFileLabel": "Edit file",
+    "editFileTitle": "Edit file's metadata",
+    "removeFileTitle": "Remove file",
+    "removeFileLabel": "Remove file",
+    "downloadButtonTitle": "Download"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

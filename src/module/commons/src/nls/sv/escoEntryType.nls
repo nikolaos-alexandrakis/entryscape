@@ -1,0 +1,10 @@
+{
+  "linkLabel": "Länk",
+  "fileLabel": "Fil",
+  "linkInput_placeholder": "En webbadress kommer att skapas om detta fält lämnas tomt",
+  "linkInputExternal_placeholder": "En webbadress är nödvändig",
+  "linkNotValid": "Webbadressen måste börja på \"http://\" eller \"https://\"",
+  "browseFile": "Utforska",
+  "internalLink": "En webbaddress kommer att skapas för denna entitet",
+  "filePathInput_placeholder": "Välj fil"
+}

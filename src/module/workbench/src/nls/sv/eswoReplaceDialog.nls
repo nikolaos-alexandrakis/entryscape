@@ -1,0 +1,9 @@
+{
+  "replaceFileHeader": "Ändra fil",
+  "replaceLinkHeader": "Ändra länk",
+  "replaceFileFooterButton": "Ändra fil",
+  "replaceLinkFooterButton": "Ändra link",
+  "currentLink": "Nuvarande länk",
+  "newFile": "Ny fil",
+  "newLink": "Ny länk"
+}

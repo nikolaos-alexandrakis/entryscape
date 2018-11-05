@@ -1,0 +1,4 @@
+{
+  "upgradeToDataset": "Vil du opgradere dette kandidat datasæt til at være et regulært datasæt?",
+  "mandatoryFail": "Du kan ikke opgradere dette datasæt fordi obligatoriske tjekliste trin ikke er gennemført: "
+}

@@ -1,0 +1,26 @@
+body {
+    max-width: 1200px;
+    margin: 20px auto 20px auto;
+}
+
+.code {
+    margin: 20px 0px;
+}
+
+.code::before {
+    content: "Block expression";
+    font-size: 24px;
+    font-weight: bold;
+}
+.code>textarea {
+    width: 100%;
+    min-height: 150px;
+    background: lightgrey;
+    font-size: 18px;
+    font-family: monospace;
+    border-width: 4px;
+    box-sizing: content-box;
+}
+.code.big>textarea {
+    min-height: 350px;
+}

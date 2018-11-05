@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="https://static.entryscape.com/libs/jquery/dist/jquery.min.js"></script>
+    <script src="https://static.entryscape.com/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- <link rel="stylesheet" href="https://static.entryscape.com/libs/bootstrap/dist/css/bootstrap-theme.min.css"/> -->
+    <link rel="stylesheet" href="https://static.entryscape.com/libs/fontawesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
+    <link rel="stylesheet" href="skr_cards_merged.css"/>
+
+    <title>SKR Blocks</title>
+</head>
+<body>
+
+<div class="skr_container">
+    <div class="sidebar grid">
+        <span data-entryscape="facets"></span>
+    </div>
+    <div class="facets--mobile hidden">
+      <button class="btn--close btn--green btn--large" type="button" name="button-close">X</button>
+      <span data-entryscape="facets"></span>
+    </div>
+    <div class="main--2columns grid">
+      <div class="main-header">
+        <span data-entryscape="multiSearch"></span>
+        <div class="search-wrapper search-wrapper--borderblack" >
+          <img src="search.png" alt="search logo">
+        </div>
+        <div class="btn--wrapper">
+          <div class="">
+            <button class="btn--search btn--green btn--filter--mobile"  type="button" name="Filter">Filter</button>
+          </div>
+          <div class="">
+            <button class="btn--search btn--green" type="button" name="reset">
+                <span data-entryscape="clear"></span>
+                <span>Rensa</span></button>
+          </div>
+        </div>
+      </div>
+
+        <div class="card-container">
+            <div data-entryscape="skrList"
+                 data-entryscape-click="details.html?debug=true"></div>
+        </div>
+    </div>
+</div>
+
+<script src="skr.js"></script>
+<script>
+introJs().start();
+</script>
+
+<script>
+  var debug = document.location.search.indexOf('debug') > 0;
+  var path = debug ? '' : 'https://static.entryscape.com/';
+  var css = function (url) {
+    document.write('<link rel="stylesheet" href="' + path + url + '"/>');
+  };
+
+  var js = function (url) {
+    document.write('<script src="' + path + url + '"/><\/script>');
+  };
+
+  if (debug) {
+    css('style.css');
+    document.write('<script data-main="config/deps" src="libs/requirejs/require.js" type="text/javascript"><\/script>');
+  } else {
+    css('blocks/0.11/style.css');
+    document.write('<script src="skr.js" type="text/javascript"><\/script>');
+    js('blocks/0.11/all.js');
+  }
+</script>
+</body>
+</html>

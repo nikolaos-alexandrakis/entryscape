@@ -1,0 +1,12 @@
+{
+  "root": {
+    "emptyMessageWithName": "Entities of type \"$1\" will appear here.",
+    "createButtonWithName": "Create \"$1\"",
+    "createButtonTitleWithName": "Create an entity for type \"$1\"",
+    "emptyMessage": "There is nothing to display yet.",
+    "emptySearchMessage": "No matching results."
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

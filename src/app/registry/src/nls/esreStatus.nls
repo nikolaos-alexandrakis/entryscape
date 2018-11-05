@@ -1,0 +1,18 @@
+{
+    "root": {
+        "creationDateTitle": "Source checked at ${date}",
+        "listSearchPlaceholder": "Search for... (minimum three characters)",
+        "organizationLabel": "Organization",
+        "organizationTitle": "Organization in the public sector, e.g. municipality or authority",
+        "otherOrgLabel": "Organization",
+        "otherOrgTitle": "Organization in the private sector, e.g. company or NGO",
+        "psiPageLabel": "Web page",
+        "psiPageTitle": "Specific web page for open data/PSI data found",
+        "dcatAPLabel": "Datasets",
+        "dcatAPTitle": "Machine readable catalog with datasets found",
+        "checkedLabel": "Checked",
+        "checkedTitle": "Time when organization was last checked"
+    },
+    "sv": true,
+    "de": true
+}

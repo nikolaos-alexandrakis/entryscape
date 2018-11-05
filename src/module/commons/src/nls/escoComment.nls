@@ -1,0 +1,29 @@
+{
+  "root": {
+    "listHeader": "Comments",
+    "creationDateTitle": "Comment created at ${date}",
+    "replyComment": "Reply",
+    "deleteComment": "Delete",
+    "editComment": "Edit",
+    "postComment": "Post comment",
+    "postReply": "Post reply",
+    "cancelReply": "Cancel",
+    "replies": "${number} replies",
+    "reply": "{{PLURAL:$1|One reply|$1 replies}}",
+    "comment": "Comment",
+    "commentPlaceholder": "Enter comment",
+    "subject": "Subject",
+    "subjectPlaceholder": "Enter subject for comment",
+    "commentEditSave": "Save",
+    "commentEditCancel": "Cancel",
+    "removeComment": "Do you want to delete the comment{{PLURAL:$1| along with its replies}}?",
+    "replyPlaceholder": "Enter reply",
+    "subjectInput_placeholder": "Enter subject for comment",
+    "commentInput_placeholder": "Enter comment",
+    "invalidComment": "Comment must not be empty",
+    "invalidSubject": "Subject must not be empty"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

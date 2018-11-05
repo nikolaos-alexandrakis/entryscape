@@ -1,0 +1,12 @@
+{
+  "root": {
+    "searchForHeader": "Search for concept",
+    "emptyMessage": "No matches found. You need to create, import or change the configuration to get a list of concepts here.",
+    "optionAll": "All",
+    "currentValueMark": "current value",
+    "selectTerminologyFirst": "Please select a terminology first"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

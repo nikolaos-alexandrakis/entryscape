@@ -1,0 +1,4 @@
+{
+  "downgradeToCdataset": "Vill du nedgradera datamängden till en datamängdskandidat?",
+  "downgradeFail": "Datamängden är publik och kan därför inte nedgraderas."
+}

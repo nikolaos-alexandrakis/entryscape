@@ -1,0 +1,4 @@
+{
+  "downgradeToCdataset": "Wollen Sie diesen Datensatz zu einem Datensatzkandidaten herabstufen?",
+  "downgradeFail": "Dieser Datensatz ist öffentlich und kann deshalb nicht herabgestuft werden"
+}

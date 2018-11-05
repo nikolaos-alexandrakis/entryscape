@@ -1,0 +1,19 @@
+{
+    "root": {
+        "header": "Provide a catalog source",
+        "information": "Parsing and validation information",
+        "informationError": "Parsing and validation warnings",
+        "noRDF": "No catalog found. You are now forwarded to the view \"Catalog source\" where you can load a catalog from a file, link, cut and paste or even type in the catalog manually.",
+        "noRDFProceed": "OK",
+        "validationMessage": "Found {{PLURAL:${errors}|one validation error|${errors} validation errors}} and {{PLURAL:${warnings}|one warning|${warnings} warnings}}",
+        "mandatoryMissing": "Instances missing for the following mandatory top-level classes: ",
+        "download": "Download",
+        "upload": "Load from link or file",
+        "example": "Load example",
+        "signinRequirement": "You need to be signed in to be able to load catalogs from file or link.",
+        "signinRequirementOk": "OK",
+        "exploreHeader": "Explore datasets in catalog"
+    },
+    "sv": true,
+    "de": true
+}

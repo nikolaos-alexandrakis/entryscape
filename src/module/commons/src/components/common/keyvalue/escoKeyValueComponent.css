@@ -1,0 +1,6 @@
+@media (min-width: 768px) {
+    .dl-horizontal dt {
+        text-align: left;
+        width: 200px;
+    }
+}

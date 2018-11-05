@@ -1,0 +1,7 @@
+{
+  "emptyMessageWithName": "Entiteter av typ \"$1\" kommer att visas här.",
+  "emptyMessage": "Det finns inget att visa ännu.",
+  "emptySearchMessage": "Inga träffar.",
+  "createButtonWithName": "Skapa \"$1\"",
+  "createButtonTitleWithName": "Skapa entitet av typ \"$1\""
+}

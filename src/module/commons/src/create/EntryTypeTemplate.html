@@ -1,0 +1,36 @@
+<div class='${bid} rdformsEditor'>
+    <div class="btn-group ${bid}__optionBlock" data-toggle="buttons">
+        <label for="${id}-linkOption" class="btn btn-default" data-dojo-attach-point="__linkOptionLabel"
+               data-dojo-attach-event="click:linkOption"><span data-dojo-attach-point="nls,__linkOptionLabelNLS">linkLabel</span>
+            <input type="radio" name="entryType"  id="${id}-linkOption" checked autocomplete="off" />
+        </label>
+        <label for="${id}-fileOption" class="btn btn-default" data-dojo-attach-point="__fileOptionLabel"
+               data-dojo-attach-event="click:fileOption"><span data-dojo-attach-point="nls,__fileOptionLabelNLS">fileLabel</span>
+            <input type="radio" name="entryType" id="${id}-fileOption" autocomplete="off"/>
+        </label>
+    </div>
+    <label class="${bid}__linkLabel" data-dojo-attach-point="nls,__linkLabel">linkLabel</label>
+    <label class="${bid}__fileLabel" data-dojo-attach-point="nls,__fileLabel">fileLabel</label>
+    <div class="${bid}__inputBlocks rdformsField">
+        <div class="${bid}__linkBlock" data-dojo-attach-point="__linkBlock">
+            <div class="${bid}__onlyInternalLink" data-dojo-attach-point="nls">internalLink</div>
+            <input type="url" class="${bid}__anyLinkInput form-control" placeholder="linkInput_placeholder,linkInputExternal_placeholder" data-dojo-attach-point="nls,__linkInput" pattern="^(https?|ftp)://[^\s/$.?#].[^\s]*$">
+        </div>
+        <div class="${bid}__fileBlock" data-dojo-attach-point="__fileBlock">
+            <div class="input-group ${bid}__file">
+                <div data-dojo-attach-point="__filePathInputWrapper">
+                    <input type="text" class="form-control ${bid}__filePathInput" id="${id}__file"
+                           disabled data-dojo-attach-point="nls,__filePathInput" placeholder="filePathInput_placeholder">
+                </div>
+                <span class="input-group-btn ${bid}__fileUploadButton">
+                    <span class="btn btn-default btn-file"
+                          data-dojo-attach-point="__fileInputWrapper"><span
+                            data-dojo-attach-point="nls">browseFile</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div data-dojo-attach-point="__errorMessage" class="text-danger" role="alert"></div>
+    </div>
+    <div data-dojo-attach-point="containerNode"></div>
+</div>

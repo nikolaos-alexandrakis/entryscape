@@ -1,0 +1,13 @@
+{
+  "apiRegenerateHeader": "Uppdatera API",
+  "apiProgressFooterButton": "Klart",
+  "apiCreateHeader": "Skapa API",
+  "apiInitialized": "Initialiserad",
+  "apiFileProcessed": "Fil ${number} klar",
+  "apiProgressError": "Något med filerna gör att API:et inte kan uppdateras, ändra filerna och försök att uppdatera API:et igen.",
+  "apiProgressButtonError": "OK",
+  "apiGenerationTask": "Skapar API",
+  "nlsProgressCancel": "Avbryt",
+  "nlsProgressDone": "Klart",
+  "nlsProgressSuccess": "API:et har skapats"
+}

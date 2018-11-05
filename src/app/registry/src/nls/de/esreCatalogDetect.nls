@@ -1,0 +1,6 @@
+{
+  "catalogSource": "Katalogquelle:",
+  "catalogStatus": "Ein Katalog gefunden, mit {{PLURAL:${da}|einem Datensatz|${da} Datensätzen}}, {{PLURAL:${di}|einer Distribution|${di} Distributionen}}, {{PLURAL:${co}|einem Kontakt|${co} Kontakten}} und {{PLURAL:${pu}|einem Herausgeber|${pu} Herausgebern}}.",
+  "catalogError": "Höchstens ein Katalog erwartet, es wurden jedoch $1 Kataloge gefunden",
+  "nothingToMergeError": "Es gibt nichts zum Zusammenführen. Es wurden keine Datensätze, Distributionen, Herausgeber oder Kontakte gefunden."
+}

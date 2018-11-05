@@ -1,0 +1,4 @@
+{
+  "upgradeToDataset": "Soll dieser Datensatzkandidat zu einem regulären Datensatz hochgestuft werden?",
+  "mandatoryFail": "Dieser Datensatzkandidat kann nicht hochgestuft werden, da die folgenden obligatorischen Schritte der Checkliste noch nicht abgeschlossen sind: "
+}

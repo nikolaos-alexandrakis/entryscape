@@ -1,0 +1,10 @@
+{
+  "mergeHeader": "Slå samman kataloger",
+  "mainCatalogHeader": "Huvudkatalog",
+  "mergeCatalogListHeader": "Kataloger att slå samman med huvudkatalogen",
+  "addMergeCatalog": "Lägg till",
+  "loadTitle": "Ladda en katalog",
+  "loadButton": "Ladda",
+  "loadButtonTitle": "Ladda katalog från RDF",
+  "mergeCatalogsButtonIntoMain": "Slå samman"
+}

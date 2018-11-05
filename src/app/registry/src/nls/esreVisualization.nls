@@ -1,0 +1,15 @@
+{
+    "root": {
+        "datasetGrowth": "Growth of datasets (last month)",
+        "orgStatus": "Status public organizations",
+        "datasetsPerOrg": "Amount of datasets per organization",
+        "dcatAndPSILegend": "DCAT-AP and PSI page ($1)",
+        "onlyPSILegend": "Only PSI page ($1)",
+        "onlyDcatLegend": "Only DCAT-AP ($1)",
+        "neitherLegend": "Neither ($1)",
+        "datasetCount": "Number of datasets",
+        "organizationCount": "Organizations providing datasets"
+    },
+    "sv": true,
+    "de": true
+}

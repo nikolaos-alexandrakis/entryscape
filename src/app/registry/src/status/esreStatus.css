@@ -1,0 +1,42 @@
+.escoList .entryList .psirow td {
+    padding: 8px;
+    height: 60px;
+}
+
+.escoList .entryList .psirow th.entryName,
+.escoList .entryList .psirow td.entryName {
+    padding-left: 20px;
+}
+
+.escoList .entryList .psirow th.harvestDate,
+.escoList .entryList .psirow td.harvestDate {
+    padding-right: 20px;
+}
+
+.psirow .entryName {
+    width: auto;
+}
+
+.psirow .dcatAP {
+    width: 100px;
+    text-align: center;
+}
+
+.psirow .psiname {
+    width: 100px;
+    text-align: center;
+}
+
+.psirow td.dcatAP,
+.psirow td.psiname {
+    color: green;
+}
+
+.psirow .harvestDate {
+    width: 130px;
+    text-align: right;
+}
+
+.otherOrg .psiname {
+    display: none;
+}

@@ -1,0 +1,18 @@
+{
+  "root": {
+    "notConnected": "Action not performed since you are not connected. Connecting in ${time}...",
+    "tryNow": "Try now",
+    "loading": "Loading data...",
+    "genericProblem": "Unknown error. Try to reload EntryScape if the problem persists.",
+    "conflictProblem": "Someone has made changes to the resource you are currently editing. This prevents your changes from being saved. Reload and try again.",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details",
+    "closeDialog": "Close",
+    "signedOut": "The action you tried to perform is only allowed for signed-in users",
+    "signIn": "Sign in",
+    "restrictionHeader": "Operation not permitted"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

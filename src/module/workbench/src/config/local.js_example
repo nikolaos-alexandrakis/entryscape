@@ -1,0 +1,128 @@
+__entryscape_config = {
+  entrystore: {
+    repository: 'http://localhost:8080/store/',
+  },
+  reCaptchaSiteKey: '6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph',
+  itemstore: {
+    bundles: [
+      'entryscape-workbench/templates/art-example',
+      'entryscape-workbench/templates/faq-example',
+    ],
+  },
+  entrychooser: {
+    'http://purl.org/dc/terms/subject': 'repository',
+  },
+  skoschooser: {
+    'http://purl.org/dc/terms/subject": "repository'
+  },
+  workbench: {
+        includeMassOperations: true,
+  },
+  entitytypes: {
+    art: {
+      label: { en: 'Piece of art', sv: 'Konst' },
+      rdfType: 'http://example.com/PieceOfArt',
+      template: 'art:PieceOfArt',
+      includeInternal: true,
+      inlineCreation: true,
+      faClass: 'graduation-cap',
+      // define which properties to search against, these two are unneccessary since they
+      // are part of the default title search, but they show how it works
+      searchProps: ["dcterms:title", "skos:prefLabel"],
+    },
+    artist: {
+      label: { en: 'Artist' },
+      rdfType: 'http://example.com/Artist',
+      template: 'art:Artist',
+      includeInternal: true,
+      inlineCreation: true,
+      contentviewers: [{ name: 'imageview', property: 'foaf:depiction' }],
+    },
+    image: {
+      label: { en: 'Image' },
+      rdfType: 'http://xmlns.com/foaf/0.1/Image',
+      template: 'art:Image',
+      includeFile: true,
+      inlineCreation: true,
+      split: true,
+      contentviewers: ['imageview', 'metadataview'],
+    },
+    exhibition: {
+      label: { en: 'Exhibition' },
+      rdfType: 'http://example.com/Exhibition',
+      template: 'art:Exhibition',
+      includeLink: true,
+      inlineCreation: true,
+    },
+    place: {
+      label: { en: 'Place' },
+      rdfType: 'http://example.com/Place',
+      template: 'art:Place',
+      includeInternal: true,
+      inlineCreation: true,
+    },
+    document: {
+      label: { en: 'Document' },
+      rdfType: 'http://xmlns.com/foaf/0.1/Document',
+      template: 'art:Document',
+      includeFile: true,
+      includeLink: true,
+      inlineCreation: true,
+    },
+    country: {
+      label: { en: 'Country' },
+      rdfType: 'http://www.geonames.org/ontology#Feature',
+      template: 'gn:Feature',
+      includeFile: false,
+      includeLink: true,
+      includeInternal: false,
+      inlineCreation: true,
+    },
+    question: {
+      label: { en: 'Question' },
+      rdfType: 'http://schema.org/Question',
+      template: 'faq:Question',
+      includeInternal: true,
+      inlineCreation: true,
+      split: true,
+      publishable: true,
+      faClass: 'question',
+      contentviewers: [{ name: 'answerview',
+        relation: 'http://schema.org/acceptedAnswer',
+        linkedEntityType: 'answer',
+      }],
+    },
+    answer: {
+      label: { en: 'Answer' },
+      rdfType: 'http://schema.org/Answer',
+      template: 'faq:Answer',
+      includeInternal: true,
+      inlineCreation: true,
+      dependant: true,
+    },
+  },
+  contentviewers: {
+    answerview: {
+      class: 'entryscape-commons/contentview/LinkedEntriesView',
+      label: { en: 'Answer', sv: 'Answer' },
+    },
+    imageview: {
+      class: 'entryscape-commons/contentview/ImageView',
+      label: { en: 'Image', sv: 'Bild' },
+    },
+    metadataview: {
+      class: 'entryscape-commons/contentview/MetadataView',
+      label: { en: 'Information', sv: 'Information' },
+    },
+  },
+  skosmapping: [
+    {
+      property: 'http://schema.org/Category',
+      skosinSchemeRURI: [], // change with correct URIs
+    },
+    {
+      property: 'art:method', // wrong mapping to test
+      skosinSchemeRURI: 'http://localhost:/',
+    },
+  ],
+};

@@ -1,0 +1,4 @@
+{
+  "downgradeToCdataset": "Vil du nedgradere dette datasæt til at være en kandidat?",
+  "downgradeFail": "Du kan ikke nedgradere dette datasæt da det er offentliggjort."
+}

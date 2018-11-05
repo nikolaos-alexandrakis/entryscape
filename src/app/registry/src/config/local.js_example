@@ -1,0 +1,33 @@
+__entryscape_config = {
+    entrystore: {
+        repository: "http://localhost:8080/store/"
+    },
+    registry: {
+        type2template: {
+            "dcat:Catalog": "dcat:OnlyCatalog",
+            "dcat:Dataset": "dcat:OnlyDataset",
+            "dcat:Distribution": "dcat:OnlyDistribution",
+            "vcard:Kind": "dcat:contactPoint",
+            "vcard:Individual": "dcat:contactPoint",
+            "vcard:Organization": "dcat:contactPoint",
+            "foaf:Agent": "dcat:foaf:Agent"
+        },
+        mandatoryTypes: ["dcat:Catalog", "dcat:Dataset"]
+        contactText:{
+             sv: "to be filled",
+             en: "to be filled"
+        }
+    },
+    theme: {
+        appName: "Registry",
+        showModuleNameInHeader: true,
+        oneRowNavbar: false,
+        startBannerHeader: {
+            en: "Registry for öppnadata.se",
+            sv: "Registry för öppnadata.se"},
+        startBannerText: {
+            en: "This website is a supplement to the portal oppnadata.se. Here are tools that are helpful for organizations that want to make available its open data.",
+            sv: "Webbplatsen är ett komplement till portalen oppnadata.se. Här finns verktyg som är till hjälp för organisationer som vill tillgängliggöra sina öppna data."}
+    },
+    reCaptchaSiteKey: "6LcSSQITAAAAADJxRzmr5N5etz8mFSFwsaVNr9Ph"
+};

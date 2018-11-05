@@ -1,0 +1,62 @@
+.simpleRight .extraRights {
+    display: none;
+}
+
+.simpleRight .moreOptions {
+    display: block;
+}
+
+.moreOptions {
+    display: none;
+}
+
+.principalRight .caret {
+    margin-left: 5px;
+}
+
+.entryList .principalRow .entryRowCol3 {
+    width: 200px;
+    text-align: right;
+}
+
+.entryList .principalRow .entryRowCol3 .dropdown-menu {
+    text-align: left;
+}
+
+.entryList .principalRow .entryRowCol3 .principalRight {
+    padding: 2px 5px;
+    border: 1px solid transparent;
+}
+
+.entryList .principalRow .entryRowCol3 .principalRight:hover {
+    border-color: #808080;
+}
+
+.entryList .principalRow.readOnly .entryRowCol3 .principalRight:hover {
+    border-color: transparent;
+}
+
+.entryList .table>tbody.principalRow>tr>td.entryControls {
+    width: 70px;
+}
+
+.inheritedSharingMode .explicitSharing {
+    display: none;
+}
+
+.explicitSharingMode .inheritedSharing {
+    display: none;
+}
+
+.acl .principalName {
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+.acl .readOnly {
+    background-color: #fcfcfc;
+}
+
+.dropdown-menu>li.selectable {
+    cursor: default;
+}

@@ -1,0 +1,119 @@
+.concepts {
+    overflow: hidden;
+    padding: 0px;
+    height: 100%;
+}
+
+.sidebar,
+.conceptmain {
+    position: relative;
+    height: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+}
+
+.conceptmain.active {
+    background-color: #fff;
+}
+
+.sidebar {
+    background: rgb(237, 237, 237);
+    border-right: 1px solid #ddd;
+}
+
+.conceptTree, .conceptEditor {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    right: 1em;
+    bottom: 9em;
+    overflow: auto;
+}
+
+.conceptsControlls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+}
+
+.conceptsControlls .btn-group {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.conceptsControlls .btn-group .btn:disabled,
+.conceptsControlls .btn-group .btn:hover:disabled {
+    background-color: #d2d2d2 !important;
+    color: #fff !important;
+}
+
+.conceptsControlls .btn-group .btn-success {
+    height: 100%;
+    width: 50%;
+}
+
+.conceptsControlls .btn-group .btn-default {
+    height: 100%;
+    width: 25%;
+}
+
+.conceptsControlls.addTerm {
+    position: absolute;
+    bottom: 0;
+    background-color: #fff;
+    height: 100px;
+    width: 100%;
+}
+
+.conceptsControlls.addTerm > .row {
+    margin: 0px 10px;
+}
+
+.conceptsControlls.addTerm > .row .form-group {
+    margin-top: 8px;
+}
+
+.conceptsControlls.addTerm input {
+    width: 180px;
+    font-size: 12px;
+}
+
+.conceptsControlls.addTerm input::-webkit-input-placeholder {
+    font-size: 12px;
+}
+
+.conceptsControlls.addTerm button {
+}
+
+.leaveAlternatives button {
+    float: right;
+    margin-left: 5px;
+}
+
+.conceptsControlls .cardinality {
+    float: left;
+}
+
+.schemeErrors {
+    position: absolute;
+    bottom: 3em;
+    left: 1em;
+    right: 1em;
+    padding-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.schemeErrors p {
+    font-size: small;
+}
+
+.leaveAlternatives {
+    height: 3em;
+    padding: 1em;
+}

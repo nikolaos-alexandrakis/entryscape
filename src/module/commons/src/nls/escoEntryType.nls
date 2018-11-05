@@ -1,0 +1,15 @@
+{
+  "root": {
+    "linkLabel": "Link",
+    "fileLabel": "File",
+    "linkInput_placeholder": "If empty, a web address will be created for this entity",
+    "linkInputExternal_placeholder": "A web address is required",
+    "linkNotValid": "Invalid web address, must start with \"http://\" or \"https://\"",
+    "browseFile": "Browse",
+    "internalLink": "A web address will be generated for this entity",
+    "filePathInput_placeholder": "Select a file"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

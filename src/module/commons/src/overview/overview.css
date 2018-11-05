@@ -1,0 +1,38 @@
+.escoOverview__description {
+    color: #535353;
+}
+
+.escoOverview__statCount {
+    font-size: 2.5rem;
+}
+
+.escoOverview__statBox {
+    width: 50%;
+    text-align: center;
+}
+
+.escoOverview__statLabel {
+    font-weight: normal;
+    color: #535353;
+}
+
+.escoOverview__termFact dt {
+    clear: left;
+    color: #535353;
+    float: left;
+    height: 20px;
+    max-width: 100px;
+    width: 100px;
+    text-align: right;
+    white-space: nowrap;
+    font-weight: normal;
+}
+
+.escoOverview__termFact dd {
+    color: #535353;
+    height: 20px;
+    white-space: nowrap;
+    width: 400px;
+    border: 0px none rgb(51, 51, 51);
+    margin: 0px 0px 5px 120px;
+}

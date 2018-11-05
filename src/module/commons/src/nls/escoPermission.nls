@@ -1,0 +1,10 @@
+{
+  "root": {
+    "permissionHeader": "No permission",
+    "permissionBody": "You do not have permission to view this content. Sign in if you have an account.",
+    "permissionSignin": "Sign in"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

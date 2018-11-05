@@ -1,0 +1,20 @@
+{
+  "emptyListWarning": "Samlingar som du skapar kommer att visas här",
+  "createCollectionButton": "Skapa samling",
+  "createCollectionHeader": "Skapa samling",
+  "manageMembersHeader": "Hantera entiteter",
+  "manageMembers": "Hantera entiteter",
+  "manageMembersTitle": "Hantera entiteter",
+  "manageMembersButton": "Stäng",
+  "addedMembersLabel": "Tillagd",
+  "viewMembers": "Visa entiteter",
+  "viewMembersTitle": "Entiteter",
+  "removeEntryFromCollection": "Vill du ta bort entiteten från samlingen?",
+  "removeCollectionConfirm": "Vill du ta bort samlingen?",
+  "addMemberLabel": "Lägg till till samling",
+  "removeMemberLabel": "Ta bort från samling",
+  "removeCollection": "Ta bort",
+  "editCollection": "Redigera",
+  "collectionLabelPlaceholder": "Samlingsnamn",
+  "emptyMessage": "Entiteter som läggs till kommer att visas här"
+}

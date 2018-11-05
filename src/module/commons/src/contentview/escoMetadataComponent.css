@@ -1,0 +1,17 @@
+.escoMetadataComponent {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.escoMetadataComponent__button {
+    font-size: smaller;
+    color: black;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    margin-top: -5px;
+}
+
+.escoMetadataComponent__footer {
+    padding-right: 5px;
+}

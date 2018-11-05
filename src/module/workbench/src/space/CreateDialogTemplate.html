@@ -1,0 +1,13 @@
+<div>
+    <form data-dojo-attach-point="newWorkspaceForm" onsubmit="return false;">
+        <div class="form-group">
+            <label for="${id}-workspace" data-dojo-attach-point="nls">createWorkspaceName</label>
+            <input id="${id}-workspace" type="text" class="form-control" data-dojo-attach-point="nls,workspaceName" placeholder="createWorkspaceNamePlaceholder"/>
+        </div>
+        <div class="form-group">
+            <label for="${id}-workspaceDesc" data-dojo-attach-point="nls">createWorkspaceDesc</label>
+            <textarea id="${id}-workspaceDesc" type="text" class="form-control" data-dojo-attach-point="nls,workspaceDesc" placeholder="createWorkspaceDescPlaceholder"></textarea>
+        </div>
+    </form>
+    <p class="alert alert-info" data-dojo-attach-point="nls">createWorkspaceNote</p>
+</div>

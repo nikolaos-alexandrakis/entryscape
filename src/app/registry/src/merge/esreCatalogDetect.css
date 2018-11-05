@@ -1,0 +1,35 @@
+.esreCatalogDetect__catalogSource {
+    color: grey;
+}
+
+.esreCatalogDetect__catalogStatus {
+    margin-top: 18px;
+}
+
+.esreCatalogDetect--slim .esreCatalogDetect__catalogStatus {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.esreCatalogDetect--slim .esreCatalogDetect__removeCatalogButton,
+.esreCatalogDetect--slim .esreCatalogDetect__sourceBlock {
+    display: none;
+}
+
+.esreCatalogDetect__catalogStatus{
+    display: flex;
+    align-items: baseline;
+    font-size: 14px;
+}
+.esreCatalogDetect__catalogStatus .fa-check-circle{
+    color: green;
+    margin-right: 10px;
+    font-size: larger;
+}
+
+.esreCatalogDetect__catalogStatus .fa-exclamation-triangle{
+    color: red;
+    margin-right: 10px;
+    font-size: larger;
+}

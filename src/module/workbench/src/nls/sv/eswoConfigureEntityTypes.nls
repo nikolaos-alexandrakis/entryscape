@@ -1,0 +1,5 @@
+{
+  "entityTypesHeader": "Välj entitetstyper för detta projekt",
+  "entityTypesFooter": "Spara",
+  "errorMessage": "Projektet måste konfigureras med minst en entitetstyp."
+}

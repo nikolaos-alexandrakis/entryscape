@@ -1,0 +1,13 @@
+{
+  "notConnected": "Die Aktion konnte nicht durchgeführt werden, da Sie nicht verbunden sind. Verbindungsversuch in ${time}...",
+  "tryNow": "Jetzt versuchen",
+  "loading": "Daten werden geladen...",
+  "genericProblem": "Ein Fehler ist aufgetreten. Versuchen Sie EntryScape neu zu laden, falls der Fehler weiter besteht.",
+  "conflictProblem": "Jemand hat Änderungen an der Ressource vorgenommen, die Sie gerade bearbeiten. Dadurch wird verhindert, dass Ihre Änderungen gespeichert werden. Laden Sie die Ressource neu und versuchen Sie es erneut.",
+  "showDetails": "Details anzeigen",
+  "hideDetails": "Details ausblenden",
+  "closeDialog": "Schließen",
+  "signedOut": "Diese Aktion kann nur von angemeldeten Benutzern durchgeführt werden",
+  "signIn": "Anmelden",
+  "restrictionHeader": "Aktion nicht erlaubt"
+}

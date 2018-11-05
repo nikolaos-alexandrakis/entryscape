@@ -1,0 +1,7 @@
+{
+  "searchForHeader": "Nach Begriff suchen",
+  "emptyMessage": "Keine Begriffe gefunden. Sie müssen Begriffe erstellen oder importieren, oder die Konfiguration ändern um hier eine Liste der Begriffe zu erhalten.",
+  "optionAll": "Alle",
+  "currentValueMark": "aktueller Wert",
+  "selectTerminologyFirst": "Bitte wählen Sie zuerst eine Terminologie"
+}

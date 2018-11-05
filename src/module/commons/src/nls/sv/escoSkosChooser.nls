@@ -1,0 +1,7 @@
+{
+  "searchForHeader": "Sök efter termer",
+  "emptyMessage": "Inga träffar. Du behöver skapa, importera eller ändra i konfigurationen för att få en lista med termer här.",
+  "optionAll": "Alla",
+  "currentValueMark": "aktuellt värde",
+  "selectTerminologyFirst": "Var god välj en terminologi först"
+}

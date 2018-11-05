@@ -1,0 +1,15 @@
+<div>
+    <form data-dojo-attach-point="newSchemeForm" onsubmit="return false;">
+        <div class="form-group">
+            <label for="${id}-scheme" data-dojo-attach-point="nls">createSchemeName</label>
+            <input id="${id}-scheme" type="text" class="form-control" data-dojo-attach-point="nls,schemeName"
+                   placeholder="createSchemeNamePlaceholder"/>
+        </div>
+        <div class="form-group">
+            <label for="${id}-schemeDesc" data-dojo-attach-point="nls">createSchemeDesc</label>
+            <textarea id="${id}-schemeDesc" type="text" class="form-control" data-dojo-attach-point="nls,schemeDesc"
+                      placeholder="createSchemeDescPlaceholder"></textarea>
+        </div>
+    </form>
+    <p class="alert alert-info" data-dojo-attach-point="nls">createSchemeNote</p>
+</div>

@@ -1,0 +1,12 @@
+.esco-dropdown.labelHeight button {
+    min-height: 33.33px;
+}
+
+.esco-dropdown button i.fa,
+.esco-dropdown button span.fa{
+    font-size: 1.4em;
+}
+
+.esco-dropdown ul li {
+    cursor: pointer;
+}

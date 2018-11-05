@@ -1,0 +1,13 @@
+.eswoListAndContentView {
+    height: 100%;
+}
+
+.eswoListAndContentView__list {
+    padding-left: 0px;
+    height: 100%;
+}
+.eswoListAndContentView__contentEditor {
+    padding: 0px;
+    padding-top: 10px;
+    height: 100%;
+}

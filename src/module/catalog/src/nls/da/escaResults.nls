@@ -1,0 +1,13 @@
+{
+  "createEntryName": "Resultat",
+  "privateResultTitle": "Resultater er ikke offentliggjort, tryk for at ændre",
+  "privateDisabledResultTitle": "Det omkringliggende katalog er ikke offentliggjort, du kan derfor ikke gøre entiteten offentlig.",
+  "publicResultTitle": "Offentliggjort resultat, tryk for at ændre",
+  "confirmRemoveResult": "Vil du slette det valgte resultat?",
+  "createHeader": "Opret resultat",
+  "createButtonLabel": "Tilføj resultat",
+  "createPopoverTitle": "Tilføj resultat for et dataset",
+  "createButton": "Opret resultat",
+  "editEntry": "Rediger Resultat",
+  "emptyListWarning": "Resultater du opretter vil du finde her"
+}

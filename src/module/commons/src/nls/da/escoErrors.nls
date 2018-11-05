@@ -1,0 +1,13 @@
+{
+  "notConnected": "Handling er ikke udført fordi du er ikke forbundet. Forbinder om ${time}...",
+  "tryNow": "Prøv igen",
+  "loading": "Henter data...",
+  "genericProblem": "Ukendt fejl. Prøv at genstarte EntryScape hvis problemet fortsætter.",
+  "conflictProblem": "En anden bruger har lavet ændringer til den ressource du er i gang med at  redigere hvilket forhindrer dine ændringer i at blive gemt. Genopfrisk siden og prøv igen.",
+  "showDetails": "Vis detaljer",
+  "hideDetails": "Skjul detaljer",
+  "closeDialog": "Luk dialog",
+  "signedOut": "Den handling du forsøgte at udføre er kun tilladt for brugere som er logget ind",
+  "signIn": "Log ind",
+  "restrictionHeader": "Handling ikke tilladt"
+}

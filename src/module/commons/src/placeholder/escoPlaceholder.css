@@ -1,0 +1,14 @@
+.escoPlaceholder {
+    color: #aaa;
+    border-color: #e6e6e6;
+    padding-top: 75px
+}
+.escoPlaceholder__placeholderText {
+    margin-top: 10px;
+}
+.escoPlaceholder__createButtonIcon {
+    margin-right: 7px;
+}
+.escoPlaceholder__placeholderButton {
+    margin-top: 25px
+}

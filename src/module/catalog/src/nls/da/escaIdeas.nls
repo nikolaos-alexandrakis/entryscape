@@ -1,0 +1,13 @@
+{
+  "createEntryName": "idé",
+  "privateResultTitle": "Denne idé er ikke offentlig, klik for at ændre",
+  "privateDisabledResultTitle": "Det omgivende katalog er ikke offentligt, du kan derfor ikke gøre idéen offentlig.",
+  "publicResultTitle": "Denne idé er offentlig, klik for at ændre",
+  "confirmRemoveIdea": "Ønsker du at slette denne idé?",
+  "createHeader": "Opret idé",
+  "createButtonLabel": "Tilføj idé",
+  "createPopoverTitle": "Tilføj en idé til et datasæt",
+  "createButton": "Opret idé",
+  "editEntry": "Rediger",
+  "emptyListWarning": "Idéer du opretter vil vises her"
+}

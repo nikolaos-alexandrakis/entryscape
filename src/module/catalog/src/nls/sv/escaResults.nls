@@ -1,0 +1,13 @@
+{
+  "createEntryName": "showcase",
+  "privateResultTitle": "Showcaset är inte publikt, klicka för att ändra",
+  "privateDisabledResultTitle": "Den omgivande katalogen är inte publik, därför kan du inte göra showcaset publikt",
+  "publicResultTitle": "Showcaset är publikt, klicka för att ändra",
+  "confirmRemoveResult": "Vill du ta bort showcaset?",
+  "createHeader": "Skapa showcase",
+  "createButtonLabel": "Skapa showcase",
+  "createPopoverTitle": "Skapa ett showcase för en datamängd",
+  "createButton": "Skapa showcase",
+  "editEntry": "Redigera",
+  "emptyListWarning": "Showcases som du skapar kommer att visas här"
+}

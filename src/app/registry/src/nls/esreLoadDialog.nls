@@ -1,0 +1,9 @@
+{
+    "root": {
+        "loadTitle": "Load a catalog",
+        "loadButton": "Load",
+        "loadButtonTitle": "Load catalog as RDF"
+    },
+    "sv": true,
+    "de": true
+}

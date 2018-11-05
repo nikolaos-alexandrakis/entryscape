@@ -1,0 +1,10 @@
+{
+  "root": {
+    "createTerminology": "Create terminology",
+    "createTerminologyButton": "Create",
+    "importLabel": "Import",
+    "createLabel": "Create"
+  },
+  "sv": true,
+  "de": true
+}

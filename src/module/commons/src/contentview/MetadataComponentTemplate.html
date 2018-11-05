@@ -1,0 +1,47 @@
+<div class=${bid}>
+    <div class="panel-body" data-dojo-attach-point="__presenter">
+    </div>
+    <div class="panel-body" data-dojo-attach-point="__editorNode" style="display: none; ">
+        <span class="alert alert-danger pull-right" style="display: none"
+              data-dojo-attach-point="errorMessageAlert" role="alert">
+                <span data-dojo-attach-point="errorMessage"></span>
+                <button type="button" class="close" aria-label="Close"
+                        data-dojo-attach-event="onclick: closeErrorMessage">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </span>
+    </div>
+    <div class="panel-footer ${bid}__footer" data-dojo-attach-point="__footerPanel">
+        <span data-dojo-attach-point="__dateNode" style="font-size: smaller;">&nbsp</span>
+        <button type="button" class="btn btn-default pull-right ${bid}__button"
+                style="display:none"
+                data-dojo-attach-event="onClick: remove"
+                data-dojo-attach-point="__deleteButtonNode">
+            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+            <span data-dojo-attach-point="nls,__deleteButtonLabelNode">deleteLinkedEntry
+            </span>
+        </button>
+        <button type="button" class="btn btn-primary  pull-right ${bid}__button"
+                data-dojo-attach-event="onClick: edit"
+                style="display:none"
+                data-dojo-attach-point="__editButtonNode">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            <span data-dojo-attach-point="nls,__editButtonLabelNode">editLinkedEntry</span>
+        </button>
+        <button type="button" class="btn btn-primary  pull-right ${bid}__button"
+                data-dojo-attach-event="onClick: save"
+                style="display:none"
+                data-dojo-attach-point="__saveButtonNode">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            <span data-dojo-attach-point="nls,__saveButtonLabelNode">saveLinkedEntry</span>
+        </button>
+        <button type="button" class="btn btn-default  pull-right ${bid}__button"
+                data-dojo-attach-event="onClick: cancel"
+                data-dojo-attach-point="__cancelButtonNode">
+            <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+            <span data-dojo-attach-point="nls,__cancelButtonLabelNode"
+                  style="display:none">cancelLinkedEntry</span>
+        </button>
+
+    </div>
+</div>

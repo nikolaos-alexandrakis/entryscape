@@ -1,0 +1,7 @@
+{
+  "searchForHeader": "Søg efter begreb",
+  "emptyMessage": "Ingen resultater fundet. Du er nødt til at oprette, importere eller ændre opsætningen for at finde en liste over begreber her.",
+  "optionAll": "Alle",
+  "currentValueMark": "nuværende værdi",
+  "selectTerminologyFirst": "Vælg venligst først en terminologi"
+}

@@ -1,0 +1,17 @@
+{
+    "root": {
+        "changeOrganizationHeader": "Change organization to ",
+        "changeOrganizationButton": "Change",
+        "psiLabel": "Public sector",
+        "regularLabel": "Others",
+        "orgIdPlaceholder": "Enter organization identifier",
+        "psiURLPlaceholder": "http(s)://...",
+        "psiURL": "Public PSI-data web page",
+        "orgId": "Organization identifier",
+        "emptyPsiURL": "PSI-data web page must not be empty",
+        "notValidOrgId": "Enter valid organization identifier",
+        "emptyOrgId": "Organization identifier must not be empty"
+    },
+    "sv": true,
+    "de": true
+}

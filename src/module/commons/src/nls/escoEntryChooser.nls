@@ -1,0 +1,13 @@
+{
+  "root": {
+    "searchForHeader": "Provide an entity for field \"$1\"",
+    "errorMessage": "No entities found for field \"$1\". You need to create an entity separately, afterwards the result displays here and can be selected.",
+    "searchLabel": "Search",
+    "createLabel": "Create",
+    "createEntryType": "Create \"$1\"",
+    "currentValueMark": "current value"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

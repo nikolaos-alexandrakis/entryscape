@@ -1,0 +1,7 @@
+{
+  "emptyMessageWithName": "Hier werden Objekte vom Typ \"$1\" angezeigt.",
+  "emptyMessage": "Es gibt noch nichts zu zeigen.",
+  "emptySearchMessage": "Keine Treffer.",
+  "createButtonWithName": "Erstelle \"$1\"",
+  "createButtonTitleWithName": "Erstelle Objekt von Typ \"$1\""
+}

@@ -1,0 +1,15 @@
+{
+  "createButton": "Skapa",
+  "createHeader": "Skapa ny \"$1\"",
+  "import": "Importera",
+  "replaceLinkMenu": "Ändra länk",
+  "replaceLinkMenuTitle": "Ändra länk",
+  "replaceFileMenu": "Ändra fil",
+  "replaceFileMenuTitle": "Ändra fil",
+  "privateTitle": "Entiteten är inte publik, klicka för att ändra",
+  "privateDisabledTitle": "Det omgivande projektet är inte publikt, därför kan entiteten inte göras publik",
+  "publicTitle": "Entiteten är publik, klicka för att ändra",
+  "selectEntitytypeMessage": "Välj en entitetstyp",
+  "downloadButton": "Ladda ner",
+  "downloadButtonTitle": "Ladda ner fil"
+}

@@ -1,0 +1,18 @@
+{
+  "root": {
+    "apiRegenerateHeader": "Refresh API",
+    "apiProgressFooterButton": "Done",
+    "apiCreateHeader": "Create API",
+    "apiInitialized": "Initialized",
+    "apiGenerationTask": "Generating API",
+    "apiFileProcessed": "${number} of ${totalFiles} files have been processed",
+    "apiProgressError": "Something went wrong while processing the input data. Check the input and refresh.",
+    "apiProgressButtonError": "OK",
+    "nlsProgressCancel": "Cancel",
+    "nlsProgressDone": "Done",
+    "nlsProgressSuccess": "API has been generated successfully"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

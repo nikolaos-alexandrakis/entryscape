@@ -1,0 +1,20 @@
+{
+  "emptyListWarning": "Sammlungen die Sie erstellen werden hier angezeigt werden",
+  "createCollectionButton": "Sammlung erstellen",
+  "createCollectionHeader": "Sammlung erstellen",
+  "manageMembersHeader": "Objekte verwalten",
+  "manageMembers": "Objekte verwalten",
+  "manageMembersTitle": "Objekte verwalten",
+  "manageMembersButton": "Schließen",
+  "addedMembersLabel": "Hinzugefügt",
+  "viewMembers": "Objekte anzeigen",
+  "viewMembersTitle": "Objekte",
+  "removeEntryFromCollection": "Wollen Sie dieses Objekt aus der Sammlung entfernen?",
+  "removeCollectionConfirm": "Wollen Sie diese Sammlung entfernen?",
+  "addMemberLabel": "Zu Sammlung hinzufügen",
+  "removeMemberLabel": "Aus Sammlung entfernen",
+  "removeCollection": "Entfernen",
+  "editCollection": "Bearbeiten",
+  "collectionLabelPlaceholder": "Sammlungsname",
+  "emptyMessage": "Objekte die Sie zur Sammlung hinzufügen werden hier angezeigt werden"
+}

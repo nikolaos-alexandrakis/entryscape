@@ -1,0 +1,15 @@
+{
+  "createButtonLabel": "Tilføj fil",
+  "createPopoverTitle": "Tilføj fil",
+  "createHeader": "Tilføj fil til distribution",
+  "createButton": "Tilføj fil",
+  "headerTitle": "Distributionsfiler",
+  "replaceMenu": "Erstat fil",
+  "replaceMenuTitle": "Erstat fil",
+  "confirmRemoveFile": "Ønsker du at fjerne denne fil?",
+  "editFileLabel": "Rediger fil",
+  "editFileTitle": "Rediger fils metadata",
+  "removeFileTitle": "Fjern fil",
+  "removeFileLabel": "Fjern fil",
+  "downloadButtonTitle": "Hent"
+}

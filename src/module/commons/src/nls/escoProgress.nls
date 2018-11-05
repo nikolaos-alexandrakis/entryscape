@@ -1,0 +1,10 @@
+{
+  "root": {
+    "progressHeader": "Checklist",
+    "progressFooterButton": "Save",
+    "mandatoryChecklistTitle": "Mandatory"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

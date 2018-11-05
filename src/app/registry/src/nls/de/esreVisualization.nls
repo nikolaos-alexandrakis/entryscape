@@ -1,0 +1,11 @@
+{
+  "datasetGrowth": "Wachstum der Datensätze (in den letzten 30 Tagen)",
+  "orgStatus": "Status öffentlicher Sektor",
+  "datasetsPerOrg": "Anzahl der Datensätze pro Organisation",
+  "dcatAndPSILegend": "DCAT-AP und PSI-Daten-Seite ($1)",
+  "onlyPSILegend": "Nur PSI-Daten-Seite ($1)",
+  "onlyDcatLegend": "Nur DCAT-AP ($1)",
+  "neitherLegend": "Keiner der beiden ($1)",
+  "datasetCount": "Anzahl der Datensätze",
+  "organizationCount": "Organisationen die Datensätze bereitstellen"
+}

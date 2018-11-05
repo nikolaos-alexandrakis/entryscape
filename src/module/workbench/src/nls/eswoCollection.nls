@@ -1,0 +1,24 @@
+{
+  "root": {
+    "emptyListWarning": "Collections you create will appear here",
+    "createCollectionButton": "Create collection",
+    "createCollectionHeader": "Create collection",
+    "manageMembersHeader": "Manage entities",
+    "manageMembers": "Manage entities",
+    "manageMembersTitle": "Manage entities",
+    "manageMembersButton": "Close",
+    "addedMembersLabel": "Added",
+    "viewMembers": "View entities",
+    "viewMembersTitle": "Entities",
+    "removeEntryFromCollection": "Do you want to remove this entity from the collection?",
+    "removeCollectionConfirm": "Do you want to remove this collection?",
+    "addMemberLabel": "Add to collection",
+    "removeMemberLabel": "Remove from collection",
+    "removeCollection": "Delete",
+    "editCollection": "Edit",
+    "collectionLabelPlaceholder": "Collection name",
+    "emptyMessage": "Entities you add will appear here"
+  },
+  "sv": true,
+  "de": true
+}

@@ -1,0 +1,9 @@
+{
+  "root": {
+    "entityTypesHeader": "Choose entity types for this project",
+    "entityTypesFooter": "Save",
+    "errorMessage": "The project must be configured with at least one entity type."
+  },
+  "sv": true,
+  "de": true
+}

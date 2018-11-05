@@ -1,0 +1,14 @@
+{
+  "versionsHeader": "Versionsgeschichte",
+  "versionsCloseButton": "Schließen",
+  "revertLabel": "Zurücksetzen",
+  "revertTitle": "Beim Zurücksetzen wird eine neue Version auf der Grundlage dieser Version erstellt",
+  "noRevertSameGraphTitle": "Es gibt nichts zurückzusetzen, die letzte Version ist identisch.",
+  "revertMessage": "Möchten Sie auf diese Version zurücksetzen? Eine Kopie dieser Version wird die letzte Version werden, keine Zwischenversion wird verloren gehen.",
+  "revertConfirm": "Zurücksetzen",
+  "revertReject": "Abbrechen",
+  "revisionLabel": "Version ${revision} von ${user}",
+  "noUserNameRevision": "${datetime}, von namenlosem Benutzer mit ID ${id}",
+  "currentRevision": "(letzte Version)",
+  "currentRevisionRevertTitle": "Es gibt keinen Grund um auf die letzte Version zurückzukehren."
+}

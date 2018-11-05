@@ -1,0 +1,11 @@
+{
+  "convertHeader": "Konvertieren von DCAT-AP 1.0 nach DCAT-AP 1.1",
+  "toBeConverted": "{{PLURAL:$1|Der folgende Wert wird|Die folgenden $1 Werte werden}} bei einer Konvertierung geändert",
+  "issueType": "Was geändert wird",
+  "onSubject": "Subjekt",
+  "from": "Von Wert",
+  "to": "Zu Wert",
+  "predicateFix": "Prädikat",
+  "objectFix": "Objekt",
+  "convertButton": "Konvertieren"
+}

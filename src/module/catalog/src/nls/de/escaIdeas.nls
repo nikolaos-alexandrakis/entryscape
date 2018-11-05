@@ -1,0 +1,13 @@
+{
+  "createEntryName": "Idee",
+  "privateResultTitle": "Diese Idee ist nicht öffentlich, hier klicken um die Zugriffsrechte zu ändern",
+  "privateDisabledResultTitle": "Dieser Katalog ist nicht öffentlich, daher können Sie diese Idee nicht öffentlich machen",
+  "publicResultTitle": "Diese Idee ist öffentlich, hier klicken um die Zugriffsrechte zu ändern",
+  "confirmRemoveIdea": "Soll diese Idee entfernt werden?",
+  "createHeader": "Idee erstellen",
+  "createButtonLabel": "Idee erstellen",
+  "createPopoverTitle": "Idee zu einem Datensatz hinzufügen",
+  "createButton": "Idee erstellen",
+  "editEntry": "Bearbeiten",
+  "emptyListWarning": "Ideen, die Sie erstellen, werden hier angezeigt"
+}

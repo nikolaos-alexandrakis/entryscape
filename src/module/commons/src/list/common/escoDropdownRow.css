@@ -1,0 +1,32 @@
+.escoDropdownRow__menu {
+    color: black;
+ /*   margin: 10px;*/
+    padding: 10px 20px;
+}
+.escoDropdownRow__menu.btn-default.disabled {
+    /*background-color: white;*/
+    /*border-color: white;*/
+    /*padding-right: 23px;*/
+}
+.escoDropdownRow__menuIcon.fa-shield.escoDropdownRow__menuDisabled {
+    padding-right: 18px;
+}
+.escoDropdownRow__statusIcon {
+    padding-top: 5px ;
+    padding-right: 5px
+}
+.escoDropdownRow__menuList {
+    min-width: 125px;
+    cursor: pointer;
+    text-align: left;
+}
+.escoDropdownRow__menuItemIcon {
+    padding-top: 2px ;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.escoDropdownRow__menuItemText {
+    font-size: small;
+    padding-left: 8px;
+}

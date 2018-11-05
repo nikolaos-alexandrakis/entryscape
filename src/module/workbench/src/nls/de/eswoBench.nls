@@ -1,0 +1,15 @@
+{
+  "createButton": "Erstellen",
+  "createHeader": "Erstelle \"$1\"",
+  "import": "Importieren",
+  "replaceLinkMenu": "Link ändern",
+  "replaceLinkMenuTitle": "Link ändern",
+  "replaceFileMenu": "Datei ändern",
+  "replaceFileMenuTitle": "Datei ändern",
+  "privateTitle": "Das Objekt ist nicht öffentlich, hier klicken um Zugriffsrechte zu ändern",
+  "privateDisabledTitle": "Das umgebende Projekt ist nicht öffentlich, darum kann dieses Objekt nicht öffentlich gemacht werden",
+  "publicTitle": "Das Objekt ist öffentlich, hier klicken um Zugriffsrechte zu ändern",
+  "selectEntitytypeMessage": "Wählen Sie einen Objekttyp",
+  "downloadButton": "Herunterladen",
+  "downloadButtonTitle": "Datei herunterladen"
+}

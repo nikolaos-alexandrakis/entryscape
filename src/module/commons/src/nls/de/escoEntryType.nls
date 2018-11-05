@@ -1,0 +1,10 @@
+{
+  "linkLabel": "Webadresse",
+  "fileLabel": "Datei",
+  "linkInput_placeholder": "Wird hier nichts eingetragen, wird eine Webadresse für dieses Objekt automatisch erzeugt",
+  "linkInputExternal_placeholder": "Eine Webadresse ist erforderlich",
+  "linkNotValid": "Die Webadresse ist ungültig, sie muss mit \"http://\" oder \"https://\" beginnen",
+  "browseFile": "Durchsuchen",
+  "internalLink": "Eine Webadresse wird für dieses Objekt erzeugt",
+  "filePathInput_placeholder": "Wählen Sie eine Datei"
+}

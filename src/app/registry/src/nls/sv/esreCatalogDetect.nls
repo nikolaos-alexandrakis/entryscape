@@ -1,0 +1,6 @@
+{
+  "catalogSource": "Katalogkälla:",
+  "catalogStatus": "Hittade en katalog, {{PLURAL:${da}|en datamängd|${da} datamängder}}, {{PLURAL:${di}|en distribution|${di} distributioner}}, {{PLURAL:${co}|en kontakt|${co} kontakter}}, och {{PLURAL:${pu}|en tillhandahållande organisation|${pu} tillhandahållande organisationer}}.",
+  "catalogError": "Endast en katalog förväntas, hittade $1 kataloger.",
+  "nothingToMergeError": "Inget att slå samman. Hittade inga datamängder, distributioner, tillhandahållande organisationer eller kontakter."
+}

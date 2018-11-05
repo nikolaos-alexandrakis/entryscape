@@ -1,0 +1,8 @@
+{
+  "searchForHeader": "Wählen Sie ein Objekt für das Feld \"$1\"",
+  "errorMessage": "Für das Feld \"$1\" wurden keine Objekte gefunden. Sie müssen ein Objekt separat erstellen, danach wird es hier angezeigt und kann gewählt werden.",
+  "searchLabel": "Suchen",
+  "createLabel": "Erstellen",
+  "createEntryType": "Erstelle \"$1\"",
+  "currentValueMark": "aktueller Wert"
+}

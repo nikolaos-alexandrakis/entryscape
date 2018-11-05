@@ -1,0 +1,15 @@
+{
+  "header": "Ange en katalogkälla",
+  "information": "Parsnings- och valideringsinformation",
+  "informationError": "Parsnings- och valideringsvarningar",
+  "noRDF": "Ingen katalog hittades. Du blir nu omdirigerad till vyn \"katalogkälla\" där du kan ladda upp en katalog via fil, länk, klipp och klistra eller till och med skriva in katalogen för hand.",
+  "noRDFProceed": "OK",
+  "validationMessage": "{{PLURAL:${errors}|Ett valideringsfel|${errors} valideringsfel}} och {{PLURAL:${warnings}|en varning|${warnings} varningar}} hittades",
+  "mandatoryMissing": "Instanser saknas för följande top-level obligatoriska klasser: ",
+  "download": "Ladda ner",
+  "upload": "Ladda från länk eller fil",
+  "example": "Ladda exempel",
+  "signinRequirement": "Du måste vara inloggad för att kunna ladda kataloger från fil eller länk.",
+  "signinRequirementOk": "OK",
+  "exploreHeader": "Utforska datamängder i katalogen"
+}

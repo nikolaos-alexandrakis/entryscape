@@ -1,0 +1,11 @@
+{
+  "convertHeader": "Konvertera från DCAT-AP 1.0 till DCAT-AP 1.1",
+  "toBeConverted": "Följande {{PLURAL:$1|värde|$1 värden}} kommer att ändras vid konvertering",
+  "issueType": "Ändras",
+  "onSubject": "För subjekt",
+  "from": "Från värde",
+  "to": "Till värde",
+  "predicateFix": "Predikat",
+  "objectFix": "Objekt",
+  "convertButton": "Konvertera"
+}

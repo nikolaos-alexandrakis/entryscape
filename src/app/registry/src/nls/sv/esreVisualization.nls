@@ -1,0 +1,11 @@
+{
+  "datasetGrowth": "Tillväxt datamängder (senaste månaden)",
+  "orgStatus": "Status offentliga organisationer",
+  "datasetsPerOrg": "Antal datamängder per organisation",
+  "dcatAndPSILegend": "DCAT-AP och PSI-sida ($1)",
+  "onlyPSILegend": "Enbart PSI-sida ($1)",
+  "onlyDcatLegend": "Enbart DCAT-AP ($1)",
+  "neitherLegend": "Ingetdera ($1)",
+  "datasetCount": "Antal datamängder",
+  "organizationCount": "Organisationer tillhandahåller datamängder"
+}

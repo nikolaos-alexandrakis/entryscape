@@ -1,0 +1,10 @@
+{
+    "root": {
+        "catalogSource": "Catalog source:",
+        "catalogStatus": "Found one catalog, {{PLURAL:${da}|one dataset|${da} datasets}}, {{PLURAL:${di}|one distribution|${di} distributions}}, {{PLURAL:${co}|one contact|${co} contacts}}, and {{PLURAL:${pu}|one publisher|${pu} publishers}}.",
+        "catalogError": "At most one catalog expected but found $1 catalogs.",
+        "nothingToMergeError": "Nothing to merge. No datasets, distributions, publishers or contacts found."
+    },
+    "sv": true,
+    "de": true
+}

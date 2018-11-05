@@ -1,0 +1,32 @@
+.publicList {
+    table-layout: fixed;
+}
+.publicList tr:hover {
+    background-color: #F5F5F5;
+    cursor: pointer;
+}
+.publicList td {
+    padding: 3px 10px;
+    font-size: 14px;
+}
+
+.publicList td:last-child {
+    width: 49px;
+}
+
+.publicList td:first-child {
+    padding-left: 20px;
+    word-break: break-all;
+}
+
+.publicList .min-height-row {
+    min-height: 28px;
+}
+
+.dataset.mainView {
+  margin-top: 20px;
+}
+
+.mainView .directLink {
+  display: none;
+}
