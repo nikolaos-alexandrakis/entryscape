@@ -1,3 +1,4 @@
+import DOMUtil from 'commons/util/htmlUtil';
 define([
   'dojo/_base/declare',
   'entryscape-blocks/boot/params',
@@ -35,7 +36,8 @@ define([
       urlParams = up;
     });
 
-    const input = node.createElement('input', { type: 'text', placeholder: 'anything' });
+    const input = DOMUtil.create('input', { type: 'text', placeholder: 'anything' });
+    node.appendChild(input);
     let selectize;
     let selectedOption;
     let lock = false;
