@@ -161,10 +161,11 @@ define([
                 }
             };
 
-            let input = node.createElement("input", {
-                "type": "text",
-                "placeholder": data.placeholder || "Search for..."
+            let input = DOMUtil.create('input', {
+                type: 'text',
+                placeholder: data.placeholder || 'Search for...',
             });
+            node.appendChild(input);
             let loads = collections.map((def) => query => {
               if (def.type === 'search') {
                     const es = defaults.get("entrystore");
