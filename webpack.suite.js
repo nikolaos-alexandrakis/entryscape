@@ -1,3 +1,4 @@
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -50,16 +51,12 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+        // new BundleAnalyzerPlugin(),
       new CleanWebpackPlugin([
         path.join(__dirname, 'src/app/suite/dist'),
       ]),
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocaleRegExp),
     ],
-    optimization: {
-      // splitChunks: {
-      // chunks: 'all',
-      // }
-    },
   });
 
   if (argv.mode === 'development') {
