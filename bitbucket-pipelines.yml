@@ -19,11 +19,11 @@ pipelines:
           - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
           - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
 ##          - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
-#          - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
-#          - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
+          - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
+          - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
 ##          - ( cd src/app/blocks/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/blocks/$ES_VERSION/" )
-#          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
-#          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
+          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
+          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
 ##          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm stable; ln -s $ES_VERSION stable" ; fi
   custom:
     build-and-deploy:
@@ -45,9 +45,9 @@ pipelines:
             - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
             - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
 ##            - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
-#            - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
-#            - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
+            - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
+            - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
 ##            - ( cd src/app/blocks/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/blocks/$ES_VERSION/" )
-#            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
-#            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
+            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
+            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
 ##            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm stable; ln -s $ES_VERSION stable" ; fi
