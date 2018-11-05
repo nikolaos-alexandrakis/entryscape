@@ -1,3 +1,4 @@
+import DOMUtil from 'commons/util/htmlUtil';
 define([
     "dojo/_base/declare",
     'dojo/Deferred',
@@ -136,15 +137,22 @@ define([
                     item: function (data, escape) {
                         let item = htmlUtil.create('div', {'class': 'item'}); // TODO  import this when defines are removed
                         if (data.group && data.group !== 'term') {
-                            item.createElement('span', {
-                                'class': 'group',
-                                'innerHTML': name2col[data.group].label + ':',
-                            });
+
+                            item.appendChild(DOMUtil.create(
+                                'span', {
+                                    class: 'group',
+                                    innerHTML: name2col[data.group].label + ':',
+                                }
+                            ));
+
                         }
-                        item.createElement('span', {'class': 'itemLabel', 'innerHTML': escape(data.label)});
-                        on(item.createElement('i', {'class': 'fa fa-remove'}), 'click', () => {
-                            selectize.removeItem(data.value);
-                        });
+                        item.appendChild(DOMUtil.create('span', {'class': 'itemLabel', 'innerHTML': escape(data.label)}));
+
+                        on(item.appendChild(DOMUtil.create(
+                            'i', {class: 'fa fa-remove'}),
+                            'click', () => {
+                                selectize.removeItem(data.value);
+                            }));
                         return item;
                     },
                     option_create: function(data, escape) {
@@ -153,10 +161,11 @@ define([
                 }
             };
 
-            let input = node.createElement("input", {
-                "type": "text",
-                "placeholder": data.placeholder || "Search for..."
+            let input = DOMUtil.create('input', {
+                type: 'text',
+                placeholder: data.placeholder || 'Search for...',
             });
+            node.appendChild(input);
             let loads = collections.map((def) => query => {
               if (def.type === 'search') {
                     const es = defaults.get("entrystore");

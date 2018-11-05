@@ -4,7 +4,7 @@ import Tree from 'commons/tree/Tree';
 import htmlUtil from 'commons/util/htmlUtil';
 import jquery from 'jquery';
 import declare from 'dojo/_base/declare';
-import 'jstree';
+// import 'jstree';
 
 const ns = registry.get('namespaces');
 
@@ -12,8 +12,11 @@ export default declare([Tree], {
   showEntry(entry, collectionEntry) {
     // this.inherited(arguments);
     if (this.model) {
-      jquery(this.treeNode).jstree('destroy');
-      this.model.destroy();
+    import(/* webpackChunkName: "jstree" */ 'jstree')
+      .then(() => {
+        jquery(this.treeNode).jstree('destroy');
+        this.model.destroy();
+      });
     }
     this.treeNode = htmlUtil.create('div', null, this.domNode);
     this.model = new CollectionTreeModel({

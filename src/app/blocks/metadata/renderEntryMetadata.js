@@ -13,7 +13,7 @@ define([
                     fp[namespaces.expand(p)] = true;
                 });
             }
-            node.setAttribute('innerHTML', '');
+            node.innerHTML = '';
             const presenter = new Presenter({compact: data.onecol !== true,
                 filterPredicates: fp }, DOMUtil.create('div'));
                 node.appendChild(presenter);

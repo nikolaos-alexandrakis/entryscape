@@ -5,6 +5,7 @@ import Map from './Map';
 import registry from 'commons/registry';
 import {engine} from 'rdforms';
 import utils from '../utils';
+import config from 'config';
 
 const GeoCoordinates = vnode => {
   const {binding, editable, bundle} = vnode.attrs;

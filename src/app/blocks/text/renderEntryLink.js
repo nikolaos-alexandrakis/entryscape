@@ -1,3 +1,4 @@
+import DOMUtil from 'commons/util/htmlUtil';
 define([
   'entryscape-blocks/utils/filter',
   'entryscape-blocks/boot/params',
@@ -9,13 +10,16 @@ define([
   getEntry(data, (entry) => {
     let pobj = {};
     const md = entry.getMetadata();
-    node.setAttribute('innerHTML', '');
+    node.innerHTML = '';
     if (data.property) {
-      node.createElement('a', {
-        href: md.findFirstValue(entry.getResourceURI(), data.property),
-        innerHTML: getTextContent(data, entry),
-      });
-    } else {
+      node.appendChild(DOMUtil.create(
+        'a', {
+          href: md.findFirstValue(entry.getResourceURI(), data.property),
+          innerHTML: getTextContent(data, entry),
+        }));
+      }
+
+      else {
       if (data.clickkey && data.clickvalue) {
         if (data.clickentry) {
           pobj.entry = entry.getId();
@@ -37,10 +41,12 @@ define([
       }
       const clicks = defaults.get('clicks');
       const click = (data.namedclick ? clicks[data.namedclick] : data.click) || '';
-      node.createElement('a', {
-        href: params.getLink(click, pobj),
-        innerHTML: getTextContent(data, entry),
-      });
+      node.appendChild(DOMUtil.create(
+        'a', {
+          href: params.getLink(click, pobj),
+          innerHTML: getTextContent(data, entry),
+        }
+      ));
     }
   });
 });

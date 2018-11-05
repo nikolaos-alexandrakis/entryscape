@@ -85,7 +85,7 @@ export default class TreeModel {
     this.domNode = domNode;
     jsTreeConf.core.data = this.getChildren.bind(this);
 
-    const jstreeImport = import(/* webpackChunkName: "jstree" */ 'jstree')
+    import(/* webpackChunkName: "jstree" */ 'jstree')
       .then(() => {
         jquery(domNode).jstree(jsTreeConf);
         jquery(domNode).on('move_node.jstree', this.jsTreeMove.bind(this));
