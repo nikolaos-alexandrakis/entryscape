@@ -26,11 +26,11 @@ const GeoCoordinates = vnode => {
   let detectLabel;
   const geoDetect = config.itemstore.geoDetect;
   if (geoDetect) {
-    const dialogs = defaults.get('dialogs');
-    const localize = defaults.get('localize');
+    const dialogs = registry.get('dialogs');
+    const localize = registry.get('localize');
     detectLabel = localize(geoDetect.detectLabel);
     detectClick = () => {
-      geoDetect.detect(defaults.get('entrystore'), binding).then((response) => {
+      geoDetect.detect(registry.get('entrystore'), binding).then((response) => {
         const {geo, message} = response;
         if (typeof geo === 'object') {
           updateGeoCoordinates(utils.toWKT(geo));

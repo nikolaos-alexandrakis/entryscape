@@ -1,6 +1,7 @@
 import TitleDialog from 'commons/dialog/TitleDialog';
 import HeaderDialog from 'commons/dialog/HeaderDialog';
 import Dataset from './Dataset';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 
 export default declare([TitleDialog], {
@@ -13,7 +14,7 @@ export default declare([TitleDialog], {
   open(params) {
     this.dataset.showDataset(params.row.entry);
 
-    const title = defaults.get('rdfutils').getLabel(params.row.entry);
+    const title = registry.get('rdfutils').getLabel(params.row.entry);
     this.updateLocaleStringsExplicit(title);
     this.show();
   },
