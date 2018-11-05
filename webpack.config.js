@@ -116,7 +116,7 @@ module.exports = (env, argv) => {
         registry: getAlias('registry', 'app'),
         blocks: getAlias('blocks', 'app'),
         spa: getAlias('spa', 'lib'),
-        templates: path.resolve(path.join(__dirname, 'node_modules', 'rdforms-templates', 'src', 'templates')),
+        templates: path.resolve(path.join(__dirname, 'src', 'templates')),
       },
     },
   };
