@@ -1,3 +1,4 @@
+import DOMUtil from 'commons/util/htmlUtil';
 define([
   'dojo/_base/declare',
   'entryscape-blocks/boot/params',
@@ -23,7 +24,8 @@ define([
     conf: data,
     itemstore: items,
     includeHead: !data.headless,
-  }, node.createElement('div', null));
+  }, DOMUtil.create('div'));
+  node.appendChild(sl);
   if (!sl.includeHead) {
     jquery(sl.domNode).find('.panel').removeClass('panel');
     sl.domNode.classList.add('headless');

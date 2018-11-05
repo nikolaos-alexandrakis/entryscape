@@ -18,7 +18,7 @@ define([
             collection: collection.label || data.collection,
           }, data.template);
         } else {
-          node.setAttribute('innerHTML', vals);
+          node.innerHTML = vals;
         }
       };
       if (hasValue && vals && vals.length > 0) {
@@ -40,7 +40,7 @@ define([
           collection: collection.label || data.collection,
         }, data.empty);
       } else {
-        node.setAttribute('innerHTML', '');
+        node.innerHTML = '';
       }
     };
     update(defaults.get('blocks_search_filter'));
