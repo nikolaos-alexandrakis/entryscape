@@ -1,3 +1,4 @@
+import DOMUtil from 'commons/util/htmlUtil';
 define([
   'dojo/_base/declare',
   'dojo/on',
@@ -28,21 +29,25 @@ define([
       lock = false;
     };
     if (data.plaininput || data.plainInput) {
-      input = node.createElement('input', {
+      input = DOMUtil.create('input', {
         type: 'text',
         class: 'form-control',
         placeholder: data.placeholder,
         title: data.placeholder,
       });
+      node.appendChild(input);
     } else {
-      const inputgroup = node.createElement('span', { class: 'input-group' });
-      input = inputgroup.createElement('input', {
+      const inputgroup = DOMUtil.create('span', { class: 'input-group' });
+      node.appendChild(inputgroup);
+      input = DOMUtil.create('input', {
         type: 'text',
         class: 'form-control',
         placeholder: data.placeholder,
         title: data.placeholder,
       });
-      const igb = inputgroup.createElement('span', { class: 'input-group-btn' });
+      inputgroup.appendChild(input);
+      const igb = DOMUtil.create('span', { class: 'input-group-btn' });
+      inputgroup.appendChild(igb);
       const button = igb.create('button', { class: 'btn btn-default' });
       button.create('span', { 'aria-hidden': true, class: 'fa fa-search' });
       on(button, 'click', searchTriggered);
