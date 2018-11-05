@@ -1,12 +1,10 @@
 import m from 'mithril';
 import config from 'config';
-import leaflet from 'leaflet';
 import utils from '../utils';
 import '../escoSpatial.css';
+let leaflet;
 
 const Map = (vnode) => {
-  // const leafletImport = await import([> webpackChunkName: "leaflet" <] 'leaflet');
-  // const leaflet = leafletImport.default;
 
   const state = {
     drawingMode: 'disabled', // disabled, marker, or region
@@ -125,15 +123,20 @@ const Map = (vnode) => {
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
       unfocusInputs = vnode.attrs.unfocusInputs;
 
-      const map = getConstructedMap(vnode.dom);
-      state.map = map;
+     import(/* webpackChunkName: "leaflet" */ 'leaflet').then( leafletImport => {
+       leaflet = leafletImport.default;
+        const map = getConstructedMap(vnode.dom);
+        state.map = map;
 
-      populateMapWithValue(map, value);
+        populateMapWithValue(map, value);
 
-      if (editable) {
-        this.bindMapEvents(map);
-        this.addEditControls(map);
-      }
+        if (editable) {
+          this.bindMapEvents(map);
+          this.addEditControls(map);
+        }
+
+        m.redraw();
+      });
     },
     onbeforeupdate(vnode, oldVnode) {
       const oldValue = oldVnode.attrs.value;
@@ -145,9 +148,10 @@ const Map = (vnode) => {
     onupdate(vnode) {
       const {value} = vnode.attrs;
 
-      clearMapLayers(state.map);
-
-      populateMapWithValue(state.map, value);
+      if(state.map) {
+        clearMapLayers(state.map);
+        populateMapWithValue(state.map, value);
+      }
     },
 
     bindMapEvents(map) {

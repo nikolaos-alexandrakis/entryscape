@@ -56,34 +56,6 @@
         var dataset = earr[2];
         location.href = '/catalog/'+context+'/datasets/'+dataset+queryParams;
       }
-
-      var js = function(src, dataMain) {
-        dataMain = dataMain || '';
-        document.write('\x3Cscript data-main="'+dataMain+'" src="'+src+'">\x3C/script>');
-      };
-
-      /**
-       * if there's a localconfig query param load a script src
-       *
-       * path values and respective script src:
-       *  - true                    -> src = '/theme/local.js.local'
-       *  - starts with '.' or '/'  -> src = path
-       *  - starts with other char  -> src = /theme/path
-       */
-      if (queryParamsMap.localconfig) {
-        var localPath = queryParamsMap.localconfig;
-        var src = localPath === 'true' ?
-          '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-            localPath : '/theme'+localPath);
-        js(src);
-      }
-
-      /**
-       * if __entryscape_config_dev is defined already then override values in __entryscape_config
-       */
-      if (window.__entryscape_config_dev) {
-        Object.assign(__entryscape_config, __entryscape_config_dev);
-      }
     </script>
 </head>
 <body class="nav-md">
