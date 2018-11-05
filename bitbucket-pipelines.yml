@@ -8,7 +8,7 @@ pipelines:
           - node --version
           - npm --version
           - yarn --version
-          - export ES_VERSION=`jq -r .version bower.json`
+          - export ES_VERSION=`jq -r .version package.json`
           - echo $ES_VERSION
           # We allow anything between x.y and x.y.z-SNAPSHOT
           - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
@@ -34,7 +34,7 @@ pipelines:
             - node --version
             - npm --version
             - yarn --version
-            - export ES_VERSION=`jq -r .version bower.json`
+            - export ES_VERSION=`jq -r .version package.json`
             - echo $ES_VERSION
             # We allow anything between x.y and x.y.z-SNAPSHOT
             - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
