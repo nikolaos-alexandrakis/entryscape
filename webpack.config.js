@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
 const DojoWebpackPlugin = require('dojo-webpack-plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const getAlias = (name, type = 'module') => path.resolve(path.join(__dirname, 'src', type, name, 'src'));
@@ -15,9 +14,9 @@ module.exports = (env, argv) => {
       new DojoWebpackPlugin({
         loaderConfig: require('./config/dojoConfig'),
         locales: ['en'],
-        environment: {dojoRoot: '/'}, // used at run time for non-packed resources (e.g.
+        environment: { dojoRoot: '/' }, // used at run time for non-packed resources (e.g.
         // blank.gif)
-        buildEnvironment: {dojoRoot: '../../../node_modules'}, // used at build time
+        buildEnvironment: { dojoRoot: '../../../node_modules' }, // used at build time
         noConsole: true,
       }),
       new webpack.ProvidePlugin({
@@ -26,17 +25,6 @@ module.exports = (env, argv) => {
         jquery: 'jquery',
         // 'window.jquery': 'jquery',
         Popper: ['popper.js', 'default'],
-      }),
-      new CircularDependencyPlugin({
-        // exclude detection of files based on a RegExp
-        exclude: /a\.js|node_modules/,
-        // add errors to webpack instead of warnings
-        failOnError: false,
-        // allow import cycles that include an asyncronous import,
-        // e.g. via import(/* webpackMode: "weak" */ './file.js')
-        allowAsyncCycles: false,
-        // set the current working directory for displaying module paths
-        cwd: process.cwd(),
       }),
       new CopyWebpackPlugin([
         {
@@ -65,7 +53,7 @@ module.exports = (env, argv) => {
                 '@babel/plugin-proposal-object-rest-spread',
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-syntax-dynamic-import',
-                ['@babel/plugin-transform-modules-commonjs', {strictMode: false}],
+                ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
               ],
             },
           },

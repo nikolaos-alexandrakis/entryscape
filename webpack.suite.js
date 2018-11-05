@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 const commonConfig = require('./webpack.config.js');
@@ -9,7 +10,7 @@ const getAlias = (name, type = 'module') => path.resolve(path.join(__dirname, 's
 const context = path.join(__dirname, 'src', 'app', 'suite');
 const configPath = path.resolve(path.join(getAlias('suite', 'app'), 'config', 'config'));
 const themePath = path.resolve(path.join(getAlias('suite', 'app'), '..', '..',
-'theme'));
+  'theme'));
 const locales = ['de', 'sv', 'nb']; // TODO: @scazan Sachsen supports nb but no other. Ask @matthias
 const momentLocaleRegExp = RegExp(locales.reduce((accum, locale, i) => (i === 0 ? `${accum}${locale}` : `${accum}|${locale}`), ''));
 
@@ -69,8 +70,6 @@ module.exports = (env, argv) => {
       devtool: '#inline-source-map',
       devServer: {
         hot: true,
-//        public: 'suite.es.com',
-      port: 8080,
         contentBase: path.resolve(getAlias('suite', 'app')),
         historyApiFallback: true,
         headers: {
@@ -82,6 +81,17 @@ module.exports = (env, argv) => {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
           template: path.resolve(path.join(getAlias('suite', 'app'), '..', 'index.dev.html')),
+        }),
+        new CircularDependencyPlugin({
+          // exclude detection of files based on a RegExp
+          exclude: /a\.js|node_modules/,
+          // add errors to webpack instead of warnings
+          failOnError: false,
+          // allow import cycles that include an asyncronous import,
+          // e.g. via import(/* webpackMode: "weak" */ './file.js')
+          allowAsyncCycles: false,
+          // set the current working directory for displaying module paths
+          cwd: process.cwd(),
         }),
       ],
     });
