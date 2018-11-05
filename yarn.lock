@@ -3252,6 +3252,15 @@ escope@^3.6.0:
     moment "^2.22.2"
     pubsub-js "^1.6.0"
 
+"esi18n@https://bitbucket.org/metasolutions/esi18n.git#master":
+  version "1.0.0"
+  resolved "https://bitbucket.org/metasolutions/esi18n.git#53f170607ea88f5a5f37d24477c21689ac50d156"
+  dependencies:
+    dojo "^1.14.1"
+    lodash-es "^4.17.10"
+    moment "^2.22.2"
+    pubsub-js "^1.6.0"
+
 eslint-config-airbnb-base@^11.1.1:
   version "11.3.2"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.3.2.tgz#8703b11abe3c88ac7ec2b745b7fdf52e00ae680a"
@@ -3823,10 +3832,6 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.8.tgz#1dbfe13e45ad969f813e86c00e5296f525c885a1"
   dependencies:
     debug "=3.1.0"
-
-font-awesome@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -7304,13 +7309,9 @@ rc@^1.1.2, rc@^1.2.7:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
-"rdforms-templates@https://bitbucket.org/metasolutions/rdforms-templates.git#webpack":
-  version "1.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms-templates.git#df41aea008c673491fa55066fa6c26d1d551eb54"
-
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#73ac2f6c54241f0e8483264376d34631d9d1fa50"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#35aa284015adc509a246c8597b690adec14d9ff4"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7325,7 +7326,6 @@ rc@^1.1.2, rc@^1.2.7:
     dojo "^1.13.0"
     dojo-util "^1.13.0"
     esi18n "https://bitbucket.org/metasolutions/esi18n.git#develop"
-    font-awesome "^4.7.0"
     fuelux "^3.16.6"
     jquery "^3.3.1"
     jquery-mousewheel "^3.1.13"
