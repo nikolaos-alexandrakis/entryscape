@@ -34,10 +34,6 @@ module.exports = (env, argv) => {
           test: /\.json$/,
           flatten: true,
         },
-        {
-          from: path.join(getAlias('commons'), 'theme'),
-          to: 'theme',
-        },
       ]),
     ],
     module: {
