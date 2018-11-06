@@ -77,7 +77,7 @@ module.exports = (env, argv) => {
         // new BundleAnalyzerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-          template: path.resolve(path.join(getAlias('suite', 'app'), '..', 'index.dev.html')),
+          template: path.resolve(path.join(getAlias('suite', 'app'), 'public', 'index.dev.html')),
         }),
         new CircularDependencyPlugin({
           // exclude detection of files based on a RegExp
