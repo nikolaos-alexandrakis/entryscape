@@ -14,24 +14,13 @@ pipelines:
           - echo $ES_VERSION
           # We allow anything between x.y and x.y.z-SNAPSHOT
           - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
+    - step:
+        name: Build
+        script:
           - yarn
           - yarn upgrade rdforms esi18n rdfjson store
-        caches:
-          - node
-          - yarncustom
-    - step:
-        name: Build EntryScape Suite
-        script:
           - yarn build:suite
           - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
-        artifacts:
-          - src/app/**
-        caches:
-          - node
-          - yarncustom
-    - step:
-        name: Build EntryScape Registry
-        script:
           - yarn build:registry
           - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
         artifacts:
@@ -41,7 +30,7 @@ pipelines:
           - yarncustom
     - parallel:
       - step:
-          name: Deploy EntryScape Suite
+          name: Deploy
           script:
              - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
              - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
