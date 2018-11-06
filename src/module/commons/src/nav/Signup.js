@@ -107,7 +107,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     }
   },
   showPULInfoDialog() {
-    let themepath = 'commons/theme/';
+    let themepath = '/assets/';
     if (config.theme && config.theme.privacyLink) {
       window.open(config.theme.privacyLink, '_blank');
       return;
@@ -117,7 +117,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     } else if (config.theme && config.theme.localTheme && config.theme.localHTML) {
       themepath = 'theme/';
     }
-    registry.get('dialogs').acknowledgeText(`${themepath}privacy_${registry.get('locale')}`, this.NLSBundle0.aboutPrivacyHeader);
+    registry.get('dialogs').acknowledgeText(`${themepath}privacy`, this.NLSBundle0.aboutPrivacyHeader);
   },
   validateFirstName() {
     if (this.suFirstname.value.length === 1) {

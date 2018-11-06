@@ -2,6 +2,7 @@ import m from 'mithril';
 import config from 'config';
 import leaflet from 'leaflet';
 import utils from '../utils';
+import configUtil from 'commons/util/configUtil';
 import '../escoSpatial.css';
 // let leaflet;
 
@@ -13,7 +14,7 @@ const Map = (vnode) => {
     latLngVector: [],
   };
 
-  const assetsPath = config.theme.assetsPath;
+  const assetsPath = configUtl.getAssetsPath();
 
   let updateGeoCoordinates;
   let unfocusInputs;
