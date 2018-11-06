@@ -1,10 +1,8 @@
 define([
-  'dojo/_base/array',
-  'dojo/_base/lang',
   'dojo/string',
   'rdforms/utils',
   'entryscape-commons/defaults',
-], (array, lang, string, utils, defaults) => {
+], (string, utils, defaults) => {
   const rdfutils = defaults.get('rdfutils');
   const special = {
     label(entry) {
@@ -16,7 +14,7 @@ define([
   return function (data, entry) {
     if (data.content) {
       let content = data.content;
-      const vars = array.map(content.match(varRegexp), v => v.substr(2, v.length - 3));
+      const vars = content.match(varRegexp).map(v => v.substr(2, v.length - 3));
       const defaultProj = {};
       const vals = {};
       const mapping = {};
@@ -52,7 +50,8 @@ define([
           pr[key] = utils.getLocalizedValue(lmap).value;
         }
       });
-      const obj = lang.mixin(vals, defaultProj, pr);
+      const obj = { ...vals, ...defaultProj, ...pr };
+
       return string.substitute(content, obj);
     } else if (data.property) {
       return entry.getMetadata().findFirstValue(null, data.property);
