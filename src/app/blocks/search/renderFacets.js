@@ -37,7 +37,7 @@ define([
               }
             })
             this.collectionName = 'blocks_collection_'+facetDef.name;
-            defaults.onChange(this.collectionName, this.renderCollection, true).bind(this);
+            defaults.onChange(this.collectionName, this.renderCollection.bind(this), true);
         },
 
         renderCollection: function(collectionDef) {
@@ -74,7 +74,7 @@ define([
             this.viewAllNode.innerHTML = 'visa fler';
             this.viewAllNode.style.display = 'inline-block';
           } else {
-            this.viewAllNode.innerHTML = 'visa f√§rre';
+            this.viewAllNode.innerHTML = 'visa f‰rre';
             this.viewAllNode.style.display = 'inline-block';
           }
         },
