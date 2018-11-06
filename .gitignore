@@ -3,6 +3,7 @@
 /*.iml
 /node_modules
 /dist
+/local.js
 *.log
 .yalc/
 yalc.lock
