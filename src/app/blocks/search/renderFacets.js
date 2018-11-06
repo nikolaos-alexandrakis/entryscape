@@ -74,7 +74,7 @@ define([
             this.viewAllNode.innerHTML = 'visa fler';
             this.viewAllNode.style.display = 'inline-block';
           } else {
-            this.viewAllNode.innerHTML = 'visa f‰rre';
+            this.viewAllNode.innerHTML = 'visa f√§rre';
             this.viewAllNode.style.display = 'inline-block';
           }
         },
