@@ -13,20 +13,22 @@ pipelines:
           - echo $ES_VERSION
           # We allow anything between x.y and x.y.z-SNAPSHOT
           - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
-          - yarn
     - step:
         name: Build EntryScape Suite
         script:
+          - yarn
           - yarn build:suite
           - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
     - step:
         name: Build EntryScape Registry
         script:
+          - yarn
           - yarn build:registry
           - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
 #    - step:
 #        name: Build EntryScape Blocks
 #        script:
+#          - yarn
 #          - yarn build:blocks
 #          - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
     - parallel:
