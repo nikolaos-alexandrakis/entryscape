@@ -65,7 +65,7 @@ define([
     });
 
     return function(node, data, items) {
-        let obj = lodash.clone(data);
+        let obj = clone(data);
         delete obj.relation;
         let formatList;
         getEntry(obj, function(entry) {
