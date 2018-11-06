@@ -32,13 +32,11 @@ pipelines:
     - parallel:
       - step:
           name: Deploy EntryScape Suite
-          deployment: production
           script:
              - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
              - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
       - step:
           name: Deploy EntryScape Registry
-          deployment: production
           script:
              - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
              - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
