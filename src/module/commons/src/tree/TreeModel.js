@@ -1,6 +1,5 @@
 import registry from '../registry';
 import jquery from 'jquery';
-import 'jstree';
 
 const esu = registry.get('entrystoreutil');
 
@@ -86,8 +85,11 @@ export default class TreeModel {
     this.domNode = domNode;
     jsTreeConf.core.data = this.getChildren.bind(this);
 
-    jquery(domNode).jstree(jsTreeConf);
-    jquery(domNode).on('move_node.jstree', this.jsTreeMove.bind(this));
+    const jstreeImport = import(/* webpackChunkName: "jstree" */ 'jstree')
+      .then(() => {
+        jquery(domNode).jstree(jsTreeConf);
+        jquery(domNode).on('move_node.jstree', this.jsTreeMove.bind(this));
+      });
   }
 
   destroy() {

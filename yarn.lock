@@ -1530,6 +1530,15 @@ boolbase@^1.0.0, boolbase@~1.0.0:
     jquery "1.12.3"
     moment "~2.10.2"
 
+"bootstrap-material-datetimepicker@https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack":
+  version "2.7.1"
+  resolved "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#a41ebf6395fb0d0a5fdabfe3ddc43f83ac745250"
+  dependencies:
+    bootstrap "~3.3.4"
+    bootstrap-material-design "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd"
+    jquery "1.12.3"
+    moment "^2.22.2"
+
 bootstrap-material-design@~0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/bootstrap-material-design/-/bootstrap-material-design-0.3.0.tgz#e23fc34eb73a9230d50bbdf68c9fee97fc465b9f"

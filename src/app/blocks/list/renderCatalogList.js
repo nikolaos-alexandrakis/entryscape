@@ -1,13 +1,13 @@
 import DOMUtil from 'commons/util/htmlUtil';
+
 define([
     'dojo/_base/declare',
-    'dojo/_base/lang',
     './List',
     'entryscape-commons/list/EntryRow',
     './MetadataExpandRow',
     'entryscape-commons/defaults',
     'entryscape-commons/store/ArrayList',
-], function(declare, lang, List, EntryRow, MetadataExpandRow, defaults, ArrayList) {
+], function(declare, List, EntryRow, MetadataExpandRow, defaults, ArrayList) {
 
     const _CatalogRowMixin = declare([], {
         showCol1: true,
@@ -39,12 +39,12 @@ define([
                 .list().forEach(function(catalogEntry) {
                 catalogEntry.__nrOfDatasets = catalogEntry.getMetadata().find(catalogEntry.getResourceURI(), 'dcat:dataset').length;
                 catalogs.push(catalogEntry);
-            }).then(lang.hitch(this, function() {
+            }).then(function() {
                 catalogs.sort(function(c1, c2) {
                     return c1.__nrOfDatasets < c2.__nrOfDatasets ? 1 : -1;
                 });
                 this.listView.showEntryList(new ArrayList({arr: catalogs}));
-            }));
+            }.bind(this));
         }
     });
 

@@ -12,7 +12,7 @@
     "bloodhound-js": "^1.2.3",
     "bmd": "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd",
     "bootstrap": "3.3.7",
-    "bootstrap-material-datetimepicker": "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#amd",
+    "bootstrap-material-datetimepicker": "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack",
     "chartist": "^0.11.0",
     "chartist-plugin-legend": "^0.6.2",
     "esi18n": "https://bitbucket.org/metasolutions/esi18n.git#master",

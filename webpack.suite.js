@@ -1,3 +1,4 @@
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -52,6 +53,7 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+        // new BundleAnalyzerPlugin(),
       new CleanWebpackPlugin([
         path.join(__dirname, 'src/app/suite/dist'),
       ]),
@@ -63,11 +65,6 @@ module.exports = (env, argv) => {
         },
       ]),
     ],
-    optimization: {
-      // splitChunks: {
-      // chunks: 'all',
-      // }
-    },
   });
 
   if (argv.mode === 'development') {
@@ -91,7 +88,7 @@ module.exports = (env, argv) => {
         // new BundleAnalyzerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-          template: path.resolve(path.join(getAlias('suite', 'app'), '..', 'index.dev.html')),
+          template: path.resolve(path.join(getAlias('suite', 'app'), 'public', 'index.dev.html')),
         }),
         new CircularDependencyPlugin({
           // exclude detection of files based on a RegExp
