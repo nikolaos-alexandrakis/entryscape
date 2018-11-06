@@ -1,7 +1,6 @@
 import DOMUtil from 'commons/util/htmlUtil';
 define([
   'dojo/_base/declare',
-  'dojo/_base/array',
   'config',
   'rdforms/view/Presenter',
   'entryscape-commons/list/EntryRow',
@@ -9,7 +8,7 @@ define([
   'entryscape-commons/defaults',
   '../utils/getEntry',
   './List',
-], (declare, array, config, Presenter, EntryRow, MetadataExpandRow, defaults,
+], (declare, config, Presenter, EntryRow, MetadataExpandRow, defaults,
     getEntry, List) =>
    (node, data, items) => {
      if (data.rowhead || data.rowexpand || data.listempty || data.listhead || data.listbody || data.listplaceholder) {
