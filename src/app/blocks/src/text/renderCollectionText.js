@@ -1,13 +1,12 @@
-define([
-  'entryscape-commons/defaults',
-  '../boot/handlebars',
-  '../utils/filter',
-  '../utils/getEntry',
-  '../utils/labels',
-], (defaults, handlebars, filter, getEntry, labels) =>
-  (node, data) => {
+import registry from 'commons/registry';
+import handlebars from 'blocks/boot/handlebars';
+import filter from 'blocks/utils/filter';
+import getEntry from 'blocks/utils/getEntry';
+import labels from 'blocks/utils/labels';
+
+  export default (node, data) => {
     const update = (col2vals) => {
-      const collection = defaults.get(`blocks_collection_${data.collection}`);
+      const collection = registry.get(`blocks_collection_${data.collection}`);
       let vals = (col2vals || {})[data.collection];
       const hasValue = data.value ? filter.has(data.collection, data.value) : true;
       const renderValues = (values) => {
@@ -43,6 +42,6 @@ define([
         node.innerHTML = '';
       }
     };
-    update(defaults.get('blocks_search_filter'));
-    defaults.onChange('blocks_search_filter', update);
-  });
+    update(registry.get('blocks_search_filter'));
+    registry.onChange('blocks_search_filter', update);
+  };

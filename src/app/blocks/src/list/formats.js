@@ -1,4 +1,3 @@
-define([], function() {
     var formats = {
         "text/csv": "CSV",
         "application/x-shp": "SHP",
@@ -32,7 +31,7 @@ define([], function() {
         return idx > 0 ? str.substr(0, idx) : str;
     };
 
-    return function(f) {
+    export default function(f) {
         f = f != null ? f : "";
         f = shorten(f, ";");
         f = shorten(f, "+");
@@ -44,4 +43,3 @@ define([], function() {
         }
         return r || "?";
     }
-});

@@ -1,4 +1,3 @@
-define([], () => {
   const filterNodesById = function (nodes, id) {
     return nodes.filter(n => n.id === id);
   };
@@ -251,5 +250,4 @@ define([], () => {
       this.nodesSel = this.svg.selectAll('circle');
     }
   };
-  return Graph;
-});
+  export default Graph;

@@ -1,14 +1,13 @@
-define([
-    'entryscape-commons/defaults'
-], (defaults) => {
-    const rdfutils = defaults.get("rdfutils");
-    const localize = defaults.get("localize");
-    const es = defaults.get('entrystore');
+import registry from 'commons/registry';
+
+    const rdfutils = registry.get("rdfutils");
+    const localize = registry.get("localize");
+    const es = registry.get('entrystore');
     const cache = es.getCache();
 
-    return (values, valueType = 'uri') => {
-      const val2choice = defaults.get("itemstore_choices");
-      const val2named = defaults.get("blocks_named");
+    export default (values, valueType = 'uri') => {
+      const val2choice = registry.get("itemstore_choices");
+      const val2named = registry.get("blocks_named");
 
       const toLoad = {};
         const labels = {};
@@ -44,4 +43,3 @@ define([
             return labels;
         });
     }
-});

@@ -1,9 +1,8 @@
-define([
-  'dojo/string',
-  'rdforms/utils',
-  'entryscape-commons/defaults',
-], (string, utils, defaults) => {
-  const rdfutils = defaults.get('rdfutils');
+import string from 'dojo/string'; // TODO @scazan
+import { utils } from 'rdforms';
+import registry from 'commons/registry';
+
+  const rdfutils = registry.get('rdfutils');
   const special = {
     label(entry) {
       return rdfutils.getLabel(entry);
@@ -11,7 +10,7 @@ define([
   };
   const varRegexp = /\$\{([^\s\:\}]*)(?:\:([^\s\:\}]+))?\}/g;
 
-  return function (data, entry) {
+  export default function (data, entry) {
     if (data.content) {
       let content = data.content;
       const vars = content.match(varRegexp).map(v => v.substr(2, v.length - 3));
@@ -58,4 +57,3 @@ define([
     }
     return rdfutils.getLabel(entry);
   };
-});

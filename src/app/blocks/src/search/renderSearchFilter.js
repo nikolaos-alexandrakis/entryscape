@@ -1,16 +1,13 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-  'dojo/_base/declare',
-  'entryscape-blocks/boot/params',
-  'entryscape-commons/defaults',
-  'entryscape-blocks/utils/filter',
-  'store/Entry',
-  './utils',
-  'jquery',
-  'selectize',
-], (declare, params, defaults, filter, Entry, utils,
-    jquery) => {
-  const rdfutils = defaults.get('rdfutils');
+import params from 'blocks/boot/params';
+import registry from 'commons/registry';
+import filter from 'blocks/utils/filter';
+import { Entry } from 'store';
+import utils from './utils';
+import jquery from 'jquery';
+import 'selectize';
+
+  const rdfutils = registry.get('rdfutils');
 
     /**
      * Renders a dropdown filter with typeahead functionality.
@@ -25,7 +22,7 @@ define([
      *   property - the property to filter the selected values with.
      *   literal - true if the values are to be considered literals.
      */
-  return function (node, data, items) {
+  export default function (node, data, items) {
     node.classList.add('block_searchFilter');
     filter.guard(node, data.if);
     if (typeof data.width !== 'undefined') {
@@ -76,9 +73,9 @@ define([
 
     const collectionName = `blocks_collection_${data.collection}`;
     settings.load = function (query, callback) {
-      const collection = defaults.get(collectionName);
+      const collection = registry.get(collectionName);
       if (collection.type === 'search') {
-        const es = defaults.get('entrystore');
+        const es = registry.get('entrystore');
         const qo = es.newSolrQuery().publicRead();
         const context = (data.context === true ? urlParams.context : data.context)
           || collection.context;
@@ -115,7 +112,7 @@ define([
           callback(collection.list);
         }
       } else if (collection.type === 'facet') {
-        defaults.get(collectionName, () => {  // Why? we already have the collection...
+        registry.get(collectionName, () => {  // Why? we already have the collection...
           callback(collection.list);
         });
       }
@@ -124,7 +121,7 @@ define([
     selectize = jquery(input).selectize(settings)[0].selectize;
 
     clearOptions = () => {
-      // const collection = defaults.get(collectionName);
+      // const collection = registry.get(collectionName);
       if (selectize.getValue() === '') {
         Object.keys(selectize.options).forEach((o) => {
           if (o !== '') {
@@ -136,7 +133,7 @@ define([
       }
     };
 
-    defaults.onChange('blocks_search_filter', (filters) => {
+    registry.onChange('blocks_search_filter', (filters) => {
       if (lock) {
         // If the filter is itself making the change
         return;
@@ -160,4 +157,3 @@ define([
       lock = false;
     }, true);
   };
-});

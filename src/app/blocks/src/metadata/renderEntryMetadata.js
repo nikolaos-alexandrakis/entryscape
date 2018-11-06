@@ -1,10 +1,9 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-    'entryscape-blocks/utils/getEntry',
-    'rdforms/view/Presenter',
-    'rdfjson/namespaces',
-], function (getEntry, Presenter, namespaces) {
-    return function (node, data, items) {
+import getEntry from 'entryscape-blocks/utils/getEntry';
+import { Presenter } from 'rdforms';
+import { namespaces } from 'rdfjson';
+
+    export default function (node, data, items) {
         const template = items.getItem(data.rdformsid || data.template);
         getEntry(data, function(entry) {
             const fp = {};
@@ -24,4 +23,3 @@ define([
             });
         });
     };
-});

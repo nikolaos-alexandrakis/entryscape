@@ -1,16 +1,13 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-  'dojo/_base/declare',
-  'config',
-  'rdforms/view/Presenter',
-  'entryscape-commons/list/EntryRow',
-  './MetadataExpandRow',
-  'entryscape-commons/defaults',
-  '../utils/getEntry',
-  './List',
-], (declare, config, Presenter, EntryRow, MetadataExpandRow, defaults,
-    getEntry, List) =>
-   (node, data, items) => {
+import declare from 'dojo/_base/declare';
+import config from 'config';
+import { Presenter } from 'rdforms';
+import EntryRow from 'commons/list/EntryRow';
+import MetadataExpandRow from './MetadataExpandRow';
+import getEntry from '../utils/getEntry';
+import List from './List';
+
+   export default (node, data, items) => {
      if (data.rowhead || data.rowexpand || data.listempty || data.listhead || data.listbody || data.listplaceholder) {
        data.templates = data.templates || {};
        data.templates.rowhead = data.rowhead;
@@ -45,4 +42,4 @@ define([
        node.appendChild(sl);
        sl.show();
      }
-   });
+   };

@@ -1,5 +1,6 @@
-define(["rdfjson/namespaces"], function(namespaces) {
-    return function(obj, constraints) {
+import { namespaces } from 'rdfjson';
+
+    export default function(obj, constraints) {
         if (constraints) {
             Object.keys(constraints).forEach(function(key) {
                 var val = constraints[key];
@@ -15,5 +16,4 @@ define(["rdfjson/namespaces"], function(namespaces) {
             });
         }
         return obj;
-    }
-});
+    };

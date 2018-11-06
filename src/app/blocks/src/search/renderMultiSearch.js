@@ -1,20 +1,14 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-    "dojo/_base/declare",
-    'dojo/Deferred',
-    'dojo/promise/all',
-    'dojo/on',
-    'rdfjson/namespaces',
-    'entryscape-blocks/utils/filter',
-    'entryscape-blocks/boot/params',
-    'entryscape-commons/defaults',
-    'store/Entry',
-    './utils',
-    'jquery',
-    'selectize',
-], function (declare, Deferred, all, on,
-             namespaces, filter, params, defaults, Entry, utils, jquery) {
-    let rdfutils = defaults.get("rdfutils");
+import { namespaces } from 'rdfjson';
+import filter from 'blocks/utils/filter';
+import params from 'blocks/boot/params';
+import registry from 'commons/registry';
+import { Entry } from 'store';
+import utils from './utils';
+import jquery from 'jquery';
+import 'selectize';
+
+    let rdfutils = registry.get("rdfutils");
     const termFilter = (arr, term) => {
         if (term.length > 0) {
             return arr.filter((val) => {
@@ -37,7 +31,7 @@ define([
      *   property - the property to filter the selected values with.
      *   literal - true if the values are to be considered literals.
      */
-    return function(node, data, items) {
+    export default function(node, data, items) {
         let lock = false;
         if (typeof data.width != "undefined") {
             node.style.width = data.width;
@@ -47,7 +41,7 @@ define([
             urlParams = up;
         });
 
-        defaults.get("blocks_collections", function(collections) {
+        registry.get("blocks_collections", function(collections) {
             let name2col = {};
             collections.forEach(function (col) {
                 name2col[col.name] = col;
@@ -148,12 +142,13 @@ define([
                         }
                         item.appendChild(DOMUtil.create('span', {'class': 'itemLabel', 'innerHTML': escape(data.label)}));
 
-                        on(item.appendChild(DOMUtil.create(
-                            'i', {class: 'fa fa-remove'}),
-                            'click', () => {
-                                selectize.removeItem(data.value);
-                            }));
-                        return item;
+                      const faRemoveIconEl = DOMUtil.create('i', {class: 'fa fa-remove'});
+                      faRemoveEl.onclick = () => {
+                        selectize.removeItem(data.value);
+                      };
+                      item.appendChild(faRemoveIconEl);
+
+                      return item;
                     },
                     option_create: function(data, escape) {
                         return '<div class="create">Search for "' + escape(data.input) + '"</div>';
@@ -168,7 +163,7 @@ define([
             node.appendChild(input);
             let loads = collections.map((def) => query => {
               if (def.type === 'search') {
-                    const es = defaults.get("entrystore");
+                    const es = registry.get("entrystore");
                     const qo = es.newSolrQuery().publicRead();
                     const contextId = def.context || (data.context === true ? urlParams.context : data.context);
                     if (contextId) {
@@ -193,14 +188,14 @@ define([
                     })));
                 } else {
                   return new Promise(resolve =>
-                      defaults.get("blocks_collection_"+def.name, () => {
+                      registry.get("blocks_collection_"+def.name, () => {
                           resolve(termFilter(def.list || [], query));
                       }));
                 }
             });
 
             settings.load = (query, callback) => {
-                all(loads.map(function(ld) {
+                Promise.all(loads.map(function(ld) {
                     return ld(query);
                 })).then(function(searchResults) {
                     let results = [];
@@ -230,7 +225,7 @@ define([
             selectize = jquery(input).selectize(settings)[0].selectize;
 
             //Listen in and update search field if other parts of the ui changes the filter
-            defaults.onChange("blocks_search_filter", function(filters) {
+            registry.onChange("blocks_search_filter", function(filters) {
                 if (lock) {
                     // If selectize is itself making the change
                     return;
@@ -259,4 +254,3 @@ define([
             }, true);
         });
     };
-});

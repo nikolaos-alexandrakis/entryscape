@@ -1,22 +1,18 @@
 import DOMUtil from 'commons/util/htmlUtil';
 
 import { clone } from 'lodash-es';
+import declare from 'dojo/_base/declare';
+import getEntry from 'blocks/utils/getEntry';
+import EntryRow from 'commons/list/EntryRow';
+import MetadataExpandRow from './MetadataExpandRow';
+import List from './List';
+import formats from './formats';
+import escoList from 'nls/escoList.nls';
+import escaDataset from 'nls/escaDataset.nls';
 
-define([
-    'dojo/_base/declare',
-    'entryscape-blocks/utils/getEntry',
-    'entryscape-commons/list/EntryRow',
-    './MetadataExpandRow',
-    'entryscape-commons/defaults',
-    './List',
-    './formats',
-    'i18n!nls/escoList',
-    'i18n!nls/escaDataset',
-], function (declare, getEntry, EntryRow, MetadataExpandRow, defaults, List, formats) {
-
-    let _FormatRowMixin = declare([], {
-        showCol1: true,
-        showCol3: false,
+    class _FormatRowMixin {
+        showCol1: true;
+        showCol3: false;
         renderCol1: function() {
             this.col1Node.style.textAlign = 'left';
             let format = this.entry.getMetadata().findFirstValue(this.entry.getResourceURI(), 'dcterms:format') || this.entry.getEntryInfo().getFormat(),
@@ -24,7 +20,7 @@ define([
             this.col1Node.setAttribute('innerHTML', '<span class="label label-success">' + abbrev
             + '</span>');
             this.col1Node.setAttribute('title', format);
-        },
+        }
 
         // Adapted from renderTitle in entryscape-commons/dataset/DistributionRow.js
         getRenderName() {
@@ -43,16 +39,16 @@ define([
                 }
             }
             return title;
-        },
+        }
 
         updateLocaleStrings: function() {
             this.inherited(arguments);
             this.renderCol1();
         }
-    });
+    };
 
-    let FormatList = declare([List], {
-        nlsBundles: ['escoList', 'escaDataset'],
+    class FormatList extends List {
+        nlsBundles: [{ escoList }, { escaDataset }];
 
         updateRowClass: function() {
             if (this.conf.template != null) {
@@ -62,9 +58,9 @@ define([
                 this.rowClass = declare([EntryRow, _FormatRowMixin], {});
             }
         }
-    });
+    };
 
-    return function(node, data, items) {
+    export default function(node, data, items) {
         let obj = clone(data);
         delete obj.relation;
         let formatList;
@@ -77,4 +73,3 @@ define([
             formatList.show();
         });
     };
-});

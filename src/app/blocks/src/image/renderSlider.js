@@ -1,10 +1,9 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-  'entryscape-blocks/utils/getEntry',
-  'entryscape-blocks/utils/getTextContent',
-  'entryscape-commons/defaults',
-  'jquery',
-], (getEntry, getTextContent, defaults, jquery) => {
+import getEntry from 'blocks/utils/getEntry';
+import getTextContent from 'blocks/utils/getTextContent';
+import registry from 'commons/registry';
+import jquery from 'jquery';
+
   let depLoad;
   let lblib;
   const loadDependencies = () => {
@@ -24,12 +23,12 @@ define([
     return depLoad;
   };
 
-  return (node, data) => {
+  export default (node, data) => {
     loadDependencies().then(() => {
       const sliderContainer = DOMUtil.create('div', { class: 'slider-container' });
       node.appendChild(sliderContainer);
       getEntry(data, (entry) => {
-        const es = defaults.get('entrystore');
+        const es = registry.get('entrystore');
         const md = entry.getMetadata();
         const subject = entry.getResourceURI();
         const images = md.find(subject, data.property).map(stmt => stmt.getValue());
@@ -117,4 +116,3 @@ define([
       });
     });
   };
-});

@@ -1,14 +1,13 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-  'dojo/_base/declare',
-  'entryscape-blocks/boot/params',
-  'entryscape-commons/defaults',
-  'entryscape-blocks/list/List',
-  'entryscape-blocks/utils/getEntry',
-  'entryscape-blocks/utils/constraints',
-  'config',
-  'jquery',
-], (declare, params, defaults, List, getEntry, constraints, config, jquery) => (node, data, items) => {
+import params from 'blocks/boot/params';
+import registry from 'commons/registry';
+import List from 'blocks/list/List';
+import getEntry from 'blocks/utils/getEntry';
+import constraints from 'blocks/utils/constraints';
+import config from 'config';
+import jquery from 'jquery';
+
+export default (node, data, items) => {
   if (data.rowhead || data.rowexpand || data.listempty || data.listhead || data.listbody || data.listplaceholder) {
     data.templates = data.templates || {};
     data.templates.rowhead = data.rowhead;
@@ -31,7 +30,7 @@ define([
     sl.domNode.classList.add('headless');
   }
   if (data.headless) {
-    defaults.onChange('blocks_search_filter', (filter) => {
+    registry.onChange('blocks_search_filter', (filter) => {
       if (filter.term) {
         sl.search({}); // Provided via the filter filter.constraint method.
       } else {
@@ -56,4 +55,4 @@ define([
       sl.show();
     }
   });
-});
+};

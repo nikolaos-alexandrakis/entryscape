@@ -1,13 +1,12 @@
-define([
-  'entryscape-commons/defaults',
-  'entryscape-blocks/boot/params',
-  'store/Entry',
-  'config',
-], (defaults, params, Entry, config) => {
-  const es = defaults.get('entrystore');
-  const esu = defaults.get('entrystoreutil');
+import registry from 'commons/registry';
+import params from 'blocks/boot/params';
+import { Entry } from 'store';
+import config from 'config';
 
-  return (data, callback, useSearch = true) => {
+  const es = registry.get('entrystore');
+  const esu = registry.get('entrystoreutil');
+
+  export default (data, callback, useSearch = true) => {
     let cid;
     let eid;
 
@@ -15,7 +14,7 @@ define([
       data.entry = entry;
       if (data.define) {
         setTimeout(() => {
-          defaults.set(`blocks_${data.define}`, entry);
+          registry.set(`blocks_${data.define}`, entry);
         }, 1);
       }
       return entry;
@@ -59,7 +58,7 @@ define([
     }
 
     if (data.use) {
-      defaults.onChange(`blocks_${data.use}`, (entry) => {
+      registry.onChange(`blocks_${data.use}`, (entry) => {
         if (useSearch && (data.relation || data.relationinverse)) {
           useRelation(entry);
         } else {
@@ -98,4 +97,3 @@ define([
       }
     });
   };
-});

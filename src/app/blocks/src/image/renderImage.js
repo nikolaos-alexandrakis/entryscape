@@ -1,9 +1,7 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-    'entryscape-blocks/utils/getEntry',
-], function(getEntry, getTextContent) {
+import getEntry from 'blocks/utils/getEntry';
 
-    return function(node, data, items) {
+    export default function(node, data, items) {
         getEntry(data, function(entry) {
             node.innerHTML = '';
             var src;
@@ -30,4 +28,3 @@ define([
             }
         });
     };
-});

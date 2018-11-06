@@ -1,11 +1,8 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-  'dojo/_base/declare',
-  'dojo/on',
-  'entryscape-blocks/utils/filter',
-  'entryscape-commons/defaults',
-], (declare, on, filter, defaults) =>
-  (node, data) => {
+import filter from 'blocks/utils/filter';
+import registry from 'commons/registry';
+
+  export default (node, data) => {
     /**
      * Renders a search input field. The typed search term will be used as a constraint by the
      * search component.
@@ -50,15 +47,15 @@ define([
       inputgroup.appendChild(igb);
       const button = igb.create('button', { class: 'btn btn-default' });
       button.create('span', { 'aria-hidden': true, class: 'fa fa-search' });
-      on(button, 'click', searchTriggered);
+      button.onclick = searchTriggered;
     }
-    on(input, 'keyup', () => {
+    input.onkeyup = () => {
       if (t != null) {
         clearTimeout(t);
       }
       t = setTimeout(searchTriggered, 300);
-    });
-    defaults.onChange('blocks_search_filter', (filters) => {
+    };
+    registry.onChange('blocks_search_filter', (filters) => {
       if (lock) {
         // If the filter is itself making the change
         return;
@@ -76,4 +73,4 @@ define([
       }
       lock = false;
     }, true);
-  });
+  };

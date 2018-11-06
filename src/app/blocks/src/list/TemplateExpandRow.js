@@ -1,12 +1,10 @@
-define([
-    "dojo/_base/declare",
-    "rdforms/view/Presenter",
-    "entryscape-commons/list/common/ExpandRow",
-    "entryscape-blocks/boot/handlebars",
-    "jquery"
-], function (declare, Presenter, ExpandRow, handlebars, jquery) {
+import declare from 'dojo/_base/declare";
+import { Presenter } from 'rdforms';
+import ExpandRow from 'commons/list/common/ExpandRow';
+import handlebars from 'blocks/boot/handlebars';
+import jquery from 'jquery';
 
-    return declare([ExpandRow], {
+    export default declare([ExpandRow], {
         showCol3: false,
 
         render() {
@@ -34,4 +32,3 @@ define([
             this.rowNode.classList.toggle('expanded');
         }
     });
-});

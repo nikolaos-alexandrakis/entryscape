@@ -1,10 +1,9 @@
-define([
-  'entryscape-blocks/boot/params',
-  'entryscape-blocks/boot/handlebars',
-  'entryscape-blocks/utils/getEntry',
-  'entryscape-commons/defaults',
-  'jquery',
-], (params, handlebars, getEntry, defaults, jquery) => {
+import params from 'blocks/boot/params';
+import handlebars from 'blocks/boot/handlebars';
+import getEntry from 'blocks/utils/getEntry';
+import registry from 'commons/registry';
+import jquery from 'jquery';
+
   let depLoad;
   let leaflet;
   const loadDependencies = () => {
@@ -23,7 +22,7 @@ define([
     return depLoad;
   };
 
-  return (node, data) => {
+  export default (node, data) => {
     loadDependencies().then(() => {
       getEntry(data, (entry) => {
         setTimeout(() => {
@@ -97,7 +96,7 @@ define([
             if (!addressResourceURI) {
               return;
             }
-            defaults.get('entrystoreutil').getEntryByResourceURI(addressResourceURI).then((addressEntry) => {
+            registry.get('entrystoreutil').getEntryByResourceURI(addressResourceURI).then((addressEntry) => {
               const addrMD = addressEntry.getMetadata();
               let streetAddress = addrMD.findFirstValue(addressEntry.getResourceURI(), 'schema:streetAddress') || '';
               streetAddress = streetAddress.split(',')[0].trim();
@@ -127,4 +126,3 @@ define([
       });
     });
   };
-});

@@ -1,23 +1,22 @@
-define([
-  'dojo/_base/declare',
-  'dijit/_WidgetBase',
-  'config',
-  'entryscape-commons/list/List',
-  'entryscape-commons/list/ListView',
-  'entryscape-commons/list/EntryRow',
-  'entryscape-commons/defaults',
-  'entryscape-commons/store/ArrayList',
-  'entryscape-blocks/boot/handlebars',
-  'entryscape-blocks/boot/error',
-  'entryscape-blocks/utils/constraints',
-  'entryscape-blocks/utils/dependencyList',
-  'entryscape-blocks/utils/filter',
-  './MetadataExpandRow',
-  './TemplateExpandRow',
-  'jquery',
-  'di18n/NLSMixin',
-], (declare, _WidgetBase, config, List, ListView, EntryRow, defaults, ArrayList, handlebars, error, constraints, dependencyList, filter, MetadataExpandRow, TemplateExpandRow, jquery, NLSMixin) => {
-  const PlaceHolder = declare([], {
+import declare from 'dojo/_base/declare';
+import _WidgetBase from 'dijit/_WidgetBase';
+import config from 'config';
+import List from 'commons/list/List';
+import ListView from 'commons/list/ListView';
+import EntryRow from 'commons/list/EntryRow';
+import defaults from 'commons/defaults';
+import ArrayList from 'commons/store/ArrayList';
+import handlebars from 'blocks/boot/handlebars';
+import error from 'blocks/boot/error';
+import constraints from 'blocks/utils/constraints';
+import dependencyList from 'blocks/utils/dependencyList';
+import filter from 'blocks/utils/filter';
+import MetadataExpandRow from './MetadataExpandRow';
+import TemplateExpandRow from './TemplateExpandRow';
+import jquery from 'jquery';
+import { NLSMixin } from 'esi18n';
+
+  class PlaceHolder {
     constructor(args, node) {
       this.list = args.list;
       this.domNode = node;
@@ -33,7 +32,7 @@ define([
       if (!this.list.includeHead) {
         this.list.domNode.appendChild(this.domNode);
       }
-    },
+    }
     show() {
       if (!this.list.includeHead) {
         this.list.getView().domNode.style.display = 'none';
@@ -42,7 +41,7 @@ define([
         }
       }
       this.domNode.style.display = 'block';
-    },
+    }
     hide() {
       if (!this.list.includeHead) {
         this.list.getView().domNode.style.display = 'block';
@@ -51,8 +50,8 @@ define([
         }
       }
       this.domNode.style.display = 'none';
-    },
-  });
+    }
+  };
 
   const initExpandTitles = function () {
     this.expandTitle = this.list.conf.expandTooltip;
@@ -85,7 +84,7 @@ define([
   });
 
 
-  const ListRow = declare([EntryRow], {
+  class ListRow extends EntryRow {
     showCol3: false,
     postCreate() {
       this.rowNode.classList.add('col4hidden');
@@ -108,9 +107,9 @@ define([
       const href = this.list.getRowClickLink(this);
       return href ? `<a href="${href}">${name}</a>` : name;
     },
-  });
+  };
 
-  return declare([List, NLSMixin.Dijit], {
+  export default declare([List, NLSMixin.Dijit], {
     includeHead: false,
     includeCreateButton: false,
     includeInfoButton: false,
@@ -283,4 +282,3 @@ define([
       return so;
     },
   });
-});

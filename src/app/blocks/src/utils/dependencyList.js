@@ -1,9 +1,7 @@
-define([
-    'entryscape-commons/defaults',
-    './filter'
-], (defaults, filter) => {
+import registry from 'commons/registry';
+import filter from './filter';
 
-    return function(list, data) {
+    export default function(list, data) {
         if (!data.dependencyproperties && !data.facets) {
             return list;
         }
@@ -11,7 +9,7 @@ define([
             data.dependencyproperties.split(",") : [];
         list.getEntries2 = list.getEntries;
         list.getEntries = function(page) {
-            var es = defaults.get("entrystore");
+            var es = registry.get("entrystore");
             var cache = es.getCache();
 
             var setFacets = () => {
@@ -21,7 +19,7 @@ define([
                         facets[f.predicate] = f;
                     });
                     filter.facets2collections(facets);
-                    defaults.set("blocks_search_facets", facets);
+                    registry.set("blocks_search_facets", facets);
                 }
             };
 
@@ -55,4 +53,3 @@ define([
         };
         return list;
     };
-});

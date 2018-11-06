@@ -1,7 +1,7 @@
-define([
-  'entryscape-commons/defaults',
-  'entryscape-blocks/utils/labels',
-], (defaults, labels) => ({
+import registry from 'commons/registry';
+import labels from 'blocks/utils/labels';
+
+export default {
   setValues(filters, group, setValue) {
     const values = filters[group];
     if (values) {
@@ -19,15 +19,15 @@ define([
           });
         };
         const collectionName = `blocks_collection_${group}`;
-        const collection = defaults.get(collectionName);
+        const collection = registry.get(collectionName);
         if (collection.list) {
           addFromCollection(collection);
         } else {
-          defaults.onChangeOnce(collectionName, (col) => {
+          registry.onChangeOnce(collectionName, (col) => {
             if (col.list) {
               addFromCollection(col);
             } else {
-              defaults.onChangeOnce(collectionName, addFromCollection);
+              registry.onChangeOnce(collectionName, addFromCollection);
             }
           });
         }
@@ -36,4 +36,4 @@ define([
       }
     }
   },
-}));
+};

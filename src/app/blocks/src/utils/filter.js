@@ -1,9 +1,8 @@
-define([
-  'entryscape-commons/defaults',
-  'entryscape-blocks/boot/params',
-  'rdfjson/namespaces',
-  './labels',
-], (defaults, params, namespaces, labels) => {
+import registry from 'commons/registry';
+import params from 'blocks/boot/params';
+import namespaces from 'rdfjson/namespaces';
+import labels from './labels';
+
   const shorten = (value) => {
     if (value.length > 15) {
       const hidx = value.lastIndexOf('#');
@@ -26,7 +25,7 @@ define([
   };
 
   const maybeResets = function(filter, group) {
-    const collection = defaults.get('blocks_collection_' + group);
+    const collection = registry.get('blocks_collection_' + group);
     if (collection && collection.resets) {
       delete filter[collection.resets];
     }
@@ -46,7 +45,7 @@ define([
         return;
       }
       lock = true;
-      defaults.set('blocks_search_filter', {});
+      registry.set('blocks_search_filter', {});
       unlock();
     },
     setAll(options) {
@@ -58,7 +57,7 @@ define([
       (options || []).forEach((option) => {
         add(filter, option);
       });
-      defaults.set('blocks_search_filter', filter);
+      registry.set('blocks_search_filter', filter);
       unlock();
     },
     addAll(options) {
@@ -66,11 +65,11 @@ define([
         return;
       }
       lock = true;
-      const filter = defaults.get('blocks_search_filter') || {};
+      const filter = registry.get('blocks_search_filter') || {};
       (options || []).forEach((option) => {
         add(filter, option);
       });
-      defaults.set('blocks_search_filter', filter);
+      registry.set('blocks_search_filter', filter);
       unlock();
     },
     add(option) {
@@ -78,10 +77,10 @@ define([
         return;
       }
       lock = true;
-      const filter = defaults.get('blocks_search_filter') || {};
+      const filter = registry.get('blocks_search_filter') || {};
       add(filter, option);
       maybeResets(filter, option.group || 'term');
-      defaults.set('blocks_search_filter', filter);
+      registry.set('blocks_search_filter', filter);
       unlock();
     },
     remove(option) {      
@@ -92,7 +91,7 @@ define([
         return;
       }
       lock = true;
-      const filter = defaults.get('blocks_search_filter') || {};
+      const filter = registry.get('blocks_search_filter') || {};
       let group;
       if (oldOption) {
         group = oldOption.group || 'term';
@@ -109,13 +108,13 @@ define([
         add(filter, newOption);
       }
       maybeResets(filter, group || 'term');
-      defaults.set('blocks_search_filter', filter);
+      registry.set('blocks_search_filter', filter);
       unlock();
     },
     constraints(obj) {
-      const filter = defaults.get('blocks_search_filter') || {};
+      const filter = registry.get('blocks_search_filter') || {};
       const filterIdx = {};
-      (defaults.get('blocks_collections') || []).forEach((c) => {
+      (registry.get('blocks_collections') || []).forEach((c) => {
         filterIdx[c.name] = c;
       });
       Object.keys(filter).forEach((key) => {
@@ -155,12 +154,12 @@ define([
       return obj;
     },
     has(collectionname, value) {
-      let vals = (defaults.get('blocks_search_filter') || {})[collectionname];
+      let vals = (registry.get('blocks_search_filter') || {})[collectionname];
       if (vals) {
         if (value === undefined) {
           return true;
         }
-        const collection = defaults.get('blocks_collection_' + collectionname);
+        const collection = registry.get('blocks_collection_' + collectionname);
         vals = vals.map(v => (typeof v === 'string' ? v : v.value));
         return vals.some(v => (collection.nodetype === 'literal' ? value :
           v === namespaces.expand(value)));
@@ -179,11 +178,11 @@ define([
           }
         };
         update();
-        defaults.onChange('blocks_search_filter', update);
+        registry.onChange('blocks_search_filter', update);
       }
     },
     facets(obj) {
-      const collections = defaults.get('blocks_collections');
+      const collections = registry.get('blocks_collections');
       collections.forEach((def) => {
         if (def.includeAsFacet) {
           switch (def.nodetype) {
@@ -200,7 +199,7 @@ define([
       });
     },
     facets2collections(facetIdx) {
-      const collections = defaults.get('blocks_collections');
+      const collections = registry.get('blocks_collections');
       collections.forEach((def) => {
         const facet = facetIdx[namespaces.expand(def.property)];
         const group = def.name;
@@ -216,7 +215,7 @@ define([
               }));
               def.list = (limit && facet.values.length > limit) ?
                         def.source.slice(0, limit) : def.source;
-              defaults.set(`blocks_collection_${def.name}`, def);
+              registry.set(`blocks_collection_${def.name}`, def);
             } else {
               let values = facet.values;
               if (limit && values.length > limit) {
@@ -232,7 +231,7 @@ define([
                 }));
                 def.list = def.source;
                 def.list.searchFacets = true;
-                defaults.set(`blocks_collection_${def.name}`, def);
+                registry.set(`blocks_collection_${def.name}`, def);
               });
             }
           };
@@ -242,7 +241,7 @@ define([
     },
   };
 
-  defaults.onChange('blocks_collections', (collections) => {
+  registry.onChange('blocks_collections', (collections) => {
     let addListener = true;
     params.addListener((urlParams) => {
       const constraints = [];
@@ -275,7 +274,7 @@ define([
       filterObj.setAll(constraints);
       if (addListener) {
         addListener = false;
-        defaults.onChange('blocks_search_filter', (filter) => {
+        registry.onChange('blocks_search_filter', (filter) => {
           delete urlParams.term;
           collections.forEach((c) => {
             if (c.includeAsFacet !== false) {
@@ -292,5 +291,4 @@ define([
     });
   }, true);
 
-  return filterObj;
-});
+  export default filterObj;

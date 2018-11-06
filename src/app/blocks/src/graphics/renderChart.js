@@ -1,11 +1,9 @@
+import chartist from 'chartist';
 import DOMUtil from 'commons/util/htmlUtil';
+import chartistPluginLegend from 'chartist-plugin-legend';
 
-define([
-    "chartist",
-    "chartist-plugin-legend",
-], function(chartist, chartistPluginLegend) {
     let counter = 0;
-    return function(node, data, items) {
+    const renderChart = function(node, data, items) {
         const f = (loadedData) => {
             counter += 1;
             const idClass = 'chartist_' + counter;
@@ -56,4 +54,5 @@ define([
             })
         }
     };
-});
+
+export default renderChart;

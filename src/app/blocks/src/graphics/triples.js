@@ -1,12 +1,11 @@
-define([
-  'entryscape-commons/defaults',
-  'rdfjson/namespaces',
-  '../utils/labels',
-], (defaults, namespaces, labels) => {
-  const es = defaults.get('entrystore');
-  const esu = defaults.get('entrystoreutil');
+import registry from 'commons/registry';
+import { namespaces } from 'rdfjson/namespaces';
+import labels from '../utils/labels';
 
-  return {
+  const es = registry.get('entrystore');
+  const esu = registry.get('entrystoreutil');
+
+  export default {
     createLoader(excludeProps) {
       const excludeIdx = {};
       excludeProps.forEach((prop) => {
@@ -48,5 +47,4 @@ define([
       });
     },
   };
-});
 

@@ -1,12 +1,13 @@
 import DOMUtil from 'commons/util/htmlUtil';
-define([
-  'entryscape-blocks/utils/filter',
-  'entryscape-blocks/boot/params',
-  'entryscape-blocks/utils/getEntry',
-  'entryscape-blocks/utils/getTextContent',
-  'entryscape-commons/defaults',
-], (filter, params, getEntry, getTextContent, defaults) => (node, data) => {
+import filter from 'blocks/utils/filter';
+import params from 'blocks/boot/params';
+import getEntry from 'blocks/utils/getEntry';
+import getTextContent from 'blocks/utils/getTextContent';
+import registry from 'commons/registry';
+
+export default (node, data) => {
   filter.guard(node, data.if);
+
   getEntry(data, (entry) => {
     let pobj = {};
     const md = entry.getMetadata();
@@ -39,7 +40,7 @@ define([
       } else {
         pobj = { entry: entry.getId(), context: entry.getContext().getId() };
       }
-      const clicks = defaults.get('clicks');
+      const clicks = registry.get('clicks');
       const click = (data.namedclick ? clicks[data.namedclick] : data.click) || '';
       node.appendChild(DOMUtil.create(
         'a', {
@@ -49,4 +50,4 @@ define([
       ));
     }
   });
-});
+};
