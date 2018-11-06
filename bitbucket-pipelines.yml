@@ -4,7 +4,7 @@ stepdefinitions:
   - build: &build
       name: Build
       script:
-        - if [ $BITBUCKET_BRANCH != "master" ] && [ $BITBUCKET_BRANCH != "develop" ]; then exit 0 ; fi
+#        - if [ $BITBUCKET_BRANCH != "master" ] && [ $BITBUCKET_BRANCH != "develop" ]; then exit 0 ; fi
         - node --version
         - npm --version
         - yarn --version
@@ -27,6 +27,9 @@ stepdefinitions:
   - deploy: &deploy
       name: Deploy
       script:
+        - export ES_VERSION=`jq -r .version package.json`
+        # We allow anything between x.y and x.y.z-SNAPSHOT
+        - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
         - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
         - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
         - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
@@ -35,7 +38,6 @@ stepdefinitions:
 pipelines:
   default:
     - step: *build
-    - step: *deploy
   branches:
     master:
       - step: *build
@@ -43,6 +45,8 @@ pipelines:
     develop:
       - step: *build
       - step: *deploy
+    feature/*:
+      - step: *build
 
 definitions:
   caches:
