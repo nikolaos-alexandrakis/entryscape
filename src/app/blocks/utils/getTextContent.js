@@ -1,9 +1,8 @@
 define([
-  'dojo/_base/lang',
   'dojo/string',
   'rdforms/utils',
   'entryscape-commons/defaults',
-], (lang, string, utils, defaults) => {
+], (string, utils, defaults) => {
   const rdfutils = defaults.get('rdfutils');
   const special = {
     label(entry) {
@@ -51,7 +50,8 @@ define([
           pr[key] = utils.getLocalizedValue(lmap).value;
         }
       });
-      const obj = lang.mixin(vals, defaultProj, pr);
+      const obj = { ...vals, ...defaultProj, ...pr };
+
       return string.substitute(content, obj);
     } else if (data.property) {
       return entry.getMetadata().findFirstValue(null, data.property);
