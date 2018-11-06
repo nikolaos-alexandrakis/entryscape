@@ -1,7 +1,9 @@
 import DOMUtil from 'commons/util/htmlUtil';
+
+import { clone } from 'lodash-es';
+
 define([
     'dojo/_base/declare',
-    'dojo/_base/lang',
     'entryscape-blocks/utils/getEntry',
     'entryscape-commons/list/EntryRow',
     './MetadataExpandRow',
@@ -10,7 +12,7 @@ define([
     './formats',
     'i18n!nls/escoList',
     'i18n!nls/escaDataset',
-], function (declare, lang, getEntry, EntryRow, MetadataExpandRow, defaults, List, formats) {
+], function (declare, getEntry, EntryRow, MetadataExpandRow, defaults, List, formats) {
 
     let _FormatRowMixin = declare([], {
         showCol1: true,
@@ -63,7 +65,7 @@ define([
     });
 
     return function(node, data, items) {
-        let obj = lang.clone(data);
+        let obj = lodash.clone(data);
         delete obj.relation;
         let formatList;
         getEntry(obj, function(entry) {

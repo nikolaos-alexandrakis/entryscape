@@ -1,4 +1,5 @@
 import DOMUtil from 'commons/util/htmlUtil';
+
 define([
     'dojo/_base/declare',
     './List',
@@ -6,7 +7,7 @@ define([
     './MetadataExpandRow',
     'entryscape-commons/defaults',
     'entryscape-commons/store/ArrayList',
-], function(declare, lang, List, EntryRow, MetadataExpandRow, defaults, ArrayList) {
+], function(declare, List, EntryRow, MetadataExpandRow, defaults, ArrayList) {
 
     const _CatalogRowMixin = declare([], {
         showCol1: true,
