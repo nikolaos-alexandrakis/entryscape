@@ -33,6 +33,9 @@ stepdefinitions:
         - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
 
 pipelines:
+  default:
+    - step: *build
+    - step: *deploy
   branches:
     master:
       - step: *build
