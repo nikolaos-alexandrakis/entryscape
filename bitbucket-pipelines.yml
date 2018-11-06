@@ -4,7 +4,7 @@ stepdefinitions:
   - build: &build
       name: Build
       script:
-        - if [ $BITBUCKET_BRANCH != "master" ] && [ $BITBUCKET_BRANCH != "develop" ]; then exit 0 ; fi
+#        - if [ $BITBUCKET_BRANCH != "master" ] && [ $BITBUCKET_BRANCH != "develop" ]; then exit 0 ; fi
         - node --version
         - npm --version
         - yarn --version
@@ -35,7 +35,6 @@ stepdefinitions:
 pipelines:
   default:
     - step: *build
-    - step: *deploy
   branches:
     master:
       - step: *build
@@ -43,6 +42,8 @@ pipelines:
     develop:
       - step: *build
       - step: *deploy
+    feature/*:
+      - step: *build
 
 definitions:
   caches:
