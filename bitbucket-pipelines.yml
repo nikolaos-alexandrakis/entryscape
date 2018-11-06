@@ -14,10 +14,15 @@ pipelines:
           - echo $ES_VERSION
           # We allow anything between x.y and x.y.z-SNAPSHOT
           - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
+          - yarn
+          - yarn upgrade rdforms esi18n rdfjson store
+        caches:
+          - node
+          - yarncustom
+          - docker
     - step:
         name: Build EntryScape Suite
         script:
-          - yarn
           - yarn build:suite
           - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
         artifacts:
@@ -28,7 +33,6 @@ pipelines:
     - step:
         name: Build EntryScape Registry
         script:
-          - yarn
           - yarn build:registry
           - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
         artifacts:
