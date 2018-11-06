@@ -19,7 +19,6 @@ pipelines:
         caches:
           - node
           - yarncustom
-          - docker
     - step:
         name: Build EntryScape Suite
         script:
