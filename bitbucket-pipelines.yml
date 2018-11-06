@@ -9,6 +9,7 @@ pipelines:
           - node --version
           - npm --version
           - yarn --version
+          - yarn cache dir
           - export ES_VERSION=`jq -r .version package.json`
           - echo $ES_VERSION
           # We allow anything between x.y and x.y.z-SNAPSHOT
@@ -19,18 +20,22 @@ pipelines:
           - yarn
           - yarn build:suite
           - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
+        artifacts:
+          - src/app/**
+        caches:
+          - node
+          - yarncustom
     - step:
         name: Build EntryScape Registry
         script:
           - yarn
           - yarn build:registry
           - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
-#    - step:
-#        name: Build EntryScape Blocks
-#        script:
-#          - yarn
-#          - yarn build:blocks
-#          - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
+        artifacts:
+          - src/app/**
+        caches:
+          - node
+          - yarncustom
     - parallel:
       - step:
           name: Deploy EntryScape Suite
@@ -42,9 +47,7 @@ pipelines:
           script:
              - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
              - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
-#     - step:
-#         name: Deploy EntryScape Blocks
-#         deployment: production
-#         script:
-#           - ( cd src/app/blocks/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/blocks/$ES_VERSION/" )
-#           - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm stable; ln -s $ES_VERSION stable" ; fi
+
+definitions:
+  caches:
+    yarncustom: /usr/local/share/.cache/yarn/
