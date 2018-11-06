@@ -3,6 +3,7 @@ image: metasolutions/openjdk-node:latest
 pipelines:
   default:
     - step:
+        name: Setup
         script:
           - if [ $BITBUCKET_BRANCH != "master" ] && [ $BITBUCKET_BRANCH != "develop" ]; then exit 0 ; fi
           - node --version
@@ -13,41 +14,30 @@ pipelines:
           # We allow anything between x.y and x.y.z-SNAPSHOT
           - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
           - yarn
+    - step:
+        name: Build EntryScape Suite
           - yarn build:suite
-          - yarn build:registry
-##          - yarn build:blocks
           - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
+    - step:
+        name: Build EntryScape Registry
+          - yarn build:registry
           - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
-##          - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
+#    - step:
+#        name: Build EntryScape Blocks
+#          - yarn build:blocks
+#          - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
+     - step:
+         name: Deploy EntryScape Suite
+         deployment: production
           - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
-          - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
-##          - ( cd src/app/blocks/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/blocks/$ES_VERSION/" )
           - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
+     - step:
+         name: Deploy EntryScape Registry
+         deployment: production
+          - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
           - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
-##          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm stable; ln -s $ES_VERSION stable" ; fi
-  custom:
-    build-and-deploy:
-      - step:
-          caches:
-            - node
-          script:
-            - node --version
-            - npm --version
-            - yarn --version
-            - export ES_VERSION=`jq -r .version package.json`
-            - echo $ES_VERSION
-            # We allow anything between x.y and x.y.z-SNAPSHOT
-            - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
-            - yarn
-            - yarn build:suite
-            - yarn build:registry
-##            - yarn build:blocks
-            - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
-            - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
-##            - echo $ES_VERSION > src/app/blocks/dist/VERSION.txt
-            - ( cd src/app/suite/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/suite/$ES_VERSION/" )
-            - ( cd src/app/registry/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/registry/$ES_VERSION/" )
-##            - ( cd src/app/blocks/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/blocks/$ES_VERSION/" )
-            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/suite; rm stable; ln -s $ES_VERSION stable" ; fi
-            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/registry; rm stable; ln -s $ES_VERSION stable" ; fi
-##            - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm stable; ln -s $ES_VERSION stable" ; fi
+#     - step:
+#         name: Deploy EntryScape Blocks
+#         deployment: production
+#          - ( cd src/app/blocks/dist && rsync -arz --delete * "deploy@meta3.metasolutions.se:/srv/static.entryscape.com/blocks/$ES_VERSION/" )
+#          - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta3.metasolutions.se "cd /srv/static.entryscape.com/blocks; rm stable; ln -s $ES_VERSION stable" ; fi
