@@ -1,6 +1,6 @@
 import DOMUtil from 'commons/util/htmlUtil';
+
 define([
-    'dojo/_base/lang',
     'dojo/_base/declare',
     'dojo/on',
     'rdfjson/namespaces',
@@ -10,7 +10,7 @@ define([
     'entryscape-blocks/utils/labels',
     'entryscape-blocks/utils/filter',
     'jquery',
-], function (lang, declare, on, namespaces, md5, params, defaults,
+], function (declare, on, namespaces, md5, params, defaults,
              labels, filter, jquery) {
     let rdfutils = defaults.get('rdfutils');
 
@@ -37,7 +37,7 @@ define([
               }
             })
             this.collectionName = 'blocks_collection_'+facetDef.name;
-            defaults.onChange(this.collectionName, lang.hitch(this, this.renderCollection), true);
+            defaults.onChange(this.collectionName, this.renderCollection, true).bind(this);
         },
 
         renderCollection: function(collectionDef) {
