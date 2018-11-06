@@ -77,7 +77,7 @@ module.exports = (env, argv) => {
         // new BundleAnalyzerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-          template: path.resolve(path.join(getAlias('registry', 'app'), '..', 'index.dev.html')),
+          template: path.resolve(path.join(getAlias('registry', 'app'), 'public', 'index.dev.html')),
         }),
       ],
     });
