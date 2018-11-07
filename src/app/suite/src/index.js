@@ -1,8 +1,4 @@
 import '@babel/polyfill';
-// import '../assets/privacy_en.html';
-// import '../assets/privacy_sv.html';
-// import '../assets/privacy_de.html';
-
 import 'jquery';
 import 'popper.js';
 import 'bootstrap';
