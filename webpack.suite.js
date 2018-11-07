@@ -25,7 +25,7 @@ module.exports = (env, argv) => {
     },
     output: {
       path: path.join(__dirname, 'src/app/suite/dist'),
-      publicPath: 'https://static./suite/latest/',
+      publicPath: 'https://static.entryscape.com/suite/latest/',
       filename: '[name].all.js',
       chunkFilename: '[name].bundle.js',
       library: 'entryscape',
@@ -65,6 +65,9 @@ module.exports = (env, argv) => {
         },
       ]),
     ],
+    stats: {
+      warnings: false,
+    },
   });
 
   if (argv.mode === 'development') {
