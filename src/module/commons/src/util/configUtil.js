@@ -15,7 +15,7 @@ const getStaticUrl = () => {
 const getStaticBuild = () => {
   const {app, version} = config.entryscape.static;
   return `${getStaticUrl()}/${app}/${version}/`;
-}
+};
 
 const getThemeDefaults = () => {
   const defaults = {};
@@ -31,9 +31,11 @@ const getThemeDefaults = () => {
   return defaults;
 };
 const getThemeToRender = () => {
-  let { appName, themePath, logo } = getThemeDefaults();
+  let { appName, themePath, assetsPath, logo } = getThemeDefaults();
   if (config.theme && config.theme.localTheme) {
     themePath = '/theme/'; // TODO @valentino check this
+  } else if (config.theme && config.localAssets) {
+    themePath = '/assets/'; // TODO @valentino check this
   }
 
   if (config.theme && (config.theme.appName ||
@@ -41,7 +43,7 @@ const getThemeToRender = () => {
     appName = (config.theme.appName || config.theme.logo.text);
   }
 
-  return { appName, themePath, logo };
+  return { appName, themePath, assetsPath, logo };
 };
 
 const getAssetsPath = () => {
@@ -83,7 +85,7 @@ const getLogoInfo = (defaultType = null) => {
       break;
     default: // icon
       if (defaultType) { // mainly for footer
-        logoInfo.src = { icon: logo }
+        logoInfo.src = { icon: logo };
         logoInfo.text = appName;
       } else {
         const hasCustomIcon = 'logo' in config.theme && 'icon' && config.theme.logo;
