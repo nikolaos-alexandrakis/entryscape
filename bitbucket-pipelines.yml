@@ -14,16 +14,16 @@ stepdefinitions:
         # We allow anything between x.y and x.y.z-SNAPSHOT
         - if [ ${#ES_VERSION} -lt 3 ] || [ ${#ES_VERSION} -gt 14 ]; then exit 1 ; fi
         - yarn
-        - yarn upgrade rdforms esi18n rdfjson store
+#        - yarn upgrade rdforms esi18n rdfjson store # deactivated because we don't cache anymore
         - yarn build:suite
         - echo $ES_VERSION > src/app/suite/dist/VERSION.txt
         - yarn build:registry
         - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
       artifacts:
         - src/app/**
-      caches:
-        - node
-        - yarncustom
+#      caches:
+#        - node
+#        - yarncustom
   - deploy: &deploy
       name: Deploy
       script:
@@ -48,6 +48,6 @@ pipelines:
     feature/*:
       - step: *build
 
-definitions:
-  caches:
-    yarncustom: /usr/local/share/.cache/yarn/
+#definitions:
+#  caches:
+#    yarncustom: /usr/local/share/.cache/yarn/
