@@ -249,5 +249,6 @@
         });
       this.nodesSel = this.svg.selectAll('circle');
     }
-  };
+  }
+
   export default Graph;
