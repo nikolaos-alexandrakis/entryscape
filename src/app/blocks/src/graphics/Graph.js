@@ -9,7 +9,7 @@
   /**
    * @exports entryscape-blocks/graphics/Graph
    */
-  const Graph = class {
+  class Graph {
     constructor(selector, loadTriples, width, height) {
       const w = width || $(document).width();
       const h = height || $(document).height();

@@ -1,35 +1,32 @@
-define([
-    "exports",
-    "config",
-    "entryscape-commons/merge",
-    "entryscape-commons/defaults",
-    "../metadata/renderEntryMetadata",
-    "../search/renderSearchList",
-    "../search/renderSimpleSearch",
-    "../search/renderMultiSearch",
-    "../search/renderSearchFilter",
-    "../search/renderClear",
-    "../search/renderFacets",
-    "../list/renderFormatList",
-    "../list/renderCatalogList",
-    "../list/renderList",
-    "../text/renderEntryLink",
-    "../text/renderEntryText",
-    "../text/renderTemplate",
-    "../text/renderCollectionText",
-    "../image/renderImage",
-    "../image/renderSlider",
-    "../graphics/renderMap",
-    "../graphics/renderChart",
-    "../graphics/renderGraph",
-    "./preload",
-    "./error",
-    "entryscape-commons/rdforms/linkBehaviourDialog"
-], function(exports, config, merge, defaults, renderEntryMetadata, renderSearchList, renderSimpleSearch,
-            renderMultiSearch, renderSearchFilter, renderClear, renderFacets, renderFormatList,
-            renderCatalogList, renderList, renderEntryLink, renderEntryText, renderTemplate,
-            renderCollectionText, renderImage, renderSlider, renderMap, renderChart, renderGraph, preload, error) {
+import config from 'config';
+import merge from  'commons/merge';
+import registry from 'commons/registry';
 
+import renderEntryMetadata from 'blocks/metadata/renderEntryMetadata';
+import renderSearchList from 'blocks/search/renderSearchList';
+import renderSimpleSearch from 'blocks/search/renderSimpleSearch';
+import renderMultiSearch from 'blocks/search/renderMultiSearch';
+import renderSearchFilter from 'blocks/search/renderSearchFilter';
+import renderClear from 'blocks/search/renderClear';
+import renderFacets from 'blocks/search/renderFacets';
+import renderFormatList from 'blocks/list/renderFormatList';
+import renderCatalogList from 'blocks/list/renderCatalogList';
+import renderList from 'blocks/list/renderList';
+import renderEntryLink from 'blocks/text/renderEntryLink';
+import renderEntryText from 'blocks/text/renderEntryText';
+import renderTemplate from 'blocks/text/renderTemplate';
+import renderCollectionText from 'blocks/text/renderCollectionText';
+import renderImage from 'blocks/image/renderImage';
+import renderSlider from 'blocks/image/renderSlider';
+import renderMap from 'blocks/graphics/renderMap';
+import renderChart from 'blocks/graphics/renderChart';
+import renderGraph from 'blocks/graphics/renderGraph';
+import preload from './preload';
+import error from './error';
+
+// import  "commons/rdforms/linkBehaviourDialog";
+
+const Block = {};
 
     var block2function = {
         view: renderEntryMetadata,
@@ -68,9 +65,9 @@ define([
     }
   });
 
-    exports.list = Object.keys(block2function);
-    exports.run = function(block, node, data) {
-        defaults.get("itemstore", function(items) {
+    Block.list = Object.keys(block2function);
+    Block.run = function(block, node, data) {
+        registry.get("itemstore", function(items) {
             if (data.error) {
                 error(node, data, items);
             } else {
@@ -82,10 +79,10 @@ define([
         });
     };
 
-    exports.run('preload', null, config.econfig);
+    Block.run('preload', null, config.econfig);
 
     config.nodes.forEach(function(nobj) {
-        exports.run(nobj.data.block || nobj.data.component, nobj.node, nobj.data);
+        Block.run(nobj.data.block || nobj.data.component, nobj.node, nobj.data);
     });
-    return exports;
-});
+
+    export default Block;

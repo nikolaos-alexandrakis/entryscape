@@ -1,8 +1,6 @@
-define([
-    "handlebars",
-], function (handlebars) {
+import handlebars from 'handlebars';
 
-    return function(template, names) {
+    export default function(template, names) {
         var group = {};
         names.forEach(function(name) {
             handlebars.registerHelper(name, function(options) {
@@ -15,5 +13,4 @@ define([
         });
 
         return group;
-    }
-});
+    };

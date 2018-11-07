@@ -1,5 +1,6 @@
 define([], {});
 
+// TODO @scazan ask @matthias about this
 define("jquery", [], function() {
     return window.jQuery;
 });

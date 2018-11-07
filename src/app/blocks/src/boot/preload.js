@@ -1,10 +1,9 @@
-define([
-    "config",
-    "entryscape-blocks/boot/params",
-    "entryscape-commons/defaults",
-], function (config, params, defaults) {
-    const rdfutils = defaults.get("rdfutils");
-    const localize = defaults.get("localize");
+import config from 'config';
+import params from 'blocks/boot/params';
+import registry from 'commons/registry';
+
+    const rdfutils = registry.get("rdfutils");
+    const localize = registry.get("localize");
     const normalize = function(collection, group) {
         if (Array.isArray(collection)) {
             collection.forEach(function(c) {
@@ -20,8 +19,8 @@ define([
             }
         });
     };
-    defaults.set("blocks_named", {});
-    defaults.get("itemstore", function(itemstore) {
+    registry.set("blocks_named", {});
+    registry.get("itemstore", function(itemstore) {
         var val2choice = {};
         itemstore.getItems().forEach(function(item) {
             if (item.getType() === "choice") {
@@ -30,16 +29,16 @@ define([
                 });
             }
         });
-        defaults.set("itemstore_choices", val2choice);
+        registry.set("itemstore_choices", val2choice);
     });
-    return function(node, data, items) {
+    export default function(node, data, items) {
       if (data.named) {
-        defaults.set("blocks_named", data.named);
+        registry.set("blocks_named", data.named);
       }
-      let clicks = defaults.get('clicks');
+      let clicks = registry.get('clicks');
       if (!clicks) {
         clicks = {};
-        defaults.set('clicks', clicks);
+        registry.set('clicks', clicks);
       }
       if (data.clicks) {
         Object.assign(clicks, data.clicks);
@@ -54,7 +53,7 @@ define([
                         def.source = normalize(def.list, def.name);
                         def.list = def.limit > 0 ?
                             def.source.slice(0, def.limit) : def.source;
-                        defaults.set("blocks_collection_"+def.name, def);
+                        registry.set("blocks_collection_"+def.name, def);
                     } else if (def.templatesource) {
                         def.type = 'rdforms';
                         const item = items.getItem(def.templatesource);
@@ -67,11 +66,11 @@ define([
                         });
                         def.list = def.limit > 0 ?
                             def.source.slice(0, def.limit) : def.source;
-                        defaults.set("blocks_collection_"+def.name, def);
+                        registry.set("blocks_collection_"+def.name, def);
                     } else if (def.type === 'preload') {
                         def.changeLoadLimit = (limit) => {
                           def.loadedLimit = limit;
-                          var es = defaults.get("entrystore");
+                          var es = registry.get("entrystore");
                           var qo = es.newSolrQuery().rdfType(def.rdftype).publicRead();
                           var contextId = def.context === true ? urlParams.context :
                             def.context;
@@ -101,17 +100,16 @@ define([
                             });
                             def.source = collection;
                             def.list = collection;
-                            defaults.set("blocks_collection_"+def.name, def);
+                            registry.set("blocks_collection_"+def.name, def);
                           });
                         };
                       def.changeLoadLimit(def.limit);
                     } else {
-                      defaults.set("blocks_collection_"+def.name, def);
+                      registry.set("blocks_collection_"+def.name, def);
                     }
                 });
-                const collections = defaults.get("blocks_collections") || [];
-                defaults.set("blocks_collections", collections.concat(data.collections));
+                const collections = registry.get("blocks_collections") || [];
+                registry.set("blocks_collections", collections.concat(data.collections));
             })
         }
     };
-});

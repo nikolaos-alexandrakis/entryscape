@@ -15,6 +15,8 @@ import MetadataExpandRow from './MetadataExpandRow';
 import TemplateExpandRow from './TemplateExpandRow';
 import jquery from 'jquery';
 import { NLSMixin } from 'esi18n';
+import escoList from 'commons/nls/escoList.nls';
+import escoErrors from 'commons/nls/escoErrors.nls';
 
   class PlaceHolder {
     constructor(args, node) {
@@ -116,7 +118,7 @@ import { NLSMixin } from 'esi18n';
     includeEditButton: false,
     includeRemoveButton: false,
     searchInList: true,
-    nlsBundles: ['escoList', 'escoErrors'],
+    nlsBundles: [{escoList}, {escoErrors}],
     rowClickDefault: true,
     placeholderClass: PlaceHolder,
     contextId: null,

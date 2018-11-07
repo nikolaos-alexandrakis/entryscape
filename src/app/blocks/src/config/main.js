@@ -1,28 +1,25 @@
-define([
-    "entryscape-commons/merge",
-    "entryscape-admin/config/adminConfig",
-    "entryscape-catalog/config/catalogConfig",
-    "entryscape-terms/config/termsConfig",
-    "entryscape-workbench/config/workbenchConfig",
-    "rdfjson/namespaces",
-    "dojo/io-query",
-    "dojo/query",
-    "dojo/_base/kernel",
-    "jquery"
-], function(merge, adminConfig, catalogConfig, termsConfig, workbenchConfig,
-            namespaces, ioQuery, query, kernel, jquery) {
+import merge from 'commons/merge';
+import adminConfig from 'admin/config/adminConfig';
+import catalogConfig from 'catalog/config/catalogConfig';
+import termsConfig from 'terms/config/termsConfig';
+import workbenchConfig from 'workbench/config/workbenchConfig';
+import { namespaces } from 'rdfjson/namespaces';
+import { queryToObject } from 'commons/util/browserUtil';
+import query from 'dojo/query';
+import { i18n } from 'esi18n';
+import jquery from 'jquery';
 
     var econfig = merge(window.__entryscape_plugin_config || {}, window.__entryscape_config || {});
     econfig.blocks = econfig.blocks || window.__entryscape_blocks;
     econfig.macros = window.__entryscape_macros || {};
     if (econfig.page_language) {
-        kernel.locale = econfig.page_language;
+      i18n.setLocale(econfig.page_language);
     }
     var hash = window.location.hash.substr(1);
     var urlParams = {};
     if (hash !== "") {
         var prefix = econfig.hashParamsPrefix || "esc_";
-        up = ioQuery.queryToObject(hash);
+        up = queryToObject(hash);
         for (var key in up) if (up.hasOwnProperty(key)) {
             if (key.indexOf(prefix) === 0) {
                 urlParams[key.substr(prefix.length)] = up[key];
@@ -174,15 +171,16 @@ define([
     let bestlang;
     for (let i = 0; i < config.locale.supported.length; i++) {
         const l = config.locale.supported[i].lang;
-        if (kernel.locale.indexOf(l) === 0) {
+        if (i18n.getLocale().indexOf(l) === 0) {
             if (bestlang == null || bestlang.length < l.length) {
                 bestlang = l;
             }
         }
     }
-    kernel.locale = bestlang || config.locale.fallback;
-    kernel._scopeName = 'dojo1';
-    kernel.dijit._scopeName = 'dijit1';
 
-    return config;
-});
+    bestlang ? i18n.setLocale(bestlang) : i18n.setLocale(config.locale.fallback);
+    // TODO @scazan ask @matthias about this
+    // kernel._scopeName = 'dojo1';
+    // kernel.dijit._scopeName = 'dijit1';
+
+    export default config;

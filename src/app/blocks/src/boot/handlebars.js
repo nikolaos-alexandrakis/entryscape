@@ -1,13 +1,11 @@
-define([
-    "dojo/_base/lang",
-    "entryscape-blocks/boot/block",
-    "handlebars",
-    "jquery",
-    "md5",
-    "rdfjson/namespaces",
-    "entryscape-commons/defaults",
-    "entryscape-blocks/boot/error",
-], function (lang, block, handlebars, jquery, md5, namespaces, defaults, error) {
+import block from 'blocks/boot/block';
+import handlebars from 'handlebars';
+import jquery from 'jquery';
+import md5 from 'md5';
+import { namespaces } from 'rdfjson';
+import defaults from 'commons/defaults';
+import error from 'blocks/boot/error';
+
 
     var currentEntry;
     var idx = [];
@@ -184,7 +182,7 @@ define([
       return nobj;
     };
 
-    return {
+    export default {
         unGroup: function(template) {
             idx.push({});
             group = {};
@@ -212,8 +210,12 @@ define([
             const cidx = idx.pop();
             Object.keys(cidx).forEach(function(id) {
               const ob = cidx[id];
-              const obj = lang.mixin({templates: ob.templates, entry: data.entry, context: data.context},
-                parseValues(ob.options.hash || {}, data), { block: ob.block || ob.component });
+              const obj = {
+                ...{templates: ob.templates, entry: data.entry, context: data.context},
+                ...parseValues(ob.options.hash || {}, data),
+                ...{ block: ob.block || ob.component }
+              ];
+
               block.run(ob.component, jquery(node).find("#" + ob.id)[0], obj);
             });
           };
@@ -227,4 +229,3 @@ define([
           }
         },
     }
-});

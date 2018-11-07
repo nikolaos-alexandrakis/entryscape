@@ -7,8 +7,8 @@ import EntryRow from 'commons/list/EntryRow';
 import MetadataExpandRow from './MetadataExpandRow';
 import List from './List';
 import formats from './formats';
-import escoList from 'nls/escoList.nls';
-import escaDataset from 'nls/escaDataset.nls';
+import escoList from 'commons/nls/escoList.nls';
+import escaDataset from 'catalog/nls/escaDataset.nls';
 
     class _FormatRowMixin {
         showCol1: true;
