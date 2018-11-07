@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const STATIC_URL = 'https://static.entryscape.com';
 const APP = 'suite';
-const VERSION = JSON.stringify(require('./package.json').version);
+const VERSION = require('./package.json').version;
 
 const getAlias = (name, type = 'module', noSource = false) => path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
 
