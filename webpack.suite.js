@@ -7,6 +7,9 @@ const path = require('path');
 const commonConfig = require('./webpack.config.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const STATIC_URL = 'https://static.entryscape.com';
+const APP = 'suite';
+const VERSION = JSON.stringify(require('./package.json').version);
 
 const getAlias = (name, type = 'module', noSource = false) => path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
 
@@ -25,7 +28,7 @@ module.exports = (env, argv) => {
     },
     output: {
       path: path.join(__dirname, 'src/app/suite/dist'),
-      publicPath: 'https://static.entryscape.com/suite/latest/',
+      publicPath: `${STATIC_URL}/${APP}/${VERSION}/`,
       filename: '[name].all.js',
       chunkFilename: '[name].bundle.js',
       library: 'entryscape',
