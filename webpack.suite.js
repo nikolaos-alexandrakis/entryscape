@@ -60,7 +60,6 @@ module.exports = (env, argv) => {
             options: {
               name: '[name].[ext]',
               outputPath: 'fonts/',
-              publicPath: `${STATIC_URL}/${APP}/${VERSION}/fonts`, // relative to HTML page (samples)
             },
           }],
         },
