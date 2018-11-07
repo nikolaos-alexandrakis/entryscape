@@ -21,9 +21,9 @@ stepdefinitions:
         - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
       artifacts:
         - src/app/**
-      caches:
-        - node
-        - yarncustom
+#      caches:
+#        - node
+#        - yarncustom
   - deploy: &deploy
       name: Deploy
       script:
@@ -48,6 +48,6 @@ pipelines:
     feature/*:
       - step: *build
 
-definitions:
-  caches:
-    yarncustom: /usr/local/share/.cache/yarn/
+#definitions:
+#  caches:
+#    yarncustom: /usr/local/share/.cache/yarn/
