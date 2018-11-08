@@ -5,7 +5,7 @@ import configUtil from './configUtil';
  */
 
 const getBaseUrl = () => configUtil.getBaseUrl().replace(/\/?$/, '/');
-const getThemeUrl = () => `${getBaseUrl()}theme`;
+const getThemeUrl = () => `${getBaseUrl()}theme/templates`;
 const getStaticTemplateUrl = () => `${configUtil.getStaticBuild()}templates`;
 
 /**
