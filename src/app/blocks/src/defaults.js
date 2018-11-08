@@ -6,6 +6,7 @@ import commonsDefaults from 'commons/defaults'; // TODO HACK this needs to be be
 // import workbenchDefaults from 'workbench/defaults'; // init catalog
 // import adminDefaults from 'admin/defaults'; // init catalog
 // import siteConfig from './config/site';
+import bootBlocks from './boot/block';
 
 export default () => {
   // registry.set('siteConfig', siteConfig);
@@ -15,4 +16,6 @@ export default () => {
   // workbenchDefaults();
   // adminDefaults();
   // return registry;
+
+  window.setTimeout(bootBlocks, 5000);
 };

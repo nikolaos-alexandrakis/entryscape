@@ -12,7 +12,7 @@ export default function (node, data, items) {
     }
 
     const _node = DOMUtil.create('img', { src });
-    node.appendchild(_node);
+    node.appendChild(_node);
 
     _node.onerror = () => {
       if (data.fallback) {

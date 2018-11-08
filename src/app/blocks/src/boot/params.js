@@ -36,7 +36,7 @@ const ext = {
     registry.onChange('urlParams', listener, true);
   },
   onInit(listener) {
-    registry.onInit('urlParams', listener);
+    registry.onInit('urlParams').then(listener);
   },
 };
 PubSub.subscribe('/dojo/hashchange', (hashstr) => {

@@ -67,7 +67,7 @@ const block2function = {
 
 Block.list = Object.keys(block2function);
 Block.run = function (block, node, data) {
-  registry.get('itemstore', (items) => {
+  const items = registry.get('itemstore')
     if (data.error) {
       error(node, data, items);
     } else {
@@ -76,7 +76,6 @@ Block.run = function (block, node, data) {
         f(node, data, items);
       }
     }
-  });
 };
 
 export default () => {

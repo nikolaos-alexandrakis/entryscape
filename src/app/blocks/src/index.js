@@ -22,7 +22,5 @@ import 'bootstrap';
 // import 'bootstrap/tooltip';
 import 'sizzle';
 
-import bootBlocks from './boot/block';
 
-initDefaults();
-bootBlocks();
+export default initDefaults();
