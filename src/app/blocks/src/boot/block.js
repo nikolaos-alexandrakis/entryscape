@@ -1,4 +1,4 @@
-import config from 'config';
+import config from 'blocks/config/config';
 import merge from 'commons/merge';
 import registry from 'commons/registry';
 
@@ -79,10 +79,10 @@ Block.run = function (block, node, data) {
   });
 };
 
-Block.run('preload', null, config.econfig);
+export default () => {
+  Block.run('preload', null, config.econfig);
 
-config.nodes.forEach((nobj) => {
-  Block.run(nobj.data.block || nobj.data.component, nobj.node, nobj.data);
-});
-
-export default Block;
+  config.nodes.forEach((nobj) => {
+    Block.run(nobj.data.block || nobj.data.component, nobj.node, nobj.data);
+  });
+};

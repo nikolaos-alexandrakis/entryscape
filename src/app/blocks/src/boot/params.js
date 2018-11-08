@@ -1,7 +1,7 @@
-import config from 'config';
+import config from 'blocks/config/config';
 import PubSub from 'pubsub-js';
 import registry from 'commons/registry';
-import { queryToObject, objectToQuery } from 'commons/browserUtil';
+import { queryToObject, objectToQuery } from 'commons/util/browserUtil';
 
 registry.set('urlParams', config.urlParams);
 const prefix = config.hashParamsPrefix || 'esc_';

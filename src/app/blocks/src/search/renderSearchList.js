@@ -3,7 +3,7 @@ import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 import List from 'blocks/list/List';
 import getEntry from 'blocks/utils/getEntry';
-import config from 'config';
+import config from 'blocks/config/config';
 import jquery from 'jquery';
 
 export default (node, data, items) => {

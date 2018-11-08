@@ -1,6 +1,6 @@
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
-import config from 'config';
+import config from 'blocks/config/config';
 import List from 'commons/list/List';
 import ListView from 'commons/list/ListView';
 import EntryRow from 'commons/list/EntryRow';

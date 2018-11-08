@@ -1,5 +1,5 @@
 import block from 'blocks/boot/block';
-import handlebars from 'handlebars';
+import handlebars from 'handlebars/dist/cjs/handlebars';
 import jquery from 'jquery';
 import md5 from 'md5';
 import { namespaces } from 'rdfjson';

@@ -1,5 +1,5 @@
 import registry from 'commons/registry';
-import { namespaces } from 'rdfjson/namespaces';
+import { namespaces } from 'rdfjson';
 import labels from '../utils/labels';
 
 const es = registry.get('entrystore');

@@ -1,4 +1,4 @@
-import config from 'config';
+import config from 'blocks/config/config';
 import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 

@@ -1,5 +1,5 @@
 import DOMUtil from 'commons/util/htmlUtil';
-import getEntry from 'entryscape-blocks/utils/getEntry';
+import getEntry from 'blocks/utils/getEntry';
 import { Presenter } from 'rdforms';
 import { namespaces } from 'rdfjson';
 

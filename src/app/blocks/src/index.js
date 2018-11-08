@@ -4,6 +4,7 @@ import 'popper.js';
 import 'bmd';
 import 'typeahead.js/dist/typeahead.jquery';
 import 'bloodhound-js'; // TODO @valentino typeahead alone seems to have issues, so import bloodhound seperately
+import initDefaults from './defaults';
 
 // import 'bmd/dist/css/bootstrap-material-design.css';
 // import 'bmd/dist/css/ripples.css';
@@ -21,6 +22,7 @@ import 'bootstrap';
 // import 'bootstrap/tooltip';
 import 'sizzle';
 
-import initDefaults from './defaults';
+import bootBlocks from './boot/block';
 
 initDefaults();
+bootBlocks();

@@ -1,6 +1,6 @@
 import registry from 'commons/registry';
 import params from 'blocks/boot/params';
-import namespaces from 'rdfjson/namespaces';
+import { namespaces } from 'rdfjson';
 import labels from './labels';
 
 const shorten = (value) => {

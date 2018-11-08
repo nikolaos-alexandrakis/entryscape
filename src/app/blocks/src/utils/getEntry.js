@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
 import params from 'blocks/boot/params';
 import { Entry } from 'store';
-import config from 'config';
+import config from 'blocks/config/config';
 
 const es = registry.get('entrystore');
 const esu = registry.get('entrystoreutil');
