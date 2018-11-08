@@ -3,14 +3,14 @@ import htmlUtil from 'commons/util/htmlUtil';
 import utils from 'terms/utils';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import esteCollection from 'terms/nls/esteCollection.nls';
-import CollectionTree from './CollectionTree';
 import declare from 'dojo/_base/declare';
+import CollectionTree from './CollectionTree';
 
 export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   maxWidth: 800,
-  nlsBundles: [{esteCollection}],
+  nlsBundles: [{ esteCollection }],
   nlsHeaderTitle: 'manageMembersHeader',
   nlsFooterButtonLabel: 'manageMembersButton',
 

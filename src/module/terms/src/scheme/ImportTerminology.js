@@ -1,21 +1,21 @@
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import EntryType from 'commons/create/EntryType';
-import template from './ImportTerminologyTemplate.html';
 import config from 'config';
-import {promiseUtil} from 'store';
-import {converters, Graph, utils} from 'rdfjson';
+import { promiseUtil } from 'store';
+import { converters, Graph, utils } from 'rdfjson';
 import ProgressDialog from 'commons/progresstask/ProgressDialog';
 import TaskProgress from 'commons/progresstask/components/TaskProgress';
 import Row from 'commons/components/common/grid/Row';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import esteImport from 'terms/nls/esteImport.nls';
-import {template as renderTemplate} from 'lodash-es';
+import { template as renderTemplate } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import template from './ImportTerminologyTemplate.html';
 
 const createContext = (paramsArg) => {
   const params = paramsArg;
@@ -35,7 +35,7 @@ const createContext = (paramsArg) => {
           'rdf:type', 'esterms:TerminologyContext');
         /* TODO remove when entrystore is changed so groups have
          read access to homecontext metadata by default.
-         Start fix with missing metadata rights on context for group*/
+         Start fix with missing metadata rights on context for group */
         const acl = hcEntryInfo.getACL(true);
         acl.mread.push(groupEntry.getId());
         hcEntryInfo.setACL(acl);
@@ -94,7 +94,7 @@ const fixURIs = (paramsArg) => {
     const nuri = es.getResourceURI(params.homeContextId, id);
     graph.replaceURI(s, nuri);
     fromTo[s] = nuri;
-    params.newURIs[nuri] = {old: s, newId: id};
+    params.newURIs[nuri] = { old: s, newId: id };
     params.anythingReplaced = true;
     if (conceptSchemeURI === s) {
       conceptSchemeURIReplaced = true;
@@ -106,7 +106,7 @@ const fixURIs = (paramsArg) => {
       (replace.URIRegexp.exec(conceptSchemeURI) !== null || replace.allURIs)) {
       const newCSURI = es.getResourceURI(params.homeContextId, 'terminology');
       graph.replaceURI(conceptSchemeURI, newCSURI);
-      params.newURIs[newCSURI] = {old: params.conceptSchemeURI, newId: 'terminology'};
+      params.newURIs[newCSURI] = { old: params.conceptSchemeURI, newId: 'terminology' };
       fromTo[params.conceptSchemeURI] = newCSURI;
       params.conceptSchemeURI = newCSURI;
     }
@@ -215,12 +215,12 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: template,
   bid: 'esteImport',
   maxWidth: 800,
-  nlsBundles: [{esteImport}],
+  nlsBundles: [{ esteImport }],
   initialTasksState: {
     upload: {
       id: 'echo',
       name: '',
-      nlsTaskName: 'uploadTask',  // nlsString
+      nlsTaskName: 'uploadTask', // nlsString
       width: '33%', // max width / nr of tasks,
       order: 1,
       status: '', // started, progress, done
@@ -389,13 +389,13 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.tasks.analysis.status = 'done';
     this.updateProgressDialog(this.tasks);
 
-    return {graph, conceptSchemeURI};
+    return { graph, conceptSchemeURI };
   },
   importData(info) {
     this.tasks.import.status = 'progress';
     this.updateProgressDialog(this.tasks);
 
-    const {graph, conceptSchemeURI} = info;
+    const { graph, conceptSchemeURI } = info;
     return createContext({
       importTerminology: this,
       list: this.list,
@@ -465,7 +465,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const modalBody = this.progressDialog.getModalBody();
 
     const getObjectValues = x => Object.keys(x).reduce((y, z) => y.push(x[z]) && y, []);
-    m.render(modalBody, m(TaskProgress, {tasks: getObjectValues(tasks)}));
+    m.render(modalBody, m(TaskProgress, { tasks: getObjectValues(tasks) }));
 
     if (updateFooter) {
       this.showFooterResult(errorMessage);
@@ -508,7 +508,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     if (res && typeof res.then === 'function') {
       dialog.hide();
       return res.then(null, (err) => {
-        if (typeof err === 'error') {
+        if (err instanceof Error) {
           this.showErrorMessage(res, this.errorTask);
           throw res;
         } else if (typeof err === 'object' && err.message) {

@@ -1,25 +1,25 @@
 import registry from 'commons/registry';
 import config from 'config';
 import keys from 'commons/util/keyCodeUtil';
-import utils from '../utils';
 import Tree from 'commons/tree/Tree';
 import EntryChooser from 'commons/rdforms/choosers/EntryChooser';
 import Placeholder from 'commons/placeholder/Placeholder';
 import ViewMixin from 'commons/view/ViewMixin';
-import {LevelEditor, renderingContext} from 'rdforms';
-import template from './ConceptsTemplate.html';
+import { LevelEditor, renderingContext } from 'rdforms';
 import skosRepair from 'commons/tree/skos/repair';
 import skosUtil from 'commons/tree/skos/util';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import esteConcept from 'terms/nls/esteConcept.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import aspect from 'dojo/aspect';
-import './style.css';
 import jquery from 'jquery';
-import {createEntry} from 'commons/util/storeUtil';
+import { createEntry } from 'commons/util/storeUtil';
+import utils from '../utils';
+import template from './ConceptsTemplate.html';
+import './style.css';
 
 const isNodeInLi = (leaf, parent) => {
   if (leaf === parent) {
@@ -41,10 +41,10 @@ const ConceptPlaceholder = declare([Placeholder], {
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit, ViewMixin], {
   templateString: template,
-  nlsBundles: [{esteConcept}],
+  nlsBundles: [{ esteConcept }],
 
   postCreate() {
-    this._editor = new LevelEditor({compact: false}, this._editor);
+    this._editor = new LevelEditor({ compact: false }, this._editor);
     this._editor.domNode.classList.add('conceptEditor');
     this._conceptTree = new Tree({}, this._conceptTree);
     this._conceptTree.disallowedSiblingMove = () => {
@@ -88,14 +88,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   bindEvents() {
     jquery(this._conceptTree.domNode).on('select_node.jstree', this._selectNodeListener);
     const f = this.clear.bind(this);
-    this._conceptTree.domNode.addEventListener('click', function (ev) {
+    this._conceptTree.domNode.addEventListener('click', (ev) => {
       ev.stopPropagation();
       if (!isNodeInLi(ev.target, ev.currentTarget)) {
         setTimeout(() => {
           this._askToProceedIfChanged().then(f);
         }, 1);
       }
-    }.bind(this));
+    });
   },
   unBindEvents() {
     jquery(this._conceptTree.domNode).off('select_node.jstree', this._selectNodeListener);
@@ -130,7 +130,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   localeChange() {
     this._updateButtons();
     if (!this.placeholder) {
-      this.placeholder = new ConceptPlaceholder({concepts: this}, this.__placeholder);
+      this.placeholder = new ConceptPlaceholder({ concepts: this }, this.__placeholder);
       this.__placeholder = this.placeholder.domNode;
     }
     this.placeholder.render();
@@ -153,7 +153,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const model = ct.getTreeModel();
     const selNode = ct.getSelectedNode();
     const uri = pe.getResourceURI();
-    let graph = pe.getMetadata();
+    const graph = pe.getMetadata();
     let l;
     if (typeof defLang === 'string' && defLang !== '') {
       l = defLang;
@@ -163,7 +163,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       md: graph,
       conceptRURI: uri,
       schemeRURI: this.conceptScheme.getResourceURI(),
-      isRoot: selNode ? false : true,
+      isRoot: !selNode,
       label,
       l,
     });

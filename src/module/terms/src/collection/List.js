@@ -4,13 +4,13 @@ import RemoveDialog from 'commons/list/common/RemoveDialog';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import EntryRow from 'commons/list/EntryRow';
 import Export from 'commons/export/Export';
-import ManagemembersDialog from './ManagemembersDialog';
-import {i18n} from 'esi18n';
+import { i18n } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import esteCollectionexport from 'terms/nls/esteCollectionexport.nls';
 import esteCollection from 'terms/nls/esteCollection.nls';
 import declare from 'dojo/_base/declare';
-import {createEntry} from 'commons/util/storeUtil';
+import { createEntry } from 'commons/util/storeUtil';
+import ManagemembersDialog from './ManagemembersDialog';
 
 const ns = registry.get('namespaces');
 const CDialog = declare(RDFormsEditDialog, {
@@ -84,13 +84,13 @@ const CollectionRow = declare([EntryRow], {
 });
 
 const ExportDialog = declare([Export], {
-  nlsBundles: [{esteCollectionexport}],
+  nlsBundles: [{ esteCollectionexport }],
   nlsHeaderTitle: 'exportHeaderLabel',
   title: 'temporary', // to avoid exception
   profile: 'skoscollection',
   open(params) {
     const name = registry.get('rdfutils').getLabel(params.row.entry);
-    this.title = i18n.renderNLSTemplate(this.NLSBundle0.exportHeaderLabel, {name});
+    this.title = i18n.renderNLSTemplate(this.NLSBundle0.exportHeaderLabel, { name });
     this.localeChange();
     this.inherited(arguments);
   },
@@ -101,7 +101,7 @@ export default declare([ETBaseList], {
   includeInfoButton: false,
   includeEditButton: true,
   includeRemoveButton: true,
-  nlsBundles: [{escoList}, {esteCollection}],
+  nlsBundles: [{ escoList }, { esteCollection }],
   entryType: ns.expand('skos:Collection'), // change
   entitytype: 'conceptcollection',
   nlsEditEntryTitle: 'editCollectionTitle',

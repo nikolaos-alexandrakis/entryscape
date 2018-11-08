@@ -7,6 +7,11 @@ module.exports = {
       webpack: {config: path.join(__dirname, 'webpack.config.js')},
     },
   },
+  parser: 'babel-eslint',
+  parserOptions: {
+    sourceType: 'module',
+    allowImportExportEverywhere: true,
+  },
   rules: {
     'import/no-amd': 'off',
     // TODO remove this. use requirejs rules instead

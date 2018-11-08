@@ -9,5 +9,4 @@ const OverviewHeader = {
   },
 };
 
-export { OverviewHeader };
 export default OverviewHeader;

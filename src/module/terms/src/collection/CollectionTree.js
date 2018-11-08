@@ -1,9 +1,9 @@
-import CollectionTreeModel from './CollectionTreeModel';
 import registry from 'commons/registry';
 import Tree from 'commons/tree/Tree';
 import htmlUtil from 'commons/util/htmlUtil';
 import jquery from 'jquery';
 import declare from 'dojo/_base/declare';
+import CollectionTreeModel from './CollectionTreeModel';
 
 const ns = registry.get('namespaces');
 

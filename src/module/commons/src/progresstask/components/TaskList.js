@@ -1,5 +1,5 @@
-import Task from './Task';
 import m from 'mithril';
+import Task from './Task';
 
 const TaskList = {
   bid: 'escoProgressTask',
@@ -9,5 +9,4 @@ const TaskList = {
   },
 };
 
-export { TaskList };
 export default TaskList;
