@@ -6,20 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script"/>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
     <title>EntryScape</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="/config/local.js"></script>
+    <script src="/theme/local.js"></script>
     <script defer>
-      var paramsToMap = function(params, arr, seperator) {
+      var paramsToMap = function (params, arr, seperator) {
         seperator = seperator || '&';
         var vars = params.split(seperator);
 
@@ -55,15 +47,15 @@
         var context = earr[0];
         var resourceString = earr[1];
         var dataset = earr[2];
-        location.href = '/catalog/'+context+'/datasets/'+dataset+queryParams;
+        location.href = '/catalog/' + context + '/datasets/' + dataset + queryParams;
       }
 
-      var css = function(href) {
-        document.write('<link rel="stylesheet" href="'+href+'"/>');
+      var css = function (href) {
+        document.write('<link rel="stylesheet" href="' + href + '"/>');
       };
-      var js = function(src, dataMain) {
+      var js = function (src, dataMain) {
         dataMain = dataMain || '';
-        document.write('\x3Cscript data-main="'+dataMain+'" src="'+src+'">\x3C/script>');
+        document.write('\x3Cscript data-main="' + dataMain + '" src="' + src + '">\x3C/script>');
       };
 
       /**
@@ -78,7 +70,7 @@
         var localPath = queryParamsMap.localconfig;
         var src = localPath === 'true' ?
           '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-            localPath : '/theme'+localPath);
+            localPath : '/theme' + localPath);
         js(src);
       }
 
@@ -89,23 +81,15 @@
         Object.assign(__entryscape_config, __entryscape_config_dev);
       }
 
-      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '' : 'https://static.entryscape.com';
-
-      var version = (__entryscape_config && __entryscape_config.entryscape.static.version) || 'stable';
+      var useLocalBuild = queryParamsMap.localbuild || queryParamsMap.debug;
+      var app = __entryscape_config.entryscape.static.app;
+      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '/dist' : __entryscape_config.entryscape.static.url;
+      var version = useLocalBuild ? '' : ( __entryscape_config.entryscape.static.version || 'latest');
 
       /**
        * load the right css/js for the given config/queryParams
        */
-      if ((queryParamsMap.localbuild || __entryscape_config.localbuild) && !queryParamsMap.debug) {
-        css('/dist/style.css', path); // TODO suite.style.css
-        js('/dist/suite.all.js');
-      } else if (queryParamsMap.debug) {
-        // css(path+'/style.css'); // TODO
-        js(path+'/dist/suite.all.js');
-      } else {
-        // css(path+'/suite/'+version+'/style.css');
-        js(path+'/suite/'+version+'/suite.all.js');
-      }
+      js(`${path}${useLocalBuild ? '' : app}${version ? '/' : ''}${version}/${app}.all.js`);
     </script>
 </head>
 <body class="nav-md">

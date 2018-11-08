@@ -1,8 +1,8 @@
 import '@babel/polyfill';
-import 'commons/theme/privacy_en.html';
-import 'commons/theme/privacy_sv.html';
-import 'commons/theme/privacy_de.html';
-import 'mithril';
+import '../assets/privacy_en.html';
+import '../assets/privacy_sv.html';
+import '../assets/privacy_de.html';
+
 import 'jquery';
 import 'popper.js';
 import 'bootstrap';

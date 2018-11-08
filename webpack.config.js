@@ -34,10 +34,6 @@ module.exports = (env, argv) => {
           test: /\.json$/,
           flatten: true,
         },
-        {
-          from: path.join(getAlias('commons'), 'theme'),
-          to: 'theme',
-        },
       ]),
     ],
     module: {
@@ -79,17 +75,6 @@ module.exports = (env, argv) => {
               },
             },
           ],
-        },
-        {
-          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
-              publicPath: '/fonts', // relative to HTML page (samples)
-            },
-          }],
         },
       ],
     },

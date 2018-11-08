@@ -1,9 +1,10 @@
 import m from 'mithril';
 import config from 'config';
-import leaflet from 'leaflet';
+// import leaflet from 'leaflet';
 import utils from '../utils';
+import configUtil from 'commons/util/configUtil';
 import '../escoSpatial.css';
-// let leaflet;
+let leaflet;
 
 const Map = (vnode) => {
 
@@ -13,7 +14,7 @@ const Map = (vnode) => {
     latLngVector: [],
   };
 
-  const assetsPath = config.theme.assetsPath;
+  const assetsPath = configUtl.getAssetsPath();
 
   let updateGeoCoordinates;
   let unfocusInputs;
@@ -124,9 +125,8 @@ const Map = (vnode) => {
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
       unfocusInputs = vnode.attrs.unfocusInputs;
 
-     // import([> webpackChunkName: "leaflet" <] 'leaflet').then( leafletImport => {
-       // leaflet = leafletImport.default;
-       console.log(leaflet);
+     import(/* webpackChunkName: "leaflet" */ 'leaflet').then( leafletImport => {
+       leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
         state.map = map;
 
@@ -138,7 +138,7 @@ const Map = (vnode) => {
         }
 
         // m.redraw();
-      // });
+      });
     },
     onbeforeupdate(vnode, oldVnode) {
       const oldValue = oldVnode.attrs.value;

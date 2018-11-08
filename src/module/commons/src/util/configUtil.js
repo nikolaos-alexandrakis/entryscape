@@ -5,8 +5,8 @@ const getBaseUrl = () => {
 };
 
 const getStaticUrl = () => {
-  if (config.entryscape && config.entryscape.static && config.entryscape.static.url){
-    return config.entryscape.static.url
+  if (config.entryscape && config.entryscape.static && config.entryscape.static.url) {
+    return config.entryscape.static.url;
   }
 
   return getBaseUrl(); // TODO better return null since this is used in constructing other urls
@@ -15,14 +15,15 @@ const getStaticUrl = () => {
 const getStaticBuild = () => {
   const {app, version} = config.entryscape.static;
   return `${getStaticUrl()}/${app}/${version}/`;
-}
+};
 
 const getThemeDefaults = () => {
-  let defaults = {};
+  const defaults = {};
   try {
     defaults.appName = config.theme.default.appName;
     defaults.logo = config.theme.default.logo;
     defaults.themePath = config.theme.default.themePath;
+    defaults.assetsPath = config.theme.default.assetsPath;
   } catch (e) {
     throw Error('App theme default is not configured correctly!');
   }
@@ -30,9 +31,11 @@ const getThemeDefaults = () => {
   return defaults;
 };
 const getThemeToRender = () => {
-  let { appName, themePath, logo } = getThemeDefaults();
+  let { appName, themePath, assetsPath, logo } = getThemeDefaults();
   if (config.theme && config.theme.localTheme) {
     themePath = '/theme/'; // TODO @valentino check this
+  } else if (config.theme && config.localAssets) {
+    themePath = '/assets/'; // TODO @valentino check this
   }
 
   if (config.theme && (config.theme.appName ||
@@ -40,7 +43,15 @@ const getThemeToRender = () => {
     appName = (config.theme.appName || config.theme.logo.text);
   }
 
-  return { appName, themePath, logo };
+  return { appName, themePath, assetsPath, logo };
+};
+
+const getAssetsPath = () => {
+  let { assetsPath } = getThemeDefaults();
+  if (config.theme && config.theme.localAssets) {
+    assetsPath = '/assets/';
+  }
+  return assetsPath;
 };
 
 const getLogoType = () => {
@@ -52,14 +63,14 @@ const getLogoType = () => {
     }
   }
 
-  return 'icon'
+  return 'icon';
 };
 
 const getLogoInfo = (defaultType = null) => {
   const { appName, themePath, logo } = defaultType ? getThemeDefaults() : getThemeToRender();
   const type = defaultType || getLogoType();
 
-  let logoInfo = { type };
+  const logoInfo = { type };
   switch (type) {
     case 'all':
       logoInfo.src = {
@@ -69,12 +80,12 @@ const getLogoInfo = (defaultType = null) => {
       break;
     case 'full':
       logoInfo.src = {
-        full: themePath + config.theme.logo.full
+        full: themePath + config.theme.logo.full,
       };
       break;
     default: // icon
       if (defaultType) { // mainly for footer
-        logoInfo.src = { icon: logo }
+        logoInfo.src = { icon: logo };
         logoInfo.text = appName;
       } else {
         const hasCustomIcon = 'logo' in config.theme && 'icon' && config.theme.logo;
@@ -84,7 +95,6 @@ const getLogoInfo = (defaultType = null) => {
         logoInfo.text = appName;
       }
   }
-  ;
 
   return logoInfo;
 };
@@ -119,10 +129,9 @@ const getResourceBase = (scope) => {
 export default {
   getBaseUrl,
   getStaticBuild,
-  getThemeDefaults,
-  getThemeToRender,
+  getAssetsPath,
   getLogoInfo,
   getAppName,
   objToArray,
   getResourceBase,
-}
+};

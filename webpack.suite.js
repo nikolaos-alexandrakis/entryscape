@@ -5,8 +5,13 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 const commonConfig = require('./webpack.config.js');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const getAlias = (name, type = 'module') => path.resolve(path.join(__dirname, 'src', type, name, 'src'));
+const STATIC_URL = 'https://static.entryscape.com';
+const APP = 'suite';
+const VERSION = require('./package.json').version;
+
+const getAlias = (name, type = 'module', noSource = false) => path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
 
 const context = path.join(__dirname, 'src', 'app', 'suite');
 const configPath = path.resolve(path.join(getAlias('suite', 'app'), 'config', 'config'));
@@ -23,7 +28,7 @@ module.exports = (env, argv) => {
     },
     output: {
       path: path.join(__dirname, 'src/app/suite/dist'),
-      publicPath: '/',
+      publicPath: `${STATIC_URL}/${APP}/${VERSION}/`,
       filename: '[name].all.js',
       chunkFilename: '[name].bundle.js',
       library: 'entryscape',
@@ -48,6 +53,16 @@ module.exports = (env, argv) => {
             },
           ],
         },
+        {
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          }],
+        },
       ],
     },
     plugins: [
@@ -56,7 +71,16 @@ module.exports = (env, argv) => {
         path.join(__dirname, 'src/app/suite/dist'),
       ]),
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocaleRegExp),
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(path.join(__dirname, 'src', 'app', 'suite', 'assets')),
+          to: 'assets', // dist/templates/skos/skos.json
+        },
+      ]),
     ],
+    stats: {
+      warnings: false,
+    },
   });
 
   if (argv.mode === 'development') {
@@ -65,9 +89,12 @@ module.exports = (env, argv) => {
 
     config = merge(config, {
       devtool: '#inline-source-map',
+      output: {
+        publicPath: '/',
+      },
       devServer: {
         hot: true,
-        contentBase: path.resolve(getAlias('suite', 'app')),
+        contentBase: path.resolve(getAlias('suite', 'app', true)),
         historyApiFallback: true,
         headers: {
           'Access-Control-Allow-Origin': '*',

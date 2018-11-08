@@ -5,24 +5,34 @@ import workbenchConfig from 'workbench/config/config';
 import termsConfig from 'terms/config/config';
 import {i18n} from 'esi18n';
 
+const STATIC = {
+  URL: 'https://static.entryscape.com/',
+  APP: 'suite',
+  VERSION: 'latest',
+};
+
+const ASSETS_URL = `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
+
 const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
   entryscape: {
     static: {
-      url: 'https://static.entryscape.com/',
-      app: 'suite',
-      version: 'latest',
-    }
+      url: STATIC.URL,
+      app: STATIC.APP,
+      version: STATIC.VERSION,
+    },
   },
   theme: {
     appName: 'EntryScape',
     oneRowNavbar: false,
     localTheme: false,
+    localAssets: false,
     default: {
       appName: 'EntryScape',
-      logo: 'https://static.entryscape.com/assets/entryscape.svg',
-      themePath: 'entryscape-commons/theme/',
+      logo: LOGO_SVG_URL,
+      themePath: ASSETS_URL,
+      assetsPath: ASSETS_URL,
     },
-    assetsPath: 'https://static.entryscape.com/assets/',
   },
   locale: {
     fallback: 'en',
@@ -52,7 +62,7 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
     ],
   },
   itemstore: {
-    'defaultBundles': [
+    defaultBundles: [
       'skos',
       'dcterms',
       'foaf',

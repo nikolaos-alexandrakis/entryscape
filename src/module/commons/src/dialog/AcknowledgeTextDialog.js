@@ -29,17 +29,17 @@ export default declare([TitleDialog], {
       }, 500);
       this.titleNode.innerHTML = title;
       const containerNode = this.mainNode;
-      const language = i18n.getLocale() !== 'en' ? `_${i18n.getLocale()}` : '';
+      const language = i18n.getLocale() !== 'en' ? `${i18n.getLocale()}` : 'en';
       this.getContentHTML(`${path}_${language}.html`)
         .then(res => {
-          containerNode.innerHTML = res.body;
+          containerNode.innerHTML = res.text;
           resolve(true);
           clearTimeout(t);
         });
     }, () => {
       this.getContentHTML(`${path}.html`)
         .then(res => {
-          containerNode.innerHTML = res.body;
+          containerNode.innerHTML = res.text;
           resolve(true);
           clearTimeout(t);
         });
