@@ -1,5 +1,8 @@
 image: metasolutions/openjdk-node:latest
 
+options:
+  max-time: 10
+
 stepdefinitions:
   - build: &build
       name: Build
