@@ -16,7 +16,7 @@ export default {
   views: {
     admin: {
       class: Cards,
-      title: {en: 'Administration', sv: 'Administration', de: 'Administration'},
+      title: { en: 'Administration', sv: 'Administration', de: 'Administration' },
       route: '/admin',
       module: 'admin',
       sidebar: false,
@@ -24,7 +24,7 @@ export default {
     admin__users: {
       class: UsersList,
       faClass: 'user',
-      title: {en: 'Users', sv: 'Användare', de: 'Benutzer'},
+      title: { en: 'Users', sv: 'Användare', de: 'Benutzer' },
       route: '/admin/users',
       parent: 'admin',
       module: 'admin',
@@ -32,7 +32,7 @@ export default {
     admin__groups: {
       class: GroupsList,
       faClass: 'users',
-      title: {en: 'Groups', sv: 'Grupper', de: 'Gruppen'},
+      title: { en: 'Groups', sv: 'Grupper', de: 'Gruppen' },
       route: '/admin/groups',
       parent: 'admin',
       module: 'admin',
@@ -40,7 +40,7 @@ export default {
     admin__projects: {
       class: ContextsList,
       faClass: 'building',
-      title: {en: 'Projects', sv: 'Projekt', de: 'Projekte'},
+      title: { en: 'Projects', sv: 'Projekt', de: 'Projekte' },
       route: '/admin/projects',
       parent: 'admin',
       module: 'admin',

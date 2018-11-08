@@ -1,16 +1,16 @@
 import registry from 'commons/registry';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import template from './CreateDialogTemplate.html';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esadUser from 'admin/nls/esadUser.nls';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import declare from 'dojo/_base/declare';
+import template from './CreateDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{esadUser}],
+  nlsBundles: [{ esadUser }],
   popoverOptions: {},
   nlsHeaderTitle: 'createUserHeader',
   nlsFooterButtonLabel: 'createUserButton',
@@ -50,10 +50,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
           throw Error('No matching user.');
         }
       }).then(null, () => {
-      this.newNameIsOk = true;
-      this.usernameError.style.display = 'none';
-      this.checkValidInfoDelayed();
-    });
+        this.newNameIsOk = true;
+        this.usernameError.style.display = 'none';
+        this.checkValidInfoDelayed();
+      });
   },
   open() {
     this.list.getView().clearSearch();
@@ -103,11 +103,11 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const resURI = pue.getResourceURI();
     const guestURI = store.getResourceURI('_principals', '_guest');
     md.add(pue.getResourceURI(), ns.expand('foaf:givenName'),
-      {type: 'literal', value: firstname});
+      { type: 'literal', value: firstname });
     md.add(pue.getResourceURI(), ns.expand('foaf:familyName'),
-      {type: 'literal', value: lastname});
+      { type: 'literal', value: lastname });
     md.add(pue.getResourceURI(), ns.expand('foaf:name'),
-      {type: 'literal', value: `${firstname} ${lastname}`});
+      { type: 'literal', value: `${firstname} ${lastname}` });
     pue.getEntryInfo().setACL({
       mread: [guestURI],
       rread: [guestURI],
@@ -119,7 +119,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       userEntry = ue;
       if (createContext) {
         const cpe = store.newContext();
-        cpe.getEntryInfo().setACL({admin: [userEntry.getResourceURI()]});
+        cpe.getEntryInfo().setACL({ admin: [userEntry.getResourceURI()] });
         return cpe.commit();
       }
       return userEntry;

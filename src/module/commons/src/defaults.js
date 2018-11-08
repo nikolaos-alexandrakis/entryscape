@@ -462,7 +462,7 @@ const init = {
   },
   setGetGroupWithHomeContext() {
     registry.set('getGroupWithHomeContext', (context) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const store = registry.get('entrystore');
         let foundOne = false;
 

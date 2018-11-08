@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
 import config from 'config';
 import DropdownRow from 'commons/list/common/DropdownRow';
-import {template} from 'lodash-es';
+import { template } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 
 const ns = registry.get('namespaces');
@@ -140,12 +140,14 @@ export default declare([DropdownRow], {
         if (hcArr.length > 0) {
           const es = this.entry.getEntryStore();
           const that = this;
-          return es.getEntry(es.getEntryURIFromURI(hcArr[0]), {loadResource: true})
-            .then(userEntry => template(that.nlsSpecificBundle.unnamedOwnedWorkspace)({name: getUserRenderName(userEntry) || userEntry.getId()}),
-              () => template(that.nlsSpecificBundle.unnamedWorkspace)({id: that.entry.getId()}));
+          return es.getEntry(es.getEntryURIFromURI(hcArr[0]), { loadResource: true })
+            .then((userEntry) => {
+              const templatedString = template(that.nlsSpecificBundle.unnamedOwnedWorkspace);
+              return templatedString({ name: getUserRenderName(userEntry) || userEntry.getId() });
+            }, () => template(that.nlsSpecificBundle.unnamedWorkspace)({ id: that.entry.getId() }));
         }
 
-        return template(this.nlsSpecificBundle.unnamedWorkspace)({id: this.entry.getId()});
+        return template(this.nlsSpecificBundle.unnamedWorkspace)({ id: this.entry.getId() });
       }
     }
     return name;
@@ -213,11 +215,11 @@ export default declare([DropdownRow], {
     this.setContextType('esterms:WorkbenchContext');
   },
   isHomeContext() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const hcArr = this.entry.getReferrers('store:homeContext');
       if (hcArr.length > 0) {
         const es = this.entry.getEntryStore();
-        return es.getEntry(es.getEntryURIFromURI(hcArr[0]), {loadResource: true})
+        return es.getEntry(es.getEntryURIFromURI(hcArr[0]), { loadResource: true })
           .then((principalResourceEntry) => {
             if (principalResourceEntry.isGroup()) {
               resolve(true);
@@ -231,7 +233,6 @@ export default declare([DropdownRow], {
 
       resolve(false);
       return this;
-    })
-
+    });
   },
 });

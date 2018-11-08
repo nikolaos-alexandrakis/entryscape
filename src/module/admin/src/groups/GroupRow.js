@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
-import UserRow from '../users/UserRow';
-import {template} from 'lodash-es';
+import { template } from 'lodash-es';
 import declare from 'dojo/_base/declare';
+import UserRow from '../users/UserRow';
 
 const ns = registry.get('namespaces');
 
@@ -42,6 +42,6 @@ export default declare([UserRow], {
       return name;
     }
     const id = this.entry.getId();
-    return template(this.nlsSpecificBundle.unnamedGroup)({id});
+    return template(this.nlsSpecificBundle.unnamedGroup)({ id });
   },
 });

@@ -20,9 +20,7 @@ module.exports = {
     'no-console': 'off',
     'no-prototype-builtins': 'off',
     'no-param-reassign': ['error', { 'props': false }],
-    // 'import/core-modules': ['error', [ 'commons', 'admin' ]],
     'import/extensions': ['error', { '.js': 'never' }],
-    // 'import/extensions': ['error', 'always', { 'ignorePackages': true }],
     'max-len': ['error', { 'code': 120 }],
   }
 };

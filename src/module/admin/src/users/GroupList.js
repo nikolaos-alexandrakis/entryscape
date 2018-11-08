@@ -1,6 +1,6 @@
 import registry from 'commons/registry';
 
-export default class GroupList {
+export default class {
   static limit = 20;
   constructor(userEntry) {
     this.userEntry = userEntry;

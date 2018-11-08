@@ -3,13 +3,14 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import htmlUtil from 'commons/util/htmlUtil';
 import TypeaheadList from 'commons/list/common/TypeaheadList';
-import {types} from 'store';
-import GroupList from './GroupList';
-import {NLSMixin} from 'esi18n';
+import { types } from 'store';
+import { NLSMixin } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import esadUser from 'admin/nls/esadUser.nls';
 import esadGroup from 'admin/nls/esadGroup.nls';
 import declare from 'dojo/_base/declare';
+// eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
+import GroupList from './GroupList';
 
 const RemoveDialog = declare([], {
   constructor(params) {
@@ -51,7 +52,7 @@ const RemoveDialog = declare([], {
 });
 
 const GroupListView = declare([TypeaheadList], {
-  nlsBundles: [{escoList}, {esadUser}, {esadGroup}],
+  nlsBundles: [{ escoList }, { esadUser }, { esadGroup }],
   includeInfoButton: true,
   includeCreateButton: false,
   includeEditButton: false,
@@ -106,7 +107,7 @@ const GroupListView = declare([TypeaheadList], {
 });
 
 export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
-  nlsBundles: [{esadUser}],
+  nlsBundles: [{ esadUser }],
   nlsHeaderTitle: 'groupHeader',
   nlsFooterButtonLabel: 'groupDoneButton',
   maxWidth: 800,

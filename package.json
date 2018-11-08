@@ -54,6 +54,7 @@
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-plugin-babel": "^5.2.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-requirejs": "^3.1.1",
     "file-loader": "^1.1.11",

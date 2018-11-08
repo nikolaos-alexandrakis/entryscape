@@ -1,14 +1,14 @@
-import {types} from 'store';
+import { types } from 'store';
 import NameDialog from 'admin/utils/NameDialog';
 import ACLDialog from 'admin/utils/ACLDialog';
 import registry from 'commons/registry';
-import ContextRow from './ContextRow';
 import BaseList from 'commons/list/common/BaseList';
-import CreateDialog from './CreateDialog';
 import config from 'config';
 import escoList from 'commons/nls/escoList.nls';
 import esadContext from 'admin/nls/esadContext.nls';
 import declare from 'dojo/_base/declare';
+import ContextRow from './ContextRow';
+import CreateDialog from './CreateDialog';
 
 const MakePremium = declare(null, {
   open(params) {
@@ -37,18 +37,18 @@ const UnMakePremium = declare(null, {
 });
 
 const ContextACLDialog = declare([ACLDialog], {
-  nlsBundles: [{esadContext}],
+  nlsBundles: [{ esadContext }],
   nlsHeaderTitle: 'contextACLHeader',
   nlsFooterButtonLabel: 'updateContextACLButton',
 });
 
 const ContextNameDialog = declare([NameDialog], {
-  nlsBundles: [{esadContext}],
+  nlsBundles: [{ esadContext }],
   lookUpPath: '_contexts?entryname=',
 });
 
 export default declare([BaseList], {
-  nlsBundles: [{escoList}, {esadContext}],
+  nlsBundles: [{ escoList }, { esadContext }],
   includeInfoButton: false,
   nlsRemoveEntryConfirm: 'removeProjectConfirm',
   rowClickDialog: 'edit',

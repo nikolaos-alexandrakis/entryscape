@@ -101,6 +101,9 @@ module.exports = (env, argv) => {
         blocks: getAlias('blocks', 'app'),
         spa: getAlias('spa', 'lib'),
         templates: path.resolve(path.join(__dirname, 'src', 'templates')),
+        // dummy! it's set here to fool eslint that the config "module" resolves
+        // otherwise it's set in the app's specific webpack config
+        config: path.resolve(path.join(__dirname, '.eslintrc.js')),
       },
     },
   };
