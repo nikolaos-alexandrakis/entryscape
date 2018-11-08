@@ -6,9 +6,9 @@ import workbenchDefaults from 'workbench/defaults'; // init catalog
 import adminDefaults from 'admin/defaults'; // init catalog
 import siteConfig from './config/site';
 
-export default () => {
+export default async () => {
   registry.set('siteConfig', siteConfig);
-  commonsDefaults();
+  await commonsDefaults();
   catalogDefaults();
   termsDefaults();
   workbenchDefaults();
