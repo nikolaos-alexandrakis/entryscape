@@ -1,11 +1,10 @@
 import merge from 'commons/merge';
-import adminConfig from 'admin/config/adminConfig';
-import catalogConfig from 'catalog/config/catalogConfig';
-import termsConfig from 'terms/config/termsConfig';
-import workbenchConfig from 'workbench/config/workbenchConfig';
+import adminConfig from 'admin/config/config';
+import catalogConfig from 'catalog/config/config';
+import termsConfig from 'terms/config/config';
+import workbenchConfig from 'workbench/config/config';
 import { namespaces } from 'rdfjson';
 import { queryToObject } from 'commons/util/browserUtil';
-import query from 'dojo/query';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
 
@@ -68,7 +67,9 @@ const fixStuff = function (obj) {
 };
 fixStuff(econfig);
 //    jquery("<div id='entryscape_dialogs' class='entryscape'>").appendTo(jquery('body'));
-let nodes = query('*[data-entryscape],*[data-entryscape-block],script[type="text/x-entryscape-json"],script[type="text/x-entryscape-handlebar"]');
+// Get all nodes expecting to be "blocks'ed"
+let nodes = document.querySelectorAll('*[data-entryscape],*[data-entryscape-block],script[type="text/x-entryscape-json"],script[type="text/x-entryscape-handlebar"]');
+nodes = Array.from(nodes);
 nodes = nodes.map((node) => {
   const inmap = jquery(node).data();
   let outmap = {};
@@ -144,8 +145,8 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
   locale: {
     fallback: 'en',
     supported: [
-                { lang: 'en', flag: 'gb', label: 'English', labelEn: 'English' },
-                { lang: 'sv', flag: 'se', label: 'Svenska', labelEn: 'Swedish' },
+      { lang: 'en', flag: 'gb', label: 'English', labelEn: 'English' },
+      { lang: 'sv', flag: 'se', label: 'Svenska', labelEn: 'Swedish' },
     ],
   },
   itemstore: {

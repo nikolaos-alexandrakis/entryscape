@@ -27,9 +27,8 @@ export const queryToObject = (hashString) =>
  * @returns {string}
  */
 export const objectToQuery = (queryObject) =>
-  Object.keys(queryObject)
-    .map( key => `${key}=${queryObject[key]}`)
+  Object.entries(queryObject)
     .reduce(
-      (accum, keyValString, i) => i > 0 ? `${accum}&${keyValString}` : keyValString,
+      (accum, keyVal, i) => i > 0 ? `${accum}&${keyVal[0]}=${keyVal[1]}` : `${keyVal[0]}=${keyVal[1]}`,
       ''
     );

@@ -1,8 +1,6 @@
-define([], {});
 
 // TODO @scazan ask @matthias about this
-// If we already have a jQuery
-define('jquery', [], () => window.jQuery);
+define('jquery', [], () => window.jQuery); // TODO Provide plugin
 
 
 define("jquery.mousewheel", [], {});
