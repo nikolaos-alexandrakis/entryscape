@@ -60,13 +60,13 @@ module.exports = (env, argv) => {
 
   if (argv.mode === 'development') {
     const HtmlWebpackPlugin = require('html-webpack-plugin');
-    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
     config = merge(config, {
       devtool: '#inline-source-map',
       devServer: {
         hot: true,
-        contentBase: path.resolve(getAlias('blocks', 'app')),
+        contentBase: path.resolve(path.join(getAlias('blocks', 'app'), '..', 'samples')),
         historyApiFallback: true,
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -76,7 +76,7 @@ module.exports = (env, argv) => {
         // new BundleAnalyzerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-          template: path.resolve(path.join(getAlias('blocks', 'app'), 'public', 'index.dev.html')),
+          template: path.resolve(path.join(getAlias('blocks', 'app'), '..', 'samples', 'webpack.html')),
         }),
         new CircularDependencyPlugin({
           // exclude detection of files based on a RegExp

@@ -12,13 +12,13 @@ import 'bloodhound-js'; // TODO @valentino typeahead alone seems to have issues,
 
 
 import 'jquery';
-import 'jquery.mousewheel';
+import 'jquery-mousewheel';
 import 'bootstrap';
-import 'bootstrap/modal';
-import 'bootstrap/popover';
-import 'bootstrap/button';
-import 'bootstrap/dropdown';
-import 'bootstrap/tooltip';
+// import 'bootstrap/modal';
+// import 'bootstrap/popover';
+// import 'bootstrap/button';
+// import 'bootstrap/dropdown';
+// import 'bootstrap/tooltip';
 import 'sizzle';
 
 import initDefaults from './defaults';
