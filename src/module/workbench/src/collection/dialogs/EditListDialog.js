@@ -1,6 +1,6 @@
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import {i18n} from 'esi18n';
+import { i18n } from 'esi18n';
 
 import declare from 'dojo/_base/declare';
 
@@ -42,12 +42,14 @@ export default declare([RDFormsEditDialog, ListDialogMixin], {
     return this.list.selectedCollection.commitMetadata().then(null,
       (err) => {
         if (err.response.status === 412) {
-          return registry.get('dialogs').confirm(b.metadataConflictMessage, b.metadataConflictLoadChanges, b.metadataConflictCancel).then(() => {
-            this.refreshEntry(this.list.selectedCollection);
-            throw b.metadataConflictRefreshMessage;
-          }, () => {
-            throw b.metadataConflictRemainMessage;
-          });
+          return registry.get('dialogs')
+            .confirm(b.metadataConflictMessage, b.metadataConflictLoadChanges, b.metadataConflictCancel)
+            .then(() => {
+              this.refreshEntry(this.list.selectedCollection);
+              throw b.metadataConflictRefreshMessage;
+            }, () => {
+              throw b.metadataConflictRemainMessage;
+            });
         }
         throw err;
       });

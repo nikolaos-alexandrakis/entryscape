@@ -1,11 +1,11 @@
 import htmlUtil from 'commons/util/htmlUtil';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import eswoCollection from 'workbench/nls/eswoCollection.nls';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 
 export default declare([ListDialogMixin, NLSMixin.Dijit], {
-  nlsBundles: [{eswoCollection}],
+  nlsBundles: [{ eswoCollection }],
   /**
    * This "dialog" does three things:
    * 1. Add a member to a collection

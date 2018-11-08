@@ -1,4 +1,3 @@
-import defaults from '../../defaults';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 
 export default class RemoveMemberDialog extends ListDialogMixin {
@@ -41,4 +40,4 @@ export default class RemoveMemberDialog extends ListDialogMixin {
       this.selectedCollection.refresh();
     });
   }
-};
+}

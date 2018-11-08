@@ -2,18 +2,18 @@ import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import entitytypes from '../utils/entitytypes';
 import eswoConfigureEntityTypes from 'workbench/nls/eswoConfigureEntityTypes.nls';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import config from 'config';
+import entitytypes from '../utils/entitytypes';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   bid: 'eswoConfigureEntityTypes',
   templateString: '<div data-dojo-attach-point="__entitytypeList" class="entityTypeList"></div>',
   maxWidth: 800,
-  nlsBundles: [{eswoConfigureEntityTypes}],
+  nlsBundles: [{ eswoConfigureEntityTypes }],
   nlsHeaderTitle: 'entityTypesHeader',
   nlsFooterButtonLabel: 'entityTypesFooter',
   items: null,
@@ -87,9 +87,9 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const filteredEtypes = entitytypes.filterEntitypeConfigurations(config.entitytypes);
     const sortedEntitytypes = entitytypes.sort(filteredEtypes);
     sortedEntitytypes.forEach((entitytype) => {
-      const divPanel = htmlUtil.create('div', {class: 'togglebutton'}, this.__entitytypeList);
+      const divPanel = htmlUtil.create('div', { class: 'togglebutton' }, this.__entitytypeList);
       const label = htmlUtil.create('label', null, divPanel);
-      const input = htmlUtil.create('input', {type: 'checkbox'}, label);
+      const input = htmlUtil.create('input', { type: 'checkbox' }, label);
       const task = htmlUtil.create('span', {
         style: 'color: #333;',
         innerHTML: registry.get('localize')(entitytype.label),
@@ -101,7 +101,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
         entitytypeURI: etURI,
       });
       const updateConfiguredEntitytypes = this.setInModel.bind(this, etURI);
-      input.addEventListener('click', updateConfiguredEntitytypes)
+      input.addEventListener('click', updateConfiguredEntitytypes);
     });
   },
 

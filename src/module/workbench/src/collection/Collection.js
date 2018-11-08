@@ -2,21 +2,20 @@ import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import PubSub from 'pubsub-js';
 import keys from 'commons/util/keyCodeUtil';
-import {types} from 'store';
-import template from './CollectionTemplate.html';
-import view from '../utils/view';
+import { types } from 'store';
 import Placeholder from 'commons/placeholder/Placeholder';
 import ViewMixin from 'commons/view/ViewMixin';
-import CollectionItemContainer from './components/CollectionItemContainer';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import eswoCollection from 'workbench/nls/eswoCollection.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import hash from 'dojo/hash';
 import './eswoCollection.css';
+import CollectionItemContainer from './components/CollectionItemContainer';
+import template from './CollectionTemplate.html';
 
-const queryString = require('query-string');
+// const queryString = require('query-string');
 
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin], {
@@ -25,7 +24,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
   specificViewParam: 'collection',
   viewParams: new Set(['view', 'context', 'collection']),
   renderOnCalltype: new Set(['createEntry', 'commitMetadata', 'delEntry', 'addToList', 'removeFromList']),
-  nlsBundles: [{eswoCollection}],
+  nlsBundles: [{ eswoCollection }],
   templateString: template,
   __sideList: null,
   __list: null,
@@ -45,7 +44,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
 
     // Register various listeners to handle all collection entry actions
     PubSub.subscribe('spa.beforeViewChange', (err, params) => { // TODO needs binding?
-      const {switchingToView, switchingToParams} = args;
       if (params[0] !== this.viewName) {
         this.stopListenForCollectionChanges();
         this.init();
@@ -108,7 +106,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
   getCollectionIdFromParams() {
     const st = registry.get('siteManager');
     // for some reason getUpcomingOrCurrentParams doesn't return the correct value here
-    const {collection} = st.getCurrentParams();
+    const { collection } = st.getCurrentParams();
     return collection > 0 ? collection : -1;
   },
 

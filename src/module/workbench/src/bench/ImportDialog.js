@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
 import EntryType from 'commons/create/EntryType';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import template from './ImportDialogTemplate.html';
-import {converters, utils} from 'rdfjson';
-import {i18n} from 'esi18n';
+import { converters, utils } from 'rdfjson';
+import { i18n } from 'esi18n';
 import eswoImportDialog from 'workbench/nls/eswoImportDialog.nls';
 import declare from 'dojo/_base/declare';
+import template from './ImportDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS], {
   bid: 'eswoImportDialog',
   maxWidth: 800,
   templateString: template,
-  nlsBundles: [{eswoImportDialog}],
+  nlsBundles: [{ eswoImportDialog }],
   nlsHeaderTitle: 'importRDFHeader',
   nlsFooterButtonLabel: 'importRDFButton',
   __entryTypeNode: null,
@@ -19,7 +19,7 @@ export default declare([TitleDialog.ContentNLS], {
 
   postCreate() {
     this.inherited(arguments);
-    const valueChange = val => val != null ? this.dialog.unlockFooterButton() : this.dialog.lockFooterButton();
+    const valueChange = val => (val != null ? this.dialog.unlockFooterButton() : this.dialog.lockFooterButton());
     this.entryType = new EntryType({
       valueChange,
     }, this.__entryTypeNode);
@@ -79,7 +79,7 @@ export default declare([TitleDialog.ContentNLS], {
         stmts.forEach((stmt) => {
           const o = stmt.getObject();
           delete o._statement;
-          const oc = {...o};
+          const oc = { ...o };
           o._statement = stmt;
 
           graph.add(stmt.getSubject(), map[key], oc);

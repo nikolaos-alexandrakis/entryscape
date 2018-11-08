@@ -8,7 +8,7 @@ import declare from 'dojo/_base/declare';
 export default declare([CreateDialog], {
   explicitNLS: true,
   postCreate() {
-    const valueChange = val => val != null ? this.unlockFooterButton() : this.lockFooterButton();
+    const valueChange = val => (val != null ? this.unlockFooterButton() : this.lockFooterButton());
 
     // Add margin-left 1% somehow to be inline with rdforms.
     this.fileOrLink = new EntryType({

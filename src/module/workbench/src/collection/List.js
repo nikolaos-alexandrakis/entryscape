@@ -1,17 +1,15 @@
 import registry from 'commons/registry';
 import EntryRow from 'commons/list/EntryRow';
 import BaseList from 'commons/list/common/BaseList';
-import RemoveMemberDialog from './dialogs/RemoveMemberDialog';
 import typeIndex from 'commons/create/typeIndex';
+import escoList from 'commons/nls/escoList.nls';
+import eswoCollection from 'workbench/nls/eswoCollection.nls';
+import declare from 'dojo/_base/declare';
+import RemoveMemberDialog from './dialogs/RemoveMemberDialog';
 import ManageMembersDialog from './dialogs/ManageMembersDialog';
 import EditListDialog from './dialogs/EditListDialog';
 import RemoveListDialog from './dialogs/RemoveListDialog';
 import buttons from './utils/buttons';
-import escoList from 'commons/nls/escoList.nls';
-import eswoCollection from 'workbench/nls/eswoCollection.nls';
-import declare from 'dojo/_base/declare';
-
-const queryString = require('query-string');
 
 const SingleButtonEntryRow = declare([EntryRow], {
   showCol1: false,
@@ -25,7 +23,7 @@ export default declare([BaseList], {
   includeRemoveButton: false,
   includeRefreshButton: true,
   includeResultSize: false,
-  nlsBundles: [{escoList}, {eswoCollection}],
+  nlsBundles: [{ escoList }, { eswoCollection }],
   nlsRemoveEntryConfirm: 'removeEntryFromCollection',
   nlsRemoveCollectionConfirm: 'removeCollectionConfirm',
   nlsDownloadCollection: 'downloadCollection',

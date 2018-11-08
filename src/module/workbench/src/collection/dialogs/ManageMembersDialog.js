@@ -2,14 +2,14 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import EntryRow from 'commons/list/EntryRow';
 import BaseList from 'commons/list/common/BaseList';
-import {types} from 'store';
+import { types } from 'store';
+import { i18n, NLSMixin } from 'esi18n';
+import eswoCollection from 'workbench/nls/eswoCollection.nls';
+import escoList from 'commons/nls/escoList.nls';
+import declare from 'dojo/_base/declare';
 import AddMemberDialog from './AddMemberDialog';
 import Note from '../components/Note';
 import buttons from '../utils/buttons';
-import {i18n, NLSMixin} from 'esi18n';
-import eswoCollection from 'workbench/nls/eswoCollection.nls';
-import escoList from 'commons/nls/merged/escoList.nls';
-import declare from 'dojo/_base/declare';
 
 const SingleButtonEntryRow = declare([EntryRow], {
   showCol1: false,
@@ -40,7 +40,7 @@ const SingleButtonEntryRow = declare([EntryRow], {
 });
 
 const EntryList = declare([BaseList], {
-  nlsBundles: [{escoList}, {eswoCollection}],
+  nlsBundles: [{ escoList }, { eswoCollection }],
   includeCreateButton: false,
   rowClass: SingleButtonEntryRow,
 
@@ -77,7 +77,7 @@ const EntryList = declare([BaseList], {
 
 export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   maxWidth: 800,
-  nlsBundles: [{eswoCollection}],
+  nlsBundles: [{ eswoCollection }],
   nlsHeaderTitle: 'manageMembersHeader',
   nlsFooterButtonLabel: 'manageMembersButton',
   includeNote: true,

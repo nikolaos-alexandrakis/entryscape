@@ -1,4 +1,3 @@
-import defaults from '../../defaults';
 import htmlUtil from 'commons/util/htmlUtil';
 import List from '../List';
 import CollectionItem from './CollectionItem';
@@ -6,10 +5,10 @@ import CollectionItem from './CollectionItem';
 const getViewParams = (viewParams, collectionEntryId) => {
   const sm = registry.get('siteManager');
   return viewUtil.constructParams(viewParams, Object.assign({}, sm.getUpcomingOrCurrentParams()),
-    {collection: collectionEntryId});
+    { collection: collectionEntryId });
 };
 
-export default CollectionItemContainer = {
+export default {
   /**
    * Creates and shows the list for a selected collection
    *
@@ -55,7 +54,7 @@ export default CollectionItemContainer = {
       const aParams = getViewParams(viewParams, collectionId);
       const href = sm.getViewPath(aParams.view, aParams);
 
-      return m(CollectionItem, {id, title, size, active, href, bid});
+      return m(CollectionItem, { id, title, size, active, href, bid });
     });
   },
 };

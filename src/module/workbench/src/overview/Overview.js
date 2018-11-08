@@ -1,9 +1,8 @@
 import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
-import entitytypes from 'workbench/utils/entitytypes';
 import Overview from 'commons/overview/components/Overview';
 import eswoOverview from 'workbench/nls/eswoOverview.nls';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
@@ -13,7 +12,7 @@ import m from 'mithril';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   templateString: '<div class="workbenchOverview escoList"></div>',
-  nlsBundles: [{eswoOverview}],
+  nlsBundles: [{ eswoOverview }],
   getEntityNameFromURI(entityURI) {
     const es = registry.get('entrystore');
     if (entityURI.indexOf(es.getBaseURI()) === 0) {
@@ -25,7 +24,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     this.data = {};
     let projectEntry;
     let configuredEntitytypes;
-    const es = registry.get('entrystore');
     const rdfutils = registry.get('rdfutils');
     const spa = registry.get('siteManager');
     const currentOrUpcomingParams = spa.getUpcomingOrCurrentParams();
@@ -56,7 +54,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       const modificationDateFormats = dateUtil.getMultipleDateFormats(modificationDate);
       const creationDateFormats = dateUtil.getMultipleDateFormats(creationDate);
 
-      const isNLSBundleReady = this.nlsBundles[0] in this.NLSBundles;
       const b = this.NLSBundle0;
 
       // basic info
@@ -92,7 +89,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
           value: creationDateFormats.short,
         });
 
-      m.render(document.querySelector('.workbenchOverview.escoList'), m(Overview, {data: this.data}));
+      m.render(document.querySelector('.workbenchOverview.escoList'), m(Overview, { data: this.data }));
     });
   },
 });

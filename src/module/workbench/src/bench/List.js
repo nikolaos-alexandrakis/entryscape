@@ -6,13 +6,13 @@ import BaseList from 'commons/list/common/BaseList';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import ToggleRow from 'commons/list/common/ToggleRow';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
-import CreateDialog from './CreateDialog';
-import ImportDialog from './ImportDialog';
-import ReplaceDialog from './ReplaceDialog';
-import {i18n} from 'esi18n';
+import { i18n } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import eswoBench from 'workbench/nls/eswoBench.nls';
 import declare from 'dojo/_base/declare';
+import CreateDialog from './CreateDialog';
+import ImportDialog from './ImportDialog';
+import ReplaceDialog from './ReplaceDialog';
 
 const BenchListView = declare([ListView], {
   showPage() {
@@ -136,7 +136,7 @@ export default declare([BaseList], {
   includeSortOptions: false,
   includeHeader: false,
   searchInList: true,
-  nlsBundles: [{escoList}, {eswoBench}],
+  nlsBundles: [{ escoList }, { eswoBench }],
   class: 'eswoBenchList',
   benchTypeConf: null,
   bench: null,
@@ -179,7 +179,7 @@ export default declare([BaseList], {
       this.registerDialog('listAndContentViewer', RowAction);
     }
     if (this.benchTypeConf.publishable) {
-      this.rowClass = EntityRow
+      this.rowClass = EntityRow;
       this.nlsPublicTitle = 'publicTitle';
       this.nlsProtectedTitle = 'privateTitle';
     }
