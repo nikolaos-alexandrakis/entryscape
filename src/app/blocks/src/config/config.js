@@ -172,7 +172,7 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
     ],
   },
   itemstore: {
-    '!bundles': [
+    defaultBundles: [
       'skos',
       'dcterms',
       'foaf',
@@ -181,6 +181,7 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       'dcat-ap_props',
       'dcat-ap',
       'esc',
+      'art',
     ],
     '!choosers': [
       'EntryChooser',

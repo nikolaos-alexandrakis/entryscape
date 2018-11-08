@@ -142,7 +142,7 @@ const init = {
     });
   },
   itemstore: {
-    bundles() {
+    async bundles() {
       const items = new ItemStore();
       const bundles = [];
       // load default bundles => need to be in the webpack bundle
@@ -160,7 +160,8 @@ const init = {
         if (config.itemstore.bundles) {
           config.itemstore.bundles.forEach(id => bundles.push(getFallbackBundleUrls(id)));
         }
-        bundleLoader(items, bundles, () => registry.set('itemstore', items));
+        await bundleLoader(items, bundles);
+        registry.set('itemstore', items);
       }
     },
     languages() {
@@ -508,9 +509,9 @@ init.entrychooser();
 init.rdfutils();
 init.asyncHandler();
 
-export default () => {
+export default async () => {
   init.nlsOverride();
-  init.itemstore.bundles();
+  await init.itemstore.bundles();
   init.itemstore.appendLanguages();
   init.itemstore.languages();
   init.itemstore.choosers();
