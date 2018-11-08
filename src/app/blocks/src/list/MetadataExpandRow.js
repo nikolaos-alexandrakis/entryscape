@@ -1,10 +1,10 @@
-define([
-  'dojo/_base/declare',
-  'rdforms/view/Presenter',
-  'entryscape-blocks/boot/handlebars',
-  'entryscape-commons/list/common/ExpandRow',
-  'rdfjson/namespaces',
-], (declare, Presenter, handlebars, ExpandRow, namespaces) => declare([ExpandRow], {
+import declare from 'dojo/_base/declare';
+import { Presenter } from 'rdforms';
+import handlebars from 'blocks/boot/handlebars';
+import ExpandRow from 'commons/list/common/ExpandRow';
+import { namespaces } from 'rdfjson';
+
+export default declare([ExpandRow], {
   showCol3: false,
 
   render() {
@@ -48,4 +48,4 @@ define([
       graph: this.entry.getMetadata(),
       template });
   },
-}));
+});

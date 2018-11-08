@@ -75,5 +75,10 @@ for (let i = 0; i < config.locale.supported.length; i++) {
   }
 }
 
-i18n.setLocale(bestlang || config.locale.fallback);
+if(bestlang) {
+  i18n.setLocale(bestlang);
+}
+else {
+  i18n.setLocale(config.locale.fallback);
+}
 export default config;

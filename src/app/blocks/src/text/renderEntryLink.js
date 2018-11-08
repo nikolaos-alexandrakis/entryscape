@@ -18,9 +18,7 @@ export default (node, data) => {
           href: md.findFirstValue(entry.getResourceURI(), data.property),
           innerHTML: getTextContent(data, entry),
         }));
-      }
-
-      else {
+    } else {
       if (data.clickkey && data.clickvalue) {
         if (data.clickentry) {
           pobj.entry = entry.getId();
@@ -46,7 +44,7 @@ export default (node, data) => {
         'a', {
           href: params.getLink(click, pobj),
           innerHTML: getTextContent(data, entry),
-        }
+        },
       ));
     }
   });

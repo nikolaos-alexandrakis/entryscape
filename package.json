@@ -79,8 +79,10 @@
   "scripts": {
     "build:suite": "webpack --config webpack.suite.js --mode=production",
     "build:registry": "webpack --config webpack.registry.js --mode=production",
+    "build:blocks": "webpack --config webpack.blocks.js --mode=production",
     "dev:suite": "webpack-dev-server --watch --mode=development --config webpack.suite.js",
     "dev:registry": "webpack-dev-server --mode=development --config webpack.registry.js",
+    "dev:blocks": "webpack --config webpack.blocks.js --mode=development",
     "nls:download": "node src/scripts/nls/download.js",
     "nls:upload": "node src/scripts/nls/upload.js"
   }

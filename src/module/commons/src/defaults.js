@@ -396,7 +396,13 @@ const init = {
       if (userInfo.clientAcceptLanguage) {
         registry.set('clientAcceptLanguages', userInfo.clientAcceptLanguage);
       }
-      registry.set('locale', bestlang || config.locale.fallback);
+      if(bestlang) {
+        registry.set('locale', bestlang);
+      }
+      else {
+        registry.set('locale', config.locale.fallback);
+      }
+
     }, true);
 
     // Load userInfo from the start and listen to authorization changes.

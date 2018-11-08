@@ -1,19 +1,16 @@
-define([
-    "handlebars",
-], function (handlebars) {
+import handlebars from 'handlebars';
 
-    return function(template, names) {
-        var group = {};
-        names.forEach(function(name) {
-            handlebars.registerHelper(name, function(options) {
-                group[name] = options.fn();
-            });
-        });
-        handlebars.compile(template)({});
-        names.forEach(function(name) {
-            handlebars.unregisterHelper(name);
-        });
+export default function (template, names) {
+  const group = {};
+  names.forEach((name) => {
+    handlebars.registerHelper(name, (options) => {
+      group[name] = options.fn();
+    });
+  });
+  handlebars.compile(template)({});
+  names.forEach((name) => {
+    handlebars.unregisterHelper(name);
+  });
 
-        return group;
-    }
-});
+  return group;
+}

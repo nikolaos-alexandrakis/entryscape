@@ -1,5 +1,4 @@
 import filter from 'blocks/utils/filter';
-import params from 'blocks/boot/params';
 import handlebars from 'blocks/boot/handlebars';
 import getEntry from 'blocks/utils/getEntry';
 

@@ -1,12 +1,9 @@
-define([], {});
 
-define("jquery", [], function() {
-    return window.jQuery;
-});
+// TODO @scazan ask @matthias about this
+define('jquery', [], () => window.jQuery); // TODO Provide plugin
 
 
 define("jquery.mousewheel", [], {});
-
 define("bootstrap/modal", [], {});
 define("bootstrap/popover", [], {});
 define("bootstrap/button", [], {});

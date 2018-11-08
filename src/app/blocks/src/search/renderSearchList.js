@@ -3,7 +3,6 @@ import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 import List from 'blocks/list/List';
 import getEntry from 'blocks/utils/getEntry';
-import constraints from 'blocks/utils/constraints';
 import config from 'config';
 import jquery from 'jquery';
 
@@ -42,7 +41,7 @@ export default (node, data, items) => {
   params.onInit((urlParams) => {
     sl.contextId = data.context || urlParams.context || config.econfig.context;
     if (typeof sl.contextId === 'number') {
-      sl.contextId = '' + sl.contextId;
+      sl.contextId = `${sl.contextId}`;
     }
     if (sl.contextId != null && (data.entry || urlParams.entry || config.econfig.entry) != null) {
       getEntry(data, (entry) => {
