@@ -105,10 +105,10 @@ module.exports = (env, argv) => {
     },
   };
 
-  if (argv.mode === 'production') {
+  if (argv && argv.mode === 'production') {
     config = merge(config, {
       optimization: {
-        minimizer: [ new UglifyJsPlugin() ],
+        minimizer: [new UglifyJsPlugin()],
       },
     });
   }
