@@ -2,7 +2,8 @@
 .vscode/
 /*.iml
 /node_modules
-/dist
+dist
 *.log
 .yalc/
 yalc.lock
+*.vim
