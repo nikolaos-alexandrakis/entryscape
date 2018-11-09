@@ -10,7 +10,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "bloodhound-js": "^1.2.3",
-    "bmd": "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd",
     "bootstrap": "3.3.7",
     "bootstrap-material-datetimepicker": "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack",
     "bootstrap-material-design": "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd",

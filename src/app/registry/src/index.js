@@ -13,8 +13,8 @@ import initDefaults from './defaults';
 import registry from 'commons/registry';
 import siteConfig from './config/site';
 
-import 'bmd/dist/css/bootstrap-material-design.css';
-import 'bmd/dist/css/ripples.css';
+import 'bootstrap-material-design/dist/css/bootstrap-material-design.css';
+import 'bootstrap-material-design/dist/css/ripples.css';
 import 'bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css';
 import 'chartist/dist/chartist.min.css';
 
