@@ -31,7 +31,7 @@ export default () => {
   //   return true;
   // });
 
-// Copy over templates from catalog config to corresponding entitytypes
+  // Copy over templates from catalog config to corresponding entitytypes
   const entities = ['publisher', 'catalog', 'dataset', 'distribution', 'contactPoint', 'datasetResult'];
   entities.forEach((e) => {
     const t = config.catalog[`${e}TemplateId`];
@@ -40,4 +40,4 @@ export default () => {
       conf.template = t;
     }
   });
-}
+};

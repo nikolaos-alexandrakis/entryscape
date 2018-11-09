@@ -1,13 +1,13 @@
 import registry from 'commons/registry';
-import {utils} from 'rdforms';
+import { utils } from 'rdforms';
 import config from 'config';
-import {i18n, NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaUpgrade from 'catalog/nls/escaUpgrade.nls';
 import declare from 'dojo/_base/declare';
-import {withinDatasetLimit} from 'catalog/utils/limit';
+import { withinDatasetLimit } from 'catalog/utils/limit';
 
 export default declare([NLSMixin], {
-  nlsBundles: [{escaUpgrade}],
+  nlsBundles: [{ escaUpgrade }],
   constructor() {
     this.initNLS();
   },
@@ -21,7 +21,8 @@ export default declare([NLSMixin], {
   getMandatoryNonCheckedSteps() {
     const entryInfoGraph = this.candidateEntry.getEntryInfo().getGraph();
     const completedChecklistSteps = [];
-    const checklistSteps = entryInfoGraph.find(this.candidateEntry.getResourceURI(), 'http://entrystore.org/terms/progress');
+    const checklistSteps = entryInfoGraph
+      .find(this.candidateEntry.getResourceURI(), 'http://entrystore.org/terms/progress');
     checklistSteps.forEach((checklistStep) => {
       completedChecklistSteps.push(checklistStep.getObject().value);
     });

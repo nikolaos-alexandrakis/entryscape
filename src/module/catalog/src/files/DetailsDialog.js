@@ -1,21 +1,19 @@
 import registry from 'commons/registry';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import SelectDatasetDialog from './SelectDatasetDialog';
-import APIInfo from './APIInfo';
 import HeaderDialog from 'commons/dialog/HeaderDialog';
-
 import htmlUtil from 'commons/util/htmlUtil';
-import templateString from './DetailsDialogTemplate.html';
-import {utils} from 'store';
-import {i18n, NLSMixin} from 'esi18n';
+import { utils } from 'store';
+import { NLSMixin } from 'esi18n';
 import escaFiles from 'catalog/nls/escaFiles.nls';
-import {template} from 'lodash-es';
-
+import { template } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import APIInfo from './APIInfo';
+import SelectDatasetDialog from './SelectDatasetDialog';
+import templateString from './DetailsDialogTemplate.html';
 
 const ns = registry.get('namespaces');
 const resultStatus = ns.expand('store:pipelineResultStatus');
@@ -31,7 +29,7 @@ const createFileDistribution = (fileEntry) => {
   md.add(nds.getResourceURI(), ns.expand('dcat:downloadURL'), fileEntry.getResourceURI());
   const format = fileEntry.getEntryInfo().getFormat();
   if (typeof format !== 'undefined') {
-    md.add(nds.getResourceURI(), ns.expand('dcterms:format'), {type: 'literal', value: format});
+    md.add(nds.getResourceURI(), ns.expand('dcterms:format'), { type: 'literal', value: format });
   }
   return nds.commit();
 };
@@ -125,15 +123,15 @@ const CreateDialog = declare(RDFormsEditDialog, {
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString,
-  nlsBundles: [{escaFiles}],
+  nlsBundles: [{ escaFiles }],
 
   postCreate() {
     this.inherited('postCreate', arguments);
-    this.createNewDatasetDialog = new CreateDialog({details: this}, htmlUtil.create('div', null, this.dialogsNode));
+    this.createNewDatasetDialog = new CreateDialog({ details: this }, htmlUtil.create('div', null, this.dialogsNode));
     this.APIInfo = new APIInfo({}, this.APIInfo);
-    this.dialog = new HeaderDialog({maxWidth: 800}, this.dialog);
-    this.datasetCreateDialog = new RDFormsEditDialog({maxWidth: 800}, this.createDatasetDialog);
-    this.datasetSelectDialog = new SelectDatasetDialog({maxWidth: 800}, this.datasetSelectDialog);
+    this.dialog = new HeaderDialog({ maxWidth: 800 }, this.dialog);
+    this.datasetCreateDialog = new RDFormsEditDialog({ maxWidth: 800 }, this.createDatasetDialog);
+    this.datasetSelectDialog = new SelectDatasetDialog({ maxWidth: 800 }, this.datasetSelectDialog);
   },
 
   open(params) {
@@ -258,7 +256,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
 
   maybeRemoveDataset() {
     const dialogs = registry.get('dialogs');
-    const stmts = this.datasetEntry.getMetadata().find(this.datasetEntry.getResourceURI(), ns.expand('dcat:distribution'));
+    const stmts = this.datasetEntry.getMetadata()
+      .find(this.datasetEntry.getResourceURI(), ns.expand('dcat:distribution'));
     if (stmts.length === 0) {
       dialogs.confirm(
         this.NLSBundles.escaFiles.removeOrphanedDataset,
@@ -278,7 +277,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
         delete this.datasetEntry;
         return store.getEntry(dcatURI).then((catalog) => {
           catalog.getMetadata().findAndRemove(catalog.getResourceURI(),
-            ns.expand('dcat:dataset'), {type: 'uri', value: dsURI});
+            ns.expand('dcat:dataset'), { type: 'uri', value: dsURI });
           return catalog.commitMetadata();
         });
       }).then(() => this.detectDataset);
@@ -316,7 +315,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
             default:
               this.apiStatus.style.color = 'orange';
               this.apiRefreshButton.style.display = '';
-
           }
           this.APIInfo.show(this.etlEntry);
         });
@@ -365,7 +363,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
     const format = this.entry.getEntryInfo().getFormat();
     if (format !== 'text/csv') {
       const dialogs = registry.get('dialogs');
-      dialogs.confirm(template(this.NLSBundles.escaFiles.onlyCSVSupported)({format: format || '-'}), this.NLSBundles.escaFiles.confirmAPIActivation, this.NLSBundles.escaFiles.abortAPIActivation).then(f);
+      dialogs.confirm(template(this.NLSBundles.escaFiles.onlyCSVSupported)({ format: format || '-' }),
+        this.NLSBundles.escaFiles.confirmAPIActivation, this.NLSBundles.escaFiles.abortAPIActivation).then(f);
     } else {
       f();
     }
@@ -374,8 +373,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
   createDistributionForAPI(pipelineResultEntryURI) {
     if (!pipelineResultEntryURI || !this.datasetEntry) {
       return new Promise((resolve, reject) => {
-        reject(!pipelineResultEntryURI ? 'No API to create distribution for.' : 'No Dataset to create distribution in.');
-      })
+        reject(!pipelineResultEntryURI
+          ? 'No API to create distribution for.' : 'No Dataset to create distribution in.');
+      });
     }
     const fileEntry = this.entry;
     const datasetEntry = this.datasetEntry;
@@ -451,10 +451,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
       }
       if (data.columnnames && data.columnnames.length > 0) {
         data.columnnames.forEach((col) => {
-          extMD.add(etlEntry.getResourceURI(), resultColumnName, {type: 'literal', value: col});
+          extMD.add(etlEntry.getResourceURI(), resultColumnName, { type: 'literal', value: col });
         });
       }
-      extMD.add(etlEntry.getResourceURI(), resultStatus, {type: 'literal', value: status});
+      extMD.add(etlEntry.getResourceURI(), resultStatus, { type: 'literal', value: status });
       etlEntry.commitCachedExternalMetadata();
       return status;
     });

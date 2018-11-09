@@ -1,25 +1,25 @@
 import registry from 'commons/registry';
-import api from './api';
-import pipelineUtil from './pipelineUtil';
-import {promiseUtil} from 'store';
+import { promiseUtil } from 'store';
 import ProgressDialog from 'commons/progresstask/ProgressDialog';
 import TaskProgress from 'commons/progresstask/components/TaskProgress';
 import Row from 'commons/components/common/grid/Row';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
-import {clone, template} from 'lodash-es';
-import {i18n} from 'esi18n';
+import { clone, template } from 'lodash-es';
+import { i18n } from 'esi18n';
 import config from 'config';
 import declare from 'dojo/_base/declare';
 import stamp from 'dojo/date/stamp';
 import m from 'mithril';
+import api from './api';
+import pipelineUtil from './pipelineUtil';
 
 export default declare([], {
   initialTasksState: {
     init: {
       id: 'init',
       name: '',
-      nlsTaskName: 'apiInitialized',  // nlsString
+      nlsTaskName: 'apiInitialized', // nlsString
       width: '50%', // max width / nr of tasks,
       order: 1,
       status: '', // started, progress, done
@@ -66,7 +66,7 @@ export default declare([], {
   updateProgressDialog(tasks, updateFooter = false, errorMessage = null) {
     const modalBody = this.progressDialog.getModalBody();
     const getObjectValues = x => Object.keys(x).reduce((y, z) => y.push(x[z]) && y, []);
-    m.render(modalBody, m(TaskProgress, {tasks: getObjectValues(tasks)}));
+    m.render(modalBody, m(TaskProgress, { tasks: getObjectValues(tasks) }));
     if (updateFooter) {
       this.showFooterResult(errorMessage);
     }
@@ -91,7 +91,7 @@ export default declare([], {
       esu.getEntryByResourceURI(tempFileURI).then((fEntry) => {
         const format = fEntry.getEntryInfo().getFormat();
         const sizeOfFile = fEntry.getEntryInfo().getSize();
-        uri2FileDetails[tempFileURI] = {format, sizeOfFile};
+        uri2FileDetails[tempFileURI] = { format, sizeOfFile };
       }));
     return Promise.all(promises).then(() => {
       Object.keys(uri2FileDetails).forEach((ruri) => {
@@ -100,20 +100,20 @@ export default declare([], {
         }
       });
       if (config.catalog && totalFilesSize > config.catalog.maxFileSizeForAPI) {
-        return dialogs.acknowledge(template(this.escaFiles.activateAPINotAllowedFileToBig)({size: config.catalog.maxFileSizeForAPI})).then(() => {
-          throw new Exception('Stop reactivation, file(s) to big');
-        });
+        return dialogs.acknowledge(
+          template(
+            this.escaFiles.activateAPINotAllowedFileToBig)({ size: config.catalog.maxFileSizeForAPI }))
+          .then(() => {
+            throw new Exception('Stop reactivation, file(s) to big');
+          });
       }
-      rURIs = Object.keys(uri2FileDetails);
-      const format = rURIs.every((rURI) => {
-        fileFormat = uri2FileDetails[rURI].format;
-        return (fileFormat === 'text/csv');
-      });
+      const rURIs = Object.keys(uri2FileDetails);
+      const format = rURIs.every(rURI => uri2FileDetails[rURI].format === 'text/csv');
       if (!format) {
         return dialogs.confirm(template(
-          this.escaFiles.onlyCSVSupported)({format: format || '-'}),
-          this.escaFiles.confirmAPIActivation,
-          this.escaFiles.abortAPIActivation);
+          this.escaFiles.onlyCSVSupported)({ format: format || '-' }),
+        this.escaFiles.confirmAPIActivation,
+        this.escaFiles.abortAPIActivation);
       }
       return '';
     });
@@ -136,7 +136,7 @@ export default declare([], {
             // this.updateUI(); file processed with message
             this.noOfFiles += 1;
             const apiFileProcessed = i18n.renderNLSTemplate(this.escaApiProgress.apiFileProcessed,
-              {number: this.noOfFiles, totalFiles: this.totalNoFiles});
+              { number: this.noOfFiles, totalFiles: this.totalNoFiles });
             this.tasks.fileprocess.message = apiFileProcessed;
             this.updateProgressDialog(this.tasks);
           }, (err) => {
@@ -148,7 +148,7 @@ export default declare([], {
           }))));
   },
   _createDistribution(pres) {
-    this.distributionRow.createDistributionForAPI(pres).then((apiDistributionEntry) => {
+    this.distributionRow.createDistributionForAPI(pres).then(() => {
       this.tasks.fileprocess.status = 'done';
       this.updateProgressDialog(this.tasks);
       this.showFooterResult();
@@ -194,7 +194,7 @@ export default declare([], {
                 return pres.commit().then(() => {
                   this.noOfFiles += 1;
                   const apiFileProcessed = i18n.renderNLSTemplate(this.escaApiProgress.apiFileProcessed,
-                    {number: this.noOfFiles, totalFiles: this.totalNoFiles});
+                    { number: this.noOfFiles, totalFiles: this.totalNoFiles });
                   this.tasks.fileprocess.message = apiFileProcessed;
                   this.updateProgressDialog(this.tasks);
                   this._processFiles(tempFileURIs, pres).then(() => {
@@ -245,7 +245,7 @@ export default declare([], {
         pres.setTransformArguments(transformId, {});
         pres.setTransformArguments(transformId, {
           action: 'replace',
-          datasetURL: etlEntryResourceURI, //etl Entry
+          datasetURL: etlEntryResourceURI, // etl Entry
         });
         pres.commit().then(() => {
           this.tasks.init.status = 'done';
@@ -272,7 +272,7 @@ export default declare([], {
                 this.noOfFiles += 1;
                 const apiFileProcessed = i18n.renderNLSTemplate(
                   this.escaApiProgress.apiFileProcessed,
-                  {number: this.noOfFiles, totalFiles: this.totalNoFiles},
+                  { number: this.noOfFiles, totalFiles: this.totalNoFiles },
                 );
                 this.tasks.fileprocess.message = apiFileProcessed;
                 this.updateProgressDialog(this.tasks);
@@ -317,13 +317,13 @@ export default declare([], {
               reject();
             }
         }
-      })
+      });
     };
     return new Promise(f);
   },
   _getApiStatus(etlEntryURI) {
     const es = registry.get('entrystore');
-// eslint-disable-next-line arrow-body-style
+    // eslint-disable-next-line arrow-body-style
     return es.getEntry(etlEntryURI).then((etlEntry) => {
       return api.load(etlEntry).then((data) => {
         const status = api.status(data);

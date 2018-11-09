@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
 import BaseList from 'commons/list/common/BaseList';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import escaFiles from 'catalog/nls/escaFiles.nls';
 import declare from 'dojo/_base/declare';
@@ -16,7 +16,7 @@ const SelectList = declare([BaseList], {
   includeHeadBlock: false,
   listInDialog: true,
   searchVisibleFromStart: true,
-  nlsBundles: [{escoList}, {escaFiles}],
+  nlsBundles: [{ escoList }, { escaFiles }],
   entryType: ns.expand('dcat:Dataset'),
   rowClickDialog: 'select',
 
@@ -58,11 +58,11 @@ const SelectList = declare([BaseList], {
 export default declare([TitleDialog, NLSMixin.Dijit], {
   nlsHeaderTitle: 'connectToExistingDataset',
   includeFooter: false,
-  nlsBundles: [{escaFiles}],
+  nlsBundles: [{ escaFiles }],
 
   postCreate() {
     this.inherited(arguments);
-    this.selectedList = new SelectList({selectionDialog: this}, this.containerNode);
+    this.selectedList = new SelectList({ selectionDialog: this }, this.containerNode);
   },
   show(detailsDialog) {
     this.selectedList.detailsDialog = detailsDialog;

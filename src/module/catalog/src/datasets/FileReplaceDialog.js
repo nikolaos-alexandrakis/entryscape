@@ -1,15 +1,15 @@
 import registry from 'commons/registry';
 import ReplaceDialog from 'workbench/bench/ReplaceDialog';
-import GenerateAPI from './GenerateAPI';
 import escaFiles from 'catalog/nls/escaFiles.nls';
 import escaApiProgress from 'catalog/nls/escaApiProgress.nls';
 import escaManageFiles from 'catalog/nls/escaManageFiles.nls';
 import eswoReplaceDialog from 'workbench/nls/eswoReplaceDialog.nls';
-import declare from 'dojo/_base/declare'
+import declare from 'dojo/_base/declare';
 import stamp from 'dojo/date/stamp'; // todo
+import GenerateAPI from './GenerateAPI';
 
 export default declare([ReplaceDialog], {
-  nlsBundles: [{eswoReplaceDialog}, {escaManageFiles}, {escaApiProgress}, {escaFiles}],
+  nlsBundles: [{ eswoReplaceDialog }, { escaManageFiles }, { escaApiProgress }, { escaFiles }],
   open(params) {
     this.distributionEntry = params.distributionEntry;
     this.apiEntryURIs = params.apiEntryURIs;

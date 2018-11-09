@@ -5,7 +5,7 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import htmlUtil from 'commons/util/htmlUtil';
 import typeIndex from 'commons/create/typeIndex';
 import config from 'config';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import escaShowResults from 'catalog/nls/escaShowResults.nls';
 import declare from 'dojo/_base/declare';
@@ -13,7 +13,7 @@ import declare from 'dojo/_base/declare';
 const ns = registry.get('namespaces');
 
 const ResultsList = declare([BaseList], {
-  nlsBundles: [{escoList}, {escaShowResults}],
+  nlsBundles: [{ escoList }, { escaShowResults }],
   nlsCreateEntryMessage: null,
   includeRefreshButton: false,
   includeInfoButton: true,
@@ -59,7 +59,7 @@ const ResultsList = declare([BaseList], {
 });
 
 export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
-  nlsBundles: [{escaShowResults}],
+  nlsBundles: [{ escaShowResults }],
   maxWidth: 800,
   includeFooter: false,
 
@@ -74,7 +74,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.resultsList.render();
     const title = registry.get('rdfutils').getLabel(this.entry);
     this.updateLocaleStringsExplicit(
-      i18n.localize(escaShowResults, 'showResultsDialogHeader', {1: title}),
+      i18n.localize(escaShowResults, 'showResultsDialogHeader', { 1: title }),
     );
     this.show();
   },

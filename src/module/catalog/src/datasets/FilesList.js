@@ -21,19 +21,17 @@ const FileReplaceDialog = declare(ReplaceDialog, {
     const md = this.entry.getMetadata();
     md.findAndRemove(null, 'dcterms:title');
     md.addL(this.entry.getResourceURI(), 'dcterms:title', this.fileOrLink.getValue());
-    return this.entry.commitMetadata().then(() => {
-      return this.entry.getResource(true).putFile(inp).then(() => {
-        distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
-        distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
-        return this.distributionEntry.commitMetadata().then(() => {
-          // check here ..need to update list rows to update dropdown items
-          this.list.setListModiifed(true);
-          this.list.rowMetadataUpdated(this.row, true);
-          this.entry.setRefreshNeeded();
-          return this.entry.refresh();
-        });
+    return this.entry.commitMetadata().then(() => this.entry.getResource(true).putFile(inp).then(() => {
+      distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
+      distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
+      return this.distributionEntry.commitMetadata().then(() => {
+        // check here ..need to update list rows to update dropdown items
+        this.list.setListModiifed(true);
+        this.list.rowMetadataUpdated(this.row, true);
+        this.entry.setRefreshNeeded();
+        return this.entry.refresh();
       });
-    });
+    }));
   },
 });
 
@@ -71,7 +69,7 @@ const AddFileDialog = declare(RDFormsEditDialog, {
       } else {
         this.lockFooterButton();
       }
-    }
+    };
     this.fileOrLink = new EntryType({
       valueChange,
     }, htmlUtil.create('div', null, this.containerNode, true));
@@ -97,7 +95,8 @@ const AddFileDialog = declare(RDFormsEditDialog, {
     this.distributionEntry = this.list.entry;
     const title = graph.findFirstValue(null, 'dcterms:title');
     if (!title) {
-      graph.addL(this._newEntry.getResourceURI(), 'dcterms:title', this.fileOrLink.getValue());// check whether graph have title or not
+      // check whether graph have title or not
+      graph.addL(this._newEntry.getResourceURI(), 'dcterms:title', this.fileOrLink.getValue());
     }
     this._newEntry.setMetadata(graph);
     return this._newEntry.commit().then(fileEntry => fileEntry.getResource(true)
@@ -146,14 +145,14 @@ const FileRow = declare(EntryRow, {
     if (fileStmts.length === 1 && params.name === 'remove') {
       return 'disabled';
     }
-    this.inherited(arguments);
+    return this.inherited(arguments);
   },
   installActionOrNot(params) {
     const fileStmts = this.list.entry.getMetadata().find(this.list.entry.getResourceURI(), 'dcat:downloadURL');
     if (fileStmts.length === 1 && params.name === 'remove') {
       return 'disabled';
     }
-    this.inherited(arguments);
+    return this.inherited(arguments);
   },
 });
 
@@ -164,7 +163,7 @@ export default declare([BaseList], {
   includeRemoveButton: true,
   includeRefreshButton: false,
   includeSortOptions: false,
-  nlsBundles: [{escoList}, {escaFilesList}],
+  nlsBundles: [{ escoList }, { escaFilesList }],
   nlsRemoveEntryConfirm: 'confirmRemoveFile',
   nlsEditEntryTitle: 'editFileTitle',
   nlsEditEntryLabel: 'editFileLabel',
@@ -214,9 +213,7 @@ export default declare([BaseList], {
   getSearchObject() {
     const context = registry.get('context');
     const fileStmts = this.entry.getMetadata().find(this.entry.getResourceURI(), 'dcat:downloadURL');
-    const fileURIs = fileStmts.map((fileStmt) => {
-      return fileStmt.getValue();
-    });
+    const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
     /** @type {store/EntryStore} */
     const es = registry.get('entrystore');
     return es.newSolrQuery().rdfType(this.entryType).context(context.getResourceURI())

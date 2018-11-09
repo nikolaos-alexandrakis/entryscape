@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
-import templateString from './DistributionDialogTemplate.html';
 import config from 'config';
 import APIInfo from 'catalog/files/APIInfo';
-import {Presenter} from 'rdforms';
+import { Presenter } from 'rdforms';
 import declare from 'dojo/_base/declare';
+import templateString from './DistributionDialogTemplate.html';
 
 export default declare([RDFormsPresentDialog], {
   templateString,
   checkForAPI: true,
   postCreate() {
-    this.presenter = new Presenter({compact: true}, this.presenter);
-    this.apiInfo = new APIInfo({}, this.apiInfo)
+    this.presenter = new Presenter({ compact: true }, this.presenter);
+    this.apiInfo = new APIInfo({}, this.apiInfo);
   },
   open(entry) {
     if (this.checkForAPI) {

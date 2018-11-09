@@ -5,6 +5,13 @@ import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import VersionsDialog from 'commons/list/common/VersionsDialog';
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
+import { i18n } from 'esi18n';
+import config from 'config';
+import escoList from 'commons/nls/escoList.nls';
+import escaDataset from 'catalog/nls/escaDataset.nls';
+import { withinDatasetLimit } from 'catalog/utils/limit';
+import { createEntry } from 'commons/util/storeUtil';
+import declare from 'dojo/_base/declare';
 import checkAndRepairListener from './checkAndRepairListener';
 import DatasetRow from './DatasetRow';
 import ManageFiles from './ManageFiles';
@@ -13,14 +20,6 @@ import ListView from '../utils/ListView';
 import CreateDistribution from './CreateDistribution';
 import ShowResultsDialog from './ShowResultsDialog';
 import ShowIdeasDialog from './ShowIdeasDialog';
-import {i18n} from 'esi18n';
-import config from 'config';
-import escoList from 'commons/nls/escoList.nls';
-import escaDataset from 'catalog/nls/escaDataset.nls';
-import {withinDatasetLimit} from 'catalog/utils/limit';
-import {createEntry} from 'commons/util/storeUtil';
-
-import declare from 'dojo/_base/declare';
 
 const ns = registry.get('namespaces');
 const CreateDialog = declare(RDFormsEditDialog, {
@@ -110,7 +109,7 @@ const CommentDialog2 = declare([CommentDialog], {
   open(params) {
     this.inherited(arguments);
     const name = registry.get('rdfutils').getLabel(params.row.entry);
-    this.title = i18n.renderNLSTemplate(this.list.nlsSpecificBundle.commentHeader, {name});
+    this.title = i18n.renderNLSTemplate(this.list.nlsSpecificBundle.commentHeader, { name });
     this.footerButtonLabel = this.list.nlsSpecificBundle.commentFooterButton;
     this.localeChange();
   },
@@ -128,14 +127,14 @@ const CloneDialog = declare([ListDialogMixin], {
   open(params) {
     const datasetEntry = params.row.entry;
     const dialogs = registry.get('dialogs');
-    confirmMessage = this.list.nlsSpecificBundle.cloneDatasetQuestion;
+    const confirmMessage = this.list.nlsSpecificBundle.cloneDatasetQuestion;
     dialogs.confirm(confirmMessage, null, null, (confirm) => {
       if (!confirm) {
         return;
       }
       const nds = createEntry(null, 'dcat:Dataset');
-      const nmd = datasetEntry.getMetadata()
-        .clone().replaceURI(datasetEntry.getResourceURI(), nds.getResourceURI());
+      const nmd = datasetEntry.getMetadata().clone()
+        .replaceURI(datasetEntry.getResourceURI(), nds.getResourceURI());
       return registry.get('getGroupWithHomeContext')(nds.getContext()).then((groupEntry) => {
         const ei = nds.getEntryInfo();
         const acl = ei.getACL(true);
@@ -150,13 +149,14 @@ const CloneDialog = declare([ListDialogMixin], {
         nmd.addL(nds.getResourceURI(), 'dcterms:title', copyString + title);
         return nds.commit().then((newEntry) => {
           this.list.getView().addRowForEntry(newEntry);
-          return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', newEntry.getContext()).then((catalog) => {
-            catalog.getMetadata().add(catalog.getResourceURI(), 'dcat:dataset', newEntry.getResourceURI());
-            return catalog.commitMetadata().then(() => {
-              newEntry.setRefreshNeeded();
-              return newEntry.refresh();
+          return registry.get('entrystoreutil')
+            .getEntryByType('dcat:Catalog', newEntry.getContext()).then((catalog) => {
+              catalog.getMetadata().add(catalog.getResourceURI(), 'dcat:dataset', newEntry.getResourceURI());
+              return catalog.commitMetadata().then(() => {
+                newEntry.setRefreshNeeded();
+                return newEntry.refresh();
+              });
             });
-          });
         });
       });
     });
@@ -169,7 +169,7 @@ export default declare([ETBaseList], {
   includeEditButton: true,
   includeRemoveButton: true,
   nlsApiExistsToUnpublishDataset: 'apiExistsToUnpublishDataset',
-  nlsBundles: [{escoList}, {escaDataset}],
+  nlsBundles: [{ escoList }, { escaDataset }],
   entitytype: 'dataset',
   entryType: ns.expand('dcat:Dataset'),
   rowClass: DatasetRow,

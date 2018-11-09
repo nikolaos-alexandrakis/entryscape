@@ -4,6 +4,7 @@ import catalogConfig from 'catalog/config/config';
 import workbenchConfig from 'workbench/config/config';
 import termsConfig from 'terms/config/config';
 import {i18n} from 'esi18n';
+import {get} from 'lodash-es';
 
 const STATIC = {
   URL: 'https://static.entryscape.com/',
@@ -85,10 +86,12 @@ for (let i = 0; i < config.locale.supported.length; i++) {
   }
 }
 
-if(bestlang) {
+if (bestlang) {
   i18n.setLocale(bestlang);
 }
 else {
   i18n.setLocale(config.locale.fallback);
 }
+
+config.get = get.bind(null, config);
 export default config;

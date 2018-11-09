@@ -1,41 +1,39 @@
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import templateString from './DistributionRowTemplate.html';
-import ApiInfoDialog from './ApiInfoDialog';
-import GenerateAPI from './GenerateAPI';
 import DropdownMenu from 'commons/menu/DropdownMenu';
 import dateUtil from 'commons/util/dateUtil';
-import {utils} from 'store';
-import {engine, utils as rdformsUtils} from 'rdforms';
+import { utils } from 'store';
+import { engine, utils as rdformsUtils } from 'rdforms';
 import config from 'config';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoList from 'commons/nls/escoList.nls';
 import escaFiles from 'catalog/nls/escaFiles.nls';
-import {template} from 'lodash-es';
+import { template } from 'lodash-es';
 import jquery from 'jquery';
 import escaApiProgress from 'catalog/nls/escaApiProgress.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import templateString from './DistributionRowTemplate.html';
+import ApiInfoDialog from './ApiInfoDialog';
+import GenerateAPI from './GenerateAPI';
 
 const ns = registry.get('namespaces');
 
-const createAPIDistribution = (etlEntry, parentDistEntry) => {
-  return parentDistEntry.getContext().newNamedEntry()
-    .add('rdf:type', 'dcat:Distribution')
-    .add('dcat:accessURL', etlEntry.getResourceURI())
-    .add('dcterms:conformsTo', `${etlEntry.getResourceURI()}/swagger`)
-    .add('dcterms:source', parentDistEntry.getResourceURI())
-    .addL('dcterms:format', 'application/json')
-    .commit();
-};
+const createAPIDistribution = (etlEntry, parentDistEntry) => parentDistEntry.getContext().newNamedEntry()
+  .add('rdf:type', 'dcat:Distribution')
+  .add('dcat:accessURL', etlEntry.getResourceURI())
+  .add('dcterms:conformsTo', `${etlEntry.getResourceURI()}/swagger`)
+  .add('dcterms:source', parentDistEntry.getResourceURI())
+  .addL('dcterms:format', 'application/json')
+  .commit();
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString,
   entry: null,
   datasetRow: null,
-  nlsBundles: [{escaDataset}, {escoList}, {escaFiles}, {escaApiProgress}],
+  nlsBundles: [{ escaDataset }, { escoList }, { escaFiles }, { escaApiProgress }],
   isDownload: true,
   postCreate() {
     this.dropdownMenu = new DropdownMenu({}, this.buttonMenuNode);
@@ -68,7 +66,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     }
     // Alternatively check for pure value via array of properties
     if (!format && config.catalog.formatProp) {
-      let formatPropArr = typeof formatPropArr === 'string' ? [config.catalog.formatProp] :
+      const formatPropArr = typeof config.catalog.formatProp === 'string' ? [config.catalog.formatProp] :
         config.catalog.formatProp;
       formatPropArr.find((prop) => {
         format = md.findFirstValue(subj, ns.expand(prop));
@@ -102,7 +100,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   renderDate() {
     if (this.NLSBundles.escoList && this.modDate != null) { // Localization strings are loaded.
       const mDateFormats = dateUtil.getMultipleDateFormats(this.modDate);
-      const tStr = template(this.NLSBundles.escoList.modifiedDateTitle)({date: mDateFormats.full});
+      const tStr = template(this.NLSBundles.escoList.modifiedDateTitle)({ date: mDateFormats.full });
       this.modifiedNode.innerHTML = mDateFormats.short;
       this.modifiedNode.setAttribute('title', tStr);
     }
@@ -404,11 +402,11 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     });
   },
   edit() {
-    this.datasetRow.list.openDialog('distributionEdit', {row: this});
+    this.datasetRow.list.openDialog('distributionEdit', { row: this });
   },
   openApiInfo(entry) {
     this.getEtlEntry(entry).then((etlEntry) => {
-      this.apiInfoDialog.open({etlEntry, apiDistributionEntry: this.entry});
+      this.apiInfoDialog.open({ etlEntry, apiDistributionEntry: this.entry });
     });
   },
   reGenerateAPI(entry) {
@@ -432,9 +430,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const md = entry.getMetadata();
     const esUtil = registry.get('entrystoreutil');
     const pipelineResultResURI = md.findFirstValue(entry.getResourceURI(), ns.expand('dcat:accessURL'));
-    return esUtil.getEntryByResourceURI(pipelineResultResURI).then((pipelineResult) => {
-      return new Promise(resove => resolve(pipelineResult));
-    });
+    return esUtil.getEntryByResourceURI(pipelineResultResURI)
+      .then(pipelineResult => new Promise(r => r(pipelineResult)));
   },
   addFile() {
     this.datasetRow.list.openDialog('manageFiles', {
@@ -501,14 +498,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       distributionRow: this,
       datasetRow: this.datasetRow,
       escaApiProgress: this.NLSBundles.escaApiProgress,
-      escaFiles: this.NLSBundles.escaFiles
+      escaFiles: this.NLSBundles.escaFiles,
     });
   },
   createDistributionForAPI(pipelineResultEntryURI) {
     if (!pipelineResultEntryURI || !this.datasetRow.entry) {
-      return new Promise((resolve, reject) => {
-        reject(!pipelineResultEntryURI ? 'No API to create distribution for.' : 'No Dataset to create distribution in.')
-      })
+      return new Promise((resolve, reject) =>
+        reject(!pipelineResultEntryURI
+          ? 'No API to create distribution for.' : 'No Dataset to create distribution in.'));
     }
     const datasetEntry = this.datasetRow.entry;
     const self = this;
@@ -539,6 +536,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       if (`${key}` !== this.entry.getResourceURI() && (format !== '' && format != null)) {
         return format === `${value}`;
       }
+
+      return false;
     });
     if (isFormatSame) {
       this.warningNode.style.display = 'block';

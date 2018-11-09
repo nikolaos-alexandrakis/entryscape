@@ -1,13 +1,13 @@
 import registry from 'commons/registry';
-import FileRow from './FileRow';
-import DetailsDialog from './DetailsDialog';
 import FileDialog from 'commons/dialog/FileDialog';
 import BaseList from 'commons/list/common/BaseList';
-import ListView from '../utils/ListView';
-import {types} from 'store';
+import { types } from 'store';
 import escoList from 'commons/nls/escoList.nls';
 import escaFiles from 'catalog/nls/escaFiles.nls';
 import declare from 'dojo/_base/declare';
+import FileRow from './FileRow';
+import DetailsDialog from './DetailsDialog';
+import ListView from '../utils/ListView';
 
 const ns = registry.get('namespaces');
 
@@ -37,7 +37,7 @@ const CreateDialog = declare([FileDialog], {
 
 export default declare([BaseList], {
   rowClass: FileRow,
-  nlsBundles: [{escoList}, {escaFiles}],
+  nlsBundles: [{ escoList }, { escaFiles }],
   includeCreateButton: true,
   includeInfoButton: false,
   nlsCreateEntryMessage: null,

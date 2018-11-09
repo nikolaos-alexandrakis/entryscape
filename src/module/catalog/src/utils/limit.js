@@ -1,5 +1,4 @@
 import registry from 'commons/registry';
-import typeIndex from 'commons/create/typeIndex';
 import config from 'config';
 
 const defaultWithinDatasetLimit = (count) => {
@@ -31,4 +30,5 @@ const defaultWithinDatasetLimit = (count) => {
 registry.set('withinDatasetLimit', defaultWithinDatasetLimit);
 
 // if the dataset limit function is set via registry than use that
+// eslint-disable-next-line import/prefer-default-export
 export const withinDatasetLimit = registry.get('withinDatasetLimit') || defaultWithinDatasetLimit;

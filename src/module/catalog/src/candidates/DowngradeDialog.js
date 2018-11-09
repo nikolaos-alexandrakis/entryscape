@@ -1,10 +1,10 @@
 import registry from 'commons/registry';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaDowngrade from 'catalog/nls/escaDowngrade.nls';
 import declare from 'dojo/_base/declare';
 
 export default declare([NLSMixin], {
-  nlsBundles: [{escaDowngrade}],
+  nlsBundles: [{ escaDowngrade }],
   constructor() {
     this.initNLS();
   },

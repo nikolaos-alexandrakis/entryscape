@@ -4,9 +4,9 @@ import BaseList from 'commons/list/common/BaseList';
 import ListView from 'commons/list/ListView';
 import escoList from 'commons/nls/escoList.nls';
 import escaDataset from 'catalog/nls/escaDataset.nls';
+import declare from 'dojo/_base/declare';
 
 const ns = registry.get('namespaces');
-import declare from 'dojo/_base/declare';
 
 export default declare([BaseList], {
   includeCreateButton: false,
@@ -16,7 +16,7 @@ export default declare([BaseList], {
   includeHead: true,
   includeResultSize: false,
   searchVisibleFromStart: true,
-  nlsBundles: [{escoList}, {escaDataset}],
+  nlsBundles: [{ escoList }, { escaDataset }],
   entryType: ns.expand('dcat:Dataset'),
   listViewClass: ListView,
   class: 'datasets',

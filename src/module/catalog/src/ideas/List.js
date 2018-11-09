@@ -53,7 +53,7 @@ export default declare([ETBaseList], {
   includeInfoButton: false,
   includeEditButton: true,
   includeRemoveButton: true,
-  nlsBundles: [{escoList}, {escaIdeas}],
+  nlsBundles: [{ escoList }, { escaIdeas }],
   entryType: ns.expand('esterms:Idea'),
   entitytype: 'datasetIdea',
   rowClass: IdeaRow,

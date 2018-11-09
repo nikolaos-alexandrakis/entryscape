@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
 import ETBaseList from 'commons/list/common/ETBaseList';
-import CandidateRow from './CandidateRow';
-import ListView from '../utils/ListView';
-import {createEntry} from 'commons/util/storeUtil';
-import UpgradeDialog from './UpgradeDialog';
+import { createEntry } from 'commons/util/storeUtil';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import ProgressDialog from 'commons/progress/ProgressDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
-import {i18n} from 'esi18n';
+import { i18n } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import escaCandidates from 'catalog/nls/escaCandidates.nls';
 import config from 'config';
 import declare from 'dojo/_base/declare';
+import ListView from '../utils/ListView';
+import CandidateRow from './CandidateRow';
+import UpgradeDialog from './UpgradeDialog';
 
 const ns = registry.get('namespaces');
 
@@ -55,7 +55,7 @@ const CommentDialog2 = declare([CommentDialog], {
   open(params) {
     this.inherited(arguments);
     const name = registry.get('rdfutils').getLabel(params.row.entry);
-    this.title = i18n.renderNLSTemplate(this.list.nlsSpecificBundle.commentHeader, {name});
+    this.title = i18n.renderNLSTemplate(this.list.nlsSpecificBundle.commentHeader, { name });
     this.footerButtonLabel = this.list.nlsSpecificBundle.commentFooterButton;
     this.localeChange();
   },
@@ -66,7 +66,7 @@ export default declare([ETBaseList], {
   includeInfoButton: false,
   includeEditButton: true,
   includeRemoveButton: true,
-  nlsBundles: [{escoList}, {escaCandidates}],
+  nlsBundles: [{ escoList }, { escaCandidates }],
   entitytype: 'candidate',
   entryType: ns.expand('esterms:CandidateDataset'),
   nlsCreateEntryLabel: 'createCandidate',

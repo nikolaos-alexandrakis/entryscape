@@ -12,12 +12,11 @@ export default declare([_WidgetBase], {
   },
 
   show(params) {
-    const {context, dataset} = params.params;
+    const { context, dataset } = params.params;
     const es = registry.get('entrystore');
     const contextObj = context ? es.getContextById(context) : registry.get('context');
 
     if (dataset) {
-      const entrystoreutil = registry.get('entrystoreutil');
       this.entryPromise = es.getEntry(es.getEntryURI(contextObj.getId(), dataset));
       this.entryPromise.then(this.showEntry.bind(this));
     }
@@ -28,7 +27,7 @@ export default declare([_WidgetBase], {
       this.viewer.destroy();
       delete this.viewer;
     }
-    this.viewer = new Dataset({inDialog: false}, htmlUtil.create('div', null, this.viewNode));
+    this.viewer = new Dataset({ inDialog: false }, htmlUtil.create('div', null, this.viewNode));
     this.viewer.startup();
     this.viewer.showEntry(entry);
   },

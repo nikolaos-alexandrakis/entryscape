@@ -28,7 +28,7 @@ const ResultRow = declare([ToggleRow], {
   updateLocaleStrings(generic, specific) {
     this.inherited('updateLocaleStrings', arguments);
     if (!this.catalogPublic) {
-      this.protectedNode.setAttribute('title', specific.privateDisabledResultTitle)
+      this.protectedNode.setAttribute('title', specific.privateDisabledResultTitle);
     }
   },
   toggleImpl(onSuccess) {
@@ -53,7 +53,7 @@ export default declare([ETBaseList], {
   includeInfoButton: false,
   includeEditButton: true,
   includeRemoveButton: true,
-  nlsBundles: [{escoList}, {escaResults}],
+  nlsBundles: [{ escoList }, { escaResults }],
   entryType: ns.expand('esterms:Result'),
   entitytype: 'datasetResult',
   rowClass: ResultRow,

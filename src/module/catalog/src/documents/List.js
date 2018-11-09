@@ -5,7 +5,7 @@ import escaDocuments from 'catalog/nls/escaDocuments.nls';
 import declare from 'dojo/_base/declare';
 
 export default declare([List], {
-  nlsBundles: [{escoList}, {escaDocuments}],
+  nlsBundles: [{ escoList }, { escaDocuments }],
   nlsRemoveEntryConfirm: 'confirmDocumentRemove',
   includeMassOperations: false,
   rowActionNames: ['edit', 'replace', 'download', 'remove'],

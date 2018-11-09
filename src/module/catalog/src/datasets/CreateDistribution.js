@@ -1,5 +1,5 @@
 import registry from 'commons/registry';
-import {validate} from 'rdforms';
+import { validate } from 'rdforms';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import EntryType from 'commons/create/EntryType';
 import htmlUtil from 'commons/util/htmlUtil';
@@ -8,11 +8,11 @@ import escoRdforms from 'commons/nls/escoRdforms.nls';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoEntryType from 'commons/nls/escoEntryType.nls';
 import declare from 'dojo/_base/declare';
-import {createEntry} from 'commons/util/storeUtil';
+import { createEntry } from 'commons/util/storeUtil';
 
 const ns = registry.get('namespaces');
-const distributionEntryType = declare([EntryType], {
-  nlsBundles: [{escoEntryType}, {escaDataset}],
+const DistributionEntryType = declare([EntryType], {
+  nlsBundles: [{ escoEntryType }, { escaDataset }],
   localeChange() {
     this.inherited(arguments);
     this.__fileOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.fileUploadDistribution;
@@ -30,7 +30,7 @@ const distributionEntryType = declare([EntryType], {
 });
 
 export default declare([RDFormsEditDialog], {
-  nlsBundles: [{escoRdforms}, {escaDataset}],
+  nlsBundles: [{ escoRdforms }, { escaDataset }],
   title: 'temp',
   nlsHeaderTitle: 'createDistributionHeader',
   nlsFooterButtonLabel: 'createDistributionButton',
@@ -44,7 +44,7 @@ export default declare([RDFormsEditDialog], {
             'http://www.w3.org/ns/dcat#downloadURL': true,
           };
         } else {
-          this.editor.filterPredicates = {'http://www.w3.org/ns/dcat#accessURL': true};
+          this.editor.filterPredicates = { 'http://www.w3.org/ns/dcat#accessURL': true };
         }
         this.editor.render();
       };
@@ -57,7 +57,7 @@ export default declare([RDFormsEditDialog], {
         }
       };
 
-      this.fileOrLink = new distributionEntryType({
+      this.fileOrLink = new DistributionEntryType({
         optionChange,
         valueChange,
         list: this.list,
@@ -76,7 +76,7 @@ export default declare([RDFormsEditDialog], {
     this.datasetEntry = params.row.entry;
     if (this.fileOrLink) {
       this.fileOrLink.show(config.catalog.excludeFileuploadDistribution !== true, true, false);
-      this.editor.filterPredicates = {'http://www.w3.org/ns/dcat#accessURL': true};
+      this.editor.filterPredicates = { 'http://www.w3.org/ns/dcat#accessURL': true };
     }
     this._newEntry = createEntry(null, 'dcat:Distribution');
     const nds = this._newEntry;
@@ -94,7 +94,8 @@ export default declare([RDFormsEditDialog], {
   getReport() {
     const report = validate.bindingReport(this.editor.binding);
     if (this.fileOrLink && report.errors.length > 0) {
-      report.errors = report.errors.filter(err => !(err.item && err.item.getProperty() === ns.expand('dcat:accessURL')));
+      report.errors = report.errors
+        .filter(err => !(err.item && err.item.getProperty() === ns.expand('dcat:accessURL')));
     }
     return report;
   },
@@ -105,7 +106,8 @@ export default declare([RDFormsEditDialog], {
     this._setACL(pDistributionEntry);
     const createAndConnect = () => pDistributionEntry.setMetadata(graph).commit()
       .then((distributionEntry) => {
-        this.datasetEntry.getMetadata().add(this.datasetEntry.getResourceURI(), 'dcat:distribution', distributionEntry.getResourceURI());
+        this.datasetEntry.getMetadata()
+          .add(this.datasetEntry.getResourceURI(), 'dcat:distribution', distributionEntry.getResourceURI());
         return this.datasetEntry.commitMetadata().then(() => {
           this.row.clearDistributions();
           this.row.listDistributions();

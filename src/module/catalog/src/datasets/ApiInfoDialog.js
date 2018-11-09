@@ -1,19 +1,19 @@
-import api from './api';
-import pipelineUtil from './pipelineUtil';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import htmlUtil from 'commons/util/htmlUtil';
-import template from './ApiInfoDialogTemplate.html';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaFiles from 'catalog/nls/escaFiles.nls';
 import escaDataset from 'catalog/nls/escaDataset.nls';
-import './escaApiInfo.css';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import api from './api';
+import pipelineUtil from './pipelineUtil';
+import template from './ApiInfoDialogTemplate.html';
+import './escaApiInfo.css';
 
 export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   bid: 'escaApiInfo',
   templateString: template,
-  nlsBundles: [{escaFiles}, {escaDataset}],
+  nlsBundles: [{ escaFiles }, { escaDataset }],
 
   maxWidth: 800,
   nlsHeaderTitle: 'apiInfoDialogHeader',
@@ -138,7 +138,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
       this.colName = cols[0];
       const aliasName = this.etlEntry.getCachedExternalMetadata().findFirstValue(null, 'store:aliasName');
       if (aliasName) {
-        this.apiAlias.setAttribute('value', aliasName)
+        this.apiAlias.setAttribute('value', aliasName);
         this.currentAliasName = aliasName;
         this._updateExampleURL(aliasName);
       } else {
@@ -155,7 +155,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
        */
       cols.forEach((column) => {
         const tr = htmlUtil.create('tr', null, this.apiColumnsTableBody);
-        htmlUtil.create('td', {innerHTML: column}, tr);
+        htmlUtil.create('td', { innerHTML: column }, tr);
       });
     }
   },

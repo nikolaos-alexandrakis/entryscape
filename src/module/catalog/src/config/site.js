@@ -23,7 +23,7 @@ export default {
   views: {
     catalog__list: {
       class: CatalogList,
-      title: {en: 'Catalogs', sv: 'Kataloger', da: 'Kataloger', de: 'Kataloge'},
+      title: { en: 'Catalogs', sv: 'Kataloger', da: 'Kataloger', de: 'Kataloge' },
       constructorParams: {
         rowClickView: 'catalog__datasets', // refers to a view name
       },
@@ -34,13 +34,13 @@ export default {
     catalog: {
       class: Cards,
       labelCrumb: true,
-      constructorParams: {entryType: 'dcat:Catalog'},
+      constructorParams: { entryType: 'dcat:Catalog' },
       module: 'catalog',
       route: '/catalog/:context',
-      parent: 'catalog__list'
+      parent: 'catalog__list',
     },
     catalog__overview: {
-      title: {en: 'Overview', sv: 'Översikt', de: 'Überblick'},
+      title: { en: 'Overview', sv: 'Översikt', de: 'Überblick' },
       class: Overview,
       faClass: 'eye',
       route: '/catalog/:context/overview',
@@ -50,7 +50,7 @@ export default {
     catalog__file: {
       class: FilesList,
       faClass: 'files-o',
-      title: {en: 'Files', sv: 'Filer', de: 'Dateien'},
+      title: { en: 'Files', sv: 'Filer', de: 'Dateien' },
       route: '/catalog/:context/files', // ^/context/\w+/files/?$
       parent: 'catalog',
       module: 'catalog',
@@ -72,21 +72,21 @@ export default {
     catalog__datasets: {
       class: DatasetList,
       faClass: 'cubes',
-      title: {en: 'Datasets', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze'},
-      constructorParams: {createAndRemoveDistributions: true},
+      title: { en: 'Datasets', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
+      constructorParams: { createAndRemoveDistributions: true },
       route: '/catalog/:context/datasets',
       parent: 'catalog',
       module: 'catalog',
     },
     catalog__datasets__preview: {
       class: Public,
-      title: {en: 'Datasets Preview', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze'},
+      title: { en: 'Datasets Preview', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
       route: '/catalog/:context/datasets/:dataset',
       parent: 'catalog__datasets',
       module: 'catalog',
     },
     catalog__showcases: {
-      title: {en: 'Showcases', sv: 'Showcases', da: 'Showcases', de: 'Showcases'},
+      title: { en: 'Showcases', sv: 'Showcases', da: 'Showcases', de: 'Showcases' },
       class: ShowcasesList,
       faClass: 'diamond',
       route: '/catalog/:context/showcases',
@@ -94,7 +94,7 @@ export default {
       module: 'catalog',
     },
     catalog__ideas: {
-      title: {en: 'Ideas', sv: 'Idéer', da: 'Ideer', de: 'Ideen'},
+      title: { en: 'Ideas', sv: 'Idéer', da: 'Ideer', de: 'Ideen' },
       class: IdeasList,
       faClass: 'lightbulb-o',
       route: '/catalog/:context/ideas',
@@ -110,7 +110,7 @@ export default {
         da: 'Organisa&shy;tioner',
         de: 'Heraus&shy;geber',
       },
-      constructorParams: {publishers: true, contacts: false},
+      constructorParams: { publishers: true, contacts: false },
       route: '/catalog/:context/publishers',
       parent: 'catalog',
       module: 'catalog',
@@ -118,22 +118,22 @@ export default {
     catalog__contacts: {
       class: ContactsList,
       faClass: 'phone',
-      title: {en: 'Contacts', sv: 'Kontakter', da: 'Kontakter', de: 'Kontakte'},
-      constructorParams: {publishers: false, contacts: true},
+      title: { en: 'Contacts', sv: 'Kontakter', da: 'Kontakter', de: 'Kontakte' },
+      constructorParams: { publishers: false, contacts: true },
       route: '/catalog/:context/contacts',
       parent: 'catalog',
       module: 'catalog',
     },
     catalog__search: {
       class: Search,
-      title: {en: 'Search', sv: 'Sök', de: 'Suche'},
+      title: { en: 'Search', sv: 'Sök', de: 'Suche' },
       route: '/search',
       module: 'search',
       navbar: false,
     },
     catalog__dataset__search: {
       class: Search,
-      title: {en: 'Search datasets', sv: 'Sök datamängder', de: 'Suche nach Datensätzen'},
+      title: { en: 'Search datasets', sv: 'Sök datamängder', de: 'Suche nach Datensätzen' },
       route: '/search/:context',
       module: 'search',
       parent: 'catalog__search',
@@ -142,7 +142,7 @@ export default {
     catalog__documents: {
       class: DocumentsList,
       faClass: 'file-alt',
-      title: {en: 'Documents', sv: 'Dokument', de: 'Dokumente'},
+      title: { en: 'Documents', sv: 'Dokument', de: 'Dokumente' },
       route: '/catalog/:context/documents',
       parent: 'catalog',
       module: 'catalog',

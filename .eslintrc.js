@@ -4,7 +4,7 @@ module.exports = {
   extends: 'airbnb-base',
   settings: {
     'import/resolver': {
-      webpack: {config: path.join(__dirname, 'webpack.config.js')},
+      webpack: { config: path.join(__dirname, 'webpack.config.js') },
     },
   },
   parser: 'babel-eslint',
@@ -26,6 +26,6 @@ module.exports = {
     'no-prototype-builtins': 'off',
     'no-param-reassign': ['error', { 'props': false }],
     'import/extensions': ['error', { '.js': 'never' }],
-    'max-len': ['error', { 'code': 120 }],
+    'max-len': ['error', { 'code': 120, "ignoreTrailingComments": true }],
   }
 };

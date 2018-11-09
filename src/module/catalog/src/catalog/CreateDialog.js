@@ -1,22 +1,22 @@
 import registry from 'commons/registry';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import template from './CreateDialogTemplate.html';
-import {renderingContext} from 'rdforms';
+import { renderingContext } from 'rdforms';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import config from 'config';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaCatalog from 'catalog/nls/escaCatalog.nls';
-import './catalog.css';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import {createEntry} from 'commons/util/storeUtil';
+import { createEntry } from 'commons/util/storeUtil';
+import template from './CreateDialogTemplate.html';
+import './catalog.css';
 
 const createWithoutPublisher = config.catalog && config.catalog.createWithoutPublisher === true;
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{escaCatalog}],
+  nlsBundles: [{ escaCatalog }],
   nlsHeaderTitle: 'createCatalogHeader',
   nlsFooterButtonLabel: 'createCatalogButton',
 
