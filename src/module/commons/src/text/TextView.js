@@ -1,8 +1,7 @@
-import {i18n} from 'esi18n';
-import DOMUtil from '../util/htmlUtil';
-
-import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
+import DOMUtil from '../util/htmlUtil';
 
 const defaultPadding = '20px';
 export default declare([_WidgetBase], {
@@ -11,7 +10,7 @@ export default declare([_WidgetBase], {
   padding: true,
 
   buildRendering() {
-    this.domNode = DOMUtil.create('div', {class: 'textView'});
+    this.domNode = DOMUtil.create('div', { class: 'textView' });
   },
 
   show(params) {

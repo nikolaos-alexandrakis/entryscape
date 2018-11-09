@@ -1,14 +1,14 @@
-import {i18n, NLSMixin} from 'esi18n';
 import escoComment from 'commons/nls/escoComment.nls';
-import {template as renderTemplate} from 'lodash-es';
-import templateString from './CommentTemplate.html';
-import registry from '../registry';
-import comments from './comments';
-import dateUtil from '../util/dateUtil';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import registry from 'commons/registry';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
 import focusUtil from 'dijit/focus'; // TODO
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { template } from 'lodash-es';
+import dateUtil from '../util/dateUtil';
+import comments from './comments';
+import templateString from './CommentTemplate.html';
 import './escoComment.css';
 
 // @TODO: @scazan Figure out and update NLS parts of this
@@ -31,7 +31,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   __commentsList: null,
   initialOpenReplies: false,
 
-  nlsBundles: [{escoComment}],
+  nlsBundles: [{ escoComment }],
   nlsSpecificBundle: escoComment,
 
   postCreate() {
@@ -48,7 +48,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     if (this.NLSBundle0) {
       this.creationDateTitle = this.NLSBundle0.creationDateTitle;
 
-      const tStr = renderTemplate(this.creationDateTitle)({date: this.cDateFull});
+      const tStr = template(this.creationDateTitle)({ date: this.cDateFull });
 
       this.__dateInfo.setAttribute('title', tStr);
       if (this.noOfReplies > 0) {
@@ -106,13 +106,15 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       comments.getReplyList(this.entry).forEach((commentEntry) => {
         const newDiv = document.createElement('div');
         self.__commentsList.appendChild(newDiv);
-        this.__repliesArr.push(new CommentCls({
-            entry: commentEntry,
-            parent: self,
-            isReply: true
-          },
-          newDiv,
-        ));
+        this.__repliesArr.push(
+          new CommentCls(
+            {
+              entry: commentEntry,
+              parent: self,
+              isReply: true,
+            },
+            newDiv,
+          ));
       });
     } else {
       this.__replyIcon.classList.remove('fa-caret-down');
@@ -192,7 +194,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         if (this.__repliesArr == null) {
           this.__repliesArr = [];
         }
-        this.__repliesArr.push(new CommentCls({entry: commentEntry, parent: self}));
+        this.__repliesArr.push(new CommentCls({ entry: commentEntry, parent: self }));
         const newDiv = document.createElement('div');
         self.__commentsList.insertBefore(newDiv, self.__commentsList.firstChild);
       });

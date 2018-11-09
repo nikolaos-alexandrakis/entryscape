@@ -1,4 +1,4 @@
-import {isArray, clone} from 'lodash-es';
+import { isArray, clone } from 'lodash-es';
 import config from 'config';
 import registry from 'commons/registry';
 
@@ -18,7 +18,7 @@ const getType2Conf = () => {
   });
 
   return type2Conf;
-}
+};
 
 const query = (qoParam, conf, term) => {
   let qo = qoParam;
@@ -238,7 +238,7 @@ const getConfFromConstraints = (constraintsParams) => {
       const et = config.entitytypes[idx];
       // Normalize so everything is in constraints (including rdfType).
       const etconstr = normalizeETConstraints(et);
-      const mc = {et, tot: 0};
+      const mc = { et, tot: 0 };
       let isMatch = true;
       Object.keys(constraints).forEach((constr) => {
         mc[constr] = matchConstraints(constraints[constr], etconstr[constr]);

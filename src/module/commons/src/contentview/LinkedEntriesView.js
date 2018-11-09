@@ -1,28 +1,25 @@
-import template from './LinkedEntriesViewTemplate.html';
 import escoContentview from 'commons/nls/escoContentview.nls';
-import DOMUtil from '../util/htmlUtil';
-import {createEntry} from '../util/storeUtil';
-import registry from '../registry';
-import {Presenter, Editor} from 'rdforms';
-import MetadataComponent from './MetadataComponent';
-import ContentView from './ContentView';
+import registry from 'commons/registry';
 import typeIndex from 'commons/create/typeIndex';
 import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import MetadataComponent from './MetadataComponent';
+import ContentView from './ContentView';
+import DOMUtil from '../util/htmlUtil';
+import { createEntry } from '../util/storeUtil';
+import template from './LinkedEntriesViewTemplate.html';
 import './escoLinkedEntriesView.css';
 
 export default declare([ContentView], {
   templateString: template,
-  nlsBundles: [{escoContentview}],
+  nlsBundles: [{ escoContentview }],
   bid: 'escoContentview',
   entityConf: null,
   contentViewConf: null,
 
   postCreate() {
     if (!this.contentViewConf.linkedEntityType) {
-      console.error(`No linkedEntitytype given in config for contentviewer "${this.contentViewConf.name}" on entitytype "${this.entityConf.name}"`);
+      console.error(`No linkedEntitytype given in config for contentviewer 
+      "${this.contentViewConf.name}" on entitytype "${this.entityConf.name}"`);
       return;
     }
     this.splitConf = typeIndex.getConfByName(this.contentViewConf.linkedEntityType);
@@ -52,7 +49,7 @@ export default declare([ContentView], {
       .then((entries) => {
         entries.forEach((entry) => {
           if (entry != null) {
-            MetadataComponent({entry, parent: this, template: this.template},
+            MetadataComponent({ entry, parent: this, template: this.template },
               DOMUtil.create('div', null, this.__viewComponentsList));
           }
         });

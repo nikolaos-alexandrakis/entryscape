@@ -1,5 +1,5 @@
-import {utils} from 'rdforms';
-import registry from '../registry';
+import { utils } from 'rdforms';
+import registry from 'commons/registry';
 
 const _getSubViewsAsList = (node, arr) => {
   if (node.subViews != null) {
@@ -165,7 +165,6 @@ const navUtils = {
       }
       resolve(label);
     });
-
   },
   setText(textNode, viewParam) {
     const site = registry.getSiteManager();

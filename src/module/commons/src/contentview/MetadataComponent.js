@@ -1,20 +1,20 @@
 import dateUtil from 'commons/util/dateUtil';
-import {Editor, Presenter, validate} from 'rdforms';
-import {Graph} from 'rdfjson';
+import { Editor, Presenter, validate } from 'rdforms';
+import { Graph } from 'rdfjson';
 import escoContentview from 'commons/nls/escoContentview.nls';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
-import {NLSMixin} from 'esi18n';
-import DOMUtil from '../util/htmlUtil';
-import registry from '../registry';
-import templateString from './MetadataComponentTemplate.html';
-
+import { NLSMixin } from 'esi18n';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import DOMUtil from '../util/htmlUtil';
+import templateString from './MetadataComponentTemplate.html';
 import './escoMetadataComponent.css';
+
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString,
-  nlsBundles: [{escoContentview}, {escoRdforms}],
+  nlsBundles: [{ escoContentview }, { escoRdforms }],
   bid: 'escoMetadataComponent',
   entry: null,
   template: null,

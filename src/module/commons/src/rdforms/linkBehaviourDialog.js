@@ -1,9 +1,8 @@
-import DOMUtil from '../util/htmlUtil';
-import config from 'config';
-import registry from 'commons/registry';
 import typeIndex from 'commons/create/typeIndex';
-import {Presenter, system} from 'rdforms';
+import registry from 'commons/registry';
 import jquery from 'jquery';
+import { Presenter, system } from 'rdforms';
+import DOMUtil from '../util/htmlUtil';
 
 const linkBehaviorDialog = () => {
   const entrystoreutil = registry.get('entrystoreutil');
@@ -27,7 +26,8 @@ const linkBehaviorDialog = () => {
       container: jquery('#entryscape_dialogs')[0], // provided in defaults
       placement: 'auto',
       trigger: 'manual',
-      template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+      template: '<div class="popover" role="tooltip">' +
+        '<div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
       title: label,
       content: presenter.domNode,
     };
@@ -46,7 +46,7 @@ const linkBehaviorDialog = () => {
           e.preventDefault();
           entrystoreutil.getEntryByResourceURI(
             binding.getValue()).then(function () {
-            choiceClick(node, item, conf, ...arguments)
+            choiceClick(node, item, conf, ...arguments);
           });
         };
         return;

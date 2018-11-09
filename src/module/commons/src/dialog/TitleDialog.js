@@ -1,11 +1,11 @@
-import {isString} from 'lodash-es';
-import {i18n, NLSMixin} from 'esi18n';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { isString } from 'lodash-es';
 import DOMUtil from '../util/htmlUtil';
 import SideDialog from './SideDialog';
 import template from './TitleDialogTemplate.html';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
 
 /**
  * A SideDialog with a header and a footer.
@@ -62,8 +62,10 @@ const TitleDialog = declare([SideDialog], {
   updateLocaleStrings(bundle, params) {
     this.updateLocaleStringsExplicit(
       i18n.renderNLSTemplate(bundle[this.nlsHeaderTitle], params || {}),
-      (bundle[this.nlsFooterButtonLabel || ''] ? i18n.renderNLSTemplate(bundle[this.nlsFooterButtonLabel], params || {}) : null),
-      (bundle[this.nlsFooterButtonTitle || ''] ? i18n.renderNLSTemplate(bundle[this.nlsFooterButtonTitle], params || {}) : null),
+      (bundle[this.nlsFooterButtonLabel || ''] ?
+        i18n.renderNLSTemplate(bundle[this.nlsFooterButtonLabel], params || {}) : null),
+      (bundle[this.nlsFooterButtonTitle || ''] ?
+        i18n.renderNLSTemplate(bundle[this.nlsFooterButtonTitle], params || {}) : null),
     );
   },
 
@@ -92,22 +94,22 @@ const TitleDialog = declare([SideDialog], {
       return;
     }
     this.headerNode.classList.remove('multilineHeader');
-    setTimeout(function () {
-      const cbox = {w: this.headerNode.clientWidth, h: this.headerNode.clientHeight};
+    setTimeout(() => {
+      const cbox = { w: this.headerNode.clientWidth, h: this.headerNode.clientHeight };
       const tbox = this.titleNode.getBoundingClientRect();
       const lbox = this.headerExtensionNode.getBoundingClientRect();
 
       // Extra 10px to avoid problems of redraw when it is really close
       if (tbox.width + lbox.width + 10 > cbox.w) {
         this.headerNode.classList.add('multilineHeader');
-        setTimeout(function () {
-          const pbox = {w: this.headerNode.parentNode.clientWidth, h: this.headerNode.parentNode.clientHeight};
+        setTimeout(() => {
+          const pbox = { w: this.headerNode.parentNode.clientWidth, h: this.headerNode.parentNode.clientHeight };
           this.containerNode.style.top = `${pbox.h + 2}px`;
-        }.bind(this), 1);
+        }, 1);
       } else {
         this.containerNode.style.top = '';
       }
-    }.bind(this), 1);
+    }, 1);
   },
 
   closeErrorMessage() {
@@ -150,12 +152,12 @@ const TitleDialog = declare([SideDialog], {
     if (res && typeof res.then === 'function') {
       this.lockFooterButton();
       this.footerButtonSpinner.style.display = '';
-      res.then(function (status) {
+      res.then((status) => {
         this.unlockFooterButton();
         if (!(status && 'stopHide' in status)) {
           this.hide();
         }
-      }.bind(this), function (err) {
+      }, (err) => {
         if (isString(err)) {
           this.showErrorMessage(err);
         } else if (typeof err === 'object' && err.message) {
@@ -166,7 +168,7 @@ const TitleDialog = declare([SideDialog], {
           }
         }
         this.unlockFooterButton();
-      }.bind(this));
+      });
     } else if (res === true || typeof res === 'undefined') {
       this.hide();
     } else {
@@ -212,7 +214,7 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
       const bundle0 = this.NLSBundle0;
       this.dialog.updateLocaleStrings(bundle0); //
     } else {
-      // @scazan THis is a "mock" sort of bundle so it needs to conform 
+      // @scazan THis is a "mock" sort of bundle so it needs to conform
       // to the bundle format
       const mesg = {};
       mesg[this.nlsHeaderTitle] = this.title;

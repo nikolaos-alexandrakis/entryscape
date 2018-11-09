@@ -1,9 +1,9 @@
+/* eslint-disable class-methods-use-this */
 /**
  * Wraps an array (possibly asynchrounous loaded) into a class that looks like a store/List.
  * @see {store/List}
  */
-class ArrayList {
-
+export default class ArrayList {
   /**
    * Parameters may be:
    * arr - an array of entries to be used,
@@ -41,6 +41,7 @@ class ArrayList {
         return this.loadEntries().then(this.getEntries.bind(this, page));
       }
       resolve(this.entries.slice(page * this.getLimit(), (page + 1) * this.getLimit()));
+      return null; // eslint
     });
   }
 
@@ -52,6 +53,3 @@ class ArrayList {
     return this.entries == null ? -1 : this.entries.length;
   }
 }
-
-export {ArrayList};
-export default ArrayList;

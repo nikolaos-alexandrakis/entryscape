@@ -1,6 +1,5 @@
+import { promiseUtil } from 'store';
 import registry from '../../registry';
-import config from 'config';
-import {promiseUtil} from 'store';
 
 const logFixes = (fixes) => {
   let fixesCount = 0;
@@ -202,5 +201,5 @@ const repair = {
   },
 };
 
-export {repair};
+export { repair };
 export default repair;

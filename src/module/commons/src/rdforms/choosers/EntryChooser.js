@@ -1,9 +1,8 @@
 import DOMUtil from 'commons/util/htmlUtil';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import registry from 'commons/registry';
 import TitleDialog from 'commons/dialog/TitleDialog'; // In template
-import {Editor, LevelEditor, renderingContext, validate} from 'rdforms';
-import template from './EntryChooserTemplate.html';
+import { Editor, LevelEditor, renderingContext, validate } from 'rdforms';
 import EntryType from 'commons/create/EntryType';
 import typeIndex from 'commons/create/typeIndex';
 import BaseList from 'commons/list/common/BaseList';
@@ -13,6 +12,7 @@ import escoEntryChooser from 'commons/nls/escoEntryChooser.nls';
 import escoList from 'commons/nls/escoList.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import template from './EntryChooserTemplate.html';
 
 const chooserScope = {};
 
@@ -67,7 +67,7 @@ const EntryChooserRow = declare([EntryRow], {
 });
 
 const EntryChooserList = declare([BaseList], {
-  nlsBundles: [{escoList}, {escoEntryChooser}],
+  nlsBundles: [{ escoList }, { escoEntryChooser }],
   nlsCreateEntryMessage: null,
   includeRefreshButton: false,
   includeInfoButton: true,
@@ -112,7 +112,7 @@ const EntryChooserList = declare([BaseList], {
     /** @type {store/EntryStore} */
     const es = registry.get('entrystore');
     const qo = typeIndex.query(es.newSolrQuery(),
-      {constraints: this.binding.getItem().getConstraints()}, term);
+      { constraints: this.binding.getItem().getConstraints() }, term);
     restrictToContext(this.binding.getItem(), qo);
 
     if (_params.sortOrder === 'title') {
@@ -128,14 +128,15 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
   templateString: template,
   binding: null,
   onSelect: null,
-  nlsBundles: [{escoRdforms}, {escoEntryChooser}],
+  nlsBundles: [{ escoRdforms }, { escoEntryChooser }],
 
   postCreate() {
     this.inherited(arguments);
-    this.entryChooserList = new EntryChooserList({entrychooserDialog: this.dialog}, DOMUtils.create('div', null, this.searchNode));
+    this.entryChooserList = new EntryChooserList({ entrychooserDialog: this.dialog },
+      DOMUtils.create('div', null, this.searchNode));
     this.dialog.headerExtensionNode.appendChild(this.moveInput);
 
-    this.levels = new LevelEditor({externalEditor: true},
+    this.levels = new LevelEditor({ externalEditor: true },
       DOMUtil.create('div', null, this.levelEditorNode));
     this.editor = new Editor({}, DOMUtil.create('div', null, this.editorNode));
     this.levels.setExternalEditor(this.editor);
@@ -286,7 +287,7 @@ const ext = {
         };
         if (value.indexOf(store.getBaseURI()) === 0) {
           const euri = store.getEntryURI(store.getContextId(value), store.getEntryId(value));
-          return store.getEntry(euri, {asyncContext: ignoreCallType()})
+          return store.getEntry(euri, { asyncContext: ignoreCallType() })
             .then(entryToObj).then(onSuccess, onError);
         } else if (item.hasStyle('internalLink')) {
           let ct;
@@ -321,16 +322,13 @@ const ext = {
     const qo = es.newSolrQuery();
     restrictToContext(item, qo);
     const rdfutils = registry.get('rdfutils');
-    return typeIndex.query(qo, {constraints: item.getConstraints()}, term)
-      .limit(10).list().getEntries().then((entries) => {
-        return entries.map((e) => {
-          return {
-            value: e.getResourceURI(),
-            label: rdfutils.getLabelMap(e),
-            description: rdfutils.getDescriptionMap(e)
-          };
-        });
-      });
+    return typeIndex.query(qo, { constraints: item.getConstraints() }, term)
+      .limit(10).list().getEntries()
+      .then(entries => entries.map(e => ({
+        value: e.getResourceURI(),
+        label: rdfutils.getLabelMap(e),
+        description: rdfutils.getDescriptionMap(e),
+      })));
   },
   registerDefaults() {
     if (!defaultRegistered) {

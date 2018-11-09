@@ -1,7 +1,6 @@
+import declare from 'dojo/_base/declare';
 import BaseList from './BaseList';
 import Typeahead from '../../query/Typeahead';
-
-import declare from 'dojo/_base/declare';
 
 export default declare([BaseList], {
   includeCreateButton: false,

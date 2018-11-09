@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-const BreadcrumbItem = {
+export default {
   view(vnode) {
     const { value, className, href } = vnode.attrs.item;
 
@@ -9,5 +9,3 @@ const BreadcrumbItem = {
     ]);
   },
 };
-
-export default BreadcrumbItem;

@@ -1,30 +1,29 @@
-import DOMUtil from '../util/htmlUtil';
-import template from './DropdownMenuTemplate.html';
 import jquery from 'jquery';
-
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import DOMUtil from '../util/htmlUtil';
+import template from './DropdownMenuTemplate.html';
 import './menu.css';
 
-jquery(document).on("show.bs.dropdown", ".dropdown", function () {
+jquery(document).on('show.bs.dropdown', '.dropdown', function () {
   // calculate the required sizes, spaces
-  var $ul = jquery(this).children(".dropdown-menu");
-  var menuHeight = $ul.height()
-  var buttonHeight = jquery(this).children(".dropdown-toggle").height();
-  var scrollHeight = $ul.parent().offsetParent().height();
-  var menuAnchorTop = $ul.parent().position().top + buttonHeight;
+  const $ul = jquery(this).children('.dropdown-menu');
+  const menuHeight = $ul.height();
+  const buttonHeight = jquery(this).children('.dropdown-toggle').height();
+  const scrollHeight = $ul.parent().offsetParent().height();
+  const menuAnchorTop = $ul.parent().position().top + buttonHeight;
 
   // how much space would be left on the top if the dropdown opened that direction
-  var spaceUp = (menuAnchorTop - buttonHeight - menuHeight);
+  const spaceUp = (menuAnchorTop - buttonHeight - menuHeight);
   // how much space is left at the bottom
-  var spaceDown = scrollHeight - (menuAnchorTop + menuHeight);
-  // switch to dropup only if there is no space at the bottom AND there is space at the top, or there isn't either but it would be still better fit
-  if (spaceDown < 0 && (spaceUp >= 0 || spaceUp > spaceDown))
-    jquery(this).addClass("dropup");
-}).on("hidden.bs.dropdown", ".dropdown", function () {
+  const spaceDown = scrollHeight - (menuAnchorTop + menuHeight);
+  // switch to dropup only if there is no space at the bottom AND there is space at the top,
+  // or there isn't either but it would be still better fit
+  if (spaceDown < 0 && (spaceUp >= 0 || spaceUp > spaceDown)) { jquery(this).addClass('dropup'); }
+}).on('hidden.bs.dropdown', '.dropdown', function () {
   // always reset after close
-  jquery(this).removeClass("dropup");
+  jquery(this).removeClass('dropup');
 });
 
 export default declare([_WidgetBase, _TemplatedMixin], {
@@ -63,7 +62,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       jquery(this.dropdownButtonNode).dropdown('toggle');
       param.method();
     }.bind(this);
-    this.items[param.name] = {param, elementItem: li, elementLink: a, elementLabel: label};
+    this.items[param.name] = { param, elementItem: li, elementLink: a, elementLabel: label };
   },
   updateLocaleStrings(generic, specific) {
     Object.keys(this.items).forEach((name) => {

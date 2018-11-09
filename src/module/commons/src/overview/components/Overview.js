@@ -1,8 +1,8 @@
 import m from 'mithril';
-import '../overview.css';
 import OverviewHeader from './OverviewHeader';
 import DescriptionList from './DescriptionList';
 import StatBox from './StatBox';
+import '../overview.css';
 
 const Overview = {
   view(vnode) {

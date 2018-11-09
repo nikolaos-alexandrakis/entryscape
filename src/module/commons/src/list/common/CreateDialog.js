@@ -1,14 +1,15 @@
-import {isArray} from 'lodash-es';
-import {i18n} from 'esi18n';
-import {createEntry} from 'commons/util/storeUtil';
-import ListDialogMixin from './ListDialogMixin';
+import { createEntry } from 'commons/util/storeUtil';
+import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
+import { isArray } from 'lodash-es';
 import RDFormsEditDialog from '../../rdforms/RDFormsEditDialog';
+import ListDialogMixin from './ListDialogMixin';
+
 /**
  * Dialog for creating new entries. Uses the lists entryType (if present) to set a type.
  * Uses the list specific bundle to get a title and button label via the keys "createHeader" and
  * "createButton" respectively.
  */
-import declare from 'dojo/_base/declare';
 
 export default declare([RDFormsEditDialog, ListDialogMixin], {
   explicitNLS: true,
@@ -36,8 +37,8 @@ export default declare([RDFormsEditDialog, ListDialogMixin], {
     this.updateTitleAndButton();
   },
   doneAction(graph) {
-    return this._newEntry.setMetadata(graph).commit().then(function (newEntry) {
+    return this._newEntry.setMetadata(graph).commit().then((newEntry) => {
       this.list.addRowForEntry(newEntry);
-    }.bind(this));
+    });
   },
 });

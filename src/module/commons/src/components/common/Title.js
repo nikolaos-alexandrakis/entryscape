@@ -4,9 +4,7 @@ import Button from './button/Button';
 /**
  * @see ./Title.md
  */
-const Title = {
-  /**
-  */
+export default {
   view(vnode) {
     const { title, subtitle, hx, button = {} } = vnode.attrs;
     const small = subtitle ? `<small>${subtitle}</small>` : '';
@@ -22,5 +20,3 @@ const Title = {
     ]);
   },
 };
-
-export default Title;

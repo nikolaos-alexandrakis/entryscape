@@ -1,8 +1,6 @@
+import declare from 'dojo/_base/declare';
 import template from './ToggleRowTemplate.html';
 import EntryRow from '../EntryRow';
-import registry from '../../registry';
-
-import declare from 'dojo/_base/declare';
 
 export default declare([EntryRow], {
   templateString: template,
@@ -48,7 +46,7 @@ export default declare([EntryRow], {
       return;
     }
     this.toggleImpl(
-      this.setToggled.bind(this, true, !this.isPublicToggle)
+      this.setToggled.bind(this, true, !this.isPublicToggle),
     );
   },
 

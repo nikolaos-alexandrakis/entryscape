@@ -1,4 +1,4 @@
-import registry from '../registry';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 
 /**
@@ -14,5 +14,5 @@ export default declare(null, {
     const canShow = userEntryInfo != null && userEntryInfo.id !== '_guest';
 
     return new Promise(resolve => resolve(canShow));
-  }
+  },
 });

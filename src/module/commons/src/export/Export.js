@@ -1,11 +1,10 @@
 import jquery from 'jquery';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import ListDialogMixin from '../list/common/ListDialogMixin';
 import templateString from './ExportTemplate.html';
 import TitleDialog from '../dialog/TitleDialog';
-import {i18n, NLSMixin} from 'esi18n';
-
-import declare from 'dojo/_base/declare';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString,

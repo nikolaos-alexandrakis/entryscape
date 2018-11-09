@@ -1,16 +1,16 @@
-import registry from '../../registry';
+import escoList from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
 import List from '../List';
-import PresentDialog from './PresentDialog';
-import EditDialog from './EditDialog';
 import CreateDialog from './CreateDialog';
+import EditDialog from './EditDialog';
+import PresentDialog from './PresentDialog';
 import RemoveDialog from './RemoveDialog';
 import VersionsDialog from './VersionsDialog';
-import {NLSMixin} from 'esi18n';
-import escoList from 'commons/nls/escoList.nls';
-import declare from 'dojo/_base/declare';
 
 export default declare([List, NLSMixin.Dijit], {
-  nlsBundles: [{escoList}],
+  nlsBundles: [{ escoList }],
   entryType: '',
   /**
    * @deprecated assumed to be the number two in the nlsBundles list.

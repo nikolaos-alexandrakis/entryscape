@@ -1,8 +1,7 @@
 import config from 'config';
 
-const getBaseUrl = () => {
-  return config.baseAppPath ? `${window.location.origin}/${config.baseAppPath}` : window.location.origin;
-};
+const getBaseUrl = () => (config.baseAppPath ?
+  `${window.location.origin}/${config.baseAppPath}` : window.location.origin);
 
 const getStaticUrl = () => {
   if (config.entryscape && config.entryscape.static && config.entryscape.static.url) {
@@ -13,7 +12,7 @@ const getStaticUrl = () => {
 };
 
 const getStaticBuild = () => {
-  const {app, version} = config.entryscape.static;
+  const { app, version } = config.entryscape.static;
   return `${getStaticUrl()}/${app}/${version}/`;
 };
 
@@ -31,7 +30,8 @@ const getThemeDefaults = () => {
   return defaults;
 };
 const getThemeToRender = () => {
-  let { appName, themePath, assetsPath, logo } = getThemeDefaults();
+  const { assetsPath, logo } = getThemeDefaults();
+  let { appName, themePath } = getThemeDefaults();
   if (config.theme && config.theme.localTheme) {
     themePath = '/theme/'; // TODO @valentino check this
   } else if (config.theme && config.localAssets) {

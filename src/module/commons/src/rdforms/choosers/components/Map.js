@@ -1,13 +1,11 @@
-import m from 'mithril';
 import config from 'config';
-// import leaflet from 'leaflet';
-import utils from '../utils';
-import configUtil from 'commons/util/configUtil';
+import m from 'mithril';
 import '../escoSpatial.css';
+import utils from '../utils';
+
 let leaflet;
 
-const Map = (vnode) => {
-
+const Map = () => {
   const state = {
     drawingMode: 'disabled', // disabled, marker, or region
     map: undefined,
@@ -19,38 +17,32 @@ const Map = (vnode) => {
   let updateGeoCoordinates;
   let unfocusInputs;
 
-  const getPolygonFromLatLngs = points => {
-    return leaflet.polygon(points);
-  };
-  const getMarkerFromLatLng = point => {
-    return leaflet.marker(point);
-  };
+  const getPolygonFromLatLngs = points => leaflet.polygon(points);
 
-  const convertTwoPointsToQuadrilateral = latLngVector => {
+  const convertTwoPointsToQuadrilateral = (latLngVector) => {
     if (latLngVector.length < 2) {
       return latLngVector;
     }
-    else {
-      return [latLngVector[0], {
-        lat: latLngVector[0].lat,
-        lng: latLngVector[1].lng
-      }, latLngVector[1], {lat: latLngVector[1].lat, lng: latLngVector[0].lng}];
-    }
+    return [latLngVector[0], {
+      lat: latLngVector[0].lat,
+      lng: latLngVector[1].lng,
+    }, latLngVector[1], { lat: latLngVector[1].lat, lng: latLngVector[0].lng }];
   };
 
-  const getConstructedMap = mapNode => {
-    let map
+  const getConstructedMap = (mapNode) => {
+    let map;
     try {
       map = leaflet.map(mapNode).setView([0, 0], 1);
     } catch (e) {
       // Just in case mithril are reusing dom nodes and leaflet is already initalized here (this is a guess)
     }
 
+    const chooserMapAttr = config.get('itemstore.geochooserMapAttribution', null);
     const mapTileURL = config.itemstore && config.itemstore.geochooserMapURL != null
       ? config.itemstore.geochooserMapURL : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const mapTileAttribution = config.itemstore && config.itemstore.geochooserMapAttribution != null
-      ? config.itemstore.geochooserMapAttribution
-      : 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+    const mapTileAttribution = chooserMapAttr != null ? config.itemstore.geochooserMapAttribution :
+      'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> ' +
+      'contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
 
     leaflet.tileLayer(mapTileURL, {
       attribution: mapTileAttribution,
@@ -60,7 +52,7 @@ const Map = (vnode) => {
     return map;
   };
 
-  const clearMapLayers = map => {
+  const clearMapLayers = (map) => {
     // Slice off the first layer as it is the map itself
     Object.entries(map._layers)
       .sort((keyValA, keyValB) => keyValA[0] - keyValB[0]) // Sort smallest number to top
@@ -70,32 +62,9 @@ const Map = (vnode) => {
     return map;
   };
 
-  const populateMapWithValue = (map, value) => {
-    const wkt = utils.fromWKT(value);
-
-    if (wkt !== undefined) {
-      if (wkt.type === 'polygon') {
-        const geojson = utils.toGeoJSON(wkt);
-        const geoLocationPolygon = getPolygonFromLatLngs(geojson.coordinates[0].map(coordPair => [parseFloat(coordPair[1]), parseFloat(coordPair[0])]));
-        geoLocationPolygon.addTo(map);
-        map.fitBounds(geoLocationPolygon.getBounds());
-      }
-      else if (wkt.type === 'point') {
-        addMarkerToMap(map, wkt);
-      }
-    }
-  };
-
-  const addRegionToMap = (map, latLngVector) => {
-    const geoLocationPolygon = getPolygonFromLatLngs(convertTwoPointsToQuadrilateral(latLngVector));
-
-    geoLocationPolygon.addTo(map);
-    unfocusInputs();
-  };
-
   const addMarkerToMap = (map, latLng) => {
     const markerIcon = leaflet.icon({
-      iconUrl: assetsPath + "components/spatial/markerGreen.svg",
+      iconUrl: `${assetsPath}components/spatial/markerGreen.svg`,
       iconAnchor: [12, 25],
     });
 
@@ -111,7 +80,31 @@ const Map = (vnode) => {
     unfocusInputs();
   };
 
-  const Map = {
+  const populateMapWithValue = (map, value) => {
+    const wkt = utils.fromWKT(value);
+
+    if (wkt !== undefined) {
+      if (wkt.type === 'polygon') {
+        const geojson = utils.toGeoJSON(wkt);
+        const geoLocationPolygon = getPolygonFromLatLngs(
+          geojson.coordinates[0].map(coordPair => [parseFloat(coordPair[1]), parseFloat(coordPair[0])]));
+        geoLocationPolygon.addTo(map);
+        map.fitBounds(geoLocationPolygon.getBounds());
+      } else if (wkt.type === 'point') {
+        addMarkerToMap(map, wkt);
+      }
+    }
+  };
+
+  const addRegionToMap = (map, latLngVector) => {
+    const geoLocationPolygon = getPolygonFromLatLngs(convertTwoPointsToQuadrilateral(latLngVector));
+
+    geoLocationPolygon.addTo(map);
+    unfocusInputs();
+  };
+
+
+  const MapNode = {
     view() {
       return m('.escoMap', {});
     },
@@ -125,8 +118,8 @@ const Map = (vnode) => {
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
       unfocusInputs = vnode.attrs.unfocusInputs;
 
-     import(/* webpackChunkName: "leaflet" */ 'leaflet').then( leafletImport => {
-       leaflet = leafletImport.default;
+      import(/* webpackChunkName: "leaflet" */ 'leaflet').then((leafletImport) => {
+        leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
         state.map = map;
 
@@ -146,11 +139,13 @@ const Map = (vnode) => {
       if (oldValue === newValue) {
         return false;
       }
+
+      return true;
     },
     onupdate(vnode) {
-      const {value} = vnode.attrs;
+      const { value } = vnode.attrs;
 
-      if(state.map) {
+      if (state.map) {
         clearMapLayers(state.map);
         populateMapWithValue(state.map, value);
       }
@@ -161,13 +156,35 @@ const Map = (vnode) => {
     },
     addEditControls(map) {
       const DrawingModeControl = leaflet.Control.extend({
-        onAdd: map => {
+        onAdd: () => {
           const controlContainer = document.createElement('div');
 
           const regionToggle = document.createElement('span');
           regionToggle.classList.add('region');
 
-          regionToggle.onclick = e => {
+
+          const markerToggle = document.createElement('span');
+          markerToggle.classList.add('marker');
+
+          const updateUI = (drawingMode) => {
+            if (drawingMode === 'region') {
+              regionToggle.classList.add('active');
+              regionToggle.style.backgroundImage = `url('${assetsPath}components/spatial/regionGreen.svg')`;
+            } else {
+              regionToggle.classList.remove('active');
+              regionToggle.style.backgroundImage = `url('${assetsPath}components/spatial/regionBlue.svg')`;
+            }
+
+            if (drawingMode === 'marker') {
+              markerToggle.classList.add('active');
+              markerToggle.style.backgroundImage = `url('${assetsPath}components/spatial/markerGreen.svg')`;
+            } else {
+              markerToggle.classList.remove('active');
+              markerToggle.style.backgroundImage = `url('${assetsPath}components/spatial/markerBlue.svg')`;
+            }
+          };
+
+          regionToggle.onclick = (e) => {
             e.stopPropagation();
             state.drawingMode = state.drawingMode === 'region' ? 'disabled' : 'region';
             state.latLngVector.length = 0;
@@ -175,36 +192,14 @@ const Map = (vnode) => {
             updateUI(state.drawingMode);
           };
 
-          const markerToggle = document.createElement('span');
-          markerToggle.classList.add('marker');
-
-          markerToggle.onclick = e => {
+          markerToggle.onclick = (e) => {
             e.stopPropagation();
             state.drawingMode = state.drawingMode === 'marker' ? 'disabled' : 'marker';
             state.latLngVector.length = 0;
 
             updateUI(state.drawingMode);
-          }
-
-          const updateUI = drawingMode => {
-            if (drawingMode === 'region') {
-              regionToggle.classList.add('active')
-              regionToggle.style.backgroundImage = "url('" + assetsPath + "components/spatial/regionGreen.svg')";
-            }
-            else {
-              regionToggle.classList.remove('active');
-              regionToggle.style.backgroundImage = "url('" + assetsPath + "components/spatial/regionBlue.svg')";
-            }
-
-            if (drawingMode === 'marker') {
-              markerToggle.classList.add('active')
-              markerToggle.style.backgroundImage = "url('" + assetsPath + "components/spatial/markerGreen.svg')";
-            }
-            else {
-              markerToggle.classList.remove('active');
-              markerToggle.style.backgroundImage = "url('" + assetsPath + "components/spatial/markerBlue.svg')";
-            }
           };
+
 
           controlContainer.appendChild(markerToggle);
           controlContainer.appendChild(regionToggle);
@@ -212,7 +207,7 @@ const Map = (vnode) => {
           updateUI(state.drawingMode);
           return controlContainer;
         },
-        onRemove: map => {
+        onRemove: () => {
         },
       });
 
@@ -222,7 +217,7 @@ const Map = (vnode) => {
     },
 
     onMapClick(event, map) {
-      const {latlng} = event;
+      const { latlng } = event;
 
       switch (state.drawingMode) {
         case 'region':
@@ -239,8 +234,7 @@ const Map = (vnode) => {
 
       if (state.latLngVector.length < 2) {
         state.latLngVector.push(latLng);
-      }
-      else {
+      } else {
         state.latLngVector = [latLng];
       }
 
@@ -260,8 +254,7 @@ const Map = (vnode) => {
     },
   };
 
-  return Map;
+  return MapNode;
 };
 
-export {Map};
 export default Map;

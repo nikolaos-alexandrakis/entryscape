@@ -1,11 +1,10 @@
-import DOMUtil from '../util/htmlUtil';
-import {i18n} from 'esi18n';
-import registry from '../registry';
-import {Presenter} from 'rdforms';
-import dateUtil from 'commons/util/dateUtil';
 import ExpandRow from 'commons/list/common/ExpandRow';
+import registry from 'commons/registry';
+import dateUtil from 'commons/util/dateUtil';
 import declare from 'dojo/_base/declare';
-
+import { i18n } from 'esi18n';
+import { Presenter } from 'rdforms';
+import DOMUtil from '../util/htmlUtil';
 
 export default declare([ExpandRow], {
   constructor() {
@@ -53,7 +52,7 @@ export default declare([ExpandRow], {
     const presenterNode = DOMUtil.create('div', null, node);
     presenterNode.style.padding = '0px 0px 10px 15px';
 
-    const p = new Presenter({compact: this.compact},);
+    const p = new Presenter({ compact: this.compact });
     const template = this.list.getTemplate();
     const entry = this.list.entry;
     const dialog = this.list.dialog;
@@ -104,7 +103,7 @@ export default declare([ExpandRow], {
     this.details.firstChild.style['border-top'] = '0px';
     this.detailsContainer.style.padding = '15px';
 
-    p.show({resource: entry.getResourceURI(), graph: revisionGraph, template});
+    p.show({ resource: entry.getResourceURI(), graph: revisionGraph, template });
   },
 
   getRenderNameHTML() {
@@ -120,7 +119,7 @@ export default declare([ExpandRow], {
     if (name == null && username == null) {
       // return i18n.localize(b, 'noUserNameRevision', {datetime: date, id: e.getId()}) + current;
       // @scazan: I am assuming that this.nlsSpecificBundle is a localized bundle already
-      return i18n.renderNLSTemplate(b.noUserNameRevision, {datetime: date, id: e.getId()}) + current;
+      return i18n.renderNLSTemplate(b.noUserNameRevision, { datetime: date, id: e.getId() }) + current;
     }
     return `${date}, ${name} ${current}`;
   },

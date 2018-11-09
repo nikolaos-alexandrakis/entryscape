@@ -1,8 +1,8 @@
+import m from 'mithril';
 import Icon from './logo/IconLogo';
 import Full from './logo/FullLogo';
-import m from 'mithril';
 
-const Logo = {
+export default {
   view(vnode) {
     const { type } = vnode.attrs;
 
@@ -15,8 +15,6 @@ const Logo = {
         break;
     }
 
-    return [m(Full, vnode.attrs), m(Icon, vnode.attrs)]
+    return [m(Full, vnode.attrs), m(Icon, vnode.attrs)];
   },
 };
-
-export default Logo;

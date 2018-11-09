@@ -1,16 +1,14 @@
-import { clone, template as renderTemplate } from 'lodash-es';
+import { clone, template } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
-import DOMUtil from '../util/htmlUtil';
-import registry from '../registry';
-import templateString from './EntryRowTemplate.html';
-import DropdownMenu from '../menu/DropdownMenu';
-
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import DOMUtil from '../util/htmlUtil';
+import DropdownMenu from '../menu/DropdownMenu';
+import templateString from './EntryRowTemplate.html';
 
-export default  declare([_WidgetBase, _TemplatedMixin], {
+export default declare([_WidgetBase, _TemplatedMixin], {
   templateString,
   entry: null,
   showCol0: false,
@@ -124,9 +122,11 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
       } else if (typeof this[`action_${params.name}`] === 'function') {
         params.method = this[`action_${params.name}`].bind(this);
       } else {
-        params.method = this.list.openDialog.bind(this.list, params.name, {row: this});
+        params.method = this.list.openDialog.bind(this.list, params.name, { row: this });
       }
-      if (access !== 'disabled') this.dropdownMenu.addItem(params);
+      if (access !== 'disabled') {
+        this.dropdownMenu.addItem(params);
+      }
     }
   },
   installButton(params) {
@@ -134,13 +134,10 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
     if (access === false) {
       return;
     }
-    const el = DOMUtil.create('button', {
-        type: 'button',
-        title: params.title || '',
-      }, this.buttonsNode,
-      params.first === true ? true : false);
-    el.classList.add(`btn`);
-    el.classList.add(`btn-sm`);
+    const el = DOMUtil.create('button', { type: 'button', title: params.title || '' }, this.buttonsNode,
+      params.first === true);
+    el.classList.add('btn');
+    el.classList.add('btn-sm');
     el.classList.add(`btn-${params.button}`);
 
     let cls;
@@ -155,7 +152,7 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
     }, el);
     DOMUtil.addClass(span, cls);
 
-    this.buttons[params.name] = {params, element: el};
+    this.buttons[params.name] = { params, element: el };
     if (access === 'disabled') {
       el.classList.add('disabled');
     } else {
@@ -166,7 +163,7 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
         } else if (typeof this[`action_${params.name}`] === 'function') {
           this[`action_${params.name}`]();
         } else {
-          this.list.openDialog(params.name, {row: this});
+          this.list.openDialog(params.name, { row: this });
         }
       }.bind(this);
     }
@@ -180,9 +177,9 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
     if (typeof name === 'string') {
       this.nameNode.innerHTML = name;
     } else if (typeof name === 'object' && typeof name.then === 'function') {
-      name.then(function (nameStr) {
+      name.then((nameStr) => {
         this.nameNode.innerHTML = nameStr;
-      }.bind(this));
+      });
     }
     if (this.showCol3) {
       this.renderCol3();
@@ -220,7 +217,7 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
         const mDateFormats = dateUtil.getMultipleDateFormats(modDate);
         const dateTitle = this.nlsSpecificBundle[this.nlsDateTitle] ||
           this.nlsGenericBundle[this.nlsDateTitle] || '';
-        const tStr = renderTemplate(dateTitle)({ date: mDateFormats.full });
+        const tStr = template(dateTitle)({ date: mDateFormats.full });
         this.col3Node.innerHTML = mDateFormats.short;
         this.col3Node.setAttribute('title', tStr);
       } catch (e) {
@@ -232,7 +229,7 @@ export default  declare([_WidgetBase, _TemplatedMixin], {
     return this.entry.getEntryInfo().getModificationDate();
   },
   updateCheckBox(select) {
-    select ? this.checkboxNode.checked = true : this.checkboxNode.checked = false;
+    this.checkboxNode.checked = !!select;
   },
   showCheckboxColumn() {
     this.showCol0 = true;

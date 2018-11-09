@@ -32,7 +32,7 @@ export default declare([ToggleRow], {
       const cid = this.getContext().getId();
       const guri = es.getEntryURI('_principals', this.list.entryList.getGroupId(cid));
       // Works since GCEList has already loaded all relevant groups.
-      const groupEntry = es.getEntry(guri, {direct: true});
+      const groupEntry = es.getEntry(guri, { direct: true });
       return groupEntry.canAdministerEntry();
     }
     return this.inherited(arguments);
@@ -41,8 +41,8 @@ export default declare([ToggleRow], {
   toggleImpl(onSuccess) {
     const co = this.getContext();
     const es = co.getEntryStore();
-    es.getEntry(co.getEntryURI(), {forceLoad: true})
-      .then(function (contextEntry) {
+    es.getEntry(co.getEntryURI(), { forceLoad: true })
+      .then((contextEntry) => {
         if (!contextEntry.canAdministerEntry()) {
           dialogs.acknowledge(this.nlsSpecificBundle[this.nlsContextSharingNoAccess]);
           return;
@@ -64,7 +64,7 @@ export default declare([ToggleRow], {
           ei.setACL(acl);
           ei.commit().then(onSuccess);
         }
-      }.bind(this));
+      });
   },
 
   getRenderNameHTML() {
@@ -81,26 +81,26 @@ export default declare([ToggleRow], {
 
   action_remove() {
     registry.get('getGroupWithHomeContext')(this.getContext())
-      .then(function (group) {
+      .then((group) => {
         dialogs.confirm(this.nlsSpecificBundle[this.nlsConfirmRemoveRow],
-          null, null, function (confirm) {
+          null, null, (confirm) => {
             if (!confirm) {
               return;
             }
             this.getContext().getEntry()
               .then(hcEntry => hcEntry.del())
               .then(() => group.del())
-              .then(function () {
-                  this.list.getView().removeRow(this);
-                  this.destroy();
-                  const ue = registry.get('userEntry');
-                  ue.setRefreshNeeded();
-                  ue.refresh();
-                }.bind(this),
-                function () {
-                  dialogs.acknowledge(this.nlsGenericBundle[this.nlsRemoveFailedKey]);
-                }.bind(this));
-          }.bind(this));
-      }.bind(this));
+              .then(() => {
+                this.list.getView().removeRow(this);
+                this.destroy();
+                const ue = registry.get('userEntry');
+                ue.setRefreshNeeded();
+                ue.refresh();
+              },
+              () => {
+                dialogs.acknowledge(this.nlsGenericBundle[this.nlsRemoveFailedKey]);
+              });
+          });
+      });
   },
 });

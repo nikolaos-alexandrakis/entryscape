@@ -1,18 +1,18 @@
 import config from 'config';
-import {clone, template as renderTemplate} from 'lodash-es';
-import registry from '../registry';
-import template from './SignupTemplate.html';
+import { clone, template } from 'lodash-es';
+import registry from 'commons/registry';
+import escoSignin from 'commons/nls/escoSignin.nls';
+import declare from 'dojo/_base/declare';
+import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import templateString from './SignupTemplate.html';
 import TitleDialog from '../dialog/TitleDialog';
 import signinUtils from './signinUtils';
 import Password from '../auth/Password';
 import PasswordForm from '../auth/components/PasswordForm';
-import escoSignin from 'commons/nls/escoSignin.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
-  templateString: template,
-  nlsBundles: [{escoSignin}],
+  templateString,
+  nlsBundles: [{ escoSignin }],
   nlsHeaderTitle: 'createAccountHeader',
   nlsFooterButtonLabel: 'createAccount',
   maxWidth: 800,
@@ -49,7 +49,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     return es.getREST()
       .post(`${es.getBaseURI()}auth/signup`, JSON.stringify(signupInfo)).then(() => registry.get('dialogs').acknowledge(b.signupConfirmationMessage), (err) => {
         if (err.response.status === 417) {
-          throw renderTemplate(b.signupWrongDomain)({
+          throw template(b.signupWrongDomain)({
             domain: signupInfo.email.substr(signupInfo.email.indexOf('@') + 1),
           });
         } else {
@@ -75,10 +75,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
       delete this.checkTimer;
     }
 
-    this.checkTimer = setTimeout(function () {
+    this.checkTimer = setTimeout(() => {
       delete this.checkTimer;
       let valid = true;
-      if (typeof(this.domNode.checkValidity) === 'function') {
+      if (typeof (this.domNode.checkValidity) === 'function') {
         valid = this.domNode.checkValidity();
       }
       if (this.recaptchaResponse == null) {
@@ -96,7 +96,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
       } else {
         this.dialog.lockFooterButton();
       }
-    }.bind(this), 400);
+    }, 400);
   },
   setStatus(node, message) {
     if (message) {
@@ -128,7 +128,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
   },
   validateEmail() {
     if (this.suUsername.value.length > 0 &&
-      (typeof(this.suUsername.checkValidity) === 'function') && !this.suUsername.checkValidity()) {
+      (typeof (this.suUsername.checkValidity) === 'function') && !this.suUsername.checkValidity()) {
       this.setStatus(this.emailStatus, this.NLSBundle0.signupInvalidEmail);
     } else {
       this.setStatus(this.emailStatus);

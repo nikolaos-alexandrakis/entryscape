@@ -15,15 +15,15 @@ const PanelGroup = {
    * ['class1, 'class2', ...]
    */
   view(vnode) {
-    const {panels, title, subtitle, hx = 'h3', classNames = [], button} = vnode.attrs;
+    const { panels, title, subtitle, hx = 'h3', classNames = [], button } = vnode.attrs;
 
     return m('.panel-group', {
       class: classNames.join(),
       role: 'tablist',
       'aria-multiselectable': true,
     }, [
-      title ? m(Title, {title, subtitle, hx, button}) : null,
-      panels.map(panel => m(CollapsablePanel, {panel})),
+      title ? m(Title, { title, subtitle, hx, button }) : null,
+      panels.map(panel => m(CollapsablePanel, { panel })),
     ]);
   },
 };

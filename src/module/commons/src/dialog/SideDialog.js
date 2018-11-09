@@ -1,9 +1,9 @@
-import template from './SideDialogTemplate.html';
-import DOMUtil from '../util/htmlUtil';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import DOMUtil from '../util/htmlUtil';
 import './dialog.css';
+import template from './SideDialogTemplate.html';
 
 const mobileMaxWidth = 415;
 let level = 0;
@@ -60,12 +60,12 @@ const SideDialog = declare([_WidgetBase, _TemplatedMixin], {
     this.domNode.style.opacity = 0;
 
     jquery(this.dialogContent).css({
-      left: box.w + 'px',
-      right: -dialogWidth + 'px',
+      left: `${box.w}px`,
+      right: `${-dialogWidth}px`,
     })
       .animate({
-        left: end + 'px',
-        right: 0 + 'px',
+        left: `${end}px`,
+        right: `${0}px`,
       });
 
     jquery(this.domNode).fadeTo(400, 1);
@@ -100,20 +100,20 @@ const SideDialog = declare([_WidgetBase, _TemplatedMixin], {
     }
 
     jquery(this.dialogContent).css({
-      left: start + 'px',
-      right: 0 + 'px',
+      left: `${start}px`,
+      right: `${0}px`,
     })
       .animate({
-        left: box.w + 'px',
-        right: -dialogWidth + 'px',
+        left: `${box.w}px`,
+        right: `${-dialogWidth}px`,
       });
 
-    jquery(this.domNode).fadeOut(function () {
+    jquery(this.domNode).fadeOut(() => {
       this.domNode.style.display = 'none';
       this._isHidden = true;
       busy = false;
       this.hideComplete();
-    }.bind(this));
+    });
 
     if (this === maxWidthOwner) {
       maxWidth = 0;

@@ -1,5 +1,5 @@
-import Result from './Result';
 import m from 'mithril';
+import Result from './Result';
 
 const ResultList = {
   view(vnode) {
@@ -9,5 +9,4 @@ const ResultList = {
   },
 };
 
-export { ResultList };
 export default ResultList;

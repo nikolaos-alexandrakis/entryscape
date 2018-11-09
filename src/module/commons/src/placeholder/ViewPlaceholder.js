@@ -1,6 +1,6 @@
-import Placeholder from './Placeholder';
-import registry from '../registry';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import Placeholder from './Placeholder';
 /**
  * This implementation tries to get icon and name of entries by looking
  * at the surrounding view.

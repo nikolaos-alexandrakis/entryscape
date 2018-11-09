@@ -1,7 +1,6 @@
 import m from 'mithril';
 
-
-const MenuItem = {
+export default {
   view(vnode) {
     const { item: { name, label, href, icon }, onclick, selected } = vnode.attrs;
 
@@ -17,9 +16,7 @@ const MenuItem = {
           m(`i.fa.fa-${icon}`),
           m('span.menu-title', label),
         ]),
-      ]
+      ],
     );
   },
 };
-
-export default MenuItem;

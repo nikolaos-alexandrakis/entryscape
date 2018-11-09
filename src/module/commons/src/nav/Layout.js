@@ -1,33 +1,31 @@
-import DOMUtil from '../util/htmlUtil';
 import SiteController from 'spa/SiteController';
-import utils from './utils';
-import configUtil from '../util/configUtil';
+import registry from 'commons/registry';
 import config from 'config';
-import Signin from './Signin'; // In template
-import registry from '../registry';
-import template from './LayoutTemplate.html';
 import m from 'mithril';
-import Menu from './components/Menu';
-import Breadcrumb from './components/Breadcrumb';
-import Logo from './components/Logo';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escoLayout from 'commons/nls/escoLayout.nls';
 import escoModules from 'commons/nls/escoModules.nls';
-
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import has from 'dojo/has';
 import Settings from 'commons/nav/Settings';
-
+import DOMUtil from '../util/htmlUtil';
+import configUtil from '../util/configUtil';
+import utils from './utils';
+import Signin from './Signin'; // In template
+import template from './LayoutTemplate.html';
+import Menu from './components/Menu';
+import Breadcrumb from './components/Breadcrumb';
+import Logo from './components/Logo';
 import './layout.css';
 import './entryscape.css';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, SiteController, NLSMixin.Dijit], {
   templateString: template,
   _entry2label: {},
-  nlsBundles: [{escoLayout}, {escoModules}],
+  nlsBundles: [{ escoLayout }, { escoModules }],
   _firstLoad: true,
   bid: 'layout',
 
@@ -54,11 +52,11 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
 
     this.constructFooter();
 
-    registry.onInit('siteManager').then((site) => {
+    registry.onInit('siteManager').then(() => {
       this.hideForPublicView();
-//       if (registry.getSiteConfig().modules && registry.getSiteConfig().modules.length > 1) {
-//         this.showNode(this.menuListNode);
-//       }
+      //       if (registry.getSiteConfig().modules && registry.getSiteConfig().modules.length > 1) {
+      //         this.showNode(this.menuListNode);
+      //       }
       if (registry.getSiteConfig().startView) {
         const site = registry.getSiteManager();
         this.home.setAttribute('href', site.getViewPath(registry.getSiteConfig().startView));
@@ -100,12 +98,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
           const es = context.getEntryStore();
           const ac = 'contextInHeadCheck';
           async.addIgnore(ac, async.codes.GENERIC_PROBLEM, true);
-          es.getEntry(context.getEntryURI(), {asyncContext: ac})
-            .then(function (contextEntry) {
+          es.getEntry(context.getEntryURI(), { asyncContext: ac })
+            .then((contextEntry) => {
               const lbl = rdfutils.getLabel(contextEntry) || context.getId();
               this.contextLabel.innerHTML = lbl;
               this.contextLabel.setAttribute('title', lbl);
-            }.bind(this));
+            });
         } else {
           this.contextLabel.innerHTML = '';
           this.contextLabel.setAttribute('title', '');
@@ -116,10 +114,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     const locale2flag = {};
     config.locale.supported.forEach((l) => {
       locale2flag[l.lang] = l.flag;
-      const li = DOMUtil.create('li', {title: l.labelEn}, this.langListNode);
+      const li = DOMUtil.create('li', { title: l.labelEn }, this.langListNode);
       const a = DOMUtil.create('a', null, li);
       const span = DOMUtil.create('span', null, a);
-      span.classList.add(`flag-icon`);
+      span.classList.add('flag-icon');
       span.classList.add(`flag-icon-${l.flag}`);
       DOMUtil.create('span', null, a).innerHTML = `&nbsp;&nbsp;${l.label}`;
       a.onclick = () => registry.set('locale', l.lang);
@@ -140,7 +138,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
         // remove other params, only view should be passed.
         site.render(registry.getSiteConfig().startView || registry.getSiteConfig().signinView, {});
         this.signOutButtonClicked = false;
-      })
+      });
     };
 
     registry.onChange('locale', (l) => {
@@ -260,8 +258,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     if (this._firstLoad === true) {
       this._firstLoad = false;
       // TODO @scazan figure out 'has'
-      if (!(has('chrome') >= 32 || has('ff') > 26 || has('ie') >= 11 || has('trident') || has('edge') || has('safari') >= 8)) {
-        registry.get('dialogs').acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);
+      if (!(has('chrome') >= 32 || has('ff') > 26 || has('ie') >= 11
+        || has('trident') || has('edge') || has('safari') >= 8)) {
+        registry.get('dialogs')
+          .acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);
       }
     }
   },
@@ -322,10 +322,11 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
       }
     }, this);
 
-//        let lastArrIdx = viewsPathArr.length - 1;
+    //        let lastArrIdx = viewsPathArr.length - 1;
     Promise.all(breadcrumbItems).then((items) => {
       const currentView = registry.get('siteManager').getCurrentView();
-      if ((currentView && currentView !== registry.getSiteConfig().signinView || upcomingView !== registry.getSiteConfig().signinView) && items.length > 0) {
+      const signInView = registry.getSiteConfig().signinView;
+      if ((currentView && (currentView !== signInView || upcomingView !== signInView)) && items.length > 0) {
         this.showBreadcrumb(items);
         this.updateWindowTitle(items[items.length - 1].value); // update window title
       }
@@ -366,7 +367,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
   },
   showBreadcrumb(items) {
     this.showNode(this.crumbList);
-    m.render(this.crumbList, m(Breadcrumb, {items}));
+    m.render(this.crumbList, m(Breadcrumb, { items }));
   },
   hideBreadcrumb() {
     this.hideNode(this.crumbList);
@@ -418,7 +419,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     const className = 'active';
     const label = utils.getViewProp(module, 'title');
     const value = label.replace('&shy;', '\u00AD');
-    return Promise.resolve({value, className, href});
+    return Promise.resolve({ value, className, href });
   },
   createCrumb(viewDef, currentViewName, params) {
     let href = '';
@@ -436,7 +437,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
       .then((label) => {
         // replace HTML code to Unicode for mithril
         const value = label.replace('&shy;', '\u00AD');
-        return {value, className, href};
+        return { value, className, href };
       });
   },
 });

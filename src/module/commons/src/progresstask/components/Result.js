@@ -21,18 +21,25 @@ const Result = {
           resultIcon = '';
       }
 
-      return m('li.list-group-item', { class: `${this.bid}__resultListRow`,
+      return m('li.list-group-item', {
+        class: `${this.bid}__resultListRow`,
         key: result.id,
       }, m('.row', [
         m('.col-md-1', m(resultIcon, { class: `${this.bid}__resultListRowIcon` })),
         m('.col-md-11', [
-          m(Row, { columns: [{ size: 12, value: m('span', { class: `${this.bid}__resultListRowTaskName` }, result.name) }] }), result.message ?
-          m(Row, {
-            columns: [{
-              size: 12,
-              value: m('span', { class: `${this.bid}__resultListRowSubTaskName` }, result.message),
-            }],
-          }) : null,
+          m(Row,
+            {
+              columns: [{
+                size: 12,
+                value: m('span', { class: `${this.bid}__resultListRowTaskName` }, result.name),
+              }],
+            }), result.message ?
+            m(Row, {
+              columns: [{
+                size: 12,
+                value: m('span', { class: `${this.bid}__resultListRowSubTaskName` }, result.message),
+              }],
+            }) : null,
         ]),
       ]));
     }
@@ -40,5 +47,4 @@ const Result = {
   },
 };
 
-export { Result };
 export default Result;

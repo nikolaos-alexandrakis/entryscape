@@ -1,4 +1,4 @@
-import registry from '../registry';
+import registry from 'commons/registry';
 import SiteClass from 'spa/Site';
 import ConfigError from 'spa/ConfigError';
 
@@ -6,8 +6,8 @@ import ConfigError from 'spa/ConfigError';
 // CONFIG VALIDATION FUNCTIONS
 //= ==================================================
 const hasRoute = view => 'route' in view;
-const parentExists = (view, views) => 'parent' in view ? views.has(view.parent) : true;
-const moduleExists = (view, views, modules) => 'module' in view ? modules.has(view.module) : true;
+const parentExists = (view, views) => ('parent' in view ? views.has(view.parent) : true);
+const moduleExists = (view, views, modules) => ('module' in view ? modules.has(view.module) : true);
 const hasStartingView = (module, views) => 'startView' in module && views.has(module.startView);
 
 const viewValidationFuncs = [
@@ -83,7 +83,6 @@ class Site extends SiteClass {
     const isNotSignedIn = authorizedUser == null || userInfoId === '_guest';
     const isSigningOut = userInfoId !== '_guest'; // If we are being redirected to a
     // warning view and the user
-    const site = registry.getSiteManager();
     const view = this.getUpcomingOrCurrentView();
     let viewParams = Object.assign({}, this.getUpcomingOrCurrentParams(view));
 
@@ -140,7 +139,7 @@ class Site extends SiteClass {
    */
   _unRegisterDisabledViews() {
     const unregisterViews = [];
-    const unregisterRoutes = []
+    const unregisterRoutes = [];
 
     // find views that have a module defined but module is not registered
     this._views.forEach((viewDef, viewName) => {
@@ -188,9 +187,8 @@ class Site extends SiteClass {
       if (!allValid) {
         throw new ConfigError(`${moduleName} module is not configured correctly`);
       }
-    })
+    });
   }
-};
+}
 
-export {Site};
 export default Site;

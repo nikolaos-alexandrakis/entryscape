@@ -35,5 +35,4 @@ const mergeConfig = (...args) => {
 };
 
 
-export {mergeConfig};
 export default mergeConfig;

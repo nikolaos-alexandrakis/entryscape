@@ -1,10 +1,10 @@
-import escoList from 'commons/nls/escoList.nls';
 import escoAcl from 'commons/nls/escoAcl.nls';
-import PrincipalRow from './PrincipalRow';
-import ArrayList from '../store/ArrayList';
-import TypeaheadList from '../list/common/TypeaheadList';
-import {types as esTypes} from 'store';
+import escoList from 'commons/nls/escoList.nls';
 import declare from 'dojo/_base/declare';
+import { types as esTypes } from 'store';
+import TypeaheadList from '../list/common/TypeaheadList';
+import ArrayList from '../store/ArrayList';
+import PrincipalRow from './PrincipalRow';
 
 
 const RemoveDialog = declare(null, {
@@ -150,7 +150,7 @@ const PrincipalList = declare([ArrayList], {
 });
 
 export default declare([TypeaheadList], {
-  nlsBundles: [{escoList}, {escoAcl}],
+  nlsBundles: [{ escoList }, { escoAcl }],
   includeInfoButton: false,
   includeCreateButton: false,
   includeEditButton: false,

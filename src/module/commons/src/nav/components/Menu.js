@@ -1,10 +1,10 @@
-import registry from '../../registry';
+import escoModules from 'commons/nls/escoModules.nls';
+import registry from 'commons/registry';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import m from 'mithril';
 import utils from '../utils';
 import MenuList from './menu/MenuList';
-import {NLSMixin} from 'esi18n';
-import escoModules from 'commons/nls/escoModules.nls';
-import m from 'mithril';
-import declare from 'dojo/_base/declare';
 
 /**
  * Helper function to get the module title
@@ -36,7 +36,7 @@ const getModulesData = (bundle) => {
   if (bundle) {
     const site = registry.getSiteManager();
     return Array.from(site.modules).map((mapEntry) => {
-      module = mapEntry[1];
+      const module = mapEntry[1];
       const startView = module.startView || module.views[0];
       return {
         name: module.name,
@@ -76,7 +76,7 @@ const menuState = {
 };
 
 export default declare([NLSMixin.Dijit], {
-  nlsBundles: [{escoModules}],
+  nlsBundles: [{ escoModules }],
   constructor() {
     registry.onChange('userEntryInfo', this.updateItems.bind(this));
   },
@@ -90,10 +90,10 @@ export default declare([NLSMixin.Dijit], {
   updateSelectedItem() {
     menuState.onclick();
   },
-  view(vnode) {
+  view() {
     this.initNLS(); // TODO @valentino maybe this is too much here. Should be on postCreate? in constructor it's too early due to site not being ready
     this.updateSelectedItem();
-    const {items, selectedItem, onclick} = menuState;
-    return m('div', m(MenuList, {items, selectedItem, onclick}));
-  }
+    const { items, selectedItem, onclick } = menuState;
+    return m('div', m(MenuList, { items, selectedItem, onclick }));
+  },
 });

@@ -1,5 +1,5 @@
 import ArrayList from 'commons/store/ArrayList';
-import {promiseUtil, types} from 'store';
+import { promiseUtil, types } from 'store';
 import registry from 'commons/registry';
 
 const es = registry.get('entrystore');
@@ -65,7 +65,7 @@ export default class extends ArrayList {
 
   extractEntriesFromGroups(groupEntryArr) {
     const hcArr = [];
-    groupEntryArr.map((ge) => {
+    groupEntryArr.forEach((ge) => {
       if (ge != null) {
         const hc = ge.getResource(true).getHomeContext();
         if (hc != null) {
@@ -101,4 +101,4 @@ export default class extends ArrayList {
       return null;
     }).then(() => this.entries);
   }
-};
+}

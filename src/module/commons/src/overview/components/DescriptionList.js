@@ -1,12 +1,12 @@
-import DescriptionInfo from './DescriptionInfo';
 import m from 'mithril';
+import DescriptionInfo from './DescriptionInfo';
 
 /**
  * HTML Description List
  *
  * @type {{sList: Array, view: ((vnode))}}
  */
-const DescriptionList = {
+export default {
   view(vnode) {
     const vnodeList = [];
     vnode.attrs.sList.forEach((item) => {
@@ -17,6 +17,3 @@ const DescriptionList = {
     return m('dl', vnodeList);
   },
 };
-
-export {DescriptionList};
-export default DescriptionList;

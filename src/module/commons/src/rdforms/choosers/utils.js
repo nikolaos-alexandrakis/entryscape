@@ -23,9 +23,9 @@ const utils = {
     if (p.marker) {
       return `POINT(${p.lng} ${p.lat})`;
     }
-    else {
-      return `POLYGON((${p.west} ${p.north},${p.east} ${p.north},${p.east} ${p.south},${p.west} ${p.south},${p.west} ${p.north}))`;
-    }
+
+    // eslint-disable-next-line max-len
+    return `POLYGON((${p.west} ${p.north},${p.east} ${p.north},${p.east} ${p.south},${p.west} ${p.south},${p.west} ${p.north}))`;
   },
 
   fromWKT(val) {
@@ -33,14 +33,11 @@ const utils = {
 
     const polygonTest = val.match(/POLYGON\(\((.*)\)\)/);
     const pointTest = val.match(/POINT\((.*)\)/);
-
-    const geoType = (polygonTest !== null && polygonTest.length > 1) ? 'polygon'
-      : (pointTest !== null && pointTest.length > 1) ? 'point'
-        : undefined;
+    const pointOrNull = (pointTest !== null && pointTest.length > 1) ? 'point' : undefined;
+    const geoType = (polygonTest !== null && polygonTest.length > 1) ? 'polygon' : pointOrNull;
 
     switch (geoType) {
-      case 'polygon':
-
+      case 'polygon': {
         let arr = polygonTest;
 
         arr = arr[1].split(',');
@@ -55,12 +52,10 @@ const utils = {
           p.type = geoType;
           return p;
         }
-        else {
-          return undefined;
-        }
 
-        break;
-      case 'point':
+        return undefined;
+      }
+      case 'point': {
         const lngLat = pointTest[1]
           .split(' ');
 
@@ -69,14 +64,10 @@ const utils = {
           lat: parseFloat(lngLat[1]),
           lng: parseFloat(lngLat[0]),
         };
-
-        break;
+      }
       default:
         return undefined;
-
     }
-    ;
-
   },
 
   convertPointToGeoCoords(point) {
@@ -85,8 +76,10 @@ const utils = {
     }, point);
   },
   convertTwoPointsToBounds([coordinateA, coordinateB]) {
-    const [west, east] = coordinateA.lng < coordinateB.lng ? [coordinateA.lng, coordinateB.lng] : [coordinateB.lng, coordinateA.lng];
-    const [north, south] = coordinateA.lat > coordinateB.lat ? [coordinateA.lat, coordinateB.lat] : [coordinateB.lat, coordinateA.lat];
+    const [west, east] = coordinateA.lng < coordinateB.lng ?
+      [coordinateA.lng, coordinateB.lng] : [coordinateB.lng, coordinateA.lng];
+    const [north, south] = coordinateA.lat > coordinateB.lat ?
+      [coordinateA.lat, coordinateB.lat] : [coordinateB.lat, coordinateA.lat];
 
     return {
       north,
@@ -98,5 +91,4 @@ const utils = {
 
 };
 
-export {utils};
 export default utils;

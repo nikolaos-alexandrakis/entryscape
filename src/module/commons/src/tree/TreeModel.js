@@ -1,4 +1,5 @@
-import registry from '../registry';
+/* eslint-disable class-methods-use-this */
+import registry from 'commons/registry';
 import jquery from 'jquery';
 
 const esu = registry.get('entrystoreutil');
@@ -85,7 +86,7 @@ export default class TreeModel {
     this.domNode = domNode;
     jsTreeConf.core.data = this.getChildren.bind(this);
 
-    const jstreeImport = import(/* webpackChunkName: "jstree" */ 'jstree')
+    import(/* webpackChunkName: "jstree" */ 'jstree')
       .then(() => {
         jquery(domNode).jstree(jsTreeConf);
         jquery(domNode).on('move_node.jstree', this.jsTreeMove.bind(this));
@@ -123,7 +124,7 @@ export default class TreeModel {
 
   getNode(entry) {
     if (entry === this.rootEntry) {
-      return {id: '#'};
+      return { id: '#' };
     }
     return this.uri2node[entry.getResourceURI()];
   }
@@ -144,6 +145,7 @@ export default class TreeModel {
     return node;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getText(entry) {
     return registry.get('rdfutils').getLabel(entry) || entry.getId();
   }
@@ -201,7 +203,7 @@ export default class TreeModel {
             })
             .then(getNodes)
             .then(cb);
-        } else {  // No explicit inverse, one request per child
+        } else { // No explicit inverse, one request per child
           Promise.all(refs.map(ref => failureAsNull(es.getEntry(ref)))).then(getNodes).then(cb);
         }
       }
@@ -426,8 +428,8 @@ export default class TreeModel {
   getObjectEntries(nonNullEntries) {
     const objEntries = [];
     nonNullEntries.forEach((entry) => {
-      objEntries.push({title: this.getText(entry), entry});
+      objEntries.push({ title: this.getText(entry), entry });
     });
     return objEntries;
   }
-};
+}

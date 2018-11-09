@@ -1,15 +1,14 @@
-import DOMUtil from '../util/htmlUtil';
-import jquery from 'jquery';
-import {NLSMixin} from 'esi18n';
-import template from './AsyncHandlerTemplate.html';
-import registry from '../registry';
 import escoErrors from 'commons/nls/escoErrors.nls';
-import loader from 'fuelux/js/loader'; // In template
-import {template as renderTemplate} from 'lodash-es';
-
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import registry from 'commons/registry';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import 'fuelux/js/loader';
+import jquery from 'jquery';
+import { template as renderTemplate } from 'lodash-es';
+import DOMUtil from '../util/htmlUtil';
+import template from './AsyncHandlerTemplate.html';
 import './errors.css';
 
 // Case Generic problem: Something went wrong... send error report / continue anyway / ok,
@@ -44,7 +43,7 @@ const extractProblem = function (err) {
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: template,
   progressDelay: 400,
-  nlsBundles: [{escoErrors}],
+  nlsBundles: [{ escoErrors }],
   codes: {
     GENERIC_PROBLEM,
     UNAUTHORIZED,
@@ -57,7 +56,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.promises = [];
 
     // this.fadeIn = jquery(this.domNode).fadeTo(400, 1);
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(this.domNode);
     });
     this._ignoreNext = {};
@@ -78,7 +77,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.promises.push(obj);
     promise.then(
       () => this.resolved(promise),
-      () => this.rejected(promise)
+      () => this.rejected(promise),
     );
     this.setNewTimer();
   },
@@ -191,12 +190,11 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       }
     }
     if (rejectionReason === UNAUTHORIZED) {
-      registry.get('entrystore').getAuth()
-        .getUserInfo(true).then((userinfo) => {
+      registry.get('entrystore').getAuth().getUserInfo(true).then((userinfo) => {
         this.renderDialog(userinfo.id === '_guest' ? SIGNED_OUT : GENERIC_PROBLEM);
       });
     } else {
-//                this.renderDialog(SIGNED_OUT);
+      //                this.renderDialog(SIGNED_OUT);
       this.renderDialog(rejectionReason);
     }
   },
@@ -223,7 +221,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   renderDialog(state) {
     if (state === INPROGRESS) {
       jquery(this._loader.firstChild).loader('destroy');
-      jquery(DOMUtil.create('div', {class: 'loader'}, this._loader)).loader();
+      jquery(DOMUtil.create('div', { class: 'loader' }, this._loader)).loader();
     } else {
       jquery(this._loader.firstChild).loader('destroy');
     }
@@ -273,7 +271,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       messagesDiv.classList.add('alert');
       messagesDiv.classList.add(`alert-${progressClass}`);
       messagesDiv.innerHTML = `${obj.callType}: ${message}`;
-
     }
   },
 
@@ -327,7 +324,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const drawCounter = (seconds) => {
       // Not connected. Connecting in 4s... Try Now
       this.timeToCheck.innerHTML =
-        renderTemplate(this.NLSBundle0.notConnected)({time: seconds});
+        renderTemplate(this.NLSBundle0.notConnected)({ time: seconds });
     };
     let check;
     const countdown = (seconds) => {

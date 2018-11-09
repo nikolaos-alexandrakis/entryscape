@@ -1,10 +1,10 @@
-import Password from '../Password';
-import registry from '../../registry';
 import FormGroup from 'commons/components/common/form/FormGroup';
 import escoSignin from 'commons/nls/escoSignin.nls';
-import {i18n} from 'esi18n';
 import config from 'config';
+import { i18n } from 'esi18n';
 import m from 'mithril';
+import registry from '../../registry';
+import Password from '../Password';
 
 const passconfig = config.entrystore.password || {};
 
@@ -70,19 +70,20 @@ export default (type, notify) => ({
         classNames: (Password.provided() ? Password.isValid() : true) ? [] : ['has-error'],
         label: {
           forInput: `passw--${id}--input`,
-          text: type !== 'signup' ? bundle.resetToNewPassword : bundle.newPassword
+          text: type !== 'signup' ? bundle.resetToNewPassword : bundle.newPassword,
         },
         input: inputPassword,
         help: {
+          // eslint-disable-next-line no-nested-ternary
           text: Password.toShort() ? bundle.tooShortPassword :
-            (Password.isValid() ? '' : localize(passconfig.message) || '')
+            (Password.isValid() ? '' : localize(passconfig.message) || ''),
         },
       }),
       m(FormGroup, {
         classNames: Password.confirmed() ? [] : ['has-error'],
-        label: {text: bundle.confirmPassword, forInput: `passw-${id}--confirm`},
+        label: { text: bundle.confirmPassword, forInput: `passw-${id}--confirm` },
         input: inputConfirm,
-        help: {text: Password.confirmed() ? '' : bundle.passwordMismatch},
+        help: { text: Password.confirmed() ? '' : bundle.passwordMismatch },
       }),
     ]);
   },

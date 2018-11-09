@@ -63,7 +63,7 @@ const getParentResourceURI = (e) => {
  * @return {*}
  */
 const addNewConceptStmts = (data) => {
-  const {md, conceptRURI, schemeRURI, label, l, isRoot} = data;
+  const { md, conceptRURI, schemeRURI, label, l, isRoot } = data;
 
   md.add(conceptRURI, 'rdf:type', skosClasses.concept);
   md.add(conceptRURI, semanticRelation.inScheme, schemeRURI);
@@ -83,14 +83,12 @@ const addNewConceptStmts = (data) => {
   return md;
 };
 
-const addConceptToConceptScheme = (conceptEntry, schemeEntry) => {
-  return schemeEntry.refresh().then(() => {
-    const schemeMd = schemeEntry.getMetadata();
-    const schemeRURI = schemeEntry.getResourceURI();
-    schemeMd.add(schemeRURI, semanticRelation.fromRootProperty, conceptEntry.getResourceURI());
-    schemeEntry.commitMetadata();
-  });
-};
+const addConceptToConceptScheme = (conceptEntry, schemeEntry) => schemeEntry.refresh().then(() => {
+  const schemeMd = schemeEntry.getMetadata();
+  const schemeRURI = schemeEntry.getResourceURI();
+  schemeMd.add(schemeRURI, semanticRelation.fromRootProperty, conceptEntry.getResourceURI());
+  schemeEntry.commitMetadata();
+});
 
 /**
  * Utility functions for working with SKOS
@@ -205,6 +203,4 @@ const util = {
   addNewConceptStmts,
 };
 
-
-export {util};
 export default util;

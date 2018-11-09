@@ -7,5 +7,5 @@ import declare from 'dojo/_base/declare';
 export default declare(null, {
   canShowView() {
     return Promise.resolve(true);
-  }
+  },
 });

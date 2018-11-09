@@ -1,20 +1,21 @@
+import config from 'config';
+import { utils } from 'rdforms';
+import { i18n } from 'esi18n';
+import declare from 'dojo/_base/declare';
+import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import escoProgress from 'commons/nls/escoProgress.nls';
+
 import TitleDialog from '../dialog/TitleDialog';
 import template from './ProgressDialogTemplate.html';
 import DOMUtil from '../util/htmlUtil';
 import ListDialogMixin from '../list/common/ListDialogMixin';
-import config from 'config';
-import {utils} from 'rdforms';
-import escoProgress from 'commons/nls/escoProgress.nls';
-import {i18n} from 'esi18n';
-import declare from 'dojo/_base/declare';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import './escoProgress.css';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin], {
   bid: 'escoProgress',
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{escoProgress}],
+  nlsBundles: [{ escoProgress }],
   nlsHeaderTitle: 'progressHeader',
   nlsFooterButtonLabel: 'progressFooterButton',
   __progressNode: null,
@@ -123,7 +124,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       DOMUtil.addClass(heading, 'checkbox panel-heading escoProgress__taskHeading');
 
       const label = DOMUtil.create('label', null, heading);
-      const input = DOMUtil.create('input', {type: 'checkbox'}, label);
+      const input = DOMUtil.create('input', { type: 'checkbox' }, label);
       const task = DOMUtil.create('span', null, label);
       task.innerHTML = configuredTask.label;
       DOMUtil.addClass(task, 'escoProgress__taskLabel');
@@ -169,18 +170,19 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     });
     this.tasks.forEach((task) => {
       const div = task.taskEl;
+      /* eslint-disable max-len */
       if (this.noOfCompletedMandatoryTasks === this.manadatoryTasks.length) {
         DOMUtil.removeClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
-
         DOMUtil.addClass(div, 'progress-bar progress-bar-success escoProgress__taskIndicator escoProgress__progressBar');
       } else {
         DOMUtil.removeClass(div, 'progress-bar progress-bar-success escoProgress__taskIndicator escoProgress__progressBar');
         DOMUtil.addClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
       }
+      /* eslint-enable max-len */
     });
   },
   setCheckBoxes(taskName, isChecked) {
-    const {mandatoryChecklistTitle} = i18n.getLocalization(escoProgress);
+    const { mandatoryChecklistTitle } = i18n.getLocalization(escoProgress);
     this.taskCheckBoxes.forEach((taskCB) => {
       // task is object
       if (taskCB.taskName === taskName) {

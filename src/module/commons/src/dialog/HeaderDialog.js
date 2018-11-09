@@ -1,9 +1,9 @@
-import SideDialog from './SideDialog';
-import template from './HeaderDialogTemplate.html';
-import DOMUtil from '../util/htmlUtil';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import DOMUtil from '../util/htmlUtil';
+import template from './HeaderDialogTemplate.html';
+import SideDialog from './SideDialog';
 
 const HeaderDialog = declare([SideDialog], {
   templateString: template,
@@ -21,7 +21,6 @@ const HeaderDialog = declare([SideDialog], {
     }
     const footerNode = this.containerNode.querySelector('footer');
     if (footerNode) {
-
       footerNode.appendChild(this.footerExtentionNode);
       this.domNode.classList.add('spaFooter');
     }

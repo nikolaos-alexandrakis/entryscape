@@ -1,13 +1,11 @@
-import DOMUtil from '../util/htmlUtil';
-import registry from '../registry';
-import utils from './utils';
-import ViewMixin from '../view/ViewMixin';
-import templateString from './CardsTemplate.html';
-
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import utils from './utils';
+import ViewMixin from '../view/ViewMixin';
+import templateString from './CardsTemplate.html';
+import DOMUtil from '../util/htmlUtil';
 import './cards.css';
 
 export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
@@ -39,7 +37,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
       }
 
       if (cardView != null) {
-        const params = context ? {context} : {};
+        const params = context ? { context } : {};
         a.setAttribute('href', site.getViewPath(cardView, params));
       }
       let titleNode;
@@ -47,7 +45,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
         const div = DOMUtil.create('div', null, a);
         div.classList.add('ssb-icon');
 
-        const i = DOMUtil.create('i', {'aria-hidden': 'true'}, div);
+        const i = DOMUtil.create('i', { 'aria-hidden': 'true' }, div);
         DOMUtil.addClass(i, `fa fa-${card.faClass}`);
         titleNode = DOMUtil.create('h2', null, a);
         titleNode.classList.add('ssb-title');
@@ -138,5 +136,5 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
    */
   getCardView(card) {
     return card.view || card.startView;
-  }
+  },
 });

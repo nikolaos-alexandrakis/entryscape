@@ -1,20 +1,19 @@
 import m from 'mithril';
-import GeoCoordinates from './components/GeoCoordinates';
-import {renderingContext} from 'rdforms';
+import { renderingContext } from 'rdforms';
 import { i18n } from 'esi18n';
-import registry from 'commons/registry';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
+import GeoCoordinates from './components/GeoCoordinates';
 
 let defaultRegistered = false;
 
 const GeoChooser = {
-  editor(node, binding, context) {
+  editor(node, binding) {
     const bundle = i18n.getLocalization(escoRdforms);
-    m.mount(node, {view: () => m(GeoCoordinates, {binding, editable: true, bundle})});
+    m.mount(node, { view: () => m(GeoCoordinates, { binding, editable: true, bundle }) });
   },
-  presenter(node, binding, context) {
+  presenter(node, binding) {
     i18n.getLocalization(escoRdforms);
-    m.mount(node, {view: () => m(GeoCoordinates, {binding, editable: false, bundle})});
+    m.mount(node, { view: () => m(GeoCoordinates, { binding, editable: false, bundle }) });
   },
   registerDefaults() {
     if (!defaultRegistered) {

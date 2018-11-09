@@ -1,22 +1,21 @@
 import config from 'config';
-import DOMUtil from '../util/htmlUtil';
-import {utils as rdformsUtils} from 'rdforms';
-import Cards from './Cards';
-import registry from '../registry';
-import ViewMixin from '../view/ViewMixin';
-import {NLSMixin} from 'esi18n';
-import utils from './utils';
+import { utils as rdformsUtils } from 'rdforms';
+import registry from 'commons/registry';
+import { NLSMixin } from 'esi18n';
 import escoModules from 'commons/nls/escoModules.nls';
 import escoLayout from 'commons/nls/escoLayout.nls';
-
 import declare from 'dojo/_base/declare';
+import Cards from './Cards';
+import ViewMixin from '../view/ViewMixin';
+import DOMUtil from '../util/htmlUtil';
+import utils from './utils';
 
 export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
-  nlsBundles: [{escoModules}, {escoLayout}],
+  nlsBundles: [{ escoModules }, { escoLayout }],
 
   postCreate() {
     this.inherited('postCreate', arguments);
-    registry.onChange('hasAdminRights', (info) => {
+    registry.onChange('hasAdminRights', () => {
       this.show();
     });
 
@@ -59,7 +58,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
         DOMUtil.create('h2', null, node).innerHTML = txt;
       }
       if (sb.icon) {
-        DOMUtil.create('img', {src: sb.icon}, node).style.marginBottom = '30px';
+        DOMUtil.create('img', { src: sb.icon }, node).style.marginBottom = '30px';
       }
       if (sb.text) {
         txt = rdformsUtils.getLocalizedValue(sb.text).value;
@@ -139,11 +138,11 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
       tooltip = utils.getModuleProp(card, this.NLSBundle0, 'tooltip');
     }
 
-    return {label, tooltip};
+    return { label, tooltip };
   },
 
   async setLabelAndTooltip(labelNode, tooltipNode, card) {
-    const {label, tooltip} = await this.getLabelAndTooltip(card);
+    const { label, tooltip } = await this.getLabelAndTooltip(card);
 
     labelNode.innerHTML = label;
     tooltipNode.setAttribute('title', tooltip);

@@ -1,12 +1,10 @@
 import m from 'mithril';
-import Position from './Position';
-import Map from './Map';
-import RDForm from './RDForm';
 import Select from 'commons/components/common/form/Select';
-import GeoCoordinates from './GeoCoordinates';
-import {namespaces} from 'rdfjson';
+import { namespaces } from 'rdfjson';
 import registry from 'commons/registry';
-import {engine} from 'rdforms';
+import { engine } from 'rdforms';
+import RDForm from './RDForm';
+import GeoCoordinates from './GeoCoordinates';
 import '../escoSpatial.css';
 
 namespaces.add('dcatde', 'http://dcat-ap.de/def/dcatde/1.0/');
@@ -23,22 +21,22 @@ const bundItem = itemstore.createItem({
   type: 'choice',
   nodetype: 'URI',
   choices: [
-    {value: 'pgsk:01', label: {de: 'Schleswig-Holstein'}},
-    {value: 'pgsk:02', label: {de: 'Hamburg'}},
-    {value: 'pgsk:03', label: {de: 'Niedersachsen'}},
-    {value: 'pgsk:04', label: {de: 'Bremen'}},
-    {value: 'pgsk:05', label: {de: 'Nordrhein-Westfalen'}},
-    {value: 'pgsk:06', label: {de: 'Hessen'}},
-    {value: 'pgsk:07', label: {de: 'Rheinland-Pfalz'}},
-    {value: 'pgsk:08', label: {de: 'Baden-Württemberg'}},
-    {value: 'pgsk:09', label: {de: 'Bayern'}},
-    {value: 'pgsk:10', label: {de: 'Saarland'}},
-    {value: 'pgsk:11', label: {de: 'Berlin'}},
-    {value: 'pgsk:12', label: {de: 'Brandenburg'}},
-    {value: 'pgsk:13', label: {de: 'Mecklenburg-Vorpommern'}},
-    {value: 'pgsk:14', label: {de: 'Sachsen'}},
-    {value: 'pgsk:15', label: {de: 'Sachsen-Anhalt'}},
-    {value: 'pgsk:16', label: {de: 'Thüringen'}},
+    { value: 'pgsk:01', label: { de: 'Schleswig-Holstein' } },
+    { value: 'pgsk:02', label: { de: 'Hamburg' } },
+    { value: 'pgsk:03', label: { de: 'Niedersachsen' } },
+    { value: 'pgsk:04', label: { de: 'Bremen' } },
+    { value: 'pgsk:05', label: { de: 'Nordrhein-Westfalen' } },
+    { value: 'pgsk:06', label: { de: 'Hessen' } },
+    { value: 'pgsk:07', label: { de: 'Rheinland-Pfalz' } },
+    { value: 'pgsk:08', label: { de: 'Baden-Württemberg' } },
+    { value: 'pgsk:09', label: { de: 'Bayern' } },
+    { value: 'pgsk:10', label: { de: 'Saarland' } },
+    { value: 'pgsk:11', label: { de: 'Berlin' } },
+    { value: 'pgsk:12', label: { de: 'Brandenburg' } },
+    { value: 'pgsk:13', label: { de: 'Mecklenburg-Vorpommern' } },
+    { value: 'pgsk:14', label: { de: 'Sachsen' } },
+    { value: 'pgsk:15', label: { de: 'Sachsen-Anhalt' } },
+    { value: 'pgsk:16', label: { de: 'Thüringen' } },
   ],
   styles: ['strictmatch'],
 }, false, true);
@@ -73,8 +71,8 @@ const municipalityItem = itemstore.createItem({
 const municipalityItemGroup = itemstore.createTemplateFromChildren([municipalityItem]);
 
 
-const Spatial = vnode => {
-  const {binding, editable, bundle, context} = vnode.attrs;
+const Spatial = (vnode) => {
+  const { binding, editable, bundle, context } = vnode.attrs;
 
   const graph = binding.getGraph();
   let currentPolLevel = graph.findFirstValue(null, levelPred);
@@ -109,11 +107,12 @@ const Spatial = vnode => {
   }
   const bbBinding = bbGroupBinding.getChildBindings()[0];
 
-  const updateGeoCoordinates = coords => {
-    bbBinding.setValue(coords);
-    m.redraw();
-    return true;
-  };
+  // NOT USED anywhere
+  // const updateGeoCoordinates = (coords) => {
+  //   bbBinding.setValue(coords);
+  //   m.redraw();
+  //   return true;
+  // };
 
   context.clear = () => {
     graph.findAndRemove(null, levelPred);
@@ -125,7 +124,7 @@ const Spatial = vnode => {
   };
 
   return {
-    view(vnode) {
+    view() {
       if (editable) {
         const card = binding.getItem().getCardinality() || {};
         const min = card.min || 0;
@@ -143,17 +142,17 @@ const Spatial = vnode => {
         if (currentPolLevel === 'pgcl:state') {
           comp = m('div', null, [
             m('.rdformsLabel', {}, 'Bundesland'),
-            m(RDForm, {binding: bundBinding, editable: true}),
+            m(RDForm, { binding: bundBinding, editable: true }),
           ]);
         } else if (currentPolLevel === 'pgcl:administrativeDistrict') {
           comp = m('div', null, [
             m('.rdformsLabel', {}, 'Landkreise'),
-            m(RDForm, {binding: districtBinding, editable: true}),
+            m(RDForm, { binding: districtBinding, editable: true }),
           ]);
         } else if (currentPolLevel === 'pgcl:municipality') {
           comp = m('div', null, [
             m('.rdformsLabel', {}, 'Kommun'), // TODO check with hannes.
-            m(RDForm, {binding: municipalityBinding, editable: true}),
+            m(RDForm, { binding: municipalityBinding, editable: true }),
           ]);
         }
 
@@ -168,25 +167,25 @@ const Spatial = vnode => {
                 currentPolLevel = val;
               }),
               options: [
-                {value: 'pgcl:international', label: 'Internationale Ebene'},
-                {value: 'pgcl:european', label: 'EU Ebene'},
-                {value: 'pgcl:federal', label: 'Bundesebene'},
-                {value: 'pgcl:state', label: 'Ebene der Bundesländer'},
-                {value: 'pgcl:administrativeDistrict', label: 'Ebene der Landkreise'},
-                {value: 'pgcl:municipality', label: 'Kommunale Ebene'},
+                { value: 'pgcl:international', label: 'Internationale Ebene' },
+                { value: 'pgcl:european', label: 'EU Ebene' },
+                { value: 'pgcl:federal', label: 'Bundesebene' },
+                { value: 'pgcl:state', label: 'Ebene der Bundesländer' },
+                { value: 'pgcl:administrativeDistrict', label: 'Ebene der Landkreise' },
+                { value: 'pgcl:municipality', label: 'Kommunale Ebene' },
               ],
             }),
             comp,
           ]),
           m('.col-md-6', null, [
-            m(GeoCoordinates, {binding: bbBinding, editable: true, bundle}),
+            m(GeoCoordinates, { binding: bbBinding, editable: true, bundle }),
           ]),
         ]);
       }
       if (bbBinding.isValid()) {
         context.labelNode.style.display = '';
         return m('div', null,
-          m(GeoCoordinates, {binding: bbBinding, editable: false, bundle})
+          m(GeoCoordinates, { binding: bbBinding, editable: false, bundle }),
         );
       }
       context.labelNode.style.display = 'none';

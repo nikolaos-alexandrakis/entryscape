@@ -1,6 +1,6 @@
 const htmlUtil = {
   toggleAttribute(nodes, attr, value) {
-    nodes.forEach(n => n.hasAttribute(attr) ? n.removeAttribute(attr) : n.setAttribute(attr, value));
+    nodes.forEach(n => (n.hasAttribute(attr) ? n.removeAttribute(attr) : n.setAttribute(attr, value)));
   },
 
   toggleEnabledDisabled(domNodes) {
@@ -24,14 +24,11 @@ const htmlUtil = {
         .forEach((keyVal) => {
           if (keyVal[0] === 'innerHTML') {
             newDOMNode.innerHTML = keyVal[1];
-          }
-          else if (keyVal[0] === 'class') {
+          } else if (keyVal[0] === 'class') {
             htmlUtil.addClass(newDOMNode, keyVal[1]);
-          }
-          else if (keyVal[0] === 'src') {
+          } else if (keyVal[0] === 'src') {
             newDOMNode.src = keyVal[1];
-          }
-          else {
+          } else {
             newDOMNode.setAttribute(keyVal[0], keyVal[1]);
           }
         });
@@ -51,9 +48,9 @@ const htmlUtil = {
   addClass(node, classes) {
     const allClasses = classes.split(' ');
 
-    allClasses.forEach(clas => {
+    allClasses.forEach((clas) => {
       if (clas.length > 0) { // clas must not be empty, see classList.add
-        node.classList.add(clas)
+        node.classList.add(clas);
       }
     });
 

@@ -1,10 +1,9 @@
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
 import jquery from 'jquery';
 import template from './FileDialogTemplate.html';
 
-
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
 export default declare([_WidgetBase, _TemplatedMixin], {
   templateString: template,
   validFile: false,
@@ -15,12 +14,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const entryscapeDialogsEl = document.querySelector('#entryscape_dialogs');
     entryscapeDialogsEl.appendChild(this.domNode);
 
-    jquery(this.domNode).on('hide.bs.modal', function () {
+    jquery(this.domNode).on('hide.bs.modal', () => {
       if (this.lock !== true && this._confirmCallback != null) {
         this._confirmCallback(false);
         delete this._confirmCallback;
       }
-    }.bind(this));
+    });
     this.fileInput.onchange = this.fileSelected.bind(this);
   },
   clear() {

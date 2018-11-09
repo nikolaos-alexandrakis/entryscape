@@ -1,7 +1,8 @@
-import registry from '../registry';
+/* eslint-disable class-methods-use-this */
+import registry from 'commons/registry';
 import jquery from 'jquery';
-// require('typeahead.js'); // used via plugin on jquery
 import './typeahead.css';
+
 const rdfutils = registry.get('rdfutils');
 /** @type {store/EntryStore} */
 const es = registry.get('entrystore');
@@ -18,12 +19,12 @@ export default class {
 
   render(entry) {
     return `<div class="entryscapeTypeahead" title="${
-    rdfutils.getDescription(entry) || ''}">${
+      rdfutils.getDescription(entry) || ''}">${
       this.getLabel(entry)}</div>`;
   }
 
   processEntries(entries, callback) {
-    callback(entries.map(entry => ({id: entry.getURI(), name: this.getLabel(entry)})));
+    callback(entries.map(entry => ({ id: entry.getURI(), name: this.getLabel(entry) })));
   }
 
   select() {
@@ -47,7 +48,7 @@ export default class {
     this.emptyMessage = 'No matching entries';
     this.inputTag = inputTag;
     const $inputTag = jquery(inputTag);
-    $inputTag.typeahead({hint: false, highlight: true, minLength: 1},
+    $inputTag.typeahead({ hint: false, highlight: true, minLength: 1 },
       {
         name: `entryscape_typeahead_${counter}`,
         display: 'name',
@@ -82,4 +83,4 @@ export default class {
       this.getQuery(query).getEntries(0).then(f);
     }, this.delay);
   }
-};
+}

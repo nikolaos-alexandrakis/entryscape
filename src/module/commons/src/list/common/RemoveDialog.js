@@ -1,7 +1,6 @@
+import declare from 'dojo/_base/declare';
 import ListDialogMixin from './ListDialogMixin';
 import registry from '../../registry';
-
-import declare from 'dojo/_base/declare';
 
 export default declare([ListDialogMixin], {
   constructor(params) {
@@ -19,7 +18,7 @@ export default declare([ListDialogMixin], {
       sb[list.nlsRemoveFailedKey] : gb[list.nlsRemoveFailedKey];
     const dialogs = registry.get('dialogs');
     dialogs.confirm(removeConfirmMessage, null, null,
-      function (confirm) {
+      (confirm) => {
         if (confirm) {
           this.remove().then(() => {
             list.removeRow(params.row);
@@ -32,7 +31,7 @@ export default declare([ListDialogMixin], {
         } else {
           list.getView().clearSelection();
         }
-      }.bind(this));
+      });
   },
   remove() {
     return this.currentParams.row.entry.del();

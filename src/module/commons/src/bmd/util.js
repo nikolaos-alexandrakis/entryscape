@@ -13,7 +13,10 @@ const throttle = (func, wait, options) => { // TODO replace with lodash
   let result;
   let timeout = null;
   let previous = 0;
-  if (!options) options = {};
+  if (!options) {
+  // eslint-disable-next-line no-param-reassign
+    options = {};
+  }
   const later = function () {
     previous = options.leading === false ? 0 : new Date().getTime();
     timeout = null;
@@ -25,7 +28,9 @@ const throttle = (func, wait, options) => { // TODO replace with lodash
   };
   return function () {
     const now = new Date().getTime();
-    if (!previous && options.leading === false) previous = now;
+    if (!previous && options.leading === false) {
+      previous = now;
+    }
     const remaining = wait - (now - previous);
     context = this;
     args = arguments;

@@ -1,10 +1,10 @@
 import DOMUtil from 'commons/util/htmlUtil';
-import TreeModel from './TreeModel';
-import skosUtil from './skos/util';
 import registry from 'commons/registry';
 import jquery from 'jquery';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
+import TreeModel from './TreeModel';
+import skosUtil from './skos/util';
 
 export default declare([_WidgetBase], {
   constructor() {

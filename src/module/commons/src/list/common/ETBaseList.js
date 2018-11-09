@@ -1,7 +1,6 @@
-import BaseList from './BaseList';
 import typeIndex from 'commons/create/typeIndex';
-
 import declare from 'dojo/_base/declare';
+import BaseList from './BaseList';
 
 export default declare([BaseList], {
   entitytype: '',

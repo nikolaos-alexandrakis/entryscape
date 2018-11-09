@@ -1,13 +1,12 @@
-import { NLSMixin } from 'esi18n';
 import escoAcl from 'commons/nls/escoAcl.nls';
-import template from './ACLTemplate.html';
-import ACLList from './ACLList';
-import registry from '../registry';
-
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import registry from 'commons/registry';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
 import './acl.css';
+import ACLList from './ACLList';
+import template from './ACLTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: template,
@@ -17,7 +16,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
   postCreate() {
     this.inherited('postCreate', arguments);
-    this.aclList = new ACLList({nlsTypeaheadPlaceholderKey: 'searchPrincipals'}, this.aclListNode);
+    this.aclList = new ACLList({ nlsTypeaheadPlaceholderKey: 'searchPrincipals' }, this.aclListNode);
     // this.aclList.onChange = lang.hitch(this, 'onChange');
     this.aclList.onChange = this.onChange.bind(this);
     this.contextAclList = new ACLList({
@@ -88,7 +87,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
             // callback from getEntry()
             // domAttr.set(span, 'innerHTML', rdfutils.getLabel(entry) || entry.getId());
             span.innerHTML = rdfutils.getLabel(entry) || entry.getId();
-          }
+          },
         );
       }
     }

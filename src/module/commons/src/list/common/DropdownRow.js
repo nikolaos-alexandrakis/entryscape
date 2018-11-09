@@ -1,8 +1,8 @@
-import DOMUtil from '../../util/htmlUtil';
-import jquery from 'jquery';
-import template from './DropdownRowTemplate.html';
-import EntryRow from '../EntryRow';
 import declare from 'dojo/_base/declare';
+import jquery from 'jquery';
+import DOMUtil from '../../util/htmlUtil';
+import EntryRow from '../EntryRow';
+import template from './DropdownRowTemplate.html';
 import './escoDropdownRow.css';
 
 export default declare([EntryRow], {
@@ -10,7 +10,6 @@ export default declare([EntryRow], {
   templateString: template,
   items: null,
   dropdownItems: [],
-  // items: {},
   showCol1: false,
 
   buildRendering() {
@@ -23,9 +22,9 @@ export default declare([EntryRow], {
       this.showCol1 = true;
       jquery(this.dropdownRowMenu).dropdown();
       this.dropdownItems.forEach(this.addItem.bind(this));
-      jquery(this.dropdownTest).on('shown.bs.dropdown', function () {
+      jquery(this.dropdownTest).on('shown.bs.dropdown', () => {
         this.updateDropdown();
-      }.bind(this));
+      });
     }
     this.inherited(arguments);
   },
@@ -33,7 +32,6 @@ export default declare([EntryRow], {
 
   },
   isDisabled(name) {
-    returns
     this.items[name].elementItem.classList.contains('disabled');
   },
   disableDropdown() {
@@ -41,7 +39,7 @@ export default declare([EntryRow], {
     this.dropdownIcon.style.visibility = 'hidden';
     this.dropdownIcon.classList.add('escoDropdownRow__menuDisabled');
   },
-  /* start*/
+  /* start */
   setDropdownStatus(menuItem) {
     if (this.items[menuItem]) {
       const menuObj = this.items[menuItem].param;
@@ -68,7 +66,7 @@ export default declare([EntryRow], {
     if (oldClass) {
       this.statusIcon.classList.remove(oldClass);
     }
-    DOMUtil.addClass(this.statusIcon, icon)
+    DOMUtil.addClass(this.statusIcon, icon);
   },
   setDropdownStatusTitle(title) {
     // statusIcon
@@ -110,7 +108,7 @@ export default declare([EntryRow], {
     cls = `${cls} pull-left escoDropdownRow__menuItemIcon`;
 
     const italicEl = DOMUtil.create('i', null, a);
-    DOMUtil.addClass(italicEl, cls)
+    DOMUtil.addClass(italicEl, cls);
 
     const label = DOMUtil.create('span', null, a);
     label.classList.add('escoDropdownRow__menuItemText');
@@ -122,7 +120,7 @@ export default declare([EntryRow], {
       }.bind(this);
       param.method = param.method.bind(this);// removed undefined "event"
     }
-    this.items[param.name] = {param, elementItem: li, elementLink: a, elementLabel: label};
+    this.items[param.name] = { param, elementItem: li, elementLink: a, elementLabel: label };
     if (param.disabled) {
       li.classList.add('disabled');
     }

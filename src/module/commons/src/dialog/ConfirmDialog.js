@@ -1,15 +1,14 @@
 import jquery from 'jquery';
 import escoDialogs from 'commons/nls/escoDialogs.nls';
-import {NLSMixin} from 'esi18n';
-import templateString from './ConfirmDialogTemplate.html';
-
+import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import templateString from './ConfirmDialogTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString,
-  nlsBundles: [{escoDialogs}],
+  nlsBundles: [{ escoDialogs }],
   postCreate() {
     this.inherited('postCreate', arguments);
 
@@ -17,14 +16,17 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     // After the transition from dojo.Deferred to Promise we forgot to take into account that the interface of those two
     // are quite different. When using Promise we need to keep the original resolve/reject functions created on Promise
     // creation if we don't resolve/reject inside the body of the Promise. In order to resolve/reject outside the body
-    // of the promise (...and because all the dialogs need to be re-written) we keep a reference to the resolve/reject created
+    // of the promise (...and because all the dialogs need to be re-written) we keep a reference to the resolve/reject
+    // created
     this._resolve = null;
     this._reject = null;
 
     this.ownerDocumentBody.appendChild(this.domNode);
 
     const entryscapeDialogsEl = document.querySelector('#entryscape_dialogs');
-    entryscapeDialogsEl && entryscapeDialogsEl.appendChild(this.domNode);
+    if (entryscapeDialogsEl) {
+      entryscapeDialogsEl.appendChild(this.domNode);
+    }
 
     jquery(this.domNode).on('hide.bs.modal', () => {
       if (this.lock !== true && this._deferred != null) {

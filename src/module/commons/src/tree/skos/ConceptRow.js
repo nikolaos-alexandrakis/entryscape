@@ -1,14 +1,14 @@
-import DOMUtil from 'commons/util/htmlUtil';
-import registry from 'commons/registry';
 import EntryRow from 'commons/list/EntryRow';
-import util from './util';
-import jquery from 'jquery';
+import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
+import jquery from 'jquery';
 import './escoConceptRow.css';
+import util from './util';
 
 export default declare([EntryRow], {
   postCreate() {
-    this.divPath = DOMUtil.create('div', {class: 'escoConceptRow__path'}, this.col2Node, this.nameNode); // TODO @scazan verify this 4th arg
+    this.divPath = DOMUtil.create('div', { class: 'escoConceptRow__path' }, this.col2Node, this.nameNode); // TODO @scazan verify this 4th arg
     jquery(this.domNode).addClass('termsList');
     this.nameNode.classList.add('escoConceptRow__name');
     this.inherited('postCreate', arguments);
@@ -35,13 +35,13 @@ export default declare([EntryRow], {
             innerHTML: `${rdfutils.getLabel(entry)} `,
           }, self.divPath);
         } else {
-          spanEle = DOMUtil.create('span', {innerHTML: ` ${rdfutils.getLabel(entry)} `}, self.divPath);
+          spanEle = DOMUtil.create('span', { innerHTML: ` ${rdfutils.getLabel(entry)} ` }, self.divPath);
         }
         if (i === 0 && length > 1) {
-          DOMUtil.create('i', {class: 'fa fa-angle-double-right'}, spanEle);
+          DOMUtil.create('i', { class: 'fa fa-angle-double-right' }, spanEle);
         }
         if (i > 0 && i < length - 1) {
-          DOMUtil.create('i', {class: 'fa fa-angle-right'}, spanEle);
+          DOMUtil.create('i', { class: 'fa fa-angle-right' }, spanEle);
         }
       });
     });

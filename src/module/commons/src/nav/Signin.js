@@ -1,27 +1,27 @@
-import DOMUtil from '../util/htmlUtil';
 import config from 'config';
-import registry from '../registry';
-import configUtil from '../util/configUtil';
+import registry from 'commons/registry';
 import Signup from 'commons/nav/Signup';
 import PasswordReset from 'commons/nav/PasswordReset';
 import PublicView from 'commons/view/PublicView';
-import Logo from './components/Logo';
-import template from './SigninTemplate.html';
 import escoSignin from 'commons/nls/escoSignin.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import m from 'mithril';
-
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+
+import Logo from './components/Logo';
+import DOMUtil from '../util/htmlUtil';
+import configUtil from '../util/configUtil';
+import template from './SigninTemplate.html';
 import './escoSignin.css';
 
 let signup;
 let resetPassword;
 
 const SigninMixin = declare([PublicView], {
-  nlsBundles: [{escoSignin}],
+  nlsBundles: [{ escoSignin }],
   templateString: template,
   bid: 'escoSignin',
 
@@ -53,7 +53,7 @@ const SigninMixin = declare([PublicView], {
       }
       const es = registry.get('entrystore');
       const site = registry.getSiteManager();
-      let {nextView, nextViewParams} = site.getState();
+      let { nextView, nextViewParams } = site.getState();
       if (!nextView || (nextView && nextView === this.params.view)) {
         nextView = registry.getSiteConfig().startView; // Fix to avoid infinite loops
         nextViewParams = this.params.params;
@@ -73,16 +73,16 @@ const SigninMixin = declare([PublicView], {
     const async = registry.get('asynchandler');
     async.addIgnore('login', async.codes.UNAUTHORIZED, true);
     return auth.login(esUser, esPassword).then(
-      function () {
+      () => {
         this.signinForm.reset();
-      }.bind(this),
-      function (err) {
+      },
+      (err) => {
         if (err.response.status === 401) {
           throw this.NLSBundle0.signinUnauthorized;
         } else {
           throw this.NLSBundle0.signinError;
         }
-      }.bind(this));
+      });
   },
   signin() {
     PubSub.publish('app.signin');
@@ -100,7 +100,7 @@ const SigninMixin = declare([PublicView], {
     resetPassword.show();
   },
   isFormValid(form) {
-    if (typeof(form.checkValidity) === 'function') {
+    if (typeof (form.checkValidity) === 'function') {
       return form.checkValidity();
     }
     return true;
@@ -136,17 +136,16 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
       this.setStatus();
       if (user != null) {
         this.domNode.classList.add(`${this.bid}--signout`);
-      }
-      else {
+      } else {
         this.domNode.classList.remove(`${this.bid}--signout`);
       }
-    }
+    };
 
     registry.onChange('authorizedUser', setCSSClasses, true);
 
     const displayHeader = (info) => {
       if (info.displayName) {
-        this.signedInHeaderNode.innerHTML = i18n.localize(escoSignin, 'signedInHeader', {name: info.displayName});
+        this.signedInHeaderNode.innerHTML = i18n.localize(escoSignin, 'signedInHeader', { name: info.displayName });
       }
     };
 
@@ -157,7 +156,7 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
     if (p instanceof Promise) {
       p.then(() => {
         const site = registry.getSiteManager();
-        let {nextView, nextViewParams} = site.getState();
+        let { nextView, nextViewParams } = site.getState();
         if (!nextView || (nextView && nextView === this.params.view)) {
           nextView = registry.getSiteConfig().startView; // Fix to avoid infinite loops
           nextViewParams = this.params.params;
@@ -177,7 +176,7 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
     this.inherited('signin', arguments);
   },
   signout() {
-    return registry.get('entrystore').getAuth().logout().then((data) => {
+    return registry.get('entrystore').getAuth().logout().then(() => {
       this.inherited('signout', arguments);
       this.start();
     });

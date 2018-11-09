@@ -1,5 +1,5 @@
 import m from 'mithril';
-import {renderingContext} from 'rdforms';
+import { renderingContext } from 'rdforms';
 
 const create = (vnode) => {
   // Attributes interface
@@ -18,13 +18,10 @@ const create = (vnode) => {
   });
 };
 
-const RDForm = {
+export default {
   view() {
     return m('.escoRDForms', {});
   },
   oncreate: create,
   onupdate: create,
 };
-
-export { RDForm };
-export default RDForm;
