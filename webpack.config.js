@@ -4,13 +4,40 @@ const path = require('path');
 const DojoWebpackPlugin = require('dojo-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
-const getAlias = (name, type = 'module') => path.resolve(path.join(__dirname, 'src', type, name, 'src'));
+/** ********** INIT *********** */
+const VERSION = require('./package.json').version;
 
+const STATIC_URL = 'https://static.entryscape.com';
+
+const getAlias = (name, type = 'module', noSource = false) =>
+  path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
+const locales = ['de', 'sv', 'nb']; // TODO: @scazan Sachsen supports nb but no other. Ask @matthias
+const momentLocaleRegExp = RegExp(locales.reduce((accum, locale, i) => (i === 0 ? `${accum}${locale}` : `${accum}|${locale}`), ''));
+
+/** ********** CONFIGURATION *********** */
 module.exports = (env, argv) => {
+  if (!argv.app) {
+    throw Error('Please provide an `--app` argument to the configuration');
+  }
+
+  const APP = argv.app;
+  const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
+
   let config = {
     mode: 'development',
     devtool: 'inline-source-map',
+    entry: 'src/index.js',
+    output: {
+      path: path.join(__dirname, 'src', 'app', APP, 'dist'),
+      publicPath: `${STATIC_URL}/${APP}/${VERSION}/`,
+      filename: 'app.js',
+      library: APP,
+    },
+    context: APP_PATH,
     plugins: [
       new DojoWebpackPlugin({
         loaderConfig: require('./config/dojoConfig'),
@@ -34,7 +61,15 @@ module.exports = (env, argv) => {
           test: /\.json$/,
           flatten: true,
         },
+        {
+          from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'assets')),
+          to: 'assets', // dist/templates/skos/skos.json
+        },
       ]),
+      new CleanWebpackPlugin([
+        path.join(__dirname, 'src', 'app', APP, 'dist'),
+      ]),
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocaleRegExp),
     ],
     module: {
       rules: [
@@ -54,6 +89,18 @@ module.exports = (env, argv) => {
               ],
             },
           },
+        },
+        {
+          test: /\.nls$/,
+          use: [
+            {
+              loader: 'nls-loader',
+              options: {
+                context: APP_PATH,
+                locales,
+              },
+            },
+          ],
         },
         {
           test: /\.css$/,
@@ -101,19 +148,56 @@ module.exports = (env, argv) => {
         blocks: getAlias('blocks', 'app'),
         spa: getAlias('spa', 'lib'),
         templates: path.resolve(path.join(__dirname, 'src', 'templates')),
-        // dummy! it's set here to fool eslint that the config "module" resolves
-        // otherwise it's set in the app's specific webpack config
-        config: path.resolve(path.join(__dirname, '.eslintrc.js')),
+        config: path.join(APP_PATH, 'src', 'config', 'config'),
+        theme: path.join(APP_PATH, 'theme'),
       },
+    },
+    stats: {
+      warnings: false,
     },
   };
 
-  if (argv && argv.mode === 'production') {
-    config = merge(config, {
-      optimization: {
-        minimizer: [new UglifyJsPlugin()],
-      },
-    });
+  if (argv && argv.mode) {
+    if (argv.mode === 'development') {
+      config = merge(config, {
+        devtool: '#inline-source-map',
+        output: {
+          publicPath: '/',
+        },
+        devServer: {
+          hot: true,
+          contentBase: path.resolve(getAlias(APP, 'app', true, APP === 'blocks' ? '../samples' : '')),
+          historyApiFallback: true,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+        },
+        plugins: [
+          new webpack.HotModuleReplacementPlugin(),
+          new HtmlWebpackPlugin({
+            template: path.join(
+              getAlias(APP, 'app', true), APP === 'blocks' ? 'samples/webpack.html' : 'index.dev.html'),
+          }),
+          new CircularDependencyPlugin({
+            // exclude detection of files based on a RegExp
+            exclude: /a\.js|node_modules/,
+            // add errors to webpack instead of warnings
+            failOnError: false,
+            // allow import cycles that include an asyncronous import,
+            // e.g. via import(/* webpackMode: "weak" */ './file.js')
+            allowAsyncCycles: false,
+            // set the current working directory for displaying module paths
+            cwd: process.cwd(),
+          }),
+        ],
+      });
+    } else if (argv.mode === 'production') {
+      config = merge(config, {
+        optimization: {
+          minimizer: [new UglifyJsPlugin()],
+        },
+      });
+    }
   }
 
   return config;

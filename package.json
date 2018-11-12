@@ -86,10 +86,10 @@
   "scripts": {
     "build:suite": "webpack --config webpack.suite.js --mode=production --display=errors-only",
     "build:registry": "webpack --config webpack.registry.js --mode=production --display=errors-only",
-    "build:blocks": "webpack --config webpack.blocks.js --mode=production",
-    "dev:suite": "webpack-dev-server --watch --mode=development --config webpack.suite.js",
-    "dev:registry": "webpack-dev-server --mode=development --config webpack.registry.js",
-    "dev:blocks": "webpack-dev-server --mode=development --config webpack.blocks.js",
+    "build:blocks": "webpack --config webpack.config.js --mode=production --display=errors-only --app=blocks",
+    "dev:suite": "webpack-dev-server --watch --mode=development --config webpack.config.js --app=suite",
+    "dev:registry": "webpack-dev-server --mode=development --config webpack.config.js --app=registry",
+    "dev:blocks": "webpack-dev-server --mode=development --config webpack.blocks.js --app=blocks",
     "nls:download": "node src/scripts/nls/download.js",
     "nls:upload": "node src/scripts/nls/upload.js"
   }
