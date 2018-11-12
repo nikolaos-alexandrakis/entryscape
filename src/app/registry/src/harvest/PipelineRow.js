@@ -24,7 +24,7 @@ const canRemoveUser = (userEntry, groupEntry) => {
  * This row class is only needed to correctly remove associated user
  * if the user doing the deletion is in the admin-group.
  */
-return declare([GCERow], {
+export default declare([GCERow], {
   removeRow(p) {
     const row = this;
     return p.then(() => {

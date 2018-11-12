@@ -1,6 +1,7 @@
 import 'commons/bmd/all';
 import config from 'config';
 import { i18n } from 'esi18n';
+import { get } from 'lodash-es';
 import PubSub from 'pubsub-js';
 import { namespaces } from 'rdfjson';
 import { bundleLoader, ItemStore, renderingContext, utils } from 'rdforms';
@@ -68,6 +69,9 @@ import DOMUtil from './util/htmlUtil';
 let es;
 
 const init = {
+  config() {
+    config.get = get.bind(null, config);
+  },
   entrystore() {
     es = new EntryStore((config.entrystore && config.entrystore.repository ? config.entrystore.repository : null));
     registry.set('entrystore', es);
@@ -489,8 +493,10 @@ const init = {
   },
 };
 
+
 // TODO @valentino HACK: in order to have some registry items, e.g registry.get('namespaces'),
 // available at 'dojo/declare' class construction those items need to be set first. The following ensure that.
+init.config();
 init.entrystore();
 init.namespaces();
 init.entitytypes();

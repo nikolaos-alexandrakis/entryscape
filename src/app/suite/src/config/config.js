@@ -1,10 +1,9 @@
-import merge from 'commons/merge';
 import adminConfig from 'admin/config/config';
 import catalogConfig from 'catalog/config/config';
-import workbenchConfig from 'workbench/config/config';
+import merge from 'commons/merge';
+import { i18n } from 'esi18n';
 import termsConfig from 'terms/config/config';
-import {i18n} from 'esi18n';
-import {get} from 'lodash-es';
+import workbenchConfig from 'workbench/config/config';
 
 const STATIC = {
   URL: 'https://static.entryscape.com/',
@@ -93,5 +92,4 @@ else {
   i18n.setLocale(config.locale.fallback);
 }
 
-config.get = get.bind(null, config);
 export default config;

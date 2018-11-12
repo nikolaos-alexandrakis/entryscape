@@ -1602,15 +1602,6 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
 
-"bootstrap-material-datetimepicker@https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#amd":
-  version "2.7.1"
-  resolved "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#d0659319a3e136c0f84b881cbe478482a303484b"
-  dependencies:
-    bootstrap "~3.3.4"
-    bootstrap-material-design "~0.3.0"
-    jquery "1.12.3"
-    moment "~2.10.2"
-
 "bootstrap-material-datetimepicker@https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack":
   version "2.7.1"
   resolved "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#a41ebf6395fb0d0a5fdabfe3ddc43f83ac745250"
@@ -1623,13 +1614,6 @@ boolbase@^1.0.0, boolbase@~1.0.0:
 "bootstrap-material-design@https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd":
   version "0.5.10"
   resolved "https://bitbucket.org/metasolutions/bootstrap-material-design.git#5c1fa35b7e613c063d73858594166b3b44c6aab5"
-  dependencies:
-    bootstrap ">=3.0"
-    jquery ">=1.9.1"
-
-bootstrap-material-design@~0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/bootstrap-material-design/-/bootstrap-material-design-0.3.0.tgz#e23fc34eb73a9230d50bbdf68c9fee97fc465b9f"
   dependencies:
     bootstrap ">=3.0"
     jquery ">=1.9.1"
@@ -5962,10 +5946,6 @@ moment@^2.22.1, moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
-moment@~2.10.2:
-  version "2.10.6"
-  resolved "http://registry.npmjs.org/moment/-/moment-2.10.6.tgz#6cb21967c79cba7b0ca5e66644f173662b3efa77"
-
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -7412,7 +7392,7 @@ rc@^1.1.2, rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#35aa284015adc509a246c8597b690adec14d9ff4"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#06af7dfc6da434a7ddeaaba250a82854bb54bc32"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7420,7 +7400,7 @@ rc@^1.1.2, rc@^1.2.7:
     "@babel/polyfill" "^7.0.0"
     babel-loader "^8.0.4"
     bootstrap "^3.3.7"
-    bootstrap-material-datetimepicker "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#amd"
+    bootstrap-material-datetimepicker "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack"
     bootstrap-material-design "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd"
     detect-node "^2.0.3"
     dijit "^1.13.0"

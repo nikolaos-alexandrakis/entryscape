@@ -5,9 +5,9 @@ import registry from 'commons/registry';
 import config from 'config';
 import siteConfig from './config/site';
 
-export default () => {
+export default async () => {
   registry.set('siteConfig', siteConfig);
-  commonsDefaults();
+  await commonsDefaults();
   catalogDefaults();
 
   const ns = registry.get('namespaces');

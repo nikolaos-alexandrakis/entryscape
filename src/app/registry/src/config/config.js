@@ -4,11 +4,20 @@ import catalogConfig from 'catalog/config/config';
 import merge from 'commons/merge';
 import workbenchConfig from 'workbench/config/config';
 
-const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
+const STATIC = {
+  URL: 'https://static.entryscape.com/',
+  APP: 'registry',
+  VERSION: 'latest',
+};
+
+const ASSETS_URL = `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
+
+export default merge(adminConfig, catalogConfig, workbenchConfig, {
   entryscape: {
     static: {
       url: 'https://static.entryscape.com/',
-      app: 'suite',
+      app: 'registry',
       version: 'latest',
     },
   },
@@ -27,6 +36,14 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
         de: 'Hier finden Sie die Werkzeuge für Behörden, die Daten der öffentlichen Verwaltung zur Weiterverwendung durch Dritte bereitstellen wollen.',
       },
       icon: '',
+      localTheme: false,
+      localAssets: false,
+      default: {
+        appName: 'Registry',
+        logo: LOGO_SVG_URL,
+        themePath: ASSETS_URL,
+        assetsPath: ASSETS_URL,
+      },
       details: {
         buttonLabel: { en: 'Get started', sv: 'Kom igång', de: 'Anfangen' },
         header: { en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte Anleitung' },
@@ -110,7 +127,4 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
       label: { en: 'Answer', sv: 'Answer' },
     },
   },
-}, __entryscape_config);
-
-
-export default mergedConfig;
+}, __entryscape_config, window.__entryscape_config_dev || {});

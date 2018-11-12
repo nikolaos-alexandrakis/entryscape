@@ -4,10 +4,10 @@ const merge = require('webpack-merge');
 const path = require('path');
 const commonConfig = require('./webpack.config.js');
 
-const getAlias = (name, type = 'module') => path.resolve(path.join(__dirname, 'src', type, name, 'src'));
-
-const context = path.join(__dirname, 'src', 'app', 'registry');
-const configPath = path.resolve(path.join(getAlias('registry', 'app'), 'config', 'config'));
+const registryPath = path.resolve(path.join(__dirname, 'src', 'app', 'registry'));
+const registrySrcPath = path.resolve(path.join(registryPath, 'src'));
+const context = registryPath;
+const configPath = path.resolve(registrySrcPath, 'config', 'config');
 
 const locales = ['de', 'sv', 'nb']; // TODO: @scazan Sachsen supports nb but no other. Ask @matthias
 const momentLocaleRegExp = RegExp(locales.reduce((accum, locale, i) => (i === 0 ? `${accum}${locale}` : `${accum}|${locale}`), ''));
@@ -67,7 +67,7 @@ module.exports = (env, argv) => {
       devServer: {
         hot: true,
         port: 8080,
-        contentBase: path.resolve(getAlias('registry', 'app')),
+        contentBase: registryPath,
         historyApiFallback: true,
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -77,7 +77,7 @@ module.exports = (env, argv) => {
         // new BundleAnalyzerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-          template: path.resolve(path.join(getAlias('registry', 'app'), 'public', 'index.dev.html')),
+          template: path.resolve(registryPath, 'index.dev.html'),
         }),
       ],
     });
