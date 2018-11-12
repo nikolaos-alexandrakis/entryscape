@@ -1,4 +1,4 @@
-import string from 'dojo/string'; // TODO @scazan
+import { template } from 'lodash-es';
 import { utils } from 'rdforms';
 import registry from 'commons/registry';
 
@@ -17,7 +17,7 @@ export default function (data, entry) {
     const defaultProj = {};
     const vals = {};
     const mapping = {};
-    array.forEach(vars, (v) => {
+    vars.forEach((v) => {
       let nv = v;
       let fallback = '';
       const arr = v.split('|');
@@ -51,7 +51,7 @@ export default function (data, entry) {
     });
     const obj = { ...vals, ...defaultProj, ...pr };
 
-    return string.substitute(content, obj);
+    return template(content)(obj);
   } else if (data.property) {
     return entry.getMetadata().findFirstValue(null, data.property);
   }

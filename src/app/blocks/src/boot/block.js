@@ -52,12 +52,12 @@ const block2function = {
   viewMetadata: renderEntryMetadata, // deprecated, use view
   search: renderSearchList, // deprecated, use searchList
   preload, // deprecated, use config
-  helloworld(node, data, items) { node.innerHTML = data.message || 'Hello world!'; },
+  helloworld(node, data) { node.innerHTML = data.message || 'Hello world!'; },
 };
 
 (config.econfig.blocks || []).forEach((bc) => {
   if (bc.extends && block2function[bc.extends]) {
-    block2function[bc.block] = function (node, data, items) {
+    block2function[bc.block] = (node, data, items) => {
       block2function[bc.extends](node, merge(bc, data), items);
     };
   } else if (bc.run) {
@@ -66,16 +66,16 @@ const block2function = {
 });
 
 Block.list = Object.keys(block2function);
-Block.run = function (block, node, data) {
-  const items = registry.get('itemstore')
-    if (data.error) {
-      error(node, data, items);
-    } else {
-      const f = block2function[block || ''];
-      if (f) {
-        f(node, data, items);
-      }
+Block.run = (block, node, data) => {
+  const items = registry.get('itemstore');
+  if (data.error) {
+    error(node, data, items);
+  } else {
+    const f = block2function[block || ''];
+    if (f) {
+      f(node, data, items);
     }
+  }
 };
 
 export default () => {
