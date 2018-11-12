@@ -17,13 +17,15 @@ export default {
       period = 'thisyear';
       short = i18n.getDate(date, { selector: 'date', datePattern: shortDateFormat });
     }
-    return {
+    const dateTimes = {
       dateMedium: modDateMedium,
       timeMedium: i18n.getDate(date, { selector: 'time', formatLength: 'medium' }),
       full: i18n.getDate(date, { formatLength: 'full' }),
       short,
       period,
     };
+
+    return dateTimes;
   },
   getDateFormat(localLang) {
     for (let i = 0; i < config.locale.supported.length; i++) {

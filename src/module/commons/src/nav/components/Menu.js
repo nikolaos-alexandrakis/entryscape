@@ -91,9 +91,11 @@ export default declare([NLSMixin.Dijit], {
     menuState.onclick();
   },
   view() {
-    this.initNLS(); // TODO @valentino maybe this is too much here. Should be on postCreate? in constructor it's too early due to site not being ready
     this.updateSelectedItem();
     const { items, selectedItem, onclick } = menuState;
     return m('div', m(MenuList, { items, selectedItem, onclick }));
+  },
+  oncreate() {
+    this.initNLS();
   },
 });
