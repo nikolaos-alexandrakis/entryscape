@@ -97,6 +97,7 @@ const init = {
   contentviewers() {
     config.contentviewers = configUtil.objToArray(config.contentviewers) || [];
     config.contentviewers.forEach((contentViewer, idx) => {
+      console.log(contentViewer, idx);
       import(
         /* webpackInclude: /.*View\.js$/ */
         /* webpackMode: "eager" */
@@ -518,7 +519,6 @@ export default async () => {
   init.setGetGroupWithHomeContext();
   init.entitytypes();
   init.contexttypes();
-  init.contentviewers();
 
   document.addEventListener('DOMContentLoaded', () => { // TODO @valentino if dom is loaded when this is added then it's too late, this will not get called
     // init dialogs
