@@ -5,8 +5,6 @@ import '../escoSpatial.css';
 import 'leaflet/dist/leaflet.css';
 let leaflet;
 
-let leaflet;
-
 const Map = () => {
   const state = {
     drawingMode: 'disabled', // disabled, marker, or region
