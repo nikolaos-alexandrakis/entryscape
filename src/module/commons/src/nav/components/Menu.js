@@ -76,7 +76,7 @@ const menuState = {
 };
 
 export default declare([NLSMixin.Dijit], {
-  nlsBundles: [{escoModules}],
+  nlsBundles: [{ escoModules }],
   constructor() {
     registry.onChange('userEntryInfo', this.updateItems.bind(this));
   },
@@ -90,10 +90,12 @@ export default declare([NLSMixin.Dijit], {
   updateSelectedItem() {
     menuState.onclick();
   },
-  view(vnode) {
-    this.initNLS(); // TODO @valentino maybe this is too much here. Should be on postCreate? in constructor it's too early due to site not being ready
+  view() {
     this.updateSelectedItem();
-    const {items, selectedItem, onclick} = menuState;
-    return m('div', m(MenuList, {items, selectedItem, onclick}));
-  }
+    const { items, selectedItem, onclick } = menuState;
+    return m('div', m(MenuList, { items, selectedItem, onclick }));
+  },
+  oncreate() {
+    this.initNLS();
+  },
 });

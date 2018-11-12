@@ -14,7 +14,7 @@ const Map = (vnode) => {
     latLngVector: [],
   };
 
-  const assetsPath = configUtl.getAssetsPath();
+  const assetsPath = configUtil.getAssetsPath();
 
   let updateGeoCoordinates;
   let unfocusInputs;
@@ -263,5 +263,4 @@ const Map = (vnode) => {
   return Map;
 };
 
-export {Map};
 export default Map;

@@ -1,23 +1,23 @@
-/* global define*/
+/* global define */
 import m from 'mithril';
 import Position from './Position';
 import Map from './Map';
 import registry from 'commons/registry';
-import {engine} from 'rdforms';
+// import { engine } from 'rdforms';
 import utils from '../utils';
 import config from 'config';
 
-const GeoCoordinates = vnode => {
-  const {binding, editable, bundle} = vnode.attrs;
+const GeoCoordinates = (vnode) => {
+  const { binding, editable, bundle } = vnode.attrs;
 
-  const updateGeoCoordinates = coords => {
+  const updateGeoCoordinates = (coords) => {
     binding.setValue(coords);
     m.redraw();
     return true;
   };
 
   const state = {
-    inputsFocused: false
+    inputsFocused: false,
   };
 
   const unfocusInputs = () => state.inputsFocused = false;
@@ -31,7 +31,7 @@ const GeoCoordinates = vnode => {
     detectLabel = localize(geoDetect.detectLabel);
     detectClick = () => {
       geoDetect.detect(registry.get('entrystore'), binding).then((response) => {
-        const {geo, message} = response;
+        const { geo, message } = response;
         if (typeof geo === 'object') {
           updateGeoCoordinates(utils.toWKT(geo));
         }
@@ -49,7 +49,7 @@ const GeoCoordinates = vnode => {
 
   const component = {
     view(vnode) {
-      const {value, editable} = vnode.attrs;
+      const { editable } = vnode.attrs;
 
       return m('div', null, [
         m(Position, {
@@ -62,7 +62,7 @@ const GeoCoordinates = vnode => {
           detectClick,
           detectLabel,
         }),
-        m(Map, {editable, value: binding.getValue(), updateGeoCoordinates, unfocusInputs}),
+        m(Map, { editable, value: binding.getValue(), updateGeoCoordinates, unfocusInputs }),
       ]);
     },
   };
@@ -70,5 +70,5 @@ const GeoCoordinates = vnode => {
   return component;
 };
 
-export {GeoCoordinates};
+export { GeoCoordinates };
 export default GeoCoordinates;

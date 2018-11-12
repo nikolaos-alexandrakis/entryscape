@@ -178,5 +178,4 @@ const Position = vnode => {
 
 };
 
-export {Position};
 export default Position;
