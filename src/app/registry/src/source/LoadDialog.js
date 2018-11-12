@@ -1,12 +1,11 @@
+import EntryType from 'commons/create/EntryType';
+import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import TitleDialog from 'commons/dialog/TitleDialog';
-import EntryType from 'commons/create/EntryType';
-import {converters} from 'rdfjson';
+import declare from 'dojo/_base/declare';
+import { converters } from 'rdfjson';
 
-define([
-  'dojo/_base/declare',
-], declare => declare([TitleDialog], {
+export default declare([TitleDialog], {
   explicitNLS: true,
   bundle: null,
   postCreate() {
@@ -48,4 +47,4 @@ define([
     }
     return registry.get('entrystore').loadViaProxy(val, 'application/rdf+xml').then(f);
   },
-}));
+});

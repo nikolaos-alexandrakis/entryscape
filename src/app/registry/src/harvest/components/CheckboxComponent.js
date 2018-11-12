@@ -1,6 +1,7 @@
 import Input from 'commons/components/common/form/Input';
+import jquery from 'jquery';
 import m from 'mithril';
-import jquery from 'jquery'
+
 export default {
   onupdate(vnode) {
     if (vnode.attrs.tooltip) {
@@ -23,7 +24,7 @@ export default {
           'data-placement': 'right',
           'data-original-title': tooltip,
         }, [
-          m(Input, {input}),
+          m(Input, { input }),
           m('span', label),
         ]),
       ]),

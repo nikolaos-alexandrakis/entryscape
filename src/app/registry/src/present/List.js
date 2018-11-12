@@ -1,25 +1,24 @@
-import registry from 'commons/registry';
-import htmlUtil from 'commons/util/htmlUtil';
-import ArrayList from 'commons/store/ArrayList';
-import DatasetDialog from './DatasetDialog';
-import BaseList from 'commons/list/common/BaseList';
-import PublicView from 'commons/view/PublicView';
 import escaDataset from 'catalog/nls/escaDataset.nls';
+import BaseList from 'commons/list/common/BaseList';
 import escoList from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
+import ArrayList from 'commons/store/ArrayList';
+import htmlUtil from 'commons/util/htmlUtil';
+import PublicView from 'commons/view/PublicView';
+import declare from 'dojo/_base/declare';
 import esreSource from 'registry/nls/esreSource.nls';
+import DatasetDialog from './DatasetDialog';
 
 const ns = registry.get('namespaces');
 
-define([
-  'dojo/_base/declare',
-], declare => declare([BaseList, PublicView], {
+export default declare([BaseList, PublicView], {
   includeCreateButton: false,
   includeInfoButton: true,
   includeEditButton: false,
   includeRemoveButton: false,
   includeHead: false,
   searchVisibleFromStart: false,
-  nlsBundles: [{escoList}, {escaDataset}, {esreSource}],
+  nlsBundles: [{ escoList }, { escaDataset }, { esreSource }],
   entryType: ns.expand('dcat:Dataset'),
   class: 'datasets',
   rowClickDialog: 'info',
@@ -29,8 +28,8 @@ define([
     this.registerDialog('info', DatasetDialog);
     const listnode = this.getView().domNode;
     this.headerNode = htmlUtil.create('h3', {
-      style: {'margin-bottom': '20px'},
-      innerHTML: this.NLSBundles.esreSource.exploreHeader
+      style: { 'margin-bottom': '20px' },
+      innerHTML: this.NLSBundles.esreSource.exploreHeader,
     }, listnode, true);
   },
   localeChange() {
@@ -88,6 +87,6 @@ define([
       de.setMetadata(graph);
       return de;
     });
-    this.listView.showEntryList(new ArrayList({arr: pelist}));
+    this.listView.showEntryList(new ArrayList({ arr: pelist }));
   },
-}));
+});

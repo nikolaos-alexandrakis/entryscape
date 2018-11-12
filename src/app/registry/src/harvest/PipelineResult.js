@@ -1,19 +1,19 @@
-import registry from 'commons/registry';
-import {Graph} from 'rdfjson';
-import {terms} from 'store';
-import GroupComponent from 'commons/components/common/Group';
-import TitleComponent from 'commons/components/common/Title';
 import ButtonComponent from 'commons/components/common/button/Button';
+import GroupComponent from 'commons/components/common/Group';
 import KeyValueListComponent from 'commons/components/common/keyvalue/KeyValueList';
+import TitleComponent from 'commons/components/common/Title';
+import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
-import {i18n, NLSMixin} from 'esi18n';
-import {template} from 'lodash-es';
-import esrePipelineResult from 'registry/nls/esrePipelineResult.nls';
-import './esrePipelineResult.css';
 import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { template } from 'lodash-es';
+import { Graph } from 'rdfjson';
+import esrePipelineResult from 'registry/nls/esrePipelineResult.nls';
+import { terms } from 'store';
+import './esrePipelineResult.css';
 
 export default declare([NLSMixin], {
-  nlsBundles: [{esrePipelineResult}],
+  nlsBundles: [{ esrePipelineResult }],
   bid: 'esrePipelineResult',
   initialShow: true,
   validationProperties: [
@@ -50,7 +50,7 @@ export default declare([NLSMixin], {
   ],
 
   constructor(args) {
-    const {entry, currentDialog = null} = args;
+    const { entry, currentDialog = null } = args;
     this.entry = entry;
     this.currentDialog = currentDialog;
 
@@ -65,7 +65,7 @@ export default declare([NLSMixin], {
       modDate = '';
     }
 
-    return template(this.NLSBundle0.modifiedDateTitle)({date: modDate});
+    return template(this.NLSBundle0.modifiedDateTitle)({ date: modDate });
   },
   getTitle() {
     switch (this.entry.getEntryInfo().getStatus()) {
@@ -147,13 +147,13 @@ export default declare([NLSMixin], {
     }
   },
   getTitleComponent(title, hx = 'h4') {
-    return m(TitleComponent, {title, hx});
+    return m(TitleComponent, { title, hx });
   },
   getKeyValueComponent(data) {
-    return m(KeyValueListComponent, {data});
+    return m(KeyValueListComponent, { data });
   },
   getButtonComponent(info) {
-    const {text, onclick} = info;
+    const { text, onclick } = info;
     return m(ButtonComponent, {
       text,
       onclick,
@@ -188,12 +188,12 @@ export default declare([NLSMixin], {
         this.getKeyValueComponent(body.data),
       ].concat(mergeComponents, validationComponents);
 
-      return m(GroupComponent, {components});
+      return m(GroupComponent, { components });
     }
     return body;
   },
   getData() {
-    const {bootstrap} = pipelineResultUtil.getStatusAndColor(this.entry);
+    const { bootstrap } = pipelineResultUtil.getStatusAndColor(this.entry);
     const renderTitle = this.getTitle();
     const date = (this.getDate() || '').toString();
     const body = this.getBody(this.getBodyData());

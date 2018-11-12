@@ -1,4 +1,4 @@
-import {terms} from 'store';
+import { terms } from 'store';
 
 const getStatusAndColor = (entry) => {
   switch (entry.getEntryInfo().getStatus()) {
@@ -41,16 +41,16 @@ const getStatusAndColor = (entry) => {
  * @param statusNode
  */
 const renderStatus = (entry, statusNode) => {
-  const {fa, bootstrap} = getStatusAndColor(entry);
+  const { fa, bootstrap } = getStatusAndColor(entry);
   statusNode.classList.add(`text-${bootstrap}`, `fa-${fa}`);
 };
 
 export {
   renderStatus,
-  getStatusAndColor
+  getStatusAndColor,
 };
 
 export default {
   renderStatus,
-  getStatusAndColor
+  getStatusAndColor,
 };

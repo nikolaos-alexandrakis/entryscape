@@ -1,17 +1,17 @@
-import registry from 'commons/registry';
-import {types} from 'store';
-import HarvestingRow from './HarvestingRow';
 import BaseList from 'commons/list/common/BaseList';
-import PublicView from 'commons/view/PublicView';
-import PipelineResultsViewDialog from '../harvest/PipelineResultsViewDialog';
-import MultiList from 'commons/store/MultiList';
-import declare from 'dojo/_base/declare';
 import escoList from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
+import MultiList from 'commons/store/MultiList';
+import PublicView from 'commons/view/PublicView';
+import declare from 'dojo/_base/declare';
 import esreStatus from 'registry/nls/esreStatus.nls';
+import { types } from 'store';
+import PipelineResultsViewDialog from '../harvest/PipelineResultsViewDialog';
 import './esreStatus.css';
+import HarvestingRow from './HarvestingRow';
 
 export default declare([BaseList, PublicView], {
-  nlsBundles: [{escoList}, {esreStatus}],
+  nlsBundles: [{ escoList }, { esreStatus }],
   includeCreateButton: false,
   includeEditButton: false,
   includeInfoButton: false,

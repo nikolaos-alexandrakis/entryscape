@@ -1,23 +1,24 @@
-import merge from 'commons/merge';
+/* eslint-disable max-len */
 import adminSiteConfig from 'admin/config/site';
 import cataloSitegConfig from 'catalog/config/site';
-import workbenchSiteConfig from 'workbench/config/site';
+import merge from 'commons/merge';
+import Layout from 'commons/nav/Layout';
+import Permission from 'commons/nav/Permission';
+import Signin from 'commons/nav/Signin';
 
 import Site from 'commons/nav/Site';
-import Layout from 'commons/nav/Layout';
-import Start from 'registry/nav/Start';
-import Signin from 'commons/nav/Signin';
-import Permission from 'commons/nav/Permission';
+import Convert from 'registry/convert/Convert';
 import HarvestList from 'registry/harvest/List';
 import PipelineResultsView from 'registry/harvest/PipelineResultsView';
-import Visualization from 'registry/status/Visualization';
-import PSIStatus from 'registry/status/PSIStatus';
-import OtherStatus from 'registry/status/OtherStatus';
-import Source from 'registry/source/Source';
-import Report from 'registry/validate/Report';
 import Merge from 'registry/merge/Merge';
+import Start from 'registry/nav/Start';
 import List from 'registry/present/List';
-import Convert from 'registry/convert/Convert';
+import Source from 'registry/source/Source';
+import OtherStatus from 'registry/status/OtherStatus';
+import PSIStatus from 'registry/status/PSIStatus';
+import Visualization from 'registry/status/Visualization';
+import Report from 'registry/validate/Report';
+import workbenchSiteConfig from 'workbench/config/site';
 
 export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
   siteClass: Site,
@@ -25,13 +26,13 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
   signinView: 'signin',
   permissionView: 'permission',
   startView: 'start',
-  sidebar: {wide: false, always: true, replaceTabs: true},
+  sidebar: { wide: false, always: true, replaceTabs: true },
   moduleList: ['status', 'search', 'register', 'toolkit', 'admin'],
   '!modules': {
     status: {
       productName: 'Status',
       startView: 'status__visualization', // compulsory
-      title: {en: 'Status report', sv: 'Statusrapport', de: 'Statusbericht'},
+      title: { en: 'Status report', sv: 'Statusrapport', de: 'Statusbericht' },
       sidebar: true,
       asCrumb: true,
       faClass: 'eye',
@@ -44,7 +45,7 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
     search: {
       productName: 'Browse',
       startView: 'catalog__search', // compulsory
-      title: {en: 'Dataset search', sv: 'Datamängds&shy;sök', de: 'Datensatz&shy;suche'},
+      title: { en: 'Dataset search', sv: 'Datamängds&shy;sök', de: 'Datensatz&shy;suche' },
       faClass: 'search',
       sidebar: true,
       text: {
@@ -72,7 +73,7 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
     },
     toolkit: {
       faClass: 'wrench',
-      title: {en: 'Toolkit', sv: 'Verktygslåda', de: 'Toolkit'},
+      title: { en: 'Toolkit', sv: 'Verktygslåda', de: 'Toolkit' },
       startView: 'toolkit__rdf__source', // compulsory,
       asCrumb: true,
       sidebar: true,
@@ -83,7 +84,7 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
       },
     },
     admin: {
-      title: {en: 'Admini&shy;stration', sv: 'Admini&shy;strera', de: 'Verwaltung'},
+      title: { en: 'Admini&shy;stration', sv: 'Admini&shy;strera', de: 'Verwaltung' },
       faClass: 'cogs',
       startView: 'admin__users',
       sidebar: true,
@@ -108,7 +109,7 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
         en: 'Sign in/out', sv: 'Logga in/ut', da: 'Login/,d', de: 'An-/Abmelden',
       },
       class: Signin,
-      constructorParams: {nextView: 'start'},
+      constructorParams: { nextView: 'start' },
       route: '/signin',
     },
     permission: {
@@ -124,7 +125,7 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
     },
     harvest__list: {
       class: HarvestList,
-      title: {en: 'Harvesting sources', sv: 'Skördningskällor', de: 'Harvesting-Quellen'},
+      title: { en: 'Harvesting sources', sv: 'Skördningskällor', de: 'Harvesting-Quellen' },
       hidden: true,
       faClass: 'list',
       route: '/organization',
@@ -136,11 +137,11 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
       parent: 'harvest__list',
       route: '/organization/:context',
       module: 'register',
-      constructorParams: {inDialog: false},
+      constructorParams: { inDialog: false },
     },
     status__visualization: {
       class: Visualization,
-      title: {en: 'Overview', sv: 'Översikt'},
+      title: { en: 'Overview', sv: 'Översikt' },
       route: '/status/overview',
       module: 'status',
     },
@@ -166,14 +167,14 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
     },
     toolkit__rdf__source: {
       class: Source,
-      title: {en: 'Catalog source', sv: 'Katalog&shy;källa', de: 'Katalogquelle'},
+      title: { en: 'Catalog source', sv: 'Katalog&shy;källa', de: 'Katalogquelle' },
       faClass: 'database',
       route: '/toolkit/source',
       module: 'toolkit',
     },
     toolkit__validator__report: {
       class: Report,
-      title: {en: 'Validate', sv: 'Validera', de: 'Validieren'},
+      title: { en: 'Validate', sv: 'Validera', de: 'Validieren' },
       faClass: 'check-square-o',
       text: {
         sv: 'Validera dina datamängdsbeskrivningar',
@@ -186,21 +187,21 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
     toolkit__dcat__merge: {
       class: Merge,
       faClass: 'filter',
-      title: {en: 'Merge', sv: 'Slå samman', de: 'Kombinieren'},
+      title: { en: 'Merge', sv: 'Slå samman', de: 'Kombinieren' },
       route: '/toolkit/merge',
       module: 'toolkit',
     },
     toolkit__dcat__view: {
       class: List,
       faClass: 'search',
-      title: {en: 'Explore', sv: 'Utforska', de: 'Untersuchen'},
+      title: { en: 'Explore', sv: 'Utforska', de: 'Untersuchen' },
       route: '/toolkit/view',
       module: 'toolkit',
     },
     toolkit__dcat__convert: {
       class: Convert,
       faClass: 'random',
-      title: {en: 'Convert', sv: 'Konver&shy;tera', de: 'Konvertieren'},
+      title: { en: 'Convert', sv: 'Konver&shy;tera', de: 'Konvertieren' },
       route: '/toolkit/convert',
       module: 'toolkit',
     },

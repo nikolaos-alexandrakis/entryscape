@@ -1,14 +1,14 @@
-import {i18n, NLSMixin} from 'esi18n';
-import esreVisualization from 'registry/nls/esreVisualization.nls';
 import chartist from 'chartist';
 import 'chartist-plugin-legend';
-import PublicView from 'commons/view/PublicView';
 import registry from 'commons/registry';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import PublicView from 'commons/view/PublicView';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import template from './VisualizationTemplate.html';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import esreVisualization from 'registry/nls/esreVisualization.nls';
 import './esreVisualization.css';
+import template from './VisualizationTemplate.html';
 
 const namespaces = registry.get('namespaces');
 namespaces.add('st', 'http://entrystore.org/terms/statistics#');
@@ -22,7 +22,7 @@ const extract = (idx, stat) => {
     const p = stmt.getPredicate();
     if (p.indexOf(base) === 0) {
       const ctxt = p.substr(base.length);
-      _idx[ctxt] = _idx[ctxt] || {d: [], t: 0};
+      _idx[ctxt] = _idx[ctxt] || { d: [], t: 0 };
       const a = _idx[ctxt];
       const v = parseInt(stmt.getValue(), 10);
       if (a.d.length > 0) {
@@ -39,7 +39,7 @@ const extract = (idx, stat) => {
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView], {
   templateString: template,
   bid: 'esreVisualization',
-  nlsBundles: [{esreVisualization}],
+  nlsBundles: [{ esreVisualization }],
 
   localeChange() {
     this.show();
@@ -75,7 +75,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
       const ruri = st.getResourceURI();
       const psiAmount = st.getMetadata().findFirstValue(ruri, 'st:psiDatasetCount');
       const otherAmount = st.getMetadata().findFirstValue(ruri, 'st:otherDatasetCount');
-      return {x: idx, y: parseInt(psiAmount, 10) + parseInt(otherAmount, 10)};
+      return { x: idx, y: parseInt(psiAmount, 10) + parseInt(otherAmount, 10) };
     });
 
     chartist.Line('.vis1', {
@@ -84,7 +84,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
         data,
       }],
     }, {
-      chartPadding: {top: 20, right: 20},
+      chartPadding: { top: 20, right: 20 },
       axisY: {
         type: chartist.AutoScaleAxis, scaleMinSpace: 20, onlyInteger: true,
       },
@@ -93,7 +93,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
         scaleMinSpace: 100,
         onlyInteger: true,
         labelInterpolationFnc(value) {
-          return i18n.getDate(new Date(new Date().getTime() - ((arr.length - value) * 24 * 60 * 60 * 1000)).getTime()).format('DD');
+          return i18n.getDate(new Date(new Date().getTime() - ((arr.length - value) * 24 * 60 * 60 * 1000)).getTime())
+            .format('DD');
         },
       },
       // low: 0,
@@ -185,8 +186,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
           // If no label found, the organization has no datasets
           // in the latest index => ignore.
           if (l) {
-            const {t} = idx[key];
-            orgs.push({l: `${l} (${t})`, t, d: idx[key].d});
+            const { t } = idx[key];
+            orgs.push({ l: `${l} (${t})`, t, d: idx[key].d });
           }
         });
 
@@ -210,7 +211,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
           seriesBarDistance: 10,
           reverseData: true,
           horizontalBars: true,
-          chartPadding: {right: 30},
+          chartPadding: { right: 30 },
           axisY: {
             offset: 200,
           },

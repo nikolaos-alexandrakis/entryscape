@@ -1,19 +1,19 @@
-import registry from 'commons/registry';
-import {converters} from 'rdfjson';
-import config from 'config';
 import RDFEdit from 'commons/rdforms/RDFEdit';
-import {validate} from 'rdforms';
-import template from './SourceTemplate.html';
-import exampleRDF from './example';
-import LoadDialog from './LoadDialog';
-import {saveAs} from 'file-saver/FileSaver';
-import {i18n, NLSMixin} from 'esi18n';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import registry from 'commons/registry';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { saveAs } from 'file-saver/FileSaver';
+import { converters } from 'rdfjson';
+import { validate } from 'rdforms';
 import esreLoadDialog from 'registry/nls/esreLoadDialog.nls';
 import esreSource from 'registry/nls/esreSource.nls';
 import './esreSource.css';
+import exampleRDF from './example';
+import LoadDialog from './LoadDialog';
+import template from './SourceTemplate.html';
 
 const regroup = (a, p) => {
   const g = {};
@@ -37,7 +37,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   type2template: null,
   rdfjson: null,
   rdfjsonEditorOpen: false,
-  nlsBundles: [{esreSource}, {esreLoadDialog}],
+  nlsBundles: [{ esreSource }, { esreLoadDialog }],
 
   //= ==================================================
   // Inherited attributes
@@ -71,7 +71,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.allInited.then(() => {
       if (registry.get('userInfo').id === '_guest' && doWarn) {
         const registrySourceBundle = this.NLSBundles.esreSource;
-        registry.get('dialogs').acknowledge(registrySourceBundle.signinRequirement, registrySourceBundle.signinRequirementOk);
+        registry.get('dialogs')
+          .acknowledge(registrySourceBundle.signinRequirement, registrySourceBundle.signinRequirementOk);
         doWarn = false;
       }
       this._rdfEditor.startup();
@@ -109,8 +110,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       warnings: validateReport.warnings,
     });
     if (validateReport.mandatoryError) {
-      this.updateMessage(`${this.NLSBundles.esreSource.mandatoryMissing
-        }<ul><li>${validateReport.mandatoryError.join('</li><li>')}</li></ul>`, validationResult);
+      this.updateMessage(
+        `${this.NLSBundles.esreSource.mandatoryMissing}<ul><li>${validateReport.mandatoryError.join('</li><li>')}</li></ul>`, validationResult);
     } else {
       this.updateMessage(null, validationResult);
     }
@@ -140,7 +141,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   _download() {
     const graph = registry.get('clipboardGraph');
     const rdfxml = converters.rdfjson2rdfxml(graph);
-    const blob = new Blob([rdfxml], {type: 'application/rdf+xml;charset=utf-8'});
+    const blob = new Blob([rdfxml], { type: 'application/rdf+xml;charset=utf-8' });
     saveAs(blob, 'MergedCatalog.rdf', true);
   },
   _upload() {

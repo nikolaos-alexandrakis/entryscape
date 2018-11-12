@@ -1,23 +1,22 @@
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import LoadDialog from './LoadDialog';
-import CatalogDetect from './CatalogDetect';
-import template from './MergeTemplate.html';
 import PublicView from 'commons/view/PublicView';
-import merge from './mergeScript';
-import {i18n, NLSMixin} from 'esi18n';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
 import esreMerge from 'registry/nls/esreMerge.nls';
 import esreSource from 'registry/nls/esreSource.nls';
+import CatalogDetect from './CatalogDetect';
 import './esreMerge.css';
+import LoadDialog from './LoadDialog';
+import merge from './mergeScript';
+import template from './MergeTemplate.html';
 
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView], {
   bid: 'esreMerge',
-  nlsBundles: [{esreMerge}, {esreSource}],
+  nlsBundles: [{ esreMerge }, { esreSource }],
   templateString: template,
   __mainCatalog: null,
   __mergeCatalogList: null,
@@ -26,7 +25,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
   postCreate() {
     this.inherited('postCreate', arguments);
     this.mergeCatalogsList = [];
-    this.loadDialog = new LoadDialog({merge: this});
+    this.loadDialog = new LoadDialog({ merge: this });
   },
 
   updateMainCatalog(rdf, source) {
@@ -36,7 +35,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
     }
 
     this.mainCatalog = new CatalogDetect(
-      {isSlim: true, rdf, source},
+      { isSlim: true, rdf, source },
       htmlUtil.create('div', null, this.__mainCatalog),
     );
     this.updateMerge();

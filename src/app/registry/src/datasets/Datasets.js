@@ -1,5 +1,5 @@
-import registry from 'commons/registry';
 import List from 'catalog/datasets/List';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 
 export default declare([List], {

@@ -1,15 +1,13 @@
-import registry from 'commons/registry';
-import recipes from './util/recipes';
-import CreatePipelineDialog from './CreatePipelineDialog';
-import {Graph} from 'rdfjson';
 import GCEList from 'commons/gce/List';
-import {types} from 'store';
-import PipelineResultsViewDialog from './PipelineResultsViewDialog';
-import EditPipelineDialog from './EditPipelineDialog';
-import PipelineRow from './PipelineRow';
-import esreHarvest from 'registry/nls/esreHarvest.nls';
 import escoList from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import esreHarvest from 'registry/nls/esreHarvest.nls';
+import { types } from 'store';
+import CreatePipelineDialog from './CreatePipelineDialog';
+import EditPipelineDialog from './EditPipelineDialog';
+import PipelineResultsViewDialog from './PipelineResultsViewDialog';
+import PipelineRow from './PipelineRow';
 
 export default declare([GCEList], {
   includeCreateButton: true,
@@ -18,7 +16,7 @@ export default declare([GCEList], {
   includeRemoveButton: true,
   nlsGCEPublicTitle: 'publicHarvestTitle',
   nlsGCEProtectedTitle: 'privateHarvestTitle',
-  nlsBundles: [{escoList}, {esreHarvest}],
+  nlsBundles: [{ escoList }, { esreHarvest }],
   entryType: registry.get('namespaces').expand('store:Pipeline'),
   class: 'pipeline',
   rowClass: PipelineRow,

@@ -1,11 +1,10 @@
+import TitleDialog from 'commons/dialog/TitleDialog'; // In template
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import TitleDialog from 'commons/dialog/TitleDialog'; // In template
+import declare from 'dojo/_base/declare';
 import Dataset from './Dataset';
 
-define([
-  'dojo/_base/declare',
-], declare => declare([TitleDialog], {
+export default declare([TitleDialog], {
   includeFooter: false,
   postCreate() {
     this.inherited(arguments);
@@ -18,4 +17,4 @@ define([
     this.titleNode.innerHTML = registry.get('rdfutils').getLabel(this.entry);
     this.show();
   },
-}));
+});

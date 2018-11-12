@@ -1,4 +1,4 @@
-import {utils, namespaces} from 'rdfjson';
+import { namespaces, utils } from 'rdfjson';
 
 const datasetType = namespaces.expand('dcat:Dataset');
 const rdfType = namespaces.expand('rdf:type');

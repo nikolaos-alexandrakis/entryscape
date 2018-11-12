@@ -9,47 +9,47 @@ const fetch2recipe = {
 
 export default {
   toArray(recipe, data) {
-    const {source, name = '', profile = 'dcat_ap_se'} = data;
-    let {psi} = data;
+    const { source, name = '', profile = 'dcat_ap_se' } = data;
+    let { psi } = data;
     let arrOfTransforms;
 
     switch (recipe) {
       case 'CKAN':
         arrOfTransforms = [
           ['empty', {}],
-          ['fetchCKAN', {source}],
-          ['ckan2rdf', {base: source}],
-          ['validate', {profile}],
-          ['merge', name ? {name} : {}],
+          ['fetchCKAN', { source }],
+          ['ckan2rdf', { base: source }],
+          ['validate', { profile }],
+          ['merge', name ? { name } : {}],
         ];
 
         if (psi) {
           psi = psi.replace(/\/$/, ''); // remove trailing slash
           psi = `${psi}/${config.registry.psidataPath}`;
-          arrOfTransforms.splice(1, 0, ['check', {source: psi}]);
+          arrOfTransforms.splice(1, 0, ['check', { source: psi }]);
         }
 
         return arrOfTransforms;
       case 'INSPIRE':
         return [
           ['empty', {}],
-          ['fetchCSW', {source}],
-          ['gml2rdf', {base: source}],
-          ['validate', {profile}],
-          ['merge', name ? {name} : {}],
+          ['fetchCSW', { source }],
+          ['gml2rdf', { base: source }],
+          ['validate', { profile }],
+          ['merge', name ? { name } : {}],
         ];
       case 'DCAT':
         arrOfTransforms = [
           ['empty', {}],
-          ['fetch', {source}],
-          ['validate', {profile}],
-          ['merge', name ? {name} : {}],
+          ['fetch', { source }],
+          ['validate', { profile }],
+          ['merge', name ? { name } : {}],
         ];
 
         if (psi) {
           psi = psi.replace(/\/$/, ''); // remove trailing slash
           psi = `${psi}/${config.registry.psidataPath}`;
-          arrOfTransforms.splice(1, 0, ['check', {source: psi}]);
+          arrOfTransforms.splice(1, 0, ['check', { source: psi }]);
         }
 
         return arrOfTransforms;
@@ -70,6 +70,6 @@ export default {
       }
       return false;
     });
-    return {recipe, sourceUrl};
+    return { recipe, sourceUrl };
   },
 };

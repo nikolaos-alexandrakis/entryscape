@@ -1,13 +1,13 @@
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import PipelineResultsView from './PipelineResultsView';
-import {NLSMixin} from 'esi18n';
-import esrePipelineResultListDialog from 'registry/nls/esrePipelineResultListDialog.nls';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import esrePipelineResultListDialog from 'registry/nls/esrePipelineResultListDialog.nls';
+import PipelineResultsView from './PipelineResultsView';
 
 export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   maxWidth: 800,
-  nlsBundles: [{esrePipelineResultListDialog}],
+  nlsBundles: [{ esrePipelineResultListDialog }],
   nlsHeaderTitle: 'pipelineResultRowHeader',
   nlsFooterButtonLabel: 'pipelineResultRowButton',
 
@@ -24,7 +24,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   open(params) {
     this.inherited(arguments);
     this.entry = params.row.entry;
-    this.plist.show({params: {context: this.entry.getContext().getId()}});
+    this.plist.show({ params: { context: this.entry.getContext().getId() } });
     this.show();
   },
 });
