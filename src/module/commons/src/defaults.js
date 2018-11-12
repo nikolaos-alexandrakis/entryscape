@@ -97,7 +97,6 @@ const init = {
   contentviewers() {
     config.contentviewers = configUtil.objToArray(config.contentviewers) || [];
     config.contentviewers.forEach((contentViewer, idx) => {
-      console.log(contentViewer, idx);
       import(
         /* webpackInclude: /.*View\.js$/ */
         /* webpackMode: "eager" */
