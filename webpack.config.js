@@ -166,7 +166,7 @@ module.exports = (env, argv) => {
         },
         devServer: {
           hot: true,
-          contentBase: path.resolve(getAlias(APP, 'app', true, APP === 'blocks' ? '../samples' : '')),
+          contentBase: path.join(APP_PATH, APP === 'blocks' ? '../samples' : ''),
           historyApiFallback: true,
           headers: {
             'Access-Control-Allow-Origin': '*',
