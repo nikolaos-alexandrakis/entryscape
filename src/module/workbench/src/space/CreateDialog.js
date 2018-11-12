@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import {renderingContext} from 'rdforms';
-import template from './CreateDialogTemplate.html';
-import {NLSMixin} from 'esi18n';
+import { renderingContext } from 'rdforms';
+import { NLSMixin } from 'esi18n';
 import eswoSpaces from 'workbench/nls/eswoSpaces.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import template from './CreateDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{eswoSpaces}],
+  nlsBundles: [{ eswoSpaces }],
   nlsHeaderTitle: 'createWorkspaceHeader',
   nlsFooterButtonLabel: 'createWorkspaceButton',
 

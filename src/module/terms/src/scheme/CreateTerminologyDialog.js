@@ -1,24 +1,25 @@
-import template from './CreateTerminologyDialogTemplate.html';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import htmlUtil from 'commons/util/htmlUtil';
-import ImportTerminology from './ImportTerminology';
-import CreateTerminology from './CreateTerminology';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esteTerminology from 'terms/nls/esteTerminology.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import ImportTerminology from './ImportTerminology';
+import CreateTerminology from './CreateTerminology';
+import template from './CreateTerminologyDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{esteTerminology}],
+  nlsBundles: [{ esteTerminology }],
   nlsHeaderTitle: 'createTerminology',
   nlsFooterButtonLabel: 'createTerminologyButton',
 
   postCreate() {
     this.inherited(arguments);
-    this.dialog.headerExtensionNode.appendChild(this.__chooserHeader); // domConstruct.place(this.__chooserHeader, this.dialog.headerExtensionNode);
+    // domConstruct.place(this.__chooserHeader, this.dialog.headerExtensionNode);
+    this.dialog.headerExtensionNode.appendChild(this.__chooserHeader);
     this.importTerminology = new ImportTerminology({
       list: this.list,
       dialog: this.dialog,

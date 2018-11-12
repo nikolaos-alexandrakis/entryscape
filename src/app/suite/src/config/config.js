@@ -1,9 +1,9 @@
-import merge from 'commons/merge';
 import adminConfig from 'admin/config/config';
 import catalogConfig from 'catalog/config/config';
-import workbenchConfig from 'workbench/config/config';
+import merge from 'commons/merge';
+import { i18n } from 'esi18n';
 import termsConfig from 'terms/config/config';
-import {i18n} from 'esi18n';
+import workbenchConfig from 'workbench/config/config';
 
 const STATIC = {
   URL: 'https://static.entryscape.com/',
@@ -85,10 +85,11 @@ for (let i = 0; i < config.locale.supported.length; i++) {
   }
 }
 
-if(bestlang) {
+if (bestlang) {
   i18n.setLocale(bestlang);
 }
 else {
   i18n.setLocale(config.locale.fallback);
 }
+
 export default config;

@@ -10,7 +10,7 @@ export default () => {
 
   const cid2count = {};
 
-// TODO @valentino all the below don't qualify for storing in registry
+  // TODO @valentino all the below don't qualify for storing in registry
   registry.set('setConceptCount', (count) => {
     const cid = registry.get('context').getId();
     cid2count[cid] = count;
@@ -34,7 +34,9 @@ export default () => {
       const es = registry.get('entrystore');
 
       const sl = es.newSolrQuery().rdfType('skos:Concept').context(registry.get('context'))
-        .sort('modified+desc').limit(0).list();
+        .sort('modified+desc')
+        .limit(0)
+        .list();
       sl.getEntries(0).then(() => {
         cid2count[cid] = sl.getSize();
       });
@@ -67,4 +69,4 @@ export default () => {
     }
     return true;
   });
-}
+};

@@ -26,5 +26,4 @@ const Task = {
   },
 };
 
-export { Task };
 export default Task;

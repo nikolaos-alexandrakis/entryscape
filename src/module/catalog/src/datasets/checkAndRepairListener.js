@@ -11,7 +11,7 @@ export default (listView) => {
         const contextId = registry.get('context').getId();
         const time = context2date[contextId];
         if (!time || new Date().getTime() > time) {
-          context2date[contextId] = new Date().getTime() + 1200000; //20 min
+          context2date[contextId] = new Date().getTime() + 1200000; // 20 min
           listView.catalogPromise.then((dcat) => {
             const listURIs = [];
             listView.entryList.forEach((ds) => {
@@ -21,12 +21,12 @@ export default (listView) => {
               const catURIs = md.find(dcat.getResourceURI(), 'dcat:dataset').map(stmt =>
                 stmt.getValue());
 
-              if (catURIs.find((uri) => listURIs.indexOf(uri) === -1) ||
-                listURIs.find((uri) => catURIs.indexOf(uri) === -1)) {
+              if (catURIs.find(uri => listURIs.indexOf(uri) === -1) ||
+                listURIs.find(uri => catURIs.indexOf(uri) === -1)) {
                 md.findAndRemove(dcat.getResourceURI(), 'dcat:dataset');
                 listURIs.forEach((uri) => {
                   md.add(dcat.getResourceURI(), 'dcat:dataset', uri);
-                })
+                });
                 dcat.commitMetadata();
               }
             });

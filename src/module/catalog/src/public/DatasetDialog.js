@@ -1,14 +1,14 @@
 import TitleDialog from 'commons/dialog/TitleDialog';
 import HeaderDialog from 'commons/dialog/HeaderDialog';
-import Dataset from './Dataset';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import Dataset from './Dataset';
 
 export default declare([TitleDialog], {
   includeFooter: false,
   postCreate() {
-    this.dialog = new HeaderDialog({maxWidth: 800}, this.dialog);
-    this.dataset = new Dataset({inDialog: true}, this.dataset);
+    this.dialog = new HeaderDialog({ maxWidth: 800 }, this.dialog);
+    this.dataset = new Dataset({ inDialog: true }, this.dataset);
     this.inherited(arguments);
   },
   open(params) {

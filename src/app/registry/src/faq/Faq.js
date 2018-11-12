@@ -1,7 +1,6 @@
 import registry from 'commons/registry';
-import Bench from 'workbench/bench/Bench';
-
 import declare from 'dojo/_base/declare';
+import Bench from 'workbench/bench/Bench';
 
 export default declare([Bench], {
   show(params) {

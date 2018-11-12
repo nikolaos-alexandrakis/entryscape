@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-const OverviewHeader = {
+export default {
   view(vnode) {
     return m('.page-header', [
       m('h2', vnode.attrs.title),
@@ -8,6 +8,3 @@ const OverviewHeader = {
     ]);
   },
 };
-
-export { OverviewHeader };
-export default OverviewHeader;

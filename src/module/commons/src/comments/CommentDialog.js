@@ -1,19 +1,19 @@
-import {isFunction} from 'lodash-es';
-import escoComment from 'commons/nls/escoComment.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import templateString from './CommentDialogTemplate.html';
-import comments from './comments';
-import Comment from './Comment';
+import escoComment from 'commons/nls/escoComment.nls';
 
 import declare from 'dojo/_base/declare';
+import { isFunction } from 'lodash-es';
+import Comment from './Comment';
+import templateString from './CommentDialogTemplate.html';
+import comments from './comments';
 import './escoCommentDialog.css';
 
 export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
   bid: 'escoCommentDialog',
   templateString,
   maxWidth: 800,
-  nlsBundles: [{escoComment}],
+  nlsBundles: [{ escoComment }],
   nlsHeaderTitle: 'commentHeader',
   nlsFooterButtonLabel: 'commentFooterButton',
   __subjectInput: null,
@@ -44,7 +44,7 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     this.checkTimer = setTimeout(() => {
       delete this.checkTimer;
       if (isFunction(this.domNode.checkValidity)) {
-        valid = this.domNode.checkValidity();
+        this.domNode.checkValidity();
       }
       this.validateComment();
     }, 300);
@@ -84,8 +84,8 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
       const commentEntryDiv = document.createElement('div');
       this.__commentsList.appendChild(commentEntryDiv);
       Comment(
-        {entry: commentEntry, parent: self, initialOpenReplies: true},
-        commentEntryDiv
+        { entry: commentEntry, parent: self, initialOpenReplies: true },
+        commentEntryDiv,
       );
     });
   },
@@ -93,8 +93,12 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     const subj = this.__subjectInput.value;
     const comment = this.__commentInput.value;
 
-    if (subj === '') return this.NLSBundle0.invalidSubject;
-    if (comment === '') return this.NLSBundle0.invalidComment;
+    if (subj === '') {
+      return this.NLSBundle0.invalidSubject;
+    }
+    if (comment === '') {
+      return this.NLSBundle0.invalidComment;
+    }
 
     return comments.createReply(this.entry, subj, comment).then((commentEntry) => {
       this.__commentInput.setAttribute('value', '');
@@ -103,13 +107,13 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
       const commentEntryDiv = document.createElement('div');
       this.__commentsList.appendChild(commentEntryDiv);
       new Comment(
-        {entry: commentEntry, parent: this},
-        commentEntryDiv
+        { entry: commentEntry, parent: this },
+        commentEntryDiv,
       );
       // update comment count on list of candidates
       this.row.noOfComments = this.row.noOfComments + 1;
       this.row.renderCommentCount();
-      return {stopHide: true};
+      return { stopHide: true };
     });
   },
 });

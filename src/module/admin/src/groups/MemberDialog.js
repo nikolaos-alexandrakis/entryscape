@@ -1,14 +1,15 @@
 import registry from 'commons/registry';
-import {types} from 'store';
+import { types } from 'store';
 import TypeaheadList from 'commons/list/common/TypeaheadList';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import RoleRow from './RoleRow';
 import htmlUtil from 'commons/util/htmlUtil';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esadGroup from 'admin/nls/esadGroup.nls';
 import escoList from 'commons/nls/escoList.nls';
 import declare from 'dojo/_base/declare';
+
+import RoleRow from './RoleRow';
 
 const RemoveDialog = declare([], {
   constructor(params) {
@@ -35,7 +36,7 @@ const RemoveDialog = declare([], {
 });
 
 const MemberList = declare([TypeaheadList], {
-  nlsBundles: [{escoList}, {esadGroup}],
+  nlsBundles: [{ escoList }, { esadGroup }],
   includeInfoButton: true,
   includeCreateButton: false,
   includeEditButton: false,
@@ -67,7 +68,9 @@ const MemberList = declare([TypeaheadList], {
 
   typeahead_getQuery(str) {
     return this.entry.getEntryStore().newSolrQuery().graphType(types.GT_USER)
-      .title(str).limit(10).list();
+      .title(str)
+      .limit(10)
+      .list();
   },
 
   typeahead_select(entry) {
@@ -85,7 +88,7 @@ const MemberList = declare([TypeaheadList], {
         (entryIds.indexOf(e.getId()) === -1 && e.getId() !== '_admin'));
       callback(filtEntries.map(entry => ({
         id: entry.getURI(),
-        name: self.typeahead.getLabel(entry)
+        name: self.typeahead.getLabel(entry),
       })));
     });
   },
@@ -96,7 +99,7 @@ const MemberList = declare([TypeaheadList], {
 });
 
 const MemberDialog = declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
-  nlsBundles: [{esadGroup}],
+  nlsBundles: [{ esadGroup }],
   nlsHeaderTitle: 'memberHeader',
   nlsFooterButtonLabel: 'memberDoneButton',
   maxWidth: 800,

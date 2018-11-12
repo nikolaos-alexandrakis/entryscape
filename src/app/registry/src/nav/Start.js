@@ -1,9 +1,9 @@
-import registry from 'commons/registry';
 import GroupComponent from 'commons/components/common/Group';
-import CardComponent from './components/CardComponent';
 import Start from 'commons/nav/Start';
-import m from 'mithril';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import m from 'mithril';
+import CardComponent from './components/CardComponent';
 import './esreStart.css';
 
 export default declare([Start], {
@@ -16,7 +16,7 @@ export default declare([Start], {
       const cardView = this.getCardView(card);
       const text = this.getText(card);
       let onclick;
-      const {label, tooltip} = this.getLabelAndTooltip(card);
+      const { label, tooltip } = this.getLabelAndTooltip(card);
       if (cardView != null) {
         const viewDef = site.getViewDef(cardView);
         const params = Object.assign({}, this.viewParams || {}, viewDef.showParams || {});
@@ -33,7 +33,7 @@ export default declare([Start], {
       });
     }, this);
 
-    m.render(this.mainNode, m(GroupComponent, {components: cardsComponents}));
+    m.render(this.mainNode, m(GroupComponent, { components: cardsComponents }));
   },
 
   // TODO change in commons so this is not neccessary

@@ -1,6 +1,6 @@
+import m from 'mithril';
 import TaskList from './TaskList';
 import ResultList from './ResultList';
-import m from 'mithril';
 import './escoProgressTask.css';
 /**
  * A component for displaying a progress dialog based on tasks and results for those tasks
@@ -17,5 +17,4 @@ const TaskProgress = {
   },
 };
 
-export { TaskProgress };
 export default TaskProgress;

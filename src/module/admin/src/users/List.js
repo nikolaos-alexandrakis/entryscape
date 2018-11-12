@@ -1,21 +1,21 @@
 import registry from 'commons/registry';
-import {types} from 'store';
-import CreateDialog from './CreateDialog';
+import { types } from 'store';
 import ACLDialog from 'admin/utils/ACLDialog';
-import UserRow from './UserRow';
-import GroupDialog from './GroupDialog';
 import BaseList from 'commons/list/common/BaseList';
-import PasswordDialog from './PasswordDialog';
-import UsernameDialog from './UsernameDialog';
 import config from 'config';
-import CustomPropertiesDialog from './CustomPropertiesDialog';
 import EditDialog from 'commons/list/common/EditDialog';
 import escoList from 'commons/nls/escoList.nls';
 import esadUser from 'admin/nls/esadUser.nls';
 import declare from 'dojo/_base/declare';
+import UserRow from './UserRow';
+import CreateDialog from './CreateDialog';
+import GroupDialog from './GroupDialog';
+import PasswordDialog from './PasswordDialog';
+import UsernameDialog from './UsernameDialog';
+import CustomPropertiesDialog from './CustomPropertiesDialog';
 
 const UserACLDialog = declare([ACLDialog], {
-  nlsBundles: [{esadUser}],
+  nlsBundles: [{ esadUser }],
   nlsHeaderTitle: 'userACLHeader',
   nlsFooterButtonLabel: 'updateUserACLButton',
 });
@@ -62,11 +62,12 @@ const UnMakePremium = declare(null, {
 });
 
 export default declare([BaseList], {
-  nlsBundles: [{escoList}, {esadUser}],
+  nlsBundles: [{ escoList }, { esadUser }],
   includeInfoButton: false,
   rowClickDialog: 'edit',
   rowClass: UserRow,
-  rowActionNames: ['edit', 'versions', 'username', 'password', 'share', 'groups', 'statusEnable', 'statusDisable', 'makepremium', 'unmakepremium', 'remove'],
+  rowActionNames: ['edit', 'versions', 'username', 'password',
+    'share', 'groups', 'statusEnable', 'statusDisable', 'makepremium', 'unmakepremium', 'remove'],
 
   postCreate() {
     this.registerDialog('groups', GroupDialog);

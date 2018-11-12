@@ -1,4 +1,5 @@
-import registry from '../registry';
+/* eslint-disable import/prefer-default-export */
+import registry from 'commons/registry';
 import configUtil from './configUtil';
 
 export const createEntry = (context, scope) => {
@@ -8,7 +9,7 @@ export const createEntry = (context, scope) => {
     const resURI = _.template(resourceBase)({
       contextId: c.getId(),
       entryId: '_newId',
-      uuid: utils.generateUUID()
+      uuid: utils.generateUUID(),
     });
     return c.newLink(resURI);
   }

@@ -1,7 +1,7 @@
 import m from 'mithril';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
 import { i18n } from 'esi18n';
-import {renderingContext} from 'rdforms';
+import { renderingContext } from 'rdforms';
 import Spatial from './components/Spatial';
 
 let defaultRegistered = false;

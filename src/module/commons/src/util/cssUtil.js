@@ -8,8 +8,8 @@ const defaultParams = {
     prop: 'display',
     val1: 'none',
     val2: '',
-  }
-}
+  },
+};
 
 const toggleClass = (nodes, cssClass) => {
   nodes.forEach(node => domClass.toggle(node, cssClass));
@@ -25,7 +25,7 @@ const toggleClass = (nodes, cssClass) => {
  * @param params {Object}
  */
 const togglePropertyValue = (nodes = [], params) => {
-  const {prop, val1, val2} = params;
+  const { prop, val1, val2 } = params;
 
   const applyToggle = (node) => {
     const val = node.style.getPropertyValue(prop);
@@ -35,9 +35,13 @@ const togglePropertyValue = (nodes = [], params) => {
     } else if (val === val2) {
       node.style.setProperty(prop, val1);
     }
-  }
+  };
 
-  Array.isArray(nodes) ? nodes.forEach(applyToggle) : applyToggle(nodes);
+  if (Array.isArray(nodes)) {
+    nodes.forEach(applyToggle);
+  } else {
+    applyToggle(nodes);
+  }
 };
 
 const toggleDisplayNoneBlock = nodes => togglePropertyValue(nodes, defaultParams.noneBlock);
@@ -51,9 +55,9 @@ export {
 };
 
 
-export default {
-  toggleClass,
-  togglePropertyValue,
-  toggleDisplayNoneBlock,
-  toggleDisplayNoneEmpty,
-}
+// export default {
+//   toggleClass,
+//   togglePropertyValue,
+//   toggleDisplayNoneBlock,
+//   toggleDisplayNoneEmpty,
+// };

@@ -2,22 +2,22 @@ import registry from 'commons/registry';
 import typeIndex from 'commons/create/typeIndex';
 import Placeholder from 'commons/placeholder/Placeholder';
 import ViewMixin from 'commons/view/ViewMixin';
-import List from './List';
-import ListAndContentView from './ListAndContentView';
 import htmlUtil from 'commons/util/htmlUtil';
-import entitytypes from '../utils/entitytypes';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import eswoBench from 'workbench/nls/eswoBench.nls';
 import config from 'config';
-import templateString from './BenchTemplate.html';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import List from './List';
+import ListAndContentView from './ListAndContentView';
+import templateString from './BenchTemplate.html';
+import entitytypes from '../utils/entitytypes';
 import './eswoBench.css';
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin], {
   bid: 'eswoBench',
-  nlsBundles: [{eswoBench}],
+  nlsBundles: [{ eswoBench }],
   templateString,
   viewName: 'workbench__entities',
   __sideList: null,
@@ -59,7 +59,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
     return entityURI;
   },
   show(viewInfo) {
-    const {params} = viewInfo;
+    const { params } = viewInfo;
     this.configuredEntitytypes = [];
     this.filteredConfEtypes = [];
     registry.get('context').getEntry().then((entry) => {
@@ -87,6 +87,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
         this.render(this.configuredEntitytypes[0]);
       } else {
         // TODO replace this with an akgnowledge dialog
+        // eslint-disable-next-line no-alert
         alert('Config error, no types given for workbench.');
       }
     });
@@ -143,7 +144,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
         benchTypeConf: conf,
         bench: this,
         mode: isWrite ? 'edit' : 'present',
-        includeMassOperations: (config.workbench && config.workbench.includeMassOperations) ? true : false,
+        includeMassOperations: !!((config.workbench && config.workbench.includeMassOperations)),
       }, newNode);
       this.list.show();
     }
@@ -177,9 +178,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
         this.createList(typeConf, contextEntry.canWriteResource(), this.__list);
         node.classList.add('active');
       }
-      const a = htmlUtil.create('a', {href: sm.getViewPath(view, params)}, node);
+      const a = htmlUtil.create('a', { href: sm.getViewPath(view, params) }, node);
       const title = registry.get('localize')(typeConf.label);
-      const badge = htmlUtil.create('span', {class: 'badge pull-right'}, a);
+      const badge = htmlUtil.create('span', { class: 'badge pull-right' }, a);
       htmlUtil.create('span', {
         innerHTML: title,
         class: 'eswoBench__entityName',

@@ -3,12 +3,10 @@ import m from 'mithril';
 import Position from './Position';
 import Map from './Map';
 import registry from 'commons/registry';
-// import { engine } from 'rdforms';
 import utils from '../utils';
-import config from 'config';
 
-const GeoCoordinates = (vnode) => {
-  const { binding, editable, bundle } = vnode.attrs;
+export default (params) => {
+  const { binding, bundle } = params.attrs;
 
   const updateGeoCoordinates = (coords) => {
     binding.setValue(coords);
@@ -20,8 +18,12 @@ const GeoCoordinates = (vnode) => {
     inputsFocused: false,
   };
 
-  const unfocusInputs = () => state.inputsFocused = false;
-  const focusInputs = () => state.inputsFocused = true;
+  const unfocusInputs = () => {
+    state.inputsFocused = false;
+  };
+  const focusInputs = () => {
+    state.inputsFocused = true;
+  };
   let detectClick;
   let detectLabel;
   const geoDetect = config.itemstore.geoDetect;
@@ -69,6 +71,3 @@ const GeoCoordinates = (vnode) => {
 
   return component;
 };
-
-export { GeoCoordinates };
-export default GeoCoordinates;

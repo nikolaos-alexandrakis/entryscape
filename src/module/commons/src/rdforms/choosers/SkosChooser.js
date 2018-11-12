@@ -1,21 +1,21 @@
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import Tree from 'commons/tree/Tree';
 import skosUtil from 'commons/tree/skos/util';
-import {renderingContext} from 'rdforms';
+import { renderingContext } from 'rdforms';
 import config from 'config';
 import BaseList from 'commons/list/common/BaseList';
 import ConceptRow from 'commons/tree/skos/ConceptRow';
 import jquery from 'jquery';
-import cssUtil from 'commons/util/cssUtil';
+import { togglePropertyValue } from 'commons/util/cssUtil';
 import escoList from 'commons/nls/escoList.nls';
 import escoSkosChooser from 'commons/nls/escoSkosChooser.nls';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
-import template from './SkosChooserTemplate.html';
 import TitleDialog from 'commons/dialog/TitleDialog'; // In template
 import registry from 'commons/registry'; // Provides namespaces, context, entrystore and rdfutils in registry.
 import DOMUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import template from './SkosChooserTemplate.html';
 import './escoSkosChooser.css';
 
 const getLabel = (entry) => {
@@ -62,7 +62,7 @@ const canTerminologyMapToSelf = (property) => {
  */
 const HandleChoiceSelection = declare([], {
   handle(params) {
-    const {entry, onSelect, dialog} = params;
+    const { entry, onSelect, dialog } = params;
     const choice = getChoice(entry);
     onSelect(choice);
     dialog.hide();
@@ -74,7 +74,7 @@ const HandleChoiceSelection = declare([], {
  */
 const ConceptRowAction = declare([HandleChoiceSelection], {
   open(params) {
-    const {entry, list} = params.row;
+    const { entry, list } = params.row;
     const bundleParams = {
       entry,
       onSelect: list.onSelect,
@@ -110,7 +110,7 @@ const SkosChooserTree = declare([Tree], {
     jquery(this.domNode).on('select_node.jstree', (ev, obj) => {
       this.getTreeModel().getEntry(obj.node).then((entry) => {
         // commit choice
-        HandleChoiceSelection().handle({entry, onSelect, dialog});
+        HandleChoiceSelection().handle({ entry, onSelect, dialog });
 
         // unbind events from tree
         this.unBindEvents();
@@ -133,7 +133,7 @@ const SkosChooserTree = declare([Tree], {
 });
 
 const SkosChooserList = declare([BaseList], {
-  nlsBundles: [{escoList}, {escoSkosChooser}],
+  nlsBundles: [{ escoList }, { escoSkosChooser }],
   nlsCreateEntryMessage: null,
   includeRefreshButton: false,
   includeInfoButton: true,
@@ -197,7 +197,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
   binding: null,
   onSelect: null,
   maxWidth: 800,
-  nlsBundles: [{escoRdforms}, {escoSkosChooser}],
+  nlsBundles: [{ escoRdforms }, { escoSkosChooser }],
   includeFooter: false,
 
   postCreate() {
@@ -290,7 +290,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
       // add terminologies and display all
       this.skosConceptSchemas = [];
       this.__skosConceptSchemaList.style.display = 'block';
-      this.optionEle = DOMUtil.create('option', {value: 'all'}, this.__skosConceptSchemaList);
+      this.optionEle = DOMUtil.create('option', { value: 'all' }, this.__skosConceptSchemaList);
       this.selectedSkosConceptSchemaURI = null; // setting default value to render
       return this.getInSchemeEntries(inskosinSchemeRURIs)
         .then(terminologies => Promise.all(terminologies.forEach((terminology) => {
@@ -310,10 +310,8 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
     } // default
     this.skosConceptSchemas = [];
     this.__skosConceptSchemaList.style.display = 'block';
-    this.optionEle = DOMUtil.create('option', {value: 'all'}, this.__skosConceptSchemaList);
+    this.optionEle = DOMUtil.create('option', { value: 'all' }, this.__skosConceptSchemaList);
     this.selectedSkosConceptSchemaURI = null;
-    const ns = registry.get('namespaces');
-    const rdfType = ns.expand('rdf:type');
     return registry.get('entrystore').newSolrQuery().rdfType('skos:ConceptScheme')
       .list()
       .forEach((terminology) => {
@@ -344,7 +342,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
       this.selectedSkosConceptSchemaURI = terminology.getResourceURI();
       option.selected = true;
     }
-    this.skosConceptSchemas.push({skosConceptScheme: terminology, elementItem: option});
+    this.skosConceptSchemas.push({ skosConceptScheme: terminology, elementItem: option });
     this.inSchemeResourceURIs.push(terminology.getResourceURI());
   },
   localeChange() {
@@ -403,7 +401,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
   },
   _displaySelectTerminologyMsg() {
     // show some message to select a terminology first and exit
-    cssUtil.togglePropertyValue([this.__terminologyFirstAlert], cssUtil.toggleDisplayNoneParams,);
+    togglePropertyValue([this.__terminologyFirstAlert], cssUtil.toggleDisplayNoneParams); // TODO
     setTimeout(() => {
       jquery(this.__terminologyFirstAlert).fadeOut('slow');
     }, 2000);
@@ -462,7 +460,7 @@ const ext = {
           const ac = `ignoreSC${asyncCounter}`;
           asyncCounter += 1;
           async.addIgnore(ac, async.codes.GENERIC_PROBLEM, true);
-          store.getEntry(euri, {asyncContext: ac}).then((entry) => {
+          store.getEntry(euri, { asyncContext: ac }).then((entry) => {
             getChoice(entry, obj);
             delete obj.load;
             return obj;
@@ -519,7 +517,7 @@ const ext = {
         'http://www.w3.org/1999/02/22-rdf-syntax-ns#type': 'http://www.w3.org/2004/02/skos/core#Concept',
         'http://www.w3.org/2004/02/skos/core#inScheme': '',
       }).register(ext);
-      renderingContext.chooserRegistry.constraint({'http://www.w3.org/2004/02/skos/core#inScheme': ''}).register(ext);
+      renderingContext.chooserRegistry.constraint({ 'http://www.w3.org/2004/02/skos/core#inScheme': '' }).register(ext);
       defaultRegistered = true;
     }
   },

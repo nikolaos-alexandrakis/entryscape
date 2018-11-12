@@ -1,14 +1,15 @@
+import registry from 'commons/registry';
+import config from 'config';
+import { i18n } from 'esi18n';
+import declare from 'dojo/_base/declare';
+import _WidgetBase from 'dijit/_WidgetBase';
 import DOMUtil from '../util/htmlUtil';
 import ListView from './ListView';
 import EntryRow from './EntryRow';
-import registry from '../registry';
 import ViewMixin from '../view/ViewMixin';
 import ListPlaceholder from '../placeholder/ListPlaceholder';
-import config from 'config';
-import {i18n} from 'esi18n';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
 import './list.css';
+
 const orderByName = function (list, names) {
   const idx = {};
   if (!names) {
@@ -75,24 +76,24 @@ export default declare([_WidgetBase, ViewMixin], {
     }
     const LVCls = this.listViewClass;
     this.listView = new LVCls({
-        class: this.class,
-        list: this,
-        buttonMenu: this.listButtonMenu,
-        rowClass: this.rowClass,
-        includeHead: this.includeHead,
-        includeHeader: this.includeHeader,
-        includeResultSize: this.includeResultSize,
-        nlsTypeaheadPlaceholderKey: this.nlsTypeaheadPlaceholderKey,
-        nlsListHeaderKey: this.nlsListHeaderKey,
-        nlsListHeaderTitleKey: this.nlsListHeaderTitleKey,
-        searchInList: this.searchInList,
-        searchVisibleFromStart: this.searchVisibleFromStart,
-        rowClickDialog: this.rowClickDialog,
-        placeholderClass: this.placeholderClass,
-        includeSortOptions: this.includeSortOptions,
-        includeMassOperations: this.includeMassOperations,
-      },
-      DOMUtil.create('div', null, this.domNode));
+      class: this.class,
+      list: this,
+      buttonMenu: this.listButtonMenu,
+      rowClass: this.rowClass,
+      includeHead: this.includeHead,
+      includeHeader: this.includeHeader,
+      includeResultSize: this.includeResultSize,
+      nlsTypeaheadPlaceholderKey: this.nlsTypeaheadPlaceholderKey,
+      nlsListHeaderKey: this.nlsListHeaderKey,
+      nlsListHeaderTitleKey: this.nlsListHeaderTitleKey,
+      searchInList: this.searchInList,
+      searchVisibleFromStart: this.searchVisibleFromStart,
+      rowClickDialog: this.rowClickDialog,
+      placeholderClass: this.placeholderClass,
+      includeSortOptions: this.includeSortOptions,
+      includeMassOperations: this.includeMassOperations,
+    },
+    DOMUtil.create('div', null, this.domNode));
     if (this.listInDialog) {
       // domClass.remove(this.listView.domNode, 'container');
       this.listView.domNode.classList.remove('container');
@@ -116,7 +117,7 @@ export default declare([_WidgetBase, ViewMixin], {
   },
 
   registerDialog(dialogName, DialogClass) {
-    this.dialogs[dialogName] = new DialogClass({list: this}, DOMUtil.create('div', null, this.dialogsNode));
+    this.dialogs[dialogName] = new DialogClass({ list: this }, DOMUtil.create('div', null, this.dialogsNode));
   },
   /**
    * @deprecated use corresponding method registerListAction.

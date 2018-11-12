@@ -1,10 +1,10 @@
-import registry from '../../registry';
+import escoModules from 'commons/nls/escoModules.nls';
+import registry from 'commons/registry';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import m from 'mithril';
 import utils from '../utils';
 import MenuList from './menu/MenuList';
-import {NLSMixin} from 'esi18n';
-import escoModules from 'commons/nls/escoModules.nls';
-import m from 'mithril';
-import declare from 'dojo/_base/declare';
 
 /**
  * Helper function to get the module title
@@ -36,7 +36,7 @@ const getModulesData = (bundle) => {
   if (bundle) {
     const site = registry.getSiteManager();
     return Array.from(site.modules).map((mapEntry) => {
-      module = mapEntry[1];
+      const module = mapEntry[1];
       const startView = module.startView || module.views[0];
       return {
         name: module.name,

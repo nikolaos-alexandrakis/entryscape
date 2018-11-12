@@ -1,11 +1,11 @@
-import templateString from './ImageViewTemplate.html';
 import escoContentview from 'commons/nls/escoContentview.nls';
-import ContentView from './ContentView';
 import declare from 'dojo/_base/declare';
+import ContentView from './ContentView';
+import templateString from './ImageViewTemplate.html';
 
 export default declare([ContentView], {
   templateString,
-  nlsBundles: [{escoContentview}],
+  nlsBundles: [{ escoContentview }],
   bid: 'escoImageView',
   includeMetadataPresentation: true,
 
@@ -17,12 +17,13 @@ export default declare([ContentView], {
       this.__message.style.display = 'none';
     };
 
-    this.__imgContent.onerror = this.__imgContent.onabort = () => {
+    this.__imgContent.onabort = () => {
       this.__spinner.style.display = 'none';
       this.__messageText.innerHTML = this.NLSBundle0.imageCannotBeLoaded;
       this.__message.classList.remove('alert-info');
       this.__message.classList.add('alert-danger');
     };
+    this.__imgContent.onerror = this.__imgContent.onabort;
 
     this.entry.refresh().then((entry) => {
       let imageURI;

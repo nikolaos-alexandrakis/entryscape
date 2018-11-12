@@ -1,19 +1,18 @@
-import {isFunction} from 'lodash-es';
-import escoSignin from 'commons/nls/escoSignin.nls';
-import config from 'config';
-import TitleDialog from 'commons/dialog/TitleDialog';
-import Password from 'commons/auth/Password';
 import PasswordForm from 'commons/auth/components/PasswordForm';
-import configUtil from 'commons/util/configUtil';
-import template from './PasswordResetTemplate.html';
+import Password from 'commons/auth/Password';
+import TitleDialog from 'commons/dialog/TitleDialog';
+import escoSignin from 'commons/nls/escoSignin.nls';
 import registry from 'commons/registry';
+import configUtil from 'commons/util/configUtil';
+import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 
 import declare from 'dojo/_base/declare';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import { isFunction } from 'lodash-es';
+import template from './PasswordResetTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
   templateString: template,
-  nlsBundles: [{escoSignin}],
+  nlsBundles: [{ escoSignin }],
   nlsHeaderTitle: 'resetPasswordHeader',
   nlsFooterButtonLabel: 'resetPassword',
   maxWidth: 800,
@@ -29,10 +28,8 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
       grecaptcharesponse: this.recaptchaResponse,
     };
     return es.getREST().post(`${es.getBaseURI()}auth/pwreset`, JSON.stringify(pwResetInfo))
-      .then(() => {
-        return registry.get('dialogs')
-          .acknowledge(this.NLSBundle0.passwordResetConfirmationMessage);
-      }, () => {
+      .then(() => registry.get('dialogs')
+        .acknowledge(this.NLSBundle0.passwordResetConfirmationMessage), () => {
         throw this.NLSBundle0.passwordResetErrorMessage;
       });
   },
@@ -40,13 +37,13 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     Password.clear();
     m.mount(this.passwordFormNode, PasswordForm('reset', this.check.bind(this)));
     this.check();
-    registry.get('addRecaptcha')(this.recaptcha, function (val) {
+    registry.get('addRecaptcha')(this.recaptcha, (val) => {
       this.recaptchaResponse = val;
       this.check();
-    }.bind(this), function () {
+    }, () => {
       this.recaptchaResponse = null;
       this.check();
-    }.bind(this));
+    });
     this.dialog.show();
   },
   postCreate() {
@@ -60,7 +57,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
       delete this.checkTimer;
     }
 
-    this.checkTimer = setTimeout(function () {
+    this.checkTimer = setTimeout(() => {
       delete this.checkTimer;
       let valid = true;
       if (isFunction(this.domNode.checkValidity)) {
@@ -80,7 +77,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
       } else {
         this.dialog.lockFooterButton();
       }
-    }.bind(this), 400);
+    }, 400);
   },
   validateEmail() {
     if (this.pwrUsername.value.length > 0 &&

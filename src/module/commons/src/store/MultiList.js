@@ -2,8 +2,7 @@
  * Wraps an array of lists into something that looks like a single store/List.
  * @see {store/List}
  */
-class MultiList {
-
+export default class {
   /**
    * Parameters may be:
    * lists - an array of lists to be combined into one.
@@ -22,21 +21,20 @@ class MultiList {
   }
 
   loadEnoughSizes(page) {
+    // eslint-disable-next-line consistent-return
     return new Promise((resolve) => {
       const needToReach = (page + 1) * this.limit;
       let amount = 0;
-      const listLength = this.lists.length;
-      for (var i = 0; i < this.lists.length; i++) {
+      for (let i = 0; i < listLength; i++) {
         if (isNaN(this.sizes[i])) {
           return this.lists[i].getEntries().then(function (listIndex) {
             this.sizes[listIndex] = this.lists[listIndex].getSize();
             return this.loadEnoughSizes(page);
           }.bind(this, i));
-        } else {
-          amount += this.sizes[i];
-          if (amount > needToReach) {
-            break;
-          }
+        }
+        amount += this.sizes[i];
+        if (amount > needToReach) {
+          break;
         }
       }
 
@@ -84,7 +82,7 @@ class MultiList {
   }
 
   getEntries(pageParam) {
-    page = isNaN(pageParam) ? 0 : pageParam;
+    const page = isNaN(pageParam) ? 0 : pageParam;
     let offset = page * this.limit;
     return this.loadEnoughSizes(page).then(() => {
       let before = 0;
@@ -106,8 +104,4 @@ class MultiList {
   getLimit() {
     return this.limit;
   }
-};
-
-
-export {MultiList};
-export default MultiList;
+}

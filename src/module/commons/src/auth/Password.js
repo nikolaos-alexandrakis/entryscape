@@ -14,10 +14,10 @@ const P = {
     P.password = '';
     P.confirm = '';
   },
-  setPassword(value, e) {
+  setPassword(value) {
     P.password = value;
   },
-  setConfirm(value, e) {
+  setConfirm(value) {
     P.confirm = value;
   },
   toShort() {

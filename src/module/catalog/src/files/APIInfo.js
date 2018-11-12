@@ -1,18 +1,18 @@
 import registry from 'commons/registry';
-import template from './APIInfoTemplate.html';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaFiles from 'catalog/nls/escaFiles.nls';
-import './files.css';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import template from './APIInfoTemplate.html';
+import './files.css';
 
 const ns = registry.get('namespaces');
 const resultColumnName = ns.expand('store:pipelineResultColumnName');
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: template,
-  nlsBundles: [{escaFiles}],
+  nlsBundles: [{ escaFiles }],
 
   postCreate() {
     this.inherited('postCreate', arguments);

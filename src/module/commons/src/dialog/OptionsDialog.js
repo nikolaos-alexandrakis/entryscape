@@ -1,9 +1,9 @@
-import DOMUtil from '../util/htmlUtil';
 import jquery from 'jquery';
-import templateString from './OptionsDialogTemplate.html';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import DOMUtil from '../util/htmlUtil';
+import templateString from './OptionsDialogTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin], {
   templateString,
@@ -12,20 +12,19 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.ownerDocumentBody.appendChild(this.domNode);
     document.querySelector('#entryscape_dialogs').appendChild(this.domNode);
 
-    jquery(this.domNode).on('hide.bs.modal', function () {
+    jquery(this.domNode).on('hide.bs.modal', () => {
       if (this.lock !== true && this._deferred != null) {
-        const d = this._deferred;
         delete this._deferred;
         this.reject(false);
       }
-    }.bind(this));
-    jquery(this.domNode).on('hidden.bs.modal', function () {
+    });
+    jquery(this.domNode).on('hidden.bs.modal', () => {
       this._showing = false;
       if (this._showFunc) {
         this._showFunc();
         delete this._showFunc;
       }
-    }.bind(this));
+    });
   },
   show(message, options) {
     const that = this;
@@ -58,9 +57,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       el.innerHTML = params.buttonLabel;
       el.classList.add('btn');
       el.classList.add('btn-primary');
-
     } else {
-      el = DOMUtil.create('button', {type: 'button'}, this.buttonsFooter);
+      el = DOMUtil.create('button', { type: 'button' }, this.buttonsFooter);
       el.classList.add('btn');
       el.classList.add('btn-default');
       el.innerHTML = params.buttonLabel;

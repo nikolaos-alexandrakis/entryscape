@@ -6,7 +6,7 @@ import _WidgetBase from 'dijit/_WidgetBase';
 export default declare([_WidgetBase], {
   buildRendering() {
     this.domNode = this.srcNodeRef || domConstruct.create('div');
-    this.domNode.classList.add('list-group')
+    this.domNode.classList.add('list-group');
   },
 
   show() {
@@ -31,7 +31,7 @@ export default declare([_WidgetBase], {
   render(catalogs) {
     this.domNode.innerHTML = '';
     catalogs.forEach((catalog) => {
-      const p = {...params};
+      const p = { ...params };
       p.context = catalog.entry.getContext().getId();
 
       // create anchor element

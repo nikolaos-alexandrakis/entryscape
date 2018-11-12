@@ -3,14 +3,14 @@ import typeIndex from 'commons/create/typeIndex';
 import ETBaseList from 'commons/list/common/ETBaseList';
 import EditDialog from 'commons/list/common/EditDialog';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import Row from './Row';
-import ListView from '../utils/ListView';
 import htmlUtil from 'commons/util/htmlUtil';
 import escoList from 'commons/nls/escoList.nls';
 import escaResponsible from 'catalog/nls/escaResponsible.nls';
 import config from 'config';
 import declare from 'dojo/_base/declare';
-import {createEntry} from 'commons/util/storeUtil';
+import { createEntry } from 'commons/util/storeUtil';
+import Row from './Row';
+import ListView from '../utils/ListView';
 
 const pconf = typeIndex.getConfByName('publisher');
 let sharedPublishers = pconf.context != null;
@@ -56,7 +56,7 @@ const CreateCPDialog = declare([RDFormsEditDialog], {
   },
 });
 
-const defaultAgentType = config.catalog && config.catalog.defaultAgentType ? config.catalog.defaultAgentType : 'foaf:Agent';
+const defaultAgentType = config.get('catalog.defaultAgentType', 'foaf:Agent');
 
 const CreateAgentDialog = declare([RDFormsEditDialog], {
   maxWidth: 800,
@@ -105,7 +105,7 @@ const ns = registry.get('namespaces');
 export default declare([ETBaseList], {
   rowClass: Row,
   restrictToContext: true,
-  nlsBundles: [{escoList}, {escaResponsible}],
+  nlsBundles: [{ escoList }, { escaResponsible }],
   includeCreateButton: false,
   includeInfoButton: false,
   includeEditButton: false,
@@ -183,13 +183,13 @@ export default declare([ETBaseList], {
     if ((this.contacts && cconf.allContexts) ||
       (this.publishers && pconf.allContexts)) {
       this.restrictToContext = false;
-      const div = htmlUtil.create('div', {'class': 'checkbox'}, this.getView().lowerBlockContainer);
+      const div = htmlUtil.create('div', { class: 'checkbox' }, this.getView().lowerBlockContainer);
       const label = htmlUtil.create('label', null, div);
-      const inp = htmlUtil.create('input', {type: 'checkbox', checked: true}, label);
+      const inp = htmlUtil.create('input', { type: 'checkbox', checked: true }, label);
       // The reason for margin-left 7px is a mystery, in
       this.sharedControlLabel = htmlUtil.create('span', {
-        'class': 'checkboxLabel',
-        style: {'margin-left': '7px'}
+        class: 'checkboxLabel',
+        style: { 'margin-left': '7px' },
       }, label);
 
       inp.addEventListener('change', () => {

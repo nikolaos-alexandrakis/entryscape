@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import template from './CreateDialogTemplate.html';
 import config from 'config';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esadGroup from 'admin/nls/esadGroup.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import template from './CreateDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{esadGroup}],
+  nlsBundles: [{ esadGroup }],
   nlsHeaderTitle: 'createGroupHeader',
   nlsFooterButtonLabel: 'createGroupButton',
 
@@ -58,10 +58,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
             throw Error('No matching group.');
           }
         }).then(null, () => {
-        this.newGroupnameIsOk = true;
-        this.groupnameError.style.display = 'none';
-        this.checkValidInfoDelayed();
-      });
+          this.newGroupnameIsOk = true;
+          this.groupnameError.style.display = 'none';
+          this.checkValidInfoDelayed();
+        });
     }
   },
   open() {
@@ -123,7 +123,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     }
     const md = pue.getMetadata();
     md.add(pue.getResourceURI(), ns.expand('foaf:name'),
-      {type: 'literal', value: fullname});
+      { type: 'literal', value: fullname });
     return pue.commit().then((ue) => {
       groupEntry = ue;
       if (createContext) {
@@ -133,7 +133,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
         } else {
           cpe = store.newContext();
         }
-        cpe.getEntryInfo().setACL({admin: [groupEntry.getResourceURI()]});
+        cpe.getEntryInfo().setACL({ admin: [groupEntry.getResourceURI()] });
         return cpe.commit();
       }
       return groupEntry;

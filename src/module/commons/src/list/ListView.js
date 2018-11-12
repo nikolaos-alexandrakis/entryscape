@@ -1,17 +1,17 @@
-import DOMUtil from '../util/htmlUtil';
-import DropdownMenu from '../menu/DropdownMenu';
+import registry from 'commons/registry';
+import uiUtil from 'commons/util/uiUtil';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 import jquery from 'jquery';
 import m from 'mithril';
-import template from './ListViewTemplate.html';
-import uiUtil from 'commons/util/uiUtil';
-import ResultSize from './components/ResultSize';
-import {i18n} from 'esi18n';
-import registry from '../registry';
 import PubSub from 'pubsub-js';
+import DropdownMenu from '../menu/DropdownMenu';
+import DOMUtil from '../util/htmlUtil';
 
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import ResultSize from './components/ResultSize';
+import template from './ListViewTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin], {
   templateString: template,
@@ -98,8 +98,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-6');
         DOMUtil.addClass(this.resultSizeContainer, 'col-md-1 col-sm-1');
       } else {
-        DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-8')
-
+        DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-8');
       }
     }
 
@@ -205,11 +204,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   updateLocaleStrings(generic, specific) {
     this.nlsGenericBundle = generic;
     this.nlsSpecificBundle = specific;
-    this.localePromise = Promise.resolve({g: generic, s: specific});
+    this.localePromise = Promise.resolve({ g: generic, s: specific });
 
     // List header
     this.updateHeader();
-    this.searchTermNode.setAttribute('placeholder', (specific && specific[this.listSearchPlaceholderKey]) || generic[this.listSearchPlaceholderKey] || '');
+    this.searchTermNode.setAttribute('placeholder',
+      (specific && specific[this.listSearchPlaceholderKey]) || generic[this.listSearchPlaceholderKey] || '');
     this.searchTermNode.setAttribute('title', generic.listSearchTitle || '');
     this.tooShortSearch.innerHTML = generic.listSearchTitle || '';
     this.invalidSearch.innerHTML = generic.invalidSearchMessage || '';
@@ -217,7 +217,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.sortOrderTitleCheck.innerHTML = generic.titleSortLabel;
     this.sortOrderDateCheck.innerHTML = generic.dateSortLabel;
     this.selectallLabel.innerHTML = generic.selectAllLabel;
-    this.typeaheadInput.setAttribute('placeholder', (specific && specific[this.nlsTypeaheadPlaceholderKey]) || generic[this.nlsTypeaheadPlaceholderKey] || '');
+    this.typeaheadInput.setAttribute('placeholder',
+      (specific && specific[this.nlsTypeaheadPlaceholderKey]) || generic[this.nlsTypeaheadPlaceholderKey] || '');
 
     this.rows.forEach((row) => {
       row.updateLocaleStrings(generic, specific);
@@ -234,9 +235,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     Object.keys(this.buttons).forEach((name) => {
       const params = this.buttons[name];
       if (params.params.nlsKey) {
-        params.label.innerHTML = `&nbsp;${
-        (specific && specific[params.params.nlsKey])
-        || generic[params.params.nlsKey] || ''}`;
+        params.label.innerHTML =
+          `&nbsp;${(specific && specific[params.params.nlsKey]) || generic[params.params.nlsKey] || ''}`;
       }
       const popoverOptions = uiUtil.getPopoverOptions();
       mesg = null;
@@ -273,15 +273,15 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   installButton(params) {
     const el = DOMUtil.create('button', {
       type: 'button',
-    }, this.buttonContainer, params.first === true ? true : false);
+    }, this.buttonContainer, params.first === true);
     DOMUtil.addClass(el, `pull-right btn btn-raised btn-${params.button}`);
 
-    const span = DOMUtil.create('span', {'aria-hidden': true}, el);
+    const span = DOMUtil.create('span', { 'aria-hidden': true }, el);
     DOMUtil.addClass(span, `fa fa-${params.icon}`);
 
     const label = DOMUtil.create('span', null, el);
     label.classList.add('escoList__buttonLabel');
-    this.buttons[params.name] = {params, element: el, label};
+    this.buttons[params.name] = { params, element: el, label };
     if (params.method && typeof this[params.method] === 'function') {
       el.onclick = params.method.bind(this);
     } else if (typeof this[`action_${params.name}`] === 'function') {
@@ -327,10 +327,9 @@ export default declare([_WidgetBase, _TemplatedMixin], {
           }, DOMUtil.create('div', null, this.__placeholder));
           this.dPlaceholder.show(searchMode);
         });
-
       }
     } else {
-      this.dPlaceholder.show(searchMode)
+      this.dPlaceholder.show(searchMode);
     }
   },
   hidePlaceholder() {
@@ -363,7 +362,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       const tStr = i18n.renderNLSTemplate(bundle[this.nlsListResultSizeKey], this.getResultSize());
 
       m.render(this.resultSizeContainer,
-        m(ResultSize, {text: tStr}));
+        m(ResultSize, { text: tStr }));
     });
   },
 
@@ -372,7 +371,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       return undefined;
     }
     this.currentPage = page;
-    return this.entryList.getEntries(page - 1).then(function (entryArr) {
+    return this.entryList.getEntries(page - 1).then((entryArr) => {
       if (entryArr.length === 0 && page > 1) {
         this.emptyPage = true;
         this.showPage(page - 1);
@@ -400,7 +399,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         this.resultSizeContainer.style.display = 'none';
       }
       this.doneRenderingPage();
-    }.bind(this));
+    });
   },
   doneRenderingPage() {
   },
@@ -490,8 +489,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.pageCount = Math.ceil(this.listSize / this.entryList.getLimit());
     if (this.pageCount > 1 || (arr.length === 0 && this.currentPage > 1)) {
       this.domNode.classList.add('multiplePages');
-    }
-    else {
+    } else {
       this.domNode.classList.remove('multiplePages');
     }
 
@@ -507,10 +505,10 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     }
 
     const Cls = this.rowClass;
-    const row = new Cls({list: this.list, entry}, node);
+    const row = new Cls({ list: this.list, entry }, node);
     if (newRow === true) {
       const rowBackgroundColor = row.domNode.style.background;
-      jquery(row.domNode).css({backgroundColor: 'yellow'});
+      jquery(row.domNode).css({ backgroundColor: 'yellow' });
       jquery(row.domNode).animate(
         {
           backgroundColor: rowBackgroundColor,
@@ -518,7 +516,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         2500,
         () => {
           row.domNode.style.background = '';
-        }
+        },
       );
     }
     if (this.nlsGenericBundle) {
@@ -542,9 +540,9 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         ev.preventDefault();
         ev.stopPropagation();
         if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
-          row[`action_${this.rowClickDialog}`]({row});
+          row[`action_${this.rowClickDialog}`]({ row });
         } else {
-          this.list.openDialog(this.rowClickDialog, {row});
+          this.list.openDialog(this.rowClickDialog, { row });
         }
       }.bind(this);
     }
@@ -613,11 +611,17 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       a = DOMUtil.create('span', null, li);
       a.innerHTML = '&hellip;';
     }
-    this.currentPage === 1 ?
-      this.paginationPreviousLi.classList.add('disabled')
-      : this.paginationPreviousLi.classList.remove('disabled');
+    if (this.currentPage === 1) {
+      this.paginationPreviousLi.classList.add('disabled');
+    } else {
+      this.paginationPreviousLi.classList.remove('disabled');
+    }
 
-    this.currentPage === this.pageCount ? this.paginationNextLi.classList.add('disabled') : this.paginationNextLi.classList.remove('disabled');
+    if (this.currentPage === this.pageCount) {
+      this.paginationPreviousLi.classList.remove('disabled');
+    } else {
+      this.paginationNextLi.classList.remove('disabled');
+    }
 
     if (this.nlsGenericBundle) {
       this.paginationPreviousA.setAttribute('title', this.nlsGenericBundle.listPreviousPage);
@@ -652,7 +656,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       this.tooShortSearch.style.display = '';
     } else {
       this._enforceLimits();
-      this.list.search({sortOrder: this.sortOrder, term: this.searchTerm});
+      this.list.search({ sortOrder: this.sortOrder, term: this.searchTerm });
     }
   },
   selectRow(row) {
@@ -689,7 +693,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       sb[this.list.nlsRemoveFailedKey] : gb[this.list.nlsRemoveFailedKey];
     const dialogs = registry.get('dialogs');
     dialogs.confirm(removeConfirmMessage, null, null,
-      function (confirm) {
+      (confirm) => {
         if (confirm) {
           // filter only checked rows
           const totalRows = this.rows.concat(this.newRows);
@@ -709,6 +713,6 @@ export default declare([_WidgetBase, _TemplatedMixin], {
             this.action_refresh();
           });
         }
-      }.bind(this));
+      });
   },
 });

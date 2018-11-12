@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
 import DropdownRow from 'commons/list/common/DropdownRow';
-import './esadRole.css';
 import declare from 'dojo/_base/declare';
+import './esadRole.css';
 
 export default declare([DropdownRow], {
   postCreate() {

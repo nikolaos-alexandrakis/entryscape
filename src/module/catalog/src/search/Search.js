@@ -1,14 +1,14 @@
 import registry from 'commons/registry';
 import Placeholder from 'commons/placeholder/Placeholder';
-import {Presenter} from 'rdforms';
-import DatasetSearch from './DatasetSearch';
+import { Presenter } from 'rdforms';
 import htmlUtil from 'commons/util/htmlUtil';
-import {toggleDisplayNoneEmpty} from 'commons/util/cssUtil';
+import { toggleDisplayNoneEmpty } from 'commons/util/cssUtil';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import template from './SearchTemplate.html';
 import config from 'config';
+import DatasetSearch from './DatasetSearch';
+import template from './SearchTemplate.html';
 import './escaSearch.css';
 
 
@@ -106,12 +106,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   showCatalogDetails() {
     if (!this.catalogPresenter) {
       this.catalogPresenter = new Presenter({
-        filterPredicates: {'http://purl.org/dc/terms/title': true},
+        filterPredicates: { 'http://purl.org/dc/terms/title': true },
       }, htmlUtil.create('div', null, this.__catalogMetadata));
     }
     const catalogTemplate = registry.get('itemstore').getItem(config.catalog.catalogTemplateId);
     const resourceURI = this.catalogEntry.getResourceURI();
     const md = this.catalogEntry.getMetadata();
-    this.catalogPresenter.show({resource: resourceURI, graph: md, template: catalogTemplate});
+    this.catalogPresenter.show({ resource: resourceURI, graph: md, template: catalogTemplate });
   },
 });

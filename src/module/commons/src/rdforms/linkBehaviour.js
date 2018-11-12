@@ -1,10 +1,8 @@
-import DOMUtil from '../util/htmlUtil';
-
-import config from 'config';
-import {system} from 'rdforms';
-import registry from 'commons/registry';
-import typeIndex from 'commons/create/typeIndex';
 import ContentViewSideDialog from 'commons/contentview/ContentViewSideDialog';
+import typeIndex from 'commons/create/typeIndex';
+import registry from 'commons/registry';
+import { system } from 'rdforms';
+import DOMUtil from '../util/htmlUtil';
 
 const entrystoreutil = registry.get('entrystoreutil');
 const choiceClick = (item, conf, entry) => {
@@ -48,7 +46,7 @@ system.attachLinkBehaviour = (node, binding) => {
     'aria-hidden': 'true',
   }, node);
 };
-system.attachExternalLinkBehaviour = (node, binding) => {
+system.attachExternalLinkBehaviour = (node) => {
   node.setAttribute('target', '_blank');
   DOMUtil.add(node, 'spaExplicitLink');
   DOMUtil.create('i', {

@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-const Select = {
+export default {
   view(vnode) {
     const {
       name,
@@ -26,10 +26,8 @@ const Select = {
       disabled,
       readonly,
       placeholder,
-      autocomplete
+      autocomplete,
     };
     return m('select', attrs, options.map(o => m('option', o, o.label)));
   },
 };
-
-export default Select;

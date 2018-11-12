@@ -1,10 +1,11 @@
 import registry from 'commons/registry';
 import EntryRow from 'commons/list/EntryRow';
+import { i18n } from 'esi18n';
+import declare from 'dojo/_base/declare';
 import template from './RowTemplate.html';
-import {i18n, NLSMixin} from 'esi18n';
 
-const strEndsWith = (str, suffix) => str.match(`${suffix}$`) === suffix;
-import declare from 'dojo/_base/declare'; export default  declare([EntryRow], {
+const strEndsWith = (str, suffix) => str.match(`${suffix}$`) === suffix; // TODO use lodash?
+export default declare([EntryRow], {
   templateString: template,
   showCol1: true,
 
@@ -53,15 +54,17 @@ import declare from 'dojo/_base/declare'; export default  declare([EntryRow], {
             l = `'${l}'`;
           }
           if (strEndsWith(t, 'Dataset')) {
-            return `<li>${i18n.renderNLSTemplate(bundle.datasetAsRemoveItem, {1: l})}</li>`;
+            return `<li>${i18n.renderNLSTemplate(bundle.datasetAsRemoveItem, { 1: l })}</li>`;
           } else if (strEndsWith(t, 'Catalog')) {
-            return `<li>${i18n.renderNLSTemplate(bundle.catalogAsRemoveItem, {1: l})}</li>`;
+            return `<li>${i18n.renderNLSTemplate(bundle.catalogAsRemoveItem, { 1: l })}</li>`;
           } else if (strEndsWith(t, 'Distribution')) {
-            return `<li>${i18n.renderNLSTemplate(bundle.distributionAsRemoveItem, {1: l})}</li>`;
+            return `<li>${i18n.renderNLSTemplate(bundle.distributionAsRemoveItem, { 1: l })}</li>`;
           }
-          return `<li>${i18n.renderNLSTemplate(bundle.otherAsRemoveItem, {1: l})}</li>`;
+          return `<li>${i18n.renderNLSTemplate(bundle.otherAsRemoveItem, { 1: l })}</li>`;
         });
-        dialogs.acknowledge(i18n.renderNLSTemplate(bundle.responsibleUnableToRemove, {1: `<ul class='inUseBy'>${lbls.join('')}</ul>`}));
+        dialogs.acknowledge(
+          i18n.renderNLSTemplate(
+            bundle.responsibleUnableToRemove, { 1: `<ul class='inUseBy'>${lbls.join('')}</ul>` }));
       }
     });
   },

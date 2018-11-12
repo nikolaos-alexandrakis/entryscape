@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
-import recipes from './util/recipes';
+import { Graph } from 'rdfjson';
 import CreatePipelineDialog from './CreatePipelineDialog';
-import {Graph} from 'rdfjson';
+import recipes from './util/recipes';
 
 define([
   'dojo/_base/declare',
@@ -37,7 +37,7 @@ define([
       const pipelineResMaybePromise = entry.getResource();
 
       return Promise.resolve(pipelineResMaybePromise).then((pipelineRes) => {
-        const {recipe, sourceUrl} = recipes.detectRecipeAndValue(pipelineRes);
+        const { recipe, sourceUrl } = recipes.detectRecipeAndValue(pipelineRes);
         if (recipe) {
           return {
             title, description, username, psi, orgId, recipe, sourceUrl,
@@ -104,7 +104,7 @@ define([
         values,
       }, true);
     } else {
-      this.formComponent.setFormData({isStandardRecipe: false}, true);
+      this.formComponent.setFormData({ isStandardRecipe: false }, true);
     }
   },
 
@@ -139,7 +139,7 @@ define([
 
     // update owner user
     try {
-      const {username} = data;
+      const { username } = data;
       if (username) {
         await this.replaceUser(groupEntry, contextEntry, username);
         groupEntry.setRefreshNeeded();
@@ -158,7 +158,7 @@ define([
       } = data;
       const pipRes = await this.entry.getResource();
       pipRes.getTransforms().forEach(pipRes.removeTransform, pipRes);
-      recipes.toArray(recipe, {psi, source: sourceUrl, name: title})
+      recipes.toArray(recipe, { psi, source: sourceUrl, name: title })
         .forEach(transform => pipRes.addTransform(transform[0], transform[1]));
 
       await pipRes.commit();
@@ -168,7 +168,7 @@ define([
 
     try {
       // Set group title
-      const {title} = data;
+      const { title } = data;
       const groupMd = new Graph();
       groupMd.addL(groupEntry.getResourceURI(), 'dcterms:title', title);
       groupEntry.setMetadata(groupMd);
@@ -179,7 +179,7 @@ define([
 
     try {
       // Add title to the context metadata
-      const {title} = data;
+      const { title } = data;
       contextEntry.getMetadata().addL(contextEntry.getResourceURI(), 'dcterms:title', title);
       await contextEntry.commitMetadata();
     } catch (e) {

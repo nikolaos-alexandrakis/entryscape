@@ -1,24 +1,23 @@
-import DOMUtil from 'commons/util/htmlUtil';
-import {i18n, NLSMixin} from 'esi18n';
-import registry from 'commons/registry';
-import config from 'config';
-import {renderingContext} from 'rdforms';
-import template from './GeonamesChooserTemplate.html';
-import escoRdforms from 'commons/nls/escoRdforms.nls';
 import HeaderDialog from 'commons/dialog/HeaderDialog';
-
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import escoRdforms from 'commons/nls/escoRdforms.nls';
+import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { renderingContext } from 'rdforms';
+import template from './GeonamesChooserTemplate.html';
 
 const username = 'metasolutions'; // TODO @valentino this should be moved to config
 const APIconfig = {
   startId: '6295630', // World
-  URIPrefix: "http://sws.geonames.org/",
+  URIPrefix: 'http://sws.geonames.org/',
   hierarchyURL: `http://api.geonames.org/hierarchyJSON?userName=${username}&lang=en&geonameId=`,
   childrenURL: `http://api.geonames.org/childrenJSON?userName=${username}&lang=en&geonameId=`,
-  geonameURL: `http://api.geonames.org/getJSON?userName=${username}&lang=en&geonameId=`
+  geonameURL: `http://api.geonames.org/getJSON?userName=${username}&lang=en&geonameId=`,
 };
 
 const getHierarchy = (geonameId) => {
@@ -30,11 +29,11 @@ const getChildren = (geonameId) => {
   const url = `${APIconfig.childrenURL}${geonameId}`;
   return registry.get('entrystore').loadViaProxy(url).then(results => results.geonames);
 };
-
-const getGeoname = (geonameId) => {
-  const url = `${APIconfig.geonameURL}${geonameId}`;
-  return registry.get('entrystore').loadViaProxy(url);
-};
+// NOT USED
+// const getGeoname = (geonameId) => {
+//   const url = `${APIconfig.geonameURL}${geonameId}`;
+//   return registry.get('entrystore').loadViaProxy(url);
+// };
 
 const getGeonameId = uri => uri.substr(APIconfig.URIPrefix.length).replace(/\/$/g, '');
 
@@ -45,7 +44,7 @@ const GeonamesChooser = declare([_WidgetBase, _TemplatedMixin,
   templateString: template,
   binding: null,
   onSelect: null,
-  nlsBundles: [{escoRdforms}],
+  nlsBundles: [{ escoRdforms }],
 
   postCreate() {
     this.dialog = new HeaderDialog({}, this.dialog);
@@ -82,13 +81,12 @@ const GeonamesChooser = declare([_WidgetBase, _TemplatedMixin,
     getHierarchy(geonameId).then((hierarchy) => {
       hierarchy.forEach((p) => {
         if (p.geonameId === geonameId) {
-          newLi = DOMUtil.create('li', null, this.path);
+          const newLi = DOMUtil.create('li', null, this.path);
           newLi.classList.add('active');
           newLi.innerHTML = p.name;
-        }
-        else {
+        } else {
           const li = DOMUtil.create('li', null, this.path);
-          const a = DOMUtil.create('a', {href: '#', innerHTML: p.name}, li);
+          const a = DOMUtil.create('a', { href: '#', innerHTML: p.name }, li);
           a.onclick = (e) => {
             this.focusOn(p.geonameId);
             e.preventDefault();
@@ -119,7 +117,7 @@ const GeonamesChooser = declare([_WidgetBase, _TemplatedMixin,
   select() {
     const choice = {
       value: getGeonameURI(this.currentGeoObj.geonameId),
-      label: {en: this.currentGeoObj.name},
+      label: { en: this.currentGeoObj.name },
       inlineLabel: true,
     };
     this.onSelect(choice);
@@ -158,7 +156,7 @@ const ext = {
         async.addIgnore('loadViaProxy', async.codes.GENERIC_PROBLEM, true);
         getHierarchy(getGeonameId(value)).then((result) => {
           if (result.length > 0 && result[result.length - 1].name) {
-            obj.label = {en: result[result.length - 1].name};
+            obj.label = { en: result[result.length - 1].name };
             return obj;
           }
           throw Error('Damn');
@@ -179,7 +177,9 @@ const ext = {
     if (!defaultRegistered) {
       defaultRegistered = true;
       renderingContext.chooserRegistry.predicate('http://purl.org/dc/terms/spatial').register(ext);
-      renderingContext.chooserRegistry.constraint({'http://www.w3.org/1999/02/22-rdf-syntax-ns#type': 'http://www.geonames.org/ontology#Feature'}).register(ext);
+      renderingContext.chooserRegistry.constraint({
+        'http://www.w3.org/1999/02/22-rdf-syntax-ns#type': 'http://www.geonames.org/ontology#Feature',
+      }).register(ext);
     }
   },
   chooser: GeonamesChooser,

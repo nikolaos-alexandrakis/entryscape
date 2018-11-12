@@ -1,6 +1,13 @@
 __entryscape_config = {
+  entryscape: {
+    static: {
+      url: 'https://static.entryscape.com/',
+      app: 'registry',
+      version: 'latest',
+    },
+  },
   entrystore: {
-    repository: 'http://localhost:8888/',
+    repository: 'https://v.dev.entryscape.com/store',
   },
   registry: {
     type2template: {
@@ -34,7 +41,7 @@ __entryscape_config = {
   },
   itemstore: {
     bundles: [
-      'templates/rdfs/rdfs',
+      'rdfs',
     ],
   },
   entitytypes: {

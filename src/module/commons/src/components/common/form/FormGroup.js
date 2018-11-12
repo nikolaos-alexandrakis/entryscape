@@ -6,7 +6,7 @@ import Label from './Label';
 /**
  * @type {{view: ((vnode))}}
  */
-const FormGroup = {
+export default {
   enabled: true,
   onbeforeupdate(vnode, old) {
     if (old.dom && old.dom.classList.contains('is-focused')) {
@@ -26,18 +26,16 @@ const FormGroup = {
       class: classNames.join(' '),
     };
     if (!this.enabled) {
-      attrs['disabled'] = 'disabled';
-      input['disabled'] = 'disabled';
+      attrs.disabled = 'disabled';
+      input.disabled = 'disabled';
     }
 
-    return m(`.form-group`, attrs, [
-      m(Label, {label}),
+    return m('.form-group', attrs, [
+      m(Label, { label }),
       m('div', [
-        m(Input, {input}),
-        m(InputHelp, {help}),
+        m(Input, { input }),
+        m(InputHelp, { help }),
       ]),
     ]);
   },
 };
-
-export default FormGroup;

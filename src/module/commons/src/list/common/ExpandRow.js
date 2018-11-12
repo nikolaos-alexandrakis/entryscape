@@ -1,5 +1,5 @@
-import DOMUtil from '../../util/htmlUtil';
 import EntryRow from 'commons/list/EntryRow';
+import DOMUtil from '../../util/htmlUtil';
 /** To use this EntryRow you must register a row action with the name expand, e.g.:
  *       this.registerRowAction({
  *           name: "expand",
@@ -23,7 +23,7 @@ export default declare([EntryRow], {
     this.initExpandTitles();
     this.buttons.expand.element.setAttribute('title', this.expandTitle);
   },
-  initExpandTitles: function () {
+  initExpandTitles() {
   },
   action_expand() {
     const el = this.buttons.expand.element.firstChild;

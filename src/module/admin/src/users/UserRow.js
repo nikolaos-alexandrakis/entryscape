@@ -1,8 +1,8 @@
 import registry from 'commons/registry';
-import {terms, types} from 'store';
+import { terms, types } from 'store';
 import EntryRow from 'commons/list/EntryRow';
 import ConfirmDialog from 'commons/dialog/ConfirmDialog';
-import {template} from 'lodash-es';
+import { template } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 
 export default declare([EntryRow], {
@@ -18,7 +18,7 @@ export default declare([EntryRow], {
   },
 
   installActionOrNot(params) {
-    const {name} = params;
+    const { name } = params;
     const id = this.entry.getId();
     if (id === '_guest' || id === '_admin') {
       switch (name) {
@@ -54,7 +54,7 @@ export default declare([EntryRow], {
     const rdfutils = registry.get('rdfutils');
     const name = rdfutils.getLabel(this.entry);
     if (name == null && username == null) {
-      return template(this.nlsSpecificBundle.unnamedUser)({id: this.entry.getId()});
+      return template(this.nlsSpecificBundle.unnamedUser)({ id: this.entry.getId() });
     }
 
     const isUserDisabled = this.getIsUserDisabled();
@@ -83,18 +83,18 @@ export default declare([EntryRow], {
           }
           return false; // Not solely owned or homecontext.
         })) {
-          soleUserMsg = tempalte(bundle.warningSoleOwner)({name});
+          soleUserMsg = tempalte(bundle.warningSoleOwner)({ name });
         }
       })
       .then(() => {
         // fix for ESAD-5
-        let msg = template(bundle.remove)({name});
+        let msg = template(bundle.remove)({ name });
         if (soleUserMsg) {
-          msg = `${soleUserMsg}<br><br>${template(bundle.remove)({name})}`;
+          msg = `${soleUserMsg}<br><br>${template(bundle.remove)({ name })}`;
         }
         return dialogs.confirm(msg, bundle.confirmRemove, bundle.cancelRemove);
       })
-      .then(() =>  // Proceed to remove user
+      .then(() => // Proceed to remove user
         // Third, check if we should remove solely owned homecontext as well.
         entry.getResource().then((ures) => {
           const hcId = ures.getHomeContext();
@@ -124,7 +124,7 @@ export default declare([EntryRow], {
         }).then(() => {
           this.list.getView().removeRow(this);
           this.destroy();
-        }, err => dialogs.acknowledge(template(bundle.failedRemove)({error: err || ''}))));
+        }, err => dialogs.acknowledge(template(bundle.failedRemove)({ error: err || '' }))));
   },
   action_statusEnable() {
     this.changeStatus();
@@ -157,6 +157,7 @@ export default declare([EntryRow], {
     return this.entry.getEntryInfo().isDisabled();
   },
   getDisabledUserHtml() {
-    return `<i style="margin-left:10px"  rel="tooltip" title="${this.nlsSpecificBundle.userStatusDisabled}" class="fa fa-user-times"></i>`;
+    return `<i style="margin-left:10px"  rel="tooltip" title="${this.nlsSpecificBundle.userStatusDisabled}" 
+            class="fa fa-user-times"></i>`;
   },
 });

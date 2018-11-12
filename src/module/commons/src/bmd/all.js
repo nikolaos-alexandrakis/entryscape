@@ -1,8 +1,8 @@
+import 'bootstrap-material-design/dist/js/material';
+import 'bootstrap-material-design/dist/js/ripples';
 import jquery from 'jquery';
 import PubSub from 'pubsub-js';
 import util from './util';
-import 'bmd/dist/js/material';
-import 'bmd/dist/js/ripples';
 
 const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
@@ -32,7 +32,7 @@ const updateMaterial = util.throttle(() => {
     jquery.material.togglebutton();
     // jquery.material.init();
   }
-}, 500, {leading: false});
+}, 500, { leading: false });
 
 
 // run only once, when first view is loaded

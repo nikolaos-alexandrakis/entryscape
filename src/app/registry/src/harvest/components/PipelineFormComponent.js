@@ -1,14 +1,14 @@
 import Alert from 'commons/components/common/alert/Alert';
-import Group from 'commons/components/common/Group';
+import Fieldset from 'commons/components/common/form/Fieldset';
 import Form from 'commons/components/common/form/Form';
 import FormGroup from 'commons/components/common/form/FormGroup';
-import Fieldset from 'commons/components/common/form/Fieldset';
 import RadioInline from 'commons/components/common/form/RadioInline';
-import CheckboxComponent from './CheckboxComponent';
+import Group from 'commons/components/common/Group';
 import config from 'config';
 import m from 'mithril';
+import CheckboxComponent from './CheckboxComponent';
 
-const getFormGroupComponent = ({id, value, name, type = 'text', label, help, oninput, readonly = false, disabled}) =>
+const getFormGroupComponent = ({ id, value, name, type = 'text', label, help, oninput, readonly = false, disabled }) =>
   m(FormGroup, {
     label: {
       text: label,
@@ -28,7 +28,7 @@ const getFormGroupComponent = ({id, value, name, type = 'text', label, help, oni
     },
   });
 
-const getCheckboxComponent = ({id, name, label, tooltip, checked, disabled, callback}) =>
+const getCheckboxComponent = ({ id, name, label, tooltip, checked, disabled, callback }) =>
   m(CheckboxComponent, {
     label,
     tooltip,
@@ -74,7 +74,7 @@ export default class {
 
   view() {
     if (!this.isStandardRecipe) {
-      return m(Alert, {text: this.bundle.nonStandardRecipe});
+      return m(Alert, { text: this.bundle.nonStandardRecipe });
     }
 
     return m(Form, {
@@ -138,7 +138,8 @@ export default class {
 
   setFormData(data, redraw = false) {
     const {
-      bundle, isOwnOrg, isOwnOrgEnabled, isPSIOrg, isPSIOrgEnabled, canChangeOwner = false, values = {}, isStandardRecipe = true,
+      bundle, isOwnOrg, isOwnOrgEnabled, isPSIOrg, isPSIOrgEnabled,
+      canChangeOwner = false, values = {}, isStandardRecipe = true,
     } = data;
 
     this.isStandardRecipe = isStandardRecipe;
@@ -204,7 +205,7 @@ export default class {
         break;
       case 'username':
         if (v != null && v.length > 0) {
-          // eslint-disable-next-line no-useless-escape
+          // eslint-disable-next-line no-useless-escape,max-len
           const re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
           return re.test(v);
         }
@@ -340,4 +341,4 @@ export default class {
       ],
     });
   }
-};
+}

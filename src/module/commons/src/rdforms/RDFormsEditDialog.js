@@ -1,17 +1,17 @@
-import {Graph} from 'rdfjson';
-import {Editor, engine, LevelEditor, renderingContext, validate} from 'rdforms';
+import { Graph } from 'rdfjson';
+import { Editor, engine, LevelEditor, renderingContext, validate } from 'rdforms';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import registry from '../registry';
-import PresentExpandable from './PresentExpandable';
+import registry from 'commons/registry';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
+import PresentExpandable from './PresentExpandable';
 
 export default declare([TitleDialog, NLSMixin.Dijit], {
   nlsHeaderTitle: 'metadataEditDialogHeader',
   nlsFooterButtonLabel: 'metadataEditDialogDoneLabel',
-  nlsBundles: [{escoRdforms}],
+  nlsBundles: [{ escoRdforms }],
   discardWarning: null,
   discardOption: null,
   keepOption: null,
@@ -25,7 +25,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
   localizationParams: {},
 
   postCreate() {
-    this.levels = new LevelEditor({externalEditor: true},
+    this.levels = new LevelEditor({ externalEditor: true },
       DOMUtil.create('div', null, this.headerExtensionNode));
     this.editor = new Editor({}, DOMUtil.create('div', null, this.containerNode));
     this.externalMetadata = new PresentExpandable({}, DOMUtil.create('div', null, this.containerNode, true));
@@ -119,11 +119,11 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
       return;
     }
     const dialogs = registry.get('dialogs');
-    const dialogOptions = [{name: 'keepEditing', buttonLabel: this.keepOption}, {
+    const dialogOptions = [{ name: 'keepEditing', buttonLabel: this.keepOption }, {
       name: 'save',
       buttonLabel: this.saveChanges,
       primary: true,
-    }, {name: 'discard', buttonLabel: this.discardOption}];
+    }, { name: 'discard', buttonLabel: this.discardOption }];
     dialogs.options(this.discardWarning, dialogOptions).then((option) => {
       switch (option) {
         case 'keepEditing':

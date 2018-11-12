@@ -1,15 +1,15 @@
+import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import config from 'config';
-import TitleDialog from 'commons/dialog/TitleDialog';
+import declare from 'dojo/_base/declare';
+import m from 'mithril';
+import esreHarvest from 'registry/nls/esreHarvest.nls';
 import PipelineFormComponent from './components/PipelineFormComponent';
 import recipes from './util/recipes';
-import esreHarvest from 'registry/nls/esreHarvest.nls';
-import m from 'mithril';
-import declare from 'dojo/_base/declare';
 
 export default declare([TitleDialog.ContentNLS], {
   templateString: '<div class="esrePipelineCreateDialog"><div data-dojo-attach-point="__formInput"></div></div>',
-  nlsBundles: [{esreHarvest}],
+  nlsBundles: [{ esreHarvest }],
   nlsHeaderTitle: 'cOHeader',
   nlsFooterButtonLabel: 'cPButton',
   type2template: null,
@@ -88,7 +88,7 @@ export default declare([TitleDialog.ContentNLS], {
     // add new user to rwrite of the group
     const entryInfo = entryToOwn.getEntryInfo();
     const acl = entryInfo.getACL(true);
-    const {admin} = acl;
+    const { admin } = acl;
 
     if (!admin.includes(userEntry.getId())) {
       admin.push(userEntry.getId());
@@ -207,14 +207,14 @@ export default declare([TitleDialog.ContentNLS], {
       const contextEntry = await homeContext.getEntry();
 
       try {
-        const {username} = data;
+        const { username } = data;
         if (username) {
           await this.replaceUser(groupEntry, contextEntry, username);
           groupEntry.setRefreshNeeded();
           await groupEntry.refresh();
         }
         // Set group title
-        const {title} = data; // => const title = data['create--title'];
+        const { title } = data; // => const title = data['create--title'];
         groupEntry.getMetadata().addL(groupEntry.getResourceURI(), 'dcterms:title', title);
         await groupEntry.commitMetadata();
       } catch (e) {
@@ -223,7 +223,7 @@ export default declare([TitleDialog.ContentNLS], {
 
       // Add title to the context metadata
       try {
-        const {title} = data;
+        const { title } = data;
         contextEntry.addL('dcterms:title', title);
         await contextEntry.commitMetadata();
 
@@ -251,7 +251,7 @@ export default declare([TitleDialog.ContentNLS], {
         } = data;
         // Create PipelineEntry and add metadata
         const pipelineResource = protoPipeline.getResource();
-        recipes.toArray(recipe, {name, psi, source: sourceUrl})
+        recipes.toArray(recipe, { name, psi, source: sourceUrl })
           .forEach(transform => pipelineResource.addTransform(transform[0], transform[1]));
 
         const pmd = protoPipeline.getMetadata();

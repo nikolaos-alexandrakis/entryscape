@@ -1,18 +1,18 @@
+import RDFormsValidateDialog from 'commons/rdforms/RDFormsValidateDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import templateString from './ReportTemplate.html';
 import config from 'config'; // ./config/main.js
-import ClassReport from './ClassReport';
-import RDFormsValidateDialog from 'commons/rdforms/RDFormsValidateDialog';
-import {validate} from 'rdforms';
-import {i18n, NLSMixin} from 'esi18n';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import { validate } from 'rdforms';
 import esreReport from 'registry/nls/esreReport.nls';
 import esreSource from 'registry/nls/esreSource.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import ClassReport from './ClassReport';
 import './esreReport.css';
+import templateString from './ReportTemplate.html';
 
 const regroup = (a, p) => {
   const g = {};
@@ -33,7 +33,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   type2template: null,
   rdfjson: null,
   rdfjsonEditorOpen: false,
-  nlsBundles: [{esreReport}, {esreSource}],
+  nlsBundles: [{ esreReport }, { esreSource }],
 
   //= ==================================================
   // Inherited attributes
@@ -51,7 +51,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     }, this._validateDialogNode);
     this._validateDialog.closeLabel = this.NLSBundles.esreReport.closeValidationDialog;
     this._validateDialog.validator.includeLevel = 'recommended';
-    this.allInited = Promise.all([tp]);
     const tp = registry.onInit('itemstore').then((itemstore) => {
       const t2t = config.registry.type2template;
       this.type2template = {};
@@ -60,6 +59,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       });
       this.mandatoryTypes = config.registry.mandatoryValidationTypes.map(mt => ns.expand(mt));
     });
+    this.allInited = Promise.all([tp]);
   },
   show() {
     this._graph = registry.get('clipboardGraph');
@@ -92,7 +92,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         validateDialog: this._validateDialog,
         graph: this._graph,
         template: this.type2template[key],
-      }, htmlUtil.create('div', {class: 'instance'}, this._rdformsNode));
+      }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
     });
   },
 });

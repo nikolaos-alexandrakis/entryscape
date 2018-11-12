@@ -9,7 +9,7 @@ export default {
   },
   entitytypes: {
     concept: {
-      label: {en: 'Concept'},
+      label: { en: 'Concept' },
       rdfType: ['http://www.w3.org/2004/02/skos/core#Concept'],
       module: 'terms',
       template: 'skosmos:concept',
@@ -20,7 +20,7 @@ export default {
       faClass: 'cube',
     },
     conceptcollection: {
-      label: {en: 'Collection'},
+      label: { en: 'Collection' },
       rdfType: ['http://www.w3.org/2004/02/skos/core#Collection'],
       module: 'terms',
       template: 'skosmos:conceptScheme',
@@ -31,7 +31,7 @@ export default {
       faClass: 'cubes',
     },
     conceptscheme: {
-      label: {en: 'Terminology'},
+      label: { en: 'Terminology' },
       rdfType: ['http://www.w3.org/2004/02/skos/core#ConceptScheme'],
       module: 'terms',
       template: 'skosmos:conceptScheme',

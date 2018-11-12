@@ -3,7 +3,7 @@ import registry from 'commons/registry';
 import Overview from 'commons/overview/components/Overview';
 import ViewMixin from 'commons/view/ViewMixin';
 import dateUtil from 'commons/util/dateUtil';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esteOverviewNLS from 'terms/nls/esteOverview.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
@@ -12,7 +12,7 @@ import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit, ViewMixin], {
   templateString: '<div class="termsOverview"></div>',
-  nlsBundles: [{esteOverviewNLS}],
+  nlsBundles: [{ esteOverviewNLS }],
   localeChange() {
     this.show();
   },
@@ -29,9 +29,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const spa = registry.getSiteManager();
     const currentOrUpcomingParams = spa.getUpcomingOrCurrentParams();
     const sl = es.newSolrQuery().rdfType(ns.expand('skos:Concept')).context(context)
-      .sort('modified+desc').limit(1).list();
+      .sort('modified+desc')
+      .limit(1)
+      .list();
     const collectionsQuery = es.newSolrQuery().rdfType(ns.expand('skos:Collection'))
-      .context(context).limit(0).list();
+      .context(context).limit(0)
+      .list();
     const collectionsQueryPromise = collectionsQuery.getEntries(0);
 
     const conceptsPromise = sl.getEntries(0).then((entries) => {
@@ -86,7 +89,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
           value: creationDateFormats.short,
         });
 
-      m.render(document.querySelector('.termsOverview'), m(Overview, {data: this.data}));
+      m.render(document.querySelector('.termsOverview'), m(Overview, { data: this.data }));
     });
   },
 });

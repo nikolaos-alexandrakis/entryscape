@@ -3,7 +3,7 @@ import m from 'mithril';
  *
  * A box with a value and label (used for stats purposes mainly). Eg 25 terms, 2 collections)
  */
-const StatBox = {
+export default {
   view(vnode) {
     return m('.row', vnode.attrs.bList.map((item) => {
       const { label, value, link } = item;
@@ -16,6 +16,3 @@ const StatBox = {
     }));
   },
 };
-
-export { StatBox };
-export default StatBox;

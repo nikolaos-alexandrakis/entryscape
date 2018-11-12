@@ -1,14 +1,13 @@
 import registry from 'commons/registry';
 import comments from 'commons/comments/comments';
 import ToggleRow from 'commons/list/common/ToggleRow';
-import DistributionRow from './DistributionRow';
-import template from './DatasetRowTemplate.html';
 import htmlUtil from 'commons/util/htmlUtil';
 import config from 'config';
-import {i18n, NLSMixin} from 'esi18n';
-import './dataset.css';
-
+import { i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
+import DistributionRow from './DistributionRow';
+import template from './DatasetRowTemplate.html';
+import './dataset.css';
 
 export default declare([ToggleRow], {
   templateString: template,
@@ -27,7 +26,7 @@ export default declare([ToggleRow], {
     });
     this.listDistributions();
   },
-  updateLocaleStrings(generic, specific) {
+  updateLocaleStrings() {
     this.inherited('updateLocaleStrings', arguments);
     this._updateLocaleStrings();
   },
@@ -60,9 +59,9 @@ export default declare([ToggleRow], {
         const format = entry.getMetadata().findFirstValue(entry.getResourceURI(), 'dcterms:format');
         if (format !== '' && format != null) {
           // self.uri2Format[entry.getResourceURI()] = format;
-          //let uri2FormatObj = {};
+          // let uri2FormatObj = {};
           self.uri2Format[entry.getResourceURI()] = format;
-          //self.uri2Format.push(uri2FormatObj);
+          // self.uri2Format.push(uri2FormatObj);
         }
         return entry;
       }, () => {
@@ -76,7 +75,7 @@ export default declare([ToggleRow], {
     const distsArray = Array.isArray(dists) ? dists : [dists];
     distsArray.forEach((distE) => {
       if (distE != null) {
-        DistributionRow({entry: distE, datasetRow: this, dctSource: this.fileEntryURIs, uri2Format: this.uri2Format},
+        DistributionRow({ entry: distE, datasetRow: this, dctSource: this.fileEntryURIs, uri2Format: this.uri2Format },
           htmlUtil.create('tbody', null, this.distributions));
       }
     });
@@ -93,14 +92,12 @@ export default declare([ToggleRow], {
       const euri = store.getEntryURI(store.getContextId(ruri), store.getEntryId(ruri));
       if (cache.get(euri) == null) {
         md.findAndRemove(datasetResourceURI, ns.expand('dcat:distribution'),
-          {type: 'uri', value: ruri});
+          { type: 'uri', value: ruri });
       }
     });
     this.entry.commitMetadata().then(() => {
       this.brokenReferences.style.display = 'none';
-    }, (err) => {
-      alert(err);
-    });
+    }, err => alert(err));
   },
   unpublishDataset(groupEntry, onSuccess) {
     const ei = this.entry.getEntryInfo();
@@ -141,6 +138,7 @@ export default declare([ToggleRow], {
               if (confirm) {
                 return this.unpublishDataset(groupEntry, onSuccess);
               }
+              return null;
             });
           }
           ei.setACL({});
@@ -220,7 +218,7 @@ export default declare([ToggleRow], {
           if (self.noOfComments > 0) {
             confirmMessage = i18n.renderNLSTemplate(
               this.nlsSpecificBundle.removeDatasetDistributionsAndCommentsConfirm,
-              {distributions: stmts.length, comments: self.noOfComments},
+              { distributions: stmts.length, comments: self.noOfComments },
             );
           } else {
             confirmMessage = i18n.renderNLSTemplate(
@@ -286,8 +284,8 @@ export default declare([ToggleRow], {
     } else {
       const site = registry.get('siteManager');
       const state = site.getState();
-      const {context} = state[state.view];
-      site.render('catalog__datasets__preview', {context, dataset});
+      const { context } = state[state.view];
+      site.render('catalog__datasets__preview', { context, dataset });
     }
   },
   clearDistributions() {
@@ -352,7 +350,7 @@ export default declare([ToggleRow], {
     }
   },
   openCommentDialog(ev) {
-    this.list.openDialog('comment', {row: this});
+    this.list.openDialog('comment', { row: this });
     ev.stopPropagation();
   },
 });

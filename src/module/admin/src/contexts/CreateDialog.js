@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
-import config from 'config';
-import template from './CreateDialogTemplate.html';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esadContext from 'admin/nls/esadContext.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import config from 'config';
+import template from './CreateDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{esadContext}],
+  nlsBundles: [{ esadContext }],
   nlsHeaderTitle: 'newContextnameHeader',
   nlsFooterButtonLabel: 'createContextButton',
 
@@ -56,10 +56,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
             throw Error('No matching context.');
           }
         }).then(null, () => {
-        this.newNameIsOk = true;
-        this.contextnameError.style.display = 'none';
-        this.checkValidInfoDelayed();
-      });
+          this.newNameIsOk = true;
+          this.contextnameError.style.display = 'none';
+          this.checkValidInfoDelayed();
+        });
     }
   },
   open() {

@@ -1,9 +1,9 @@
 import registry from 'commons/registry';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import templateString from './NameDialogTemplate.html';
-import {NLSMixin} from 'esi18n';
-import {template} from 'lodash-es';
+import { NLSMixin } from 'esi18n';
+import { template } from 'lodash-es';
 import declare from 'dojo/_base/declare';
+import templateString from './NameDialogTemplate.html';
 
 export default declare([TitleDialog.Content, NLSMixin.Dijit], {
   templateString,
@@ -52,7 +52,7 @@ export default declare([TitleDialog.Content, NLSMixin.Dijit], {
       default:
         break;
     }
-    this.nameMessage.innerHTML = template(message)({name: oldname, newname});
+    this.nameMessage.innerHTML = template(message)({ name: oldname, newname });
     this.nameMessage.classList.remove('alert-danger');
     this.nameMessage.classList.remove('alert-warning');
     this.nameMessage.classList.remove('alert-info');

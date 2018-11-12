@@ -1,30 +1,29 @@
 import registry from 'commons/registry';
 import config from 'config';
-import {types} from 'store';
-import CreateDialog from './CreateDialog';
+import { types } from 'store';
 import ACLDialog from 'admin/utils/ACLDialog';
 import NameDialog from 'admin/utils/NameDialog';
-import GroupRow from './GroupRow';
-import MemberDialog from './MemberDialog';
 import BaseList from 'commons/list/common/BaseList';
 import escoList from 'commons/nls/escoList.nls';
 import esadGroup from 'admin/nls/esadGroup.nls';
-
 import declare from 'dojo/_base/declare';
+import MemberDialog from './MemberDialog';
+import GroupRow from './GroupRow';
+import CreateDialog from './CreateDialog';
 
 const GroupACLDialog = declare([ACLDialog], {
-  nlsBundles: [{esadGroup}],
+  nlsBundles: [{ esadGroup }],
   nlsHeaderTitle: 'groupACLHeader',
   nlsFooterButtonLabel: 'updateGroupACLButton',
 });
 
 const GroupNameDialog = declare([NameDialog], {
-  nlsBundles: [{esadGroup}],
+  nlsBundles: [{ esadGroup }],
   lookUpPath: '_principals?entryname=',
 });
 
 export default declare([BaseList], {
-  nlsBundles: [{escoList}, {esadGroup}],
+  nlsBundles: [{ escoList }, { esadGroup }],
   includeInfoButton: false,
   rowClickDialog: 'edit',
   rowClass: GroupRow,

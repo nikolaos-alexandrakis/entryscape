@@ -1,15 +1,25 @@
-import merge from 'commons/merge';
+/* eslint-disable max-len */
 import adminConfig from 'admin/config/config';
 import catalogConfig from 'catalog/config/config';
+import merge from 'commons/merge';
 import workbenchConfig from 'workbench/config/config';
 
-const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
+const STATIC = {
+  URL: 'https://static.entryscape.com/',
+  APP: 'registry',
+  VERSION: 'latest',
+};
+
+const ASSETS_URL = `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
+
+export default merge(adminConfig, catalogConfig, workbenchConfig, {
   entryscape: {
     static: {
       url: 'https://static.entryscape.com/',
-      app: 'suite',
+      app: 'registry',
       version: 'latest',
-    }
+    },
   },
   theme: {
     appName: 'Registry',
@@ -26,9 +36,17 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
         de: 'Hier finden Sie die Werkzeuge für Behörden, die Daten der öffentlichen Verwaltung zur Weiterverwendung durch Dritte bereitstellen wollen.',
       },
       icon: '',
+      localTheme: false,
+      localAssets: false,
+      default: {
+        appName: 'Registry',
+        logo: LOGO_SVG_URL,
+        themePath: ASSETS_URL,
+        assetsPath: ASSETS_URL,
+      },
       details: {
-        buttonLabel: {en: 'Get started', sv: 'Kom igång', de: 'Anfangen'},
-        header: {en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte Anleitung'},
+        buttonLabel: { en: 'Get started', sv: 'Kom igång', de: 'Anfangen' },
+        header: { en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte Anleitung' },
         path: '',
       },
     },
@@ -49,13 +67,13 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
   },
   itemstore: {
     bundles: [
-//        'registry/templates/faq',
+      //        'registry/templates/faq',
     ],
   },
   registry: {
     validationProfiles: [
-      {name: 'dcat_ap_se', label: {en: 'Swedish DCAT-AP profile'}},
-      {name: 'dcat_ap_dk', label: {en: 'Danish DCAT-AP profile'}},
+      { name: 'dcat_ap_se', label: { en: 'Swedish DCAT-AP profile' } },
+      { name: 'dcat_ap_dk', label: { en: 'Danish DCAT-AP profile' } },
     ],
     validationTypes: [
       'dcat:Catalog',
@@ -80,7 +98,7 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
   },
   entitytypes: {
     question: {
-      label: {en: 'Question'},
+      label: { en: 'Question' },
       rdfType: 'http://schema.org/Question',
       template: 'faq:Question',
       includeInternal: true,
@@ -95,7 +113,7 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
       }],
     },
     answer: {
-      label: {en: 'Answer'},
+      label: { en: 'Answer' },
       rdfType: 'http://schema.org/Answer',
       template: 'faq:Answer',
       includeInternal: true,
@@ -106,10 +124,7 @@ const mergedConfig = merge(adminConfig, catalogConfig, workbenchConfig, {
   contentviewers: {
     answerview: {
       class: 'LinkedEntriesView', // TODO
-      label: {en: 'Answer', sv: 'Answer'},
+      label: { en: 'Answer', sv: 'Answer' },
     },
   },
-}, __entryscape_config);
-
-
-export default mergedConfig;
+}, __entryscape_config, window.__entryscape_config_dev || {});

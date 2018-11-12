@@ -1,6 +1,6 @@
 import registry from 'commons/registry';
 import ToggleRow from 'commons/list/common/ToggleRow';
-import {template} from 'lodash-es';
+import { template } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 
 export default declare([ToggleRow], {
@@ -52,11 +52,11 @@ export default declare([ToggleRow], {
 
     if (inDataset.length || apiConnected.length > 0) {
       dialogs.acknowledge(
-        template(this.nlsSpecificBundle.cannotRemoveFile)({file: name}));
+        template(this.nlsSpecificBundle.cannotRemoveFile)({ file: name }));
       return;
     }
 
-    dialogs.confirm(template(this.nlsSpecificBundle.removeFile)({file: name}), null, null,
+    dialogs.confirm(template(this.nlsSpecificBundle.removeFile)({ file: name }), null, null,
       (confirm) => {
         if (!confirm) {
           return;
@@ -65,7 +65,7 @@ export default declare([ToggleRow], {
           self.list.getView().removeRow(self);
           self.destroy();
         }, () => {
-          dialogs.acknowledge(template(self.nlsSpecificBundle.removeFailed)({file: name}));
+          dialogs.acknowledge(template(self.nlsSpecificBundle.removeFailed)({ file: name }));
         });
       });
   },

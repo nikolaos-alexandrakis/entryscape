@@ -1,13 +1,13 @@
-import registry from 'commons/registry';
-import commonsDefaults from 'commons/defaults'; // TODO HACK this needs to be before '../config/site' in order for namespaces to be set in registry
 import catalogDefaults from 'catalog/defaults'; // init catalog
+import typeIndex from 'commons/create/typeIndex';
+import commonsDefaults from 'commons/defaults'; // TODO HACK this needs to be before '../config/site' in order for namespaces to be set in registry
+import registry from 'commons/registry';
 import config from 'config';
 import siteConfig from './config/site';
-import typeIndex from 'commons/create/typeIndex';
 
-export default () => {
+export default async () => {
   registry.set('siteConfig', siteConfig);
-  commonsDefaults();
+  await commonsDefaults();
   catalogDefaults();
 
   const ns = registry.get('namespaces');
@@ -16,7 +16,7 @@ export default () => {
   const mandatoryTypes = config.registry.mandatoryValidationTypes.map(mt => ns.expand(mt));
   registry.set('mandatoryValidationTypes', mandatoryTypes);
 
-// Copy over templates from entityTypes (and indirectly from catalog config)
+  // Copy over templates from entityTypes (and indirectly from catalog config)
   if (!config.registry.type2template && config.registry.validationTypes) {
     const constraints = {};
     const rtype = ns.expand('rdf:type');
@@ -39,4 +39,4 @@ export default () => {
   });
 
   registry.set('type2template', validationType2template);
-}
+};

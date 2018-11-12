@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import PubSub from 'pubsub-js';
 
 const registry = new Map(); // TODO @valentino is there a need for registryMapInital? e.g keep the first value of each key
@@ -28,15 +29,8 @@ const exports = {
       PubSub.publish(key, obj);
     }
   },
-  get(key, /*callback*/) {
+  get(key) {
     const val = registry.get(key);
-    // if (typeof callback === 'function') {
-    //   if (typeof val !== 'undefined') {
-    //     callback(val);
-    //   } else {
-    //     exports.onInit(key).then(callback); // TODO @valentino return this
-    //   }
-    // }
     return val;
   },
   /**
@@ -67,7 +61,7 @@ const exports = {
     return PubSub.subscribe(key, (msg, obj) => {
       callback(obj);
       if (onlyOnce) {
-        PubSub.unsubscribe(msg)
+        PubSub.unsubscribe(msg);
       }
     });
   },

@@ -1,10 +1,9 @@
 import m from 'mithril';
 import jquery from 'jquery';
-import template from './ProgressDialogTemplate.html';
-
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import template from './ProgressDialogTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin], {
   templateString: template,

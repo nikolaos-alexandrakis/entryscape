@@ -1,11 +1,10 @@
-import DOMUtil from '../util/htmlUtil';
-import jquery from 'jquery';
-import template from './ProgressTemplate.html';
-import loader from 'fuelux/js/loader'; // In template
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import basefx from 'dojo/_base/fx';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import 'fuelux/js/loader';
+import jquery from 'jquery';
+import DOMUtil from '../util/htmlUtil';
+import template from './ProgressTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin], {
   templateString: template,
@@ -30,12 +29,11 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     promise.then(this.hide.bind(this), this.hide.bind(this));
 
-    this._timer = setTimeout(function () {
-        // this.fadeIn.play();
-        jquery(this.domNode).fadeTo(400, 1);
-        delete this._timer;
-      }.bind(this), this.progressDelay
-    );
+    this._timer = setTimeout(() => {
+      // this.fadeIn.play();
+      jquery(this.domNode).fadeTo(400, 1);
+      delete this._timer;
+    }, this.progressDelay);
   },
   hide() {
     if (this._timer) {

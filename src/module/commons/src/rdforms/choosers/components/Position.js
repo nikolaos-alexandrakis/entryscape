@@ -3,7 +3,7 @@ import utils from '../utils';
 
 const bid = 'escoPosition';
 
-const Position = vnode => {
+export default () => {
   let updateGeoCoordinates;
   let focusInputs;
   const state = {
@@ -20,15 +20,10 @@ const Position = vnode => {
     },
   };
 
-  const inputFocus = dir => {
+  const inputFocus = (dir) => {
     state.lastClickedDir = dir;
     focusInputs();
   };
-
-  const inputBlur = (dir, val) => {
-    updateGeoCoordinatesState(dir, val);
-  };
-
   const updateGeoCoordinatesState = (direction, value) => {
     state.bounds[direction] = parseFloat(value);
 
@@ -36,9 +31,8 @@ const Position = vnode => {
       return false;
     }
 
-    let shouldUpdate = true;
     // Clean state bounds
-    Object.entries(state.bounds).forEach(keyVal => {
+    Object.entries(state.bounds).forEach((keyVal) => {
       if (keyVal[1] == null || Number.isNaN(keyVal[1])) {
         state.bounds[keyVal[0]] = 0;
       }
@@ -46,15 +40,18 @@ const Position = vnode => {
 
 
     if (state.bounds.type === 'point') {
-      const latLng = {lat: state.bounds.lat, lng: state.bounds.lng};
+      const latLng = { lat: state.bounds.lat, lng: state.bounds.lng };
       updateGeoCoordinates(utils.toWKT(utils.convertPointToGeoCoords(latLng)));
-    }
-    else {
+    } else {
       updateGeoCoordinates(utils.toWKT(state.bounds));
     }
   };
+  const inputBlur = (dir, val) => {
+    updateGeoCoordinatesState(dir, val);
+  };
 
-  const updateBounds = value => {
+
+  const updateBounds = (value) => {
     const bounds = utils.fromWKT(value);
     state.bounds = {
       type: bounds ? bounds.type : undefined,
@@ -91,7 +88,6 @@ const Position = vnode => {
     },
     view(vnode) {
       const {
-        value,
         bundle,
         editable,
         inputsFocused,
@@ -103,69 +99,66 @@ const Position = vnode => {
       const components = [m(`span.fa.fa-globe.fa-2x.${bid}__globe`)];
       if (detectClick && detectLabel) {
         components.push(m(Button, {
-          text: detectLabel, onclick: detectClick,
-          classNames: ['pull-right', 'escoPosition__detect']
+          text: detectLabel,
+          onclick: detectClick,
+          classNames: ['pull-right', 'escoPosition__detect'],
         }));
       }
 
       let geoCoords;
       if (state.bounds.type === 'point') {
         geoCoords = ['latitude', 'longitude'];
-      }
-      else {
+      } else {
         geoCoords = ['north', 'south', 'east', 'west'];
       }
 
       geoCoords
-        .map(dir => {
-          dir = dir.toLowerCase();
+        // eslint-disable-next-line array-callback-return
+        .map((dir) => {
+          let dirTemp = dir.toLowerCase();
 
           // Add label
           components.push(
             m(
               `label.${bid}__label`,
               {
-                title: bundle[`${dir}Placeholder`],
-                onclick: (e) => {
-                  editable && inputFocus(dir)
+                title: bundle[`${dirTemp}Placeholder`],
+                onclick: () => {
+                  if (editable) {
+                    inputFocus(dirTemp);
+                  }
                 },
               },
-              bundle[`${dir}LabelShort`]
-            )
+              bundle[`${dirTemp}LabelShort`],
+            ),
           );
 
           // There is a difference in naming between the bound type and the label naming on points
           // so we need to account for that here after adding the label
-          if (dir === 'latitude') {
-            dir = 'lat';
+          if (dirTemp === 'latitude') {
+            dirTemp = 'lat';
           }
-          if (dir === 'longitude') {
-            dir = 'lng';
+          if (dirTemp === 'longitude') {
+            dirTemp = 'lng';
           }
 
           // Add value
-          const directionValue = state.bounds !== undefined ? Number.parseFloat(state.bounds[dir]) : "";
+          const directionValue = state.bounds !== undefined ? Number.parseFloat(state.bounds[dirTemp]) : '';
 
           let dirValueNode;
 
           if (editable) {
-            const focus = state.lastClickedDir === dir;
-
             dirValueNode = m(`input.${bid}__value`, {
               value: Number.isNaN(directionValue) ? '' : directionValue,
-              onclick: (e) => {
-                inputFocus(dir)
-              },
-              onblur: m.withAttr('value', val => inputBlur(dir, val)),
-              autofocus: state.lastClickedDir === dir,
+              onclick: () => inputFocus(dirTemp),
+              onblur: m.withAttr('value', val => inputBlur(dirTemp, val)),
+              autofocus: state.lastClickedDir === dirTemp,
             });
-          }
-          else {
+          } else {
             dirValueNode = m(`span.${bid}__value`, {
-              title: directionValue, onclick: (e) => {
-                inputFocus(dir)
-              }
-            }, !Number.isNaN(directionValue) ? directionValue.toFixed(1) : "");
+              title: directionValue,
+              onclick: () => inputFocus(dirTemp),
+            }, !Number.isNaN(directionValue) ? directionValue.toFixed(1) : '');
           }
 
           components.push(dirValueNode);
@@ -175,7 +168,4 @@ const Position = vnode => {
       return m(`.${bid}`, components);
     },
   };
-
 };
-
-export default Position;

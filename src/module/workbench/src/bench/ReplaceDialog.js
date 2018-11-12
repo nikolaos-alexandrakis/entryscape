@@ -1,4 +1,3 @@
-import template from './ReplaceDialogTemplate.html';
 import htmlUtil from 'commons/util/htmlUtil';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import EntryType from 'commons/create/EntryType';
@@ -7,13 +6,14 @@ import eswoReplaceDialog from 'workbench/nls/eswoReplaceDialog.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import aspect from 'dojo/aspect';
+import template from './ReplaceDialogTemplate.html';
 import './eswoReplaceDialog.css';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin], {
   templateString: template,
   bid: 'eswoReplaceDialog',
   maxWidth: 800,
-  nlsBundles: [{eswoReplaceDialog}],
+  nlsBundles: [{ eswoReplaceDialog }],
   nlsHeaderTitle: 'replaceFileHeader',
   nlsFooterButtonLabel: 'replaceFileFooterButton',
   postCreate() {
@@ -52,7 +52,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   },
   localeChange_fileOrLink() {
     if (this.isFile) {
-      this.fileOrLink.__fileLabel.innerHTML = this.NLSBundle0.newFile
+      this.fileOrLink.__fileLabel.innerHTML = this.NLSBundle0.newFile;
     } else {
       this.fileOrLink.__linkLabel.innerHTML = this.NLSBundle0.newLink;
     }

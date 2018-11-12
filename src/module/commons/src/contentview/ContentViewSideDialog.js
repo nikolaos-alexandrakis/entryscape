@@ -1,18 +1,17 @@
+import registry from 'commons/registry';
+import declare from 'dojo/_base/declare';
+import { Presenter } from 'rdforms';
 import escoContentview from 'commons/nls/escoContentview.nls';
-import {Presenter} from 'rdforms';
 import ContentViewTabs from './ContentViewTabs';
 import typeIndex from '../create/typeIndex';
 import TitleDialog from '../dialog/TitleDialog';
-import registry from '../registry';
-
-import declare from 'dojo/_base/declare';
 
 export default declare([TitleDialog.ContentNLS], {
   templateString: `<div>
     <div data-dojo-attach-point="__contentviewer"></div>
     <div data-dojo-attach-point="__presenter"></div>
 </div>`,
-  nlsBundles: [{escoContentview}],
+  nlsBundles: [{ escoContentview }],
   nlsHeaderTitle: 'contentViewDialogHeader',
   nlsFooterButtonLabel: 'contentViewDialogCloseLabel',
 
@@ -66,7 +65,7 @@ export default declare([TitleDialog.ContentNLS], {
     const contentviewerDiv = document.createElement('div');
     this.__contentviewer.appendChild(contentviewerDiv);
 
-    this.contentviewer = new ContentViewTabs({entityConf: conf, entry},
+    this.contentviewer = new ContentViewTabs({ entityConf: conf, entry },
       contentviewerDiv);
     if (this.presenter) {
       this.presenter.domNode.style.display = 'none';

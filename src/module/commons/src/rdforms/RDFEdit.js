@@ -1,9 +1,9 @@
-import DOMUtil from '../util/htmlUtil';
-import template from './RDFEditTemplate.html';
-import {converters, Graph} from 'rdfjson';
+import { converters, Graph } from 'rdfjson';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import DOMUtil from '../util/htmlUtil';
+import template from './RDFEditTemplate.html';
 import './escoRDFEdit.css';
 
 export default declare([_WidgetBase, _TemplatedMixin], {
@@ -76,17 +76,17 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     try {
       const graph = this.getGraph();
       if (graph.validate().valid) {
-        return {graph, format: this.subView};
+        return { graph, format: this.subView };
       }
-      return {error: 'RDF/JSON is not valid.'};
+      return { error: 'RDF/JSON is not valid.' };
     } catch (e) {
       switch (this.subView) {
         case 'rdf/xml':
-          return {error: 'RDF/XML is invalid'};
+          return { error: 'RDF/XML is invalid' };
         case 'rdf/json':
-          return {error: 'RDF/JSON is invalid'};
+          return { error: 'RDF/JSON is invalid' };
         default:
-          return {error: 'Unsupported format'};
+          return { error: 'Unsupported format' };
       }
     }
   },
@@ -154,7 +154,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   setRDFXML(graph) {
     this.rdfxmlValue = converters.rdfjson2rdfxml(graph);
     if (this.rdfxmlValue.length > 100000) {
-      this.setValueToNode(this._rdfxml, `${this.rdfxmlValue.substring(0, 100000)}\n    ----- \n RDF to large, truncating it. \n   ------`);
+      this.setValueToNode(this._rdfxml,
+        `${this.rdfxmlValue.substring(0, 100000)}\n    ----- \n RDF to large, truncating it. \n   ------`);
     } else {
       this.setValueToNode(this._rdfxml, this.rdfxmlValue);
     }
@@ -176,7 +177,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   setRDFJSON(graph) {
     this.rdfjsonValue = JSON.stringify(graph.exportRDFJSON(), 0, 2);
     if (this.rdfjsonValue.length > 100000) {
-      this.setValueToNode(this._rdfjson, `${this.rdfjsonValue.substring(0, 100000)}\n    ----- \n RDF to large, truncating it. \n   ------`);
+      this.setValueToNode(this._rdfjson,
+        `${this.rdfjsonValue.substring(0, 100000)}\n    ----- \n RDF to large, truncating it. \n   ------`);
     } else {
       this.setValueToNode(this._rdfjson, this.rdfjsonValue);
     }

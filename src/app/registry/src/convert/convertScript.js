@@ -1,10 +1,10 @@
 import dcat11 from './dcat11';
 
 export default (target, checkOnly) => {
-  const report = {count: 0};
+  const report = { count: 0 };
 
   Object.keys(dcat11).forEach((prop) => {
-    const ro = {count: 0, fixes: []};
+    const ro = { count: 0, fixes: [] };
     report[prop] = ro;
     const propVal = dcat11[prop];
     if (typeof propVal === 'string') {

@@ -51,17 +51,18 @@ export default class extends TreeModel {
     this.checkChange();
   }
 
-  checkChange() {
-  }
+  // checkChange() {
+  // }
 
   createNode(entry) {
     const node = super.createNode(entry);
     let isChecked = false;
     if (this.collectionEntry) {
-      const collection = entry.getMetadata().find(entry.getResourceURI(), 'dcterms:partOf', this.collectionEntry.getResourceURI());
+      const collection = entry.getMetadata()
+        .find(entry.getResourceURI(), 'dcterms:partOf', this.collectionEntry.getResourceURI());
       isChecked = collection.length !== 0;
     }
-    node.state = {checked: isChecked};// get from entry metadata -partof
+    node.state = { checked: isChecked };// get from entry metadata -partof
     return node;
   }
 
@@ -69,4 +70,4 @@ export default class extends TreeModel {
     const id = typeof node === 'object' ? node.id : node;
     return id === '#' ? this.rootEntry.getResourceURI() : id;
   }
-};
+}

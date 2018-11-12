@@ -5,19 +5,19 @@
  * @param {string} hashString
  * @returns {object}
  */
-export const queryToObject = (hashString) =>
+export const queryToObject = hashString =>
   hashString
-    .replace('?','')
+    .replace('?', '')
     .split('&')
-    .map( keyVal => keyVal.split('=') )
+    .map(keyVal => keyVal.split('='))
     .reduce(
       (accum, keyValPair) => {
-        if(keyValPair[0]) {
+        if (keyValPair[0]) {
           accum[keyValPair[0]] = keyValPair[1];
         }
         return accum;
       },
-      {}
+      {},
     );
 
 /**
@@ -26,9 +26,9 @@ export const queryToObject = (hashString) =>
  * @param {object} queryObject An object of keys and values
  * @returns {string}
  */
-export const objectToQuery = (queryObject) =>
+export const objectToQuery = queryObject =>
   Object.entries(queryObject)
     .reduce(
-      (accum, keyVal, i) => i > 0 ? `${accum}&${keyVal[0]}=${keyVal[1]}` : `${keyVal[0]}=${keyVal[1]}`,
-      ''
+      (accum, keyVal, i) => (i > 0 ? `${accum}&${keyVal[0]}=${keyVal[1]}` : `${keyVal[0]}=${keyVal[1]}`),
+      '',
     );

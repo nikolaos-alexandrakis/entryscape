@@ -1,4 +1,4 @@
-import registry from  '../registry';
+import registry from 'commons/registry';
 
 const ns = registry.get('namespaces');
 ns.add('oa', 'http://www.w3.org/ns/oa#');

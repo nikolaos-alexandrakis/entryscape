@@ -1,37 +1,36 @@
-import superagent from 'superagent';
-import DOMUtil from './util/htmlUtil';
-import {i18n} from 'esi18n';
-import PubSub from 'pubsub-js';
-import registry from './registry';
-import {EntryStore, EntryStoreUtil} from 'store';
-import {namespaces} from 'rdfjson';
-import {bundleLoader, ItemStore, renderingContext, utils} from 'rdforms';
-import config from 'config';
-import initSite from 'spa/init';
-import {fixEoG} from './util/entryUtil';
-
-import ConfirmDialog from './dialog/ConfirmDialog';
-import AcknowledgeDialog from './dialog/AcknowledgeDialog';
-import AcknowledgeTextDialog from './dialog/AcknowledgeTextDialog';
-import Progress from './dialog/Progress';
-import OptionsDialog from './dialog/OptionsDialog';
-import RestrictionDialog from './errors/RestrictionDialog';
-
-import AsyncHandler from './errors/AsyncHandler';
-import configUtil from './util/configUtil';
-import {getFallbackBundleUrls} from './util/bundleUtil';
-
 import 'commons/bmd/all';
-
+import config from 'config';
+import { i18n } from 'esi18n';
+import { get } from 'lodash-es';
+import PubSub from 'pubsub-js';
+import { namespaces } from 'rdfjson';
+import { bundleLoader, ItemStore, renderingContext, utils } from 'rdforms';
+import initSite from 'spa/init';
+import { EntryStore, EntryStoreUtil } from 'store';
+import superagent from 'superagent';
+import apBundle from 'templates/dcat-ap/dcat-ap';
+import apPropsBundle from 'templates/dcat-ap/dcat-ap_props';
+import dctermsBundle from 'templates/dcterms/dcterms';
+import escBundle from 'templates/entryscape/esc';
+import foafBundle from 'templates/foaf/foaf';
+import odrsBundle from 'templates/odrs/odrs';
 // default bundles
 import skosBundle from 'templates/skos/skos';
-import dctermsBundle from 'templates/dcterms/dcterms';
-import foafBundle from 'templates/foaf/foaf';
 import vcardBundle from 'templates/vcard/vcard';
-import odrsBundle from 'templates/odrs/odrs';
-import apPropsBundle from 'templates/dcat-ap/dcat-ap_props';
-import apBundle from 'templates/dcat-ap/dcat-ap';
-import escBundle from 'templates/entryscape/esc';
+import AcknowledgeDialog from './dialog/AcknowledgeDialog';
+import AcknowledgeTextDialog from './dialog/AcknowledgeTextDialog';
+import ConfirmDialog from './dialog/ConfirmDialog';
+import OptionsDialog from './dialog/OptionsDialog';
+import Progress from './dialog/Progress';
+import AsyncHandler from './errors/AsyncHandler';
+import RestrictionDialog from './errors/RestrictionDialog';
+import registry from './registry';
+import { getFallbackBundleUrls } from './util/bundleUtil';
+import configUtil from './util/configUtil';
+import { fixEoG } from './util/entryUtil';
+
+import DOMUtil from './util/htmlUtil';
+
 
 /**
  * Adds the folloging to the registry:
@@ -66,12 +65,13 @@ import escBundle from 'templates/entryscape/esc';
  * @namespace
  */
 
-const ENTRYSCAPE_STATIC = 'https://static.entryscape.com/'; // TODO move in config
-
 /** @type {store/EntryStore} */
 let es;
 
 const init = {
+  config() {
+    config.get = get.bind(null, config);
+  },
   entrystore() {
     es = new EntryStore((config.entrystore && config.entrystore.repository ? config.entrystore.repository : null));
     registry.set('entrystore', es);
@@ -97,21 +97,22 @@ const init = {
   contentviewers() {
     config.contentviewers = configUtil.objToArray(config.contentviewers) || [];
     config.contentviewers.forEach((contentViewer, idx) => {
+      console.log(contentViewer, idx);
       import(
         /* webpackInclude: /.*View\.js$/ */
         /* webpackMode: "eager" */
-        `./contentview/${contentViewer.class}.js`
-        ).then((viewerClass) => {
-        try {
-          config.contentviewers[idx].class = viewerClass.default;
-        } catch (e) {
-          throw Error(`Could not load viewer ${contentViewer.class}`);
-        }
-      });
+        `./contentview/${contentViewer.class}.js`)
+        .then((viewerClass) => {
+          try {
+            config.contentviewers[idx].class = viewerClass.default;
+          } catch (e) {
+            throw Error(`Could not load viewer ${contentViewer.class}`);
+          }
+        });
     });
   },
   dialogs() {
-    const container = DOMUtil.create('div', {id: 'entryscape_dialogs', class: 'entryscape'}, document.body);
+    const container = DOMUtil.create('div', { id: 'entryscape_dialogs', class: 'entryscape' }, document.body);
     renderingContext.setPopoverContainer(container);
 
     const confirmDialog = new ConfirmDialog();
@@ -185,14 +186,14 @@ const init = {
           import(
             /* webpackInclude: /.*Chooser\.js$/ */
             /* webpackMode: "eager" */
-            `./rdforms/choosers/${chooserName}.js`
-            ).then((chooser) => {
-            try {
-              chooser.default.registerDefaults();
-            } catch (e) {
-              throw Error(`Could not load chooser ${chooserName}`);
-            }
-          });
+            `./rdforms/choosers/${chooserName}.js`)
+            .then((chooser) => {
+              try {
+                chooser.default.registerDefaults();
+              } catch (e) {
+                throw Error(`Could not load chooser ${chooserName}`);
+              }
+            });
         });
       }
     },
@@ -203,6 +204,8 @@ const init = {
     }
   },
   rdfutils() {
+    let labelProperties;
+    let descriptionProperties;
     const rdfutils = {
       setLabelProperties(arr) {
         labelProperties = arr;
@@ -211,27 +214,24 @@ const init = {
         descriptionProperties = arr;
       },
       getLabel(eog, uri) {
-        const {g, r} = fixEoG(eog, uri);
+        const { g, r } = fixEoG(eog, uri);
         return utils.getLocalizedValue(
           utils.getLocalizedMap(g, r, labelProperties)).value;
       },
       getLabelMap(eog, uri) {
-        const {g, r} = fixEoG(eog, uri);
+        const { g, r } = fixEoG(eog, uri);
         return utils.getLocalizedMap(g, r, labelProperties);
       },
       getDescription(eog, uri) {
-        const {g, r} = fixEoG(eog, uri);
+        const { g, r } = fixEoG(eog, uri);
         return utils.getLocalizedValue(
           utils.getLocalizedMap(g, r, descriptionProperties)).value;
       },
       getDescriptionMap(eog, uri) {
-        const {g, r} = fixEoG(eog, uri);
+        const { g, r } = fixEoG(eog, uri);
         return utils.getLocalizedMap(g, r, descriptionProperties);
       },
     };
-    let labelProperties;
-    let descriptionProperties;
-
 
     if (config.rdf.labelProperties) {
       rdfutils.setLabelProperties(config.rdf.labelProperties);
@@ -319,21 +319,19 @@ const init = {
     }
 
     // init site, set to registry and load the application by rendering the requested view
-    const siteConfig = Object.assign({}, registry.get('siteConfig'), {baseUrl});
+    const siteConfig = Object.assign({}, registry.get('siteConfig'), { baseUrl });
     const site = initSite(siteConfig);
     registry.set('siteManager', site);
 
     // Make sure the current context and entry are set in the registry
     PubSub.subscribe('spa.beforeViewChange', (msg, args) => {
-      const {switchingToParams} = args;
-      const {context, entry} = switchingToParams;
+      const { switchingToParams } = args;
+      const { context, entry } = switchingToParams;
       if (context != null) {
         registry.set('context', es.getContextById(context));
         if (entry != null) {
           const uri = es.getEntryURI(context, entry);
-          es.getEntry(uri).then((entry) => {
-            registry.set('entry', entry);
-          });
+          es.getEntry(uri).then(e => registry.set('entry', e));
         }
       } else {
         registry.set('context', null);
@@ -354,10 +352,11 @@ const init = {
       };
       window.ga.l = 1 * new Date();
       window.ga('create', config.googleAnalyticsID, 'auto');
-      window.ga('send', 'pageview', {page: location.pathname + location.search + location.hash});
+      window.ga('send', 'pageview', { page: location.pathname + location.search + location.hash });
       window.addEventListener('error', (err) => {
         const lineAndColumnInfo = err.colno ? ` line:${err.lineno}, column:${err.colno}` : ` line:${err.lineno}`;
-        window.ga('send', 'event', 'JavaScript Error', err.message, `${err.filename + lineAndColumnInfo} -> ${navigator.userAgent}`, 0, true);
+        window.ga('send', 'event', 'JavaScript Error',
+          err.message, `${err.filename + lineAndColumnInfo} -> ${navigator.userAgent}`, 0, true);
       });
 
       superagent.get('https://www.google-analytics.com/analytics.js');
@@ -397,13 +396,11 @@ const init = {
       if (userInfo.clientAcceptLanguage) {
         registry.set('clientAcceptLanguages', userInfo.clientAcceptLanguage);
       }
-      if(bestlang) {
+      if (bestlang) {
         registry.set('locale', bestlang);
-      }
-      else {
+      } else {
         registry.set('locale', config.locale.fallback);
       }
-
     }, true);
 
     // Load userInfo from the start and listen to authorization changes.
@@ -457,7 +454,8 @@ const init = {
       }
 
       const isAdmin = userEntry.getId() === '_admin';
-      const inAdminGroup = userEntry.getParentGroups().indexOf(userEntry.getEntryStore().getEntryURI('_principals', '_admins')) >= 0;
+      const inAdminGroup = userEntry.getParentGroups()
+        .indexOf(userEntry.getEntryStore().getEntryURI('_principals', '_admins')) >= 0;
       registry.set('isAdmin', isAdmin);
       registry.set('inAdminGroup', inAdminGroup);
       registry.set('hasAdminRights', isAdmin || inAdminGroup);
@@ -468,38 +466,38 @@ const init = {
     }, true);
   },
   setGetGroupWithHomeContext() {
-    registry.set('getGroupWithHomeContext', (context) => {
-      return new Promise((resolve, reject) => {
-        const store = registry.get('entrystore');
-        let foundOne = false;
+    registry.set('getGroupWithHomeContext', context => new Promise((resolve) => {
+      const store = registry.get('entrystore');
+      let foundOne = false;
 
-        context.getEntry().then((contextEntry) => {
-          const contextACL = contextEntry.getEntryInfo().getACL(true);
-          contextACL.rwrite.forEach((principalId) => {
-            if (foundOne) {
-              return;
-            }
-            const puri = store.getEntryURI('_principals', principalId);
-            store.getEntry(puri, null)
-              .then(e => (e.isGroup() ? e.getResource() : null))
-              .then((groupResource) => {
-                if (!foundOne && groupResource != null &&
-                  groupResource.getHomeContext() === context.getId()) {
-                  groupResource.getEntry().then((groupEntry) => {
-                    resolve(groupEntry);
-                  });
-                  foundOne = true;
-                }
-              });
-          });
+      context.getEntry().then((contextEntry) => {
+        const contextACL = contextEntry.getEntryInfo().getACL(true);
+        contextACL.rwrite.forEach((principalId) => {
+          if (foundOne) {
+            return;
+          }
+          const puri = store.getEntryURI('_principals', principalId);
+          store.getEntry(puri, null)
+            .then(e => (e.isGroup() ? e.getResource() : null))
+            .then((groupResource) => {
+              if (!foundOne && groupResource != null &&
+                groupResource.getHomeContext() === context.getId()) {
+                groupResource.getEntry().then((groupEntry) => {
+                  resolve(groupEntry);
+                });
+                foundOne = true;
+              }
+            });
         });
       });
-    });
-  }
+    }));
+  },
 };
+
 
 // TODO @valentino HACK: in order to have some registry items, e.g registry.get('namespaces'),
 // available at 'dojo/declare' class construction those items need to be set first. The following ensure that.
+init.config();
 init.entrystore();
 init.namespaces();
 init.entitytypes();
@@ -521,7 +519,6 @@ export default async () => {
   init.setGetGroupWithHomeContext();
   init.entitytypes();
   init.contexttypes();
-  init.contentviewers();
 
   document.addEventListener('DOMContentLoaded', () => { // TODO @valentino if dom is loaded when this is added then it's too late, this will not get called
     // init dialogs
@@ -529,4 +526,4 @@ export default async () => {
     Promise.all([registry.onInit('locale'), registry.onInit('hasAdminRights')]).then(() => init.site());
     init.googleAnalytics();
   });
-}
+};

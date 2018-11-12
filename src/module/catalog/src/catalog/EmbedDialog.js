@@ -1,18 +1,17 @@
 import TitleDialog from 'commons/dialog/TitleDialog';
-import template from './EmbedDialogTemplate.html';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import EmbedPreview from './EmbedPreview';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaEmbed from 'catalog/nls/escaEmbed.nls';
-
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import EmbedPreview from './EmbedPreview';
+import template from './EmbedDialogTemplate.html';
 
 import './escaEmbedDialog.css';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
-  nlsBundles: [{escaEmbed}],
+  nlsBundles: [{ escaEmbed }],
   maxWidth: 800,
   nlsHeaderTitle: 'embedHeader',
   includeFooter: false,
@@ -24,7 +23,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   open(params) {
     this.inherited(arguments);
     this.entry = params.row.entry;
-    this.repobase = document.location.protocol + '//' + document.location.host;
+    this.repobase = `${document.location.protocol}//${document.location.host}`;
     this.entryId = this.entry.getId();
     this.ctxId = this.entry.getContext().getId();
     this.blank = 'data-target="_blank"';

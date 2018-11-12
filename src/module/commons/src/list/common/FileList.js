@@ -1,9 +1,9 @@
+import declare from 'dojo/_base/declare';
+import { types } from 'store';
+import FileDialog from '../../dialog/FileDialog';
 import registry from '../../registry';
 import EntryRow from '../EntryRow';
-import FileDialog from '../../dialog/FileDialog';
 import BaseList from './BaseList';
-import {types} from 'store';
-import declare from 'dojo/_base/declare';
 
 const ns = registry.get('namespaces');
 

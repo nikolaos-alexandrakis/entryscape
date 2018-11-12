@@ -1,7 +1,7 @@
+import m from 'mithril';
 import OverviewHeader from './OverviewHeader';
 import DescriptionList from './DescriptionList';
 import StatBox from './StatBox';
-import m from 'mithril';
 import '../overview.css';
 
 const Overview = {
@@ -24,5 +24,4 @@ const Overview = {
   },
 };
 
-export { Overview };
 export default Overview;

@@ -1,8 +1,8 @@
-import {i18n} from 'esi18n';
-import ListDialogMixin from './ListDialogMixin';
-import registry from '../../registry';
-import RDFormsEditDialog from '../../rdforms/RDFormsEditDialog';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
+import RDFormsEditDialog from '../../rdforms/RDFormsEditDialog';
+import registry from '../../registry';
+import ListDialogMixin from './ListDialogMixin';
 
 /**
  * Dialog for editing existing entries.
@@ -44,16 +44,17 @@ export default declare([RDFormsEditDialog, ListDialogMixin], {
     const b = this.NLSBundles.rdforms;
     async.addIgnore('commitMetadata', async.codes.GENERIC_PROBLEM, true);
     return this.row.entry.commitMetadata()
-      .then(() => {
-          this.list.rowMetadataUpdated(this.row);
-        }, (err) => {
+      .then(
+        () => this.list.rowMetadataUpdated(this.row),
+        (err) => {
           if (err.response.status === 412) {
-            return registry.get('dialogs').confirm(b.metadataConflictMessage, b.metadataConflictLoadChanges, b.metadataConflictCancel).then(() => {
-              self.refreshEntry(self.row.entry);
-              throw b.metadataConflictRefreshMessage;
-            }, () => {
-              throw b.metadataConflictRemainMessage;
-            });
+            return registry.get('dialogs')
+              .confirm(b.metadataConflictMessage, b.metadataConflictLoadChanges, b.metadataConflictCancel).then(() => {
+                self.refreshEntry(self.row.entry);
+                throw b.metadataConflictRefreshMessage;
+              }, () => {
+                throw b.metadataConflictRemainMessage;
+              });
           }
           throw err;
         },

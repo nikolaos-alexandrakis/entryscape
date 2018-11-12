@@ -1,12 +1,14 @@
 import 'vis'; // TODO: @scazan Is this actually used here?
-import {Presenter} from 'rdforms';
+import { Presenter } from 'rdforms';
 import { cloneDeep } from 'lodash-es';
 import EntryChooser from 'commons/rdforms/choosers/EntryChooser';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import templateString from './BroswerTemplate.html';
 
 EntryChooser.registerDefaults();
+
 const rdfutils = registry.get('rdfutils');
 const ns = registry.get('namespaces');
 const es = registry.get('entrystore');
@@ -15,12 +17,12 @@ const esu = registry.get('entrystoreutil');
 let strIdCounter = 0;
 
 export default declare([_WidgetBase, _TemplatedMixin], {
-  templateString: "<div class='row'><div style='border-right: 1px solid #d3d3d3;' class='col-md-9 col-sm-9 col-xs-9' data-dojo-attach-point='graphNode'></div><div style='overflow: auto; height: 100%' class='col-md-3 col-sm-3 col-xs-3' data-dojo-attach-point='rdformsNode'></div></div>",
+  templateString,
   includeLiterals: false,
   showNamespaces: true,
   includeResources: false,
   curvedLines: true,
-  edgeFont: {align: 'top', size: 12},
+  edgeFont: { align: 'top', size: 12 },
   maxDepth: 4,
   graphOptions: {
     interaction: {
@@ -46,7 +48,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
   postCreate() {
     this.inherited(arguments);
-    this.presenter = new Presenter({compact: true}, this.rdformsNode);
+    this.presenter = new Presenter({ compact: true }, this.rdformsNode);
     this.nodes = new vis.DataSet([]);
     this.edges = new vis.DataSet([]);
     this.data = {
@@ -72,15 +74,15 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       options.groups = this.graphStyles;
     }
     this.network = new vis.Network(this.graphNode, this.data, options);
-    this.network.on('click', function (params) {
+    this.network.on('click', (params) => {
       if (params.nodes.length === 1 && params.nodes[0] !== this.selectedEntry) {
         this.showInForm(params.nodes[0]);
         this.nodes.update([
-          this.colorNode({id: params.nodes[0]}, true),
-          this.colorNode({id: this.selectedEntry})]);
+          this.colorNode({ id: params.nodes[0] }, true),
+          this.colorNode({ id: this.selectedEntry })]);
         this.selectedEntry = params.nodes[0];
       }
-    }.bind(this));
+    });
     this.network.on('doubleClick', (params) => {
       if (params.nodes.length === 1) {
         const sm = registry.getSiteManager();
@@ -202,7 +204,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
   addRelatedResource(fromEntry, predicate, toURI, depth) {
     if (this.includeRelation(fromEntry, predicate, toURI)) {
-      this.nodes.add(this.colorNode({id: toURI, label: ns.shorten(toURI), level: depth}));
+      this.nodes.add(this.colorNode({ id: toURI, label: ns.shorten(toURI), level: depth }));
       this.edges.add({
         color: this.defaultColor,
         from: fromEntry.getURI(),
@@ -241,9 +243,9 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.reset();
     this.showInForm(entry.getURI());
     this.selectedEntry = entry.getURI();
-    this.addEntry(entry, 1).then(function () {
+    this.addEntry(entry, 1).then(() => {
       this.network.stabilize();
-    }.bind(this));
+    });
     const stmts = entry.getReferrersGraph().find();
     array.forEach(stmts, function (stmt) {
       this.addRelatedEntry(entry, stmt.getPredicate(), stmt.getSubject(), 0, true);

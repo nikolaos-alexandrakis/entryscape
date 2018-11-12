@@ -1,27 +1,27 @@
-import DOMUtil from '../util/htmlUtil';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import escoLayout from 'commons/nls/escoLayout.nls';
-import template from './SettingsTemplate.html';
 import TitleDialog from 'commons/dialog/TitleDialog'; // In template
 import PasswordForm from 'commons/auth/components/PasswordForm';
 import Password from 'commons/auth/Password';
 import PubSub from 'pubsub-js';
 import config from 'config';
-import registry from '../registry';
+import registry from 'commons/registry';
 import m from 'mithril';
-
 import declare from 'dojo/_base/declare';
+import template from './SettingsTemplate.html';
+import DOMUtil from '../util/htmlUtil';
+
 
 export default declare([TitleDialog.ContentNLS, NLSMixin.Dijit], {
   templateString: template,
-  nlsBundles: [{escoLayout}],
+  nlsBundles: [{ escoLayout }],
   nlsHeaderTitle: 'settingsHeader',
   nlsFooterButtonTitle: 'saveSettings',
   nlsFooterButtonLabel: 'saveSettings',
 
   postCreate() {
     this.inherited('postCreate', arguments);
-    DOMUtil.create('option', {value: ''}, this.settingsLanguage);
+    DOMUtil.create('option', { value: '' }, this.settingsLanguage);
     const sortedSuppLangs = this.sortLanguages(config.locale.supported);
     sortedSuppLangs.forEach((l) => {
       DOMUtil.create('option', {
@@ -87,8 +87,8 @@ export default declare([TitleDialog.ContentNLS, NLSMixin.Dijit], {
     return label2langNames.map(label2langName => label2langName.lang);
   },
   updateFooterButton() {
-    let firstName = this.settingsFirstname.value.trim();
-    let lastName = this.settingsLastname.value.trim();
+    const firstName = this.settingsFirstname.value.trim();
+    const lastName = this.settingsLastname.value.trim();
     const language = this.settingsLanguage.value;
 
     if (Password.canSubmit() && firstName.length > 0
@@ -119,18 +119,12 @@ export default declare([TitleDialog.ContentNLS, NLSMixin.Dijit], {
 
     if (Password.provided()) {
       saveOps.push(auth.getUserEntry()
-        .then(userEntry => userEntry.getResource(true).setPassword(Password.password), () => {
-          failureOnSaveSettings = true;
-          return bundle.passwordSaveError;
-        }));
+        .then(userEntry => userEntry.getResource(true).setPassword(Password.password), () => bundle.passwordSaveError));
     }
 
     if (language.length === 2) {
       saveOps.push(auth.getUserEntry()
-        .then(userEntry => userEntry.getResource(true).setLanguage(language)), () => {
-        failureOnSaveSettings = true;
-        return bundle.languageSaveError;
-      });
+        .then(userEntry => userEntry.getResource(true).setLanguage(language)), () => bundle.languageSaveError);
       i18n.setLocale(language);
     }
 
@@ -146,22 +140,19 @@ export default declare([TitleDialog.ContentNLS, NLSMixin.Dijit], {
         graph.findAndRemove(null, 'http://xmlns.com/foaf/0.1/givenName', null);
         graph.add(userEntry.getResourceURI(),
           'http://xmlns.com/foaf/0.1/givenName',
-          {type: 'literal', value: firstName.trim()});
+          { type: 'literal', value: firstName.trim() });
 
         graph.findAndRemove(null, 'http://xmlns.com/foaf/0.1/lastName', null);
         graph.findAndRemove(null, 'http://xmlns.com/foaf/0.1/familyName', null);
         graph.add(userEntry.getResourceURI(),
           'http://xmlns.com/foaf/0.1/familyName',
-          {type: 'literal', value: lastName.trim()});
+          { type: 'literal', value: lastName.trim() });
 
         userEntry.commitMetadata().then(() => {
           registry.set('userEntry', userEntry);
         });
       }
-    }, () => {
-      failureOnSaveSettings = true;
-      return bundle.settingsSaveError;
-    }));
+    }, () => bundle.settingsSaveError));
 
     return Promise.all(saveOps).then(() => {
       this.formReset();

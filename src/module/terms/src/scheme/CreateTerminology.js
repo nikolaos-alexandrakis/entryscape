@@ -1,17 +1,17 @@
 import registry from 'commons/registry';
-import {renderingContext} from 'rdforms';
-import template from './CreateTerminologyTemplate.html';
+import { renderingContext } from 'rdforms';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import esteScheme from 'terms/nls/esteScheme.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import {createEntry} from 'commons/util/storeUtil';
+import { createEntry } from 'commons/util/storeUtil';
+import template from './CreateTerminologyTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.Dijit], {
   templateString: template,
-  nlsBundles: [{esteScheme}],
+  nlsBundles: [{ esteScheme }],
   // * to be removed in nls * nlsHeaderTitle: 'createSchemeHeader',
   // * to be removed in nls * nlsFooterButtonLabel: 'createSchemeButton',
 
@@ -21,7 +21,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
   },
   open() {
     if (this.list.onLimit()) {
-      return;
+      console.log('Limit hit!'); // TODO what happens here?
     }
   },
   checkValidInfoDelayed() {

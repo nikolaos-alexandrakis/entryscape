@@ -1,14 +1,14 @@
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import template from './UsernameDialogTemplate.html';
 import registry from 'commons/registry';
 import esadUser from 'admin/nls/esadUser.nls';
 import declare from 'dojo/_base/declare';
+import template from './UsernameDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
   templateString: template,
   maxWidth: 800,
-  nlsBundles: [{esadUser}],
+  nlsBundles: [{ esadUser }],
   popoverOptions: {},
   nlsHeaderTitle: 'changeUsernameHeader',
   nlsFooterButtonLabel: 'changeUsernameButton',
@@ -47,10 +47,10 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
           throw Error('No matching user.');
         }
       }).then(null, () => {
-      this.newNameIsOk = true;
-      this.usernameError.style.display = 'none';
-      this.dialog.unlockFooterButton();
-    });
+        this.newNameIsOk = true;
+        this.usernameError.style.display = 'none';
+        this.dialog.unlockFooterButton();
+      });
   },
   open() {
     this.inherited(arguments);

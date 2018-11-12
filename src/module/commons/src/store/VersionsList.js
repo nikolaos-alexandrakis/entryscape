@@ -1,15 +1,14 @@
-import {NLSMixin} from 'esi18n';
-import ArrayList from './ArrayList';
-import List from '../list/List';
-import registry from '../registry';
-import VersionRow from './VersionRow';
 import escoList from 'commons/nls/escoList.nls';
 import escoVersions from 'commons/nls/escoVersions.nls';
-
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import List from '../list/List';
+import ArrayList from './ArrayList';
+import VersionRow from './VersionRow';
 
 export default declare([List, NLSMixin.Dijit], {
-  nlsBundles: [{escoList}, {escoVersions}],
+  nlsBundles: [{ escoList }, { escoVersions }],
   includeHead: false,
   searchInList: true,
   rowClickDialog: 'expand',
@@ -41,7 +40,7 @@ export default declare([List, NLSMixin.Dijit], {
     Promise.all(revs.map(rev => es.getEntry(rev.by).then((userEntry) => {
       rev.user = userEntry;
     }))).then(() => {
-      this.listView.showEntryList(new ArrayList({arr: revs}));
+      this.listView.showEntryList(new ArrayList({ arr: revs }));
     });
   },
 });

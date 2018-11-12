@@ -5,7 +5,7 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import htmlUtil from 'commons/util/htmlUtil';
 import typeIndex from 'commons/create/typeIndex';
 import config from 'config';
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import escaShowIdeas from 'catalog/nls/escaShowIdeas.nls';
 import declare from 'dojo/_base/declare';
@@ -13,7 +13,7 @@ import declare from 'dojo/_base/declare';
 const ns = registry.get('namespaces');
 
 const IdeasList = declare([BaseList], {
-  nlsBundles: [{escoList}, {escaShowIdeas}],
+  nlsBundles: [{ escoList }, { escaShowIdeas }],
   nlsCreateEntryMessage: null,
   includeRefreshButton: false,
   includeInfoButton: true,
@@ -59,7 +59,7 @@ const IdeasList = declare([BaseList], {
 });
 
 export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
-  nlsBundles: [{escaShowIdeas}],
+  nlsBundles: [{ escaShowIdeas }],
   maxWidth: 800,
   includeFooter: false,
 
@@ -73,7 +73,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.ideasList.entry = this.entry;
     this.ideasList.render();
     const title = registry.get('rdfutils').getLabel(this.entry);
-    this.updateLocaleStringsExplicit(i18n.localize(escaShowIdeas, 'showIdeasDialogHeader', {1: title}));
+    this.updateLocaleStringsExplicit(i18n.localize(escaShowIdeas, 'showIdeasDialogHeader', { 1: title }));
     this.show();
   },
 });

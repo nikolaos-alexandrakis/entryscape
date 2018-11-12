@@ -29,7 +29,7 @@ const Input = {
       classNames = ['form-control'],
     } = vnode.attrs.input;
 
-    const attrs = {type, id, name, class: classNames.join(' ')};
+    const attrs = { type, id, name, class: classNames.join(' ') };
 
     // TODO refactor
     if (typeof checked === 'boolean') {

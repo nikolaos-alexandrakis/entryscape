@@ -1,14 +1,12 @@
-import { i18n } from 'esi18n';
-import DOMUtil from '../util/htmlUtil';
-import TitleDialog from '../dialog/TitleDialog'; // In template
-import registry from '../registry';
-import VersionsList from './VersionsList';
 import escoVersions from 'commons/nls/escoVersions.nls';
-
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import TitleDialog from '../dialog/TitleDialog';
+import DOMUtil from '../util/htmlUtil';
+import VersionsList from './VersionsList';
 
 export default declare([TitleDialog.ContentNLS], {
-  nlsBundles: [{escoVersions}],
+  nlsBundles: [{ escoVersions }],
   nlsHeaderTitle: 'versionsHeader',
   nlsFooterButtonLabel: 'versionsCloseButton',
 
@@ -23,7 +21,7 @@ export default declare([TitleDialog.ContentNLS], {
     }, this.dialog.containerNode);
     this.alertMessage.style.display = 'none';
 
-    this.versionList = new VersionsList({dialog: this}, DOMUtil.create('div', null, this.dialog.containerNode));
+    this.versionList = new VersionsList({ dialog: this }, DOMUtil.create('div', null, this.dialog.containerNode));
     const ns = registry.get('namespaces');
     this.excludeProperties = this.excludeProperties.map(e => ns.expand(e));
     this.inherited(arguments);

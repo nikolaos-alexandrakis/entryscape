@@ -11,7 +11,7 @@ import Input from './Input';
  *
  * @type {{view: ((vnode))}}
  */
-const Checkbox = {
+export default {
   bid: 'escoButton',
   view(vnode) {
     const {
@@ -21,14 +21,13 @@ const Checkbox = {
       disabled,
     } = vnode.attrs;
 
-    const attrs = disabled ? {disabled} : {}
+    const attrs = disabled ? { disabled } : {};
     return m(`div.${type}`, attrs, [
       m('label', [
-        m(Input, {input}),
+        m(Input, { input }),
         m('span', label),
-      ])
+      ]),
     ]);
   },
 };
 
-export default Checkbox;

@@ -1,9 +1,8 @@
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import template from './DatasetTemplate.html';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaPublic from 'catalog/nls/escaPublic.nls';
-import {Presenter} from 'rdforms';
+import { Presenter } from 'rdforms';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import DistributionDialog from 'catalog/public/DistributionDialog';
 import config from 'config';
@@ -11,20 +10,21 @@ import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import template from './DatasetTemplate.html';
 import './dataset.css';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   templateString: template,
   inDialog: false,
-  nlsBundles: [{escaPublic}],
+  nlsBundles: [{ escaPublic }],
 
   postCreate() {
     this.inherited('postCreate', arguments);
-    this.infoDialog = new RDFormsPresentDialog({maxWidth: 800}, this.infoDialog);
-    this.distributionInfoDialog = new DistributionDialog({maxWidth: 800}, this.distributionInfoDialog);
-    this.presenter = new Presenter({compact: true}, this.presenter);
+    this.infoDialog = new RDFormsPresentDialog({ maxWidth: 800 }, this.infoDialog);
+    this.distributionInfoDialog = new DistributionDialog({ maxWidth: 800 }, this.distributionInfoDialog);
+    this.presenter = new Presenter({ compact: true }, this.presenter);
     if (!this.inDialog) {
-      this.domNode.classList.add('mainView')
+      this.domNode.classList.add('mainView');
 
       this.details.appendChild(this.detailsBlock);
       this.sidebar.appendChild(this.distributionBlock);
@@ -42,10 +42,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     }
   },
   showEntry(entry) {
-    this.entryPromise = new Promise(resolve => {
+    this.entryPromise = new Promise((resolve) => {
       resolve(entry);
       this.showDataset(entry);
-    })
+    });
   },
 
   localeChange() {
@@ -127,11 +127,11 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const access = md.findFirstValue(subj, 'http://www.w3.org/ns/dcat#accessURL');
         const label = title || desc || access;
         const tr = htmlUtil.create('tr', null, this.distributions);
-        tdLabel = htmlUtil.create('td', {innerHTML: label}, tr);
+        tdLabel = htmlUtil.create('td', { innerHTML: label }, tr);
         tdButtons = htmlUtil.create('td', null, tr);
-        divWrapper = htmlUtil.create('div', {class: 'min-height-row'}, tdButtons);
-        infoWrapper = htmlUtil.create('span', {class: 'badge'}, divWrapper);
-        icon = htmlUtil.create('span', {class: 'fa fa-info-circle'}, divWrapper);
+        divWrapper = htmlUtil.create('div', { class: 'min-height-row' }, tdButtons);
+        infoWrapper = htmlUtil.create('span', { class: 'badge' }, divWrapper);
+        icon = htmlUtil.create('span', { class: 'fa fa-info-circle' }, divWrapper);
         const f = (ev) => {
           ev.stopPropagation();
           this.distributionInfoDialog.set('title', label);
@@ -159,10 +159,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const access = md.findFirstValue(subj, 'foaf:page');
         const label = title || desc || access;
         const tr = htmlUtil.create('tr', null, this.results);
-        htmlUtil.create('td', {innerHTML: label}, tr);
+        htmlUtil.create('td', { innerHTML: label }, tr);
         const tdButtons = htmlUtil.create('td', null, tr);
-        const infoButton = htmlUtil.create('button', {class: 'btn btn-sm btn-default'}, tdButtons);
-        htmlUtil.create('span', {class: 'fa fa-info-circle'}, infoButton);
+        const infoButton = htmlUtil.create('button', { class: 'btn btn-sm btn-default' }, tdButtons);
+        htmlUtil.create('span', { class: 'fa fa-info-circle' }, infoButton);
         const f = (ev) => {
           ev.stopPropagation();
           this.infoDialog.title = label;

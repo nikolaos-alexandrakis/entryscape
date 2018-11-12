@@ -1,7 +1,6 @@
+import declare from 'dojo/_base/declare';
 import jquery from 'jquery';
 import EntryRow from '../list/EntryRow';
-
-import declare from 'dojo/_base/declare';
 
 const rights = [
   'none',

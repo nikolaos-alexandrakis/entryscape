@@ -1,9 +1,8 @@
-import registry from 'commons/registry';
 import Dataset from 'catalog/public/Dataset';
+import registry from 'commons/registry';
+import declare from 'dojo/_base/declare';
 
-define([
-  'dojo/_base/declare',
-], declare => declare([Dataset], {
+export default declare([Dataset], {
   inDialog: true,
   graph: null,
 
@@ -37,4 +36,4 @@ define([
 
     return new Promise(resolve => resolve(dists));
   },
-}));
+});

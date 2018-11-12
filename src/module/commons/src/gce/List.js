@@ -1,12 +1,12 @@
-import {i18n} from 'esi18n';
+import { i18n } from 'esi18n';
 import config from 'config';
-import registry from '../registry';
+import registry from 'commons/registry';
+import { types } from 'store';
+import declare from 'dojo/_base/declare';
 import BaseList from '../list/common/BaseList';
 import ViewPlaceholder from '../placeholder/ViewPlaceholder';
-import {types} from 'store';
 import GCEList from './GCEList';
 import GCERow from './GCERow';
-import declare from 'dojo/_base/declare';
 
 
 const OpenGCE = declare([], {
@@ -15,7 +15,7 @@ const OpenGCE = declare([], {
     const view = params.row.list.rowClickView;
     const context = params.row.getContext().getId();
 
-    site.render(view, {context});
+    site.render(view, { context });
   },
 });
 
@@ -102,7 +102,7 @@ export default declare([BaseList], {
     if (!this.entriesAreContextEntries) {
       // Must force load context entry since it's modification date is
       // updated whenever a containing entry is changed.
-      es.getEntry(context.getEntryURI(), {forceLoad: true}).then((contextEntry) => {
+      es.getEntry(context.getEntryURI(), { forceLoad: true }).then((contextEntry) => {
         // Update the context title
         const md = contextEntry.getMetadata();
         md.findAndRemove(null, 'dcterms:title');
@@ -138,7 +138,7 @@ export default declare([BaseList], {
   },
 
   search(paramsParam) {
-    params = paramsParam || {};
+    const params = paramsParam || {};
     if (!registry.get('hasAdminRights')) {
       const userEntry = registry.get('userEntry');
       this.entryList = new GCEList({

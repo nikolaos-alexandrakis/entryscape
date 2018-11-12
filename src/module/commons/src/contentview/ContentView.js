@@ -1,11 +1,12 @@
-import registry from '../registry';
-import {Presenter} from 'rdforms';
-import {NLSMixin} from 'esi18n';
+import registry from 'commons/registry';
+import { Presenter } from 'rdforms';
+import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import './escoImageView.css';
+
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   includeMetadataPresentation: false,
   entry: null,
@@ -28,9 +29,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     }
     const presenterDiv = document.createElement('div');
     this.__metadataViewer.appendChild(presenterDiv);
-    const presenter = new Presenter({compact: true}, presenterDiv);
+    const presenter = new Presenter({ compact: true }, presenterDiv);
     const resource = this.entry.getResourceURI();
     const graph = this.entry.getMetadata();
-    presenter.show({resource, graph, template});
+    presenter.show({ resource, graph, template });
   },
 });

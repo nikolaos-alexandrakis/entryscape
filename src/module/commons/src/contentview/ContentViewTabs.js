@@ -1,11 +1,11 @@
-import templateString from './ContentViewTabsTemplate.html';
-import DOMUtil from '../util/htmlUtil';
-import registry from '../registry';
+import registry from 'commons/registry';
 import config from 'config';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import DOMUtil from '../util/htmlUtil';
+import templateString from './ContentViewTabsTemplate.html';
 import './escoContentViewTabs.css';
 
 export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin], {
@@ -22,7 +22,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin], {
     if (this.entityConf.contentviewers.length === 1) {
       this.__tabList.style.display = 'none';
     }
-    const contenttabs = this.entityConf.contentviewers.map(cv => (typeof cv === 'string' ? {name: cv} : cv));
+    const contenttabs = this.entityConf.contentviewers.map(cv => (typeof cv === 'string' ? { name: cv } : cv));
     Promise.all(contenttabs.map(contentTab => this.createTab(contentTab)))
       .then(() => {
         if (this.initialTab) {
@@ -38,11 +38,12 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin], {
       // contentTab object {name, param}
       const contentTab = contentTabObj.name;
       const cntViewConf = this.getContentViewConf(contentTab);
+      const ContentViewConfClass = cntViewConf.class;
       if (!cntViewConf) {
         console.warn(`Contentviewer: ${contentTab} is missing in configuration`);
         resolve();
       }
-      const li = DOMUtil.create('li', {role: 'presentation'}, this.__tabList);
+      const li = DOMUtil.create('li', { role: 'presentation' }, this.__tabList);
 
       li.onclick = (ev) => {
         ev.stopPropagation();
@@ -57,15 +58,17 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin], {
       newAnchor.innerHTML = registry.get('localize')(cntViewConf.label);
       newAnchor.classList.add(`${this.bid}__tab`);
 
-      const view = new cntViewConf.class({
+      const view = new ContentViewConfClass({
         tabs: this,
-        // contentViewConf: lang.mixin({}, cntViewConf, contentTabObj), // TODO: @scazan this looks like an error (mixin takes 2 args only)
-        contentViewConf: {...cntViewConf, ...contentTabObj},
+        // TODO: @scazan this looks like an error (mixin takes 2 args only)
+        // contentViewConf: lang.mixin({}, cntViewConf, contentTabObj),
+        contentViewConf: { ...cntViewConf, ...contentTabObj },
         entityConf: this.entityConf,
         entry: this.entry,
       }, DOMUtil.create('div', null, this.__tabContent));
       view.domNode.classList.add('tab-pane');
-      // domStyle.set(view.domNode, 'role', 'tabpanel'); // TODO: @scazan This looks like an error. Should be an attribute?
+      // TODO: @scazan This looks like an error. Should be an attribute?
+      // domStyle.set(view.domNode, 'role', 'tabpanel');
       view.domNode.setAttribute('role', 'tabpanel');
 
       this.tabs[contentTab] = {

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   catalog: {
     catalogTemplateId: 'dcat:OnlyCatalog',
@@ -14,6 +15,7 @@ export default {
     formatProperty: 'dcterms:format',
     catalogCreationAllowedFor: '_users',
     unpublishDatasetAllowedFor: '_users',
+    // eslint-disable-next-line no-template-curly-in-string
     previewURL: '#view=dataset&resource=${url}',
     includeEmbeddOption: true,
     includeShowcasesInDatasetMenu: true,
@@ -25,7 +27,7 @@ export default {
         en: 'Privacy',
         sv: 'Sekretess',
         da: 'Fortrolig',
-        de: 'Datenschutz'
+        de: 'Datenschutz',
       },
       label: {
         sv: 'Inga sekretessbelagda eller personuppgifter ingår i datamängden',
@@ -213,7 +215,7 @@ export default {
   },
   entitytypes: {
     publisher: {
-      label: {en: 'Publisher'},
+      label: { en: 'Publisher' },
       rdfType: ['http://xmlns.com/foaf/0.1/Agent', 'http://xmlns.com/foaf/0.1/Person', 'http://xmlns.com/foaf/0.1/Organization'],
       module: 'catalog',
       template: 'dcat:foaf:Agent',
@@ -224,7 +226,7 @@ export default {
       faClass: 'users',
     },
     contactPoint: {
-      label: {en: 'Contact point'},
+      label: { en: 'Contact point' },
       rdfType: ['http://www.w3.org/2006/vcard/ns#Individual', 'http://www.w3.org/2006/vcard/ns#Organization', 'http://www.w3.org/2006/vcard/ns#Kind'],
       module: 'catalog',
       template: 'dcat:contactPoint',
@@ -235,7 +237,7 @@ export default {
       faClass: 'phone',
     },
     dataset: {
-      label: {en: 'Dataset'},
+      label: { en: 'Dataset' },
       rdfType: ['http://www.w3.org/ns/dcat#Dataset'],
       module: 'catalog',
       template: 'dcat:OnlyDataset',
@@ -246,7 +248,7 @@ export default {
       faClass: 'cubes',
     },
     candidate: {
-      label: {en: 'Candidate dataset'},
+      label: { en: 'Candidate dataset' },
       rdfType: ['http://entryscape.com/terms/CandidateDataset'],
       module: 'catalog',
       template: 'esc:DatasetCandidate',
@@ -257,7 +259,7 @@ export default {
       faClass: 'tasks',
     },
     distribution: {
-      label: {en: 'Distribution'},
+      label: { en: 'Distribution' },
       rdfType: ['http://www.w3.org/ns/dcat#Distribution'],
       module: 'catalog',
       template: 'dcat:OnlyDistribution',
@@ -267,7 +269,7 @@ export default {
       inlineCreation: false,
     },
     catalog: {
-      label: {en: 'catalog'},
+      label: { en: 'catalog' },
       rdfType: ['http://www.w3.org/ns/dcat#Catalog'],
       module: 'catalog',
       template: 'dcat:OnlyCatalog',
@@ -277,7 +279,7 @@ export default {
       inlineCreation: false,
     },
     datasetResult: {
-      label: {en: 'Results'},
+      label: { en: 'Results' },
       rdfType: ['http://entryscape.com/terms/Results'],
       module: 'catalog',
       template: 'esc:Results',
@@ -288,7 +290,7 @@ export default {
       faClass: 'diamond',
     },
     datasetIdea: {
-      label: {en: 'Ideas'},
+      label: { en: 'Ideas' },
       rdfType: ['http://entryscape.com/terms/Ideas'],
       module: 'catalog',
       template: 'esc:Ideas',
@@ -299,7 +301,7 @@ export default {
       faClass: 'lightbulb-o',
     },
     datasetDocument: {
-      label: {en: 'Document'},
+      label: { en: 'Document' },
       rdfType: ['foaf:Document', 'dcterms:LicenseDocument', 'dcterms:Standard'],
       module: 'catalog',
       template: 'dcat:Documentish',

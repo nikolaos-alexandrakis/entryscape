@@ -1,12 +1,12 @@
-import {i18n, NLSMixin} from 'esi18n';
+import { i18n, NLSMixin } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
 import escoErrors from 'commons/nls/escoErrors.nls';
 import config from 'config';
-import AcknowledgeTextDialog from '../dialog/AcknowledgeTextDialog';
 import declare from 'dojo/_base/declare';
+import AcknowledgeTextDialog from '../dialog/AcknowledgeTextDialog';
 
 export default declare([AcknowledgeTextDialog, NLSMixin.Dijit], {
-  nlsBundles: [{escoErrors}],
+  nlsBundles: [{ escoErrors }],
   restrictionPath: '',
   postCreate() {
     this.inherited('postCreate', arguments);

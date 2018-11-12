@@ -2,7 +2,7 @@ import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
 import Overview from 'commons/overview/components/Overview';
 import m from 'mithril';
-import {NLSMixin} from 'esi18n';
+import { NLSMixin } from 'esi18n';
 import escaOverview from 'catalog/nls/escaOverview.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
@@ -11,7 +11,7 @@ import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   templateString: '<div class="catalogOverview escoList"></div>',
-  nlsBundles: [{escaOverview}],
+  nlsBundles: [{ escaOverview }],
   getEntityNameFromURI(entityURI) {
     const es = registry.get('entrystore');
     if (entityURI.indexOf(es.getBaseURI()) === 0) {
@@ -89,7 +89,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         },
       ];
 
-      m.render(document.querySelector('.catalogOverview.escoList'), m(Overview, {data: this.data}));
+      m.render(document.querySelector('.catalogOverview.escoList'), m(Overview, { data: this.data }));
     });
   },
 });

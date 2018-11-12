@@ -1,10 +1,8 @@
-import {i18n} from 'esi18n';
-import DOMUtil from '../util/htmlUtil';
-import TitleDialog from './TitleDialog';
+import { i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import superagent from 'superagent';
-
-const getContentHTML = path => superagent.get(path).set('Accept', 'text/html');
+import DOMUtil from '../util/htmlUtil';
+import TitleDialog from './TitleDialog';
 
 export default declare([TitleDialog], {
   includeFooter: false,
@@ -31,14 +29,14 @@ export default declare([TitleDialog], {
       const containerNode = this.mainNode;
       const language = i18n.getLocale() !== 'en' ? `${i18n.getLocale()}` : 'en';
       this.getContentHTML(`${path}_${language}.html`)
-        .then(res => {
+        .then((res) => {
           containerNode.innerHTML = res.text;
           resolve(true);
           clearTimeout(t);
         });
     }, () => {
       this.getContentHTML(`${path}.html`)
-        .then(res => {
+        .then((res) => {
           containerNode.innerHTML = res.text;
           resolve(true);
           clearTimeout(t);

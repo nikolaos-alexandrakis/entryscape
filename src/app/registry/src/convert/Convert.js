@@ -1,19 +1,19 @@
 import registry from 'commons/registry';
-import template from './ConvertTemplate.html';
-import convert from './convertScript';
 import htmlUtil from 'commons/util/htmlUtil';
-import {i18n, NLSMixin} from 'esi18n';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
 import esreConvert from 'registry/nls/esreConvert.nls';
 import esreSource from 'registry/nls/esreSource.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import convert from './convertScript';
+import template from './ConvertTemplate.html';
 import './esreConvert.css';
 
 const ns = registry.get('namespaces');
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   bid: 'esreConvert',
-  nlsBundles: [{esreConvert}, {esreSource}],
+  nlsBundles: [{ esreConvert }, { esreSource }],
   templateString: template,
 
   __convert: null,
@@ -46,14 +46,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
               title: fix.s,
             }, tr);
             const fixType = fix.t === 'p' ? b.predicateFix : b.objectFix;
-            htmlUtil.create('td', {innerHTML: fixType}, tr);
+            htmlUtil.create('td', { innerHTML: fixType }, tr);
             htmlUtil.create('td', {
               innerHTML: ns.shorten(fix.from),
               title: fix.from,
             }, tr);
             htmlUtil.create(
               'td',
-              {innerHTML: ns.shorten(fix.to), title: fix.to},
+              { innerHTML: ns.shorten(fix.to), title: fix.to },
               tr,
             );
           }, this);

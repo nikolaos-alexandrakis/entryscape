@@ -1,7 +1,7 @@
 import registry from 'commons/registry';
 import Browser from 'commons/graph/Browser';
 import config from 'config';
-import declare from 'dojo/_base/delcare';
+import declare from 'dojo/_base/declare';
 
 const ns = registry.get('namespaces');
 
@@ -10,7 +10,7 @@ export default declare([Browser], {
   includeResources: false,
   curvedLines: true,
   showNamespaces: false,
-  edgeFont: {align: 'top', size: 12},
+  edgeFont: { align: 'top', size: 12 },
   maxDepth: 4,
   hierarchical: true,
   selectedColor: 'grey',

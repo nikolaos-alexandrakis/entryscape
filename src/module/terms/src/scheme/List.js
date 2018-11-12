@@ -3,18 +3,18 @@ import config from 'config';
 import List from 'commons/gce/List';
 import GCERow from 'commons/gce/GCERow';
 import MemberDialog from 'admin/groups/MemberDialog';
-import CreateTerminologyDialog from './CreateTerminologyDialog';
 import Export from 'commons/export/Export';
-import {i18n} from 'esi18n';
+import { i18n } from 'esi18n';
 import esteTerminologyexport from 'terms/nls/esteTerminologyexport.nls';
 import escoList from 'commons/nls/escoList.nls';
 import esteScheme from 'terms/nls/esteScheme.nls';
 import declare from 'dojo/_base/declare';
+import CreateTerminologyDialog from './CreateTerminologyDialog';
 
 const ns = registry.get('namespaces');
 
 const ExportDialog = declare([Export], {
-  nlsBundles: [{esteTerminologyexport}],
+  nlsBundles: [{ esteTerminologyexport }],
   nlsHeaderTitle: 'exportHeaderLabel',
   title: 'temporary', // to avoid exception
   profile: 'conceptscheme',
@@ -55,7 +55,7 @@ export default declare([List], {
   includeEditButton: true,
   includeRemoveButton: true,
   includeExpandButton: false,
-  nlsBundles: [{escoList}, {esteScheme}],
+  nlsBundles: [{ escoList }, { esteScheme }],
   rowClass: Row,
 
   nlsGCEPublicTitle: 'publicSchemeTitle',
