@@ -4,6 +4,7 @@ import config from 'config';
 import utils from '../utils';
 import configUtil from 'commons/util/configUtil';
 import '../escoSpatial.css';
+import 'leaflet/dist/leaflet.css';
 let leaflet;
 
 const Map = (vnode) => {
