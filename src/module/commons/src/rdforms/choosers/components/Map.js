@@ -1,8 +1,8 @@
 import config from 'config';
 import m from 'mithril';
-import '../escoSpatial.css';
 import utils from '../utils';
-
+import '../escoSpatial.css';
+import 'leaflet/dist/leaflet.css';
 let leaflet;
 
 const Map = () => {
@@ -12,7 +12,7 @@ const Map = () => {
     latLngVector: [],
   };
 
-  const assetsPath = configUtl.getAssetsPath();
+  const assetsPath = configUtil.getAssetsPath();
 
   let updateGeoCoordinates;
   let unfocusInputs;
