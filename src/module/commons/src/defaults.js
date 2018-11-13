@@ -160,7 +160,7 @@ const init = {
         if (config.itemstore.bundles) {
           config.itemstore.bundles.forEach(id => bundles.push(getFallbackBundleUrls(id)));
         }
-        await bundleLoader(items, bundles);
+        await bundleLoader(items, bundles); // load the bundles
         registry.set('itemstore', items);
       }
     },
@@ -491,6 +491,12 @@ const init = {
       });
     }));
   },
+  app() {
+    init.dialogs();
+    Promise.all([registry.onInit('locale'), registry.onInit('hasAdminRights')])
+      .then(init.site);
+    init.googleAnalytics();
+  },
 };
 
 
@@ -517,10 +523,10 @@ export default async () => {
   init.user();
   init.setGetGroupWithHomeContext();
 
-  document.addEventListener('DOMContentLoaded', () => { // TODO @valentino if dom is loaded when this is added then it's too late, this will not get called
-    // init dialogs
-    init.dialogs();
-    Promise.all([registry.onInit('locale'), registry.onInit('hasAdminRights')]).then(() => init.site());
-    init.googleAnalytics();
-  });
+  // initApp
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init.app);
+  } else {
+    init.app();
+  }
 };

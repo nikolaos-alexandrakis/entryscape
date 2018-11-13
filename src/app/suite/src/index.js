@@ -1,3 +1,4 @@
+// NOTE! order of imports is important
 import '@babel/polyfill';
 import 'jquery';
 import 'popper.js';
@@ -15,6 +16,6 @@ import 'chartist/dist/chartist.min.css'; // TODO ?
 import registry from 'commons/registry';
 import initDefaults from './defaults';
 
-(async () => await initDefaults())(); // init defaults
+initDefaults(); // init defaults
 
 export default registry;
