@@ -7,10 +7,8 @@ import adminDefaults from 'admin/defaults'; // init catalog
 import siteConfig from './config/site';
 
 export default async () => {
-  console.log(4);
   registry.set('siteConfig', siteConfig);
   await commonsDefaults();
-  console.log(5);
   catalogDefaults();
   termsDefaults();
   workbenchDefaults();
