@@ -166,18 +166,14 @@ module.exports = (env, argv) => {
         },
         devServer: {
           hot: true,
-          contentBase: path.join(APP_PATH, APP === 'blocks' ? '../samples' : ''),
-          historyApiFallback: true,
+          contentBase: APP_PATH,
+          historyApiFallback: APP === 'blocks' ? false : true,
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
         },
         plugins: [
           new webpack.HotModuleReplacementPlugin(),
-          new HtmlWebpackPlugin({
-            template: path.join(
-              getAlias(APP, 'app', true), APP === 'blocks' ? 'samples/webpack.html' : 'index.dev.html'),
-          }),
           new CircularDependencyPlugin({
             // exclude detection of files based on a RegExp
             exclude: /a\.js|node_modules/,
@@ -191,6 +187,15 @@ module.exports = (env, argv) => {
           }),
         ],
       });
+
+      if (APP !== 'blocks') {
+        config.plugins.push(
+          new HtmlWebpackPlugin({
+            template: path.join(
+              getAlias(APP, 'app', true), 'index.dev.html'),
+          })
+        );
+      }
     } else if (argv.mode === 'production') {
       config = merge(config, {
         optimization: {
