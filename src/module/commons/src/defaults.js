@@ -516,8 +516,6 @@ export default async () => {
   init.recaptcha();
   init.user();
   init.setGetGroupWithHomeContext();
-  init.entitytypes();
-  init.contexttypes();
 
   document.addEventListener('DOMContentLoaded', () => { // TODO @valentino if dom is loaded when this is added then it's too late, this will not get called
     // init dialogs
