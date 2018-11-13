@@ -14,6 +14,11 @@ import 'typeahead.js/dist/typeahead.jquery';
 import '../assets/privacy_de.html';
 import '../assets/privacy_en.html';
 import '../assets/privacy_sv.html';
+import registry from 'commons/registry'
 import initDefaults from './defaults';
 
-initDefaults(); // init defaults/registry
+(async () => {
+  await initDefaults(); // init defaults
+})();
+
+export default registry;

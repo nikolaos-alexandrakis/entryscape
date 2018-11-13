@@ -12,7 +12,11 @@ import 'bootstrap-material-design/dist/css/ripples.css';
 import 'bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'chartist/dist/chartist.min.css'; // TODO ?
-
 import initDefaults from './defaults';
 
-export default initDefaults(); // init defaults
+let registry;
+(async () => {
+  registry = await initDefaults(); // init defaults
+})();
+
+export default registry;
