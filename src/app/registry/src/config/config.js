@@ -66,8 +66,15 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
     ],
   },
   itemstore: {
-    bundles: [
-      //        'registry/templates/faq',
+    defaultBundles: [
+      'skos',
+      'dcterms',
+      'foaf',
+      'vcard',
+      'odrs',
+      'dcat-ap_props',
+      'dcat-ap',
+      'esc',
     ],
   },
   registry: {

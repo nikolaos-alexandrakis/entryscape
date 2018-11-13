@@ -13,5 +13,4 @@ export default async () => {
   termsDefaults();
   workbenchDefaults();
   adminDefaults();
-  return registry;
 };
