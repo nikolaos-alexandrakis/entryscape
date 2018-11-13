@@ -133,7 +133,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
       PubSub.subscribe('app.signout', () => {
         const site = registry.getSiteManager();
         this.destroyComponents();
-        this.destroyMenu();
+        this.destroyComponent(this.menuListNode);
 
         // remove other params, only view should be passed.
         site.render(registry.getSiteConfig().startView || registry.getSiteConfig().signinView, {});
@@ -269,10 +269,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     this.inherited('show', arguments);
     const siteConfig = registry.getSiteConfig();
     if (viewName === siteConfig.signinView) {
-      this.destroyMenu();
+      this.destroyComponent(this.menuListNode);
       this.showNode(this.privacyMenu);
     } else {
-      this.renderMenu();
+      this.mountComponent(this.menu, this.menuListNode);
       this.hideNode(this.privacyMenu);
     }
 
@@ -357,21 +357,20 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
   destroyComponents() {
     this.hideBreadcrumb();
   },
-  renderMenu() {
-    this.showNode(this.menuListNode);
-    m.mount(this.menuListNode, this.menu);
+  mountComponent(component, mountNode) {
+    this.showNode(mountNode);
+    m.mount(mountNode, component);
   },
-  destroyMenu() {
-    this.hideNode(this.menuListNode);
-    m.mount(this.menuListNode, null);
+  destroyComponent(mountNode) {
+    this.hideNode(mountNode);
+    m.mount(mountNode, null);
   },
   showBreadcrumb(items) {
     this.showNode(this.crumbList);
     m.render(this.crumbList, m(Breadcrumb, { items }));
   },
   hideBreadcrumb() {
-    this.hideNode(this.crumbList);
-    m.render(this.crumbList, null);
+    this.destroyComponent(this.crumbList);
   },
   hideNavBar() {
     this.hideNode(this.controllerViewList);
