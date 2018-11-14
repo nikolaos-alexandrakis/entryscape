@@ -4,6 +4,7 @@ import registry from 'commons/registry';
 import escoSignin from 'commons/nls/escoSignin.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import m from 'mithril';
 import templateString from './SignupTemplate.html';
 import TitleDialog from '../dialog/TitleDialog';
 import signinUtils from './signinUtils';
