@@ -13,8 +13,7 @@ document.write('<script src="https://static.entryscape.com/libs/bootstrap/dist/j
 
 if (debug) {
   css('style.css');
-  document.write('<script data-main="../../config/deps" src="../../libs/requirejs/require.js"' +
-    ' type="text/javascript"><\/script>');
+  js('app.js');
 } else {
   css('blocks/0.11/style.css');
   js('blocks/0.11/all.js');

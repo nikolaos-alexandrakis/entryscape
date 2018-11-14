@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import adminSiteConfig from 'admin/config/site';
-import cataloSitegConfig from 'catalog/config/site';
+import catalogSiteConfig from 'catalog/config/site';
 import merge from 'commons/merge';
 import Layout from 'commons/nav/Layout';
 import Permission from 'commons/nav/Permission';
@@ -20,7 +20,7 @@ import Visualization from 'registry/status/Visualization';
 import Report from 'registry/validate/Report';
 import workbenchSiteConfig from 'workbench/config/site';
 
-export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, {
+export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, {
   siteClass: Site,
   controlClass: Layout,
   signinView: 'signin',
