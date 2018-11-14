@@ -83,6 +83,9 @@
     "webpack-sources": "^1.2.0",
     "yalc": "^1.0.0-pre.23"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "scripts": {
     "build:suite": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite",
     "build:registry": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry",
@@ -91,6 +94,7 @@
     "dev:registry": "webpack-dev-server --mode=development --config webpack.config.js --app=registry",
     "dev:blocks": "webpack-dev-server --mode=development --config webpack.config.js --app=blocks",
     "nls:download": "node src/scripts/nls/download.js",
-    "nls:upload": "node src/scripts/nls/upload.js"
+    "nls:upload": "node src/scripts/nls/upload.js",
+    "lint": "src/scripts/eslint/pre-commit.sh"
   }
 }
