@@ -51,12 +51,12 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
         titleNode.classList.add('ssb-title');
         const textNode = DOMUtil.create('p', null, titleNode);
         textNode.classList.add('font-size-large');
-        await this.setLabelAndTooltip(titleNode, a, card);
+        this.setLabelAndTooltip(titleNode, a, card);
         this.setText(textNode, card);
       } else {
         DOMUtil.create('h2', null, a).innerHTML = `<i class="fa fa-2x fa-${card.faClass}"></i>`;
         titleNode = DOMUtil.create('h3', null, a);
-        await this.setLabelAndTooltip(titleNode, a, card);
+        this.setLabelAndTooltip(titleNode, a, card);
       }
     }, this);
   },
@@ -121,8 +121,8 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
     });
   },
 
-  async setLabelAndTooltip(labelNode, tooltipNode, card) {
-    await utils.setViewLabelAndTooltip(labelNode, tooltipNode, this.getCardView(card), this.viewParams);
+   setLabelAndTooltip(labelNode, tooltipNode, card) {
+    utils.setViewLabelAndTooltip(labelNode, tooltipNode, this.getCardView(card), this.viewParams);
   },
 
   setText(textNode, card) {

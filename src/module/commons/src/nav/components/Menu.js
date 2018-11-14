@@ -12,18 +12,7 @@ import MenuList from './menu/MenuList';
  * @param {Object} bundle
  * @return {String}
  */
-const getLocalizedModuleTitle = (module, bundle) => {
-  if (module.productName && bundle) {
-    const productNameTranslated = utils.getModuleProp(module, bundle, 'title');
-    if (productNameTranslated) {
-      return productNameTranslated;
-    }
-
-    return module.productName;
-  }
-
-  return '';
-};
+const getLocalizedModuleTitle = (module, bundle) => utils.getModuleProp(module, bundle, 'title', true);
 
 /**
  * Transform the active moudles to component input

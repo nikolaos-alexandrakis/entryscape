@@ -127,7 +127,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
     return Array.from(site.modules).map(([, module]) => module);
   },
 
-  async getLabelAndTooltip(card) {
+  getLabelAndTooltip(card) {
     let tooltip;
     const pt = card.productName;
 
@@ -141,8 +141,8 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
     return { label, tooltip };
   },
 
-  async setLabelAndTooltip(labelNode, tooltipNode, card) {
-    const { label, tooltip } = await this.getLabelAndTooltip(card);
+  setLabelAndTooltip(labelNode, tooltipNode, card) {
+    const { label, tooltip } = this.getLabelAndTooltip(card);
 
     labelNode.innerHTML = label;
     tooltipNode.setAttribute('title', tooltip);
