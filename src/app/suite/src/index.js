@@ -12,6 +12,7 @@ import 'bootstrap-material-design/dist/css/bootstrap-material-design.css';
 import 'bootstrap-material-design/dist/css/ripples.css';
 import 'bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css';
 import 'font-awesome/css/font-awesome.min.css';
+import 'flag-icon-css/css/flag-icon.min.css';
 import 'chartist/dist/chartist.min.css'; // TODO ?
 import registry from 'commons/registry';
 import initDefaults from './defaults';
