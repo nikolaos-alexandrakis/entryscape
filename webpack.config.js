@@ -20,11 +20,11 @@ const momentLocaleRegExp = RegExp(locales.reduce((accum, locale, i) => (i === 0 
 
 /** ********** CONFIGURATION *********** */
 module.exports = (env, argv) => {
-  if (!argv.app) {
+  if (argv && !argv.app) {
     throw Error('Please provide an `--app` argument to the configuration');
   }
 
-  const APP = argv.app;
+  const APP = (argv && argv.app) || 'suite'; // needed for eslint to read the config
   const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
 
   let config = {

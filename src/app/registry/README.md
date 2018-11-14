@@ -12,3 +12,4 @@ EntryScape Registry depends on [EntryStore](http://entrystore.org) for storing i
     grunt build
     
 To install EntryStore and Pipelines, see separate documentation.
+a
