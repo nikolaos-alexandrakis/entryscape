@@ -2,7 +2,7 @@ import SiteController from 'spa/SiteController';
 import registry from 'commons/registry';
 import config from 'config';
 import m from 'mithril';
-import { NLSMixin } from 'esi18n';
+import { NLSMixin, i18n } from 'esi18n';
 import escoLayout from 'commons/nls/escoLayout.nls';
 import escoModules from 'commons/nls/escoModules.nls';
 import declare from 'dojo/_base/declare';
@@ -167,8 +167,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
   },
   constructFooter() {
     if (config.theme && config.theme.footer && config.theme.footer.text) {
-      const footerText = config.theme.footer.text[`${registry.get('locale')}`];
-      this.footerText.innerHTML = footerText;
+      const footerText = config.theme.footer.text[`${i18n.getLocale()}`];
+      if (footerText != null) {
+        this.footerText.innerHTML = footerText;
+      } else if (config.theme.footer.text.en != null) {
+        this.footerText.innerHTML = config.theme.footer.text.en;
+      } else {
+        this.footerText.innerHTML = '';
+      }
     }
     if (config.theme && config.theme.footer && config.theme.footer.buttons) {
       const localize = registry.get('localize');
@@ -264,6 +270,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
           .acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);
       }
     }
+
+    this.constructFooter();
   },
   show(viewName, params) {
     this.inherited('show', arguments);
