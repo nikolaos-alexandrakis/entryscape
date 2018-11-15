@@ -22,21 +22,17 @@ const getLocalizedModuleTitle = (module, bundle) => utils.getModuleProp(module, 
  * @return {Array}
  */
 const getModulesData = (bundle) => {
-  if (bundle) {
-    const site = registry.getSiteManager();
-    return Array.from(site.modules).map((mapEntry) => {
-      const module = mapEntry[1];
-      const startView = module.startView || module.views[0];
-      return {
-        name: module.name,
-        label: getLocalizedModuleTitle(module, bundle),
-        href: site.getViewPath(startView), // module's defined start view or the first view
-        icon: module.faClass,
-      };
-    });
-  }
-
-  return [];
+  const site = registry.getSiteManager();
+  return Array.from(site.modules).map((mapEntry) => {
+    const module = mapEntry[1];
+    const startView = module.startView || module.views[0];
+    return {
+      name: module.name,
+      label: getLocalizedModuleTitle(module, bundle),
+      href: site.getViewPath(startView), // module's defined start view or the first view
+      icon: module.faClass,
+    };
+  });
 };
 
 /**
@@ -67,13 +63,9 @@ const menuState = {
 export default declare([NLSMixin.Dijit], {
   nlsBundles: [{ escoModules }],
   constructor() {
-    registry.onChange('userEntryInfo', this.updateItems.bind(this));
+    registry.onChange('userEntryInfo', m.redraw);
   },
   localeChange() {
-    this.updateItems();
-  },
-  updateItems() {
-    menuState.setItems(this.NLSBundle0);
     m.redraw();
   },
   updateSelectedItem() {
@@ -81,7 +73,8 @@ export default declare([NLSMixin.Dijit], {
   },
   view() {
     this.updateSelectedItem();
-    const { items, selectedItem, onclick } = menuState;
+    const items = getModulesData(this.NLSBundle0);
+    const { selectedItem, onclick } = menuState;
     return m('div', m(MenuList, { items, selectedItem, onclick }));
   },
   oncreate() {
