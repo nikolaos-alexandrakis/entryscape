@@ -146,9 +146,6 @@
     display: block;
 }
 
-.entryList .entryList > div > div > div:not(.distributionsTd):last-child {
-    padding: 0 15px;
-}
 
 /* Former entryModificationDate*/
 .entryList .entryRowCol0 {
