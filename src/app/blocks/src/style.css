@@ -1,9 +1,3 @@
-@import "libs/rdforms/view/bootstrap/base.css";
-@import "libs/entryscape-commons/list/list.css";
-@import "libs/entryscape-commons/errors/errors.css";
-@import "libs/entryscape-commons/query/style.css";
-@import "libs/selectize/css/selectize.bootstrap3.css";
-@import "libs/chartist/dist/chartist.min.css";
 @import "fixes.css";
 
 /* --- RDForms different defaults --- */

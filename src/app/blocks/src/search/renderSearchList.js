@@ -23,7 +23,7 @@ export default (node, data, items) => {
     itemstore: items,
     includeHead: !data.headless,
   }, DOMUtil.create('div'));
-  node.appendChild(sl);
+  node.appendChild(sl.domNode);
   if (!sl.includeHead) {
     jquery(sl.domNode).find('.panel').removeClass('panel');
     sl.domNode.classList.add('headless');

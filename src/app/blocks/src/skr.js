@@ -36,10 +36,10 @@ window.__entryscape_config = {
 
   ],
   bundles: [
-    'templates/dc/dc',
-    'templates/rdfs/rdfs',
-    'templates/schema.org/schema',
-    'https://opendata.statenskonstrad.se/theme/skr.js',
+    'dc',
+    'rdfs',
+    'schema',
+    'https://opendata.statenskonstrad.se/theme/skr',
   ],
   type2template: {
     'skr:Artist': 'skr:Artist',

@@ -1,3 +1,4 @@
+import { isUri } from 'commons/util/util';
 import configUtil from './configUtil';
 
 /**
@@ -12,9 +13,16 @@ const getStaticTemplateUrl = () => `${configUtil.getStaticBuild()}templates`;
  * NOTE! order matters here
  */
 
-export const getFallbackUrls = () => [
-  getThemeUrl(),
-  getStaticTemplateUrl(),
-];
+export const getFallbackUrls = (id, format) => [
+  getThemeUrl,
+  getStaticTemplateUrl,
+].map(baseUrlFunc => `${baseUrlFunc()}/${id}.${format}`);
 
-export const getFallbackBundleUrls = (id, format = 'json') => getFallbackUrls().map(b => `${b}/${id}.${format}`);
+export const getFallbackBundleUrls = (id, format = 'json') => {
+  const fallbackUrls = getFallbackUrls(id, format);
+  if (isUri(id)) {
+    return [`${id}.${format}`, ...fallbackUrls];
+  }
+
+  return fallbackUrls;
+};
