@@ -107,6 +107,14 @@ module.exports = (env, argv) => {
           use: ['style-loader', 'css-loader'],
         },
         {
+          test: /\.less$/,
+          use: [
+            'style-loader',
+            'css-loader',
+            'less-loader',
+          ],
+        },
+        {
           test: /\.html$/,
           use: ['raw-loader'],
         },

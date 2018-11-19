@@ -11,7 +11,7 @@ const findAndDeleteReplies = (entry) => {
       .list()
       .forEach(replyEntry => findAndDeleteReplies(replyEntry).then(() => replyEntry.del()));
   }
-  return Promise.all();
+  return Promise.all([]);
 };
 
 /**

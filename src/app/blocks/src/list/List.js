@@ -1,10 +1,14 @@
+import jquery from 'jquery';
+import { NLSMixin } from 'esi18n';
+import escoList from 'commons/nls/escoList.nls';
+import escoErrors from 'commons/nls/escoErrors.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import config from 'blocks/config/config';
 import List from 'commons/list/List';
 import ListView from 'commons/list/ListView';
 import EntryRow from 'commons/list/EntryRow';
-import defaults from 'commons/defaults';
+import registry from 'commons/registry';
 import ArrayList from 'commons/store/ArrayList';
 import handlebars from 'blocks/boot/handlebars';
 import error from 'blocks/boot/error';
@@ -13,10 +17,6 @@ import dependencyList from 'blocks/utils/dependencyList';
 import filter from 'blocks/utils/filter';
 import MetadataExpandRow from './MetadataExpandRow';
 import TemplateExpandRow from './TemplateExpandRow';
-import jquery from 'jquery';
-import { NLSMixin } from 'esi18n';
-import escoList from 'commons/nls/escoList.nls';
-import escoErrors from 'commons/nls/escoErrors.nls';
 
 class PlaceHolder {
   constructor(args, node) {
@@ -55,6 +55,7 @@ class PlaceHolder {
   }
 }
 
+// TODO: @scazan Why are we using this in this unbound function
 const initExpandTitles = function () {
   this.expandTitle = this.list.conf.expandTooltip;
   this.unexpandTitle = this.list.conf.unexpandTooltip;
@@ -65,7 +66,7 @@ const CardRow = declare([_WidgetBase], {
     this.domNode = this.srcNodeRef;
     this.domNode.classList.add('cardList-body');
 
-    jquery('cardList-body').parent().addClass('cardRow');
+    jquery('cardList-body').parent().addClass('cardRow'); // TODO: @scazan This is an error. Not fixing while refactoring.
     const conf = this.list.conf;
     if (!conf.templates || !conf.templates.rowhead) {
       return this.inherited(arguments);
@@ -75,6 +76,8 @@ const CardRow = declare([_WidgetBase], {
       context: this.entry.getContext().getId(),
       entry: this.entry.getId(),
     }, null, this.entry);
+
+    return this.domNode;
   },
   isChecked() {
     return false;
@@ -103,6 +106,8 @@ class ListRow extends EntryRow {
       context: this.entry.getContext().getId(),
       entry: this.entry.getId(),
     }, null, this.entry);
+
+    return this.domNode;
   }
   getRenderNameHTML() {
     const name = this.getRenderName();
@@ -184,10 +189,13 @@ export default declare([List, NLSMixin.Dijit], {
   renderListHead() {
     if (this.conf.templates && this.conf.templates.listhead) {
       const view = this.getView();
-      handlebars.run(this.listHeadNode, Object.assign({
-        resultsize: view.getResultSize(),
-        currentpage: view.getCurrentPage(),
-        pagecount: view.getPageCount() }, this.conf),
+      handlebars.run(
+        this.listHeadNode,
+        Object.assign({
+          resultsize: view.getResultSize(),
+          currentpage: view.getCurrentPage(),
+          pagecount: view.getPageCount(),
+        }, this.conf),
         this.conf.templates.listhead, this.entry);
     }
   },
@@ -209,6 +217,8 @@ export default declare([List, NLSMixin.Dijit], {
       const prefix = config.hashParamsPrefix || 'esc_';
       return `${this.conf.click}#${prefix}entry=${entry.getId()}&${prefix}context=${entry.getContext().getId()}`;
     }
+
+    return null;
   },
   localeChange() {
     this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
@@ -229,7 +239,7 @@ export default declare([List, NLSMixin.Dijit], {
   },
 
   getSearchObject(term) {
-    const es = defaults.get('entrystore');
+    const es = registry.get('entrystore');
     const so = es.newSolrQuery();
     if (this.conf.relation) {
       const stmts = this.entry.getMetadata().find(this.entry.getResourceURI(), this.conf.relation);
