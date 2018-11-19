@@ -5220,6 +5220,7 @@ isurl@^1.0.0-alpha5:
 jquery-mousewheel@^3.1.13, jquery-mousewheel@~3.1.13:
   version "3.1.13"
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
+  integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
 
 jquery@1.12.3:
   version "1.12.3"
@@ -7896,6 +7897,7 @@ select2@^4.0.6-rc.1:
 selectize@^0.12.6:
   version "0.12.6"
   resolved "https://registry.yarnpkg.com/selectize/-/selectize-0.12.6.tgz#c2cf08cbaa4cb06c5e99bb452919d71b080690d6"
+  integrity sha512-bWO5A7G+I8+QXyjLfQUgh31VI4WKYagUZQxAXlDyUmDDNrFxrASV0W9hxCOl0XJ/XQ1dZEu3G9HjXV4Wj0yb6w==
   dependencies:
     microplugin "0.0.3"
     sifter "^0.5.1"
@@ -8053,6 +8055,7 @@ simple-swizzle@^0.2.2:
 sizzle@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/sizzle/-/sizzle-2.3.3.tgz#4eb078c37231a56b52e4193f701e7ef8937e606b"
+  integrity sha1-TrB4w3IxpWtS5Bk/cB5++JN+YGs=
 
 slash@^1.0.0:
   version "1.0.0"

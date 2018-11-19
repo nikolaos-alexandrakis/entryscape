@@ -26,6 +26,7 @@
     "image-webpack-loader": "^4.4.0",
     "is-url": "^1.2.4",
     "jquery": "^3.3.1",
+    "jquery-mousewheel": "^3.1.13",
     "jstree": "^3.3.5",
     "jstree-bootstrap-theme": "^1.0.1",
     "leaflet": "^1.3.4",
@@ -37,6 +38,8 @@
     "pubsub-js": "^1.7.0",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#webpack",
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#webpack",
+    "selectize": "^0.12.6",
+    "sizzle": "^2.3.3",
     "store": "https://bitbucket.org/metasolutions/entrystore.js.git#webpack",
     "superagent": "^3.8.3",
     "typeahead.js": "^0.11.1"

@@ -55,6 +55,7 @@ class PlaceHolder {
   }
 }
 
+// TODO: @scazan Why are we using this in this unbound function
 const initExpandTitles = function () {
   this.expandTitle = this.list.conf.expandTooltip;
   this.unexpandTitle = this.list.conf.unexpandTooltip;
@@ -65,7 +66,7 @@ const CardRow = declare([_WidgetBase], {
     this.domNode = this.srcNodeRef;
     this.domNode.classList.add('cardList-body');
 
-    jquery('.cardList-body').parent().addClass('cardRow');
+    jquery('cardList-body').parent().addClass('cardRow'); // TODO: @scazan This is an error. Not fixing while refactoring.
     const conf = this.list.conf;
     if (!conf.templates || !conf.templates.rowhead) {
       return this.inherited(arguments);
@@ -75,6 +76,8 @@ const CardRow = declare([_WidgetBase], {
       context: this.entry.getContext().getId(),
       entry: this.entry.getId(),
     }, null, this.entry);
+
+    return this.domNode;
   },
   isChecked() {
     return false;
@@ -103,6 +106,8 @@ class ListRow extends EntryRow {
       context: this.entry.getContext().getId(),
       entry: this.entry.getId(),
     }, null, this.entry);
+
+    return this.domNode;
   }
   getRenderNameHTML() {
     const name = this.getRenderName();
@@ -184,10 +189,13 @@ export default declare([List, NLSMixin.Dijit], {
   renderListHead() {
     if (this.conf.templates && this.conf.templates.listhead) {
       const view = this.getView();
-      handlebars.run(this.listHeadNode, Object.assign({
-        resultsize: view.getResultSize(),
-        currentpage: view.getCurrentPage(),
-        pagecount: view.getPageCount() }, this.conf),
+      handlebars.run(
+        this.listHeadNode,
+        Object.assign({
+          resultsize: view.getResultSize(),
+          currentpage: view.getCurrentPage(),
+          pagecount: view.getPageCount(),
+        }, this.conf),
         this.conf.templates.listhead, this.entry);
     }
   },
@@ -209,6 +217,8 @@ export default declare([List, NLSMixin.Dijit], {
       const prefix = config.hashParamsPrefix || 'esc_';
       return `${this.conf.click}#${prefix}entry=${entry.getId()}&${prefix}context=${entry.getContext().getId()}`;
     }
+
+    return null;
   },
   localeChange() {
     this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
