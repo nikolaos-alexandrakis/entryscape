@@ -1,10 +1,14 @@
+import jquery from 'jquery';
+import { NLSMixin } from 'esi18n';
+import escoList from 'commons/nls/escoList.nls';
+import escoErrors from 'commons/nls/escoErrors.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import config from 'blocks/config/config';
 import List from 'commons/list/List';
 import ListView from 'commons/list/ListView';
 import EntryRow from 'commons/list/EntryRow';
-import defaults from 'commons/defaults';
+import registry from 'commons/registry';
 import ArrayList from 'commons/store/ArrayList';
 import handlebars from 'blocks/boot/handlebars';
 import error from 'blocks/boot/error';
@@ -13,10 +17,6 @@ import dependencyList from 'blocks/utils/dependencyList';
 import filter from 'blocks/utils/filter';
 import MetadataExpandRow from './MetadataExpandRow';
 import TemplateExpandRow from './TemplateExpandRow';
-import jquery from 'jquery';
-import { NLSMixin } from 'esi18n';
-import escoList from 'commons/nls/escoList.nls';
-import escoErrors from 'commons/nls/escoErrors.nls';
 
 class PlaceHolder {
   constructor(args, node) {
@@ -65,7 +65,7 @@ const CardRow = declare([_WidgetBase], {
     this.domNode = this.srcNodeRef;
     this.domNode.classList.add('cardList-body');
 
-    jquery('cardList-body').parent().addClass('cardRow');
+    jquery('.cardList-body').parent().addClass('cardRow');
     const conf = this.list.conf;
     if (!conf.templates || !conf.templates.rowhead) {
       return this.inherited(arguments);
@@ -229,7 +229,7 @@ export default declare([List, NLSMixin.Dijit], {
   },
 
   getSearchObject(term) {
-    const es = defaults.get('entrystore');
+    const es = registry.get('entrystore');
     const so = es.newSolrQuery();
     if (this.conf.relation) {
       const stmts = this.entry.getMetadata().find(this.entry.getResourceURI(), this.conf.relation);
