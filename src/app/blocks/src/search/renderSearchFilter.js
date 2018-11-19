@@ -9,7 +9,7 @@ import 'selectize';
 
 const rdfutils = registry.get('rdfutils');
 
-    /**
+/**
      * Renders a dropdown filter with typeahead functionality.
      * Selected values will be used by the "search" component (renderSearchList) as constraints.
      *
@@ -33,7 +33,7 @@ export default function (node, data, items) {
     urlParams = up;
   });
 
-  const input = DOMUtil.create('input', { type: 'text', placeholder: 'anything' });
+  const input = DOMUtil.create('input', { type: 'text', placeholder: data.placeholder });
   node.appendChild(input);
   let selectize;
   let selectedOption;
@@ -66,7 +66,10 @@ export default function (node, data, items) {
         return `<div>${label}${occurence}</div>`;
       },
       item(d, escape) {
-        return `<div>${d.value === '' ? data.emptyLabel || '&nbsp;' : escape(d.label)}</div>`;
+        if (d.value === '') {
+          return `<div class="label--empty">${data.emptyLabel || data.placeholder || '&nbsp;'}</div>`;
+        }
+        return `<div>${escape(d.label)}</div>`;
       },
     },
   };
@@ -112,16 +115,16 @@ export default function (node, data, items) {
         callback(collection.list);
       }
     } else if (collection.type === 'facet') {
-      registry.get(collectionName, () => {  // Why? we already have the collection...
+      registry.get(collectionName, () => { // Why? we already have the collection...
         callback(collection.list);
       });
     }
   };
-    // Initialize after load function is added
+  // Initialize after load function is added
   selectize = jquery(input).selectize(settings)[0].selectize;
 
   clearOptions = () => {
-      // const collection = registry.get(collectionName);
+    // const collection = registry.get(collectionName);
     if (selectize.getValue() === '') {
       Object.keys(selectize.options).forEach((o) => {
         if (o !== '') {
@@ -135,15 +138,15 @@ export default function (node, data, items) {
 
   registry.onChange('blocks_search_filter', (filters) => {
     if (lock) {
-        // If the filter is itself making the change
+      // If the filter is itself making the change
       return;
     }
 
-      // Remove the value if it is not in the filters.
+    // Remove the value if it is not in the filters.
     if (!filters[data.collection] && selectedOption) {
       selectize.removeItem(selectedOption.value);
     }
-      // Add value if it is in the filter
+    // Add value if it is in the filter
     utils.setValues(filters, data.collection, (item) => {
       lock = true;
       selectize.addOption(item);
@@ -151,7 +154,7 @@ export default function (node, data, items) {
       lock = false;
     });
 
-      // Clear available options in some cases
+    // Clear available options in some cases
     lock = true;
     clearOptions();
     lock = false;

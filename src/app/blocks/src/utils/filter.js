@@ -32,8 +32,8 @@ const maybeResets = function (filter, group) {
 };
 
 let lock = false;
-    // Timeout for unlock since hash change is detected via polling (dojo/hash)
-    // and has a delay of 100 ms
+// Timeout for unlock since hash change is detected via polling (dojo/hash)
+// and has a delay of 100 ms
 const unlock = function () {
   setTimeout(() => {
     lock = false;
@@ -162,7 +162,7 @@ const filterObj = {
       const collection = registry.get(`blocks_collection_${collectionname}`);
       vals = vals.map(v => (typeof v === 'string' ? v : v.value));
       return vals.some(v => (collection.nodetype === 'literal' ? value :
-          v === namespaces.expand(value)));
+        v === namespaces.expand(value)));
     }
     return false;
   },
@@ -184,17 +184,15 @@ const filterObj = {
   facets(obj) {
     const collections = registry.get('blocks_collections');
     collections.forEach((def) => {
-      if (def.includeAsFacet) {
-        switch (def.nodetype) {
-          case 'integer':
-            obj.integerFacet(def.property);
-            break;
-          case 'literal':
-            obj.literalFacet(def.property);
-            break;
-          default:
-            obj.uriFacet(def.property);
-        }
+      switch (def.nodetype) {
+        case 'integer':
+          obj.integerFacet(def.property);
+          break;
+        case 'literal':
+          obj.literalFacet(def.property);
+          break;
+        default:
+          obj.uriFacet(def.property);
       }
     });
   },
@@ -214,7 +212,7 @@ const filterObj = {
               occurence: value.count,
             }));
             def.list = (limit && facet.values.length > limit) ?
-                        def.source.slice(0, limit) : def.source;
+              def.source.slice(0, limit) : def.source;
             registry.set(`blocks_collection_${def.name}`, def);
           } else {
             let values = facet.values;

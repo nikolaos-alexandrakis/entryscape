@@ -30,15 +30,24 @@
     <div class="main--2columns grid">
         <div class="header--titles">
                 <h2 class="heading--title">Fritextsök</h2>
-                        <h2 class="heading--title">Avancerad sök <span class="arrow--down"></span></h2>
+                <h2 class="heading--title">Avancerad sök <span class="arrow--down"></span></h2>
         </div>
 
-            <span data-entryscape="simpleSearch" data-entryscape-placeholder="Sök efter konstverk..."></span>
+            <span data-entryscape="simpleSearch" data-entryscape-placeholder="Frisök efter konstverk..."></span>
+            <div class="search--group">
+                <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter konstnär..."></span>
+                <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter verksamhet..."></span>
+                <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter ort..."></span>
+                <span data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter årtal.."></span>
+                <span data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter decennium..."></span>
+
+            </div>
+
             <div class="btn--wrapper">
                 <button class="btn--search btn--green btn--filter--mobile"  type="button" name="Filter">Filter</button>
                 <button class="btn--green btn--xl" type="button" name="reset">
-                    <span data-entryscape="clear"></span>
-                    <span>Rensa</span></button>
+                <span data-entryscape="clear"></span>
+                <span>Rensa</span></button>
         </div>
 
         <div class="card-container">

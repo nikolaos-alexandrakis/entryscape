@@ -14,10 +14,16 @@
   display: none;
 }
 
-/* .main--2colums {
-  -ms-grid-column-start: 2;
-  grid-column-start: 2;
-} */
+.search--group{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 25px 10px 10px 25px;
+  padding: 10px;
+  border: 2px solid black;
+}
+.main--2colums {
+  max-width: 826px;
+}
 .header--titles{
   display: flex;
   justify-content: space-between;
@@ -435,7 +441,7 @@ padding: 10px;
     max-width: 826px;
   }
   .selectize-control {
-    margin-left: 21px;
+    margin-left: 10px;
     width: 300px;
   }
   .selectize-dropdown {

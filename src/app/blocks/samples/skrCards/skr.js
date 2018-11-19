@@ -128,6 +128,16 @@ window.__entryscape_config = {
       limit: 5,
       includeAsFacet: false,
     },
+    {
+      type: 'facet',
+      name: 'date',
+      label: 'Årtal',
+      property: 'http://purl.org/dc/terms/created',
+      nodetype: 'literal',
+      limit: 5,
+      includeAsFacet: true,
+    },
+
   ],
   blocks: [
     {
@@ -137,6 +147,7 @@ window.__entryscape_config = {
       context: '9',
       facets: true,
       headless: true,
+      initsearch: true,
       layout: 'cards',
       //      click: 'details.html?debug',
       dependencyproperties: 'dcterms:creator,schema:address',

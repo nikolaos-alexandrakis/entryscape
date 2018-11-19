@@ -15,7 +15,7 @@ const termFilter = (arr, term) => {
   return arr;
 };
 
-    /**
+/**
      * Renders a dropdown filter with typeahead functionality.
      * Selected values will be used by the "search" component (renderSearchList) as constraints.
      *
@@ -129,11 +129,11 @@ export default function (node, data, items) {
           const item = htmlUtil.create('div', { class: 'item' }); // TODO  import this when defines are removed
           if (data.group && data.group !== 'term') {
             item.appendChild(DOMUtil.create(
-                                'span', {
-                                  class: 'group',
-                                  innerHTML: `${name2col[data.group].label}:`,
-                                },
-                            ));
+              'span', {
+                class: 'group',
+                innerHTML: `${name2col[data.group].label}:`,
+              },
+            ));
           }
           item.appendChild(DOMUtil.create('span', { class: 'itemLabel', innerHTML: escape(data.label) }));
 
@@ -183,9 +183,9 @@ export default function (node, data, items) {
         })));
       }
       return new Promise(resolve =>
-                      registry.get(`blocks_collection_${def.name}`, () => {
-                        resolve(termFilter(def.list || [], query));
-                      }));
+        registry.get(`blocks_collection_${def.name}`, () => {
+          resolve(termFilter(def.list || [], query));
+        }));
     });
 
     settings.load = (query, callback) => {
@@ -206,20 +206,20 @@ export default function (node, data, items) {
           });
           pos++;
         }
-                    // Set input as hidden to avoid trigger of dropdown on initial load
+        // Set input as hidden to avoid trigger of dropdown on initial load
         selectize.isInputHidden = true;
         callback(results);
         selectize.isInputHidden = false;
       });
     };
 
-            // Initialize after load function is added
+    // Initialize after load function is added
     selectize = jquery(input).selectize(settings)[0].selectize;
 
-            // Listen in and update search field if other parts of the ui changes the filter
+    // Listen in and update search field if other parts of the ui changes the filter
     registry.onChange('blocks_search_filter', (filters) => {
       if (lock) {
-                    // If selectize is itself making the change
+        // If selectize is itself making the change
         return;
       }
       const setItem = (item) => {
