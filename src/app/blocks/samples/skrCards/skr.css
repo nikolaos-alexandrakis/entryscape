@@ -18,7 +18,18 @@
   -ms-grid-column-start: 2;
   grid-column-start: 2;
 } */
-
+.header--titles{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-left: 15px;
+}
+.heading--title{
+font-weight: bold;
+}
+.filter--title{
+padding: 10px;
+}
 .search-wrapper {
   max-height: 36px;
   max-width: 40px;
@@ -29,9 +40,9 @@
   display: none;
 }
 
+
 .btn--wrapper {
-  margin-left: 8px;
-  display: flex;
+  margin-left: 10px;
 }
 
 .btn--blackborder {
@@ -107,8 +118,7 @@
 }
 
 .btn--green {
-  margin-right: 8px;
-  /* padding: 5px; */
+  padding: 5px;
   border: none;
   font-weight: bold;
   background-color: #33ed73;
@@ -172,13 +182,39 @@
 
 .selectize-input {
   width: 100% !important;
-  border: 1px solid #333 !important;
+  border: 0 !important;
+  border-bottom: 2px solid black !important;
   max-width: 745px;
   margin-left: 8px;
   border-radius: 0px !important;
   min-height: 36px !important;
 }
 
+.input-group{
+  display: flex !important;
+  width: 300px;
+  margin-left: 20px;
+}
+.form-control{
+  border-radius: 0px !important;
+  min-height: 36px !important;
+  max-width: 745px;
+  margin-left: 8px;
+  border: 0 !important;
+  border-bottom: 2px solid black !important;
+  box-shadow: none;
+}
+.input-group-btn .btn-default{
+  border: 0;
+  border-bottom: 2px solid black;
+  border-radius: 0px;
+  height: 36px;
+
+}
+.arrow--down::before{
+  font-family: 'FontAwesome';
+  content: '\f107';
+}
 .entryscape .pagination>.active>a {
   color: #4fe574 !important;
   border-color: #333;
@@ -396,22 +432,23 @@
   .card-container {
     padding: 10px;
     margin-left: 10px;
-    padding-right: 0;
     max-width: 826px;
   }
   .selectize-control {
     margin-left: 21px;
+    width: 300px;
   }
   .selectize-dropdown {
     margin: 2px 0 0 7px !important;
   }
+ 
   .btn--wrapper {
-    margin-left: 0;
-  }
-  .btn--green {
-    padding-left: 12px;
-    margin-right: 0;
-  }
+    margin-left: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content:flex-end;
+}
+  
   .selectize-input {
     width: 100%;
   }

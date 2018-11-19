@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-template-curly-in-string */
 window.__entryscape_config = {
   block: 'config',
   entrystore: 'https://opendata.statenskonstrad.se/store',
@@ -51,7 +53,7 @@ window.__entryscape_config = {
       label: 'Huvudkategori',
       property: 'http://schema.org/artform',
       nodetype: 'literal',
-      limit: 10,
+      limit: 5,
       includeAsFacet: true,
     },
     {
@@ -60,7 +62,7 @@ window.__entryscape_config = {
       label: 'Miljö',
       property: 'https://opendata.statenskonstrad.se/terms/environment',
       nodetype: 'literal',
-      limit: 10,
+      limit: 5,
       includeAsFacet: true,
     },
     {
@@ -69,7 +71,7 @@ window.__entryscape_config = {
       label: 'Projekttyp',
       property: 'https://opendata.statenskonstrad.se/terms/projectType',
       nodetype: 'literal',
-      limit: 10,
+      limit: 5,
       includeAsFacet: true,
     },
     {
@@ -79,7 +81,7 @@ window.__entryscape_config = {
       property: 'https://opendata.statenskonstrad.se/terms/situation',
       nodetype: 'uri',
       templatesource: 'skr:situation',
-      limit: 10,
+      limit: 5,
       includeAsFacet: true,
     },
     {
@@ -89,7 +91,7 @@ window.__entryscape_config = {
       property: 'http://purl.org/dc/terms/creator',
       rdftype: 'https://opendata.statenskonstrad.se/terms/Artist',
       nodetype: 'uri',
-      limit: 10,
+      limit: 5,
       context: '9',
       includeAsFacet: false,
     },
@@ -101,7 +103,7 @@ window.__entryscape_config = {
       rdftype: 'http://www.cadastralvocabulary.org/CaLAThe/PropertyUnit',
       searchproperty: 'http://www.cadastralvocabulary.org/land#nationalCadastralReference',
       nodetype: 'uri',
-      limit: 10,
+      limit: 5,
       context: '9',
       includeAsFacet: false,
     },
@@ -113,7 +115,7 @@ window.__entryscape_config = {
       rdftype: 'schema:PostalAddress',
       searchproperty: 'schema:addressRegion',
       nodetype: 'uri',
-      limit: 10,
+      limit: 5,
       context: '9',
       includeAsFacet: false,
     },
@@ -123,7 +125,7 @@ window.__entryscape_config = {
       label: 'Underkategori',
       property: 'https://opendata.statenskonstrad.se/terms/subcategory',
       nodetype: 'literal',
-      limit: 10,
+      limit: 5,
       includeAsFacet: false,
     },
   ],
@@ -136,7 +138,7 @@ window.__entryscape_config = {
       facets: true,
       headless: true,
       layout: 'cards',
-//      click: 'details.html?debug',
+      //      click: 'details.html?debug',
       dependencyproperties: 'dcterms:creator,schema:address',
       limit: 10,
       templates: {
@@ -169,20 +171,14 @@ window.__entryscape_config = {
   ],
 };
 
-let btnFilter = document.querySelector('.btn--filter--mobile');
-let filterMobile = document.querySelector('.facets--mobile');
-let btnClose = document.querySelector('.btn--close');
+const btnFilter = document.querySelector('.btn--filter--mobile');
+const filterMobile = document.querySelector('.facets--mobile');
+const btnClose = document.querySelector('.btn--close');
 
 if (btnFilter) {
-  btnFilter.onclick = function () {
-    filterMobile.classList.toggle('hidden');
-    console.log('clicked!');
-  };
+  btnFilter.onclick = () => filterMobile.classList.toggle('hidden');
 }
 
 if (btnClose) {
-  btnClose.onclick = function () {
-    filterMobile.classList.toggle('hidden');
-    console.log('closed!');
-  };
+  btnClose.onclick = () => filterMobile.classList.toggle('hidden');
 }

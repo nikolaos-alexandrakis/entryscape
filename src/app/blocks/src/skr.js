@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-template-curly-in-string */
 window.__entryscape_config = {
   block: 'config',
   entrystore: 'https://opendata.statenskonstrad.se/store',
