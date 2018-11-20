@@ -78,10 +78,12 @@ Block.run = (block, node, data) => {
   }
 };
 
-export default () => {
+Block.init = () => {
   Block.run('preload', null, config.econfig);
 
   config.nodes.forEach((nobj) => {
     Block.run(nobj.data.block || nobj.data.component, nobj.node, nobj.data);
   });
 };
+
+export default Block;

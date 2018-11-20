@@ -160,7 +160,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       // task is object
       if (task.taskName === selectedName) {
         const div = task.taskEl;
-        div.setAttribute('width', `${taskWidth}%`);
+        div.style.width = `${taskWidth}%`;
         div.innerHTML = task.taskShortLabel;
         div.setAttribute('title', task.taskLabel);
         if (taskWidth === 0) {

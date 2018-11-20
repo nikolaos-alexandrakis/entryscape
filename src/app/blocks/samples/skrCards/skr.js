@@ -34,10 +34,10 @@ window.__entryscape_config = {
 
   ],
   bundles: [
-    'https://static.entryscape.com/templates/dc/dc.js',
-    'https://static.entryscape.com/templates/rdfs/rdfs.js',
-    'https://static.entryscape.com/templates/schema.org/schema.js',
-    'https://opendata.statenskonstrad.se/theme/skr.js',
+    'dc',
+    'rdfs',
+    'schema',
+    'https://opendata.statenskonstrad.se/theme/skr',
   ],
   type2template: {
     'skr:Artist': 'skr:Artist',
