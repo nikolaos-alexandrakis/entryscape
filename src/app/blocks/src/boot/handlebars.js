@@ -46,10 +46,11 @@ let initializeHelpers = () => {
     return new handlebars.SafeString(`<span id="${bodycomponentId}"></span>`);
   });
   handlebars.registerHelper('ifprop', (prop, options) => {
+    const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
     const props = prop.split(',');
     const stmts = [];
     props.forEach((p) => {
-      const propStmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), p);
+      const propStmts = currentEntry.getMetadata().find(subject, p);
       stmts.push(...propStmts);
     });
     const invert = options.hash.invert != null;
@@ -70,7 +71,8 @@ let initializeHelpers = () => {
     return null;
   });
   handlebars.registerHelper('eachprop', (prop, options) => {
-    const stmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), prop);
+    const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
+    const stmts = currentEntry.getMetadata().find(subject, prop);
     const val2choice = registry.get('itemstore_choices');
     const val2named = registry.get('blocks_named');
     const localize = registry.get('localize');
@@ -123,7 +125,8 @@ let initializeHelpers = () => {
   handlebars.registerHelper('entryURI', () => currentEntry.getURI());
 
   handlebars.registerHelper('prop', (prop, options) => {
-    const stmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), prop);
+    const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
+    const stmts = currentEntry.getMetadata().find(subject, prop);
     if (stmts.length === 0) {
       return '';
     }
@@ -162,7 +165,7 @@ let initializeHelpers = () => {
       default:
         return null;
     }
-    return val;
+    return new handlebars.SafeString(val.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/(\r\n|\r|\n)/g, '<br/>'));
   });
   handlebars.registerHelper('helperMissing', (options) => {
     throw new Error(`No helper for tag: ${options.name}`);
