@@ -3,6 +3,7 @@ import { Presenter } from 'rdforms';
 import handlebars from 'blocks/boot/handlebars';
 import ExpandRow from 'commons/list/common/ExpandRow';
 import { namespaces } from 'rdfjson';
+import DOMUtil from 'commons/util/htmlUtil';
 
 export default declare([ExpandRow], {
   showCol3: false,
@@ -17,6 +18,8 @@ export default declare([ExpandRow], {
       context: this.entry.getContext().getId(),
       entry: this.entry.getId(),
     }, null, this.entry);
+
+    return null;
   },
 
   getRenderNameHTML() {
