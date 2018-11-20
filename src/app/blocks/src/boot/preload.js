@@ -1,10 +1,7 @@
-import config from 'blocks/config/config';
 import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 
-const rdfutils = registry.get('rdfutils');
-const localize = registry.get('localize');
-const normalize = function (collection, group) {
+const normalize = (collection, group) => {
   if (Array.isArray(collection)) {
     collection.forEach((c) => {
       c.group = group;
@@ -17,8 +14,13 @@ const normalize = function (collection, group) {
     group,
   }));
 };
-registry.set('blocks_named', {});
-registry.get('itemstore', (itemstore) => {
+
+export default function (node, data, items) {
+  const rdfutils = registry.get('rdfutils');
+  const localize = registry.get('localize');
+
+  registry.set('blocks_named', {});
+  const itemstore = registry.get('itemstore');
   const val2choice = {};
   itemstore.getItems().forEach((item) => {
     if (item.getType() === 'choice') {
@@ -28,8 +30,7 @@ registry.get('itemstore', (itemstore) => {
     }
   });
   registry.set('itemstore_choices', val2choice);
-});
-export default function (node, data, items) {
+
   if (data.named) {
     registry.set('blocks_named', data.named);
   }
@@ -50,7 +51,7 @@ export default function (node, data, items) {
           def.type = 'inline';
           def.source = normalize(def.list, def.name);
           def.list = def.limit > 0 ?
-                            def.source.slice(0, def.limit) : def.source;
+            def.source.slice(0, def.limit) : def.source;
           registry.set(`blocks_collection_${def.name}`, def);
         } else if (def.templatesource) {
           def.type = 'rdforms';
@@ -61,7 +62,7 @@ export default function (node, data, items) {
             group: def.name,
           }));
           def.list = def.limit > 0 ?
-                            def.source.slice(0, def.limit) : def.source;
+            def.source.slice(0, def.limit) : def.source;
           registry.set(`blocks_collection_${def.name}`, def);
         } else if (def.type === 'preload') {
           def.changeLoadLimit = (limit) => {
@@ -69,7 +70,7 @@ export default function (node, data, items) {
             const es = registry.get('entrystore');
             const qo = es.newSolrQuery().rdfType(def.rdftype).publicRead();
             const contextId = def.context === true ? urlParams.context :
-                            def.context;
+              def.context;
             if (contextId) {
               qo.context(es.getContextById(contextId));
             }
