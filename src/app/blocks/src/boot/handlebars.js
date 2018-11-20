@@ -3,7 +3,7 @@ import handlebars from 'handlebars/dist/cjs/handlebars';
 import jquery from 'jquery';
 import md5 from 'md5';
 import { namespaces } from 'rdfjson';
-import defaults from 'commons/defaults';
+import registry from 'commons/registry';
 import error from 'blocks/boot/error';
 
 let currentEntry;
@@ -17,16 +17,19 @@ let group = {};
   });
 });
 
-let initializeHelpers = function () {
+let initializeHelpers = () => {
   block.list.forEach((name) => {
     handlebars.registerHelper(name, (options) => {
-      counter++;
+      counter += 1;
       const id = `_ebh_${counter}`;
-      const obj = idx[idx.length - 1][id] = {
+      const obj = {
         id,
         component: name,
         options,
       };
+
+      idx[idx.length - 1][id] = obj;
+
       if (name === 'template') {
         options.hash.htemplate = options.fn();
       } else if (typeof options.fn === 'function') {
@@ -37,8 +40,8 @@ let initializeHelpers = function () {
       return new handlebars.SafeString(`<span id="${id}"></span>`);
     });
   });
-  handlebars.registerHelper('body', (prop, options) => {
-    counter++;
+  handlebars.registerHelper('body', () => {
+    counter += 1;
     bodycomponentId = `_ebh_${counter}`;
     return new handlebars.SafeString(`<span id="${bodycomponentId}"></span>`);
   });
@@ -63,14 +66,16 @@ let initializeHelpers = function () {
     } else if ((stmts.length > 0 && !invert) || (stmts.length === 0 && invert)) {
       return options.fn(options.data);
     }
+
+    return null;
   });
   handlebars.registerHelper('eachprop', (prop, options) => {
     const stmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), prop);
-    const val2choice = defaults.get('itemstore_choices');
-    const val2named = defaults.get('blocks_named');
-    const localize = defaults.get('localize');
-    const es = defaults.get('entrystore');
-    const rdfutils = defaults.get('rdfutils');
+    const val2choice = registry.get('itemstore_choices');
+    const val2named = registry.get('blocks_named');
+    const localize = registry.get('localize');
+    const es = registry.get('entrystore');
+    const rdfutils = registry.get('rdfutils');
     const ret = stmts.map((stmt) => {
       const val = stmt.getValue();
       const choice = val2choice[val];
@@ -99,13 +104,23 @@ let initializeHelpers = function () {
       if (choice && choice.description) {
         desc = localize(choice.description);
       }
-      return options.fn({ value: val, md5: md5(val), type: stmt.getType(), language: stmt.getLanguage(), lang: stmt.getLanguage(), datatype: stmt.getDatatype(), regexp, label: label || val, description: desc || '' });
+      return options.fn({
+        value: val,
+        md5: md5(val),
+        type: stmt.getType(),
+        language: stmt.getLanguage(),
+        lang: stmt.getLanguage(),
+        datatype: stmt.getDatatype(),
+        regexp,
+        label: label || val,
+        description: desc || '',
+      });
     });
     return ret.join('');
   });
-  handlebars.registerHelper('resourceURI', options => currentEntry.getResourceURI());
-  handlebars.registerHelper('metadataURI', options => currentEntry.getEntryInfo().getMetadataURI());
-  handlebars.registerHelper('entryURI', options => currentEntry.getURI());
+  handlebars.registerHelper('resourceURI', () => currentEntry.getResourceURI());
+  handlebars.registerHelper('metadataURI', () => currentEntry.getEntryInfo().getMetadataURI());
+  handlebars.registerHelper('entryURI', () => currentEntry.getURI());
 
   handlebars.registerHelper('prop', (prop, options) => {
     const stmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), prop);
@@ -121,18 +136,18 @@ let initializeHelpers = function () {
       }
     }
 
-    const val2choice = defaults.get('itemstore_choices');
+    const val2choice = registry.get('itemstore_choices');
     const choice = val2choice[val];
     switch (options.hash.render) {
       case 'label':
         if (choice && choice.label) {
-          return defaults.get('localize')(choice.label);
+          return registry.get('localize')(choice.label);
         }
         break;
       case 'description':
       case 'desc':
         if (choice && choice.label) {
-          return defaults.get('localize')(choice.description);
+          return registry.get('localize')(choice.description);
         }
         break;
       case 'type':
@@ -153,10 +168,10 @@ let initializeHelpers = function () {
     throw new Error(`No helper for tag: ${options.name}`);
   });
 
-  initializeHelpers = function () {};
+  initializeHelpers = () => {};
 };
 
-const parseValues = function (obj, parentObj) {
+const parseValues = (obj, parentObj) => {
   const nobj = {};
   Object.keys(obj).forEach((key) => {
     const value = obj[key];
@@ -191,12 +206,12 @@ export default {
   run(node, data, template, entry, body) {
     initializeHelpers();
 
-    const f = function () {
+    const f = () => {
       idx.push({});
       let htemplate;
       try {
         htemplate = handlebars.compile(template || data.htemplate || data.template,
-                { data: { strict: true, knownHelpersOnly: true } });
+          { data: { strict: true, knownHelpersOnly: true } });
         node.innerHTML = htemplate(data);
       } catch (e) {
         data.error = e.toString();
@@ -224,5 +239,7 @@ export default {
     }
     currentEntry = entry;
     f();
+
+    return null;
   },
 };

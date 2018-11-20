@@ -3,10 +3,10 @@ import filter from 'blocks/utils/filter';
 import registry from 'commons/registry';
 
 export default (node, data) => {
-    /**
-     * Renders a search input field. The typed search term will be used as a constraint by the
-     * search component.
-     */
+  /**
+   * Renders a search input field. The typed search term will be used as a constraint by the
+   * search component.
+   */
 
   if (typeof data.width !== 'undefined') {
     node.style.width = data.width;
@@ -19,7 +19,7 @@ export default (node, data) => {
   const searchTriggered = () => {
     let newTerm = input.value.getAttribute('value');
     newTerm = newTerm === undefined || newTerm.length <= 2 ? undefined :
-        { value: newTerm, group: data.collection || 'term' };
+      { value: newTerm, group: data.collection || 'term' };
     lock = true;
     filter.replace(term, newTerm);
     term = newTerm;
@@ -43,10 +43,10 @@ export default (node, data) => {
       title: data.placeholder,
     });
     inputgroup.appendChild(input);
-    const igb = DOMUtil.create('span', { class: 'input-group-btn' });
-    inputgroup.appendChild(igb);
-    const button = igb.create('button', { class: 'btn btn-default' });
-    button.create('span', { 'aria-hidden': true, class: 'fa fa-search' });
+    const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
+    inputgroup.appendChild(inputGroupButtonEl);
+    const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);
+    DOMUtil.create('span', { 'aria-hidden': true, class: 'fa fa-search' }, button);
     button.onclick = searchTriggered;
   }
   input.onkeyup = () => {
@@ -57,7 +57,7 @@ export default (node, data) => {
   };
   registry.onChange('blocks_search_filter', (filters) => {
     if (lock) {
-        // If the filter is itself making the change
+      // If the filter is itself making the change
       return;
     }
     lock = true;
@@ -66,7 +66,7 @@ export default (node, data) => {
     if (newValueArr && newValueArr.length > 0) {
       newValue = newValueArr[0].value;
     }
-    const existingValue = input.value.getAttribute('value');
+    const existingValue = input.value;
 
     if (newValue !== existingValue) {
       input.setAttribute('value', newValue);
