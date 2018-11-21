@@ -11,9 +11,7 @@ const defaultParams = {
   },
 };
 
-const toggleClass = (nodes, cssClass) => {
-  nodes.forEach(node => domClass.toggle(node, cssClass));
-};
+const toggleClass = (nodes, cssClass) => nodes.forEach(node => node.classList.toggle(cssClass));
 
 /**
  * Refers to the CSS property-value
