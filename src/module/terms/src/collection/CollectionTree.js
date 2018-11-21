@@ -8,13 +8,11 @@ const ns = registry.get('namespaces');
 
 export default declare([Tree], {
   showEntry(entry, collectionEntry) {
-    // this.inherited(arguments);
     if (this.model) {
       import(/* webpackChunkName: "jstree" */ 'jstree').then(this.model.destroy);
     }
     if (!this.treeNode) {
       this.treeNode = htmlUtil.create('div', null, this.domNode);
-      this.treeNode.addEventListener('click', ev => ev.stopPropagation()); // ignore spa
     }
     this.model = new CollectionTreeModel({
       membershipToRootProperty: ns.expand('skos:inScheme'),
