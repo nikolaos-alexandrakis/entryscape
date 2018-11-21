@@ -233,7 +233,7 @@
           }
         },
         {
-          "Value": "http://id.loc.gov/vocabulary/iso639-1/aa",
+          "value": "http://id.loc.gov/vocabulary/iso639-1/aa",
           "label": {
             "en": "Afar"
           }

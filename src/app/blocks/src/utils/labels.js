@@ -1,11 +1,11 @@
 import registry from 'commons/registry';
 
-const rdfutils = registry.get('rdfutils');
-const localize = registry.get('localize');
-const es = registry.get('entrystore');
-const cache = es.getCache();
-
 export default (values, valueType = 'uri') => {
+  const rdfutils = registry.get('rdfutils');
+  const localize = registry.get('localize');
+  const es = registry.get('entrystore');
+  const cache = es.getCache();
+
   const val2choice = registry.get('itemstore_choices');
   const val2named = registry.get('blocks_named');
 
@@ -22,6 +22,8 @@ export default (values, valueType = 'uri') => {
     } else if (entryArr.length > 0) {
       return rdfutils.getLabel(entryArr[0]);
     }
+
+    return null;
   };
   values.forEach((value) => {
     const label = getLabel(value);

@@ -37,7 +37,8 @@ window.__entryscape_config = {
     'dc',
     'rdfs',
     'schema',
-    'https://opendata.statenskonstrad.se/theme/skr',
+    // 'https://opendata.statenskonstrad.se/theme/skr',
+    'skr',
   ],
   type2template: {
     'skr:Artist': 'skr:Artist',
