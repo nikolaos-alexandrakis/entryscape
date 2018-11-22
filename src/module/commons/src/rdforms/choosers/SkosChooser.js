@@ -6,7 +6,7 @@ import config from 'config';
 import BaseList from 'commons/list/common/BaseList';
 import ConceptRow from 'commons/tree/skos/ConceptRow';
 import jquery from 'jquery';
-import { toggleClass, togglePropertyValue } from 'commons/util/cssUtil';
+import { toggleClass, togglePropertyValue, toggleDisplayNoneEmpty } from 'commons/util/cssUtil';
 import escoList from 'commons/nls/escoList.nls';
 import escoSkosChooser from 'commons/nls/escoSkosChooser.nls';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
@@ -401,7 +401,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
   },
   _displaySelectTerminologyMsg() {
     // show some message to select a terminology first and exit
-    togglePropertyValue([this.__terminologyFirstAlert], toggleDisplayNoneParams); // TODO
+    toggleDisplayNoneEmpty([this.__terminologyFirstAlert]); // TODO
     setTimeout(() => {
       jquery(this.__terminologyFirstAlert).fadeOut('slow');
     }, 2000);
