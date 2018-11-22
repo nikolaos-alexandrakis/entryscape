@@ -1,11 +1,11 @@
-import registry from 'commons/registry';
-import List from 'commons/gce/List';
 import MemberDialog from 'admin/groups/MemberDialog';
+import List from 'commons/gce/List';
 import escoList from 'commons/nls/escoList.nls';
-import eswoSpaces from 'workbench/nls/eswoSpaces.nls';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
-import CreateDialog from './CreateDialog';
+import eswoSpaces from 'workbench/nls/eswoSpaces.nls';
 import ConfigureEntityTypesDialog from './ConfigureEntityTypesDialog';
+import CreateDialog from './CreateDialog';
 
 export default declare([List], {
   includeCreateButton: true,
@@ -53,8 +53,7 @@ export default declare([List], {
     if (params.name === 'versions') {
       return row.entry.getEntryInfo().hasMetadataRevisions();
     }
-
-    return false; // TODO check
+    return true;
   },
 
   getEmptyListWarning() {
