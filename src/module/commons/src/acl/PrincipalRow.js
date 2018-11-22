@@ -126,8 +126,8 @@ export default declare([EntryRow], {
       const currentRightTitle = this.getNLSTitle(currentRight);
       const textNode = document.createElement('span');
       textNode.classList.add('principalRight');
-      textnode.setAttribute('data-toggle', 'dropdown');
-      wrapperNode.appendChild(textNodes);
+      textNode.setAttribute('data-toggle', 'dropdown');
+      wrapperNode.appendChild(textNode);
 
       const currentRightNode = document.createElement('span');
       currentRightNode.innerHTML = currentRightLabel;

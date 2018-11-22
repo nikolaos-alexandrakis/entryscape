@@ -1,7 +1,8 @@
 import registry from 'commons/registry';
 
-export default class {
-  static limit = 20;
+export default class GroupList {
+  limit = 20;
+
   constructor(userEntry) {
     this.userEntry = userEntry;
   }
@@ -21,14 +22,14 @@ export default class {
         });
     }
 
-    return new Promise(resolve => resolve(this.groups.slice(page * this.getLimit(), (page + 1) * this.getLimit())))
+    return new Promise(resolve => resolve(this.groups.slice(page * this.getLimit(), (page + 1) * this.getLimit())));
   }
 
   getLimit() {
-    return GroupList.limit;
+    return this.limit;
   }
 
   getSize() {
     return this.groups == null ? -1 : this.groups.length;
   }
-};
+}

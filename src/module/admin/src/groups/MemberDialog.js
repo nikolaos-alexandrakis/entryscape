@@ -126,7 +126,7 @@ const MemberDialog = declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.showNonMemberInfoMsg(!entry.canWriteResource());
     this.memberList.render();
     this.nonMemberInfoMsg.innerHTML = this.NLSBundles.esadGroup.nonMemberInfoMsg;
-    this.updateLocaleStrings(esadGroup, {
+    this.updateLocaleStrings(this.NLSBundle0, {
       group: registry.get('rdfutils').getLabel(entry) || entry.getId(),
     });
     this.show();
