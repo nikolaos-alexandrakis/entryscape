@@ -1,8 +1,11 @@
 import config from 'config';
+import configUtil from 'commons/util/configUtil';
+// import { createSetState } from 'commons/util/util';
 import m from 'mithril';
+import 'leaflet/dist/leaflet.css';
 import utils from '../utils';
 import '../escoSpatial.css';
-import 'leaflet/dist/leaflet.css';
+
 let leaflet;
 
 const Map = () => {
