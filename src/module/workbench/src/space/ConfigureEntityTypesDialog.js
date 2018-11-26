@@ -51,7 +51,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const ets = graph.find(this.entry.getResourceURI(), 'esterms:entityType');
     if (ets && ets.length > 0) {
       this.entitytypeCheckboxes.forEach((entitytypeCheckbox) => {
-        entitytypeCheckbox.entityEl.setAttribute('checked', false);
+        entitytypeCheckbox.entityEl.removeAttribute('checked');
       });
       ets.forEach((entitytype) => {
         const et = entitytype.getValue();
