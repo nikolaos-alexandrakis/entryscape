@@ -1,4 +1,5 @@
 import jquery from 'jquery';
+import DOMUtil from 'commons/util/htmlUtil';
 import { NLSMixin } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import escoErrors from 'commons/nls/escoErrors.nls';
