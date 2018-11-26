@@ -1,9 +1,10 @@
-import configUtil from 'commons/util/configUtil';
 import config from 'config';
-import 'leaflet/dist/leaflet.css';
+import configUtil from 'commons/util/configUtil';
+// import { createSetState } from 'commons/util/util';
 import m from 'mithril';
-import '../escoSpatial.css';
+import 'leaflet/dist/leaflet.css';
 import utils from '../utils';
+import '../escoSpatial.css';
 
 let leaflet;
 

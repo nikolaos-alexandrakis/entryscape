@@ -1,32 +1,40 @@
-import registry from 'commons/registry';
-import config from 'config';
 import m from 'mithril';
-import utils from '../utils';
-import Map from './Map';
+import registry from 'commons/registry';
 import Position from './Position';
+import Map from './Map';
+import utils from '../utils';
 
 export default (params) => {
   const { binding, bundle } = params.attrs;
 
+  let state = {
+    inputsFocused: false,
+    coords: null,
+  };
+
+  const setState = (props) => {
+    state = { ...state, ...props };
+    m.redraw();
+
+    return state;
+  };
+
   const updateGeoCoordinates = (coords) => {
     binding.setValue(coords);
-    m.redraw();
+    setState({ coords });
     return true;
   };
 
-  const state = {
-    inputsFocused: false,
-  };
-
   const unfocusInputs = () => {
-    state.inputsFocused = false;
+    setState({ inputsFocused: false });
   };
   const focusInputs = () => {
-    state.inputsFocused = true;
+    setState({ inputsFocused: true });
   };
+
   let detectClick;
   let detectLabel;
-  const geoDetect = config.itemstore.geoDetect;
+  const geoDetect = registry.get('itemstore').geoDetect;
   if (geoDetect) {
     const dialogs = registry.get('dialogs');
     const localize = registry.get('localize');

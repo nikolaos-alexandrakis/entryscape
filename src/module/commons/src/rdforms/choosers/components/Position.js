@@ -1,3 +1,4 @@
+import { createSetState } from 'commons/util/util';
 import m from 'mithril';
 import utils from '../utils';
 
@@ -6,7 +7,7 @@ const bid = 'escoPosition';
 export default () => {
   let updateGeoCoordinates;
   let focusInputs;
-  const state = {
+  let state = {
     inputsEditable: false,
     lastClickedDir: undefined,
     bounds: {
@@ -20,12 +21,17 @@ export default () => {
     },
   };
 
+  const setState = createSetState(state);
+
   const inputFocus = (dir) => {
-    state.lastClickedDir = dir;
+    state = setState({ lastClickedDir: dir });
     focusInputs();
   };
+
   const updateGeoCoordinatesState = (direction, value) => {
-    state.bounds[direction] = parseFloat(value);
+    const newBounds = state.bounds;
+    newBounds[direction] = parseFloat(value);
+    state = setState({ bounds: newBounds });
 
     if (Number.isNaN(parseFloat(value))) {
       return false;
@@ -45,11 +51,12 @@ export default () => {
     } else {
       updateGeoCoordinates(utils.toWKT(state.bounds));
     }
+
+    return true;
   };
   const inputBlur = (dir, val) => {
     updateGeoCoordinatesState(dir, val);
   };
-
 
   const updateBounds = (value) => {
     const bounds = utils.fromWKT(value);
@@ -113,8 +120,7 @@ export default () => {
       }
 
       geoCoords
-        // eslint-disable-next-line array-callback-return
-        .map((dir) => {
+        .forEach((dir) => {
           let dirTemp = dir.toLowerCase();
 
           // Add label
