@@ -1,9 +1,9 @@
-/* global define */
-import m from 'mithril';
-import Position from './Position';
-import Map from './Map';
 import registry from 'commons/registry';
+import config from 'config';
+import m from 'mithril';
 import utils from '../utils';
+import Map from './Map';
+import Position from './Position';
 
 export default (params) => {
   const { binding, bundle } = params.attrs;

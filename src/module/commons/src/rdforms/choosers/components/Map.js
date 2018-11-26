@@ -1,8 +1,10 @@
+import configUtil from 'commons/util/configUtil';
 import config from 'config';
-import m from 'mithril';
-import utils from '../utils';
-import '../escoSpatial.css';
 import 'leaflet/dist/leaflet.css';
+import m from 'mithril';
+import '../escoSpatial.css';
+import utils from '../utils';
+
 let leaflet;
 
 const Map = () => {
