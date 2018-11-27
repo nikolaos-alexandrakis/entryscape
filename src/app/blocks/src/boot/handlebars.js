@@ -164,7 +164,7 @@ let initializeHelpers = () => {
       case 'md5':
         return md5(val);
       default:
-        return null;
+        break;
     }
     return new handlebars.SafeString(val.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/(\r\n|\r|\n)/g, '<br/>'));
   });
