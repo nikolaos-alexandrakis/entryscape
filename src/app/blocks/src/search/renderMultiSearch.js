@@ -38,7 +38,8 @@ export default function (node, data, items) {
     urlParams = up;
   });
 
-  registry.get('blocks_collections', (collections) => {
+  const collections = registry.get('blocks_collections');
+  // (collections) => {
     const name2col = {};
     collections.forEach((col) => {
       name2col[col.name] = col;
@@ -126,19 +127,19 @@ export default function (node, data, items) {
           return `<div>${escape(data.label)}</div>`;
         },
         item(data, escape) {
-          const item = htmlUtil.create('div', { class: 'item' }); // TODO  import this when defines are removed
+          const item = DOMUtil.create('div', { class: 'item' }); // TODO  import this when defines are removed
           if (data.group && data.group !== 'term') {
             item.appendChild(DOMUtil.create(
-                                'span', {
-                                  class: 'group',
-                                  innerHTML: `${name2col[data.group].label}:`,
-                                },
-                            ));
+              'span', {
+                class: 'group',
+                innerHTML: `${name2col[data.group].label}:`,
+              },
+            ));
           }
           item.appendChild(DOMUtil.create('span', { class: 'itemLabel', innerHTML: escape(data.label) }));
 
           const faRemoveIconEl = DOMUtil.create('i', { class: 'fa fa-remove' });
-          faRemoveEl.onclick = () => {
+          faRemoveIconEl.onclick = () => {
             selectize.removeItem(data.value);
           };
           item.appendChild(faRemoveIconEl);
@@ -182,10 +183,10 @@ export default function (node, data, items) {
           group: def.name,
         })));
       }
-      return new Promise(resolve =>
-                      registry.get(`blocks_collection_${def.name}`, () => {
-                        resolve(termFilter(def.list || [], query));
-                      }));
+      return new Promise(resolve => {
+        registry.get(`blocks_collection_${def.name}`);
+        return resolve(termFilter(def.list || [], query));
+      });
     });
 
     settings.load = (query, callback) => {
@@ -204,7 +205,7 @@ export default function (node, data, items) {
               }
             }
           });
-          pos++;
+          pos += 1;
         }
                     // Set input as hidden to avoid trigger of dropdown on initial load
         selectize.isInputHidden = true;
@@ -242,5 +243,5 @@ export default function (node, data, items) {
       });
       lock = false;
     }, true);
-  });
+  // });
 }

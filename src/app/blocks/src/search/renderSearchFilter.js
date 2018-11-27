@@ -2,10 +2,10 @@ import DOMUtil from 'commons/util/htmlUtil';
 import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 import filter from 'blocks/utils/filter';
-import { Entry } from 'store';
-import utils from './utils';
 import jquery from 'jquery';
 import 'selectize';
+import { Entry } from 'store';
+import utils from './utils';
 
 const rdfutils = registry.get('rdfutils');
 
@@ -112,16 +112,14 @@ export default function (node, data, items) {
         callback(collection.list);
       }
     } else if (collection.type === 'facet') {
-      registry.get(collectionName, () => {  // Why? we already have the collection...
-        callback(collection.list);
-      });
+      const collectionList = registry.get(collectionName).list; // Why? we already have the collection...
+      callback(collectionList);
     }
   };
-    // Initialize after load function is added
+  // Initialize after load function is added
   selectize = jquery(input).selectize(settings)[0].selectize;
 
   clearOptions = () => {
-      // const collection = registry.get(collectionName);
     if (selectize.getValue() === '') {
       Object.keys(selectize.options).forEach((o) => {
         if (o !== '') {
@@ -135,15 +133,15 @@ export default function (node, data, items) {
 
   registry.onChange('blocks_search_filter', (filters) => {
     if (lock) {
-        // If the filter is itself making the change
+      // If the filter is itself making the change
       return;
     }
 
-      // Remove the value if it is not in the filters.
+    // Remove the value if it is not in the filters.
     if (!filters[data.collection] && selectedOption) {
       selectize.removeItem(selectedOption.value);
     }
-      // Add value if it is in the filter
+    // Add value if it is in the filter
     utils.setValues(filters, data.collection, (item) => {
       lock = true;
       selectize.addOption(item);
@@ -151,7 +149,7 @@ export default function (node, data, items) {
       lock = false;
     });
 
-      // Clear available options in some cases
+    // Clear available options in some cases
     lock = true;
     clearOptions();
     lock = false;

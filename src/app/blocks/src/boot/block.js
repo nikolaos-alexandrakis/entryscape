@@ -71,9 +71,9 @@ Block.run = (block, node, data) => {
   if (data.error) {
     error(node, data, items);
   } else {
-    const f = block2function[block || ''];
-    if (f) {
-      f(node, data, items);
+    const initializeBlock = block2function[block || ''];
+    if (initializeBlock) {
+      initializeBlock(node, data, items);
     }
   }
 };
