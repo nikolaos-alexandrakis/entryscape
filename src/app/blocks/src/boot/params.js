@@ -19,7 +19,7 @@ const _getFragment = function (params, alwaysFragment) {
         return args.length > 0 ?"#"+args.join("&") : (alwaysFragment ? "#" : ""); */
 };
 
-const ext = {
+const urlParams = {
   getLink(base, params) {
     return base + _getFragment(params);
   },
@@ -29,9 +29,9 @@ const ext = {
   getUrlParams() {
     return registry.get('urlParams');
   },
-        /**
-         *  Listener will be called with initial value as well as after subsequent changes.
-         */
+  /**
+   *  Listener will be called with initial value as well as after subsequent changes.
+   */
   addListener(listener) {
     registry.onChange('urlParams', listener, true);
   },
@@ -39,6 +39,7 @@ const ext = {
     registry.onInit('urlParams').then(listener);
   },
 };
+
 PubSub.subscribe('/dojo/hashchange', (hashstr) => {
   const prefix = config.hashParamsPrefix || 'esc_';
   const hasho = {};
@@ -53,4 +54,4 @@ PubSub.subscribe('/dojo/hashchange', (hashstr) => {
   registry.set('urlParams', hasho);
 });
 
-export default ext;
+export default urlParams;

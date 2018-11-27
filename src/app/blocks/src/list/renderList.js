@@ -27,10 +27,10 @@ export default (node, data, items) => {
           itemstore: items,
           entry,
         }, DOMUtil.create('div'));
-        node.appendChild(sl);
+        node.appendChild(sl.domNode);
         sl.show();
       } else {
-           // TODO write "Nothing to show" somehow?
+        // TODO write "Nothing to show" somehow?
       }
     }, false);
   } else {
