@@ -48,7 +48,7 @@ system.attachLinkBehaviour = (node, binding) => {
 };
 system.attachExternalLinkBehaviour = (node) => {
   node.setAttribute('target', '_blank');
-  DOMUtil.add(node, 'spaExplicitLink');
+  DOMUtil.addClass(node, 'spaExplicitLink');
   DOMUtil.create('i', {
     class: 'fa fa-external-link rdformsExternalLink',
     'aria-hidden': 'true',
