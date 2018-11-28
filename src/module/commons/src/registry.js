@@ -61,7 +61,7 @@ const exports = {
     return PubSub.subscribe(key, (msg, obj) => {
       callback(obj);
       if (onlyOnce) {
-        PubSub.unsubscribe(msg);
+        PubSub.unsubscribe(msg, callback);
       }
     });
   },
