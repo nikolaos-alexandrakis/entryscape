@@ -52,7 +52,7 @@ export default declare([ExpandRow], {
     const presenterNode = DOMUtil.create('div', null, node);
     presenterNode.style.padding = '0px 0px 10px 15px';
 
-    const p = new Presenter({ compact: this.compact });
+    const p = new Presenter({ compact: this.compact }, presenterNode);
     const template = this.list.getTemplate();
     const entry = this.list.entry;
     const dialog = this.list.dialog;
@@ -85,11 +85,11 @@ export default declare([ExpandRow], {
 
     const b = this.nlsSpecificBundle;
     const buttonRow = DOMUtil.create('div', null, node);
-    buttonRow.style['min-height'] = '27px';
+    buttonRow.style['min-height'] = '60px';
 
     const button = DOMUtil.create('button', {
       type: 'button',
-      class: `pull-right btn btn-primary ${disClass}`,
+      class: `pull-right btn btn-primary btn--revert ${disClass}`,
       title: revertTitle,
       innerHTML: '<span class="fa fa-level-up"></span>' +
         `&nbsp;<span>${b.revertLabel}</span>`,

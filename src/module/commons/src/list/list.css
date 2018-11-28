@@ -18,6 +18,12 @@
 .entryList {
     overflow-x: hidden;
 }*/
+
+.btn--reverse{
+    margin:0;
+    vertical-align: top;
+}
+
 .badge {
   background-color: #535353 !important;
 }
