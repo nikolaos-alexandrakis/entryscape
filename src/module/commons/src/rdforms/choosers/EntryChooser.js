@@ -133,7 +133,7 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
   postCreate() {
     this.inherited(arguments);
     this.entryChooserList = new EntryChooserList({ entrychooserDialog: this.dialog },
-      DOMUtils.create('div', null, this.searchNode));
+      DOMUtil.create('div', null, this.searchNode));
     this.dialog.headerExtensionNode.appendChild(this.moveInput);
 
     this.levels = new LevelEditor({ externalEditor: true },
