@@ -37,11 +37,12 @@ export default class ArrayList {
 
   getEntries(page) {
     return new Promise((resolve) => {
+      const sliceEntries = arr => arr.slice(page * this.getLimit(), (page + 1) * this.getLimit());
       if (this.entries == null) {
-        return this.loadEntries().then(this.getEntries.bind(this, page));
+        this.loadEntries().then(entries => resolve(sliceEntries(entries)));
+      } else {
+        resolve(sliceEntries(this.entries));
       }
-      resolve(this.entries.slice(page * this.getLimit(), (page + 1) * this.getLimit()));
-      return null; // eslint
     });
   }
 
