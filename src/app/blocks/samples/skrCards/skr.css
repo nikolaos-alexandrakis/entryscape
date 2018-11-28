@@ -142,7 +142,7 @@
   min-width: 100px;
 }
 
-.block_facet>button {
+.entryscape .block_facet>button {
   font-weight: bold;
   background-color: #33ed73;
   background-image: none;
