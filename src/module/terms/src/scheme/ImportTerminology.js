@@ -1,6 +1,7 @@
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import EntryType from 'commons/create/EntryType';
+import m from 'mithril';
 import config from 'config';
 import { promiseUtil } from 'store';
 import { converters, Graph, utils } from 'rdfjson';
