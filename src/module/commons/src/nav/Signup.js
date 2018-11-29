@@ -10,6 +10,7 @@ import TitleDialog from '../dialog/TitleDialog';
 import signinUtils from './signinUtils';
 import Password from '../auth/Password';
 import PasswordForm from '../auth/components/PasswordForm';
+import configUtil from '../util/configUtil';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
   templateString,
@@ -108,17 +109,18 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     }
   },
   showPULInfoDialog() {
-    let themepath = '/assets/';
+    let assetsPath = configUtil.getAssetsPath();
+    // let themepath = '/assets/';
     if (config.theme && config.theme.privacyLink) {
       window.open(config.theme.privacyLink, '_blank');
       return;
     }
     if (config.theme && config.theme.staticHTML) {
-      themepath = 'statichtml/';
+      assetsPath = 'statichtml/';
     } else if (config.theme && config.theme.localTheme && config.theme.localHTML) {
-      themepath = 'theme/';
+      assetsPath = 'theme/';
     }
-    registry.get('dialogs').acknowledgeText(`${themepath}privacy`, this.NLSBundle0.aboutPrivacyHeader);
+    registry.get('dialogs').acknowledgeText(`${assetsPath}privacy`, this.NLSBundle0.aboutPrivacyHeader);
   },
   validateFirstName() {
     if (this.suFirstname.value.length === 1) {
