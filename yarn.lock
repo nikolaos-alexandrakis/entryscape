@@ -8324,7 +8324,7 @@ storage2@^0.1.0:
 
 "store@https://bitbucket.org/metasolutions/entrystore.js.git#webpack":
   version "4.6.0-WEBPACK"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#2b4481462b32ca8bd773651a3889d5d63ff0f888"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#432f810dc756c7b87cb1c70e5579c851d56c8a03"
   dependencies:
     blueimp-md5 "^2.10.0"
     lodash "^4.17.10"
