@@ -295,12 +295,12 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
     const dataPromise = fileUpload ? this.fileUpload() : this.linkUpload();
     return dataPromise
-      .then(this.analyseData)
-      .then(this.importData)
+      .then(this.analyseData.bind(this))
+      .then(this.importData.bind(this))
       .then((params) => {
         this.showFooterResult();
         return params;
-      }).then(this.addTerminologyToList);
+      }).then(this.addTerminologyToList.bind(this));
   },
   /**
    * @return {Promise} the data in the file

@@ -7,7 +7,7 @@ export default declare([BaseList], {
   includeRefreshButton: true,
   searchInList: false,
   searchVisibleFromStart: false,
-  typeaheadClass: Typeahead,
+  Typeahead,
 
   postCreate() {
     this.inherited('postCreate', arguments);
@@ -16,8 +16,7 @@ export default declare([BaseList], {
     this.listView.typeaheadInput.style.display = '';
     this.listView.lowerBlock.style.display = '';
 
-    const Cls = this.typeaheadClass;
-    this.typeahead = new Cls({}, this.getView().typeaheadInput);
+    this.typeahead = new this.Typeahead({}, this.getView().typeaheadInput);
     const methods = ['select', 'getLabel', 'getQuery', 'render', 'processEntries'];
     for (let i = 0; i < methods.length; i++) {
       const method = methods[i];

@@ -53,6 +53,7 @@ export default class {
         name: `entryscape_typeahead_${counter}`,
         display: 'name',
         source: this._find.bind(this),
+        limit: 50, // TODO  this is needed due to bug in typeahead (see: async method)
         templates: {
           empty: [
             '<div class="empty-message">',
