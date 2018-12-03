@@ -1,3 +1,4 @@
+const commonProperties = ['innerHTML', 'innerText', 'src'];
 const htmlUtil = {
   toggleAttribute(nodes, attr, value) {
     nodes.forEach(n => (n.hasAttribute(attr) ? n.removeAttribute(attr) : n.setAttribute(attr, value)));
@@ -22,12 +23,10 @@ const htmlUtil = {
     if (attributes) {
       Object.entries(attributes)
         .forEach((keyVal) => {
-          if (keyVal[0] === 'innerHTML') {
-            newDOMNode.innerHTML = keyVal[1];
+          if (commonProperties.includes(keyVal[0])) {
+            newDOMNode[keyVal[0]] = keyVal[1];
           } else if (keyVal[0] === 'class') {
             htmlUtil.addClass(newDOMNode, keyVal[1]);
-          } else if (keyVal[0] === 'src') {
-            newDOMNode.src = keyVal[1];
           } else {
             newDOMNode.setAttribute(keyVal[0], keyVal[1]);
           }
