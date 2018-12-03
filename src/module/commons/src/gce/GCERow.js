@@ -2,8 +2,6 @@ import registry from 'commons/registry';
 import ToggleRow from 'commons/list/common/ToggleRow';
 import declare from 'dojo/_base/declare';
 
-const dialogs = registry.get('dialogs');
-
 export default declare([ToggleRow], {
   nlsPublicTitle: '',
   nlsProtectedTitle: '',
@@ -44,7 +42,7 @@ export default declare([ToggleRow], {
     es.getEntry(co.getEntryURI(), { forceLoad: true })
       .then((contextEntry) => {
         if (!contextEntry.canAdministerEntry()) {
-          dialogs.acknowledge(this.nlsSpecificBundle[this.nlsContextSharingNoAccess]);
+          registry.get('dialogs').acknowledge(this.nlsSpecificBundle[this.nlsContextSharingNoAccess]);
           return;
         }
         let ei;
@@ -82,7 +80,7 @@ export default declare([ToggleRow], {
   action_remove() {
     registry.get('getGroupWithHomeContext')(this.getContext())
       .then((group) => {
-        dialogs.confirm(this.nlsSpecificBundle[this.nlsConfirmRemoveRow],
+        registry.get('dialogs').confirm(this.nlsSpecificBundle[this.nlsConfirmRemoveRow],
           null, null, (confirm) => {
             if (!confirm) {
               return;
@@ -98,7 +96,7 @@ export default declare([ToggleRow], {
                 ue.refresh();
               },
               () => {
-                dialogs.acknowledge(this.nlsGenericBundle[this.nlsRemoveFailedKey]);
+                registry.get('dialogs').acknowledge(this.nlsGenericBundle[this.nlsRemoveFailedKey]);
               });
           });
       });

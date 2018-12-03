@@ -43,9 +43,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   },
   updateUI(e) {
     const activeA = document.querySelector('.theme-formats a.active');
-    if (activeA.length > 0) {
-      activeA[0].classList.remove('active');
-    }
+    activeA.classList.remove('active');
     e.currentTarget.classList.add('active');
   },
   setOpenTab(event) {
@@ -64,7 +62,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
                data-entry-id="${this.entryId}" data-context-id="${this.ctxId}" data-theme-style="${this.themeStyle}"
                data-repository="${this.repobase}" data-ignore-auth="false" ${this.blank}></script>`;
 
-    this.__embedInput.setAttribute('value', this.embededTxt);
+    this.__embedInput.value = this.embededTxt;
   },
   preview() {
     this.previewDialog.open({

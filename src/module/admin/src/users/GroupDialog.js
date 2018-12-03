@@ -122,7 +122,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.entry = params.row.entry;
     this.groupList.entry = params.row.entry;
     this.groupList.render();
-    this.updateLocaleStrings(esadUser, {
+    this.updateLocaleStrings(this.NLSBundle0, {
       user: registry.get('rdfutils').getLabel(this.entry) || this.entry.getId(),
     });
     this.show();

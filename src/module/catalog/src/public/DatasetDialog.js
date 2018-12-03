@@ -1,21 +1,20 @@
 import TitleDialog from 'commons/dialog/TitleDialog';
-import HeaderDialog from 'commons/dialog/HeaderDialog';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import Dataset from './Dataset';
+import templateString from './DatasetDialogTemplate.html';
 
-export default declare([TitleDialog], {
+export default declare([TitleDialog.Content], {
+  templateString,
   includeFooter: false,
   postCreate() {
-    this.dialog = new HeaderDialog({ maxWidth: 800 }, this.dialog);
     this.dataset = new Dataset({ inDialog: true }, this.dataset);
     this.inherited(arguments);
   },
   open(params) {
     this.dataset.showDataset(params.row.entry);
-
     const title = registry.get('rdfutils').getLabel(params.row.entry);
-    this.updateLocaleStringsExplicit(title);
-    this.show();
+    this.dialog.updateLocaleStringsExplicit(title);
+    this.dialog.show();
   },
 });

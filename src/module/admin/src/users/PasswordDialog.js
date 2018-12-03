@@ -1,4 +1,5 @@
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import m from 'mithril';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import Password from 'commons/auth/Password';
 import PasswordForm from 'commons/auth/components/PasswordForm';

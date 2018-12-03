@@ -6,7 +6,7 @@ import config from 'config';
 import BaseList from 'commons/list/common/BaseList';
 import ConceptRow from 'commons/tree/skos/ConceptRow';
 import jquery from 'jquery';
-import { togglePropertyValue } from 'commons/util/cssUtil';
+import { toggleClass, togglePropertyValue, toggleDisplayNoneEmpty } from 'commons/util/cssUtil';
 import escoList from 'commons/nls/escoList.nls';
 import escoSkosChooser from 'commons/nls/escoSkosChooser.nls';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
@@ -365,7 +365,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
       case 'tree':
         // TODO this mash of ids and domnodes happens because Tree does not honor the predefined
         // id in the template and the list does
-        this.skosChooserList.id.style.display = 'none';
+        this.skosChooserList.domNode.style.display = 'none';
         this.__treeView.style.display = 'block';
 
         esu.getEntryByResourceURI(this.selectedSkosConceptSchemaURI)
@@ -377,7 +377,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
       case 'list':
       default:
         this.__treeView.style.display = 'none';
-        this.skosChooserList.id.style.display = 'block';
+        this.skosChooserList.domNode.style.display = 'block';
 
         this.skosChooserList.render();
     }
@@ -401,7 +401,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
   },
   _displaySelectTerminologyMsg() {
     // show some message to select a terminology first and exit
-    togglePropertyValue([this.__terminologyFirstAlert], cssUtil.toggleDisplayNoneParams); // TODO
+    toggleDisplayNoneEmpty([this.__terminologyFirstAlert]); // TODO
     setTimeout(() => {
       jquery(this.__terminologyFirstAlert).fadeOut('slow');
     }, 2000);
@@ -430,11 +430,11 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
     this.renderView();
 
     // Manage CSS
-    cssUtil.toggleClass(this.viewNodes, 'active'); // NOTE! this only works for 2 views
-    cssUtil.togglePropertyValue(this.viewNodes, {
-      property: 'pointer-events',
-      value1: 'none',
-      value2: 'auto',
+    toggleClass(this.viewNodes, 'active'); // NOTE! this only works for 2 views
+    togglePropertyValue(this.viewNodes, {
+      prop: 'pointer-events',
+      val1: 'none',
+      val2: 'auto',
     });
 
     return true;

@@ -11,6 +11,7 @@ const idx = [];
 let counter = 0;
 let bodycomponentId;
 let group = {};
+
 ['rowhead', 'rowexpand', 'listempty', 'listhead', 'listbody', 'listplaceholder'].forEach((name) => {
   handlebars.registerHelper(name, (options) => {
     group[name] = options.fn();
@@ -46,10 +47,11 @@ let initializeHelpers = () => {
     return new handlebars.SafeString(`<span id="${bodycomponentId}"></span>`);
   });
   handlebars.registerHelper('ifprop', (prop, options) => {
+    const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
     const props = prop.split(',');
     const stmts = [];
     props.forEach((p) => {
-      const propStmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), p);
+      const propStmts = currentEntry.getMetadata().find(subject, p);
       stmts.push(...propStmts);
     });
     const invert = options.hash.invert != null;
@@ -70,7 +72,8 @@ let initializeHelpers = () => {
     return null;
   });
   handlebars.registerHelper('eachprop', (prop, options) => {
-    const stmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), prop);
+    const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
+    const stmts = currentEntry.getMetadata().find(subject, prop);
     const val2choice = registry.get('itemstore_choices');
     const val2named = registry.get('blocks_named');
     const localize = registry.get('localize');
@@ -123,7 +126,8 @@ let initializeHelpers = () => {
   handlebars.registerHelper('entryURI', () => currentEntry.getURI());
 
   handlebars.registerHelper('prop', (prop, options) => {
-    const stmts = currentEntry.getMetadata().find(currentEntry.getResourceURI(), prop);
+    const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
+    const stmts = currentEntry.getMetadata().find(subject, prop);
     if (stmts.length === 0) {
       return '';
     }
@@ -160,14 +164,18 @@ let initializeHelpers = () => {
       case 'md5':
         return md5(val);
       default:
-        return null;
+        break;
     }
-    return val;
+    return new handlebars.SafeString(val.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/(\r\n|\r|\n)/g, '<br/>'));
   });
   handlebars.registerHelper('helperMissing', (options) => {
     throw new Error(`No helper for tag: ${options.name}`);
   });
 
+<<<<<<< HEAD
+=======
+  // Make sure this is only run once by emptying the function after first run
+>>>>>>> develop
   initializeHelpers = () => {};
 };
 
@@ -203,16 +211,35 @@ export default {
     idx.pop();
     return group;
   },
+  /**
+   * @param {Node} node - Node to insert into.
+   * @param {object} data - Data for template rendering.
+   * @param {Store/Entry} entry - Data for template rendering.
+   * @param {boolean} body - not sure yet
+   *
+   */
   run(node, data, template, entry, body) {
+    // register handlebars helpers only once
     initializeHelpers();
 
+<<<<<<< HEAD
     const f = () => {
+=======
+    const runAllBlocksInTemplate = () => {
+>>>>>>> develop
       idx.push({});
-      let htemplate;
+      let handlebarTemplate;
+
       try {
+<<<<<<< HEAD
         htemplate = handlebars.compile(template || data.htemplate || data.template,
           { data: { strict: true, knownHelpersOnly: true } });
         node.innerHTML = htemplate(data);
+=======
+        handlebarTemplate = handlebars.compile(template || data.htemplate || data.template,
+          { data: { strict: true, knownHelpersOnly: true } });
+        node.innerHTML = handlebarTemplate(data);
+>>>>>>> develop
       } catch (e) {
         data.error = e.toString();
         data.errorCode = 4;
@@ -220,6 +247,7 @@ export default {
         error(node, data);
         return;
       }
+
       const cidx = idx.pop();
       Object.keys(cidx).forEach((id) => {
         const ob = cidx[id];
@@ -229,16 +257,21 @@ export default {
           ...{ block: ob.block || ob.component },
         };
 
-        block.run(ob.component, jquery(node).find(`#${ob.id}`)[0], obj);
+        const attachNode = jquery(node).find(`#${ob.id}`)[0];
+        block.run(ob.component, attachNode, obj);
       });
     };
 
     if (body) {
-      f();
-      return jquery(`#${bodycomponentId}`)[0];
+      runAllBlocksInTemplate();
+      return jquery(node).find(`#${bodycomponentId}`)[0];
     }
     currentEntry = entry;
+<<<<<<< HEAD
     f();
+=======
+    runAllBlocksInTemplate();
+>>>>>>> develop
 
     return null;
   },

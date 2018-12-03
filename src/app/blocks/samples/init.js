@@ -14,7 +14,7 @@ if (!debug) {
 }
 
 if (debug) {
-  css('samples/style.css');
+  // css('samples/style.css');
   js('app.js');
 } else {
   css('blocks/0.11/style.css');

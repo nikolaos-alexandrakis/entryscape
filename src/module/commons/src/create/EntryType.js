@@ -204,7 +204,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         graph.replaceURI(uri1, uri2);
       }
       const inpEl = this.getFileInputElement();
-      console.log(`input element is null ${inpEl}` == null);
+      console.log(`input element is null ${inpEl == null}`);
       return newpe.setMetadata(graph).commit()
         .then((entry) => {
           if (inpEl.value) { // check if file was given

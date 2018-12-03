@@ -86,7 +86,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const username = this.usernameInput.value;
     const firstname = this.firstnameInput.value;
     const lastname = this.lastnameInput.value;
-    const createContext = this.createContextWithUser.getAttribute('checked');
+    const createContext = this.createContextWithUser.checked;
 
     if (username === '' || firstname === '' || lastname === '' || this.newNameIsOk === false) {
       return false;

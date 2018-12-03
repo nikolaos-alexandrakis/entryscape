@@ -1,17 +1,18 @@
-import DOMUtil from 'commons/util/htmlUtil';
-import { i18n, NLSMixin } from 'esi18n';
-import registry from 'commons/registry';
-import TitleDialog from 'commons/dialog/TitleDialog'; // In template
-import { Editor, LevelEditor, renderingContext, validate } from 'rdforms';
 import EntryType from 'commons/create/EntryType';
 import typeIndex from 'commons/create/typeIndex';
+import TitleDialog from 'commons/dialog/TitleDialog'; // In template
 import BaseList from 'commons/list/common/BaseList';
 import EntryRow from 'commons/list/EntryRow';
-import escoRdforms from 'commons/nls/escoRdforms.nls';
 import escoEntryChooser from 'commons/nls/escoEntryChooser.nls';
 import escoList from 'commons/nls/escoList.nls';
-import declare from 'dojo/_base/declare';
+import escoRdforms from 'commons/nls/escoRdforms.nls';
+import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
+import { createEntry } from 'commons/util/storeUtil';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { Editor, LevelEditor, renderingContext, validate } from 'rdforms';
 import template from './EntryChooserTemplate.html';
 
 const chooserScope = {};
@@ -133,7 +134,7 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
   postCreate() {
     this.inherited(arguments);
     this.entryChooserList = new EntryChooserList({ entrychooserDialog: this.dialog },
-      DOMUtils.create('div', null, this.searchNode));
+      DOMUtil.create('div', null, this.searchNode));
     this.dialog.headerExtensionNode.appendChild(this.moveInput);
 
     this.levels = new LevelEditor({ externalEditor: true },

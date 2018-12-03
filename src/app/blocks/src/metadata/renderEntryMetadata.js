@@ -15,7 +15,7 @@ export default function (node, data, items) {
     node.innerHTML = '';
     const presenter = new Presenter({ compact: data.onecol !== true,
       filterPredicates: fp }, DOMUtil.create('div'));
-    node.appendChild(presenter);
+    node.appendChild(presenter.domNode);
     presenter.show({
       resource: entry.getResourceURI(),
       graph: entry.getMetadata(),

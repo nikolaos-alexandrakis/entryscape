@@ -38,6 +38,8 @@ const htmlUtil = {
         parent.insertBefore(newDOMNode, before);
       } else if (before === true) {
         parent.insertBefore(newDOMNode, parent.firstChild);
+      } else if (before === 'after') {
+        parent.parentNode.insertBefore(newDOMNode, parent.nextSibling);
       } else {
         parent.appendChild(newDOMNode);
       }

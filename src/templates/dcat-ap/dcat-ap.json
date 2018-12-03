@@ -213,6 +213,23 @@
           "id": "dcat:themeTaxonomy_ca"
         }
       ]
+    },
+    {
+      "type": "group",
+      "nodetype": "RESOURCE",
+      "id": "dcat:Documentish",
+      "styles": ["showLink"],
+      "items": [
+        "dcat:documentType",
+        {
+          "extends": "dcat:dcterms:title",
+          "cardinality": {"min": 1}
+        },
+        {
+          "cardinality": {"min": 0, "prev": 1},
+          "extends": "dcat:dcterms:description"
+        }
+      ]
     }
   ]
 }

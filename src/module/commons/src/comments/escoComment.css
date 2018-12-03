@@ -8,9 +8,6 @@
     font-weight: bold;
 }
 
-.escoComment__commentFooter {
-}
-
 .escoComment__commentFooterButton {
     margin-top: -2px;
     color: black;
@@ -28,7 +25,7 @@
 .escoComment__commentReply {
     padding-bottom: 50px;
     padding-right: 10px;
-    padding-left: 10px
+    padding-left: 10px;
 }
 
 .escoComment__replySubjectLabel {
@@ -69,5 +66,10 @@
     display: none;
 }
 .escoComment--replyWithoutSubject .escoComment__reply {
-    margin-top: 5px;
+    margin-top: 15px;
+    height: 38px;
+}
+.form-group.is-empty{
+    margin: 0;
+    padding: 0;
 }

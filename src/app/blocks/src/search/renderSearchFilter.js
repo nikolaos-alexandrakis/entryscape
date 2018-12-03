@@ -2,10 +2,10 @@ import DOMUtil from 'commons/util/htmlUtil';
 import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 import filter from 'blocks/utils/filter';
-import { Entry } from 'store';
-import utils from './utils';
 import jquery from 'jquery';
 import 'selectize';
+import { Entry } from 'store';
+import utils from './utils';
 
 const rdfutils = registry.get('rdfutils');
 
@@ -115,16 +115,14 @@ export default function (node, data, items) {
         callback(collection.list);
       }
     } else if (collection.type === 'facet') {
-      registry.get(collectionName, () => { // Why? we already have the collection...
-        callback(collection.list);
-      });
+      const collectionList = registry.get(collectionName).list; // Why? we already have the collection...
+      callback(collectionList);
     }
   };
   // Initialize after load function is added
   selectize = jquery(input).selectize(settings)[0].selectize;
 
   clearOptions = () => {
-    // const collection = registry.get(collectionName);
     if (selectize.getValue() === '') {
       Object.keys(selectize.options).forEach((o) => {
         if (o !== '') {

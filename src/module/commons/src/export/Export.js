@@ -67,10 +67,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   updateUI(e) {
     const activeA = jquery('.download-formats a.active');
     if (activeA.length > 0) {
-      domClass.remove(activeA[0], 'active');
+      activeA[0].classList.remove('active');
     }
 
-    domClass.add(e.currentTarget, 'active');
+    e.currentTarget.classList.add('active');
   },
 
   open(params) {

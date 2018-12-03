@@ -1,13 +1,12 @@
 import TreeModel from 'commons/tree/TreeModel';
+import jquery from 'jquery';
 
 export default class extends TreeModel {
   constructor(params) {
     super(params);
-    this.checkedNodes = null;
-    this.uncheckedNodes = null;
-    this.collectionEntry = params.collectionEntry;
     this.checkedNodes = {};
     this.uncheckedNodes = {};
+    this.collectionEntry = params.collectionEntry;
     const jsTreeConf = {
       core: {
         multiple: true,
@@ -25,8 +24,8 @@ export default class extends TreeModel {
       },
     };
     this.initJsTreeConf(jsTreeConf, params.domNode);
-    params.domNode.addEventListener('uncheck_node.jstree', this.uncheckedNode.bind(this));
-    params.domNode.addEventListener('check_node.jstree', this.checkedNode.bind(this));
+    jquery(params.domNode).on('uncheck_node.jstree', this.uncheckedNode.bind(this));
+    jquery(params.domNode).on('check_node.jstree', this.checkedNode.bind(this));
   }
 
   uncheckedNode(e, data) {
@@ -50,9 +49,6 @@ export default class extends TreeModel {
     }
     this.checkChange();
   }
-
-  // checkChange() {
-  // }
 
   createNode(entry) {
     const node = super.createNode(entry);

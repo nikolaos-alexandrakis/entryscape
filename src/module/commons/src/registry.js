@@ -58,12 +58,15 @@ const exports = {
     if (lastChange && registry.has(key)) {
       callback(registry.get(key));
     }
-    return PubSub.subscribe(key, (msg, obj) => {
+
+    const subToken = PubSub.subscribe(key, (msg, obj) => {
       callback(obj);
       if (onlyOnce) {
-        PubSub.unsubscribe(msg);
+        PubSub.unsubscribe(subToken);
       }
     });
+
+    return subToken; // not really needed but still return something sensible
   },
   onChangeOnce(key, callback) {
     return this.onChange(key, callback, false, true);

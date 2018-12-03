@@ -83,7 +83,7 @@ export default declare([EntryRow], {
           }
           return false; // Not solely owned or homecontext.
         })) {
-          soleUserMsg = tempalte(bundle.warningSoleOwner)({ name });
+          soleUserMsg = template(bundle.warningSoleOwner)({ name });
         }
       })
       .then(() => {
@@ -135,7 +135,7 @@ export default declare([EntryRow], {
   changeStatus() {
     const isUserDisabled = this.getIsUserDisabled();
     const message = isUserDisabled ? this.nlsSpecificBundle.userStatusEnableConfirmation :
-      this.nlsSpecificBundle.userStatusEnableConfirmation;
+      this.nlsSpecificBundle.userStatusDisableConfirmation;
     const yes = this.nlsSpecificBundle.userStatusChangeConfirm;
     const no = this.nlsSpecificBundle.userStatusChangeCancel;
 

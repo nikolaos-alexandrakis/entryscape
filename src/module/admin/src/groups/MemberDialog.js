@@ -8,7 +8,6 @@ import { NLSMixin } from 'esi18n';
 import esadGroup from 'admin/nls/esadGroup.nls';
 import escoList from 'commons/nls/escoList.nls';
 import declare from 'dojo/_base/declare';
-
 import RoleRow from './RoleRow';
 
 const RemoveDialog = declare([], {
@@ -84,8 +83,7 @@ const MemberList = declare([TypeaheadList], {
   typeahead_processEntries(entries, callback) {
     const self = this;
     return this.entry.getResource(true).getAllEntryIds().then((entryIds) => {
-      const filtEntries = entries.filter(e =>
-        (entryIds.indexOf(e.getId()) === -1 && e.getId() !== '_admin'));
+      const filtEntries = entries.filter(e => (entryIds.indexOf(e.getId()) === -1 && e.getId() !== '_admin'));
       callback(filtEntries.map(entry => ({
         id: entry.getURI(),
         name: self.typeahead.getLabel(entry),
@@ -126,7 +124,7 @@ const MemberDialog = declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.showNonMemberInfoMsg(!entry.canWriteResource());
     this.memberList.render();
     this.nonMemberInfoMsg.innerHTML = this.NLSBundles.esadGroup.nonMemberInfoMsg;
-    this.updateLocaleStrings(esadGroup, {
+    this.updateLocaleStrings(this.NLSBundle0, {
       group: registry.get('rdfutils').getLabel(entry) || entry.getId(),
     });
     this.show();
