@@ -172,10 +172,7 @@ let initializeHelpers = () => {
     throw new Error(`No helper for tag: ${options.name}`);
   });
 
-<<<<<<< HEAD
-=======
   // Make sure this is only run once by emptying the function after first run
->>>>>>> develop
   initializeHelpers = () => {};
 };
 
@@ -222,24 +219,14 @@ export default {
     // register handlebars helpers only once
     initializeHelpers();
 
-<<<<<<< HEAD
-    const f = () => {
-=======
     const runAllBlocksInTemplate = () => {
->>>>>>> develop
       idx.push({});
       let handlebarTemplate;
 
       try {
-<<<<<<< HEAD
-        htemplate = handlebars.compile(template || data.htemplate || data.template,
-          { data: { strict: true, knownHelpersOnly: true } });
-        node.innerHTML = htemplate(data);
-=======
         handlebarTemplate = handlebars.compile(template || data.htemplate || data.template,
           { data: { strict: true, knownHelpersOnly: true } });
         node.innerHTML = handlebarTemplate(data);
->>>>>>> develop
       } catch (e) {
         data.error = e.toString();
         data.errorCode = 4;
@@ -267,11 +254,7 @@ export default {
       return jquery(node).find(`#${bodycomponentId}`)[0];
     }
     currentEntry = entry;
-<<<<<<< HEAD
-    f();
-=======
     runAllBlocksInTemplate();
->>>>>>> develop
 
     return null;
   },
