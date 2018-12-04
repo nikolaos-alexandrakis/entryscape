@@ -14,12 +14,12 @@
   display: none;
 }
 .decoration--green{
-  width: 40px;
+  width: 20px;
   background-color: #33ed73;
   border: 2px solid black;
 }
 .search--group--wrapper{
-  display: flex;
+  display: none;
   justify-content:flex-end;
 }
 .search--group{
@@ -198,7 +198,13 @@ padding: 10px;
   border-radius: 0px !important;
   min-height: 36px !important;
 }
-
+.entryscape .selectize-dropdown, .selectize-dropdown.form-control{
+  box-shadow: none;
+  border: 2px solid black;
+  border-radius: 0;
+  padding: 5px;
+  position: static;
+}
 .input-group{
   display: flex !important;
   width: 300px;
@@ -228,8 +234,13 @@ padding: 10px;
   font-family: 'FontAwesome';
   content: '\f107';
 }
+.arrow--up::before{
+  font-family: 'FontAwesome';
+  content: '\f106';
+  color:#33ed73;
+}
 .entryscape .pagination>.active>a {
-  color: #4fe574 !important;
+  color: #33ed73 !important;
   border-color: #333;
   background-color: white;
 }
@@ -275,6 +286,9 @@ padding: 10px;
 
 .hidden {
   opacity: 0;
+}
+.active{
+  display: flex;
 }
 
 /* Here starts details css */
@@ -346,7 +360,7 @@ padding: 10px;
   box-shadow: none;
   margin-bottom: 25px;
   border: 1px solid #e8e8e8;
-  border-top: 4px solid #65f196;
+  border-top: 4px solid #33ed73;
 }
 
 .WorkOfArt__map>p {
@@ -376,7 +390,7 @@ padding: 10px;
 }
 
 .popover-title {
-  border-bottom: 4px solid #65f196 !important;
+  border-bottom: 4px solid #33ed73 !important;
   background-color: white;
 }
 
