@@ -7452,14 +7452,14 @@ rc@^1.1.2, rc@^1.2.7:
 
 "rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#webpack":
   version "2.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdfjson.git#009f775aa61a70d3a0f61b2626b8d596ff60fa38"
+  resolved "https://bitbucket.org/metasolutions/rdfjson.git#416fa694a4aa24ba891d60728d633a98f7435efb"
   dependencies:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#a1104815a08bd66d42c756af088f3b6d329a6c91"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#ce99281f3c4bb87e762c9c9d29abde07f90db062"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
