@@ -10,6 +10,7 @@ import { template } from 'lodash-es';
 import { Graph } from 'rdfjson';
 import esrePipelineResult from 'registry/nls/esrePipelineResult.nls';
 import { terms } from 'store';
+import { getStatusAndColor } from './util/pipelineResult';
 import './esrePipelineResult.css';
 
 export default declare([NLSMixin], {
@@ -193,7 +194,7 @@ export default declare([NLSMixin], {
     return body;
   },
   getData() {
-    const { bootstrap } = pipelineResultUtil.getStatusAndColor(this.entry);
+    const { bootstrap } = getStatusAndColor(this.entry);
     const renderTitle = this.getTitle();
     const date = (this.getDate() || '').toString();
     const body = this.getBody(this.getBodyData());
