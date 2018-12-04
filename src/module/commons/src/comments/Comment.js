@@ -182,7 +182,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const subjectTxt = self.subjectNode.value;
     comments.createReply(this.entry, subjectTxt, commentTxt)
       .then((commentEntry) => {
-        self.commentNode.setAttribute('value', '');
+        self.commentNode.value = '';
         self.noOfReplies += 1;
         self.updateLocaleStrings();
         self.cancelReply();
@@ -190,13 +190,15 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         self.__replyIcon.classList.add('fa-caret-down');
         self.__commentsList.style.display = '';
         self.__editComment.setAttribute('disabled', true);
-        // self.closeReplies();
         if (this.__repliesArr == null) {
           this.__repliesArr = [];
         }
-        this.__repliesArr.push(new CommentCls({ entry: commentEntry, parent: self }));
-        const newDiv = document.createElement('div');
-        self.__commentsList.insertBefore(newDiv, self.__commentsList.firstChild);
+        // @scazan: Order matters here. Dojo REPLACES the commentReplyDiv which
+        // means it must be attached to the parent beforehand
+        const commentReplyDiv = document.createElement('div');
+        self.__commentsList.insertBefore(commentReplyDiv, self.__commentsList.firstChild);
+
+        this.__repliesArr.push(new CommentCls({ entry: commentEntry, parent: self }, commentReplyDiv));
       });
   },
   cancelReply() {
