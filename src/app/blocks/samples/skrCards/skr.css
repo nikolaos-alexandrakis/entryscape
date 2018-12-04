@@ -13,13 +13,21 @@
 .sidebar {
   display: none;
 }
-
+.decoration--green{
+  width: 40px;
+  background-color: #33ed73;
+  border: 2px solid black;
+}
+.search--group--wrapper{
+  display: flex;
+  justify-content:flex-end;
+}
 .search--group{
   display: flex;
   flex-wrap: wrap;
-  margin: 25px 10px 10px 25px;
   padding: 10px;
   border: 2px solid black;
+  max-width: 350px;
 }
 .main--2colums {
   max-width: 826px;
@@ -44,11 +52,6 @@ padding: 10px;
 
 .search-wrapper--borderblack {
   display: none;
-}
-
-
-.btn--wrapper {
-  margin-left: 10px;
 }
 
 .btn--blackborder {
@@ -113,12 +116,12 @@ padding: 10px;
   max-height: 100%;
 }
 
-.block_facet h3 {
+.entryscape .block_facet h3 {
   font-weight: bold;
   border-bottom: 2px solid #33ed73 !important;
   font-family: 'Roboto', sans-serif !important;
 }
-.block_facet h3:first-child{
+.entryscape .block_facet h3:first-child{
   padding-top: 0 !important;
   margin-top: 2px !important;
 }
@@ -208,14 +211,18 @@ padding: 10px;
   margin-left: 8px;
   border: 0 !important;
   border-bottom: 2px solid black !important;
-  box-shadow: none;
+  box-shadow: none !important;
 }
-.input-group-btn .btn-default{
+.entryscape .input-group-btn .btn-default{
   border: 0;
   border-bottom: 2px solid black;
   border-radius: 0px;
   height: 36px;
+}
 
+.entryscape .input-group-btn .btn-default:hover{
+  background-color: #33ed73;
+  border-color: black;
 }
 .arrow--down::before{
   font-family: 'FontAwesome';
@@ -451,6 +458,7 @@ padding: 10px;
   .btn--wrapper {
     margin-left: 20px;
     padding: 10px;
+    padding-right: 0;
     display: flex;
     justify-content:flex-end;
 }
