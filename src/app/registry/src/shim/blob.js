@@ -1,1 +1,1 @@
-define(['blob'], () => Blob);
+define(['blob'], () => Blob); // TODO probably not needed anymore
