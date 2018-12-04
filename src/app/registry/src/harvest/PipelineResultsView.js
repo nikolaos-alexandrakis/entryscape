@@ -172,19 +172,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   },
 
   async renderJobEntries(onlyLockButton = false) {
-    const readyLocalesPromises = this.jobEntries.map((entry) => {
+    const readyJobEntriesPromises = this.jobEntries.map((entry) => {
       const args = this.dialog ? { entry, currentDialog: this.dialog } : { entry };
       const pr = new PipelineResult(args);
       return [pr];
     });
 
-    // just wait until all locales are ready
-    const localPromises = readyLocalesPromises.map(readyLocalesPromise => readyLocalesPromise[0]);
-    await Promise.all(localPromises);
-
-    const pipeResultsPromises = readyLocalesPromises.map(readyLocalesPromise => readyLocalesPromise[1]);
+    const pipeResultsPromises = readyJobEntriesPromises.map(readyLocalesPromise => readyLocalesPromise[0]);
     const pipeResults = pipeResultsPromises.map(pipelineResult => pipelineResult.getData());
-
 
     const title = i18n.renderNLSTemplate(this.NLSLocalized0.harvestingLatestX, pipeResults.length);
     let button = {};
