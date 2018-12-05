@@ -1,6 +1,5 @@
 // NOTE! order of imports is important
 import '@babel/polyfill';
-import 'formdata-polyfill';
 import 'jquery';
 import 'popper.js';
 import 'bootstrap';
