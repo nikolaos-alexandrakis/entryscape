@@ -1,6 +1,6 @@
 import DOMUtil from 'commons/util/htmlUtil';
 import getEntry from 'blocks/utils/getEntry';
-import { Presenter } from 'rdforms';
+import { Presenter } from 'rdforms/main-no-bootstrap-css';
 import { namespaces } from 'rdfjson';
 
 export default function (node, data, items) {

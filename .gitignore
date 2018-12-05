@@ -8,3 +8,5 @@ dist
 .yalc/
 yalc.lock
 *.vim
+
+theme
