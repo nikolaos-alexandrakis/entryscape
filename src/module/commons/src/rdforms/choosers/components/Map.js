@@ -2,7 +2,6 @@ import config from 'config';
 import configUtil from 'commons/util/configUtil';
 // import { createSetState } from 'commons/util/util';
 import m from 'mithril';
-import 'leaflet/dist/leaflet.css';
 import utils from '../utils';
 import '../escoSpatial.css';
 
@@ -121,7 +120,8 @@ const Map = () => {
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
       unfocusInputs = vnode.attrs.unfocusInputs;
 
-      import(/* webpackChunkName: "leaflet" */ 'leaflet').then((leafletImport) => {
+      import(/* webpackChunkName: "leaflet-css" */ 'leaflet/dist/leaflet.css');
+      import('leaflet' /* webpackChunkName: "leaflet" */).then((leafletImport) => {
         leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
         state.map = map;
