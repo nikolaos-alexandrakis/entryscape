@@ -5480,7 +5480,6 @@ levn@^0.3.0, levn@~0.3.0:
 lightbox2@^2.10.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/lightbox2/-/lightbox2-2.10.0.tgz#06b3f7b7bd7c1332c20d037602d9657542fd7de4"
-  integrity sha1-BrP3t718EzLCDQN2AtlldUL9feQ=
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -8104,7 +8103,6 @@ slice-ansi@1.0.0:
 slick-carousel@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
-  integrity sha512-XB9Ftrf2EEKfzoQXt3Nitrt/IPbT+f1fgqBdoxO3W/+JYvtEOW6EgxnWfr9GH6nmULv7Y2tPmEX3koxThVmebA==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -8331,7 +8329,7 @@ storage2@^0.1.0:
 
 "store@https://bitbucket.org/metasolutions/entrystore.js.git#webpack":
   version "4.6.0-WEBPACK"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#2b07153955a073112eba6e457f76509560f53a16"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#edcabef0b9117cfdafab522561734f5e44279707"
   dependencies:
     blueimp-md5 "^2.10.0"
     lodash "^4.17.10"
