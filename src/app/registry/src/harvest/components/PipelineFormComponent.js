@@ -1,4 +1,3 @@
-import 'formdata-polyfill';
 import Alert from 'commons/components/common/alert/Alert';
 import Fieldset from 'commons/components/common/form/Fieldset';
 import Form from 'commons/components/common/form/Form';
