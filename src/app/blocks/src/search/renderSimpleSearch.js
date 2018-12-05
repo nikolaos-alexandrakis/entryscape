@@ -17,7 +17,7 @@ export default (node, data) => {
   let term;
   let lock = false;
   const searchTriggered = () => {
-    let newTerm = input.value.getAttribute('value');
+    let newTerm = input.value;
     newTerm = newTerm === undefined || newTerm.length <= 2 ? undefined :
       { value: newTerm, group: data.collection || 'term' };
     lock = true;

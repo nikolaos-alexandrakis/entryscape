@@ -34,6 +34,7 @@
 }
 .header--titles{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 10px;
   margin-left: 15px;
@@ -480,7 +481,7 @@ padding: 10px;
   .selectize-input {
     width: 100%;
   }
-  .btn--filter--mobile, .facets--mobile {
+  .btn--filter--mobile, .facets--mobile, .btn--advanced--mobile {
     display: none;
   }
 }
