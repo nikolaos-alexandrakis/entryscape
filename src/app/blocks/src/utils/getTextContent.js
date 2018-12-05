@@ -1,5 +1,5 @@
 import { template } from 'lodash-es';
-import { utils } from 'rdforms';
+import { utils } from 'rdforms/main-no-bootstrap-css';
 import registry from 'commons/registry';
 
 const rdfutils = registry.get('rdfutils');
@@ -8,7 +8,7 @@ const special = {
     return rdfutils.getLabel(entry);
   },
 };
-const varRegexp = /\$\{([^\s\:\}]*)(?:\:([^\s\:\}]+))?\}/g;
+const varRegexp = /\$\{([^\s\:\}]*)(?:\:([^\s\:\}]+))?\}/g; // eslint-disable-line no-useless-escape
 
 export default function (data, entry) {
   if (data.content) {

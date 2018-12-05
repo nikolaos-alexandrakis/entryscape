@@ -1,9 +1,5 @@
 import DOMUtil from 'commons/util/htmlUtil';
-import declare from 'dojo/_base/declare';
 import config from 'blocks/config/config';
-import { Presenter } from 'rdforms';
-import EntryRow from 'commons/list/EntryRow';
-import MetadataExpandRow from './MetadataExpandRow';
 import getEntry from '../utils/getEntry';
 import List from './List';
 
