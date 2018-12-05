@@ -187,7 +187,7 @@ const btnFilter = document.querySelector('.btn--filter--mobile');
 const filterMobile = document.querySelector('.facets--mobile');
 const btnClose = document.querySelector('.btn--close');
 const btnAdvancedSearch = document.querySelector('.arrow--down');
-const advancedSearch = document.querySelector('.search--group--wrapper');
+const advancedSearch = document.querySelector('.advanced--group--wrapper');
 
 
 btnAdvancedSearch.onclick = () => {
