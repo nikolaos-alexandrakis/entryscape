@@ -336,6 +336,12 @@
   border-bottom: 2px solid white !important;
   border-width: 150px;
 }
+.advanced--mobile .selectize-input{
+  margin-left:0;
+}
+.search--mobile--group{
+  padding: 10px;
+}
 .title--mobile{
   margin-top: 0;
   padding-left: 10px;
