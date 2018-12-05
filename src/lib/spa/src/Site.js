@@ -1,10 +1,8 @@
 import PubSub from 'pubsub-js';
-import Router from './Router';
-import Handler from './Handler';
 import ConfigError from './ConfigError';
 
-const domNodeHide = n => n.style.display = 'none';
-const domNodeShow = n => n.style.display = ''; // TODO set to initial or block?
+const domNodeHide = (n) => { n.style.display = 'none'; };
+const domNodeShow = (n) => { n.style.display = ''; }; // TODO set to initial or block?
 
 /**
  * Base class for displaying a set of interchangable views.
@@ -29,11 +27,11 @@ export default class Site {
   _viewsObjects = null;
 
   constructor(params) {
-    const {config, router: routerClass, handler: handlerClass, queryParams} = params[0]; // TODO @valentino dunno why this is needed
+    const { config, router: RouterClass, handler: HandlerClass, queryParams } = params[0]; // TODO @valentino dunno why this is needed
     this._setConfig(config); // TODO @valentino unnecessary, just do this.config = config
 
-    this._router = new routerClass(queryParams);
-    this._handler = new handlerClass(queryParams, this);
+    this._router = new RouterClass(queryParams);
+    this._handler = new HandlerClass(queryParams, this);
     this._views = new Map();
     this._viewsObjects = new Map();
     this._queue = [];
@@ -260,8 +258,8 @@ export default class Site {
   _validateViews() {
     // TODO add an error message
     const hasRoute = view => 'route' in view;
-    const parentExists = (view, views) => 'parent' in view ? views.has(view.parent) : true;
-    const moduleExists = (view, views, modules) => 'module' in view ? modules.has(view.module) : true;
+    const parentExists = (view, views) => ('parent' in view ? views.has(view.parent) : true);
+    const moduleExists = (view, views, modules) => ('module' in view ? modules.has(view.module) : true);
 
     const validationFuncs = [
       hasRoute,
@@ -283,8 +281,8 @@ export default class Site {
    * @private
    * @return {true|false}
    */
-  _validateViewDef(viewDef) {
-
+  // eslint-disable-next-line class-methods-use-this
+  _validateViewDef() {
   }
 
   /**
@@ -312,6 +310,7 @@ export default class Site {
    *
    * @private
    */
+  // eslint-disable-next-line class-methods-use-this
   _unRegisterDisabledViews() {
   }
 
@@ -376,16 +375,16 @@ export default class Site {
    * @return {*}
    */
   createView(viewDef) {
-    const {class: ViewClass} = viewDef;
+    const { class: ViewClass } = viewDef;
     if (viewDef.node == null) {
       // this.config.viewsNode should be a DOM node (?)
       viewDef.node = document.createElement('div');
       viewDef.node.setAttribute('class', 'spaView');
-      domNodeHide(viewDef.node)
+      domNodeHide(viewDef.node);
       this.config.viewsNode.appendChild(viewDef.node);
     }
     viewDef.constructorParams = viewDef.constructorParams || {};
-    Object.assign(viewDef.constructorParams, {_siteManager: this});
+    Object.assign(viewDef.constructorParams, { _siteManager: this });
     const view = new ViewClass(viewDef.constructorParams, viewDef.node);
     if (view.startup) view.startup();
     if (view.domNode) { // In case a dijit uses a template and creates a new node.
@@ -396,12 +395,12 @@ export default class Site {
   }
 
   createSiteController(SiteControllerClass, node) {
-    const params = Object.assign({}, {site: this}, this.config.controllerConstructorParams);
+    const params = Object.assign({}, { site: this }, this.config.controllerConstructorParams);
     return new SiteControllerClass(params, node);
   }
 
   getSiteConroller() {
-    this._controller;
+    return this._controller;
   }
 
   //= ==================================================
@@ -413,6 +412,7 @@ export default class Site {
    * Called after views are registered
    * @throws ConfigError
    */
+  // eslint-disable-next-line class-methods-use-this
   validateConfiguration() {
   }
 
@@ -424,8 +424,9 @@ export default class Site {
   _setConfig(config) {
     this.config = {};
     const config2 = config;
-    const keys = ['baseUrl', 'startView', 'signinView', 'permissionView', 'pathIgnore', 'startParams', 'start', 'viewsNode', 'views', 'hierarchies',
-      'controlNode', 'controlClass', 'controlConstructorParams', 'modules', 'sidebar'];
+    const keys = ['baseUrl', 'startView', 'signinView', 'permissionView', 'pathIgnore', 'startParams', 'start',
+      'viewsNode', 'views', 'hierarchies', 'controlNode', 'controlClass', 'controlConstructorParams', 'modules',
+      'sidebar'];
     for (let i = 0; i < keys.length; i++) {
       this.config[keys[i]] = config2[keys[i]] || config[keys[i]];
     }
@@ -442,7 +443,7 @@ export default class Site {
    * @private
    */
   _render(view, params = {}, callback = null) {
-    this._queue.push({view, params, callback});
+    this._queue.push({ view, params, callback });
 
     if (this._queue.length === 1) {
       this._process();
@@ -533,10 +534,12 @@ export default class Site {
     const loadAndShowView = () => {
       const viewPromise = this.getViewObject(this._switchingToView);
       viewPromise.then(showView.bind(this));
-    }
+    };
 
     // TODO @valentino perhaps at this stage the readyState is always complete|loaded
-    if (document.readyState === "complete" || document.readyState === "loaded" || document.readyState === "interactive") {
+    if (document.readyState === 'complete'
+      || document.readyState === 'loaded'
+      || document.readyState === 'interactive') {
       loadAndShowView();
     } else {
       document.addEventListener('DOMContentLoaded', loadAndShowView);
@@ -577,4 +580,4 @@ export default class Site {
 
     return viewDef.instancePromise;
   }
-};
+}

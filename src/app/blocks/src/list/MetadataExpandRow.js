@@ -1,5 +1,5 @@
 import declare from 'dojo/_base/declare';
-import { Presenter } from 'rdforms';
+import { Presenter } from 'rdforms/main-no-bootstrap-css';
 import handlebars from 'blocks/boot/handlebars';
 import ExpandRow from 'commons/list/common/ExpandRow';
 import { namespaces } from 'rdfjson';

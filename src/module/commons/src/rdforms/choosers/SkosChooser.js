@@ -21,7 +21,7 @@ import './escoSkosChooser.css';
 const getLabel = (entry) => {
   const rdfutils = registry.get('rdfutils');
   let label = rdfutils.getLabel(entry);
-  if (label.match('^[0-9]+$')) {
+  if (label && label.match('^[0-9]+$')) {
     const alt = entry.getMetadata().findFirstValue(entry.getResourceURI(), 'skos:altLabel');
     if (alt) {
       label += ` - ${alt}`;
@@ -290,7 +290,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
       // add terminologies and display all
       this.skosConceptSchemas = [];
       this.__skosConceptSchemaList.style.display = 'block';
-      this.optionEle = DOMUtil.create('option', { value: 'all' }, this.__skosConceptSchemaList);
+      this.optionEle = DOMUtil.create('option', { value: 'all', innerText: this.NLSLocalized.escoSkosChooser.optionAll }, this.__skosConceptSchemaList);
       this.selectedSkosConceptSchemaURI = null; // setting default value to render
       return this.getInSchemeEntries(inskosinSchemeRURIs)
         .then(terminologies => Promise.all(terminologies.forEach((terminology) => {
@@ -310,7 +310,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
     } // default
     this.skosConceptSchemas = [];
     this.__skosConceptSchemaList.style.display = 'block';
-    this.optionEle = DOMUtil.create('option', { value: 'all' }, this.__skosConceptSchemaList);
+    this.optionEle = DOMUtil.create('option', { value: 'all', innerText: this.NLSLocalized.escoSkosChooser.optionAll }, this.__skosConceptSchemaList);
     this.selectedSkosConceptSchemaURI = null;
     return registry.get('entrystore').newSolrQuery().rdfType('skos:ConceptScheme')
       .list()
@@ -347,10 +347,11 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
   },
   localeChange() {
     if (this.binding != null) {
-      this.dialog.titleNode.innerHTML = this.NLSBundles.escoSkosChooser.searchForHeader;
+      this.dialog.titleNode.innerHTML = this.NLSLocalized.escoSkosChooser.searchForHeader;
     }
+
     if (this.optionEle != null) {
-      this.optionEle.innerHTML = this.NLSBundles.escoSkosChooser.optionAll;
+      this.optionEle.innerHTML = this.NLSLocalized.escoSkosChooser.optionAll;
     }
   },
   selectSkosChooser(e) {
