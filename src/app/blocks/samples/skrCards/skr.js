@@ -185,9 +185,12 @@ window.__entryscape_config = {
 
 const btnFilter = document.querySelector('.btn--filter--mobile');
 const filterMobile = document.querySelector('.facets--mobile');
-const btnClose = document.querySelector('.btn--close');
+const btnCloseFilter = document.querySelector('.close--filter');
 const btnAdvancedSearch = document.querySelector('.arrow--down');
 const advancedSearch = document.querySelector('.advanced--group--wrapper');
+const advancedMobile = document.querySelector('.advanced--mobile');
+const btnAdvanced = document.querySelector('.btn--advanced--mobile');
+const btnCloseAdvanced = document.querySelector('.close--advanced');
 
 
 btnAdvancedSearch.onclick = () => {
@@ -198,7 +201,14 @@ btnAdvancedSearch.onclick = () => {
 if (btnFilter) {
   btnFilter.onclick = () => filterMobile.classList.toggle('hidden');
 }
+if (btnAdvanced) {
+  btnAdvanced.onclick = () => advancedMobile.classList.toggle('hidden');
+}
 
-if (btnClose) {
-  btnClose.onclick = () => filterMobile.classList.toggle('hidden');
+if (btnCloseFilter) {
+  btnCloseFilter.onclick = () => filterMobile.classList.toggle('hidden');
+}
+
+if (btnCloseAdvanced) {
+  btnCloseAdvanced.onclick = () => advancedMobile.classList.toggle('hidden');
 }

@@ -318,6 +318,7 @@
 
 .facets--mobile,
 .advanced--mobile {
+  height: 100vh;
   display: block;
   padding: 15px;
   transition: opacity 1s ease;
