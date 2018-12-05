@@ -19,28 +19,32 @@
         <h2 class="heading--title filter--title">Filtrera</h2>
         <span data-entryscape="facets" class="facets"></span>
     </div>
+
     <div class="facets--mobile hidden">
         <button class="btn--close btn--green btn--large" type="button" name="button-close">X</button>
         <span data-entryscape="facets"></span>
     </div>
     <div class="advanced--mobile hidden">
         <button class="btn--close btn--green btn--large" type="button" name="button-close">X</button>
-                       <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter konstnär..."></span>
+                <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter konstnär..."></span>
                 <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter verksamhet..."></span>
                 <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter ort..."></span>
                 <span data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter årtal.."></span>
                 <span data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter decennium..."></span>
     </div>
+    
     <div class="main--2columns grid">
         <div class="header--titles">
                 <h2 class="heading--title">Fritextsök</h2>
-                <h2 class="heading--title">Avancerad sök <btn class="arrow--down"></btn></h2>
+                <h2 class="heading--title title--advanced">Avancerad sök <btn class="arrow--down"></btn></h2>
         </div>
+<div class="freetext--wrapper">
+        <span class= "input--freetext" data-entryscape="simpleSearch" data-entryscape-placeholder="Frisök efter konstverk..."></span>
+</div>
 
-            <span class= "input--freetext" data-entryscape="simpleSearch" data-entryscape-placeholder="Frisök efter konstverk..."></span>
-            <div class="search--group--wrapper">
+            <div class="advanced--group--wrapper">
             <div class="decoration--green"></div>
-            <div class="search--group">
+            <div class="advanced--group">
                 <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter konstnär..."></span>
                 <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter verksamhet..."></span>
                 <span data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter ort..."></span>
@@ -53,7 +57,7 @@
             <div class="btn--wrapper">
                 <button class="btn--search btn--green  btn--xl btn--filter--mobile"  type="button" name="Filter">Filtrera</button>
                 <button class="btn--search btn--green  btn--xl btn--advanced--mobile"  type="button" name="Advanced search">Advancera sök</button>
-                <button class="btn--green btn--xl" type="button" name="reset">
+                <button class="btn--search btn--green btn--xl" type="button" name="reset">
                 <span data-entryscape="clear"></span>
                 <span>Rensa</span></button>
         </div>
