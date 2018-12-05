@@ -38,7 +38,7 @@
     "popper.js": "^1.12.9",
     "pubsub-js": "^1.7.0",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#webpack",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#blocks",
+    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#webpack",
     "selectize": "^0.12.6",
     "sizzle": "^2.3.3",
     "store": "https://bitbucket.org/metasolutions/entrystore.js.git#webpack",
