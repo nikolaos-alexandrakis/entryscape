@@ -13,8 +13,8 @@ try {
 
 (async () => {
 // eslint-disable-next-line no-restricted-syntax
-  for (const projectid of Object.keys(projects)) {
-    const path = projects[projectid];
+  for (const projectid of Object.keys(projects.id2path)) {
+    const path = projects.id2path[projectid];
 
     // Retrieve terms
     const terms = nls.readTerms(false, path, false);
@@ -25,8 +25,9 @@ try {
       const poeAuth = poe(apikey, projectid);
 
       // push terms to poeditor.
+      console.log(`Uploading terms from ${path}`);
       await poeAuth.syncTerms(terms);
-      // push definitions for english to poeditor
+      console.log(`Uploading english translations from ${path}`);
       await poeAuth.uploadDefinitions(definitions, 'en');
     }
   }
