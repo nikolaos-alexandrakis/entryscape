@@ -1672,7 +1672,16 @@
             "en": "ESRI Shapefile (.zip containing .shp)"
           },
           "description": {
-            "en": "ESRI Shapefile developed by ESRI for ArcMap which is a multi-file GIS format that uses DBase files for the attribution and a prf file for the coordinate system. "
+            "en": "ESRI Shapefile developed by ESRI for ArcMap which is a multi-file GIS format that uses DBase files for the attribution and a prf file for the coordinate system."
+          }
+        },
+        {
+          "value": "application/geopackage+vnd.sqlite3",
+          "label": {
+            "en": "GeoPackage (.gpkg)"
+          },
+          "description": {
+            "en": "A GeoPackage (GPKG) is an open, non-proprietary, platform-independent and standards-based data format for geographic information system implemented as a SQLite database container."
           }
         },
         {
