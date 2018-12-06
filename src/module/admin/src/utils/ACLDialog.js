@@ -15,7 +15,7 @@ export default declare([TitleDialog.Content, ListDialogMixin, _WidgetsInTemplate
   nlsFooterButtonLabel: 'updateContextACLButton',
 
   postCreate() {
-    this.inherited(arguments);
+    this.inherited('postCreate', arguments);
     this.acl = new ACL({}, this.acl);
     this.acl.onChange = () => this.dialog.unlockFooterButton();
   },
