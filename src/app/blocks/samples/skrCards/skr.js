@@ -145,6 +145,7 @@ window.__entryscape_config = {
       block: 'skrList',
       extends: 'searchList',
       rdftype: 'https://opendata.statenskonstrad.se/terms/WorkOfArt',
+      define: 'mainList',
       context: '9',
       facets: true,
       headless: true,

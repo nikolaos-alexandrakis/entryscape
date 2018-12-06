@@ -15,6 +15,7 @@ import renderList from 'blocks/list/renderList';
 import renderEntryLink from 'blocks/text/renderEntryLink';
 import renderEntryText from 'blocks/text/renderEntryText';
 import renderTemplate from 'blocks/text/renderTemplate';
+import renderResults from 'blocks/text/renderResults';
 import renderCollectionText from 'blocks/text/renderCollectionText';
 import renderImage from 'blocks/image/renderImage';
 import renderSlider from 'blocks/image/renderSlider';
@@ -44,6 +45,7 @@ const block2function = {
   searchList: renderSearchList,
   searchFilter: renderSearchFilter,
   clear: renderClear,
+  results: renderResults,
   collectionText: renderCollectionText,
   map: renderMap,
   chart: renderChart,

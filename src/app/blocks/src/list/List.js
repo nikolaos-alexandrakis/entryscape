@@ -188,15 +188,19 @@ export default declare([List, NLSMixin.Dijit], {
     }
   },
   renderListHead() {
+    const view = this.getView();
+    const results = {
+      resultsize: view.getResultSize(),
+      currentpage: view.getCurrentPage(),
+      pagecount: view.getPageCount(),
+    };
+    if (this.conf.define) {
+      registry.set(this.conf.define, results);      
+    }
     if (this.conf.templates && this.conf.templates.listhead) {
-      const view = this.getView();
       handlebars.run(
         this.listHeadNode,
-        Object.assign({
-          resultsize: view.getResultSize(),
-          currentpage: view.getCurrentPage(),
-          pagecount: view.getPageCount(),
-        }, this.conf),
+        Object.assign(results, this.conf),
         this.conf.templates.listhead, this.entry);
     }
   },

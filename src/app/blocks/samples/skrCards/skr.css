@@ -11,7 +11,7 @@
 }
 
 .sidebar,
-.title--advanced {
+.header--titles {
   display: none;
 }
 
@@ -38,15 +38,8 @@
   max-width: 826px;
 }
 
-.header--titles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 10px;
-  margin-left: 15px;
-}
-
 .heading--title {
+  display: flex;
   font-weight: bold;
 }
 
@@ -269,12 +262,16 @@
 .arrow--down::before {
   font-family: 'FontAwesome';
   content: '\f107';
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .arrow--up::before {
   font-family: 'FontAwesome';
   content: '\f106';
   color: #33ed73;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .entryscape .pagination>.active>a {
@@ -318,7 +315,6 @@
 
 .facets--mobile,
 .advanced--mobile {
-  height: 100vh;
   display: block;
   padding: 15px;
   transition: opacity 1s ease;
@@ -335,6 +331,10 @@
 .facets--mobile .block_facet h3 {
   border-bottom: 2px solid white !important;
   border-width: 150px;
+}
+.advanced--mobile{
+  height: 100vh;
+
 }
 .advanced--mobile .selectize-input{
   margin-left:0;
@@ -526,9 +526,16 @@
     width: 100%;
   }
 
-  .sidebar,
-  .title--advanced {
+  .sidebar{
     display: block;
+  }
+  
+  .header--titles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    margin-left: 15px;
   }
 
   .skr_container {

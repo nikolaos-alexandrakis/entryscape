@@ -153,6 +153,13 @@ const filterObj = {
     });
     return obj;
   },
+  isEmpty() {
+    let vals = registry.get('blocks_search_filter');
+    if (vals && Object.keys(vals).length > 0) {
+      return false;
+    }
+    return true;
+  },
   has(collectionname, value) {
     let vals = (registry.get('blocks_search_filter') || {})[collectionname];
     if (vals) {
