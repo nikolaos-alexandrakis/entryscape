@@ -24,8 +24,6 @@ import renderGraph from 'blocks/graphics/renderGraph';
 import preload from './preload';
 import error from './error';
 
-// import  "commons/rdforms/linkBehaviourDialog";
-
 const Block = {};
 
 const block2function = {

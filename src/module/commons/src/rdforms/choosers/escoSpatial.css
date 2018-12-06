@@ -72,6 +72,7 @@ input.escoPosition__value {
 
 .escoMap .leaflet-marker-icon {
     width: 25px;
+    width: 33px;
 }
 
 .escoRDForms .form-group.selectizeException {

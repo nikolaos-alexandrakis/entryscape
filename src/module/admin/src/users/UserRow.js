@@ -83,7 +83,7 @@ export default declare([EntryRow], {
           }
           return false; // Not solely owned or homecontext.
         })) {
-          soleUserMsg = tempalte(bundle.warningSoleOwner)({ name });
+          soleUserMsg = template(bundle.warningSoleOwner)({ name });
         }
       })
       .then(() => {

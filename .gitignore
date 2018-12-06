@@ -9,3 +9,4 @@ dist
 yalc.lock
 *.vim
 /src/scripts/nls/apikey.js
+theme

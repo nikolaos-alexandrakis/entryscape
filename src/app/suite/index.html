@@ -89,7 +89,8 @@
       /**
        * load the right css/js for the given config/queryParams
        */
-      js(`${path}${useLocalBuild ? '' : app}${version ? '/' : ''}${version}/app.js`);
+      const appPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/app.js';
+      js(appPath);
     </script>
 </head>
 <body class="nav-md">

@@ -1,6 +1,7 @@
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import EntryType from 'commons/create/EntryType';
+import m from 'mithril';
 import config from 'config';
 import { promiseUtil } from 'store';
 import { converters, Graph, utils } from 'rdfjson';
@@ -294,12 +295,12 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
     const dataPromise = fileUpload ? this.fileUpload() : this.linkUpload();
     return dataPromise
-      .then(this.analyseData)
-      .then(this.importData)
+      .then(this.analyseData.bind(this))
+      .then(this.importData.bind(this))
       .then((params) => {
         this.showFooterResult();
         return params;
-      }).then(this.addTerminologyToList);
+      }).then(this.addTerminologyToList.bind(this));
   },
   /**
    * @return {Promise} the data in the file

@@ -499,7 +499,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   _renderRow(entry, newRow) {
     let node;
     if (newRow === true) {
-      node = DOMUtil.create('div', null, this.tableHeading);
+      node = DOMUtil.create('div', null, this.rowListNode, true);
     } else {
       node = DOMUtil.create('div', null, this.rowListNode);
     }

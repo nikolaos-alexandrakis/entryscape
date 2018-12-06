@@ -5473,6 +5473,10 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lightbox2@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/lightbox2/-/lightbox2-2.10.0.tgz#06b3f7b7bd7c1332c20d037602d9657542fd7de4"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npmjs.org/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -7450,23 +7454,16 @@ rc@^1.1.2, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"rdfjson@git+https://bitbucket.org/metasolutions/rdfjson.git#webpack":
-  version "2.0.0"
-  resolved "git+https://bitbucket.org/metasolutions/rdfjson.git#009f775aa61a70d3a0f61b2626b8d596ff60fa38"
-  dependencies:
-    md5 "^2.2.1"
-    xmldom "~0.1.19"
-
 "rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#webpack":
   version "2.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdfjson.git#3b37359f94a7639124584550c979dcf86ce6b0f8"
+  resolved "https://bitbucket.org/metasolutions/rdfjson.git#416fa694a4aa24ba891d60728d633a98f7435efb"
   dependencies:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#0ac130e62f3960e6eb7787d55b1b1823d0cb1d2c"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#ce99281f3c4bb87e762c9c9d29abde07f90db062"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7492,6 +7489,7 @@ rc@^1.1.2, rc@^1.2.7:
     select2 "^4.0.6-rc.1"
     selectize "^0.12.6"
     sizzle "^2.3.3"
+    whatwg-fetch "^3.0.0"
 
 read-all-stream@^3.0.0:
   version "3.1.0"
@@ -8098,6 +8096,10 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
+slick-carousel@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -8323,12 +8325,12 @@ storage2@^0.1.0:
 
 "store@https://bitbucket.org/metasolutions/entrystore.js.git#webpack":
   version "4.6.0-WEBPACK"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#2b4481462b32ca8bd773651a3889d5d63ff0f888"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#edcabef0b9117cfdafab522561734f5e44279707"
   dependencies:
     blueimp-md5 "^2.10.0"
     lodash "^4.17.10"
     moment "^2.22.1"
-    rdfjson "git+https://bitbucket.org/metasolutions/rdfjson.git#webpack"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#webpack"
     superagent "^3.8.3"
     superagent-jsonp "^0.2.1"
 
@@ -9348,6 +9350,10 @@ websocket-driver@>=0.5.1:
 websocket-extensions@>=0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
+
+whatwg-fetch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.0.0.tgz#fc804e458cc460009b1a2b966bc8817d2578aefb"
 
 whet.extend@~0.9.9:
   version "0.9.9"

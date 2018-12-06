@@ -1,11 +1,10 @@
 import registry from 'commons/registry';
+import declare from 'dojo/_base/declare';
 import { Graph } from 'rdfjson';
 import CreatePipelineDialog from './CreatePipelineDialog';
 import recipes from './util/recipes';
 
-define([
-  'dojo/_base/declare',
-], declare => declare([CreatePipelineDialog], {
+export default declare([CreatePipelineDialog], {
   nlsHeaderTitle: 'ePHeader',
   nlsFooterButtonLabel: 'epEdit',
   id: 'edit',
@@ -191,4 +190,4 @@ define([
     const view = this.list.getView();
     view.action_refresh();
   },
-}));
+});
