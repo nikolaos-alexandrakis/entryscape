@@ -17,8 +17,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   postCreate() {
     this.inherited('postCreate', arguments);
     this.aclList = new ACLList({ nlsTypeaheadPlaceholderKey: 'searchPrincipals' }, this.aclListNode);
-    // this.aclList.onChange = lang.hitch(this, 'onChange');
-    this.aclList.onChange = this.onChange.bind(this);
+    this.aclList.onChange = () => this.onChange();
     this.contextAclList = new ACLList({
       nlsTypeaheadPlaceholderKey: 'searchPrincipals',
       readOnly: true,

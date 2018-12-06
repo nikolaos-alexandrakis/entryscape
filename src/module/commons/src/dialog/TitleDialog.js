@@ -210,7 +210,6 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
    */
   localeChange() {
     if (this.title === '') {
-      // const bundle0 = this.getNLSBundleAt(0);
       const bundle0 = this.NLSBundle0;
       this.dialog.updateLocaleStrings(bundle0); //
     } else {
