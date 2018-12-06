@@ -60,16 +60,21 @@ export default declare([EntryRow], {
     }
   },
   /* end */
+  /**
+   * Clear previous icons in this.statusIcon.classList
+   * TODO we assume we are using fontawesome
+   * @param icon
+   */
   setDropdownStatusIcon(icon) {
-    // statusIcon
-    const oldClass = this.statusIcon.classList[0];
-    if (oldClass) {
-      this.statusIcon.classList.remove(oldClass);
-    }
+    // remove old icons
+    const fontAwesomeFilter = cls => cls === 'fa' || cls.startsWith('fa-');
+    const toRemoveIconClasses = Array.from(this.statusIcon.classList).filter(fontAwesomeFilter);
+    toRemoveIconClasses.forEach(cls => this.statusIcon.classList.remove(cls));
+
+    // add new ones
     DOMUtil.addClass(this.statusIcon, icon);
   },
   setDropdownStatusTitle(title) {
-    // statusIcon
     this.dropdownRowMenu.setAttribute('title', title);
   },
   /**
