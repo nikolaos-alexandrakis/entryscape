@@ -8,3 +8,4 @@ dist
 .yalc/
 yalc.lock
 *.vim
+/src/scripts/nls/apikey.js

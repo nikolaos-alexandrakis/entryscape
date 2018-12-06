@@ -9,14 +9,15 @@ try {
 } catch (e) {
   console.log('You have to provide an API-key from POEditor and put it in the apikey.js file,' +
     ' see how it is done in apikey.js_example');
+  process.exit(1);
 }
 
 (async () => {
 // eslint-disable-next-line no-restricted-syntax
-  for (const projectid of Object.keys(projects)) {
-    const path = projects[projectid];
+  for (const projectid of Object.keys(projects.id2path)) {
+    const path = projects.id2path[projectid];
     console.log(`Downloading for project in path: ${path}:`);
-    const langs = ['en', 'sv'];
+    const langs = projects.languages;
     const terms = [];
     if (apikey) {
       const poeAuth = poe(apikey, projectid);

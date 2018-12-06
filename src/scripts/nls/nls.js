@@ -19,7 +19,7 @@ const findFiles = (path) => {
   return arr;
 };
 
-const readTerms = async (isRoot, path, includeDefs) => {
+const readTerms = (isRoot, path, includeDefs) => {
   const nlsFiles = findFiles(path);
   log(`Found ${nlsFiles.length} nls files`);
   const res = [];
@@ -32,7 +32,7 @@ const readTerms = async (isRoot, path, includeDefs) => {
     const root = isRoot ? obj : obj.root;
     Object.keys(root).forEach((term) => {
       const definition = root[term];
-      log(`    ${term}: ${definition}`);
+//      log(`    ${term}: ${definition}`);
       if (includeDefs) {
         res.push({ term, context, definition });
       } else {
@@ -100,7 +100,8 @@ const writeLang = (path, lang, terms, contexts) => {
   }
 };
 
-const writeTranslations = (langs, terms, dest) => {
+const writeTranslations = (_langs, terms, dest) => {
+  const langs = _langs.slice(0);
   const enIdx = langs.indexOf('en');
   const enTerms = terms[enIdx];
   terms.splice(enIdx, 1);

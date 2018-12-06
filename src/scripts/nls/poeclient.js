@@ -31,7 +31,8 @@ module.exports = (apiToken, projectId) => {
           if (error) {
             reject(new Error(error));
           } else {
-            resolve(JSON.parse(body));
+//            console.log('Content:'+body);
+            resolve(JSON.parse(body || {}));
           }
         });
       } else {
