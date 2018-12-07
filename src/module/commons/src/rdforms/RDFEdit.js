@@ -148,15 +148,16 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     if (this.rdfxmlValue.length <= 100000) {
       return converters.rdfxml2graph(this.getValueFromNode(this._rdfxml));
     }
-    // TODO better way to handle this?
-    return new Graph();
+    return this.origGraph || new Graph();
   },
   setRDFXML(graph) {
     this.rdfxmlValue = converters.rdfjson2rdfxml(graph);
     if (this.rdfxmlValue.length > 100000) {
+      this._rdfxml.setAttribute('readonly', true);
       this.setValueToNode(this._rdfxml,
         `${this.rdfxmlValue.substring(0, 100000)}\n    ----- \n RDF to large, truncating it. \n   ------`);
     } else {
+      this._rdfxml.removeAttribute('readonly');
       this.setValueToNode(this._rdfxml, this.rdfxmlValue);
     }
   },
@@ -171,15 +172,16 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       const rdfStr = this.getValueFromNode(this._rdfjson);
       return new Graph(JSON.parse(rdfStr == null || rdfStr === '' ? '{}' : rdfStr));
     }
-    // TODO better way to handle this?
-    return new Graph();
+    return this.origGraph || new Graph();
   },
   setRDFJSON(graph) {
     this.rdfjsonValue = JSON.stringify(graph.exportRDFJSON(), 0, 2);
     if (this.rdfjsonValue.length > 100000) {
+      this._rdfjson.setAttribute('readonly', true);
       this.setValueToNode(this._rdfjson,
         `${this.rdfjsonValue.substring(0, 100000)}\n    ----- \n RDF to large, truncating it. \n   ------`);
     } else {
+      this._rdfjson.removeAttribute('readonly');
       this.setValueToNode(this._rdfjson, this.rdfjsonValue);
     }
   },
