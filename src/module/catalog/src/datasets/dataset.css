@@ -98,14 +98,19 @@ margin-right:2.5px !important;
     top: -2px;
     right: -21px;
 }
-
-.datasets .distributionFormat {
+ .datasets .distributionFormat {
     font-size: x-small;
-    color: #808080;
-    padding-left: 13px;
+    color: #333;
     margin-top: -2px;
     display: none;
-}
+ }
+
+ .datasets .distributionUrl{
+    font-size: x-small;
+    color: #333;
+    padding-left: 13px;
+ }
+
 
 .datasets .distributionTitle.withFormat {
     padding-top: 4px;
