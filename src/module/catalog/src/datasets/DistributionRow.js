@@ -542,7 +542,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     if (isFormatSame) {
       this.warningNode.style.display = 'block';
     } else {
-      this.warningNode.display = 'none';
+      this.warningNode.style.display = 'none';
     }
   },
 });
