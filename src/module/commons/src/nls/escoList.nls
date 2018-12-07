@@ -7,7 +7,7 @@
       "editEntry":"Edit",
       "editHeader":"Edit",
       "infoEntry":"Detailed information",
-      "invalidSearchMessage":"Invalid characters in search string, the following characters are not allowed: \", , ~, #, ( and ).",
+      "invalidSearchMessage":"Invalid characters in search string, the following characters are not allowed: \" , ~ # ( )",
       "listHeader":"List of entities",
       "listNextPage":"Next page",
       "listPreviousPage":"Previous page",

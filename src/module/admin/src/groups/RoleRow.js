@@ -12,7 +12,7 @@ export default declare([DropdownRow], {
       iconType: 'fa',
       nlsKey: 'manager',
       nlsKeyTitle: 'managerTitle',
-      method: 'manager',
+      method: this.manager.bind(this),
     });
     this.registerDropdownItem({
       name: 'member',
@@ -20,7 +20,7 @@ export default declare([DropdownRow], {
       iconType: 'fa',
       nlsKey: 'member',
       nlsKeyTitle: 'memberTitle',
-      method: 'member',
+      method: this.member.bind(this),
     });
     const grpEntry = this.list.entry;
     const grpEntryInfo = grpEntry.getEntryInfo();
@@ -41,13 +41,11 @@ export default declare([DropdownRow], {
     this.inherited('postCreate', arguments);
     if (this.isManager) {
       this.setDropdownStatus('manager');
-      // this.setDropdownStatusIcon("fa fa-shield");
       if (this.logged && !registry.get('hasAdminRights')) {
         this.disableDropdown();
       }
     } else {
       this.setDropdownStatus('member');
-      // this.setDropdownStatusIcon("fa fa-user");
     }
   },
   /**

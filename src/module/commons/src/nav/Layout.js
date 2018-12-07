@@ -264,7 +264,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     if (this._firstLoad === true) {
       this._firstLoad = false;
       // TODO @scazan figure out 'has'
-      if (!(has('chrome') >= 32 || has('ff') > 26 || has('ie') >= 11
+      if (!(has('chrome') >= 57 || has('ff') > 60 || has('ie') >= 11
         || has('trident') || has('edge') || has('safari') >= 8)) {
         registry.get('dialogs')
           .acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);

@@ -34,5 +34,6 @@
   "signUpFromBanner": "Konto erstellen",
   "settingsHelp": "Hilfe",
   "signOutLabel": "Abmelden",
-  "settingsLabel": "Einstellungen"
+  "settingsLabel": "Einstellungen",
+  "goHomeLink": "Zur Standardansicht"
 }

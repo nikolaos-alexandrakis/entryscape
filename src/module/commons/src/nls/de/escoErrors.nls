@@ -1,5 +1,5 @@
 {
-  "notConnected": "Die Aktion konnte nicht durchgeführt werden, da Sie nicht verbunden sind. Verbindungsversuch in ${time}...",
+  "notConnected": "Die Aktion konnte nicht durchgeführt werden, da Sie nicht verbunden sind. Erneuter Verbindungsversuch in ${time}...",
   "tryNow": "Jetzt versuchen",
   "loading": "Daten werden geladen...",
   "genericProblem": "Ein Fehler ist aufgetreten. Versuchen Sie EntryScape neu zu laden, falls der Fehler weiter besteht.",
