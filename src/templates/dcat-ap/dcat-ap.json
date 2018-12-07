@@ -226,7 +226,7 @@
           "cardinality": {"min": 1}
         },
         {
-          "cardinality": {"min": 0, "prev": 1},
+          "cardinality": {"min": 0, "pref": 1},
           "extends": "dcat:dcterms:description"
         }
       ]

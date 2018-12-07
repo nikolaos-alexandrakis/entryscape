@@ -2781,9 +2781,9 @@
       "label": {
         "en": "Theme taxonomy",
         "nb": "Tema",
-        "sv": "Tema för tema",
+        "sv": "Taxonomi för tema",
         "da": "Tema",
-        "de": "Theme der Thematik"
+        "de": "Taxonomie der Thematik"
       },
       "description": {
         "en": "This property refers to a knowledge organization system used to classify the Catalogue's Datasets.",

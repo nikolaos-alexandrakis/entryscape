@@ -26282,8 +26282,8 @@
    "description": {
     "en": "Reserved for DBpedia."
    },
-   "type": "choice",
-   "nodetype": "RESOURCE",
+   "type": "text",
+   "nodetype": "URI",
    "styles": [
     "image"
    ],
@@ -33898,8 +33898,20 @@
    "cardinality": {
     "pref": 1
    }
-  }
+  },
+   {
+     "id": "dbpo:works",
+     "property": "http://dbpedia.org/property/works",
+     "label": {
+       "en": "Works",
+     },
+     "type": "choice",
+     "nodetype": "RESOURCE",
+     "cardinality": {
+       "pref": 3
+     }
+    },
  ],
- "scope": "dbpo",
+ "scope": "dbpedia",
  "namespace": "http://dbpedia.org/ontology/"
 }

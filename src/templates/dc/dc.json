@@ -204,6 +204,6 @@
       ]
     }
   ],
-  "scope": "dc",
+  "scope": "dublin core",
   "namespace": "http://purl.org/dc/elements/1.1/"
 }

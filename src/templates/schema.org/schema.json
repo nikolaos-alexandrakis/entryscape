@@ -154,6 +154,24 @@
       }
     },
     {
+      "id": "schema:contentUrl",
+      "property": "http://schema.org/contentUrl",
+      "label": {
+        "en": "URL",
+        "sv": "URL"
+      },
+      "description": {
+        "en": "Actual bytes of the media object, for example the image file or video file",
+        "sv": "Medieobjektets innehåll, t.ex. bild- eller videofilen"
+      },
+      "type": "text",
+      "nodetype": "URI",
+      "cardinality": {
+        "min": 0,
+        "pref": 1
+      }
+    },
+    {
       "id": "schema:contentURL",
       "property": "http://schema.org/contentURL",
       "label": {

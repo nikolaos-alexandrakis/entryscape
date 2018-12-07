@@ -66,11 +66,7 @@
         "en": "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties."
       },
       "type": "text",
-      "nodetype": "LANGUAGE_LITERAL",
-      "cardinality": {
-        "min": 0,
-        "pref": 1
-      }
+      "nodetype": "LANGUAGE_LITERAL"
     },
     {
       "id": "skos:altLabel",
@@ -133,11 +129,7 @@
       "nodetype": "LANGUAGE_LITERAL",
       "styles": [
         "multiline"
-      ],
-      "cardinality": {
-        "min": 0,
-        "pref": 1
-      }
+      ]
     },
     {
       "id": "skos:changeNote",
@@ -165,7 +157,10 @@
       "nodetype": "LANGUAGE_LITERAL",
       "styles": [
         "multiline"
-      ]
+      ],
+      "cardinality": {
+        "pref": 1
+      }
     },
     {
       "id": "skos:editorialNote",
@@ -193,7 +188,10 @@
       "nodetype": "LANGUAGE_LITERAL",
       "styles": [
         "multiline"
-      ]
+      ],
+      "cardinality": {
+        "pref": 1
+      }
     },
     {
       "id": "skos:historyNote",
@@ -209,7 +207,6 @@
         "multiline"
       ],
       "cardinality": {
-        "min": 0,
         "pref": 1
       }
     },
@@ -403,11 +400,7 @@
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/2004/02/skos/core#Concept"
       },
       "type": "choice",
-      "nodetype": "RESOURCE",
-      "cardinality": {
-        "min": 0,
-        "pref": 1
-      }
+      "nodetype": "RESOURCE"
     },
     {
       "id": "skos:relatedMatch",
@@ -665,7 +658,8 @@
       },
       "items": [
         {
-          "id": "skos:prefLabel"
+          "extends": "skos:prefLabel",
+          "cardinality": {"min": 1}
         },
         {
           "id": "skos:altLabel"
@@ -719,13 +713,10 @@
       },
       "items": [
         {
-          "id": "skos:changeNote"
-        },
-        {
           "id": "skos:definition"
         },
         {
-          "id": "skos:editorialNote"
+          "id": "skos:scopeNote"
         },
         {
           "id": "skos:example"
@@ -734,10 +725,13 @@
           "id": "skos:historyNote"
         },
         {
-          "id": "skos:note"
+          "id": "skos:editorialNote"
         },
         {
-          "id": "skos:scopeNote"
+          "id": "skos:changeNote"
+        },
+        {
+          "id": "skos:note"
         }
       ],
       "styles": [
@@ -756,19 +750,19 @@
       "description": {},
       "items": [
         {
-          "id": "skos:broadMatch"
+          "id": "skos:exactMatch"
         },
         {
           "id": "skos:closeMatch"
         },
         {
-          "id": "skos:exactMatch"
+          "id": "skos:relatedMatch"
+        },
+        {
+          "id": "skos:broadMatch"
         },
         {
           "id": "skos:narrowMatch"
-        },
-        {
-          "id": "skos:relatedMatch"
         }
       ],
       "styles": [

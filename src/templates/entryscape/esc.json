@@ -21,7 +21,7 @@
         },
         {
           "type": "text",
-          "nodetype": "LITERAL",
+          "nodetype": "URI",
           "extends": "foaf:homepage",
           "cardinality": {
             "min": 0,
@@ -92,13 +92,36 @@
             "min": 0,
             "pref": 1
           }
+        },
+        {
+          "type": "text",
+          "extends": "dcterms:identifier",
+          "cardinality": {
+            "min": 0,
+            "pref": 0
+          }
         }
       ]
     },
     {
       "type": "group",
+      "nodetype": "RESOURCE",
       "id": "esc:DatasetCandidate",
-      "extends": "esc:Context"
+      "items": [
+        {
+          "extends": "dcterms:title",
+          "cardinality": {
+            "min": 1
+          }
+        },
+        {
+          "extends": "dcterms:description",
+          "cardinality": {
+            "min": 0,
+            "pref": 1
+          }
+        }
+      ]
     },
     {
       "type": "group",
@@ -143,8 +166,8 @@
         "de": "Datensatz"
       },
       "description": {
-        "en": "This dataset was used to produce the idea.",
-        "de": "Dieser Datensatz wurde verwendet um die Idee zu produzieren."
+        "en": "This dataset was used to produce the showcase.",
+        "de": "Dieser Datensatz wurde verwendet um den Showcase zu produzieren."
       },
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/ns/dcat#Dataset"
@@ -165,7 +188,8 @@
         "pref": 0
       },
       "description": {
-        "en": "This property contains a name given to the result. This property can be repeated for parallel language versions of the name."
+        "en": "This property contains a name given to the showcase. This property can be repeated for parallel language versions of the name.",
+        "de": "Diese Eigenschaft enthält den Namen des Showcases. Diese Eigenschaft kann für parallele Sprachversionen des Namens wiederholt werden."
       },
       "nodetype": "LANGUAGE_LITERAL",
       "label": {
@@ -187,8 +211,8 @@
         "pref": 0
       },
       "description": {
-        "en": "This property contains a name given to the showcase. This property can be repeated for parallel language versions of the name.",
-        "de": "Diese Eigenschaft enthält den Namen des Showcases. Diese Eigenschaft kann für parallele Sprachversionen des Namens wiederholt werden."
+        "en": "This property contains a free-text description of the showcase. This property can be repeated for parallel language versions of the description.",
+        "de": "Diese Eigenschaft enthält eine Freitextbeschreibung des Showcases. Diese Eigenschaft kann für parallele Sprachversionen der Beschreibung wiederholt werden."
       },
       "label": {
         "no": "Beskrivelse",
@@ -328,7 +352,8 @@
       "id": "skosmos:relations",
       "items": [
         {
-          "id": "skos:related"
+          "extends": "skos:related",
+          "cardinality": {"pref": 1}
         },
         {
           "type": "choice",
@@ -399,14 +424,15 @@
       },
       "items": [
         {
-          "id": "dcterms:title"
+          "extends": "dcterms:title",
+          "cardinality": {"min": 1}
         },
         {
-          "id": "dcterms:description"
+          "extends": "dcterms:description",
+          "cardinality": {"pref": 1}
         }
       ]
     },
-
     {
       "type": "group",
       "id": "esc:Ideas",
@@ -450,7 +476,8 @@
         "de": "Datensatz"
       },
       "description": {
-        "en": "This dataset was used to produce the idea."
+        "en": "This dataset was used to produce the idea.",
+        "de": "Dieser Datensatz wurde verwendet um die Idee zu produzieren."
       },
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/ns/dcat#Dataset"
@@ -494,8 +521,8 @@
         "pref": 0
       },
       "description": {
-        "en": "This property contains a free-text description of the showcase. This property can be repeated for parallel language versions of the description.",
-        "de": "Diese Eigenschaft enthält eine Freitextbeschreibung des Showcases. Diese Eigenschaft kann für parallele Sprachversionen der Beschreibung wiederholt werden."
+        "en": "This property contains a free-text description of the idea. This property can be repeated for parallel language versions of the description.",
+        "de": "Diese Eigenschaft enthält eine Freitextbeschreibung der Idee. Diese Eigenschaft kann für parallele Sprachversionen der Beschreibung wiederholt werden."
       },
       "label": {
         "no": "Beskrivelse",
