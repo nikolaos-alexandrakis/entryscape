@@ -129,7 +129,7 @@ export default declare([EntryRow], {
     if (param.disabled) {
       li.classList.add('disabled');
     }
-    li.classList.add('disabled');
+    li.classList.add('disabled'); // TODO this is weird.. we just added when needed(?) above
   },
   updateLocaleStrings(generic, specific) {
     this.inherited('updateLocaleStrings', arguments);
