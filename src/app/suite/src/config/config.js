@@ -73,35 +73,35 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       'esc',
     ],
     languages: [
-      {value: '', label: {en: ''}},
-      {value: 'bg', label: {en: 'Bulgarian', bg: 'български', sv: 'Bulgariska', de: 'Bulgarisch'}},
-      {value: 'es', label: {en: 'Spanish', es: 'Español'}},
-      {value: 'cs', label: {en: 'Czech', cs: 'čeština'}},
-      {value: 'da', label: {en: 'Danish', da: 'Dansk'}},
-      {value: 'no', label: {en: 'Norwegian', no: 'Norsk', nb: 'Norsk', nn: 'Norsk nynorsk'}},
-      {value: 'nb', label: {en: 'Norwegian (bokmål)', nb: 'Norsk bokmål', no: 'Norsk bokmål', nn: 'Norsk bokmål'}},
-      {value: 'nn', label: {en: 'Norwegian (nynorsk)', nb: 'Norsk nynorsk', no: 'Norsk nynorsk', nn: 'Norsk nynorsk'}},
-      {value: 'de', label: {en: 'German', de: 'Deutsch'}},
-      {value: 'et', label: {en: 'Estonian', et: 'Eesti keel'}},
-      {value: 'el', label: {en: 'Greek', el: 'ελληνικά'}},
-      {value: 'en', label: {en: 'English'}},
-      {value: 'fr', label: {en: 'French', fr: 'Français'}},
-      {value: 'ga', label: {en: 'Irish', ga: 'Gaeilge'}},
-      {value: 'hr', label: {en: 'Croatian', hr: 'Hrvatski'}},
-      {value: 'it', label: {en: 'Italian', it: 'Italiano'}},
-      {value: 'lv', label: {en: 'Latvian', lv: 'Latviešu valoda'}},
-      {value: 'lt', label: {en: 'Lithuanian', lt: 'Lietuvių kalba'}},
-      {value: 'hu', label: {en: 'Hungarian', hu: 'Magyar'}},
-      {value: 'mt', label: {en: 'Maltese', mt: 'Malti'}},
-      {value: 'nl', label: {en: 'Dutch', nl: 'Nederlands'}},
-      {value: 'pl', label: {en: 'Polish', pl: 'Polski'}},
-      {value: 'pt', label: {en: 'Portuguese', pt: 'Português'}},
-      {value: 'ro', label: {en: 'Romanian', ro: 'Română'}},
-      {value: 'sk', label: {en: 'Slovak', sk: 'Slovenčina'}},
-      {value: 'sl', label: {en: 'Slovenian', sl: 'Slovenščina'}},
-      {value: 'fi', label: {en: 'Finnish', fi: 'Suomi'}},
-      {value: 'sv', label: {en: 'Swedish', sv: 'Svenska'}},
-    ]
+      { value: '', label: { en: '' } },
+      { value: 'bg', label: { en: 'Bulgarian', bg: 'български', sv: 'bulgariska', de: 'Bulgarisch' } },
+      { value: 'cs', label: { en: 'Czech', cs: 'čeština', sv: 'tjeckiska', de: 'Tschechisch' } },
+      { value: 'da', label: { en: 'Danish', da: 'dansk', sv: 'danska', de: 'Dänisch' } },
+      { value: 'de', label: { en: 'German', de: 'Deutsch', sv: 'tyska' } },
+      { value: 'el', label: { en: 'Greek', el: 'ελληνικά', sv: 'grekiska', de: 'Griechisch' } },
+      { value: 'en', label: { en: 'English', sv: 'engelska', de: 'Englisch' } },
+      { value: 'es', label: { en: 'Spanish', es: 'Español', sv: 'spanska', de: 'Spanisch' } },
+      { value: 'et', label: { en: 'Estonian', et: 'Eesti keel', sv: 'estniska', de: 'Estnisch' } },
+      { value: 'fi', label: { en: 'Finnish', fi: 'Suomi', sv: 'finska', de: 'Finnisch' } },
+      { value: 'fr', label: { en: 'French', fr: 'Français', sv: 'franska', de: 'Französisch' } },
+      { value: 'ga', label: { en: 'Irish', ga: 'Gaeilge', sv: 'iriska', de: 'Irisch' } },
+      { value: 'hr', label: { en: 'Croatian', hr: 'Hrvatski', sv: 'kroatiska', de: 'Kroatisch' } },
+      { value: 'hu', label: { en: 'Hungarian', hu: 'Magyar', sv: 'ungerska', de: 'Ungarisch' } },
+      { value: 'it', label: { en: 'Italian', it: 'Italiano', sv: 'italienska', de: 'Italienisch' } },
+      { value: 'lt', label: { en: 'Lithuanian', lt: 'Lietuvių kalba', sv: 'litauiska', de: 'Litauisch' } },
+      { value: 'lv', label: { en: 'Latvian', lv: 'Latviešu valoda', sv: 'lettiska', de: 'Lettisch' } },
+      { value: 'mt', label: { en: 'Maltese', mt: 'Malti', sv: 'maltesiska', de: 'Maltesisch' } },
+      { value: 'nb', label: { en: 'Norwegian (bokmål)', nb: 'norsk bokmål', no: 'norsk bokmål', nn: 'norsk bokmål', sv: 'norska (bokmål)', de: 'Norwegisch (Buchsprache)' } },
+      { value: 'nl', label: { en: 'Dutch', nl: 'Nederlands', sv: 'nederländska', de: 'Niederländisch' } },
+      { value: 'nn', label: { en: 'Norwegian (nynorsk)', nb: 'norsk nynorsk', no: 'norsk nynorsk', nn: 'norsk nynorsk', sv: 'norska (nynorska)', de: 'Norwegisch (Neu)' } },
+      { value: 'pl', label: { en: 'Polish', pl: 'Polski', sv: 'polska', de: 'Polnisch' } },
+      { value: 'pt', label: { en: 'Portuguese', pt: 'Português', sv: 'portugisiska', de: 'Portugiesisch' } },
+      { value: 'ro', label: { en: 'Romanian', ro: 'Română', sv: 'rumänska', de: 'Rumänisch' } },
+      { value: 'no', label: { en: 'Norwegian', no: 'norsk', nb: 'norsk', nn: 'norsk nynorsk', sv: 'norska', de: 'Norwegisch' } },
+      { value: 'sk', label: { en: 'Slovak', sk: 'Slovenčina', sv: 'slovakiska', de: 'Slowakisch' } },
+      { value: 'sl', label: { en: 'Slovenian', sl: 'Slovenščina', sv: 'slovenska', de: 'Slowenisch' } },
+      { value: 'sv', label: { en: 'Swedish', sv: 'svenska', de: 'Schwedisch' } },
+    ],
   },
 }, __entryscape_config, window.__entryscape_config_dev || {});
 
@@ -117,8 +117,7 @@ for (let i = 0; i < config.locale.supported.length; i++) {
 
 if (bestlang) {
   i18n.setLocale(bestlang);
-}
-else {
+} else {
   i18n.setLocale(config.locale.fallback);
 }
 

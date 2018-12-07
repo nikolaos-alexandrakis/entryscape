@@ -24,8 +24,9 @@
   "typeaheadPlaceholder": "Sök efter entiteter för att lägga till listan",
   "versionsLabel": "Versioner",
   "versionsTitle": "Versionshistorik",
-  "invalidSearchMessage": "Ogiltiga tecken i söksträngen, följande tecken är inte tillåtna: \", +, ~, #, ( och ).",
+  "invalidSearchMessage": "Ogiltiga tecken i söksträngen, följande tecken är inte tillåtna: \" , ~ # ( )",
   "listResultSizeText": "{{PLURAL:$1|1 träff|$1 träffar}}",
   "selectAllLabel": "Välj alla",
-  "removeAllEntries": "Ska alla poster tas bort?"
+  "removeAllEntries": "Ska alla poster tas bort?",
+  "listSearchButton": "Sök"
 }

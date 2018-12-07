@@ -24,8 +24,9 @@
   "typeaheadPlaceholder": "Suchen Sie nach Objekten",
   "versionsLabel": "Versionen",
   "versionsTitle": "Versionsgeschichte",
-  "invalidSearchMessage": "Folgende Zeichen sind nicht in der Suche erlaubt: \", +, ~, #, ( und ).",
+  "invalidSearchMessage": "Folgende Zeichen sind nicht in der Suche erlaubt: \" , ~ # ( )",
   "listResultSizeText": "{{PLURAL:$1|1 Treffer|$1 Treffer}}",
   "selectAllLabel": "Alle auswählen",
-  "removeAllEntries": "Sollen alle Einträge entfernt werden?"
+  "removeAllEntries": "Sollen alle Einträge entfernt werden?",
+  "listSearchButton": "Suchen"
 }
