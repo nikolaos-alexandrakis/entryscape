@@ -137,7 +137,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.inherited(arguments);
     let timer;
     const onRDFChange = this.onRDFChange.bind(this);
-    const onRDFChangeFunc = function () {
+    const onRDFChangeFunc = () => {
       clearTimeout(timer);
       timer = setTimeout(onRDFChange, 400);
     };
