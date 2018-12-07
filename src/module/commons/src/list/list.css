@@ -110,7 +110,7 @@
 .entryList .entryName a,
 .entryList .entryName span {
     font-size: 14px;
-    word-break: break-all
+    word-break: break-all;
 }
 
 
