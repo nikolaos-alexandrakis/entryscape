@@ -264,7 +264,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     if (this._firstLoad === true) {
       this._firstLoad = false;
       // TODO @scazan figure out 'has'
-      if (!(has('chrome') >= 32 || has('ff') > 26 || has('ie') >= 11
+      if (!(has('chrome') >= 57 || has('ff') > 60 || has('ie') >= 11
         || has('trident') || has('edge') || has('safari') >= 8)) {
         registry.get('dialogs')
           .acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);
@@ -334,7 +334,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     Promise.all(breadcrumbItems).then((items) => {
       const currentView = registry.get('siteManager').getCurrentView();
       const signInView = registry.getSiteConfig().signinView;
-      if ((currentView && (currentView !== signInView || upcomingView !== signInView)) && items.length > 0) {
+      // if we are in a view or transition into a view that is not the sign in view then show the breadcrumb
+      if (((currentView && currentView !== signInView) || upcomingView !== signInView) && items.length > 0) {
         this.showBreadcrumb(items);
         this.updateWindowTitle(items[items.length - 1].value); // update window title
       }

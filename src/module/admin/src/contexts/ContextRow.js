@@ -36,7 +36,7 @@ export default declare([DropdownRow], {
         iconType: 'fa',
         nlsKey: 'catalog',
         nlsKeyTitle: 'catalogTitle',
-        method: 'catalog',
+        method: this.catalog.bind(this),
       });
       this.registerDropdownItem({
         name: 'terminologyContext',
@@ -44,7 +44,7 @@ export default declare([DropdownRow], {
         iconType: 'fa',
         nlsKey: 'terminology',
         nlsKeyTitle: 'terminologyTitle',
-        method: 'terminology',
+        method: this.terminology.bind(this),
       });
       this.registerDropdownItem({
         name: 'workbenchContext',
@@ -52,7 +52,7 @@ export default declare([DropdownRow], {
         iconType: 'fa',
         nlsKey: 'workbench',
         nlsKeyTitle: 'workbenchTitle',
-        method: 'workbench',
+        method: this.workbench.bind(this),
       });
       this.registerDropdownItem({
         name: 'homeContext',
@@ -60,7 +60,7 @@ export default declare([DropdownRow], {
         iconType: 'fa',
         nlsKey: 'homectx',
         nlsKeyTitle: 'homectxTitle',
-        method: 'homecontext',
+        method: this.homecontext.bind(this),
       });
       this.registerDropdownItem({
         name: 'context',

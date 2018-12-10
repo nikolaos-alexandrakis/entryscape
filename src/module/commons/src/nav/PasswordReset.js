@@ -5,6 +5,7 @@ import escoSignin from 'commons/nls/escoSignin.nls';
 import registry from 'commons/registry';
 import configUtil from 'commons/util/configUtil';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import m from 'mithril';
 
 import declare from 'dojo/_base/declare';
 import { isFunction } from 'lodash-es';

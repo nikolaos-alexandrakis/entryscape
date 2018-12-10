@@ -5,19 +5,14 @@ import jquery from 'jquery';
 
 let depLoad;
 let leaflet;
-const loadDependencies = () => {
+const loadDependencies = async () => {
   if (!depLoad) {
-    const leafletPath = 'https://unpkg.com/leaflet@1.3.1/dist/';
-    const leafletCss = `${leafletPath}leaflet.css`;
-    jquery('<link/>', { rel: 'stylesheet', type: 'text/css', href: leafletCss }).appendTo('head');
-    depLoad = new Promise((resolve) => {
-      require([`${leafletPath}leaflet.js`], (leafletLib) => {
-        leaflet = leafletLib;
-        leaflet.Icon.Default.imagePath = 'https://static.entryscape.com/libs/leaflet/dist/images/';
-        resolve();
-      });
-    });
+    leaflet = await import(/* webpackChunkName: "leaflet" */ 'leaflet');
+    import(/* webpackChunkName: "leaflet-css" */ 'leaflet/dist/leaflet.css');
+
+    leaflet.Icon.Default.imagePath = 'https://static.entryscape.com/libs/leaflet/dist/images/';
   }
+
   return depLoad;
 };
 
@@ -52,12 +47,12 @@ export default (node, data) => {
 
         let map;
         if (layers.length === 1) {
-            // Single layer
+          // Single layer
           map = leaflet.map(node).setView([0, 0], 1);
           const layer = layers[0];
           createTileLayer(layer).addTo(map);
         } else {
-            // Multiple layers
+          // Multiple layers
           const baseLayers = {};
           const layerArr = [];
           layers.reverse().forEach((layer) => {
@@ -99,10 +94,13 @@ export default (node, data) => {
             const addrMD = addressEntry.getMetadata();
             let streetAddress = addrMD.findFirstValue(addressEntry.getResourceURI(), 'schema:streetAddress') || '';
             streetAddress = streetAddress.split(',')[0].trim();
-            const addressLocality = addrMD.findFirstValue(addressEntry.getResourceURI(), 'schema:addressLocality') || '';
+            const addressLocality = addrMD.findFirstValue(
+              addressEntry.getResourceURI(),
+              'schema:addressLocality',
+            ) || '';
             const addressRegion = addrMD.findFirstValue(addressEntry.getResourceURI(), 'schema:addressRegion') || '';
             const baseQuery = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&json_callback=?';
-              // Requests to be made, from last to first.
+            // Requests to be made, from last to first.
             const reqs = [
               `${baseQuery}&street=${streetAddress}`,
               `${baseQuery}&street=${streetAddress}&city=${addressLocality}`,

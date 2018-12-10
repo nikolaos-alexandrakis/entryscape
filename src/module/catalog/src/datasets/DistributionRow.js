@@ -241,7 +241,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         method: this.remove.bind(this),
       });
     }
-    this.dropdownMenu.updateLocaleStrings(escoList, escaDataset);
+    this.dropdownMenu.updateLocaleStrings(this.NLSLocalized.escoList, this.NLSLocalized.escaDataset);
   },
   isFileDistributionWithOutAPI() {
     // old code to check API activated or not
@@ -542,7 +542,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     if (isFormatSame) {
       this.warningNode.style.display = 'block';
     } else {
-      this.warningNode.display = 'none';
+      this.warningNode.style.display = 'none';
     }
   },
 });

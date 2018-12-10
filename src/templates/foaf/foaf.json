@@ -497,8 +497,8 @@
       "description": {
         "en": "Something that was made by this agent."
       },
-      "type": "text",
-      "nodetype": "URI",
+      "type": "choice",
+      "nodetype": "RESOURCE",
       "cardinality": {
         "pref": 1
       }
@@ -550,8 +550,8 @@
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://xmlns.com/foaf/0.1/Image"
       },
-      "type": "choice",
-      "nodetype": "RESOURCE",
+      "type": "text",
+      "nodetype": "URI",
       "cardinality": {
         "pref": 1
       },
@@ -688,7 +688,7 @@
       "nodetype": "RESOURCE",
       "cardinality": {
         "min": 0,
-        "pref": 0
+        "pref": 1
       }
     },
     {

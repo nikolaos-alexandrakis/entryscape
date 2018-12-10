@@ -1,5 +1,5 @@
 import { template } from 'lodash-es';
-import { utils } from 'rdforms/main-no-bootstrap-css';
+import { utils } from 'rdforms';
 import registry from 'commons/registry';
 
 const rdfutils = registry.get('rdfutils');

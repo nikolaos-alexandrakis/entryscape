@@ -5,19 +5,13 @@ import jquery from 'jquery';
 
 let depLoad;
 let lblib;
-const loadDependencies = () => {
+const loadDependencies = async () => {
   if (!depLoad) {
-    const slickPath = 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/';
-    const lightboxPath = 'https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/';
-    jquery('<link/>', { rel: 'stylesheet', type: 'text/css', href: `${slickPath}slick.css` }).appendTo('head');
-    jquery('<link/>', { rel: 'stylesheet', type: 'text/css', href: `${slickPath}slick-theme.css` }).appendTo('head');
-    jquery('<link/>', { rel: 'stylesheet', type: 'text/css', href: `${lightboxPath}css/lightbox.css` }).appendTo('head');
-    depLoad = new Promise((resolve) => {
-      require([`${slickPath}slick.min.js`, `${lightboxPath}js/lightbox.js`], (slick, lightbox) => {
-        lblib = lightbox;
-        resolve();
-      });
-    });
+    await import('slick-carousel' /* webpackChunkName: "slick-carousel" */);
+    import('slick-carousel/slick/slick.css' /* webpackChunkName: "slick-carousel" */);
+    import('slick-carousel/slick/slick-theme.css' /* webpackChunkName: "slick-carousel" */);
+    import('lightbox2/dist/css/lightbox.min.css' /* webpackChunkName: "slick-carousel" */);
+    lblib = await import('lightbox2' /* webpackChunkName: "slick-carousel" */);
   }
   return depLoad;
 };
@@ -56,7 +50,6 @@ export default (node, data) => {
           const lconf = {
             class: 'lightbox-link',
             'data-lightbox': 'slider',
-//            'data-title': null,//'placeholder for photographer name',
             href: uri,
           };
           if (uri2caption[uri]) {
@@ -74,11 +67,11 @@ export default (node, data) => {
 
 
           if (uri2caption[uri]) {
-            DOMUtil.create('div', {
+            const sliderCaptionEl = DOMUtil.create('div', {
               class: 'slider-caption',
               innerHTML: uri2caption[uri],
             });
-            wrapper.appendChild('div');
+            wrapper.appendChild(sliderCaptionEl);
           }
 
           if (index === 0) {

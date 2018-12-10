@@ -1,5 +1,6 @@
 window.__entryscape_config = {
   block: 'config',
+  page_language: 'sv',
   namespaces: {
     ecpo: 'http://publications.europa.eu/resource/authority/',
   },

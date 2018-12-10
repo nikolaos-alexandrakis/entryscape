@@ -1,4 +1,3 @@
-import 'formdata-polyfill';
 import Alert from 'commons/components/common/alert/Alert';
 import Fieldset from 'commons/components/common/form/Fieldset';
 import Form from 'commons/components/common/form/Form';
@@ -167,13 +166,14 @@ export default class {
    */
   getFormData() {
     const orgForm = document.getElementById(this.formId);
-    const orgFormData = new FormData(orgForm);
+    const inputs = orgForm.getElementsByTagName('input');
 
     const data = {};
     // eslint-disable-next-line no-restricted-syntax
-    for (const field of orgFormData) {
-      const [name, value] = field;
-      data[name] = value;
+    for (const field of inputs) {
+      if (field.name || field.id) {
+        data[field.name || field.id] = field.value;
+      }
     }
 
     data[`${this.id}--recipe`] = this.selectedRecipe;

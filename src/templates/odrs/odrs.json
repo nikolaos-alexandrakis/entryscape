@@ -231,7 +231,6 @@
       },
       "description": {
         "en": "The year from which copyright over the content of the dataset is asserted.",
-        "nb": "Året der opphavsretten for innholdet blir anført. ",
         "nb": "Året der opphavsretten for innholdet blir anført.",
         "da": "Året hvor ophavsretten for indholdet er gældende fra.",
         "de": "Das Jahr in welchem das Urheberrecht über den Inhalt des Datensatzes geltend gemacht wird."

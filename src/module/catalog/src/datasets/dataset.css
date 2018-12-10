@@ -39,7 +39,7 @@
     justify-content: center;
 }
 .distributionModificationDate{
-  padding-left: 12px;
+margin-right:2.5px !important;
 }
 
 .entryList .div > entryRow__grid div > div.entryControls.datasetControls {
@@ -47,26 +47,18 @@
 }
 
 .distributionControls.entryControls {
-    /* width: 148px; */
     white-space: nowrap;
     text-align: right;
-    padding: 0 15px;
 }
 
 .distributionControls > * {
     text-align: left;
 }
 
-.distributionControls .esco-dropdown {
-    /* width: 148px; */
-}
+
 
 .distributionControls .esco-dropdown .btn {
     padding: 10px 12px;
-    /* float: right; */
-    /* margin-right: 21px;
-    margin-left: 70px; */
-
 }
 
 .datasets div > entryRow__grid div.distributions div {
@@ -80,7 +72,6 @@
 
 .datasets .distributions div {
     margin: 0px;
-    /* border-radius: 6px; */
     background-color: inherit;
 }
 
@@ -107,14 +98,19 @@
     top: -2px;
     right: -21px;
 }
-
-.datasets .distributionFormat {
+ .datasets .distributionFormat {
     font-size: x-small;
-    color: #808080;
-    padding-left: 13px;
+    color: #333;
     margin-top: -2px;
     display: none;
-}
+ }
+
+ .datasets .distributionUrl{
+    font-size: x-small;
+    color: #333;
+    padding-left: 13px;
+ }
+
 
 .datasets .distributionTitle.withFormat {
     padding-top: 4px;

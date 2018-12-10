@@ -34,5 +34,6 @@
   "signUpFromBanner": "Skapa konto",
   "settingsHelp": "Hjälp",
   "signOutLabel": "Logga ut",
-  "settingsLabel": "Inställningar"
+  "settingsLabel": "Inställningar",
+  "goHomeLink": "Till standardvyn"
 }

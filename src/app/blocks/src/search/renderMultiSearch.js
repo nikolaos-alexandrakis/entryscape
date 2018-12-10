@@ -1,13 +1,11 @@
 import DOMUtil from 'commons/util/htmlUtil';
-import {
-  namespaces,
-} from 'rdfjson';
+import { namespaces } from 'rdfjson';
+import 'selectize';
+import jquery from 'jquery';
 import filter from 'blocks/utils/filter';
 import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 import utils from './utils';
-import jquery from 'jquery';
-import 'selectize';
 
 const rdfutils = registry.get('rdfutils');
 const termFilter = (arr, term) => {
@@ -30,7 +28,7 @@ const termFilter = (arr, term) => {
  *   property - the property to filter the selected values with.
  *   literal - true if the values are to be considered literals.
  */
-export default function (node, data, items) {
+export default function (node, data) {
   let lock = false;
   if (typeof data.width !== 'undefined') {
     node.style.width = data.width;
@@ -41,7 +39,6 @@ export default function (node, data, items) {
   });
 
   const collections = registry.get('blocks_collections');
-  // (collections) => {
   const name2col = {};
   collections.forEach((col) => {
     name2col[col.name] = col;
@@ -117,9 +114,7 @@ export default function (node, data, items) {
       const option = localItems[value];
       delete localItems[value];
       lock = true;
-      filter.remove(option || {
-        value,
-      });
+      filter.remove(option || { value });
       lock = false;
       selectize.close();
     },
@@ -131,9 +126,7 @@ export default function (node, data, items) {
         return `<div>${escape(data.label)}</div>`;
       },
       item(data, escape) {
-        const item = DOMUtil.create('div', {
-          class: 'item',
-        }); // TODO  import this when defines are removed
+        const item = DOMUtil.create('div', { class: 'item' }); // TODO  import this when defines are removed
         if (data.group && data.group !== 'term') {
           item.appendChild(DOMUtil.create(
             'span', {
@@ -254,5 +247,4 @@ export default function (node, data, items) {
     });
     lock = false;
   }, true);
-  // });
 }

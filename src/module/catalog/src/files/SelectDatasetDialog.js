@@ -70,6 +70,6 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     this.inherited(arguments);
   },
   localeChange() {
-    this.updateLocaleStrings(escaFiles);
+    this.updateLocaleStrings(this.NLSLocalized.escaFiles);
   },
 });
