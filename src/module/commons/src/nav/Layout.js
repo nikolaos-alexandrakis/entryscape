@@ -334,7 +334,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     Promise.all(breadcrumbItems).then((items) => {
       const currentView = registry.get('siteManager').getCurrentView();
       const signInView = registry.getSiteConfig().signinView;
-      if ((currentView && (currentView !== signInView || upcomingView !== signInView)) && items.length > 0) {
+      // if we are in a view or transition into a view that is not the sign in view then show the breadcrumb
+      if (((currentView && currentView !== signInView) || upcomingView !== signInView) && items.length > 0) {
         this.showBreadcrumb(items);
         this.updateWindowTitle(items[items.length - 1].value); // update window title
       }
