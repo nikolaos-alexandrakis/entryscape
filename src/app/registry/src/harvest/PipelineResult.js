@@ -7,11 +7,12 @@ import dateUtil from 'commons/util/dateUtil';
 import declare from 'dojo/_base/declare';
 import { i18n, NLSMixin } from 'esi18n';
 import { template } from 'lodash-es';
+import m from 'mithril';
 import { Graph } from 'rdfjson';
 import esrePipelineResult from 'registry/nls/esrePipelineResult.nls';
 import { terms } from 'store';
-import { getStatusAndColor } from './util/pipelineResult';
 import './esrePipelineResult.css';
+import { getStatusAndColor } from './util/pipelineResult';
 
 export default declare([NLSMixin], {
   nlsBundles: [{ esrePipelineResult }],
