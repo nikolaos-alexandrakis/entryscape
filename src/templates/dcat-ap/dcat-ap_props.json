@@ -1294,6 +1294,10 @@
             "da": "Start",
             "de": "Beginn"
           },
+          "description": {
+            "en": "Start date of the validity period of a dataset.",
+            "de": "Startdatum des Gültigkeitszeitraumes eines Datensatzes."
+          },
           "datatype": "http://www.w3.org/2001/XMLSchema#date"
         },
         {
@@ -1307,6 +1311,10 @@
             "da": "Slut",
             "de": "Ende"
           },
+          "description": {
+            "en": "End date of the validity period of a dataset.",
+            "de": "Enddatum des Gültigkeitszeitraumes eines Datensatzes."
+          },
           "datatype": "http://www.w3.org/2001/XMLSchema#date"
         }
       ],
@@ -1314,6 +1322,7 @@
         "nb": "Referanse til en tidsperiode datasettet gjelder for (startdato og sluttdato)",
         "da": "Reference til en tidsperiode datasættet gælder for (startdato og slutdato)",
         "de": "Gültigkeitszeitraum für einen Datensatz (Start- und Enddatum)",
+        "en": "Validity period of a dataset (start and end date)",
         "sv": "Datamängdens giltighetsperiod (startdatum och slutdatum)"
       }
     },
@@ -1610,6 +1619,11 @@
         "da": "Format",
         "de": "Format"
       },
+      description: {
+        de: 'Diese Eigenschaft verweist auf das Datenformat der Distribution.',
+        en: 'This property refers to the data format of the distribution.',
+        sv: 'Denna egenskap motsvarar distributionens format.',
+      },
       "cardinality": {
         "min": 1,
         "pref": 1,
@@ -1626,7 +1640,8 @@
           "type": "text",
           "property": "http://purl.org/dc/terms/format",
           "description": {
-            "en": "If you cannot find your mediatype in the list above you can provide one by hand. See list of established mediatypes at: http://www.iana.org/assignments/media-types/media-types.xhtml."
+            "en": "If you cannot find your mediatype in the list above you can provide one by hand. See list of established mediatypes at: http://www.iana.org/assignments/media-types/media-types.xhtml.",
+            "de": "Falls Sie ihren Medientyp in der darüberstehenden Liste nicht finden können, können Sie einen händisch zur Verfügung stellen. Nachschlagen von etablierten Medientypen unter: http://www.iana.org/assignments/media-types/media-types.xhtml.",
           },
           "label": {
             "en": "Other mediatypes",
@@ -1824,7 +1839,8 @@
         "max": 1
       },
       "description": {
-        "en": "A selection of common mediatypes according to the list suggested by the DCAT-AP recommendation."
+        "en": "A selection of common mediatypes according to the list suggested by the DCAT-AP recommendation.",
+        "de": "Eine Auswahl von verbreiteten Medientypen gemäß der vorgeschlagenen Liste durch die DCAT-AP Empfehlung."
       },
       "styles": [
         "strictmatch"
@@ -2098,6 +2114,11 @@
         "nb": "Type",
         "da": "Type",
         "de": "Typ"
+      },
+      "descriptions": {
+        "en": "This property refers to the type of the responsible position, who provides the catalog or the data structure.",
+        "de": "Diese Eigenschaft bezieht sich auf den Typ der verantwortlichen Stelle, die den Katalog oder die Datenstruktur bereitstellt.",
+        "sv": "Denna egenskap refererar till vilken typ av ansvarig position som tillhandahåller katalogen eller datastrukturen."
       },
       "choices": [
         {
@@ -2629,7 +2650,7 @@
         "en": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes.",
         "nb": "Referanse til en tema/kategori for datasettet. Et datasett kan assosieres med flere tema",
         "da": "Refererer til et tema/kategori for datasættet. Et datasæt kan være associeret med flere temaer",
-        "de": "Diese Eigenschaft bezieht sich auf eine Kategorie des Datensatzes. Ein Datensatz kann mit mehreren Themen verknüpft sein.",
+        "de": "Diese Eigenschaft bezieht sich auf eine Thematik des Datensatzes. Ein Datensatz kann mit mehreren Thematiken verknüpft werden.",
         "sv": "En kategori för datamängden. En datamängd kan associeras med flera teman."
       },
       "cardinality": {
