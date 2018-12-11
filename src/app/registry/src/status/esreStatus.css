@@ -21,11 +21,11 @@
 }
 
 .psirow .entryName {
-    width: auto;
+    width: 500px;
+    word-break: break-all;
 }
 
 .psirow .dcatAP {
-    width: 100px;
     text-align: center;
 }
 
