@@ -28,10 +28,10 @@ export default class {
       const listLength = this.lists.length;
       for (let i = 0; i < listLength; i++) {
         if (isNaN(this.sizes[i])) {
-          return this.lists[i].getEntries().then(function (listIndex) {
-            this.sizes[listIndex] = this.lists[listIndex].getSize();
+          return this.lists[i].getEntries().then(() => {
+            this.sizes[i] = this.lists[i].getSize();
             return this.loadEnoughSizes(page);
-          }.bind(this, i));
+          });
         }
         amount += this.sizes[i];
         if (amount > needToReach) {
