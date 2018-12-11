@@ -39,7 +39,11 @@
 .psirow .psiname {
     color: green;
 }
-.escoList .entryList .rowTitle .psirow .dcatAP,.escoList .entryList .rowTitle .psirow .psiname {
+.psirow .dcatAP>i{
+    margin-right: 25px;
+}
+.escoList .entryList .rowTitle .psirow .dcatAP,
+.escoList .entryList .rowTitle .psirow .psiname {
     color: black;
 }
 
