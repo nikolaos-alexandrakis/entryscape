@@ -1,17 +1,17 @@
+import escaPublic from 'catalog/nls/escaPublic.nls';
+import DistributionDialog from 'catalog/public/DistributionDialog';
+import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
-import { NLSMixin } from 'esi18n';
-import escaPublic from 'catalog/nls/escaPublic.nls';
-import { Presenter } from 'rdforms';
-import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
-import DistributionDialog from 'catalog/public/DistributionDialog';
 import config from 'config';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import template from './DatasetTemplate.html';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import { Presenter } from 'rdforms';
 import './dataset.css';
+import template from './DatasetTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   templateString: template,
@@ -57,8 +57,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   showDataset(entry) {
     // registry.get('itemstore', (itemstore) => {
     if (entry) {
-      const path = registry.getSiteManager().getViewPath('catalog__datasets__preview',
-        { dataset: entry.getId(), context: entry.getContext().getId() });
+      const path = registry.getSiteManager().getViewPath('catalog__datasets__preview', {
+        dataset: entry.getId(),
+        context: entry.getContext().getId(),
+      });
       this.directLink.href = path;
     }
 
@@ -127,11 +129,11 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const access = md.findFirstValue(subj, 'http://www.w3.org/ns/dcat#accessURL');
         const label = title || desc || access;
         const tr = htmlUtil.create('tr', null, this.distributions);
-        tdLabel = htmlUtil.create('td', { innerHTML: label }, tr);
-        tdButtons = htmlUtil.create('td', null, tr);
-        divWrapper = htmlUtil.create('div', { class: 'min-height-row' }, tdButtons);
-        infoWrapper = htmlUtil.create('span', { class: 'badge' }, divWrapper);
-        icon = htmlUtil.create('span', { class: 'fa fa-info-circle' }, divWrapper);
+        htmlUtil.create('td', { innerHTML: label }, tr);
+        const tdButtons = htmlUtil.create('td', null, tr);
+        const divWrapper = htmlUtil.create('div', { class: 'min-height-row' }, tdButtons);
+        htmlUtil.create('span', { class: 'badge' }, divWrapper);
+        htmlUtil.create('span', { class: 'fa fa-info-circle' }, divWrapper);
         const f = (ev) => {
           ev.stopPropagation();
           this.distributionInfoDialog.set('title', label);
