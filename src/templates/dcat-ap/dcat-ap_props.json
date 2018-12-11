@@ -1619,10 +1619,10 @@
         "da": "Format",
         "de": "Format"
       },
-      description: {
-        de: 'Diese Eigenschaft verweist auf das Datenformat der Distribution.',
-        en: 'This property refers to the data format of the distribution.',
-        sv: 'Denna egenskap motsvarar distributionens format.',
+      "description": {
+        "de": "Diese Eigenschaft verweist auf das Datenformat der Distribution.",
+        "en": "This property refers to the data format of the distribution.",
+        "sv": "Denna egenskap motsvarar distributionens format."
       },
       "cardinality": {
         "min": 1,
@@ -1641,7 +1641,7 @@
           "property": "http://purl.org/dc/terms/format",
           "description": {
             "en": "If you cannot find your mediatype in the list above you can provide one by hand. See list of established mediatypes at: http://www.iana.org/assignments/media-types/media-types.xhtml.",
-            "de": "Falls Sie ihren Medientyp in der darüberstehenden Liste nicht finden können, können Sie einen händisch zur Verfügung stellen. Nachschlagen von etablierten Medientypen unter: http://www.iana.org/assignments/media-types/media-types.xhtml.",
+            "de": "Falls Sie ihren Medientyp in der darüberstehenden Liste nicht finden können, können Sie einen händisch zur Verfügung stellen. Nachschlagen von etablierten Medientypen unter: http://www.iana.org/assignments/media-types/media-types.xhtml."
           },
           "label": {
             "en": "Other mediatypes",
