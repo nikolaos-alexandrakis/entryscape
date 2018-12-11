@@ -300,8 +300,8 @@ export default declare([], {
   },
   checkApiStatus(etlEntryURI) {
     let counter = 30;
-    const f = (resolve, reject) => {
-      this._getApiStatus(etlEntryURI).then((status) => {
+    return new Promise((resolve, reject) => {
+      const f = this._getApiStatus(etlEntryURI).then((status) => {
         switch (status) {
           case 'available':
             resolve();
@@ -318,8 +318,7 @@ export default declare([], {
             }
         }
       });
-    };
-    return new Promise(f);
+    });
   },
   _getApiStatus(etlEntryURI) {
     const es = registry.get('entrystore');

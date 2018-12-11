@@ -25,6 +25,7 @@ export default class {
     return new Promise((resolve) => {
       const needToReach = (page + 1) * this.limit;
       let amount = 0;
+      const listLength = this.lists.length;
       for (let i = 0; i < listLength; i++) {
         if (isNaN(this.sizes[i])) {
           return this.lists[i].getEntries().then(function (listIndex) {

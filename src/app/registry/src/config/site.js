@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import adminSiteConfig from 'admin/config/site';
 import catalogSiteConfig from 'catalog/config/site';
+import Public from 'catalog/public/Public';
 import merge from 'commons/merge';
 import Layout from 'commons/nav/Layout';
 import Permission from 'commons/nav/Permission';
@@ -122,6 +123,11 @@ export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, {
       },
       class: Permission,
       route: '/permission',
+    },
+    '!catalog__datasets__preview': {
+      class: Public,
+      title: { en: 'Datasets Preview', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
+      route: '/catalog/:context/datasets/:dataset',
     },
     harvest__list: {
       class: HarvestList,

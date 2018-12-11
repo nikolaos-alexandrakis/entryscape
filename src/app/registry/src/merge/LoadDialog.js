@@ -3,6 +3,7 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
+import { isEmpty } from 'lodash-es';
 import { converters } from 'rdfjson';
 
 export default declare([TitleDialog], {
@@ -11,7 +12,7 @@ export default declare([TitleDialog], {
     this.inherited(arguments);
     this.entryType = new EntryType({
       valueChange: (value) => {
-        if (value != null) {
+        if (!isEmpty(value)) {
           this.unlockFooterButton();
         } else {
           this.lockFooterButton();

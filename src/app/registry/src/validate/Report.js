@@ -77,7 +77,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   //= ==================================================
   localeChange() {
     if (this._validateDialog) {
-      this._validateDialog.closeLabel = esreReport.closeValidationDialog;
+      this._validateDialog.closeLabel = this.NLSLocalized.esreReport.closeValidationDialog;
     }
   },
 
