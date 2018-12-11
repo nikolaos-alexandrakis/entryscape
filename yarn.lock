@@ -7463,7 +7463,7 @@ rc@^1.1.2, rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#c4a0feebba83024fe870f6baba983350548b686b"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#788fbf254f3a4f8935a88e79087c35988ebf48c6"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
