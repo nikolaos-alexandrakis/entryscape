@@ -38,6 +38,7 @@
 .psirow .dcatAP,
 .psirow .psiname {
     color: green;
+    margin-right: 25px;
 }
 .psirow .dcatAP>i{
     margin-right: 25px;
