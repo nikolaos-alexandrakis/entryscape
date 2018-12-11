@@ -8,6 +8,7 @@
 }
 .escoList .entryList .rowTitle{
     font-weight: bold;
+    border-bottom: 2px solid #ddd;
 }
 
 .escoList .entryList .psirow .entryName,
@@ -38,12 +39,11 @@
 .psirow .psiname {
     color: green;
 }
-.escoList .entryList .rowTitle .psirow .dcatAP{
+.escoList .entryList .rowTitle .psirow .dcatAP,.escoList .entryList .rowTitle .psirow .psiname {
     color: black;
 }
 
 .psirow .harvestDate {
-    width: 130px;
     text-align: right;
 }
 
