@@ -1,15 +1,22 @@
-.escoList .entryList .psirow td {
+.escoList .entryList .psirow{
+    display: flex;
+    justify-content: space-between;
+}
+.escoList .entryList .psirow div {
     padding: 8px;
     height: 60px;
 }
+.escoList .entryList .rowTitle{
+    font-weight: bold;
+}
 
-.escoList .entryList .psirow th.entryName,
-.escoList .entryList .psirow td.entryName {
+.escoList .entryList .psirow .entryName,
+.escoList .entryList .psirow .entryName {
     padding-left: 20px;
 }
 
-.escoList .entryList .psirow th.harvestDate,
-.escoList .entryList .psirow td.harvestDate {
+.escoList .entryList .psirow .harvestDate,
+.escoList .entryList .psirow .harvestDate {
     padding-right: 20px;
 }
 
@@ -27,9 +34,12 @@
     text-align: center;
 }
 
-.psirow td.dcatAP,
-.psirow td.psiname {
+.psirow .dcatAP,
+.psirow .psiname {
     color: green;
+}
+.escoList .entryList .rowTitle .psirow .dcatAP{
+    color: black;
 }
 
 .psirow .harvestDate {
