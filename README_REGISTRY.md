@@ -3,8 +3,8 @@
 ### Pre-requisites
 * In order to run and build Entryscape Registry, you will need to have git, npm, and yarn installed.
 
-[https://git-scm.com/](https://git-scm.com/)
-[https://www.npmjs.com/get-npm](https://www.npmjs.com/get-npm)
+[https://git-scm.com/](https://git-scm.com/)<br>
+[https://www.npmjs.com/get-npm](https://www.npmjs.com/get-npm)<br>
 [https://yarnpkg.com](https://yarnpkg.com)
 
 * You will also need to have an Entrystore instance running somewhere (remote with CORS or locally).
