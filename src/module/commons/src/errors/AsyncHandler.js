@@ -76,8 +76,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     };
     this.promises.push(obj);
     promise.then(
-      () => this.resolved(promise),
-      () => this.rejected(promise),
+      value => this.resolved(promise, value),
+      value => this.rejected(promise, value),
     );
     this.setNewTimer();
   },
