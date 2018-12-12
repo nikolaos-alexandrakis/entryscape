@@ -47,7 +47,7 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
       details: {
         buttonLabel: { en: 'Get started', sv: 'Kom igång', de: 'Anfangen' },
         header: { en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte Anleitung' },
-        path: '',
+        path: '/theme/assets/gettingstarted',
       },
     },
   },
