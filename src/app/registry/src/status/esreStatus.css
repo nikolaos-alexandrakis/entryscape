@@ -8,6 +8,7 @@
 }
 .escoList .entryList .rowTitle{
     font-weight: bold;
+    border-bottom: 2px solid #ddd;
 }
 
 .escoList .entryList .psirow .entryName,
@@ -21,11 +22,11 @@
 }
 
 .psirow .entryName {
-    width: auto;
+    width: 500px;
+    word-break: break-all;
 }
 
 .psirow .dcatAP {
-    width: 100px;
     text-align: center;
 }
 
@@ -37,13 +38,17 @@
 .psirow .dcatAP,
 .psirow .psiname {
     color: green;
+    margin-right: 25px;
 }
-.escoList .entryList .rowTitle .psirow .dcatAP{
+.psirow .dcatAP>i{
+    margin-right: 25px;
+}
+.escoList .entryList .rowTitle .psirow .dcatAP,
+.escoList .entryList .rowTitle .psirow .psiname {
     color: black;
 }
 
 .psirow .harvestDate {
-    width: 130px;
     text-align: right;
 }
 

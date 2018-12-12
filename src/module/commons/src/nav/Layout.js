@@ -280,7 +280,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
       this.destroyComponent(this.menuListNode);
       this.showNode(this.privacyMenu);
     } else {
-      this.mountComponent(this.menu, this.menuListNode);
+      const userEntry = registry.get('userEntry');
+      if (userEntry && userEntry.getId() !== '_guest') {
+        this.mountComponent(this.menu, this.menuListNode);
+      }
       this.hideNode(this.privacyMenu);
     }
 
