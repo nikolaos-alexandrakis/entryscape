@@ -1,7 +1,7 @@
 # EntryScape Platform
 
 ### Pre-requisites
-In order to run and build Entryscape Registry, you will need to have git, npm, and yarn installed.
+In order to run and build Entryscape Registry, you will need to have git, npm, and yarn installed.  
 [https://git-scm.com/](https://git-scm.com/)  
 [https://www.npmjs.com/get-npm](https://www.npmjs.com/get-npm)  
 [https://yarnpkg.com](https://yarnpkg.com)
@@ -22,6 +22,7 @@ Building a distributable copy of Registry can be done by running:
 ```
 yarn build:registry
 ```
+The distributable files will be located in /src/app/registry/dist
 
 ### Running a development server
 A development server can be run using webpack-dev-server. You will need to install the webpack-dev-server by running (one time only):
