@@ -6,7 +6,7 @@
         "signInTitle": "Sign in",
         "signInLabel": "Sign in",
         "contextLabelTitle": "Selected context",
-        "goHomeLink":"Go home",
+        "goHomeLink":"Go to start view",
         "noContextLabelTitle": "No context selected",
         "noContextLabel": "-",
         "settingsTitle": "Change your user profile and settings",
