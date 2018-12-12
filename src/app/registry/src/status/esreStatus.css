@@ -11,14 +11,13 @@
     border-bottom: 2px solid #ddd;
 }
 
-.escoList .entryList .psirow .entryName,
 .escoList .entryList .psirow .entryName {
     padding-left: 20px;
 }
 
-.escoList .entryList .psirow .harvestDate,
 .escoList .entryList .psirow .harvestDate {
     padding-right: 20px;
+    min-width: 141px;
 }
 
 .psirow .entryName {
@@ -47,7 +46,9 @@
 .escoList .entryList .rowTitle .psirow .psiname {
     color: black;
 }
-
+.escoList .entryList .rowTitle .psirow .dcatAP{
+    margin-right: 30px;
+}
 .psirow .harvestDate {
     text-align: right;
 }
