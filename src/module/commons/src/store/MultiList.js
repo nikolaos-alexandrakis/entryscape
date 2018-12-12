@@ -22,25 +22,23 @@ export default class {
 
   loadEnoughSizes(page) {
     // eslint-disable-next-line consistent-return
-    return new Promise((resolve) => {
-      const needToReach = (page + 1) * this.limit;
-      let amount = 0;
-      const listLength = this.lists.length;
-      for (let i = 0; i < listLength; i++) {
-        if (isNaN(this.sizes[i])) {
-          return this.lists[i].getEntries().then(() => {
-            this.sizes[i] = this.lists[i].getSize();
-            return this.loadEnoughSizes(page);
-          });
-        }
-        amount += this.sizes[i];
-        if (amount > needToReach) {
-          break;
-        }
+    const needToReach = (page + 1) * this.limit;
+    let amount = 0;
+    const listLength = this.lists.length;
+    for (let i = 0; i < listLength; i++) {
+      if (isNaN(this.sizes[i])) {
+        return this.lists[i].getEntries().then(() => {
+          this.sizes[i] = this.lists[i].getSize();
+          return this.loadEnoughSizes(page);
+        });
       }
+      amount += this.sizes[i];
+      if (amount > needToReach) {
+        break;
+      }
+    }
 
-      resolve(amount);
-    });
+    return Promise.resolve(amount);
   }
 
   getSize() {
