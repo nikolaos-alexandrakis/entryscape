@@ -3591,15 +3591,6 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-"esi18n@https://bitbucket.org/metasolutions/esi18n.git#develop":
-  version "1.0.0"
-  resolved "https://bitbucket.org/metasolutions/esi18n.git#d3fbe1ff6c1df882052c2ecae5fdd7c694bd14b3"
-  dependencies:
-    dojo "^1.14.1"
-    lodash-es "^4.17.10"
-    moment "^2.22.2"
-    pubsub-js "^1.6.0"
-
 "esi18n@https://bitbucket.org/metasolutions/esi18n.git#master":
   version "1.0.0"
   resolved "https://bitbucket.org/metasolutions/esi18n.git#10cd96ca01686156f3dacb826c288d046fac1a45"
@@ -8085,7 +8076,7 @@ rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#webpack":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#788fbf254f3a4f8935a88e79087c35988ebf48c6"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#27dec2567c888718ea7a46bf81ad24449953bccb"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -8099,7 +8090,7 @@ rc@^1.2.7:
     dijit "^1.13.0"
     dojo "^1.13.0"
     dojo-util "^1.13.0"
-    esi18n "https://bitbucket.org/metasolutions/esi18n.git#develop"
+    esi18n "https://bitbucket.org/metasolutions/esi18n.git#master"
     fuelux "^3.16.6"
     jquery "^3.3.1"
     jquery-mousewheel "^3.1.13"
