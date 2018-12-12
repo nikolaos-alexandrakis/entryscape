@@ -115,6 +115,7 @@ class Site extends SiteClass {
       }
     });
 
+    this.modules = new Map();
     activeModules.forEach(module => this.modules.set(module.name, module), this);
   }
 
