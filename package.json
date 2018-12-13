@@ -1,6 +1,6 @@
 {
   "name": "EntryScape",
-  "version": "2.0.0-SNAPSHOT",
+  "version": "2.0.0",
   "license": "AGPLv3",
   "private": true,
   "ignore": [
