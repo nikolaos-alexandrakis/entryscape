@@ -43,6 +43,7 @@ export default declare([TitleDialog.ContentNLS], {
         entry.setMetadata(g);
         entry.commitMetadata().then(() => {
           this.versionList.search();
+          this.list.rowMetadataUpdated(this.row);
         });
       });
     });
