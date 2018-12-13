@@ -1,6 +1,6 @@
 import config from 'config';
 import configUtil from 'commons/util/configUtil';
-// import { createSetState } from 'commons/util/util';
+import { createSetState } from 'commons/util/util';
 import m from 'mithril';
 import utils from '../utils';
 import '../escoSpatial.css';
@@ -13,6 +13,8 @@ const Map = () => {
     map: undefined,
     latLngVector: [],
   };
+
+  const setState = createSetState(state);
 
   const assetsPath = configUtil.getAssetsPath();
 
@@ -124,7 +126,7 @@ const Map = () => {
       import('leaflet' /* webpackChunkName: "leaflet" */).then((leafletImport) => {
         leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
-        state.map = map;
+        setState({ map }, true);
 
         populateMapWithValue(map, value);
 
@@ -189,7 +191,9 @@ const Map = () => {
 
           regionToggle.onclick = (e) => {
             e.stopPropagation();
-            state.drawingMode = state.drawingMode === 'region' ? 'disabled' : 'region';
+            setState({
+              drawingMode: state.drawingMode === 'region' ? 'disabled' : 'region',
+            }, true);
             state.latLngVector.length = 0;
 
             updateUI(state.drawingMode);
@@ -197,7 +201,9 @@ const Map = () => {
 
           markerToggle.onclick = (e) => {
             e.stopPropagation();
-            state.drawingMode = state.drawingMode === 'marker' ? 'disabled' : 'marker';
+            setState({
+              drawingMode: state.drawingMode === 'marker' ? 'disabled' : 'marker',
+            }, true);
             state.latLngVector.length = 0;
 
             updateUI(state.drawingMode);
@@ -238,7 +244,7 @@ const Map = () => {
       if (state.latLngVector.length < 2) {
         state.latLngVector.push(latLng);
       } else {
-        state.latLngVector = [latLng];
+        setState({ latLngVector: [latLng] }, true);
       }
 
       addRegionToMap(map, state.latLngVector);
@@ -250,7 +256,7 @@ const Map = () => {
     },
     markerModeClick(map, latLng) {
       clearMapLayers(map);
-      state.latLngVector = [latLng];
+      setState({ latLngVector: [latLng] }, true);
 
       addMarkerToMap(map, latLng);
       updateGeoCoordinates(utils.toWKT(utils.convertPointToGeoCoords(latLng)));

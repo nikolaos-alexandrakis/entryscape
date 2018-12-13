@@ -4,9 +4,12 @@ import isUrl from 'is-url';
 
 export const isUri = stringToCheck => isUrl(stringToCheck);
 
-export const createSetState = state => (props, redraw = false) => {
-  Object.entries().forEach(keyVal => state[keyVal[0]] = keyVal[1]);
-  if (redraw) {
+export const createSetState = state => (props, avoidRedraw = false) => {
+  Object.entries(props).forEach((keyVal) => {
+    state[keyVal[0]] = keyVal[1];
+  });
+
+  if (!avoidRedraw) {
     m.redraw();
   }
 
