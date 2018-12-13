@@ -1,6 +1,6 @@
 {
   "name": "EntryScape",
-  "version": "2.0.0",
+  "version": "2.1.0-SNAPSHOT",
   "license": "AGPLv3",
   "private": true,
   "ignore": [
@@ -38,12 +38,12 @@
     "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#master",
     "popper.js": "^1.12.9",
     "pubsub-js": "^1.7.0",
-    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#master",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#master",
+    "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
+    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "selectize": "^0.12.6",
     "sizzle": "^2.3.3",
     "slick-carousel": "^1.8.1",
-    "store": "https://bitbucket.org/metasolutions/entrystore.js.git#master",
+    "store": "https://bitbucket.org/metasolutions/entrystore.js.git#develop",
     "superagent": "^3.8.3",
     "typeahead.js": "^0.11.1"
   },

@@ -6987,16 +6987,16 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#master":
+"rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#develop":
   version "2.0.0"
   resolved "https://bitbucket.org/metasolutions/rdfjson.git#f821a12ad87b6957a286949c3aa0611bd4ab1a04"
   dependencies:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
-"rdforms@https://bitbucket.org/metasolutions/rdforms.git#master":
+"rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "9.0.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#a55848ca791910a4f479ae2ded5a0cf244778025"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#9254d43f2a5360c89d4100e94ba19b4e824a7fcb"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7018,7 +7018,7 @@ rc@^1.2.7:
     moment "^2.22.2"
     nls-loader "https://bitbucket.org/metasolutions/nls-loader#master"
     popper.js "^1.12.9"
-    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#master"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     select2 "^4.0.6-rc.1"
     selectize "^0.12.6"
     sizzle "^2.3.3"
@@ -7813,16 +7813,16 @@ storage2@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/storage2/-/storage2-0.1.0.tgz#a2215c6c479d1c84df006a58ef5525e5d8cea00e"
 
-"store@https://bitbucket.org/metasolutions/entrystore.js.git#master":
+"store@https://bitbucket.org/metasolutions/entrystore.js.git#develop":
   version "4.6.0-webpack"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#ee926401d62c1426a5f17c3a1dd1046f7828d68c"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#38eb7c8193df565b2080f821bf757a7a18ac8ea9"
   dependencies:
     blueimp-md5 "^2.10.0"
     he "^1.2.0"
     lodash "^4.17.10"
     lodash-es "^4.17.11"
     moment "^2.22.1"
-    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#master"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     superagent "^3.8.3"
     superagent-jsonp "^0.2.1"
 
