@@ -63,8 +63,12 @@ module.exports = (env, argv) => {
         },
         {
           from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'assets')),
-          to: 'assets', // dist/templates/skos/skos.json
+          to: 'assets', // dist/assets
         },
+        Object.assign({},  (APP !== 'blocks' ? {
+          from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.html')),
+          to: 'index.html', // dist/index.html
+        } : {from: 'README.md', to: ''})), // TODO the README was added as a temp solution for blocks
       ]),
       new CleanWebpackPlugin([
         path.join(__dirname, 'src', 'app', APP, 'dist'),
