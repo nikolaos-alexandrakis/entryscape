@@ -3,7 +3,6 @@ import registry from 'commons/registry';
 import Position from './Position';
 import Map from './Map';
 import utils from '../utils';
-import config from 'config';
 
 export default (params) => {
   const { binding, bundle } = params.attrs;
@@ -35,7 +34,7 @@ export default (params) => {
 
   let detectClick;
   let detectLabel;
-  const geoDetect = config.itemstore.geoDetect;
+  const geoDetect = registry.get('itemstore').geoDetect;
   if (geoDetect) {
     const dialogs = registry.get('dialogs');
     const localize = registry.get('localize');

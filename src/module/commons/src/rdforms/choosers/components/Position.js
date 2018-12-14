@@ -1,5 +1,4 @@
 import { createSetState } from 'commons/util/util';
-import Button from 'commons/components/common/button/Button';
 import m from 'mithril';
 import utils from '../utils';
 

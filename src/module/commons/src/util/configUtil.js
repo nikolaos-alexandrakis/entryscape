@@ -35,7 +35,7 @@ const getThemeToRender = () => {
   if (config.theme && config.theme.localTheme) {
     themePath = '/theme/'; // TODO @valentino check this
   } else if (config.theme && config.localAssets) {
-    themePath = '/theme/assets/'; // TODO @valentino check this
+    themePath = '/assets/'; // TODO @valentino check this
   }
 
   if (config.theme && (config.theme.appName ||
@@ -49,7 +49,7 @@ const getThemeToRender = () => {
 const getAssetsPath = () => {
   let { assetsPath } = getThemeDefaults();
   if (config.theme && config.theme.localAssets) {
-    assetsPath = '/theme/assets/';
+    assetsPath = '/assets/';
   }
   return assetsPath;
 };

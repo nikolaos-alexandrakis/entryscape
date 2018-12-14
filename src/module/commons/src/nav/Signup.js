@@ -110,6 +110,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
   },
   showPULInfoDialog() {
     let assetsPath = configUtil.getAssetsPath();
+    // let themepath = '/assets/';
     if (config.theme && config.theme.privacyLink) {
       window.open(config.theme.privacyLink, '_blank');
       return;
