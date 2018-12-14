@@ -185,7 +185,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
           type: 'button',
           href: fButton.link,
         }, this.footerButtons);
-        a.classList.add('bottom_footer_button btn btn-raised btn-link btn-sm');
+        DOMUtil.addClass(a, 'bottom_footer_button btn btn-raised btn-link btn-sm');
 
         if (fButton.faIcon) {
           DOMUtil.create('span', null, a).classList.add(`fa fa-${fButton.faIcon}`);
