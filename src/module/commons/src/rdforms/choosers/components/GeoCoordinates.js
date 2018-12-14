@@ -1,8 +1,9 @@
-import m from 'mithril';
 import registry from 'commons/registry';
-import Position from './Position';
-import Map from './Map';
+import config from 'config';
+import m from 'mithril';
 import utils from '../utils';
+import Map from './Map';
+import Position from './Position';
 
 export default (params) => {
   const { binding, bundle } = params.attrs;
@@ -34,7 +35,7 @@ export default (params) => {
 
   let detectClick;
   let detectLabel;
-  const geoDetect = registry.get('itemstore').geoDetect;
+  const geoDetect = config.itemstore.geoDetect;
   if (geoDetect) {
     const dialogs = registry.get('dialogs');
     const localize = registry.get('localize');
