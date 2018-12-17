@@ -1953,13 +1953,13 @@ charenc@~0.0.1:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
 
-chartist-plugin-legend@^0.6.2:
+chartist-plugin-legend@~0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/chartist-plugin-legend/-/chartist-plugin-legend-0.6.2.tgz#53bf2771ddc1dc288c8abc16c151788f0b750244"
 
-chartist@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/chartist/-/chartist-0.11.0.tgz#84ba5e05490d096d93dcfa9343ebc31ef6a3bd28"
+"chartist@https://bitbucket.org/metasolutions/chartist-js.git#develop":
+  version "0.10.1"
+  resolved "https://bitbucket.org/metasolutions/chartist-js.git#efefd93552d1e8a65f23ca624d337692e6d869ff"
 
 check-types@^7.3.0:
   version "7.4.0"
