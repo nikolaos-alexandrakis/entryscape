@@ -1,9 +1,80 @@
 #!/usr/bin/env node
+/* Quickly hacked together script by @scazan
+ */
 const http = require('https');
-const _ = require('lodash');
 
-const request = http.get('https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json', (response) => {
+const renderLicenseList = (licenseDictionary) => {
+  let returnString = '';
 
+  Object.entries(licenseDictionary)
+    .forEach((keyVal) => {
+      const licenseGroup = keyVal[1];
+      returnString += `${licenseGroup.licenseInfo.licenseID}, ${licenseGroup.licenseInfo.licenseURL}
+        `;
+
+      licenseGroup.softwares.forEach((software) => {
+        returnString += `${software.name}, ${software.license.repository}
+        `;
+      });
+
+      returnString += '\n';
+    });
+
+  return returnString;
+};
+
+const createLicenseText = (data, publicLicenseInformation) => {
+  const licenses = JSON.parse(data);
+  const licenseDictionary = {};
+
+  const addToDictionary = (key, licenseInfo, softwareWithLicense) => {
+    if (licenseDictionary[key]) {
+      licenseDictionary[key].softwares.push(softwareWithLicense);
+    } else {
+      licenseDictionary[key] = { licenseInfo, softwares: [softwareWithLicense] };
+    }
+
+    return licenseDictionary;
+  };
+
+  Object.entries(licenses).forEach((keyVal) => {
+    const license = keyVal[1];
+    const name = keyVal[0];
+    const licenseID = license.licenses;
+
+    if (typeof licenseID === 'string') {
+      const sanitizedLicenseID = licenseID.split('*').join('');
+
+      const publicLicense = publicLicenseInformation.licenses.find(
+        publicLicenseInfo => publicLicenseInfo.licenseId === sanitizedLicenseID,
+      );
+
+      let licenseURL = '';
+      if (publicLicense) {
+        licenseURL = publicLicense.seeAlso.length > 0 ? publicLicense.seeAlso[0] : publicLicense.detailsUrl;
+      }
+
+      addToDictionary(sanitizedLicenseID, { licenseID, licenseURL }, { name, license });
+    } else {
+      licenseIDAndUrl = 'Unknown license';
+      addToDictionary(
+        'UNKNOWN',
+        {
+          licenseID: 'Unknown License',
+          licenseURL: '',
+        },
+        {
+          name,
+          license,
+        }
+      );
+    }
+  });
+
+  process.stdout.write(`${renderLicenseList(licenseDictionary)}\n`);
+};
+
+http.get('https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json', (response) => {
   response.setEncoding('utf8');
   let rawData = '';
   response.on('data', (chunk) => { rawData += chunk; });
@@ -18,39 +89,9 @@ const request = http.get('https://raw.githubusercontent.com/spdx/license-list-da
         data += chunk;
       });
 
-      stdin.on('end', () => {
-        const licenses = JSON.parse(data);
-
-        Object.entries(licenses).forEach((keyVal) => {
-          const license = keyVal[1];
-          const name = keyVal[0];
-          const licenseID = license.licenses;
-          let licenseIDAndUrl = '';
-          if (typeof licenseID === 'string') {
-            const publicLicense = _.find(publicLicenseInformation.licenses, (publicLicenseInfo) => publicLicenseInfo.licenseId === licenseID.split('*').join(''));
-
-            let licenseURL = '';
-            if (publicLicense) {
-              licenseURL = publicLicense.seeAlso.length > 0 ? publicLicense.seeAlso[0] : publicLicense.detailsUrl;
-            }
-            licenseIDAndUrl = `${licenseID}, ${licenseURL}`;
-
-          } else {
-            licenseIDAndUrl = `Unknown license`;
-          }
-
-          const licenseText = `${name}, ${license.repository}
-License: ${licenseIDAndUrl}
-`;
-
-          console.log(licenseText);
-        });
-      });
+      stdin.on('end', () => createLicenseText(data, publicLicenseInformation));
     } catch (e) {
       console.error(e.message);
     }
   });
 });
-
-
-
