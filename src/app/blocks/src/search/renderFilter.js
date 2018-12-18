@@ -11,7 +11,7 @@ export default (node, data) => {
       const box = document.createElement('div');
       const label = document.createElement('div');
       const button = document.createElement('button');
-      button.innerHTML = 'x'; 
+/*       button.innerHTML = 'x'; */ 
       label.innerHTML = item.label || decodeURIComponent(item.value);
       box.classList.add('filter--results');
       label.classList.add('label--filter');

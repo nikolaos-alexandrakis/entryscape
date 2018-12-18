@@ -503,14 +503,17 @@
   flex-wrap: wrap;
   word-break: break-all;
 }
-.entryscape .btn--remove{
+.entryscape .btn--remove:before, .entryscape .btn--remove {
+  font-family: FontAwesome;
+  content:"\f00d";
   border-style: none;
-  color:black;
+  color: #337ab7;
   background-color:white;
   font-size: 18px;
   font-weight: 600;
   margin-left:5px;
 }
+
 .entryscape .label--filter{
   margin-left:5px;
 }
