@@ -56,7 +56,7 @@ window.__entryscape_config = {
       nodetype: 'literal',
       limit: 5,
       includeAsFacet: true,
-    }, 
+    },
     {
       type: 'facet',
       name: 'environment',

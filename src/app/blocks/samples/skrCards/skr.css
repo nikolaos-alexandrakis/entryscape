@@ -170,10 +170,17 @@
 .btn--xl {
   width: 250px;
   min-width: 100px;
+  min-height: 40px;
 }
 
-
-
+.fa-search-plus:before {
+  content: "\F00E";
+  position: absolute;
+  top: 25px;
+  opacity: 0.8;
+  right: 30px;
+  z-index: 99999999999999999;
+}
 
 
 .btn--white,
@@ -361,6 +368,7 @@
 }
 
 .WorkOfArt__wrapper {
+  position: relative;
   margin-bottom: 20px;
   padding: 20px;
   padding-top: 0;
@@ -432,7 +440,7 @@
   font-weight: bolder;
 }
 
-.WorkOfArt__description {
+.WorkOfArt__wrapper .WorkOfArt__description {
   max-width: 400px;
   min-width: 250px;
   margin-bottom: 3em;
@@ -502,7 +510,6 @@
   font-size: 18px;
   font-weight: 600;
   margin-left:5px;
-  font-family: 
 }
 .entryscape .label--filter{
   margin-left:5px;
