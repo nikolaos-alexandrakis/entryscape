@@ -107,7 +107,7 @@
     "dev:blocks": "webpack-dev-server --mode=development --config webpack.config.js --app=blocks",
     "nls:download": "node src/scripts/nls/download.js",
     "nls:upload": "node src/scripts/nls/upload.js",
-    "print-licenses": "./node_modules/print-licenses/bin/print-licenses",
+    "print-licenses": "print-licenses",
     "lint": "src/scripts/eslint/pre-commit.sh"
   }
 }
