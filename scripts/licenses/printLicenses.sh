@@ -2,6 +2,7 @@
 /* Quickly hacked together script by @scazan
  */
 const http = require('https');
+const licenseCrawler = require('npm-license-crawler');
 
 const renderLicenseList = (licenseDictionary) => {
   let returnString = '';
@@ -24,7 +25,7 @@ const renderLicenseList = (licenseDictionary) => {
 };
 
 const createLicenseText = (data, publicLicenseInformation) => {
-  const licenses = JSON.parse(data);
+  const licenses = data;
   const licenseDictionary = {};
 
   const addToDictionary = (key, licenseInfo, softwareWithLicense) => {
@@ -66,7 +67,7 @@ const createLicenseText = (data, publicLicenseInformation) => {
         {
           name,
           license,
-        }
+        },
       );
     }
   });
@@ -81,15 +82,16 @@ http.get('https://raw.githubusercontent.com/spdx/license-list-data/master/json/l
   response.on('end', () => {
     try {
       const publicLicenseInformation = JSON.parse(rawData);
-      const stdin = process.openStdin();
 
-      let data = '';
-
-      stdin.on('data', (chunk) => {
-        data += chunk;
-      });
-
-      stdin.on('end', () => createLicenseText(data, publicLicenseInformation));
+      const dumpFileName = 'LICENSE_DUMP.temp';
+      licenseCrawler.dumpLicenses(
+        {
+          start: ['./'],
+          json: dumpFileName,
+          onlyDirectDependencies: true,
+        },
+        (error, data) => createLicenseText(data, publicLicenseInformation),
+      );
     } catch (e) {
       console.error(e.message);
     }
