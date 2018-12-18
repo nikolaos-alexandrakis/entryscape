@@ -268,7 +268,7 @@
 }
 
 .entryPagination .pagination > li > span {
-    background-color: white !important;
+    background-color: white;
     color: #808080;
     cursor: default;
 }

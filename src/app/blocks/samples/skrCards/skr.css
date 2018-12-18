@@ -172,42 +172,18 @@
   min-width: 100px;
 }
 
-.entryscape .block_facet>button {
-  font-weight: bold;
-  background-color: #33ed73;
-  background-image: none;
-  color: #333;
-  margin: 10px;
-  width: 189px;
-  border: none;
-  margin-bottom: 20px;
-  text-shadow: none;
-  text-transform: uppercase;
-  box-shadow: none;
-  border-radius: 0;
-  float: unset !important;
-}
 
-.block_facet>button:hover {
-  background-color: black;
-  color: white;
-  text-shadow: none;
-}
 
-.block_facet>button:focus {
-  background-color: black;
-  border: 1px solid #33ed73;
-  color: white;
-}
+
 
 .btn--white,
-.entryscape .block_facet>button {
+.entryscape .block_facet>.btn--facet {
   background-color: black;
   color: white;
   border: 2px solid white;
 }
 
-.entryscape .block_facet>button {
+.entryscape .block_facet>.btn--facet {
   background-color: black;
   border: 0;
 }
@@ -274,44 +250,46 @@
   cursor: pointer;
 }
 
-.entryscape .pagination>.active>a {
-  color: #33ed73 !important;
-  border-color: #333;
-  background-color: white;
+.entryscape .entryPagination .pagination>.active>a {
+  color: #33ed73;
+  border-color: #333 ;
+  background-color: white ;
 }
 
-.entryscape .pagination>li>a,
-.pagination>li>span {
+.entryscape .entryPagination .pagination>li>a,
+.entryList .entryPagination .pagination>li>span {
   border: none;
   font-weight: bold;
-  font-size: 14px;
-  color: #333 !important;
+  color: #333;
+  font-size: 24px;
+  margin-right: 12px;
+  padding: 5px;
+  border: 0 !important;
+  cursor:  pointer !important;
 }
 
-.entryscape .pagination>li>a:hover,
-.pagination>.active>a:hover {
+
+
+.entryscape .entryPagination .pagination>li>a:hover,
+.entryPagination .pagination>.active>a:hover,
+ .entryList .entryPagination .pagination>li>span:hover{
   background-color: #333;
-  color: white !important;
+  color: white;
 }
 
-.entryscape .pagination>li:last-child>a,
-.pagination>li:last-child>span {
+.entryscape .entryPagination .pagination>li:last-child>a,
+.entryPagination .pagination>li:last-child>span {
   border: 1px solid black;
   margin-right: 6px;
 }
 
-.entryscape .pagination>li:first-child>a,
-.pagination>li:first-child>span {
+.entryscape .entryPagination .pagination>li:first-child>a,
+.entryPagination .pagination>li:first-child>span {
   border: 1px solid black;
   margin-right: 6px;
 }
 
-.entryscape .pagination>li>a,
-.pagination>li>span {
-  font-size: 24px !important;
-  margin-right: 12px !important;
-  padding: 5px !important;
-}
+
 
 .facets--mobile,
 .advanced--mobile {
@@ -487,11 +465,48 @@
 }
 
 .freetext--wrapper {
-  display: flex;
   margin-left: 10px;
+}
+.main--2columns .flex--wrapper{
+  flex-wrap: wrap;
+  justify-content: center;
 
 }
-
+.flex--wrapper{
+  display: flex;
+}
+.filtered--results{
+  justify-content: center;
+  margin-top:15px;
+  margin-left:30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.filter--results{
+  margin: 10px;
+  font-size: 16px;
+  border: 2px solid #33ed73;
+  min-height: 30px;
+  padding:2px;
+  width: 250px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  word-break: break-all;
+}
+.entryscape .btn--remove{
+  border-style: none;
+  color:black;
+  background-color:white;
+  font-size: 18px;
+  font-weight: 600;
+  margin-left:5px;
+  font-family: 
+}
+.entryscape .label--filter{
+  margin-left:5px;
+}
 .entryscape .input-group {
   width: 214px;
 }
@@ -517,6 +532,32 @@
 }
 
 @media (min-width: 620px) {
+  .entryscape .block_facet>.btn--facet {
+    font-weight: bold;
+    background-color: #33ed73;
+    background-image: none;
+    color: #333;
+    margin: 10px;
+    width: 189px;
+    border: none;
+    margin-bottom: 20px;
+    text-shadow: none;
+    text-transform: uppercase;
+    box-shadow: none;
+    border-radius: 0;
+    float: unset !important;
+  }
+  .entryscape .block_facet>.btn--facet:hover {
+    background-color: black;
+    color: white;
+    text-shadow: none;
+  }
+  
+  .entryscape .block_facet>.btn--facet:focus {
+    background-color: black;
+    border: 1px solid #33ed73;
+    color: white;
+  }
   .main-header {
     display: flex;
     max-width: 826px;
@@ -587,6 +628,14 @@
     width: 300px;
     margin-left: 20px;
     margin-right: 0;
+  }
+
+  .filter--results{
+    width:200px;
+  }
+  .main--2columns .flex--wrapper{
+    margin-left:20px;
+    justify-content: start;
   }
 }
 

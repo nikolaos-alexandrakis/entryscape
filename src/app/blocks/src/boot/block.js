@@ -15,7 +15,7 @@ import renderList from 'blocks/list/renderList';
 import renderEntryLink from 'blocks/text/renderEntryLink';
 import renderEntryText from 'blocks/text/renderEntryText';
 import renderTemplate from 'blocks/text/renderTemplate';
-import renderResults from 'blocks/text/renderResults';
+import renderResults from 'blocks/search/renderResults';
 import renderCollectionText from 'blocks/text/renderCollectionText';
 import renderImage from 'blocks/image/renderImage';
 import renderSlider from 'blocks/image/renderSlider';
@@ -24,6 +24,7 @@ import renderChart from 'blocks/graphics/renderChart';
 import renderGraph from 'blocks/graphics/renderGraph';
 import preload from './preload';
 import error from './error';
+import renderFilter from '../search/renderFilter';
 
 const Block = {};
 
@@ -44,6 +45,7 @@ const block2function = {
   searchFilter: renderSearchFilter,
   clear: renderClear,
   results: renderResults,
+  filterResults: renderFilter,
   collectionText: renderCollectionText,
   map: renderMap,
   chart: renderChart,
