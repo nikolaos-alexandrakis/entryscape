@@ -30,7 +30,7 @@ import configUtil from './util/configUtil';
 import { fixEoG } from './util/entryUtil';
 
 import DOMUtil from './util/htmlUtil';
-
+const jsonp = require('superagent-jsonp');
 
 /**
  * Adds the folloging to the registry:
@@ -373,7 +373,14 @@ const init = {
           });
         });
       });
-      superagent.get('https://www.google.com/recaptcha/api.js?onload=rcCallback&render=explicit');
+      superagent.get('https://www.google.com/recaptcha/api.js?onload=rcCallback&render=explicit')
+        .use(
+          jsonp({
+            timeout: 1000000,
+          }))
+        .then((grecaptcha) => {
+          registry.set('recaptcha', grecaptcha);
+        });
     } else {
       registry.set('addRecaptcha', () => {
         console.error('Cannot add recaptcha since no site key is provided in config.reCaptchaSiteKey.');
