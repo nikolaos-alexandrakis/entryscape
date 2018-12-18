@@ -68,7 +68,7 @@ const SigninMixin = declare([PublicView], {
       return this.NLSBundle0.signinUnauthorized;
     }
     const esUser = this.username.value;
-    const esPassword = this.password.value;
+    const esPassword = window.encodeURI(this.password.value);
     const auth = registry.get('entrystore').getAuth();
     const async = registry.get('asynchandler');
     async.addIgnore('login', async.codes.UNAUTHORIZED, true);
