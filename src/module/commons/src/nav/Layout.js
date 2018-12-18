@@ -178,6 +178,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     }
     if (config.theme && config.theme.footer && config.theme.footer.buttons) {
       const localize = registry.get('localize');
+      this.footerButtons.innerHTML = '';
       config.theme.footer.buttons.forEach((fButton) => {
         const label = localize(fButton.label);
         const title = localize(fButton.title);
