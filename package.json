@@ -107,7 +107,7 @@
     "dev:blocks": "webpack-dev-server --mode=development --config webpack.config.js --app=blocks",
     "nls:download": "node src/scripts/nls/download.js",
     "nls:upload": "node src/scripts/nls/upload.js",
-    "license-dump": "./node_modules/license-checker/bin/license-checker --json --production | `pwd`/scripts/licenses/printLicenses.sh > LICENSES.txt",
+    "print-licenses": "./node_modules/license-checker/bin/license-checker --json --production | `pwd`/scripts/licenses/printLicenses.sh",
     "lint": "src/scripts/eslint/pre-commit.sh"
   }
 }
