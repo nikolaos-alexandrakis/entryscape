@@ -23,7 +23,6 @@ const prevent = (f, notify) => (e) => {
   }
 };
 let idCounter = 0;
-const localize = registry.get('localize');
 /**
  * @type {{view: ((vnode))}}
  */
@@ -76,7 +75,7 @@ export default (type, notify) => ({
         help: {
           // eslint-disable-next-line no-nested-ternary
           text: Password.toShort() ? bundle.tooShortPassword :
-            (Password.isValid() ? '' : localize(passconfig.message) || ''),
+            (Password.isValid() ? '' : registry.get('localize')(passconfig.message) || ''),
         },
       }),
       m(FormGroup, {
