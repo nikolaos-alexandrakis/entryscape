@@ -197,6 +197,7 @@
     border-radius: 0;
     cursor: pointer;
     text-transform: uppercase;
+    user-select: none;
 }
 
 .spaSideDialogBody .nav-pills > li.active > a {
