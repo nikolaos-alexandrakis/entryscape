@@ -81,14 +81,11 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
       return false;
     }
 
-    const updatePromise = this.row.entry.getResource()
+    return this.row.entry.getResource()
       .then(user => user.setName(username))
       .then(() => {
         this.list.rowMetadataUpdated.bind(this.list, this.row);
         this.clearFields();
       });
-
-
-    return updatePromise;
   },
 });
