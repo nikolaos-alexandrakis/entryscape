@@ -115,7 +115,7 @@ export default declare([TitleDialog.Content, NLSMixin.Dijit], {
     this.row = params.row;
     this.entry = params.row.entry;
     const name = this.entry.getResource(true).getName() || '';
-    this.nameInput.setAttribute('value', name);
+    this.nameInput.value = name;
     this.nameUpdateMessage('hide');
     this.checkNewName();
     this.dialog.show();
