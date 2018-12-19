@@ -175,10 +175,10 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     const name = this.getRenderNameHTML();
     if (typeof name === 'string') {
-      this.nameNode.innerHTML = name;
+      this.nameNode.innerText = name;
     } else if (typeof name === 'object' && typeof name.then === 'function') {
       name.then((nameStr) => {
-        this.nameNode.innerHTML = nameStr;
+        this.nameNode.innerText = nameStr;
       });
     }
     if (this.showCol3) {
@@ -218,7 +218,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         const dateTitle = this.nlsSpecificBundle[this.nlsDateTitle] ||
           this.nlsGenericBundle[this.nlsDateTitle] || '';
         const tStr = template(dateTitle)({ date: mDateFormats.full });
-        this.col3Node.innerHTML = mDateFormats.short;
+        this.col3Node.innerText = mDateFormats.short;
         this.col3Node.setAttribute('title', tStr);
       } catch (e) {
         // TODO strange case when gregorian has not been loaded in time.
