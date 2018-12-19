@@ -16,13 +16,13 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, te
   startView: 'start', // mandatory
   signinView: 'signin',
   permissionView: 'permission',
-  sidebar: {wide: false, always: true, replaceTabs: true},
+  sidebar: { wide: false, always: true, replaceTabs: true },
   views: {
     signin: {
       name: 'signin',
-      title: {en: 'Sign in/out', sv: 'Logga in/ut', da: 'Login/ud', de: 'An-/Abmelden'},
+      title: { en: 'Sign in/out', sv: 'Logga in/ut', da: 'Login/ud', de: 'An-/Abmelden' },
       class: Signin,
-      constructorParams: {nextView: 'start'},
+      constructorParams: { nextView: 'start' },
       route: '/signin',
     },
     permission: {
@@ -39,18 +39,30 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, te
     start: {
       name: 'start',
       class: Start,
-      title: {en: 'Start', sv: 'Start', da: 'Start', de: 'Start'},
+      title: { en: 'Start', sv: 'Start', da: 'Start', de: 'Start' },
       route: '/start',
+    },
+    documentation: {
+      name: 'documentation',
+      title: { en: 'Documentation', sv: 'Dokumentation', de: 'Dokumentation' },
+      route: 'https://docs.entryscape.com/',
     },
   },
   modules: {
     search: {
-      title: {en: 'Search'},
+      title: { en: 'Search' },
       productName: 'Search',
       faClass: 'search',
       startView: 'catalog__search',
       public: true,
     },
+    documentation: {
+      title: { en: 'Documentation', sv: 'Dokumentation', de: 'Dokumentation' },
+      productName: 'Documentation',
+      faClass: 'question',
+      startView: 'documentation',
+      public: false,
+    },
   },
-  moduleList: ['catalog', 'terms', 'workbench', 'search', 'admin'],
+  moduleList: ['catalog', 'terms', 'workbench', 'search', 'admin', 'documentation'],
 }, __entryscape_config.site || {});
