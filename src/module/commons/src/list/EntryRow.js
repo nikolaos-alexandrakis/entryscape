@@ -156,7 +156,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     if (access === 'disabled') {
       el.classList.add('disabled');
     } else {
-      el.onclick = function (ev) {
+      el.onclick = (ev) => {
         ev.stopPropagation();
         if (params.method && typeof this[params.method] === 'function') {
           this[params.method]();
@@ -165,7 +165,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         } else {
           this.list.openDialog(params.name, { row: this });
         }
-      }.bind(this);
+      };
     }
   },
   render() {
@@ -175,10 +175,10 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     const name = this.getRenderNameHTML();
     if (typeof name === 'string') {
-      this.nameNode.innerText = name;
+      this.nameNode.innerHTML = name;
     } else if (typeof name === 'object' && typeof name.then === 'function') {
       name.then((nameStr) => {
-        this.nameNode.innerText = nameStr;
+        this.nameNode.innerHTML = nameStr;
       });
     }
     if (this.showCol3) {
@@ -201,7 +201,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
   getRenderName() {
     const rdfutils = registry.get('rdfutils');
-    return rdfutils.getLabel(this.entry);
+    const name = rdfutils.getLabel(this.entry);
+    return window.encodeURI(name);
   },
 
   renderCol1() {
