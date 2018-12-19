@@ -24,7 +24,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
   clear() {
     this.uploadNode.setAttribute('disabled', true);
-    this.selectedFile.setAttribute('value', '');
+    this.selectedFile.value = '';
     this.validFile = false;
   },
   fileSelected() {
@@ -32,7 +32,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.label = this.fileInput.value.replace(/\\/g, '/').replace(/.*\//, '');
     this.validFile = true;
     this.uploadNode.setAttribute('disabled', false);
-    this.selectedFile.setAttribute('value', this.label);
+    this.selectedFile.value = this.label;
   },
   show(message, uploadLabel, cancelLabel, callback) {
     this._uploadCallback = callback;

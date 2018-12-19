@@ -57,6 +57,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       this.fileOrLink.__linkLabel.innerHTML = this.NLSBundle0.newLink;
     }
   },
+
   open(params) {
     this.row = params.row;
     this.entry = params.row.entry;
@@ -77,7 +78,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       } else {
         this.oldValue = this.entry.getEntryInfo().getLabel();
       }
-      this.__currentValue.setAttribute('value', this.oldValue);
+      this.__currentValue.value = this.oldValue;
       this.dialog.show();
     });
     this.inherited(arguments);

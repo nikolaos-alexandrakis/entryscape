@@ -18,10 +18,20 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   postCreate() {
     this.inherited(arguments);
   },
+
+  /**
+   * Clears and resets the form
+   *
+   * @returns {undefined}
+   */
+  clearFields() {
+    this.workspaceName.value = '';
+    this.workspaceDesc.value = '';
+  },
+
   open() {
     this.list.getView().clearSearch();
-    this.workspaceName.setAttribute('value', '');
-    this.workspaceDesc.setAttribute('value', '');
+    this.clearFields();
     this.dialog.show();
   },
   footerButtonAction() {
@@ -69,6 +79,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
           const userEntry = registry.get('userEntry');
           userEntry.setRefreshNeeded();
           userEntry.refresh();
+          this.clearFields();
         });
       }, (err) => {
         // dialogs.acknowledge(err);

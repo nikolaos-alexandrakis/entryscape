@@ -71,7 +71,6 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     this.dialog.show();
     this.row.entry.getResource().then((user) => {
       this.currentUsername = user.getName();
-      this.currentUserName.setAttribute('value', this.currentUsername);
       this.currentUserName.value = this.currentUsername;
     });
   },
