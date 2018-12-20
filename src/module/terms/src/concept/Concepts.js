@@ -169,7 +169,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     });
 
     model.createEntry(pe, selNode || model.getRootNode(), tree).then(() => {
-      termLabel.setAttribute('value', '');
+      termLabel.value = '';
     });
   },
   _treeClick() {

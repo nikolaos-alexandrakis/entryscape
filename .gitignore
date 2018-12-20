@@ -10,3 +10,4 @@ yalc.lock
 *.vim
 /src/scripts/nls/apikey.js
 theme
+*.temp

@@ -33,8 +33,8 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     this.dialog.show();
   },
   _clear() {
-    this.__commentInput.setAttribute('value', '');
-    this.__subjectInput.setAttribute('value', '');
+    this.__commentInput.value = '';
+    this.__subjectInput.value = '';
   },
   check() {
     if (this.checkTimer) {
@@ -101,8 +101,8 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     }
 
     return comments.createReply(this.entry, subj, comment).then((commentEntry) => {
-      this.__commentInput.setAttribute('value', '');
-      this.__subjectInput.setAttribute('value', '');
+      this.__commentInput.value = '';
+      this.__subjectInput.value = '';
       /* eslint-disable no-new */
       const commentEntryDiv = document.createElement('div');
       this.__commentsList.appendChild(commentEntryDiv);

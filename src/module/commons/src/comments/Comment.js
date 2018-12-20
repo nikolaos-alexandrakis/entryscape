@@ -173,7 +173,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   replyComment() {
     this.__commentReply.style.display = '';
     const subjectTxt = `Re: ${this.entry.getMetadata().findFirstValue(null, 'dcterms:title')}`;
-    this.subjectNode.setAttribute('value', subjectTxt);
+    this.subjectNode.value = subjectTxt;
     focusUtil.focus(this.commentNode);// ESCO-41 fix
   },
   postReply() {
