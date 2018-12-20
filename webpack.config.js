@@ -101,6 +101,7 @@ module.exports = (env, argv) => {
               loader: 'nls-loader',
               options: {
                 context: APP_PATH,
+                showNLSWarnings: argv['nls-warnings'],
                 locales,
               },
             },

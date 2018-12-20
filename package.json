@@ -75,7 +75,7 @@
     "imports-loader": "^0.8.0",
     "less": "^3.8.1",
     "mini-css-extract-plugin": "^0.4.1",
-    "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#master",
+    "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#1.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "pre-commit": "^1.2.2",
     "print-licenses": "https://bitbucket.org/metasolutions/print-licenses#master",
@@ -101,7 +101,9 @@
   ],
   "scripts": {
     "build:suite": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite",
+    "build:suite:nls": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite --nls-warnings=true",
     "build:registry": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry",
+    "build:registry:nls": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry --nls-warnings=true",
     "build:blocks": "webpack --config webpack.config.js --mode=production --display=errors-only --app=blocks",
     "dev:suite": "webpack-dev-server --watch --mode=development --config webpack.config.js --app=suite",
     "dev:registry": "webpack-dev-server --mode=development --config webpack.config.js --app=registry",
