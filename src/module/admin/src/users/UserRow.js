@@ -58,7 +58,7 @@ export default declare([EntryRow], {
     }
 
     const isUserDisabled = this.getIsUserDisabled();
-    return `${username}&nbsp;&nbsp;-&nbsp;&nbsp;${name}${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
+    return `${username}  -  ${name}${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
   },
   action_remove() {
     const entry = this.entry;

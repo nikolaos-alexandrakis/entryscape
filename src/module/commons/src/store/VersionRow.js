@@ -4,6 +4,7 @@ import dateUtil from 'commons/util/dateUtil';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import { Presenter } from 'rdforms';
+import { escape } from 'lodash-es';
 import DOMUtil from '../util/htmlUtil';
 
 export default declare([ExpandRow], {
@@ -111,14 +112,12 @@ export default declare([ExpandRow], {
     const rdfutils = registry.get('rdfutils');
     const username = e.getEntryInfo().getName()
       || (e.getResource(true) && e.getResource(true).getName());
-    const name = rdfutils.getLabel(e) || username;
+    const name = escape(rdfutils.getLabel(e) || username);
     let date = dateUtil.getMultipleDateFormats(this.entry.time);
     date = `${date.dateMedium} ${date.timeMedium}`;
     const b = this.nlsSpecificBundle;
     const current = this.currentRevision ? b.currentRevision : '';
     if (name == null && username == null) {
-      // return i18n.localize(b, 'noUserNameRevision', {datetime: date, id: e.getId()}) + current;
-      // @scazan: I am assuming that this.nlsSpecificBundle is a localized bundle already
       return i18n.renderNLSTemplate(b.noUserNameRevision, { datetime: date, id: e.getId() }) + current;
     }
     return `${date}, ${name} ${current}`;
