@@ -52,14 +52,25 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
         this.dialog.unlockFooterButton();
       });
   },
+
+  /**
+   * Clears all fields from the form
+   *
+   * @returns {UserNameDialog}
+   */
+  clearFields() {
+    this.usernameInput.value = '';
+    this.dialog.lockFooterButton();
+
+    return this;
+  },
+
   open() {
     this.inherited(arguments);
-    this.usernameInput.setAttribute('value', '');
-    this.dialog.lockFooterButton();
+    this.clearFields();
     this.dialog.show();
     this.row.entry.getResource().then((user) => {
       this.currentUsername = user.getName();
-      this.currentUserName.setAttribute('value', this.currentUsername);
       this.currentUserName.value = this.currentUsername;
     });
   },
@@ -72,6 +83,9 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
 
     return this.row.entry.getResource()
       .then(user => user.setName(username))
-      .then(this.list.rowMetadataUpdated.bind(this.list, this.row), this.row);
+      .then(() => {
+        this.list.rowMetadataUpdated.bind(this.list, this.row);
+        this.clearFields();
+      });
   },
 });

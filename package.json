@@ -74,11 +74,11 @@
     "html-webpack-plugin": "^3.2.0",
     "imports-loader": "^0.8.0",
     "less": "^3.8.1",
-    "license-checker": "^24.1.0",
     "mini-css-extract-plugin": "^0.4.1",
     "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#master",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "pre-commit": "^1.2.2",
+    "print-licenses": "https://bitbucket.org/metasolutions/print-licenses#master",
     "q": "^1.5.0",
     "raw-loader": "^0.5.1",
     "request": "*",
@@ -108,7 +108,7 @@
     "dev:blocks": "webpack-dev-server --mode=development --config webpack.config.js --app=blocks",
     "nls:download": "node src/scripts/nls/download.js",
     "nls:upload": "node src/scripts/nls/upload.js",
-    "license-dump": "./node_modules/license-checker/bin/license-checker --json --production | `pwd`/scripts/licenses/printLicenses.sh > LICENSES.txt",
+    "print-licenses": "print-licenses",
     "lint": "src/scripts/eslint/pre-commit.sh"
   }
 }
