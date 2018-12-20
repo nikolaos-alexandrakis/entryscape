@@ -37,3 +37,10 @@ yarn dev:suite
 
 You can access the running dev server in the browser at http://localhost:8080
 
+
+### Generating Licenses
+If you would like to create a file listing all the licenses of dependencies run:
+```
+yarn print-licenses
+```
+

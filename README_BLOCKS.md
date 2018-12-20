@@ -533,3 +533,10 @@ Which corresponds to the example taken in the section introducing handlebar temp
     </script>
 
 For more information about the wordpress plugin, see the documentation in the plugins/wordpress folder.
+
+
+### Generating Licenses
+If you would like to create a file listing all the licenses of dependencies run:
+```
+yarn print-licenses
+```
