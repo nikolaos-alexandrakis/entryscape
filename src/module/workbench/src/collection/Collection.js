@@ -290,7 +290,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
 
     this._newCollection.setMetadata(md).commit().then(() => {
       // clear collection input field
-      this._collectionTitle.setAttribute('value', '');
+      this._collectionTitle.value = '';
     });
   },
 });

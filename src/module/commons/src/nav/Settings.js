@@ -49,7 +49,7 @@ export default declare([TitleDialog.ContentNLS, NLSMixin.Dijit], {
 
       if (registry.getSiteConfig().nationalIdNumber) {
         this.nationalNumberNode.style.display = '';
-        this.settingNationalNumber.setAttribute('value', customProperties.nationalid || '');
+        this.settingNationalNumber.value = customProperties.nationalid || '';
       }
     } else {
       const dialogs = registry.get('dialogs');

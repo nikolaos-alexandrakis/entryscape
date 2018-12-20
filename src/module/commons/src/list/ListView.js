@@ -671,12 +671,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
   clearSearch() {
     if (this.searchTerm) {
-      this.searchTermNode.setAttribute('value', '');
+      this.searchTermNode.value = '';
       this.action_refresh();
     }
   },
   clearView() {
-    this.searchTermNode.setAttribute('value', '');
+    this.searchTermNode.value = '';
     this.searchTerm = '';
     this.searchBlockInner.classList.remove('has-error');
     this.searchBlockInner.classList.remove('has-warning');
