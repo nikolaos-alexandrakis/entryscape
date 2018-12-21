@@ -52,12 +52,14 @@
         <div class="advanced--group--wrapper">
             <div class="decoration--green"></div>
             <div class="advanced--group">
-                <div data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter konstnär..."></div>
-                <div data-entryscape="searchFilter" data-entryscape-collection="site"
-                     data-entryscape-empty-label="Sök efter verksamhet..."></div>
-                <div data-entryscape="searchFilter" data-entryscape-collection="address"
-                     data-entryscape-empty-label="Sök efter ort..."></div>
-                <div data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter årtal.."></div>
+                <label for="artist" class="search__label">Konstnär</label>
+                <div id="artist" data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-label="Sök efter konstnär..."></div>
+                <label for="site" class="search__label">Verksamhet</label>
+                <div id="site" data-entryscape="searchFilter" data-entryscape-collection="" data-entryscape-empty-label="Sök efter verksamhet..."></div>
+                <label for="address" class="search__label">Ort</label>
+                <div id="address" data-entryscape="searchFilter" data-entryscape-collection="address"data-entryscape-empty-label="Sök efter ort..."></div>
+                <label for="date" class="search__label">Årtal</label>
+                <div id="date" data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter årtal.."></div>
             </div>
         </div>
 
