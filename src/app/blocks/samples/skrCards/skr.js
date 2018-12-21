@@ -107,6 +107,14 @@ window.__entryscape_config = {
       includeAsFacet: false,
     },
     {
+      type: 'facet',
+      name: 'site',
+      label: 'Verksamhet',
+      property: 'skr:site',
+      nodetype: 'literal',
+      context: '9',
+      includeAsFacet: false,
+    },    {
       type: 'search',
       name: 'location',
       label: 'Fastighet',
