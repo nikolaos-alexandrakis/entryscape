@@ -35,9 +35,9 @@
 }
 
 .search__label{
-min-width: 100px;
-margin-left: 10px;
-
+  min-width: 100px;
+  margin-left: 10px;
+  color:black;
 }
 
 .main--2colums {
@@ -514,12 +514,14 @@ margin-left: 10px;
   font-family: FontAwesome;
   content:"\f00d";
   border-style: none;
-  color: #337ab7;
+  color: black;
   background-color:white;
   font-size: 18px;
   margin-left:5px;
 }
-
+.entryscape .block_facet .btn-link{
+  color:black;
+}
 .entryscape .label--filter{
   margin-left:5px;
 }
