@@ -85,7 +85,7 @@ window.__entryscape_config = {
       limit: 5,
       includeAsFacet: true,
     },
-    {
+/*    {
       type: 'search',
       name: 'artist',
       label: 'Konstnär',
@@ -93,6 +93,16 @@ window.__entryscape_config = {
       rdftype: 'https://opendata.statenskonstrad.se/terms/Artist',
       nodetype: 'uri',
       limit: 5,
+      context: '9',
+      includeAsFacet: false,
+    },*/
+    {
+      type: 'facet',
+      name: 'artist',
+      label: 'Konstnär2',
+      property: 'foaf:name',
+      related: true,
+      nodetype: 'literal',
       context: '9',
       includeAsFacet: false,
     },
@@ -108,7 +118,7 @@ window.__entryscape_config = {
       context: '9',
       includeAsFacet: false,
     },
-    {
+      /*    {
       type: 'search',
       name: 'address',
       label: 'Adress',
@@ -117,6 +127,19 @@ window.__entryscape_config = {
       searchproperty: 'schema:addressRegion',
       nodetype: 'uri',
       limit: 5,
+      context: '9',
+      includeAsFacet: false,
+    },*/
+    {
+      type: 'facet',
+      name: 'address',
+      label: 'Adress',
+      property: 'schema:addressLocality',
+      placeholder: "Ort",
+      related: true,
+      nodetype: 'literal',
+      searchIndextype: 'string',
+    //      limit: 5,
       context: '9',
       includeAsFacet: false,
     },
@@ -135,8 +158,7 @@ window.__entryscape_config = {
       label: 'Årtal',
       property: 'http://purl.org/dc/terms/created',
       nodetype: 'literal',
-      limit: 5,
-      includeAsFacet: true,
+      includeAsFacet: false,
     },
 
   ],
