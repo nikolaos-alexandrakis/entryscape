@@ -97,7 +97,10 @@ const filterObj = {
       group = oldOption.group || 'term';
       const arr = filter[group];
       if (arr) {
-        arr.splice(arr.indexOf(oldOption), 1);
+        const idx = arr.findIndex((el) => {
+            return el.value ===  oldOption.value;
+        });
+        arr.splice(idx, 1);
         if (arr.length === 0) {
           delete filter[group];
         }
@@ -146,9 +149,9 @@ const filterObj = {
       if (namespaces.expand(prop) === namespaces.expand('rdf:type')) {
         obj.rdfType(vals);
       } else if (filterDef.nodetype === 'literal') {
-        obj.literalProperty(prop, vals);
+        obj.literalProperty(prop, vals, undefined, filterDef.searchIndextype, filterDef.related);
       } else {
-        obj.uriProperty(prop, vals);
+        obj.uriProperty(prop, vals, undefined, filterDef.related);
       }
     });
     return obj;
@@ -193,10 +196,10 @@ const filterObj = {
     collections.forEach((def) => {
       switch (def.nodetype) {
         case 'integer':
-          obj.integerFacet(def.property);
+          obj.integerFacet(def.property, def.related);
           break;
         case 'literal':
-          obj.literalFacet(def.property);
+          obj.literalFacet(def.property, def.related);
           break;
         default:
           obj.uriFacet(def.property);
@@ -251,7 +254,7 @@ registry.onChange('blocks_collections', (collections) => {
   params.addListener((urlParams) => {
     const constraints = [];
     collections.forEach((c) => {
-      if (c.includeAsFacet !== false) {
+//      if (c.includeAsFacet !== false) {
         if (urlParams[c.name]) {
           let arr = urlParams[c.name];
           if (!Array.isArray(arr)) {
@@ -261,7 +264,7 @@ registry.onChange('blocks_collections', (collections) => {
             constraints.push({ group: c.name, value: namespaces.expand(f) });
           });
         }
-      }
+//      }
     });
     if (urlParams.term) {
       if (Array.isArray(urlParams.term)) {
@@ -282,9 +285,9 @@ registry.onChange('blocks_collections', (collections) => {
       registry.onChange('blocks_search_filter', (filter) => {
         delete urlParams.term;
         collections.forEach((c) => {
-          if (c.includeAsFacet !== false) {
+//          if (c.includeAsFacet !== false) {
             delete urlParams[c.name];
-          }
+//          }
         });
         Object.keys(filter).forEach((key) => {
           const vs = filter[key];

@@ -18,11 +18,11 @@ const hash = window.location.hash.substr(1);
 const urlParams = {};
 if (hash !== '') {
   const prefix = econfig.hashParamsPrefix || 'esc_';
-  up = queryToObject(hash);
+  const up = queryToObject(hash);
   for (const key in up) {
     if (up.hasOwnProperty(key)) {
       if (key.indexOf(prefix) === 0) {
-        urlParams[key.substr(prefix.length)] = up[key];
+        urlParams[key.substr(prefix.length)] = decodeURIComponent(up[key]);
       }
     }
   }

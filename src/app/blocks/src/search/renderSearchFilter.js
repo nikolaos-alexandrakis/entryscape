@@ -44,6 +44,7 @@ export default function (node, data, items) {
     valueField: 'value',
     labelField: 'label',
     searchField: 'label',
+    placeholder: data.placeholder,
     allowEmptyOption: data.allowEmptyOption !== false,
     mode: 'single',
     closeAfterSelect: true,
@@ -58,6 +59,16 @@ export default function (node, data, items) {
       }
       lock = false;
       selectedOption = newOption;
+    },
+    onItemRemove(value) {
+      if (lock) {
+        return;
+      }
+      if (value !== '') {
+        lock = true;
+        filter.remove(selectize.options[value]);
+        lock = false;
+      }
     },
     render: {
       option(d, escape) {
