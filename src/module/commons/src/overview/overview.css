@@ -1,21 +1,42 @@
+.catalogOverview .page-header{
+    border-bottom: none;
+}
 .escoOverview__description {
     color: #535353;
 }
 
-.escoOverview__statCount {
-    font-size: 2.5rem;
+.escoOverview__statCount, .escoOverview__statLabel  {
+    font-size: 36px;
+    font-family: 'Montserrat';
+    color:#FF8D41;
+    text-align: start;
+    margin:10px;
+    font-weight: normal;
 }
-
-.escoOverview__statBox {
-    width: 50%;
+.escoOverview__statLabel{
+    font-size: 30px;
+    color:#1C4CD1;
     text-align: center;
 }
-
-.escoOverview__statLabel {
-    font-weight: normal;
-    color: #535353;
+.escoOverview__statBox {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.5);
+    margin: 15px;
 }
 
+.escoOverview__wrapper{
+    display:flex;
+    flex-wrap: wrap;
+}
+.escoOverview__title{
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 300;
+    color:#1C4CD1;
+    border-bottom: 1px solid #FF8D41;
+}
 .escoOverview__termFact dt {
     clear: left;
     color: #535353;
