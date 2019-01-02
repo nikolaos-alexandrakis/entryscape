@@ -6,7 +6,7 @@
 }
 
 .escoOverview__statCount, .escoOverview__statLabel  {
-    font-size: 36px;
+    font-size: 48px;
     font-family: 'Montserrat';
     color:#FF8D41;
     text-align: start;
@@ -14,7 +14,7 @@
     font-weight: normal;
 }
 .escoOverview__statLabel{
-    font-size: 30px;
+    font-size: 28px;
     color:#1C4CD1;
     text-align: center;
 }
@@ -24,6 +24,9 @@
     background-color: white;
     box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.5);
     margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .escoOverview__wrapper{
@@ -36,24 +39,23 @@
     font-weight: 300;
     color:#1C4CD1;
     border-bottom: 1px solid #FF8D41;
-}
-.escoOverview__termFact dt {
-    clear: left;
-    color: #535353;
-    float: left;
-    height: 20px;
-    max-width: 100px;
-    width: 100px;
-    text-align: right;
-    white-space: nowrap;
-    font-weight: normal;
+    padding-bottom: 10px;
 }
 
-.escoOverview__termFact dd {
-    color: #535353;
-    height: 20px;
-    white-space: nowrap;
-    width: 400px;
-    border: 0px none rgb(51, 51, 51);
-    margin: 0px 0px 5px 120px;
+
+.catalog__status{
+display: flex;
+flex-direction: column;
+}
+.flex-wrapper{
+    display: flex;
+}
+.catalog__status__label {
+    color: #333;
+    font-weight: bolder;
+    margin-right: 10px;
+}
+
+.catalog__status__value {
+    color: #1C4CD1;
 }
