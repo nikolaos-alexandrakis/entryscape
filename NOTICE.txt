@@ -58,10 +58,10 @@ Apache-2.0, http://www.apache.org/licenses/LICENSE-2.0
         selectize@0.12.6, https://github.com/selectize/selectize.js
         
 LGPL-3.0-only, http://www.gnu.org/licenses/lgpl-3.0-standalone.html
-        esi18n@1.0.0, undefined
-        rdfjson@2.0.0, https://bitbucket.org/metasolutions/rdfjson
-        rdforms@9.0.0, https://bitbucket.org/metasolutions/rdforms
-        store@4.6.0-webpack, undefined
+        esi18n@1.0.0, https://bitbucket.org/metasolutions/esi18n
+        rdfjson@2.1.0-SNAPSHOT, https://bitbucket.org/metasolutions/rdfjson
+        rdforms@10.0.0-SNAPSHOT, https://bitbucket.org/metasolutions/rdforms
+        store@4.7.0-SNAPSHOT, https://bitbucket.org/metasolutions/entrystore.js
         
 WTFPL, http://sam.zoy.org/wtfpl/COPYING
         superagent-jsonp@0.2.1, https://github.com/lamp/superagent-jsonp
