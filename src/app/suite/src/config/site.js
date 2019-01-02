@@ -1,6 +1,6 @@
 import merge from 'commons/merge';
 import adminSiteConfig from 'admin/config/site';
-import cataloSitegConfig from 'catalog/config/site';
+import catalogSiteConfig from 'catalog/config/site';
 import workbenchSiteConfig from 'workbench/config/site';
 import termsSiteConfig from 'terms/config/site';
 
@@ -10,7 +10,7 @@ import Start from 'commons/nav/Start';
 import Signin from 'commons/nav/Signin';
 import Permission from 'commons/nav/Permission';
 
-export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, termsSiteConfig, {
+export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, termsSiteConfig, {
   siteClass: Site, // mandatory
   controlClass: Layout, // mandatory
   startView: 'start', // mandatory
@@ -59,7 +59,7 @@ export default merge(adminSiteConfig, cataloSitegConfig, workbenchSiteConfig, te
     documentation: {
       title: { en: 'Documentation', sv: 'Dokumentation', de: 'Dokumentation' },
       productName: 'Documentation',
-      faClass: 'question',
+      faClass: 'book',
       startView: 'documentation',
       public: false,
     },

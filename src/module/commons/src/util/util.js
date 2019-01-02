@@ -22,3 +22,10 @@ export const createSetState = state => (props, avoidRedraw = false) => {
 
   return state;
 };
+
+export const isExternalLink = (url) => {
+  const anchor = document.createElement('a');
+  anchor.href = url;
+
+  return anchor.hostname !== window.location.hostname;
+};
