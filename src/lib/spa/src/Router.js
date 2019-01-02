@@ -1,3 +1,5 @@
+import { isExternalLink } from 'commons/util/util';
+
 /**
  * Terminology
  * path - a relative materialized route
@@ -151,7 +153,7 @@ export default class Router {
   getRoutePath(route, params = {}) {
     if (this.routes.has(route)) {
       // Check if this is an external link
-      if (route.match(/((http|https):\/\/[\w\.\/\-=?#]+)/) ) {
+      if (isExternalLink(route)) {
         return route.trim();
       }
 
