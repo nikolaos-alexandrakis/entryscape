@@ -168,7 +168,7 @@ const TitleDialog = declare([SideDialog], {
           }
         }
         this.unlockFooterButton();
-      });
+      }).catch(console.log);
     } else if (res === true || typeof res === 'undefined') {
       this.hide();
     } else {
