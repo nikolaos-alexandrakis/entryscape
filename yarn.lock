@@ -5998,9 +5998,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"license-checker@git+https://github.com/mwittig/license-checker.git#d546e3f738e14c62e732346fa355162d46700893":
+"license-checker@git+https://github.com/mwittig/license-checker#d546e3f738e14c62e732346fa355162d46700893":
   version "1.0.0"
-  resolved "git+https://github.com/mwittig/license-checker.git#d546e3f738e14c62e732346fa355162d46700893"
+  resolved "git+https://github.com/mwittig/license-checker#d546e3f738e14c62e732346fa355162d46700893"
   dependencies:
     chalk "~0.5.1"
     mkdirp "^0.3.5"
@@ -6618,7 +6618,7 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-"nls-loader@https://bitbucket.org/metasolutions/nls-loader#1.1.0", "nls-loader@https://bitbucket.org/metasolutions/nls-loader#master":
+"nls-loader@https://bitbucket.org/metasolutions/nls-loader#1.1.0":
   version "1.1.0"
   resolved "https://bitbucket.org/metasolutions/nls-loader#f8ec72f61a8995d13ce44e65cff331d5c9b879b5"
   dependencies:
@@ -8013,7 +8013,7 @@ pretty-error@^2.0.2:
     renderkid "^2.0.1"
     utila "~0.4"
 
-"print-licenses@https://bitbucket.org/metasolutions/print-licenses#master":
+"print-licenses@https://bitbucket.org/metasolutions/print-licenses":
   version "1.0.0"
   resolved "https://bitbucket.org/metasolutions/print-licenses#feab90a72e89688775471c7f4c928f60f06e985f"
   dependencies:
