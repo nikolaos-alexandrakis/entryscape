@@ -78,7 +78,7 @@
     "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#1.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "pre-commit": "^1.2.2",
-    "print-licenses": "https://bitbucket.org/metasolutions/print-licenses#master",
+    "print-licenses": "https://bitbucket.org/metasolutions/print-licenses#1.0.0",
     "q": "^1.5.0",
     "raw-loader": "^0.5.1",
     "request": "*",
