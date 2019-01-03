@@ -10,14 +10,14 @@ const Overview = {
 
     return m('div', [
       m(OverviewHeader, { title, description }),
-      m('.row', [
-        m('.col-md-6', [
-          m('.well', [
+      m('.escoOverview__wrapper', [
+        m('', [
+          m('.escoOverview__wrapper', [
             m('.escoOverview__termFact', m(DescriptionList, { sList })),
           ]),
         ]),
-        m('.col-md-6', [
-          m('.well', m(StatBox, { bList })),
+        m('', [
+          m('.escoOverview__wrapper', m(StatBox, { bList })),
         ]),
       ]),
     ]);

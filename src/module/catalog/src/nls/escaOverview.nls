@@ -1,7 +1,7 @@
 {
   "root": {
-    "lastUpdatedLabel": "updated",
-    "createdLabel": "created",
+    "lastUpdatedLabel": "Updated",
+    "createdLabel": "Created",
     "datasetLabel": "Datasets",
     "candidateLabel": "Candidates",
     "showcaseLabel": "Showcases",

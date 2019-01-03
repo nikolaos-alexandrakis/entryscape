@@ -1,7 +1,7 @@
 {
   "name": "EntryScape",
   "version": "2.1.0-SNAPSHOT",
-  "license": "AGPLv3",
+  "license": "AGPL-3.0-only",
   "private": true,
   "ignore": [
     "node_modules"

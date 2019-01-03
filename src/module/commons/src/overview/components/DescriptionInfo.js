@@ -6,8 +6,10 @@ import m from 'mithril';
 export default {
   view(vnode) {
     return [
-      m('dt', vnode.attrs.label),
-      m('dd', vnode.attrs.value),
+      m('div.flex-wrapper', [
+        m('dt.catalog__status__label', vnode.attrs.label),
+        m('dd.catalog__status__value', vnode.attrs.value),
+      ]),
     ];
   },
 };
