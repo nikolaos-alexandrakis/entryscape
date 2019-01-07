@@ -308,24 +308,23 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   fileUpload() {
     this.tasks.upload.status = 'progress';
     this.updateProgressDialog(this.tasks);
-    const asyncHandler = registry.get('asynchandler');
-    asyncHandler.addIgnore('echoFile', true, true);
     /** @type HTMLInputElement */
     const inputElement = this.fileOrLink.getFileInputElement();
     /** @type File */
     const file = inputElement.files.item(0);
 
     // read file in browser and try to parse RDF
-    return readFileAsText(file).then((data) => {
-      // update the UI
-      this.tasks.upload.status = 'done';
-      this.updateProgressDialog(this.tasks);
-
-      return data;
-    }, (err) => {
-      this.errorTask = 'upload';
-      throw Error(err.message);
-    });
+    return readFileAsText(file)
+      .then((data) => {
+        // update the UI
+        this.tasks.upload.status = 'done';
+        this.updateProgressDialog(this.tasks);
+        return data;
+      })
+      .catch((err) => {
+        this.errorTask = 'upload';
+        throw Error(err.message);
+      });
   },
   /**
    * @return {Promise} the data in the link
