@@ -26,6 +26,7 @@ module.exports = (env, argv) => {
 
   const APP = (argv && argv.app) || 'suite'; // needed for eslint to read the config
   const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
+  const showNLSWarnings = (argv && argv['nls-warnings']) || false;
 
   let config = {
     mode: 'development',
@@ -65,10 +66,10 @@ module.exports = (env, argv) => {
           from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'assets')),
           to: 'assets', // dist/assets
         },
-        Object.assign({},  (APP !== 'blocks' ? {
+        Object.assign({}, (APP !== 'blocks' ? {
           from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.html')),
           to: 'index.html', // dist/index.html
-        } : {from: 'README.md', to: ''})), // TODO the README was added as a temp solution for blocks
+        } : { from: 'README.md', to: '' })), // TODO the README was added as a temp solution for blocks
       ]),
       new CleanWebpackPlugin([
         path.join(__dirname, 'src', 'app', APP, 'dist'),
@@ -101,7 +102,7 @@ module.exports = (env, argv) => {
               loader: 'nls-loader',
               options: {
                 context: APP_PATH,
-                showNLSWarnings: argv['nls-warnings'],
+                showNLSWarnings,
                 locales,
               },
             },
