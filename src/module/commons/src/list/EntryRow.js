@@ -1,4 +1,4 @@
-import { clone, template } from 'lodash-es';
+import { clone, template, escape } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
@@ -156,7 +156,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     if (access === 'disabled') {
       el.classList.add('disabled');
     } else {
-      el.onclick = function (ev) {
+      el.onclick = (ev) => {
         ev.stopPropagation();
         if (params.method && typeof this[params.method] === 'function') {
           this[params.method]();
@@ -165,7 +165,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         } else {
           this.list.openDialog(params.name, { row: this });
         }
-      }.bind(this);
+      };
     }
   },
   render() {
@@ -191,7 +191,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
 
   getRenderNameHTML() {
-    const name = this.getRenderName();
+    const name = escape(this.getRenderName());
     const href = this.getRowClickLink() || this.list.getRowClickLink(this);
     if (href) {
       return `<a href="${href}">${name}</a>`;
@@ -201,7 +201,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
   getRenderName() {
     const rdfutils = registry.get('rdfutils');
-    return rdfutils.getLabel(this.entry);
+    const name = rdfutils.getLabel(this.entry);
+    return name;
   },
 
   renderCol1() {
@@ -218,7 +219,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         const dateTitle = this.nlsSpecificBundle[this.nlsDateTitle] ||
           this.nlsGenericBundle[this.nlsDateTitle] || '';
         const tStr = template(dateTitle)({ date: mDateFormats.full });
-        this.col3Node.innerHTML = mDateFormats.short;
+        this.col3Node.innerText = mDateFormats.short;
         this.col3Node.setAttribute('title', tStr);
       } catch (e) {
         // TODO strange case when gregorian has not been loaded in time.

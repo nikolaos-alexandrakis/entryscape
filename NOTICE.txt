@@ -1,0 +1,67 @@
+ENTRYSCAPE
+
+Copyright 2007-2019 MetaSolutions AB, info@metasolutions.se
+
+This product includes software developed by MetaSolutions AB (https://www.metasolutions.se/) licensed under
+the GNU Affero General Public License version 3 (License: https://opensource.org/licenses/AGPL-3.0).
+
+This product makes use of third party libraries licensed as stated below, grouped by license:
+
+MIT, http://www.opensource.org/licenses/MIT
+        @babel/plugin-syntax-dynamic-import@7.2.0, https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-dynamic-import
+        @babel/polyfill@7.0.0, https://github.com/babel/babel/tree/master/packages/babel-polyfill
+        bloodhound-js@1.2.3, https://github.com/pqx/bloodhound
+        bootstrap-material-datetimepicker@2.7.1, https://github.com/T00rk/bootstrap-material-datetimepicker
+        bootstrap-material-design@0.5.10, https://github.com/FezVrasta/bootstrap-material-design
+        bootstrap@3.3.7, https://github.com/twbs/bootstrap
+        file-saver@1.3.8, https://github.com/eligrey/FileSaver.js
+        flag-icon-css@3.2.1, http://github.com/lipis/flag-icon-css
+        handlebars@4.0.12, https://github.com/wycats/handlebars.js
+        image-webpack-loader@4.6.0, https://github.com/tcoopman/image-webpack-loader
+        is-url@1.2.4, https://github.com/segmentio/is-url
+        jquery-mousewheel@3.1.13, https://github.com/jquery/jquery-mousewheel
+        jquery@3.3.1, https://github.com/jquery/jquery
+        jstree-bootstrap-theme@1.0.1, https://github.com/orangehill/jstree-bootstrap-theme
+        jstree@3.3.7, https://github.com/vakata/jstree
+        less-loader@4.1.0, https://github.com/webpack-contrib/less-loader
+        lightbox2@2.10.0, https://github.com/lokesh/lightbox2
+        lodash-es@4.17.11, https://github.com/lodash/lodash
+        mithril@1.1.6, https://github.com/MithrilJS/mithril.js
+        popper.js@1.14.6, https://github.com/FezVrasta/popper.js
+        pubsub-js@1.7.0, https://github.com/mroderick/PubSubJS
+        sizzle@2.3.3, https://github.com/jquery/sizzle
+        slick-carousel@1.8.1, https://github.com/kenwheeler/slick
+        superagent@3.8.3, https://github.com/visionmedia/superagent
+        typeahead.js@0.11.1, https://github.com/twitter/typeahead.js
+        
+ISC, https://www.isc.org/downloads/software-support-policy/isc-license/
+        chartist-plugin-legend@0.6.2, https://github.com/CodeYellowBV/chartist-plugin-legend
+        
+MIT OR WTFPL, 
+        chartist@0.10.1, https://github.com/gionkunz/chartist-js
+        
+BSD-3-Clause OR AFL-2.1, 
+        dijit@1.14.2, https://github.com/dojo/dijit
+        dojo@1.14.2, https://github.com/dojo/dojo
+        
+(OFL-1.1 AND MIT), 
+        font-awesome@4.7.0, https://github.com/FortAwesome/Font-Awesome
+        
+BSD-3-Clause, http://www.opensource.org/licenses/BSD-3-Clause
+        fuelux@3.16.6, https://github.com/ExactTarget/fuelux
+        md5@2.2.1, https://github.com/pvorb/node-md5
+        
+BSD-2-Clause, http://www.opensource.org/licenses/BSD-2-Clause
+        leaflet@1.3.4, https://github.com/Leaflet/Leaflet
+        
+Apache-2.0, http://www.apache.org/licenses/LICENSE-2.0
+        selectize@0.12.6, https://github.com/selectize/selectize.js
+        
+LGPL-3.0-only, http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+        esi18n@1.0.0, https://bitbucket.org/metasolutions/esi18n
+        rdfjson@2.1.0-SNAPSHOT, https://bitbucket.org/metasolutions/rdfjson
+        rdforms@10.0.0-SNAPSHOT, https://bitbucket.org/metasolutions/rdforms
+        store@4.7.0-SNAPSHOT, https://bitbucket.org/metasolutions/entrystore.js
+        
+WTFPL, http://sam.zoy.org/wtfpl/COPYING
+        superagent-jsonp@0.2.1, https://github.com/lamp/superagent-jsonp
