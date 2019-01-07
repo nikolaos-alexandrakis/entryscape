@@ -16,9 +16,11 @@ export default (node, data) => {
   let t;
   let term;
   let lock = false;
+  const minimumSearchLength = registry.get('blocks_minimumSearchLength') || 3;
+
   const searchTriggered = () => {
     let newTerm = input.value;
-    newTerm = newTerm === undefined || newTerm.length <= 2 ? undefined :
+    newTerm = newTerm === undefined || newTerm.length < minimumSearchLength ? undefined :
       { value: newTerm, group: data.collection || 'term' };
     lock = true;
     filter.replace(term, newTerm);

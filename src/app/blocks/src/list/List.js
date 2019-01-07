@@ -18,6 +18,8 @@ import dependencyList from 'blocks/utils/dependencyList';
 import filter from 'blocks/utils/filter';
 import MetadataExpandRow from './MetadataExpandRow';
 import TemplateExpandRow from './TemplateExpandRow';
+import { mapValues } from 'lodash-es'
+import { termsConstraint } from 'blocks/utils/query';
 
 class PlaceHolder {
   constructor(args, node) {
@@ -141,6 +143,9 @@ export default declare([List, NLSMixin.Dijit], {
       this.domNode.classList.add('cardLayout');
     }
     this.listViewClass = declare([ListView], {
+      constructor() {
+        this.minimumSearchLength = registry.get('blocks_minimumSearchLength') || 3;
+      },
       showEntryList(list) {
         dependencyList(list, data);
         this.inherited(arguments);
@@ -284,15 +289,7 @@ export default declare([List, NLSMixin.Dijit], {
       so.rdfType(this.conf.rdftype);
     }
 
-    if (term != null && term.length > 0) {
-      (Array.isArray(term) ? term : [term]).forEach((t) => {
-        so.or({
-          title: t,
-          description: t,
-          'tag.literal': t,
-        });
-      });
-    }
+    termsConstraint(so, term);
 
     so.publicRead();
 

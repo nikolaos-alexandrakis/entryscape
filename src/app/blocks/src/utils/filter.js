@@ -1,6 +1,7 @@
 import registry from 'commons/registry';
 import params from 'blocks/boot/params';
 import { namespaces } from 'rdfjson';
+import { termsConstraint } from 'blocks/utils/query';
 import labels from './labels';
 
 const shorten = (value) => {
@@ -121,30 +122,27 @@ const filterObj = {
       filterIdx[c.name] = c;
     });
     Object.keys(filter).forEach((key) => {
-      const vals = filter[key].map((v) => {
+      let vals = filter[key].map((v) => {
         if (typeof v === 'string') {
           return v;
         }
         return v.value;
       });
+      const filterDef = filterIdx[key];
+      if (filterDef.appendWildcard) {
+        vals = vals.map(v => `${v}*`);
+      }
       switch (key) {
         case 'tags':
           return;
         case 'term':
-          vals.forEach((v) => {
-            obj.or({
-              title: v,
-              description: v,
-              'tag.literal': v,
-            });
-          });
+          termsConstraint(obj, vals);
           return;
         case 'type':
           obj.rdfType(vals);
           return;
         default:
       }
-      const filterDef = filterIdx[key];
       const prop = filterDef.property;
       if (namespaces.expand(prop) === namespaces.expand('rdf:type')) {
         obj.rdfType(vals);
@@ -157,7 +155,7 @@ const filterObj = {
     return obj;
   },
   isEmpty() {
-    let vals = registry.get('blocks_search_filter');
+    const vals = registry.get('blocks_search_filter');
     if (vals && Object.keys(vals).length > 0) {
       return false;
     }
