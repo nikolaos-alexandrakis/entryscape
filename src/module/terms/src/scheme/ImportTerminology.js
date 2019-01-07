@@ -1,21 +1,21 @@
-import registry from 'commons/registry';
-import htmlUtil from 'commons/util/htmlUtil';
-import EntryType from 'commons/create/EntryType';
-import m from 'mithril';
-import config from 'config';
-import { promiseUtil } from 'store';
-import { converters, Graph, utils } from 'rdfjson';
-import ProgressDialog from 'commons/progresstask/ProgressDialog';
-import TaskProgress from 'commons/progresstask/components/TaskProgress';
-import Row from 'commons/components/common/grid/Row';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
-import { i18n, NLSMixin } from 'esi18n';
-import esteImport from 'terms/nls/esteImport.nls';
-import { template as renderTemplate } from 'lodash-es';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import Row from 'commons/components/common/grid/Row';
+import EntryType from 'commons/create/EntryType';
+import TaskProgress from 'commons/progresstask/components/TaskProgress';
+import ProgressDialog from 'commons/progresstask/ProgressDialog';
+import registry from 'commons/registry';
+import { readFileAsText } from 'commons/util/fileUtil';
+import htmlUtil from 'commons/util/htmlUtil';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import m from 'mithril';
+import { converters, Graph, utils } from 'rdfjson';
+import { promiseUtil } from 'store';
+import esteImport from 'terms/nls/esteImport.nls';
 import template from './ImportTerminologyTemplate.html';
 
 const createContext = (paramsArg) => {
@@ -310,29 +310,22 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.updateProgressDialog(this.tasks);
     const asyncHandler = registry.get('asynchandler');
     asyncHandler.addIgnore('echoFile', true, true);
-    return registry.get('entrystore').echoFile(this.fileOrLink.getFileInputElement(), 'text')
-      .then((data) => {
-        // update the UI
-        this.tasks.upload.status = 'done';
-        this.updateProgressDialog(this.tasks);
+    /** @type HTMLInputElement */
+    const inputElement = this.fileOrLink.getFileInputElement();
+    /** @type File */
+    const file = inputElement.files.item(0);
 
-        return data;
-      }, (err) => {
-        const keys = Object.keys(err);
-        if (keys.indexOf('status') !== -1) {
-          const store = registry.get('entrystore');
-          return store.getStatus().then((res) => {
-            const b = this.NLSBundles.esteImport;
-            err.message = renderTemplate(b.fileTooBigToUpload)({
-              size: res.echoMaxEntitySize,
-            });
-            this.errorTask = 'upload';
-            throw Error(err.message);
-          });
-        }
-        this.errorTask = 'upload';
-        throw Error(err.message);
-      });
+    // read file in browser and try to parse RDF
+    return readFileAsText(file).then((data) => {
+      // update the UI
+      this.tasks.upload.status = 'done';
+      this.updateProgressDialog(this.tasks);
+
+      return data;
+    }, (err) => {
+      this.errorTask = 'upload';
+      throw Error(err.message);
+    });
   },
   /**
    * @return {Promise} the data in the link
