@@ -34,6 +34,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   listSearchPlaceholderKey: 'listSearchPlaceholder',
   placeHolderClass: null,
   buttonMenu: null, // true forces menu, false disallows menu, otherwise nr.of buttons will decide
+  minimumSearchLength: 3,
 
   postCreate() {
     this.inherited('postCreate', arguments);
@@ -650,7 +651,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       this.searchBlockInner.classList.add('has-error');
       this.searchIconFeedback.classList.add('fa-exclamation-triangle');
       this.invalidSearch.style.display = '';
-    } else if (this.searchTerm.length < 3 && this.searchTerm.length !== 0) {
+    } else if (this.searchTerm.length < this.minimumSearchLength && this.searchTerm.length !== 0) {
       this.searchBlockInner.classList.add('has-warning');
       this.searchIconFeedback.classList.add('fa-exclamation-triangle');
       this.tooShortSearch.style.display = '';

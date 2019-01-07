@@ -113,6 +113,7 @@ class FacetBlock {
 
 export default (node, data, items) => {
   registry.onChange('blocks_collections', (collections) => {
+    node.innerHTML = '';
     collections.forEach((collection) => {
       if (collection.includeAsFacet) {
         new FacetBlock(collection, node);

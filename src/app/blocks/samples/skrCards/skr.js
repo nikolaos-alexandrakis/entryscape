@@ -47,7 +47,24 @@ window.__entryscape_config = {
     'http://www.cadastralvocabulary.org/CaLAThe/PropertyUnit': 'skr:PropertyUnit',
     'schema:PostalAddress': 'skr:PostalAddress',
   },
+  minimumSearchLength: 2,
+  query: {
+    "metadata.object.literal": 2,
+
+    //    'metadata.predicate.literal_t.3f2ae919': 2,  // dcterms:title
+//    'metadata.predicate.literal_t.feda1d30': 2,  // dcterms:description
+  },
   collections: [
+    {
+      type: 'facet',
+      name: 'title',
+      label: 'Titel',
+      property: 'dcterms:title',
+      searchIndextype: 'text',
+      appendWildcard: true,
+      nodetype: 'literal',
+      includeAsFacet: false,
+    },
     {
       type: 'facet',
       name: 'artform',
@@ -114,7 +131,8 @@ window.__entryscape_config = {
       nodetype: 'literal',
       context: '9',
       includeAsFacet: false,
-    },    {
+    },
+    {
       type: 'search',
       name: 'location',
       label: 'Fastighet',
