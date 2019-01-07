@@ -1,3 +1,4 @@
+import { escape } from 'lodash-es';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
@@ -13,7 +14,7 @@ export default declare([TitleDialog.Content], {
   },
   open(params) {
     this.dataset.showDataset(params.row.entry);
-    const title = registry.get('rdfutils').getLabel(params.row.entry);
+    const title = escape(registry.get('rdfutils').getLabel(params.row.entry));
     this.dialog.updateLocaleStringsExplicit(title);
     this.dialog.show();
   },
