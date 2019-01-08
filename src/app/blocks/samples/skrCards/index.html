@@ -17,38 +17,37 @@
 
 
 <div class="skr_container">
+          <div class="facets--mobile hidden">
+                    <h1 class="title--mobile">Filtrera</h1>
+                    <button class="btn--close close--filter btn--white" type="button" name="button-close">X</button>
+                    <span data-entryscape="facets"></span>
+                </div>
+                <div class="advanced--mobile hidden">
+                    <h1 class="title--mobile">Advancerad sök</h1>
+                    <button class="btn--close close--advanced btn--white" type="button" name="button-close">X</button>
+                    <div class="search--mobile--group">
+                        <div data-entryscape="simpleSearch" data-entryscape-collection="title"
+                             data-entryscape-placeholder="Sök efter titel..."></div>
+                        <div data-entryscape="searchFilter" data-entryscape-collection="artist"
+                             data-entryscape-placeholder="Sök efter konstnär..."></div>
+                        <div data-entryscape="searchFilter" data-entryscape-collection="site"
+                             data-entryscape-placeholder="Sök efter verksamhet..."></div>
+                        <div data-entryscape="searchFilter" data-entryscape-collection="location"
+                             data-entryscape-placeholder="Sök efter ort..."></div>
+                        <div data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100"
+                             data-entryscape-placeholder="Sök efter årtal.."></div>
+                    </div>
+                </div>
     <div class="sidebar grid">
         <h2 class="heading--title filter--title">Filtrera</h2>
         <div data-entryscape="facets" class="facets"></span>
-    </div>
-
-    <div class="facets--mobile hidden">
-        <h1 class="title--mobile">Filtrera</h1>
-        <button class="btn--close close--filter btn--white" type="button" name="button-close">X</button>
-        <span data-entryscape="facets"></span>
-    </div>
-    <div class="advanced--mobile hidden">
-        <h1 class="title--mobile">Advancerad sök</h1>
-        <button class="btn--close close--advanced btn--white" type="button" name="button-close">X</button>
-        <div class="search--mobile--group">
-            <div data-entryscape="simpleSearch" data-entryscape-collection="title"
-                 data-entryscape-placeholder="Sök efter titel..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="artist"
-                 data-entryscape-placeholder="Sök efter konstnär..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="site"
-                 data-entryscape-placeholder="Sök efter verksamhet..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="location"
-                 data-entryscape-placeholder="Sök efter ort..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100"
-                 data-entryscape-placeholder="Sök efter årtal.."></div>
-        </div>
     </div>
 </div>
     <div class="main--2columns grid">
         
         <div class="header--titles">
                 <h2 class="heading--title">Fritextsök</h2>
-                <h2 class="heading--title title--advanced">Avancerad sök <btn class="arrow--down"></btn></h2>
+                <button class="noBtn advanced--btn"><h2 class="heading--title title--advanced">Avancerad sök <span class="arrow--down"></span></h2></button>
         </div>
 
 <div class="freetext--wrapper">
@@ -86,7 +85,7 @@
                 <span>Rensa</span></button>
         </div>
 
-        <div class="flex--wraper">
+        <div class="">
                 <div class="" data-entryscape="results" data-entryscape-use="mainList" data-entryscape-templatefilter="Antal träffar: {{resultsize}}"></div>
                 <div class="flex--wrapper" data-entryscape="filterResults"></div>
         </div>
