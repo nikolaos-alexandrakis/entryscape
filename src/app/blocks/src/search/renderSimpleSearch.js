@@ -31,20 +31,21 @@ export default (node, data) => {
   } else {
     node.appendChild(input);
   }
+  const searchTriggered = () => {
+    let newTerm = input.value;
+    newTerm = newTerm === undefined || newTerm.length < minimumSearchLength ? undefined :
+      { value: newTerm, group: data.collection || 'term' };
+    lock = true;
+    filter.replace(term, newTerm);
+    term = newTerm;
+    lock = false;
+  };
   if (data.searchButton) {
     const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
     inputgroup.appendChild(inputGroupButtonEl);
     const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);
     DOMUtil.create('span', { 'aria-hidden': true, class: 'fa fa-search' }, button);
-    button.onclick = () => {
-      let newTerm = input.value;
-      newTerm = newTerm === undefined || newTerm.length < minimumSearchLength ? undefined :
-        { value: newTerm, group: data.collection || 'term' };
-      lock = true;
-      filter.replace(term, newTerm);
-      term = newTerm;
-      lock = false;
-    };
+    button.onclick = searchTriggered;
   }
   input.onkeyup = () => {
     if (t != null) {
