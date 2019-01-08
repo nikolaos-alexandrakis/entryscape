@@ -12,12 +12,25 @@ export default (node, data) => {
     node.style.width = data.width;
   }
   node.classList.add('block_searchInput');
-  let input;
   let t;
   let term;
   let lock = false;
   const minimumSearchLength = registry.get('blocks_minimumSearchLength') || 3;
 
+  const input = DOMUtil.create('input', {
+    type: 'text',
+    class: 'form-control',
+    placeholder: data.placeholder,
+    title: data.placeholder,
+  });
+  let inputgroup;
+  if (data.formGroup || data.searchButton) {
+    inputgroup = DOMUtil.create('span', { class: 'input-group' });
+    node.appendChild(inputgroup);
+    inputgroup.appendChild(input);
+  } else {
+    node.appendChild(input);
+  }
   const searchTriggered = () => {
     let newTerm = input.value;
     newTerm = newTerm === undefined || newTerm.length < minimumSearchLength ? undefined :
@@ -27,24 +40,7 @@ export default (node, data) => {
     term = newTerm;
     lock = false;
   };
-  if (data.plaininput || data.plainInput) {
-    input = DOMUtil.create('input', {
-      type: 'text',
-      class: 'form-control',
-      placeholder: data.placeholder,
-      title: data.placeholder,
-    });
-    node.appendChild(input);
-  } else {
-    const inputgroup = DOMUtil.create('span', { class: 'input-group' });
-    node.appendChild(inputgroup);
-    input = DOMUtil.create('input', {
-      type: 'text',
-      class: 'form-control',
-      placeholder: data.placeholder,
-      title: data.placeholder,
-    });
-    inputgroup.appendChild(input);
+  if (data.searchButton) {
     const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
     inputgroup.appendChild(inputGroupButtonEl);
     const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);

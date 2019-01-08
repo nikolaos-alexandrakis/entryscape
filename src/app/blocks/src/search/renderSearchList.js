@@ -28,30 +28,36 @@ export default (node, data, items) => {
     jquery(sl.domNode).find('.panel').removeClass('panel');
     sl.domNode.classList.add('headless');
   }
-  if (data.headless) {
+
+  const detectContext = () => {
+    sl.contextId = data.context || params.getUrlParams().context || config.econfig.context;
+    if (typeof sl.contextId === 'number') {
+      sl.contextId = `${sl.contextId}`;
+    }
+  };
+
+  if (data.facets) {
     registry.onChange('blocks_search_filter', (filter) => {
+      detectContext();
       if (filter.term) {
         sl.search({}); // Provided via the filter filter.constraint method.
       } else {
         sl.search({ term: '*' });
       }
-    }, true);
-  }
-
-  params.onInit((urlParams) => {
-    sl.contextId = data.context || urlParams.context || config.econfig.context;
-    if (typeof sl.contextId === 'number') {
-      sl.contextId = `${sl.contextId}`;
-    }
-    if (sl.contextId != null && (data.entry || urlParams.entry || config.econfig.entry) != null) {
-      getEntry(data, (entry) => {
-        sl.entry = entry;
-        if (!data.facets || data.initsearch) {
+    });
+  } else {
+    params.onInit((urlParams) => {
+      detectContext();
+      const entryFixedList = sl.contextId != null &&
+        (data.entry || urlParams.entry || config.econfig.entry) != null;
+      if (data.headless && entryFixedList) {
+        getEntry(data, (entry) => {
+          sl.entry = entry;
           sl.show();
-        }
-      });
-    } else if (!data.facets || data.initsearch) {
-      sl.show();
-    }
-  });
+        });
+      } else if (data.initsearch) {
+        sl.show();
+      }
+    });
+  }
 };

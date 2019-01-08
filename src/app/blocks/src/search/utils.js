@@ -18,18 +18,22 @@ export default {
             }
           });
         };
-        const collectionName = `blocks_collection_${group}`;
-        const collection = registry.get(collectionName);
-        if (collection.list) {
-          addFromCollection(collection);
+        if (group === 'term') {
+          values.forEach(setValue);
         } else {
-          registry.onChangeOnce(collectionName, (col) => {
-            if (col.list) {
-              addFromCollection(col);
-            } else {
-              registry.onChangeOnce(collectionName, addFromCollection);
-            }
-          });
+          const collectionName = `blocks_collection_${group}`;
+          const collection = registry.get(collectionName);
+          if (collection.list) {
+            addFromCollection(collection);
+          } else {
+            registry.onChangeOnce(collectionName, (col) => {
+              if (col.list) {
+                addFromCollection(col);
+              } else {
+                registry.onChangeOnce(collectionName, addFromCollection);
+              }
+            });
+          }
         }
       } else {
         values.forEach(setValue);

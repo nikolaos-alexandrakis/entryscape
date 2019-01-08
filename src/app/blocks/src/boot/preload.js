@@ -1,5 +1,6 @@
-import params from 'blocks/boot/params';
 import registry from 'commons/registry';
+import { mapKeys } from 'lodash-es';
+
 
 const normalize = (collection, group) => {
   if (Array.isArray(collection)) {
@@ -18,27 +19,33 @@ const normalize = (collection, group) => {
 export default function (node, data, items) {
   const rdfutils = registry.get('rdfutils');
   const localize = registry.get('localize');
+  const namespaces = registry.get('namespaces');
 
-  registry.set('blocks_named', {});
+  let named = registry.get('blocks_named') || {};
+  if (data.named) {
+    named = { ...named, ...mapKeys(data.named, (value, key) => namespaces.expand(key)) };
+  }
+  registry.set('blocks_named', named);
+
   const itemstore = registry.get('itemstore');
-  const val2choice = {};
-  itemstore.getItems().forEach((item) => {
-    if (item.getType() === 'choice') {
-      (item.getStaticChoices() || []).forEach((choice) => {
-        val2choice[choice.value] = choice;
-      });
-    }
-  });
-  registry.set('itemstore_choices', val2choice);
+  let val2choice = registry.get('itemstore_choices');
+  if (!val2choice) {
+    val2choice = {};
+    itemstore.getItems().forEach((item) => {
+      if (item.getType() === 'choice') {
+        (item.getStaticChoices() || []).forEach((choice) => {
+          val2choice[choice.value] = choice;
+        });
+      }
+    });
+    registry.set('itemstore_choices', val2choice);
+  }
 
   if (data.query) {
     registry.set('blocks_query', data.query);
   }
   if (data.minimumSearchLength) {
     registry.set('blocks_minimumSearchLength', data.minimumSearchLength);
-  }
-  if (data.named) {
-    registry.set('blocks_named', data.named);
   }
   let clicks = registry.get('clicks');
   if (!clicks) {

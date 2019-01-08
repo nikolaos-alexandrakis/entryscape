@@ -13,7 +13,7 @@ const shorten = (value) => {
   return value;
 };
 
-const add = function (filter, option) {
+const add = (filter, option) => {
   const group = option.group || 'term';
   let arr = filter[group];
   if (!arr) {
@@ -25,7 +25,7 @@ const add = function (filter, option) {
   }
 };
 
-const maybeResets = function (filter, group) {
+const maybeResets = (filter, group) => {
   const collection = registry.get(`blocks_collection_${group}`);
   if (collection && collection.resets) {
     delete filter[collection.resets];
@@ -35,7 +35,7 @@ const maybeResets = function (filter, group) {
 let lock = false;
 // Timeout for unlock since hash change is detected via polling (dojo/hash)
 // and has a delay of 100 ms
-const unlock = function () {
+const unlock = () => {
   setTimeout(() => {
     lock = false;
   }, 150);
@@ -98,9 +98,7 @@ const filterObj = {
       group = oldOption.group || 'term';
       const arr = filter[group];
       if (arr) {
-        const idx = arr.findIndex((el) => {
-            return el.value ===  oldOption.value;
-        });
+        const idx = arr.findIndex(el => (el.value === oldOption.value));
         arr.splice(idx, 1);
         if (arr.length === 0) {
           delete filter[group];
@@ -129,7 +127,7 @@ const filterObj = {
         return v.value;
       });
       const filterDef = filterIdx[key];
-      if (filterDef.appendWildcard) {
+      if (filterDef && filterDef.appendWildcard) {
         vals = vals.map(v => `${v}*`);
       }
       switch (key) {
@@ -156,10 +154,7 @@ const filterObj = {
   },
   isEmpty() {
     const vals = registry.get('blocks_search_filter');
-    if (vals && Object.keys(vals).length > 0) {
-      return false;
-    }
-    return true;
+    return !(vals && Object.keys(vals).length > 0);
   },
   has(collectionname, value) {
     let vals = (registry.get('blocks_search_filter') || {})[collectionname];
@@ -209,12 +204,14 @@ const filterObj = {
     collections.forEach((def) => {
       const facet = facetIdx[namespaces.expand(def.property)];
       const group = def.name;
+      const localize = registry.get('localize');
       if (facet) {
         def.changeLoadLimit = (limit) => {
           def.loadedLimit = limit;
+          const vocab = def.vocab || {};
           if (def.nodetype === 'literal') {
             def.source = facet.values.map(value => ({
-              label: value.name,
+              label: vocab[value.name] ? localize(vocab[value.name]) : value.name,
               value: value.name,
               group,
               occurence: value.count,
@@ -252,17 +249,15 @@ registry.onChange('blocks_collections', (collections) => {
   params.addListener((urlParams) => {
     const constraints = [];
     collections.forEach((c) => {
-//      if (c.includeAsFacet !== false) {
-        if (urlParams[c.name]) {
-          let arr = urlParams[c.name];
-          if (!Array.isArray(arr)) {
-            arr = [arr];
-          }
-          arr.forEach((f) => {
-            constraints.push({ group: c.name, value: namespaces.expand(f) });
-          });
+      if (urlParams[c.name]) {
+        let arr = urlParams[c.name];
+        if (!Array.isArray(arr)) {
+          arr = [arr];
         }
-//      }
+        arr.forEach((f) => {
+          constraints.push({ group: c.name, value: namespaces.expand(f) });
+        });
+      }
     });
     if (urlParams.term) {
       if (Array.isArray(urlParams.term)) {
@@ -283,9 +278,7 @@ registry.onChange('blocks_collections', (collections) => {
       registry.onChange('blocks_search_filter', (filter) => {
         delete urlParams.term;
         collections.forEach((c) => {
-//          if (c.includeAsFacet !== false) {
-            delete urlParams[c.name];
-//          }
+          delete urlParams[c.name];
         });
         Object.keys(filter).forEach((key) => {
           const vs = filter[key];

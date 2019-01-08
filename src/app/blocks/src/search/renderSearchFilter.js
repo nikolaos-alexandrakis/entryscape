@@ -40,6 +40,15 @@ export default function (node, data, items) {
   let lock = false;
   let clearOptions;
 
+  const clearEmptyValue = (value) => {
+    if (value === '' && data.allowEmptyOption !== false) {
+      setTimeout(() => {
+        selectize.removeItem('');
+        selectize.showInput();
+      }, 20);
+    }
+  };
+
   const settings = {
     valueField: 'value',
     labelField: 'label',
@@ -51,6 +60,7 @@ export default function (node, data, items) {
     preload: 'focus',
     create: false,
     onItemAdd(value) {
+      clearEmptyValue(value);
       const newOption = value !== '' ? selectize.options[value] : undefined;
       lock = true;
       filter.replace(selectedOption, newOption);
@@ -78,7 +88,7 @@ export default function (node, data, items) {
       },
       item(d, escape) {
         if (d.value === '') {
-          return `<div class="label--empty">${data.emptyLabel || data.placeholder || '&nbsp;'}</div>`;
+          return `<div class="label--empty">${data.emptyLabel || ''}</div>`;
         }
         return `<div>${escape(d.label)}</div>`;
       },
@@ -132,6 +142,7 @@ export default function (node, data, items) {
   };
   // Initialize after load function is added
   selectize = jquery(input).selectize(settings)[0].selectize;
+  clearEmptyValue(selectize.getValue());
 
   clearOptions = () => {
     if (selectize.getValue() === '') {
