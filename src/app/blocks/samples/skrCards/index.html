@@ -28,16 +28,19 @@
         <span data-entryscape="facets"></span>
     </div>
     <div class="advanced--mobile hidden">
-        <h1 class="title--mobile">Advancera sök</h1>
+        <h1 class="title--mobile">Advancerad sök</h1>
         <button class="btn--close close--advanced btn--white" type="button" name="button-close">X</button>
         <div class="search--mobile--group">
             <div data-entryscape="simpleSearch" data-entryscape-collection="title"
-                 data-entryscape-empty-label="Sök efter titel..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-empty-label="Sök efter konstnär..."></div>
+                 data-entryscape-placeholder="Sök efter titel..."></div>
+            <div data-entryscape="searchFilter" data-entryscape-collection="artist"
+                 data-entryscape-placeholder="Sök efter konstnär..."></div>
             <div data-entryscape="searchFilter" data-entryscape-collection="site"
-                 data-entryscape-empty-label="Sök efter verksamhet..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="location" data-entryscape-empty-label="Sök efter ort..."></div>
-            <div data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter årtal.."></div>
+                 data-entryscape-placeholder="Sök efter verksamhet..."></div>
+            <div data-entryscape="searchFilter" data-entryscape-collection="location"
+                 data-entryscape-placeholder="Sök efter ort..."></div>
+            <div data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100"
+                 data-entryscape-placeholder="Sök efter årtal.."></div>
         </div>
     </div>
 </div>
@@ -49,7 +52,9 @@
         </div>
 
 <div class="freetext--wrapper">
-        <div class= "input--freetext" data-entryscape="simpleSearch" data-entryscape-placeholder="Frisök efter konstverk..."></div>
+        <div class= "input--freetext" data-entryscape="simpleSearch"
+             data-entryscape-placeholder="Frisök efter konstverk..."
+             data-entryscape-search-button="true"></div>
 </div>
 
         <div class="advanced--group--wrapper">
@@ -57,16 +62,19 @@
             <div class="advanced--group">
                 <label for="title" class="search__label">Titel</label>
                 <div id="title" data-entryscape="simpleSearch" data-entryscape-collection="title"
-                     data-entryscape-label="Sök efter titel..."></div>
+                     data-entryscape-form-group="true" data-entryscape-placeholder="Sök efter titel..."></div>
                 <label for="artist" class="search__label">Konstnär</label>
-                <div id="artist" data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-label="Sök efter konstnär..."></div>
+                <div id="artist" data-entryscape="searchFilter" data-entryscape-collection="artist"
+                     data-entryscape-placeholder="Sök efter konstnär..."></div>
                 <label for="site" class="search__label">Verksamhet</label>
                 <div id="site" data-entryscape="searchFilter" data-entryscape-collection="site"
-                     data-entryscape-empty-label="Sök efter verksamhet..."></div>
+                     data-entryscape-placeholder="Sök efter verksamhet..."></div>
                 <label for="address" class="search__label">Ort</label>
-                <div id="address" data-entryscape="searchFilter" data-entryscape-collection="address"data-entryscape-empty-label="Sök efter ort..."></div>
+                <div id="address" data-entryscape="searchFilter"
+                     data-entryscape-collection="address"data-entryscape-placeholder="Sök efter ort..."></div>
                 <label for="date" class="search__label">Årtal</label>
-                <div id="date" data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100" data-entryscape-empty-label="Sök efter årtal.."></div>
+                <div id="date" data-entryscape="searchFilter" data-entryscape-collection="date"
+                     data-entryscape-limit="100" data-entryscape-placeholder="Sök efter årtal.."></div>
             </div>
         </div>
 

@@ -1,7 +1,6 @@
 import DOMUtil from 'commons/util/htmlUtil';
 import md5 from 'md5';
 import registry from 'commons/registry';
-import labels from 'blocks/utils/labels';
 import filter from 'blocks/utils/filter';
 import 'jquery';
 

@@ -12,44 +12,39 @@ export default (node, data) => {
     node.style.width = data.width;
   }
   node.classList.add('block_searchInput');
-  let input;
   let t;
   let term;
   let lock = false;
   const minimumSearchLength = registry.get('blocks_minimumSearchLength') || 3;
 
-  const searchTriggered = () => {
-    let newTerm = input.value;
-    newTerm = newTerm === undefined || newTerm.length < minimumSearchLength ? undefined :
-      { value: newTerm, group: data.collection || 'term' };
-    lock = true;
-    filter.replace(term, newTerm);
-    term = newTerm;
-    lock = false;
-  };
-  if (data.plaininput || data.plainInput) {
-    input = DOMUtil.create('input', {
-      type: 'text',
-      class: 'form-control',
-      placeholder: data.placeholder,
-      title: data.placeholder,
-    });
-    node.appendChild(input);
-  } else {
-    const inputgroup = DOMUtil.create('span', { class: 'input-group' });
+  const input = DOMUtil.create('input', {
+    type: 'text',
+    class: 'form-control',
+    placeholder: data.placeholder,
+    title: data.placeholder,
+  });
+  let inputgroup;
+  if (data.formGroup || data.searchButton) {
+    inputgroup = DOMUtil.create('span', { class: 'input-group' });
     node.appendChild(inputgroup);
-    input = DOMUtil.create('input', {
-      type: 'text',
-      class: 'form-control',
-      placeholder: data.placeholder,
-      title: data.placeholder,
-    });
     inputgroup.appendChild(input);
+  } else {
+    node.appendChild(input);
+  }
+  if (data.searchButton) {
     const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
     inputgroup.appendChild(inputGroupButtonEl);
     const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);
     DOMUtil.create('span', { 'aria-hidden': true, class: 'fa fa-search' }, button);
-    button.onclick = searchTriggered;
+    button.onclick = () => {
+      let newTerm = input.value;
+      newTerm = newTerm === undefined || newTerm.length < minimumSearchLength ? undefined :
+        { value: newTerm, group: data.collection || 'term' };
+      lock = true;
+      filter.replace(term, newTerm);
+      term = newTerm;
+      lock = false;
+    };
   }
   input.onkeyup = () => {
     if (t != null) {

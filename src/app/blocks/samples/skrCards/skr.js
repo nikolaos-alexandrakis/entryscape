@@ -49,10 +49,16 @@ window.__entryscape_config = {
   },
   minimumSearchLength: 2,
   query: {
-    "metadata.object.literal": 2,
-
+    'metadata.object.literal': 3,
+    'related.metadata.predicate.literal_t.ad967f07': 3, // schema:addressLocality
+    'related.metadata.predicate.literal_t.6a9eb4d4': 3, // schema:addressRegion
+    'related.metadata.predicate.literal_t.893797ba': 3, // foaf:name
     //    'metadata.predicate.literal_t.3f2ae919': 2,  // dcterms:title
-//    'metadata.predicate.literal_t.feda1d30': 2,  // dcterms:description
+    //    'metadata.predicate.literal_t.feda1d30': 2,  // dcterms:description
+  },
+  named: {
+    'skr:indoors': { sv: 'Inomhus' },
+    'skr:outdoors': { sv: 'Utomhus' },
   },
   collections: [
     {
@@ -94,6 +100,31 @@ window.__entryscape_config = {
     },
     {
       type: 'facet',
+      name: 'county',
+      label: 'Län',
+      property: 'http://schema.org/addressRegion',
+      nodetype: 'literal',
+      related: true,
+      limit: 5,
+      includeAsFacet: true,
+    },
+    {
+      type: 'facet',
+      name: 'sex',
+      label: 'Kön',
+      property: 'foaf:gender',
+      nodetype: 'literal',
+      related: true,
+      limit: 5,
+      includeAsFacet: true,
+      vocab: {
+        male: { sv: 'Man' },
+        female: { sv: 'Kvinna' },
+        km: { sv: 'Grupp' },
+      },
+    },
+    {
+      type: 'facet',
       name: 'situation',
       label: 'Läge',
       property: 'https://opendata.statenskonstrad.se/terms/situation',
@@ -102,21 +133,10 @@ window.__entryscape_config = {
       limit: 5,
       includeAsFacet: true,
     },
-/*    {
-      type: 'search',
-      name: 'artist',
-      label: 'Konstnär',
-      property: 'http://purl.org/dc/terms/creator',
-      rdftype: 'https://opendata.statenskonstrad.se/terms/Artist',
-      nodetype: 'uri',
-      limit: 5,
-      context: '9',
-      includeAsFacet: false,
-    },*/
     {
       type: 'facet',
       name: 'artist',
-      label: 'Konstnär2',
+      label: 'Konstnär',
       property: 'foaf:name',
       related: true,
       nodetype: 'literal',
@@ -144,28 +164,15 @@ window.__entryscape_config = {
       context: '9',
       includeAsFacet: false,
     },
-      /*    {
-      type: 'search',
-      name: 'address',
-      label: 'Adress',
-      property: 'schema:address',
-      rdftype: 'schema:PostalAddress',
-      searchproperty: 'schema:addressRegion',
-      nodetype: 'uri',
-      limit: 5,
-      context: '9',
-      includeAsFacet: false,
-    },*/
     {
       type: 'facet',
       name: 'address',
       label: 'Adress',
       property: 'schema:addressLocality',
-      placeholder: "Ort",
+      placeholder: 'Ort',
       related: true,
       nodetype: 'literal',
       searchIndextype: 'string',
-    //      limit: 5,
       context: '9',
       includeAsFacet: false,
     },

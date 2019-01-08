@@ -1,12 +1,15 @@
 import DOMUtil from 'commons/util/htmlUtil';
 import getEntry from 'blocks/utils/getEntry';
 
-export default function (node, data, items) {
+export default function (node, data) {
   getEntry(data, (entry) => {
     node.innerHTML = '';
     let src;
     if (data.property) {
-      src = entry.getMetadata().findFirstValue(entry.getResourceURI(), data.property);
+      const stmts = entry.getMetadata().find(entry.getResourceURI(), data.property);
+      if (stmts.length > 0) {
+        src = stmts[Math.floor(Math.random() * stmts.length)].getValue();
+      }
     } else {
       src = entry.getResourceURI();
     }
