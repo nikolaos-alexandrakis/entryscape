@@ -249,12 +249,12 @@ const advancedMobile = document.querySelector('.advanced--mobile');
 const btnAdvanced = document.querySelector('.btn--advanced--mobile');
 const btnCloseAdvanced = document.querySelector('.close--advanced');
 
-
-btnAdvancedSearch.onclick = () => {
-  advancedSearch.classList.toggle('active');
-  arrowAdvancedSearch.classList.toggle('arrow--up');
-};
-
+if (btnAdvancedSearch) {
+  btnAdvancedSearch.onclick = () => {
+    advancedSearch.classList.toggle('active');
+    arrowAdvancedSearch.classList.toggle('arrow--up');
+  };
+}
 
 if (btnFilter) {
   btnFilter.onclick = () => filterMobile.classList.toggle('hidden');
