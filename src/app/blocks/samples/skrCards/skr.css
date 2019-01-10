@@ -194,6 +194,18 @@
   z-index: 666;
 }
 
+.btn--white,
+.entryscape .block_facet>.btn--facet {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+}
+
+.entryscape .block_facet>.btn--facet {
+  background-color: black;
+  border: 0;
+}
+
 .selectize-input {
   width: 100% !important;
   border: 0 !important;
