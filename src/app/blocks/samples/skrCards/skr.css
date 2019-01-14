@@ -649,7 +649,7 @@
     min-width: 100px;
   }
 
-  .main--2columns .flex--wrapper {
+  .skr_container .main--2columns .flex--wrapper {
     margin-left: 20px;
     justify-content: start;
   }
