@@ -250,23 +250,24 @@ const btnAdvanced = document.querySelector('.btn--advanced--mobile');
 const btnCloseAdvanced = document.querySelector('.close--advanced');
 
 if (btnAdvancedSearch) {
-  btnAdvancedSearch.onclick = () => {
+  btnAdvancedSearch.onclick = function showAdvancedSearch() {
     advancedSearch.classList.toggle('active');
     arrowAdvancedSearch.classList.toggle('arrow--up');
   };
 }
 
 if (btnFilter) {
-  btnFilter.onclick = () => filterMobile.classList.toggle('hidden');
+  btnFilter.onclick = function hideBtnFilter() { filterMobile.classList.toggle('hidden'); };
 }
+
 if (btnAdvanced) {
-  btnAdvanced.onclick = () => advancedMobile.classList.toggle('hidden');
+  btnAdvanced.onclick = function hideBtnAdvanced() { advancedMobile.classList.toggle('hidden'); };
 }
 
 if (btnCloseFilter) {
-  btnCloseFilter.onclick = () => filterMobile.classList.toggle('hidden');
+  btnCloseFilter.onclick = function closeFilter() { filterMobile.classList.toggle('hidden'); };
 }
 
 if (btnCloseAdvanced) {
-  btnCloseAdvanced.onclick = () => advancedMobile.classList.toggle('hidden');
+  btnCloseAdvanced.onclick = function closeAdvanced() { advancedMobile.classList.toggle('hidden'); };
 }
