@@ -239,15 +239,15 @@ window.__entryscape_config = {
   ],
 };
 
-const btnFilter = document.querySelector('.btn--filter--mobile');
-const filterMobile = document.querySelector('.facets--mobile');
-const btnCloseFilter = document.querySelector('.close--filter');
-const btnAdvancedSearch = document.querySelector('.noBtn');
-const arrowAdvancedSearch = document.querySelector('.arrow--down');
-const advancedSearch = document.querySelector('.advanced--group--wrapper');
-const advancedMobile = document.querySelector('.advanced--mobile');
-const btnAdvanced = document.querySelector('.btn--advanced--mobile');
-const btnCloseAdvanced = document.querySelector('.close--advanced');
+var btnFilter = document.querySelector('.btn--filter--mobile');
+var filterMobile = document.querySelector('.facets--mobile');
+var btnCloseFilter = document.querySelector('.close--filter');
+var btnAdvancedSearch = document.querySelector('.noBtn');
+var arrowAdvancedSearch = document.querySelector('.arrow--down');
+var advancedSearch = document.querySelector('.advanced--group--wrapper');
+var advancedMobile = document.querySelector('.advanced--mobile');
+var btnAdvanced = document.querySelector('.btn--advanced--mobile');
+var btnCloseAdvanced = document.querySelector('.close--advanced');
 
 if (btnAdvancedSearch) {
   btnAdvancedSearch.onclick = function showAdvancedSearch() {
