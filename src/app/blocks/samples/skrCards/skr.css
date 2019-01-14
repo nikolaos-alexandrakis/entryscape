@@ -21,14 +21,17 @@
   border: 2px solid black;
 }
 
+#title, #artist, #site, #address,#date{
+  margin-bottom:20px;
+}
 .advanced--group--wrapper {
   display: none;
   justify-content: flex-end;
 }
 
 .advanced--group {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
   padding: 10px;
   border: 2px solid black;
   max-width: 350px;
