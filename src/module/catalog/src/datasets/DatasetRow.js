@@ -9,6 +9,9 @@ import DistributionRow from './DistributionRow';
 import template from './DatasetRowTemplate.html';
 import './dataset.css';
 
+/**
+ * @module catalog/datasets/DatasetRow
+ */
 export default declare([ToggleRow], {
   templateString: template,
   nlsPublicTitle: 'publicDatasetTitle',

@@ -1,11 +1,11 @@
-import registry from 'commons/registry';
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import escaApiProgress from 'catalog/nls/escaApiProgress.nls';
+import escaFiles from 'catalog/nls/escaFiles.nls';
+import escaManageFiles from 'catalog/nls/escaManageFiles.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
-import escaManageFiles from 'catalog/nls/escaManageFiles.nls';
-import escaFiles from 'catalog/nls/escaFiles.nls';
-import escaApiProgress from 'catalog/nls/escaApiProgress.nls';
 import FilesList from './FilesList';
 import GenerateAPI from './GenerateAPI';
 import template from './ManageFilesTemplate.html';
@@ -54,7 +54,7 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     }
 
     // TODO seems like unnecessary code, just this.dialogHide() should do?
-    const res = this.reActivateAPI();
+    const res = this.refreshAPI();
     if (res) {
       this.dialog.hide();
     } else if (typeof res === 'undefined') {
@@ -67,7 +67,7 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     if (!this.fileList.isListUpdated()) {
       return;
     }
-    this.reActivateAPI();// return promise
+    this.refreshAPI(); // return promise
   },
   _getApiDistributionEntry() {
     const es = registry.get('entrystore');
@@ -79,23 +79,35 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
       .list();
     return list.getEntries().then(distEntries => esu.getEntryByResourceURI(distEntries[0].getResourceURI()));
   },
-  reActivateAPI() {
+  refreshAPI() {
     if (this.isFileDistributionWithAPI()) {
       const dialogs = registry.get('dialogs');
-      const confirmMessage = this.NLSBundle0.reActivateAPI;
-      return dialogs.confirm(confirmMessage, null, null, (confirm) => {
+      const confirmMessage = this.NLSLocalized.escaManageFiles.refreshAPI;
+      return dialogs.confirm(confirmMessage, null, null, async (confirm) => {
         if (confirm) {
-          this._getApiDistributionEntry().then((apiDistrEntry) => {
-            const generateAPI = new GenerateAPI();
-            generateAPI.show({
-              apiDistrEntry,
+          const apiDistEntry = await this._getApiDistributionEntry();
+
+          const params = {
+            filesURI: null,
+            params: {
+              apiDistEntry,
               distributionEntry: this.entry,
               datasetEntry: this.datasetEntry,
               mode: 'edit',
               escaApiProgress: this.NLSBundles.escaApiProgress,
               escaFiles: this.NLSBundles.escaFiles,
-            });
-          });
+            },
+          };
+
+          if (this.fileList.hasOnlyAddedFiles()) {
+            params.filesURI = this.fileList.getAddedFileURIs();
+          }
+
+          /**
+           * run the API pipeline
+           */
+          const generateAPI = new GenerateAPI();
+          generateAPI.execute(params);
         }
       });
     }

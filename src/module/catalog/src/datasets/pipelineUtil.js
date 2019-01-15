@@ -1,17 +1,22 @@
 import registry from 'commons/registry';
 
 export default {
+  /**
+   *
+   * @returns {Promise<store/Resource>}
+   */
   getPipelineResource: () => {
     const context = registry.get('context');
     const async = registry.get('asynchandler');
     async.addIgnore('getEntry', async.codes.GENERIC_PROBLEM, true);
-    return context.getEntryById('rowstorePipeline').then(
-      null, () => {
+    return context.getEntryById('rowstorePipeline')
+      .catch(() => {
         const pipProtEnt = context.newPipeline('rowstorePipeline');
         const pipRes = pipProtEnt.getResource();
         pipRes.addTransform(pipRes.transformTypes.ROWSTORE, {});
         return pipProtEnt.commit();
-      }).then(pipeline => pipeline.getResource());
+      })
+      .then(pipeline => pipeline.getResource());
   },
   removeAlias: etlEntry => pu.getPipelineResource().then((pres) => {
     const transformId = pres.getTransformForType(pres.transformTypes.ROWSTORE);
