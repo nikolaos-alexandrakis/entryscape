@@ -1,52 +1,33 @@
 <div>
-    <div class="col1hidden col3hidden entryRow" data-dojo-attach-point="rowNode">
+    <div class="datasetRow " data-dojo-attach-point="rowNode">
 
-        <div class="flex-wrapper">
-            <div data-dojo-attach-event="onClick: toggle"
-                 class="entryRowCol1 visibilityControl vmiddle disabled"
-                 data-dojo-attach-point="publicToggleNode">
-                <i data-dojo-attach-point="publicNode" class="fa fa-toggle-on fa-lg"
-                   style="display: none"></i>
-                <i data-dojo-attach-point="protectedNode" class="fa fa-toggle-on fa-lg fa-rotate-180"></i>
+        <div class="datasetRow__icons">
+            <div class="dataset__icon">
+                <i class="fa fa-globe"></i>
             </div>
+            <div class="dataset__icon">
+                <i class="fa fa-spinner"></i>
+            </div>
+        </div>
 
-            <div class="entryName vmiddle">
+        <div class="datasetRow__content">
+            <div class="entryName">
                 <span data-dojo-attach-point="nameNode"></span>
                 <a data-dojo-attach-point="nameNodeLink"></a>
             </div>
-        </div>
-
-        <div class="flex-wrapper">
-            <div class="datasetModificationDate entryRowCol3 vmiddle" data-dojo-attach-point="col3Node"></div>
-            <div class="commentCol vmiddle" data-dojo-attach-point="col4Node">
-            <span data-dojo-attach-point="badgeNode" class="badge" style="cursor: pointer"
-              data-dojo-attach-event="click:openCommentDialog"></span>
-            </div>
-            <div class="flex-wrapper">
-              <div class="entryControls datasetControls vmiddle" data-dojo-attach-point="buttonsNode"></div>
+            <div class="datasetRow__content__statusInfo">
+                <div class="datasetModificationDate" data-dojo-attach-point="col3Node"></div>
+                <div class="commentCol" data-dojo-attach-point="col4Node">
+                    <span data-dojo-attach-point="badgeNode" class="badge" style="cursor: pointer"
+                        data-dojo-attach-event="click:openCommentDialog"></span>
+                </div>
             </div>
 
+           <!--  <div class="flex-wrapper">
+                <div class="entryControls datasetControls " data-dojo-attach-point="buttonsNode"></div>
+            </div> -->
+
         </div>
 
-    </div>
-
-    <div style="display: none" data-dojo-attach-point="brokenReferences">
-        <div colspan="4">
-            <div class="alert alert-warning" role="alert">
-                <button type="button" class="btn btn-warning btn-xs pull-right"
-                        data-dojo-attach-event="onClick: removeBrokenReferences"><span
-                        class="glyphicon glyphicon-remove"
-                        aria-hidden="true"></span>
-                    <span data-dojo-attach-point="removeBrokenDatasetRefs"></span></button>
-                <small data-dojo-attach-point="removeBrokenDatasetRefsWarning"></small>
-            </div>
-        </div>
-    </div>
-
-    <div class="distributions">
-        <div colspan="5" class = "distributionsTd">
-            <div data-dojo-attach-point="distributions">
-            </div>
-        </div>
     </div>
 </div>
