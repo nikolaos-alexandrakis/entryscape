@@ -2,7 +2,7 @@
   "templates": [
     {
       "type": "group",
-      "id": "dcat:OnlyDataset",
+      "id": "dcat:GeoDataset",
       "label": {
         "en": "Dataset",
         "sv": "Dataset",
@@ -14,6 +14,9 @@
       "items": [
         "dcat:dcterms:title_da",
         "dcat:dcterms:description_da",
+        "geodcat:dcterms:type",
+        "geodcat:dcterms:subject",
+        "geodcat:spatial:dcterms:type",
         "dcat:foaf:Agent_da",
         "adms:contactPoint-choice_da",
         "dcat:contactPoint-choice_da",
@@ -21,6 +24,7 @@
         "dcat:theme-da",
         "dcat:dcterms:identifier_da",
         "dcat:adms:identifier_da",
+        "geodcat:dcterms:created",
         "dcat:dcterms:issued_da",
         "dcat:dcterms:modified_da",
         "dcat:dcterms:language_da",
@@ -45,7 +49,7 @@
     },
     {
       "type": "group",
-      "id": "dcat:OnlyDistribution",
+      "id": "dcat:GeoDistribution",
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/ns/dcat#Distribution"
       },
@@ -77,7 +81,7 @@
     {
       "type": "group",
       "nodetype": "RESOURCE",
-      "id": "dcat:OnlyCatalog",
+      "id": "dcat:GeoCatalog",
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/ns/dcat#Catalog"
       },
@@ -96,30 +100,6 @@
         "dcat:dcterms:isPartOf_ca",
         "dcat:themeTaxonomy_ca_deprecated",
         "dcat:themeTaxonomy_ca"
-      ]
-    },
-    {
-      "type": "group",
-      "nodetype": "RESOURCE",
-      "id": "dcat:Documentish",
-      "styles": [
-        "showLink"
-      ],
-      "items": [
-        "dcat:documentType",
-        {
-          "extends": "dcat:dcterms:title",
-          "cardinality": {
-            "min": 1
-          }
-        },
-        {
-          "cardinality": {
-            "min": 0,
-            "pref": 1
-          },
-          "extends": "dcat:dcterms:description"
-        }
       ]
     }
   ]
