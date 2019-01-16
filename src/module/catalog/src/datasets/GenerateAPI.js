@@ -112,8 +112,8 @@ export default declare([], {
     }
 
     this.validateFiles(filesURI)
-      .then(this._showProgressDialog.bind(this))
-      .then(this.generateAPI.bind(this));
+      .then(this.generateAPI.bind(this))
+      .then(this._showProgressDialog.bind(this));
   },
   /**
    *
@@ -158,13 +158,35 @@ export default declare([], {
   /**
    * Runs the activate/refresh API pipeline
    */
-  generateAPI() {
+  async generateAPI() {
     if (this.mode === 'edit') {
       this.refreshAPI();
     } else {
-      // check if catalog/dataset is unpublished
-      context = this.datasetEntry.getContext();
-      this.activateAPI();
+      // check if catalog/dataset are public
+      const isDatasetPublic = this.datasetEntry.isPublic();
+      const contextEntry = await this.datasetEntry.getContext().getEntry();
+      const isCatalogPublic = contextEntry.isPublic();
+
+      if (isCatalogPublic && isDatasetPublic) {
+        this.activateAPI();
+      } else {
+        /**
+         * Inform the user that either or both parent dataset and catalog are not public. Activating the api will
+         * make the data accessible via the API
+         * @type {string}
+         */
+        // eslint-disable-next-line
+        const nonPublicParent = isDatasetPublic ? (isCatalogPublic ? 'dataset and catalog' : 'dataset') : 'catalog';
+        const message = i18n.renderNLSTemplate(this.escaFiles.activateAPINotAllowedDatasetNotPublic, {
+          parent: nonPublicParent,
+          count: 2,
+        });
+        await registry.get('dialogs').confirm(message, null, null, (confirm) => {
+          if (confirm) {
+            this.activateAPI();
+          }
+        });
+      }
     }
   },
   /**

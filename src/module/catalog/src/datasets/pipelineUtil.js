@@ -10,12 +10,7 @@ export default {
     const async = registry.get('asynchandler');
     async.addIgnore('getEntry', async.codes.GENERIC_PROBLEM, true);
     return context.getEntryById('rowstorePipeline')
-      .catch(() => {
-        const pipProtEnt = context.newPipeline('rowstorePipeline');
-        const pipRes = pipProtEnt.getResource();
-        pipRes.addTransform(pipRes.transformTypes.ROWSTORE, {});
-        return pipProtEnt.commit();
-      })
+      .catch(() => createRowstorePipeline(context)) // if the 'rowstorePieline' entry doesn't exist then create
       .then(pipeline => pipeline.getResource());
   },
   removeAlias: etlEntry => pu.getPipelineResource().then((pres) => {

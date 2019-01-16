@@ -29,6 +29,9 @@ export default declare([ToggleRow], {
     });
     this.listDistributions();
   },
+  getCatalog() {
+    return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', this.entry.getContext());
+  },
   updateLocaleStrings() {
     this.inherited('updateLocaleStrings', arguments);
     this._updateLocaleStrings();
