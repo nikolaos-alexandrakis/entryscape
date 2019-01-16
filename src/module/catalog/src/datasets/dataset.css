@@ -217,13 +217,14 @@ div.errorreport {
 .datasetRow__content .entryName{
     width: 300px;
     width:600px;
-    margin-left:10px;
+    margin-left:15px;
     display: flex;
     flex-wrap: wrap;
     color:#1C4CD1;
 }
 .datasetRow__content .datasetRow__content__statusInfo {
-align-items: center;
+    margin:15px;
+    align-items: center;
 }
 .datasetModificationDate{
     color:#1C4CD1;
