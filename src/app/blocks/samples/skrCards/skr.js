@@ -2,6 +2,7 @@
 /* eslint-disable no-template-curly-in-string */
 window.__entryscape_config = {
   block: 'config',
+  page_language: 'sv',
   entrystore: 'https://opendata.statenskonstrad.se/store',
   namespaces: {
     gn: 'http://www.geonames.org/ontology#',
