@@ -218,9 +218,14 @@ div.errorreport {
     font-size: 28px;
     color:#1C4CD1;
 }
+
+.dataset__icon--disabled{
+    opacity: 0.3;
+}
+
 .datasetRow__content .entryName{
     width: 300px;
-    width:100%;
+    width:80%;
     padding: 15px;
     display: flex;
     flex-wrap: wrap;
@@ -238,6 +243,9 @@ div.errorreport {
 
 @media (max-width: 820px) {
 
+    .datasetRow__content .entryName{
+        width:100%;
+    }
     .datasets .distributionTitle {
       padding-left: 15px !important;
      /*  margin-bottom: 15px !important;

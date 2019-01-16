@@ -310,6 +310,8 @@ div.modules a:hover {
 
 .entryscapeViewList {
     border-top: 1px solid #ededed;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .entryscapeViewList a {
@@ -433,4 +435,14 @@ body.spaTwoMenu .spaControl.navbar-nav {
 
 .form-group label.control-label {
     font-size: 16px !important;
+}
+
+@media (max-width: 765px){
+    .entryscapeViewList{
+        flex-direction: column;
+        align-items: self-start;
+    }
+    .entryscapeViewList li{
+        margin-bottom: 15px;
+    }
 }
