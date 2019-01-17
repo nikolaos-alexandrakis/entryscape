@@ -11,8 +11,9 @@ import { i18n } from 'esi18n';
 import { clone, cloneDeep, merge, template } from 'lodash-es';
 import m from 'mithril';
 import { promiseUtil } from 'store';
-import api from './api';
 import pipelineUtil from './pipelineUtil';
+import api from './utils/apiUtil';
+import { getDistributionFileRURIs, getDistributionFilesInfo } from './utils/distributionUtil';
 
 /**
  * Utility method to check the api status.
@@ -111,6 +112,9 @@ export default declare([], {
       this[param] = params[param];
     }
 
+    // needed to choose the correct progress dialog message
+    this.hasOnlyAddedFiles = Array.isArray(filesURI) && filesURI.length;
+
     this.validateFiles(filesURI)
       .then(this.generateAPI.bind(this))
       .then(this._showProgressDialog.bind(this));
@@ -168,14 +172,13 @@ export default declare([], {
       const isCatalogPublic = contextEntry.isPublic();
 
       if (isCatalogPublic && isDatasetPublic) {
-        this.activateAPI();
+        this.activateAPI(); // note, we don't await for the activateAPI to finish as it would block the rendering of the progress dialog
       } else {
         /**
          * Inform the user that either or both parent dataset and catalog are not public. Activating the api will
          * make the data accessible via the API
-         * @type {string}
          */
-        // eslint-disable-next-line
+          // eslint-disable-next-line
         const nonPublicParent = isDatasetPublic ? (isCatalogPublic ? 'dataset and catalog' : 'dataset') : 'catalog';
         const message = i18n.renderNLSTemplate(this.escaFiles.activateAPINotAllowedDatasetNotPublic, {
           parent: nonPublicParent,
@@ -190,72 +193,61 @@ export default declare([], {
     }
   },
   /**
-   * validate files can be converted to API
+   * validate that files can be converted to API
+   *  - gathers the newly added files to be merged into the api OR all the files in the distribution (refresh all)
    * checks:
    *  1) maxFileSizeForAPI is reached
    *  2) files are not csv
-   * show respesctive dialogs if some checks are not specified
+   * show respective dialogs if some checks are not specified
    * @returns {Promise<any[] | never>}
    */
   validateFiles(newFilesURI = null) {
-    const files = new Map();
     if (newFilesURI) {
       this.fileURIs = newFilesURI; // refresh the API only with the new files
       this.totalNoFiles = newFilesURI.length;
     } else {
       // get all file resource URIs from the dcat:downloadURL property
-      const fileStmts = this.distributionEntry.getMetadata()
-        .find(this.distributionEntry.getResourceURI(), 'dcat:downloadURL');
-      this.totalNoFiles = fileStmts.length;
-      this.fileURIs = fileStmts.map(statement => statement.getValue());
+      this.fileURIs = getDistributionFileRURIs(this.distributionEntry);
+      this.totalNoFiles = this.fileURIs.length;
     }
 
-    // asynchronously get the file entries
-    const fileEntryPromises = this.fileURIs
-      .map(resourceURI => registry.get('entrystoreutil').getEntryByResourceURI(resourceURI)
-        .then((fileEntry) => {
-          const format = fileEntry.getEntryInfo().getFormat();
-          const sizeOfFile = fileEntry.getEntryInfo().getSize();
-          files.set(resourceURI, { format, sizeOfFile });
-        }).catch((err) => {
-          console.error(err);
-          throw Error('Could not validate files to activate/refresh API ');
-        }));
+    // asynchronously get the file infos and make checks
+    return getDistributionFilesInfo(this.distributionEntry)
+      .then((files) => {
+        // calculate total size of all files
+        let totalFilesSize = 0;
+        let hasNonCSV = false;
 
-    return Promise.all(fileEntryPromises).then(() => {
-      // calculate total size of all files
-      let totalFilesSize = 0;
-      let hasNonCSV = false;
+        for (const file of files) { // eslint-disable-line
+          // keep a count of files sizes
+          totalFilesSize += file.sizeOfFile || 0;
 
-      for (const [, file] of files) { // eslint-disable-line
-        // keep a count of files sizes
-        totalFilesSize += file.sizeOfFile || 0;
-
-        // CHECK 1 - check if any of the files are not csv
-        // TODO check if errors are caught
-        if (!hasNonCSV) {
-          hasNonCSV = !file.format || (file.format !== 'text/csv') ? file.format : false;
+          // CHECK 1 - check if any of the files are not csv
+          // TODO check if errors are caught
+          if (!hasNonCSV) {
+            hasNonCSV = !file.format || (file.format !== 'text/csv') ? file.format : false;
+          }
         }
-      }
-      // CHECK 2 - Max file(s) size
-      if (config.catalog && totalFilesSize > config.get('catalog.maxFileSizeForAPI')) {
-        const acknowledgeMsg =
-          template(this.escaFiles.activateAPINotAllowedFileToBig)({ size: config.get('catalog.maxFileSizeForAPI') });
-        return registry.get('dialogs').acknowledge(acknowledgeMsg)
-          .then(() => {
-            throw Error('Stop API refresh, file(s) to big');
-          });
-      }
+        // CHECK 2 - Max file(s) size
+        if (config.catalog && totalFilesSize > config.get('catalog.maxFileSizeForAPI')) {
+          const acknowledgeMsg =
+            template(this.escaFiles.activateAPINotAllowedFileToBig)({ size: config.get('catalog.maxFileSizeForAPI') });
 
-      if (hasNonCSV) {
-        return registry.get('dialogs')
-          .confirm(template(this.escaFiles.onlyCSVSupported)({ format: hasNonCSV || '-' }),
-            this.escaFiles.confirmAPIActivation,
-            this.escaFiles.abortAPIActivation);
-      }
+          return registry.get('dialogs').acknowledge(acknowledgeMsg)
+            .then(() => {
+              throw Error('Stop API refresh, file(s) to big');
+            });
+        }
 
-      return Promise.resolve();
-    });
+        if (hasNonCSV) {
+          return registry.get('dialogs')
+            .confirm(template(this.escaFiles.onlyCSVSupported)({ format: hasNonCSV || '-' }),
+              this.escaFiles.confirmAPIActivation,
+              this.escaFiles.abortAPIActivation);
+        }
+
+        return Promise.resolve();
+      });
   },
   /**
    * Update the state of the progress dialog and re-render
@@ -285,8 +277,12 @@ export default declare([], {
         .then(() => {
           // Update the UI
           this.noOfFiles += 1;
-          const apiFileProcessed = i18n.renderNLSTemplate(this.escaApiProgress.apiFileProcessed,
-            { number: this.noOfFiles, totalFiles: this.totalNoFiles });
+          const apiFileProcessedNLS = this.hasOnlyAddedFiles ?
+            this.escaApiProgress.apiFileProcessedOnlyAddition : this.escaApiProgress.apiFileProcessed;
+          const apiFileProcessed = i18n.renderNLSTemplate(apiFileProcessedNLS, {
+            number: this.noOfFiles,
+            totalFiles: this.totalNoFiles,
+          });
           this.updateProgressDialogState({ fileprocess: { message: apiFileProcessed } });
         })
         .catch((err) => {
@@ -466,8 +462,12 @@ export default declare([], {
         });
         await pipelineResource.commit();
         this.noOfFiles += 1;
-        const apiFileProcessed = i18n.renderNLSTemplate(this.escaApiProgress.apiFileProcessed,
-          { number: this.noOfFiles, totalFiles: this.totalNoFiles });
+        const apiFileProcessedNLS = this.hasOnlyAddedFiles ?
+          this.escaApiProgress.apiFileProcessedOnlyAddition : this.escaApiProgress.apiFileProcessed;
+        const apiFileProcessed = i18n.renderNLSTemplate(apiFileProcessedNLS, {
+          number: this.noOfFiles,
+          totalFiles: this.totalNoFiles,
+        });
         this.updateProgressDialogState({ fileprocess: { message: apiFileProcessed } });
 
         await this._processFiles(tempFileURIs, pipelineResource);
