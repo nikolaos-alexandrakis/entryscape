@@ -12,60 +12,18 @@ import { clone, cloneDeep, merge, template } from 'lodash-es';
 import m from 'mithril';
 import { promiseUtil } from 'store';
 import pipelineUtil from './pipelineUtil';
-import api from './utils/apiUtil';
 import { getDistributionFileRURIs, getDistributionFilesInfo } from './utils/distributionUtil';
+import apiUtil from './utils/apiUtil';
 
 /**
- * Utility method to check the api status.
- * @param {string} pipelineEntryURI
- * @returns {Promise<string>}
- * TODO best move to ./api.js
- */
-const getApiStatus = async (pipelineEntryURI) => {
-  const pipelineEntry = await registry.get('entrystore').getEntry(pipelineEntryURI);
-  const data = await api.load(pipelineEntry);
-  const status = api.status(data);
-  if (status !== api.oldStatus(pipelineEntry)) {
-    await api.update(pipelineEntry, data);
-  }
-  return status;
-};
-
-/**
- *
- * @async
- * @param pipelineEntryURI
- * @param {number} repeat Number of re-tries
- * @return {Promise<*>}
- * TODO best move to ./api.js
- */
-const checkApiStatus = async (pipelineEntryURI, repeat = 30) => {
-  // let counter = 30;/
-  const status = await getApiStatus(pipelineEntryURI);
-  switch (status) {
-    case 'available':
-      return true;
-    case 'error':
-      throw Error('API returned an error status');// reject();
-    default:
-      // retry checking the API after 300ms
-      if (repeat > 0) {
-        await promiseUtil.delay(300);
-        return checkApiStatus(pipelineEntryURI, repeat - 1);
-      }
-      throw Error('API returned an error status');
-  }
-};
-
-/**
- *
+ * TODO move from here
  * @param x
  * @returns {*|Array}
  */
 const getObjectValues = x => Object.keys(x).reduce((y, z) => y.push(x[z]) && y, []);
 
 /**
- *
+ * How the initial progress api should look like
  */
 const initialTasksState = {
   init: {
@@ -90,17 +48,21 @@ const initialTasksState = {
 
 export default declare([], {
   /**
-   * @param files the file to merge to the API
-   * @param {Object} params
-   * mode
-   * distributionRow
-   * datasetRow
-   * apiDistEntry
-   * distributionEntry
-   * datasetEntry
-   * escaApiProgress
-   * escaFiles
-   * escaApiProgress
+   * @param {{params: object, filesURI: array|null}}
+   * params:
+   *  - mode
+   *  - distributionRow
+   *  - datasetRow
+   *  - apiDistEntry
+   *  - distributionEntry
+   *  - datasetEntry
+   *  - escaApiProgress
+   *  - escaFiles
+   *  - escaApiProgress
+   *  filesURI:
+   *  - only these filesURI should be merged to the API. A special case where we have only added
+   *    files to the distribution and no other changes (like replace/remove). Helps improve preformance
+   *    of the API update.
    */
   execute({ params = {}, filesURI = null }) {
     this.noOfFiles = 0;
@@ -163,7 +125,7 @@ export default declare([], {
    * Runs the activate/refresh API pipeline
    */
   async generateAPI() {
-    if (this.mode === 'edit') {
+    if (this.mode === 'refresh') {
       this.refreshAPI();
     } else {
       // check if catalog/dataset are public
@@ -178,7 +140,7 @@ export default declare([], {
          * Inform the user that either or both parent dataset and catalog are not public. Activating the api will
          * make the data accessible via the API
          */
-          // eslint-disable-next-line
+        // eslint-disable-next-line
         const nonPublicParent = isDatasetPublic ? (isCatalogPublic ? 'dataset and catalog' : 'dataset') : 'catalog';
         const message = i18n.renderNLSTemplate(this.escaFiles.activateAPINotAllowedDatasetNotPublic, {
           parent: nonPublicParent,
@@ -273,7 +235,7 @@ export default declare([], {
     return promiseUtil.forEach(fileResourceURIs, fileResourceURI =>
       registry.get('entrystoreutil').getEntryByResourceURI(fileResourceURI)
         .then(fileEntry => pipelineResource.execute(fileEntry, {}))
-        .then(result => checkApiStatus(result[0]))
+        .then(result => apiUtil.checkStatusOnRepeat(result[0]))
         .then(() => {
           // Update the UI
           this.noOfFiles += 1;
@@ -450,7 +412,7 @@ export default declare([], {
 
       // TODO explain
       const result = await pipelineResource.execute(fileEntry, {});
-      await checkApiStatus(result[0]);
+      await apiUtil.checkStatusOnRepeat(result[0]);
       tempFileURIs = tempFileURIs.slice(1); // remove first file entry
       if (tempFileURIs.length === 0) {
         this.updateProgressDialogState({ fileprocess: { status: 'done' } });

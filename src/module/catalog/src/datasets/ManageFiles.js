@@ -93,7 +93,7 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
               apiDistEntry,
               distributionEntry: this.entry,
               datasetEntry: this.datasetEntry,
-              mode: 'edit',
+              mode: 'refresh',
               escaApiProgress: this.NLSBundles.escaApiProgress,
               escaFiles: this.NLSBundles.escaFiles,
             },

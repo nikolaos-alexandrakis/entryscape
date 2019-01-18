@@ -419,7 +419,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           apiDistEntry: this.entry,
           distributionEntry,
           datasetEntry: this.datasetRow.entry,
-          mode: 'edit',
+          mode: 'refresh',
           distributionRow: this,
           datasetRow: this.datasetRow,
           escaApiProgress: this.NLSBundles.escaApiProgress,

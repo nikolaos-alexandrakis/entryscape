@@ -196,6 +196,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
         }
       });
   },
+  // TODO potential this is the same code as ./utils/apiUtil::syncStatus
   getAPIStatus(etlEntry) {
     etlEntry.setRefreshNeeded();
     return etlEntry.refresh().then(() => {

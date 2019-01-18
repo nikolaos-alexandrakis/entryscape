@@ -69,7 +69,7 @@ export default declare([ReplaceDialog], {
                       apiDistEntry,
                       distributionEntry: this.distributionEntry,
                       datasetEntry: this.datasetEntry,
-                      mode: 'edit',
+                      mode: 'refresh',
                       escaApiProgress: this.NLSBundles.escaApiProgress,
                       escaFiles: this.NLSBundles.escaFiles,
                     },
