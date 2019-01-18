@@ -343,6 +343,9 @@
 .entryList .visibilityControl .fa-toggle-on.fa-rotate-180 {
     color: #d9534f
 }
+.entryList .entryRowCol1 .fa {
+    color:#1C4CD1;
+}
 
 .stopSign {
     margin: 20px 40px;
