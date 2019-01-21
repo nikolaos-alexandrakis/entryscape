@@ -340,6 +340,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const async = registry.get('asynchandler');
     async.addIgnore('loadViaProxy', true, true);
     async.addIgnore('loadViaProxy', async.codes.GENERIC_PROBLEM, true);
+    async.addIgnore('loadViaProxy', async.codes.UNAUTHORIZED, true);
     return registry.get('entrystore').loadViaProxy(url, 'application/rdf+xml')
       .then((data) => {
         // update the UI
