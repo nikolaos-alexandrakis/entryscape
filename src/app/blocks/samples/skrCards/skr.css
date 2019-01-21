@@ -470,7 +470,7 @@
   min-width: 250px;
   margin-bottom: 3em;
   line-height: 1.6em;
-  word-wrap: break-word;
+  word-wrap: normal;
   font-size: 1.15em;
 }
 
