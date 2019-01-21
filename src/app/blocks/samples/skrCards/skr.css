@@ -20,7 +20,9 @@
   background-color: #33ed73;
   border: 2px solid black;
 }
-
+ .skr_container .facets .block_facet li{
+  padding: 2px 25px 2px 10px;
+}
 #title, #artist, #site, #address,#date{
   margin-bottom:20px;
 }
@@ -119,7 +121,7 @@
   padding: 0 !important;
   font-style: normal;
   padding: .5rem;
-  word-wrap: break-word;
+  word-wrap: normal;
   font-size: 1em;
   align-items: center;
 }
@@ -424,8 +426,9 @@
 .WorkOfArt__metadata .rdformsField>div {
   font-weight: bold;
   margin-left: 13px;
-  word-break: unset;
+  word-break: normal;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .WorkOfArt__metadata .rdformsField {
@@ -527,7 +530,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  word-break: break-all;
+  word-break: normal;
   background-color:white;
 }
 
