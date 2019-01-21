@@ -192,13 +192,14 @@
 
 .WorkOfArt__wrapper .fa-search:before {
   content: "\F002";
-  position: absolute;
-  top: 25px;
-  right: 42px;
+  position: relative;
   z-index: 666;
   color: black;
   text-shadow: 3px 3px 16px white;
   font-size: 24px;
+  float: right;
+  margin-top: -82px;
+  margin-right: 10px;
 }
 
 .btn--white,
