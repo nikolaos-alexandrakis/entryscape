@@ -11,7 +11,7 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import { i18n, NLSMixin } from 'esi18n';
-import { clone, template as renderTemplate } from 'lodash-es';
+import { cloneDeep, template as renderTemplate } from 'lodash-es';
 import m from 'mithril';
 import { converters, Graph, utils } from 'rdfjson';
 import { promiseUtil } from 'store';
@@ -206,7 +206,7 @@ const importConcepts = (params) => {
     return pe.commit().then(() => {
       importedConcepts += 1;
       importDialog.tasks.import.message = importDialog.getConceptsImportedMessage(importedConcepts, totalConcepts);
-      updateProgressDialog(importDialog, importDialog.tasks);
+      updateProgressDialog(importDialog.progressDialog, importDialog.tasks);
     });
   }).then(() => params);
 };
@@ -272,9 +272,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     this.inherited(arguments);
-    const bundle = this.NLSLocalized.esteImport;
+    const bundle = this.NLSBundles.esteImport;
     if (bundle) {
-      this.tasks = clone(initialTasksState);
+      this.tasks = cloneDeep(initialTasksState);
       this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
       this.tasks.analysis.name = bundle[initialTasksState.analysis.nlsTaskName];
       this.tasks.import.name = bundle[initialTasksState.import.nlsTaskName];
@@ -298,8 +298,10 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       .then(this.analyseData.bind(this))
       .then(this.importData.bind(this))
       .then((params) => {
-        updateProgressDialog(this.progressDialog, this.tasks);
-        // this.showFooterResult();
+        updateProgressDialog(this.progressDialog, this.tasks, {
+          showFooterResult: this.showFooterResult.bind(this),
+          updateFooter: true,
+        });
         return params;
       }).then(this.addTerminologyToList.bind(this));
   },
@@ -362,7 +364,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       });
   },
   _clear() {
-    this.tasks = clone(initialTasksState);
+    const bundle = this.NLSBundles.esteImport;
+    if (bundle) {
+      this.tasks = cloneDeep(initialTasksState);
+      this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
+      this.tasks.analysis.name = bundle[initialTasksState.analysis.nlsTaskName];
+      this.tasks.import.name = bundle[initialTasksState.import.nlsTaskName];
+    }
+
     this.errorTask = -1;
     this.dialog.lockFooterButton();
   },
