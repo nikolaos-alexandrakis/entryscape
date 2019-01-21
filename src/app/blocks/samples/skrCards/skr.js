@@ -271,3 +271,10 @@ if (btnCloseFilter) {
 if (btnCloseAdvanced) {
   btnCloseAdvanced.onclick = function closeAdvanced() { advancedMobile.classList.toggle('hidden'); };
 }
+
+function scrollTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+btnFilter.addEventListener('click', scrollTop);
+btnAdvanced.addEventListener('click', scrollTop);
