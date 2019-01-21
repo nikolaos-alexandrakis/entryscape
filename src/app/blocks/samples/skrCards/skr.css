@@ -188,13 +188,15 @@
   min-height: 40px;
 }
 
-.fa-search-plus:before {
-  content: "\F00E";
+.WorkOfArt__wrapper .fa-search:before {
+  content: "\F002";
   position: absolute;
   top: 25px;
-  opacity: 0.8;
-  right: 30px;
+  right: 42px;
   z-index: 666;
+  color: black;
+  text-shadow: 3px 3px 16px white;
+  font-size: 24px;
 }
 
 .btn--white,
