@@ -1,21 +1,21 @@
-import registry from 'commons/registry';
-import htmlUtil from 'commons/util/htmlUtil';
-import EntryType from 'commons/create/EntryType';
-import m from 'mithril';
-import config from 'config';
-import { promiseUtil } from 'store';
-import { converters, Graph, utils } from 'rdfjson';
-import ProgressDialog from 'commons/progresstask/ProgressDialog';
-import TaskProgress from 'commons/progresstask/components/TaskProgress';
-import Row from 'commons/components/common/grid/Row';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
-import { i18n, NLSMixin } from 'esi18n';
-import esteImport from 'terms/nls/esteImport.nls';
-import { template as renderTemplate } from 'lodash-es';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import Row from 'commons/components/common/grid/Row';
+import EntryType from 'commons/create/EntryType';
+import ProgressDialog from 'commons/progresstask/ProgressDialog';
+import { updateProgressDialog } from 'commons/progresstask/util';
+import registry from 'commons/registry';
+import htmlUtil from 'commons/util/htmlUtil';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { clone, template as renderTemplate } from 'lodash-es';
+import m from 'mithril';
+import { converters, Graph, utils } from 'rdfjson';
+import { promiseUtil } from 'store';
+import esteImport from 'terms/nls/esteImport.nls';
 import template from './ImportTerminologyTemplate.html';
 
 const createContext = (paramsArg) => {
@@ -205,11 +205,40 @@ const importConcepts = (params) => {
     // update UI progress with number of concepts imported
     return pe.commit().then(() => {
       importedConcepts += 1;
-      const message = importDialog.getConceptsImportedMessage(importedConcepts, totalConcepts);
-      importDialog.tasks.import.message = message;
-      importDialog.updateProgressDialog(importDialog.tasks);
+      importDialog.tasks.import.message = importDialog.getConceptsImportedMessage(importedConcepts, totalConcepts);
+      updateProgressDialog(importDialog, importDialog.tasks);
     });
   }).then(() => params);
+};
+
+const initialTasksState = {
+  upload: {
+    id: 'echo',
+    name: '',
+    nlsTaskName: 'uploadTask', // nlsString
+    width: '33%', // max width / nr of tasks,
+    order: 1,
+    status: '', // started, progress, done
+    message: '',
+  },
+  analysis: {
+    id: 'analysis',
+    name: '',
+    nlsTaskName: 'analysisTask', // nlsString
+    width: '33%', // max width / nr of tasks,
+    order: 2,
+    status: '',
+    message: '',
+  },
+  import: {
+    id: 'import',
+    name: '',
+    nlsTaskName: 'importTask', // nlsString
+    width: '34%', // max width / nr of tasks,
+    order: 3,
+    status: '',
+    message: '',
+  },
 };
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
@@ -217,35 +246,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   bid: 'esteImport',
   maxWidth: 800,
   nlsBundles: [{ esteImport }],
-  initialTasksState: {
-    upload: {
-      id: 'echo',
-      name: '',
-      nlsTaskName: 'uploadTask', // nlsString
-      width: '33%', // max width / nr of tasks,
-      order: 1,
-      status: '', // started, progress, done
-      message: '',
-    },
-    analysis: {
-      id: 'analysis',
-      name: '',
-      nlsTaskName: 'analysisTask', // nlsString
-      width: '33%', // max width / nr of tasks,
-      order: 2,
-      status: '',
-      message: '',
-    },
-    import: {
-      id: 'import',
-      name: '',
-      nlsTaskName: 'importTask', // nlsString
-      width: '34%', // max width / nr of tasks,
-      order: 3,
-      status: '',
-      message: '',
-    },
-  },
   errorTask: -1,
   nlsHeaderTitle: 'replaceFileHeader',
   nlsFooterButtonLabel: 'replaceFileFooterButton',
@@ -268,16 +268,16 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.fileOrLink.show(true, true, false);
     this.inherited(arguments);
     this.progressDialog = new ProgressDialog();
-    // this.localePromise.then(() => (this.tasks = lang.clone(this.initialTasksState)));
+    // this.localePromise.then(() => (this.tasks = lang.clone(initialTasksState)));
   },
   localeChange() {
     this.inherited(arguments);
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     if (bundle) {
-      this.initialTasksState.upload.name = bundle[this.initialTasksState.upload.nlsTaskName];
-      this.initialTasksState.analysis.name = bundle[this.initialTasksState.analysis.nlsTaskName];
-      this.initialTasksState.import.name = bundle[this.initialTasksState.import.nlsTaskName];
-      this.tasks = this.initialTasksState;
+      this.tasks = clone(initialTasksState);
+      this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
+      this.tasks.analysis.name = bundle[initialTasksState.analysis.nlsTaskName];
+      this.tasks.import.name = bundle[initialTasksState.import.nlsTaskName];
     }
   },
   init() {
@@ -291,14 +291,15 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   process(fileUpload = false) {
     // show up the modal and initialize the UI with tasks
     this.progressDialog.show();
-    this.updateProgressDialog(this.tasks);
+    updateProgressDialog(this.progressDialog, this.tasks);
 
     const dataPromise = fileUpload ? this.fileUpload() : this.linkUpload();
     return dataPromise
       .then(this.analyseData.bind(this))
       .then(this.importData.bind(this))
       .then((params) => {
-        this.showFooterResult();
+        updateProgressDialog(this.progressDialog, this.tasks);
+        // this.showFooterResult();
         return params;
       }).then(this.addTerminologyToList.bind(this));
   },
@@ -307,15 +308,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    */
   fileUpload() {
     this.tasks.upload.status = 'progress';
-    this.updateProgressDialog(this.tasks);
+    updateProgressDialog(this.progressDialog, this.tasks);
     const asyncHandler = registry.get('asynchandler');
     asyncHandler.addIgnore('echoFile', true, true);
     return registry.get('entrystore').echoFile(this.fileOrLink.getFileInputElement(), 'text')
       .then((data) => {
         // update the UI
         this.tasks.upload.status = 'done';
-        this.updateProgressDialog(this.tasks);
-
+        updateProgressDialog(this.progressDialog, this.tasks);
         return data;
       }, (err) => {
         const keys = Object.keys(err);
@@ -323,9 +323,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           const store = registry.get('entrystore');
           return store.getStatus().then((res) => {
             const b = this.NLSBundles.esteImport;
-            err.message = renderTemplate(b.fileTooBigToUpload)({
-              size: res.echoMaxEntitySize,
-            });
+            err.message = renderTemplate(b.fileTooBigToUpload)({ size: res.echoMaxEntitySize });
             this.errorTask = 'upload';
             throw Error(err.message);
           });
@@ -347,7 +345,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         // update the UI
         this.tasks.upload.name = 'Download File'; // nls change
         this.tasks.upload.status = 'done';
-        this.updateProgressDialog(this.tasks);
+        updateProgressDialog(this.progressDialog, this.tasks);
 
         return data;
       }, (err) => {
@@ -363,7 +361,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       });
   },
   _clear() {
-    this.tasks = this.initialTasksState;
+    this.tasks = clone(initialTasksState);
     this.errorTask = -1;
     this.dialog.lockFooterButton();
   },
@@ -375,7 +373,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    */
   analyseData(data) {
     this.tasks.analysis.status = 'progress';
-    this.updateProgressDialog(this.tasks);
+    updateProgressDialog(this.progressDialog, this.tasks);
 
     let conceptSchemeURI;
     let graph;
@@ -388,13 +386,13 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     }
 
     this.tasks.analysis.status = 'done';
-    this.updateProgressDialog(this.tasks);
+    updateProgressDialog(this.progressDialog, this.tasks);
 
     return { graph, conceptSchemeURI };
   },
   importData(info) {
     this.tasks.import.status = 'progress';
-    this.updateProgressDialog(this.tasks);
+    updateProgressDialog(this.progressDialog, this.tasks);
 
     const { graph, conceptSchemeURI } = info;
     return createContext({
@@ -408,7 +406,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       .then(importConcepts)
       .then((params) => {
         this.tasks.import.status = 'done';
-        this.updateProgressDialog(this.tasks);
+        updateProgressDialog(this.progressDialog, this.tasks);
         return params;
       }, (err) => {
         this.errorTask = 'import';
@@ -455,23 +453,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const row = params.list.getView().addRowForEntry(params.csEntry);
     params.list.rowMetadataUpdated(row);
   },
-  /**
-   * This is the main function to update the progress dialog
-   *
-   * @param tasks
-   * @param updateFooter Shows a result alert at the end of the modal
-   * @param errorMessage
-   */
-  updateProgressDialog(tasks, updateFooter = false, errorMessage = null) {
-    const modalBody = this.progressDialog.getModalBody();
-
-    const getObjectValues = x => Object.keys(x).reduce((y, z) => y.push(x[z]) && y, []);
-    m.render(modalBody, m(TaskProgress, { tasks: getObjectValues(tasks) }));
-
-    if (updateFooter) {
-      this.showFooterResult(errorMessage);
-    }
-  },
   showFooterResult(message = null) {
     const modalFooter = this.progressDialog.getModalFooter();
     const onclick = this.progressDialog.hide.bind(this.progressDialog);
@@ -510,7 +491,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       dialog.hide();
       return res.then(null, (err) => {
         if (err instanceof Error) {
-          this.showErrorMessage(res, this.errorTask);
+          this.showErrorMessage(err.message, this.errorTask);
           throw res;
         } else if (typeof err === 'object' && err.message) {
           this.showErrorMessage(err.message, this.errorTask);
@@ -523,7 +504,11 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   showErrorMessage(text, taskIdx) {
     this.tasks[taskIdx].status = 'failed';
-    this.updateProgressDialog(this.tasks, true, text);
+    updateProgressDialog(this.progressDialog, this.tasks, {
+      showFooterResult: this.showFooterResult.bind(this),
+      updateFooter: true,
+      errorMessage: text,
+    });
   },
   getConceptsImportedMessage(importedConcepts, totalConcepts) {
     return i18n.renderNLSTemplate(this.NLSBundles.esteImport.nlsNumberOfConceptsImported, {
