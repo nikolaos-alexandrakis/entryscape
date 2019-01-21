@@ -8,6 +8,7 @@ dist
 .yalc/
 yalc.lock
 *.vim
+*.ackrc
 /src/scripts/nls/apikey.js
 theme
 *.temp

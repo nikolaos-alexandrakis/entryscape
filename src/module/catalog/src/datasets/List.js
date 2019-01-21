@@ -20,6 +20,7 @@ import ListView from '../utils/ListView';
 import CreateDistribution from './CreateDistribution';
 import ShowResultsDialog from './ShowResultsDialog';
 import ShowIdeasDialog from './ShowIdeasDialog';
+import OverviewDialog from './OverviewDialog';
 
 const ns = registry.get('namespaces');
 const CreateDialog = declare(RDFormsEditDialog, {
@@ -176,12 +177,13 @@ export default declare([ETBaseList], {
   listViewClass: ListView,
   class: 'datasets',
   searchVisibleFromStart: false,
-  rowClickDialog: 'edit',
+  rowClickDialog: 'overview',
   versionExcludeProperties: ['dcat:distribution'],
   rowActionNames: ['edit', 'versions', 'preview', 'downgrade', 'comment',
     'distributionCreate', 'showresults', 'showideas', 'clone',
     'remove'],
   postCreate() {
+    this.registerDialog('overview', OverviewDialog);
     this.registerDialog('distributionEdit', EditDistributionDialog);
     this.registerDialog('distributionVersions', DistVersionDialog);
     this.registerDialog('manageFiles', ManageFiles);
