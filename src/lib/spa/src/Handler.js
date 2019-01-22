@@ -12,6 +12,16 @@ const getClosestLink = (node) => {
   return closestLinks.length > 0 ? closestLinks[0] : null;
 };
 
+/**
+ * Open an external link to a new window
+ *
+ * @param {string} href
+ * @param {boolean} [blank=true]
+ */
+const openExternalLink = (href, blank = true) => {
+  window.open(href, blank ? '_blank' : '');
+};
+
 export default class Handler {
   /**
    *  A regex to test any link against to check if link is internal or external
@@ -70,7 +80,7 @@ export default class Handler {
         // if this is an external link than open in new window
         if (this.isExternalLink(href)) {
           e.preventDefault();
-          this.openExternalLink(href);
+          openExternalLink(href);
           return false;
         }
 
@@ -173,15 +183,5 @@ export default class Handler {
     }
 
     return !isLocal;
-  }
-
-  /**
-   * Open an external link to a new window
-   *
-   * @param href
-   * @param blank
-   */
-  static openExternalLink(href, blank = true) {
-    window.open(href, blank ? '_blank' : '');
   }
 }
