@@ -114,6 +114,7 @@ window.__entryscape_config = {
       label: 'Kön',
       property: 'foaf:gender',
       nodetype: 'literal',
+      searchIndextype: 'text',
       related: true,
       limit: 5,
       includeAsFacet: true,
