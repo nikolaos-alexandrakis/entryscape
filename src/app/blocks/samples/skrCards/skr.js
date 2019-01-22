@@ -251,10 +251,10 @@ var btnAdvanced = document.querySelector('.btn--advanced--mobile');
 var btnCloseAdvanced = document.querySelector('.close--advanced');
 var mobileFilterResults = document.querySelector('.results--mobile--filter');
 var mobileAdvancedResults = document.querySelector('.results--mobile--advanced');
-var closeFilter = function() {
+var closeFilter = function () {
    filterMobile.classList.toggle('hidden');
    };
-var closeAdvanced = function() {
+var closeAdvanced = function () {
    advancedMobile.classList.toggle('hidden');
  };
 
@@ -264,36 +264,35 @@ if (btnAdvancedSearch) {
     arrowAdvancedSearch.classList.toggle('arrow--up');
   };
 }
-
-if (btnFilter) {
-  btnFilter.onclick = function hideBtnFilter() { filterMobile.classList.toggle('hidden'); };
-}
-
-if (btnAdvanced) {
-  btnAdvanced.onclick = function hideBtnAdvanced() { advancedMobile.classList.toggle('hidden'); };
-}
-
-if (btnCloseFilter) {
-  btnCloseFilter.onclick = closeFilter;
-}
-
-if (btnCloseAdvanced) {
-  btnCloseAdvanced.onclick = closeAdvanced;
-}
-
-if(mobileFilterResults) {
-  mobileFilterResults.onclick = closeFilter;
-}
-if(mobileAdvancedResults) {
-  mobileAdvancedResults.onclick = closeAdvanced;
-}
-
-
 function scrollTop() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
-btnFilter.addEventListener('click', scrollTop);
-btnAdvanced.addEventListener('click', scrollTop);
-mobileFilterResults.addEventListener('click', scrollTop);
-mobileAdvancedResults.addEventListener('click', scrollTop);
+
+if (btnFilter) {
+  btnFilter.addEventListener('click', function () { filterMobile.classList.toggle('hidden'); });
+  btnFilter.addEventListener('click', scrollTop);
+}
+
+if (btnAdvanced) {
+  btnAdvanced.addEventListener('click', function () { advancedMobile.classList.toggle('hidden'); });
+  btnAdvanced.addEventListener('click', scrollTop);
+}
+
+if (btnCloseFilter) {
+  btnCloseFilter.addEventListener('click', closeFilter);
+}
+
+if (btnCloseAdvanced) {
+  btnCloseAdvanced.addEventListener('click', closeAdvanced);
+}
+
+if (mobileFilterResults) {
+  mobileFilterResults.addEventListener('click', closeFilter);
+  mobileFilterResults.addEventListener('click', scrollTop);
+}
+
+if (mobileAdvancedResults) {
+  mobileAdvancedResults.addEventListener('click', closeAdvanced);
+  mobileAdvancedResults.addEventListener('click', scrollTop);
+}
