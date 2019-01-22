@@ -82,7 +82,6 @@ export default declare([], {
       .then(this._showProgressDialog.bind(this));
   },
   /**
-   *
    * @private
    */
   _showProgressDialog() {
@@ -284,56 +283,30 @@ export default declare([], {
     let tempFileURIs = clone(this.fileURIs);
 
     try {
-      /**
-       * // TODO type
-       * @type store/Pipeline
-       */
+      /** @type {store/Pipeline} */
       const pipelineResource = await pipelineUtil.getPipelineResource();
       this.updateProgressDialogState({ init: { status: 'progress' } });
 
-      /**
-       *
-       * @param resource
-       * @returns {*}
-       */
       const transformId = pipelineResource.getTransformForType(pipelineResource.transformTypes.ROWSTORE);
       pipelineResource.setTransformArguments(transformId, {});
       pipelineResource.setTransformArguments(transformId, { action: 'create' });
       await pipelineResource.commit();
 
-      /**
-       * @returns {entryPromise}
-       */
       const esu = registry.get('entrystoreutil');
       const fileEntry = await esu.getEntryByResourceURI(tempFileURIs[0]);
 
-      /**
-       *
-       * @param entry
-       * @returns {*}
-       */
       const pipelineResultURIs = await pipelineResource.execute(fileEntry, {});
       this.updateProgressDialogState({
         init: { status: 'done' },
         fileprocess: { status: 'progress' },
       });
 
-      /**
-       *
-       * @param result
-       * @returns {store|Entry|entryPromise|*|*}
-       */
       tempFileURIs = tempFileURIs.slice(1); // remove first file entry
       if (tempFileURIs.length === 0) {
         this._createDistribution(pipelineResultURIs[0]);
       } else {
-        const pipelineResultEntry = await registry.get('entrystore').getEntry(pipelineResultURIs[0]);
-
-        /**
-         *
-         * @param pipelineResultEntry
-         * @returns {Promise<any | never>}
-         */
+        /** @type {store/Entry} */
+        const pipelineResultEntry = await registry.getEntryStore().getEntry(pipelineResultURIs[0]);
         pipelineResource.setTransformArguments(transformId, {});
         pipelineResource.setTransformArguments(transformId, {
           action: 'append',
@@ -343,7 +316,6 @@ export default declare([], {
 
         /**
          * processFiles
-         * @returns {Promise<any | never>}
          */
         this.noOfFiles += 1;
         this.updateProgressDialogState({
@@ -386,7 +358,6 @@ export default declare([], {
     return this.apiDistEntry.commitMetadata();
   },
   /**
-   *
    * @returns {Promise<void>}
    */
   async refreshAPI() {
