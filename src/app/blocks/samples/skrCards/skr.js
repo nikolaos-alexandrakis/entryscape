@@ -198,6 +198,11 @@ window.__entryscape_config = {
   ],
   blocks: [
     {
+      block: 'skrFilter',
+      extends: 'searchFilter',
+      matchStartOfWord: true,
+    },
+    {
       block: 'skrList',
       extends: 'searchList',
       rdftype: 'https://opendata.statenskonstrad.se/terms/WorkOfArt',

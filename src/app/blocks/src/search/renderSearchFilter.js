@@ -22,7 +22,7 @@ const rdfutils = registry.get('rdfutils');
      *   property - the property to filter the selected values with.
      *   literal - true if the values are to be considered literals.
      */
-export default function (node, data, items) {
+export default function (node, data) {
   node.classList.add('block_searchFilter');
   filter.guard(node, data.if);
   if (typeof data.width !== 'undefined') {
@@ -95,8 +95,15 @@ export default function (node, data, items) {
     },
   };
 
+  if (data.matchStartOfWord) {
+    settings.score = search => (option) => {
+      const idx = option.label.toLowerCase().indexOf(search.toLowerCase());
+      return idx === 0 || option.label[idx - 1] === ' ' ? 1 : 0;
+    };
+  }
+
   const collectionName = `blocks_collection_${data.collection}`;
-  settings.load = function (query, callback) {
+  settings.load = (query, callback) => {
     const collection = registry.get(collectionName);
     if (collection.type === 'search') {
       const es = registry.get('entrystore');
