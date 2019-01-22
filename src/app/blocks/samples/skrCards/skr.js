@@ -248,6 +248,14 @@ var advancedSearch = document.querySelector('.advanced--group--wrapper');
 var advancedMobile = document.querySelector('.advanced--mobile');
 var btnAdvanced = document.querySelector('.btn--advanced--mobile');
 var btnCloseAdvanced = document.querySelector('.close--advanced');
+var mobileFilterResults = document.querySelector('.results--mobile--filter');
+var mobileAdvancedResults = document.querySelector('.results--mobile--advanced');
+var closeFilter = function() {
+   filterMobile.classList.toggle('hidden');
+   };
+var closeAdvanced = function() {
+   advancedMobile.classList.toggle('hidden');
+ };
 
 if (btnAdvancedSearch) {
   btnAdvancedSearch.onclick = function showAdvancedSearch() {
@@ -265,12 +273,20 @@ if (btnAdvanced) {
 }
 
 if (btnCloseFilter) {
-  btnCloseFilter.onclick = function closeFilter() { filterMobile.classList.toggle('hidden'); };
+  btnCloseFilter.onclick = closeFilter;
 }
 
 if (btnCloseAdvanced) {
-  btnCloseAdvanced.onclick = function closeAdvanced() { advancedMobile.classList.toggle('hidden'); };
+  btnCloseAdvanced.onclick = closeAdvanced;
 }
+
+if(mobileFilterResults) {
+  mobileFilterResults.onclick = closeFilter;
+}
+if(mobileAdvancedResults) {
+  mobileAdvancedResults.onclick = closeAdvanced;
+}
+
 
 function scrollTop() {
   document.body.scrollTop = 0;
@@ -278,3 +294,5 @@ function scrollTop() {
 }
 btnFilter.addEventListener('click', scrollTop);
 btnAdvanced.addEventListener('click', scrollTop);
+mobileFilterResults.addEventListener('click', scrollTop);
+mobileAdvancedResults.addEventListener('click', scrollTop);
