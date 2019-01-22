@@ -4,14 +4,12 @@ import PubSub from 'pubsub-js';
 /**
  * Returns closest <a> parent (including the node) for a node
  *
- * @param node DOM node
- * @return {null|String} href value
- * @private
+ * @param {HTMLElement} node
+ * @return {HTMLAnchorElement|null}
  */
 const getClosestLink = (node) => {
   const closestLinks = jquery(node).closest('a');
-  const closestLink = closestLinks.length > 0 ? closestLinks[0] : null;
-  return closestLink && closestLink;
+  return closestLinks.length > 0 ? closestLinks[0] : null;
 };
 
 export default class Handler {
