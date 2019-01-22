@@ -217,6 +217,7 @@
 .entryscape .block_facet>.btn--facet {
   background-color: black;
   border: 0;
+  border-radius: 0;
 }
 
 .selectize-input {
@@ -348,7 +349,7 @@
 }
 
 .advanced--mobile {
-  height: 100vh;
+  min-height: 100vh;
 
 }
 
@@ -557,6 +558,7 @@
 }
 .search--mobile--group .entryscape{
   margin-top: 10px;
+  margin-bottom:10px;
 }
 .results--mobile{
   display: flex;
@@ -572,6 +574,11 @@
   color: white;
   margin-left: 0;
   background-color:transparent;
+  border-radius: 0;
+}
+.results--mobile--filter, .results--mobile--advanced{
+  background-color:transparent;
+  border: 0
 }
  .result--tags{
   flex-direction: column;
