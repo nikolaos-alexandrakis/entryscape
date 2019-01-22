@@ -22,7 +22,7 @@
                <button class="btn--close close--filter btn--white" type="button" name="button-close">X</button>
                <span data-entryscape="facets"></span>
                <div class="results--mobile">
-                    <div class="" data-entryscape="results" data-entryscape-use="mainList" data-entryscape-templatefilter="Visa {{resultsize}} resultat"></div>
+                    <button class="results--mobile--filter" data-entryscape="results" data-entryscape-use="mainList" data-entryscape-templatefilter="Visa {{resultsize}} resultat"></button>
                     <div class="flex--wrapper result--tags" data-entryscape="filterResults"></div>
                </div>
           </div>
@@ -30,15 +30,20 @@
                <h1 class="title--mobile">Advancerad sök</h1>
                <button class="btn--close close--advanced btn--white" type="button" name="button-close">X</button>
                <div class="search--mobile--group">
+                         <label class="search--mobile__titles" for="title" class="search__label">Titel</label>
                     <div data-entryscape="simpleSearch" data-entryscape-collection="title" data-entryscape-placeholder="Sök efter titel..."></div>
+                    <label class="search--mobile__titles" for="artist" class="search__label">Konstnär</label>
                     <div data-entryscape="searchFilter" data-entryscape-collection="artist" data-entryscape-placeholder="Sök efter konstnär..."></div>
+                    <label class="search--mobile__titles" for="site" class="search__label">Verksamhet</label>
                     <div data-entryscape="searchFilter" data-entryscape-collection="site" data-entryscape-placeholder="Sök efter verksamhet..."></div>
+                    <label class="search--mobile__titles" for="address" class="search__label">Ort</label>
                     <div data-entryscape="searchFilter" data-entryscape-collection="address"
                          data-entryscape-placeholder="Sök efter ort..."></div>
+                         <label class="search--mobile__titles" for="date" class="search__label">Årtal</label>
                     <div data-entryscape="searchFilter" data-entryscape-collection="date" data-entryscape-limit="100"
                          data-entryscape-placeholder="Sök efter årtal.."></div>
                          <div class="results--mobile">
-                              <div class="" data-entryscape="results" data-entryscape-use="mainList" data-entryscape-templatefilter="Visa {{resultsize}} resultat"></div>
+                              <button class="results--mobile--advanced" data-entryscape="results" data-entryscape-use="mainList" data-entryscape-templatefilter="Visa {{resultsize}} resultat"></button>
                               <div class="flex--wrapper result--tags" data-entryscape="filterResults"></div>
                          </div>
                </div>
