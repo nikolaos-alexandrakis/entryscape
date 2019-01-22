@@ -1,4 +1,5 @@
 import registry from 'commons/registry';
+import { createRowstorePipeline } from 'commons/util/storeUtil';
 
 export default {
   /**
