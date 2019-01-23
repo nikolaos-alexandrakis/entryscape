@@ -60,7 +60,7 @@ const block2function = {
 (config.econfig.blocks || []).forEach((bc) => {
   if (bc.extends && block2function[bc.extends]) {
     block2function[bc.block] = (node, data, items) => {
-      block2function[bc.extends](node, merge(bc, data), items);
+      block2function[bc.extends](node, merge({}, bc, data), items);
     };
   } else if (bc.run) {
     block2function[bc.block] = bc.run;
