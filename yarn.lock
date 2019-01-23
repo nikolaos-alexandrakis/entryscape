@@ -1194,11 +1194,20 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-loader@^8.0.2, babel-loader@^8.0.4:
+babel-loader@^8.0.2:
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.4.tgz#7bbf20cbe4560629e2e41534147692d3fecbdce6"
   dependencies:
     find-cache-dir "^1.0.0"
+    loader-utils "^1.0.2"
+    mkdirp "^0.5.1"
+    util.promisify "^1.0.0"
+
+babel-loader@^8.0.4:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.5.tgz#225322d7509c2157655840bba52e46b6c2f2fe33"
+  dependencies:
+    find-cache-dir "^2.0.0"
     loader-utils "^1.0.2"
     mkdirp "^0.5.1"
     util.promisify "^1.0.0"
@@ -3145,13 +3154,13 @@ entities@~1.1.1:
 
 "entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#develop":
   version "4.7.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#3955c68a192ea47d3c45f33cbe15ab249219d467"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#1bf4fecc5a5df6fc906c772f85ac00851df1ba35"
   dependencies:
     blueimp-md5 "^2.10.0"
     he "^1.2.0"
     lodash "^4.17.10"
     lodash-es "^4.17.11"
-    moment "^2.22.1"
+    moment "^2.22.2"
     rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     superagent "^3.8.3"
     superagent-jsonp "^0.2.1"
@@ -5753,9 +5762,9 @@ moment@2.18.1:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
-moment@^2.22.1, moment@^2.22.2:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.23.0.tgz#759ea491ac97d54bac5ad776996e2a58cc1bc225"
+moment@^2.22.2:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7293,7 +7302,7 @@ rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "10.0.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#428b8ddcc771a06269ad530b059402894426e6c1"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#0f15ea9c58333decab95bcf31837fa78f87d11de"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
