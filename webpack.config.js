@@ -165,6 +165,7 @@ module.exports = (env, argv) => {
         registry: getAlias('registry', 'app'),
         blocks: getAlias('blocks', 'app'),
         spa: getAlias('spa', 'lib'),
+        store: path.resolve(path.join(__dirname, 'node_modules', 'entrystore-js')),
         templates: path.resolve(path.join(__dirname, 'src', 'templates')),
         config: path.join(APP_PATH, 'src', 'config', 'config'),
         theme: path.join(APP_PATH, 'theme'),

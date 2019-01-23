@@ -42,7 +42,7 @@
     "selectize": "^0.12.6",
     "sizzle": "^2.3.3",
     "slick-carousel": "^1.8.1",
-    "store": "https://bitbucket.org/metasolutions/entrystore.js.git#develop",
+    "entrystore-js": "https://bitbucket.org/metasolutions/entrystore.js.git#develop",
     "superagent": "^3.8.3",
     "superagent-jsonp": "^0.2.1",
     "typeahead.js": "^0.11.1"
