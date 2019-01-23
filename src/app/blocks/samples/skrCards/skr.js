@@ -257,15 +257,15 @@ var btnCloseAdvanced = document.querySelector('.close--advanced');
 var mobileFilterResults = document.querySelector('.results--mobile--filter');
 var mobileAdvancedResults = document.querySelector('.results--mobile--advanced');
 var closeFilter = function () {
-   filterMobile.classList.toggle('hidden');
+   filterMobile.classList.toggle('filter--hidden');
    };
 var closeAdvanced = function () {
-   advancedMobile.classList.toggle('hidden');
+   advancedMobile.classList.toggle('advanced--hidden');
  };
 
 if (btnAdvancedSearch) {
   btnAdvancedSearch.onclick = function showAdvancedSearch() {
-    advancedSearch.classList.toggle('active');
+    advancedSearch.classList.toggle('advanced--active');
     arrowAdvancedSearch.classList.toggle('arrow--up');
   };
 }
@@ -275,12 +275,12 @@ function scrollTop() {
 }
 
 if (btnFilter) {
-  btnFilter.addEventListener('click', function () { filterMobile.classList.toggle('hidden'); });
+  btnFilter.addEventListener('click', function () { filterMobile.classList.toggle('filter--hidden'); });
   btnFilter.addEventListener('click', scrollTop);
 }
 
 if (btnAdvanced) {
-  btnAdvanced.addEventListener('click', function () { advancedMobile.classList.toggle('hidden'); });
+  btnAdvanced.addEventListener('click', function () { advancedMobile.classList.toggle('advanced--hidden'); });
   btnAdvanced.addEventListener('click', scrollTop);
 }
 

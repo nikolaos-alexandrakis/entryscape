@@ -378,11 +378,12 @@
   align-items: center;
 }
 
-.hidden {
+.advanced--hidden,
+.filter--hidden {
   display: none;
 }
 
-.active {
+.advanced--active {
   display: flex;
 }
 
