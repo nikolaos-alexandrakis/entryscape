@@ -200,6 +200,7 @@ window.__entryscape_config = {
     {
       block: 'skrFilter',
       extends: 'searchFilter',
+      openOnFocus: false,
       matchStartOfWord: true,
     },
     {

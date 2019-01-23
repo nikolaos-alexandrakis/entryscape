@@ -49,6 +49,7 @@ export default function (node, data) {
     }
   };
 
+  data.openOnFocus = data.openOnFocus !== false;
   const settings = {
     valueField: 'value',
     labelField: 'label',
@@ -56,6 +57,7 @@ export default function (node, data) {
     placeholder: data.placeholder,
     allowEmptyOption: data.allowEmptyOption !== false,
     mode: 'single',
+    openOnFocus: data.openOnFocus,
     closeAfterSelect: true,
     preload: 'focus',
     create: false,
@@ -82,7 +84,12 @@ export default function (node, data) {
   }
 
   const collectionName = `blocks_collection_${data.collection}`;
-  settings.load = (query, callback) => {
+  settings.load = (query, cb) => {
+    const callback = data.openOnFocus ? cb : (results) => {
+      selectize.isInputHidden = true;
+      cb(results);
+      selectize.isInputHidden = false;
+    };
     const collection = registry.get(collectionName);
     if (collection.type === 'search') {
       const es = registry.get('entrystore');
