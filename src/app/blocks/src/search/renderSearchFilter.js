@@ -43,7 +43,7 @@ export default function (node, data) {
   const clearEmptyValue = (value) => {
     if (value === '' && data.allowEmptyOption !== false) {
       setTimeout(() => {
-        selectize.removeItem('');
+        selectize.removeItem('', true);
         selectize.showInput();
       }, 20);
     }
@@ -59,27 +59,6 @@ export default function (node, data) {
     closeAfterSelect: true,
     preload: 'focus',
     create: false,
-    onItemAdd(value) {
-      clearEmptyValue(value);
-      const newOption = value !== '' ? selectize.options[value] : undefined;
-      lock = true;
-      filter.replace(selectedOption, newOption);
-      if (!newOption) {
-        clearOptions();
-      }
-      lock = false;
-      selectedOption = newOption;
-    },
-    onItemRemove(value) {
-      if (lock) {
-        return;
-      }
-      if (value !== '') {
-        lock = true;
-        filter.remove(selectize.options[value]);
-        lock = false;
-      }
-    },
     render: {
       option(d, escape) {
         const label = d.value === '' ? data.emptyLabel || '&nbsp;' : escape(d.label);
@@ -149,6 +128,18 @@ export default function (node, data) {
   };
   // Initialize after load function is added
   selectize = jquery(input).selectize(settings)[0].selectize;
+  selectize.on('change', (value) => {
+    lock = true;
+    clearEmptyValue(value);
+    const newOption = value !== '' ? selectize.options[value] : undefined;
+    filter.replace(selectedOption, newOption);
+    if (!newOption) {
+      clearOptions();
+    }
+    selectedOption = newOption;
+    lock = false;
+  });
+
   clearEmptyValue(selectize.getValue());
 
   clearOptions = () => {
@@ -178,6 +169,7 @@ export default function (node, data) {
       lock = true;
       selectize.addOption(item);
       selectize.addItem(item.value, true);
+      selectedOption = item; // due to silent flag on line above
       lock = false;
     });
 
