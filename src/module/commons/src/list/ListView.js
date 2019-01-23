@@ -527,7 +527,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     } else {
       this.rows.push(row);
     }
-    if (this.rowClickDialog != null) {
+
+    if (this.rowClickDialog != null || row.list.rowClickView != null) {
       row.domNode.onclick = function (ev) {
         // Check if click should not trigger rowclick
         if (typeof row.isRowClick === 'function' && !row.isRowClick(ev)) {
@@ -539,7 +540,11 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         }
         ev.preventDefault();
         ev.stopPropagation();
-        if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
+        if (row.list.rowClickView != null) {
+          const site = registry.getSiteManager();
+          const context = row.entry.getContext().getId();
+          site.render(this.rowClickView, { context });
+        } else if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
           row[`action_${this.rowClickDialog}`]({ row });
         } else {
           this.list.openDialog(this.rowClickDialog, { row });
