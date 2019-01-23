@@ -538,16 +538,21 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         if (ev.target.classList.contains('dropdown-backdrop') || ev.target.classList.contains('check')) {
           return;
         }
+
         ev.preventDefault();
         ev.stopPropagation();
-        if (row.list.rowClickView != null) {
+
+        if (this.rowClickDialog != null) {
+          if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
+            row[`action_${this.rowClickDialog}`]({ row });
+          } else {
+            this.list.openDialog(this.rowClickDialog, { row });
+          }
+        } else if (row.list.rowClickView != null) {
           const site = registry.getSiteManager();
           const context = row.entry.getContext().getId();
-          site.render(this.rowClickView, { context });
-        } else if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
-          row[`action_${this.rowClickDialog}`]({ row });
-        } else {
-          this.list.openDialog(this.rowClickDialog, { row });
+          const dataset = row.entry.getId();
+          site.render(row.list.rowClickView, { context, dataset });
         }
       }.bind(this);
     }
