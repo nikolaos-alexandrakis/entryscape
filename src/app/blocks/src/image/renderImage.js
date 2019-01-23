@@ -13,6 +13,9 @@ export default function (node, data) {
     } else {
       src = entry.getResourceURI();
     }
+    if (!src) {
+      src = data.fallback;
+    }
 
     const _node = DOMUtil.create('img', { src });
     node.appendChild(_node);
