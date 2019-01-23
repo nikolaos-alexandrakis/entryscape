@@ -65,8 +65,8 @@ export default (node, data) => {
         }
 
         const md = entry.getMetadata();
-        const lat = md.findFirstValue(entry.getResourceURI(), 'http://www.w3.org/2003/01/geo/wgs84_pos/lat');
-        const long = md.findFirstValue(entry.getResourceURI(), 'http://www.w3.org/2003/01/geo/wgs84_pos/long');
+        const lat = md.findFirstValue(entry.getResourceURI(), 'http://www.w3.org/2003/01/geo/wgs84_pos#lat');
+        const long = md.findFirstValue(entry.getResourceURI(), 'http://www.w3.org/2003/01/geo/wgs84_pos#long');
 
         const setView = (geoLat, geoLong, zoom) => {
           const latlong = [parseFloat(geoLat.replace(',', '.')), parseFloat(geoLong.replace(',', '.'))];

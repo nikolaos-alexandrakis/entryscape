@@ -11,6 +11,8 @@ try {
     ' see how it is done in apikey.js_example');
 }
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 (async () => {
 // eslint-disable-next-line no-restricted-syntax
   for (const projectid of Object.keys(projects.id2path)) {
@@ -29,6 +31,8 @@ try {
       await poeAuth.syncTerms(terms);
       console.log(`Uploading english translations from ${path}`);
       await poeAuth.uploadDefinitions(definitions, 'en');
+      console.log('Waiting 10 seconds due to API restrictions');
+      await delay(10250);
     }
   }
 })();

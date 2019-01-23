@@ -113,7 +113,8 @@
 .entryList .entryName a,
 .entryList .entryName span {
     font-size: 14px;
-    word-break: break-all;
+    word-break: normal;
+    padding-right: 10px;
 }
 
 

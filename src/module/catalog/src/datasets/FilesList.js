@@ -1,17 +1,19 @@
-import registry from 'commons/registry';
-import BaseList from 'commons/list/common/BaseList';
-import htmlUtil from 'commons/util/htmlUtil';
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import ReplaceDialog from 'workbench/bench/ReplaceDialog';
+import escaFilesList from 'catalog/nls/escaFilesList.nls';
 import EntryType from 'commons/create/EntryType';
+import BaseList from 'commons/list/common/BaseList';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
 import EntryRow from 'commons/list/EntryRow';
-import escaFilesList from 'catalog/nls/escaFilesList.nls';
 import escoList from 'commons/nls/escoList.nls';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import registry from 'commons/registry';
+import htmlUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
 import stamp from 'dojo/date/stamp';
+import ReplaceDialog from 'workbench/bench/ReplaceDialog';
 
-const ns = registry.get('namespaces');
+const ns = registry.get('namespaces'); // TODO perhaps remove closer to where it's actually needed
+
+
 const FileReplaceDialog = declare(ReplaceDialog, {
   footerButtonAction() {
     this.distributionEntry = this.list.entry;
@@ -26,7 +28,7 @@ const FileReplaceDialog = declare(ReplaceDialog, {
       distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
       return this.distributionEntry.commitMetadata().then(() => {
         // check here ..need to update list rows to update dropdown items
-        this.list.setListModiifed(true);
+        this.list.setListModified('replace', this.entry.getResourceURI());
         this.list.rowMetadataUpdated(this.row, true);
         this.entry.setRefreshNeeded();
         return this.entry.refresh();
@@ -52,7 +54,7 @@ const RemoveFileDialog = declare([RemoveDialog], {
         this.currentParams.row.list.parentRow.updateDropdownMenu();
       }
       return this.currentParams.row.entry.del().then(() => {
-        this.list.setListModiifed(true);
+        this.list.setListModified('remove', fileResourceURI);
         this.currentParams.row.list.getView().action_refresh();
       });
     });
@@ -120,7 +122,7 @@ const AddFileDialog = declare(RDFormsEditDialog, {
           if (this.currentParams.list.parentRow) {
             this.currentParams.list.parentRow.updateDropdownMenu();
           }
-          this.list.setListModiifed(true);
+          this.list.setListModified('add', fileResourceURI);
           this.distributionEntry.setRefreshNeeded();
           return this.distributionEntry.refresh();
           // this.list.getView().addRowForEntry(fileEntry);
@@ -198,6 +200,15 @@ export default declare([BaseList], {
     this.inherited('postCreate', arguments);
     this.registerDialog('create', AddFileDialog);
     this.registerDialog('remove', RemoveFileDialog);
+    /**
+     * Keeps in memory the newly added files to facilitate refresh API functionality.
+     * Essentially, if this not empty then the refresh API mechanism updates the API only with the newly added files.
+     */
+    /**
+     * <add, fileResourceURI>
+     * @type {Array<Array>}
+     */
+    this.listModifications = [];
   },
   localeChange() {
     this.inherited(arguments);
@@ -219,10 +230,46 @@ export default declare([BaseList], {
     return es.newSolrQuery().rdfType(this.entryType).context(context.getResourceURI())
       .resource(fileURIs);
   },
-  setListModiifed(changed) {
-    this.listModified = changed;
+  /**
+   * Records how the list of files  was modified.
+   *
+   * Type can be one of
+   *  - add
+   *  - replace
+   *  - remove
+   *
+   *  Side effect: this.newlyAddedFileURIs is cleared on replace/remove modifications and updated on addition.
+   * @param {string} type - The type of modification
+   * @param {string} fileResourceURI - The resource URI of the file modified
+   */
+  setListModified(type, fileResourceURI) {
+    this.listModifications.push([type, fileResourceURI]);
   },
+  /**
+   * Check if some modification has happened
+   * @return {boolean}
+   */
   isListUpdated() {
-    return this.listModified;
+    return !!this.listModifications.length;
+  },
+  /**
+   * Check if modifications have occurred and they are all additions
+   * @return {boolean}
+   */
+  hasOnlyAddedFiles() {
+    // eslint-disable-next-line
+    return this.isListUpdated() && this.listModifications.every(([modificationType,]) => modificationType === 'add');
+  },
+  /**
+   * Return the newly added files URIs
+   * @returns {Array}
+   */
+  getAddedFileURIs() {
+    return this.listModifications.reduce((accumulator, [modificationType, fileURI]) => {
+      if (modificationType === 'add') {
+        accumulator.push(fileURI);
+      }
+      return accumulator;
+    }, []);
   },
 });

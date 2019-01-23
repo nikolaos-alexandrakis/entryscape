@@ -9,6 +9,9 @@ import DistributionRow from './DistributionRow';
 import template from './DatasetRowTemplate.html';
 import './dataset.css';
 
+/**
+ * @module catalog/datasets/DatasetRow
+ */
 export default declare([ToggleRow], {
   templateString: template,
   nlsPublicTitle: 'publicDatasetTitle',
@@ -25,6 +28,9 @@ export default declare([ToggleRow], {
       }
     });
     this.listDistributions();
+  },
+  getCatalog() {
+    return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', this.entry.getContext());
   },
   updateLocaleStrings() {
    this.inherited('updateLocaleStrings', arguments);

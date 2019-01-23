@@ -15,7 +15,7 @@ import MenuList from './menu/MenuList';
 const getLocalizedModuleTitle = (module, bundle) => utils.getModuleProp(module, bundle, 'title', true);
 
 /**
- * Transform the active moudles to component input
+ * Transform the active modules to component input
  * { name, label, href, icon }
  *
  * @param bundle
