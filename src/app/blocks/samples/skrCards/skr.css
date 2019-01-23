@@ -599,6 +599,10 @@
   .entryscape .cardList-body {
     min-width: 150px !important;
   }
+  .WorkOfArt__wrapper .fa-search:before{
+    margin-top: -97px;
+    margin-right: -10px;
+  }
 }
 
 @media (min-width: 620px) {
