@@ -140,7 +140,11 @@ export default class Site {
    * @return {Object|undefined}
    */
   getViewDef(viewId) {
-    return this._views.get(viewId);
+    if (this._views.has(viewId)) {
+      return this._views.get(viewId);
+    }
+
+    return this.getViewDef(this.config.startView);
   }
 
   /**
