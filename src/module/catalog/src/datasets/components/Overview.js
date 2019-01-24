@@ -3,14 +3,26 @@ import StatBox from 'commons/overview/components/StatBox';
 import './Overview.scss';
 
 export default (vnode) => {
+  const { entry } = vnode.attrs;
+  const metadata = entry.getMetadata();
+  const resourceURI = entry.getResourceURI();
+  const entryInfo = entry.getEntryInfo();
+
+  const entryMetaData = {
+    modified: entryInfo.getModificationDate().toString(),
+  };
+
   return {
     view: (vnode) => {
+      const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
+      const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
+
       return (
         <main class="overview__wrapper">
           <div class="flex--sb">
             <div class="">
-              <h2 class="title">Name of of dataset</h2>
-              <p class="description">Some description probably a long one</p>
+              <h2 class="title">{ title }</h2>
+              <p class="description">{ description }</p>
             </div>
 
             <div>
@@ -39,7 +51,7 @@ export default (vnode) => {
             <button class="btn--action">Show more metadata</button>
             <div class="metadata--more">
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
+              <p><span class="metadata__label">Belongs to catalog:</span> { entryMetaData.modified }</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>

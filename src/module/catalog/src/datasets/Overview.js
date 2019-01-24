@@ -15,8 +15,11 @@ export default declare([_WidgetBase], {
     const { context, dataset } = params.params;
     const es = registry.get('entrystore');
     const contextObj = context ? es.getContextById(context) : registry.get('context');
+    contextObj.getEntryById(dataset).then((entry) => {
+      m.render(this.domNode, m(OverviewComponent, { entry }));
 
-    m.render(this.domNode, m(OverviewComponent));
+      return true;
+    });
   },
 });
 
