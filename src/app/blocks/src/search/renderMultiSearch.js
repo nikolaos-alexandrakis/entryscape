@@ -46,6 +46,7 @@ export default function (node, data) {
 
   let selectize;
   const localItems = {};
+  data.openOnFocus = data.openOnFocus !== false;
   const settings = {
     valueField: 'value',
     labelField: 'label',
@@ -55,7 +56,7 @@ export default function (node, data) {
     optgroups: collections,
     optgroupField: 'group',
     mode: 'multi',
-    openOnFocus: false,
+    openOnFocus: data.openOnFocus,
     closeAfterSelect: true,
     preload: 'focus',
     create: true,
@@ -211,10 +212,14 @@ export default function (node, data) {
         });
         pos += 1;
       }
-      // Set input as hidden to avoid trigger of dropdown on initial load
-      selectize.isInputHidden = true;
-      callback(results);
-      selectize.isInputHidden = false;
+      if (data.openOnFocus) {
+        callback(results);
+      } else {
+        // Set input as hidden to avoid trigger of dropdown on initial load
+        selectize.isInputHidden = true;
+        callback(results);
+        selectize.isInputHidden = false;
+      }
     });
   };
 
