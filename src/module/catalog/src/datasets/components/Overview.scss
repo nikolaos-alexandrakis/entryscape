@@ -1,0 +1,57 @@
+/* Variables */
+$main-colour:blue;
+$accent-colour: orange;
+$secondary-font: 'Montserrat';
+$text-size: 14px;
+$title-size:20px;
+
+/* Mixins */
+@mixin button{
+    background-color:transparent;
+    border:0;
+}
+
+/* Layout */
+
+.overview__wrapper{
+    width: 100%;
+    .flex--sb{
+        display: flex;
+        justify-content:space-between;
+    }
+    .metadata--basic , .metadata--more{
+        column-count: 2;
+    }
+}
+
+.header{
+    width: 50%;
+}
+
+/* Buttons */
+.btn--action{
+    @include button;
+    font-size:$text-size;
+    background-color:$main-colour;
+    color:white;
+    border-radius: 2px;
+    text-transform: uppercase;
+    min-width: 200px;
+    padding:5px;
+}
+
+/* Typography */
+.overview__wrapper{
+    .title{
+        font-size:$title-size ;
+        text-transform: uppercase;
+        font-weight: 300;
+        color:$main-colour;
+        border-bottom: 1px solid $accent-colour;
+        padding-bottom: 10px;
+    }
+    .description{
+        font-size: 16px;
+        color:$main-colour;
+    }
+}
