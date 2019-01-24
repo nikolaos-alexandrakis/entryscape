@@ -1,6 +1,6 @@
 import jquery from 'jquery';
 import DOMUtil from 'commons/util/htmlUtil';
-import { NLSMixin } from 'esi18n';
+import { NLSMixin, i18n } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
 import escoErrors from 'commons/nls/escoErrors.nls';
 import declare from 'dojo/_base/declare';
@@ -16,10 +16,9 @@ import error from 'blocks/boot/error';
 import constraints from 'blocks/utils/constraints';
 import dependencyList from 'blocks/utils/dependencyList';
 import filter from 'blocks/utils/filter';
+import { termsConstraint } from 'blocks/utils/query';
 import MetadataExpandRow from './MetadataExpandRow';
 import TemplateExpandRow from './TemplateExpandRow';
-import { mapValues } from 'lodash-es'
-import { termsConstraint } from 'blocks/utils/query';
 
 class PlaceHolder {
   constructor(args, node) {
@@ -200,7 +199,7 @@ export default declare([List, NLSMixin.Dijit], {
       pagecount: view.getPageCount(),
     };
     if (this.conf.define) {
-      registry.set(this.conf.define, results);      
+      registry.set(this.conf.define, results);
     }
     if (this.conf.templates && this.conf.templates.listhead) {
       handlebars.run(
@@ -238,12 +237,19 @@ export default declare([List, NLSMixin.Dijit], {
     return false;
   },
 
-  search(paramsParams) {
+  search(params) {
+    const _params = params || {};
     if (this.conf.relation && this.entry.getMetadata()
       .find(this.entry.getResourceURI(), this.conf.relation).length === 0) {
       this.listView.showEntryList(new ArrayList({ arr: [] }));
     } else {
-      const qo = this.getSearchObject(paramsParams ? paramsParams.term : undefined);
+      const qo = this.getSearchObject(_params ? _params.term : undefined);
+      if (_params.sortOrder === 'title') {
+        const l = this.useNoLangSort ? 'nolang' : i18n.getLocale();
+        qo.sort(`title.${l}+asc`);
+      } else {
+        qo.sort('modified+desc');
+      }
       this.listView.showEntryList(qo.list());
     }
   },
