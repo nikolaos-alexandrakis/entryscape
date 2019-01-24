@@ -228,6 +228,10 @@
     margin-left: 10px;
 }
 
+/*-- Change in entryscape-commons so this is not needed --*/
+.entryList .entryName .esbDescription span {
+    word-break: normal;
+}
 /*-- Generic layout classes --*/
 
 .esbMain {
