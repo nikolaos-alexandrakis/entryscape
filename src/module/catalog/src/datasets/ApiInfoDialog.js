@@ -5,7 +5,7 @@ import escaFiles from 'catalog/nls/escaFiles.nls';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import api from './api';
+import api from './utils/apiUtil';
 import pipelineUtil from './pipelineUtil';
 import template from './ApiInfoDialogTemplate.html';
 import './escaApiInfo.css';
@@ -196,6 +196,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
         }
       });
   },
+  // TODO potential this is the same code as ./utils/apiUtil::syncStatus
   getAPIStatus(etlEntry) {
     etlEntry.setRefreshNeeded();
     return etlEntry.refresh().then(() => {

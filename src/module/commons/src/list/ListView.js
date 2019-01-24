@@ -527,7 +527,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     } else {
       this.rows.push(row);
     }
-    if (this.rowClickDialog != null) {
+
+    if (this.rowClickDialog != null || row.list.rowClickView != null) {
       row.domNode.onclick = function (ev) {
         // Check if click should not trigger rowclick
         if (typeof row.isRowClick === 'function' && !row.isRowClick(ev)) {
@@ -537,12 +538,21 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         if (ev.target.classList.contains('dropdown-backdrop') || ev.target.classList.contains('check')) {
           return;
         }
+
         ev.preventDefault();
         ev.stopPropagation();
-        if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
-          row[`action_${this.rowClickDialog}`]({ row });
-        } else {
-          this.list.openDialog(this.rowClickDialog, { row });
+
+        if (this.rowClickDialog != null) {
+          if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
+            row[`action_${this.rowClickDialog}`]({ row });
+          } else {
+            this.list.openDialog(this.rowClickDialog, { row });
+          }
+        } else if (row.list.rowClickView != null) {
+          const site = registry.getSiteManager();
+          const context = row.entry.getContext().getId();
+          const dataset = row.entry.getId();
+          site.render(row.list.rowClickView, { context, dataset });
         }
       }.bind(this);
     }

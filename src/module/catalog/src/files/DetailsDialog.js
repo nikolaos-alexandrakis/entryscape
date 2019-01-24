@@ -339,6 +339,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
     const f = () => {
       context.getEntryById('rowstorePipeline').then(
         pipeline => pipeline, () => {
+          // TODO can use the commons/util/storeUtil:createrowstorePipeline
           const pipProtEnt = context.newPipeline('rowstorePipeline');
           const pipRes = pipProtEnt.getResource();
           pipRes.addTransform(pipRes.transformTypes.ROWSTORE, {});

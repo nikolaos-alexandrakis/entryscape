@@ -31,8 +31,8 @@
 
 .escoEntryType__linkLabel,
 .escoEntryType__fileLabel{
-    font-weight: normal;
-    color: black;
+    font-weight: bold;
+    color: #4f4f4f;
 }
 
 .escoEntryType--linkOption .escoEntryType__linkBlock,

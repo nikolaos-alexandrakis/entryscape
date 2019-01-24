@@ -20,7 +20,6 @@ import ListView from '../utils/ListView';
 import CreateDistribution from './CreateDistribution';
 import ShowResultsDialog from './ShowResultsDialog';
 import ShowIdeasDialog from './ShowIdeasDialog';
-import OverviewDialog from './OverviewDialog';
 
 const ns = registry.get('namespaces');
 const CreateDialog = declare(RDFormsEditDialog, {
@@ -131,11 +130,12 @@ const CloneDialog = declare([ListDialogMixin], {
     const confirmMessage = this.list.nlsSpecificBundle.cloneDatasetQuestion;
     dialogs.confirm(confirmMessage, null, null, (confirm) => {
       if (!confirm) {
-        return;
+        return undefined;
       }
       const nds = createEntry(null, 'dcat:Dataset');
       const nmd = datasetEntry.getMetadata().clone()
         .replaceURI(datasetEntry.getResourceURI(), nds.getResourceURI());
+
       return registry.get('getGroupWithHomeContext')(nds.getContext()).then((groupEntry) => {
         const ei = nds.getEntryInfo();
         const acl = ei.getACL(true);
@@ -177,13 +177,12 @@ export default declare([ETBaseList], {
   listViewClass: ListView,
   class: 'datasets',
   searchVisibleFromStart: false,
-  rowClickDialog: 'overview',
+  rowClickView: 'catalog__datasets__dataset',
   versionExcludeProperties: ['dcat:distribution'],
   rowActionNames: ['edit', 'versions', 'preview', 'downgrade', 'comment',
     'distributionCreate', 'showresults', 'showideas', 'clone',
     'remove'],
   postCreate() {
-    this.registerDialog('overview', OverviewDialog);
     this.registerDialog('distributionEdit', EditDistributionDialog);
     this.registerDialog('distributionVersions', DistVersionDialog);
     this.registerDialog('manageFiles', ManageFiles);

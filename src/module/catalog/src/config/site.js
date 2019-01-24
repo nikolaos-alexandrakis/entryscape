@@ -4,6 +4,7 @@ import Overview from 'catalog/overview/Overview';
 import FilesList from 'catalog/files/List';
 import CandidateList from 'catalog/candidates/CandidateList';
 import DatasetList from 'catalog/datasets/List';
+import DatasetOverview from 'catalog/datasets/Overview';
 import Public from 'catalog/public/Public';
 import ShowcasesList from 'catalog/showcases/List';
 import IdeasList from 'catalog/ideas/List';
@@ -78,11 +79,20 @@ export default {
       parent: 'catalog',
       module: 'catalog',
     },
+    catalog__datasets__dataset: {
+      class: DatasetOverview,
+      faClass: 'cubes',
+      title: { en: 'Dataset', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
+      constructorParams: { createAndRemoveDistributions: true },
+      route: '/catalog/:context/datasets/:dataset',
+      parent: 'catalog__datasets',
+      module: 'catalog',
+    },
     catalog__datasets__preview: {
       class: Public,
       title: { en: 'Datasets Preview', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
-      route: '/catalog/:context/datasets/:dataset',
-      parent: 'catalog__datasets',
+      route: '/catalog/:context/datasets/:dataset/preview',
+      parent: 'catalog__datasets__dataset',
       module: 'catalog',
     },
     catalog__showcases: {
