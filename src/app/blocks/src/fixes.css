@@ -214,3 +214,15 @@ body .lightbox {
   color: #333;
   background-color: #fff;
 }
+
+/* -- conflict in Linköping, with their theme and https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css --*/
+.entryscape .fa.fa-external-link:before {
+    content: "\F08E";
+}
+.entryscape .form-group.searchBlockInner {
+    padding: 0px;
+    border: 0px;
+}
+body .entryscape .panel-heading .fa {
+    color: rgb(51, 51, 51)!important;
+}
