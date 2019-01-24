@@ -75,9 +75,15 @@ window.__entryscape_config = {
     },
   ],
   type2template: {
-    'skr:Artist': 'skr:Artist',
-    'http://www.cadastralvocabulary.org/CaLAThe/PropertyUnit': 'skr:PropertyUnit',
-    'schema:PostalAddress': 'skr:PostalAddress',
+    'vcard:Individual': 'dcat:contactPoint',
+    'vcard:Organization': 'dcat:contactPoint',
+    'vcard:Kind': 'dcat:contactPoint',
+    'foaf:Agent': 'dcat:foaf:Agent',
+    'foaf:Person': 'dcat:foaf:Agent',
+    'foaf:Organization': 'dcat:foaf:Agent',
+    'foaf:Document': 'dcat:Documentish',
+    'dcterms:LicenseDocument': 'dcat:Documentish',
+    'dcterms:Standard': 'dcat:Documentish',
   },
   blocks: [
     {
@@ -137,6 +143,7 @@ window.__entryscape_config = {
       extends: 'searchList',
       rdftype: 'dcat:Dataset',
       limit: '10',
+      initsearch: true,
       dependencyproperties: 'dcterms:publisher',
       listplaceholder: '<h4>Inga träffar</h4>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
