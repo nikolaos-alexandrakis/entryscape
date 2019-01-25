@@ -215,6 +215,25 @@ body .lightbox {
   background-color: #fff;
 }
 
+/* -- */
+.selectize-dropdown .esbSearch {
+    color: black;
+    margin: 5px 0px;
+    padding: 0px 1px;
+    border: 1px solid white;
+}
+.selectize-dropdown .esbSearch {
+    border-color: darkslategrey;
+}
+.selectize-dropdown *[data-selectable] {
+    padding: 0px 2px;
+    border: 1px solid white;
+}
+.selectize-dropdown *[data-selectable].active {
+    border-color: darkslategrey;
+}
+
+
 /* -- conflict in Linköping, with their theme and https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css --*/
 .entryscape .fa.fa-external-link:before {
     content: "\F08E";

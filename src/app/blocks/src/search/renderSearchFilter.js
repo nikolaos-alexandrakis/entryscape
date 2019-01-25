@@ -5,23 +5,29 @@ import filter from 'blocks/utils/filter';
 import jquery from 'jquery';
 import 'selectize';
 import { Entry } from 'store';
+import { template } from 'lodash-es';
 import utils from './utils';
 
 const rdfutils = registry.get('rdfutils');
 
 /**
-     * Renders a dropdown filter with typeahead functionality.
-     * Selected values will be used by the "search" component (renderSearchList) as constraints.
-     *
-     * Depending on the parameters provided it works a bit differently:
-     *   rdftype - requests will be made to entrystore to retrieve all entries with this type
-     *   context - restrict a search to the specified context,
-     *             if set to "true" it uses the context from the urlParams.
-     *   collection - name of a collection from where values will be taken,
-     *              the collection is typically provided via a preloaded component
-     *   property - the property to filter the selected values with.
-     *   literal - true if the values are to be considered literals.
-     */
+ * Renders a dropdown filter with typeahead functionality.
+ * Selected values will be used by the "search" component (renderSearchList) as constraints.
+ *
+ * Depending on the parameters provided it works a bit differently:
+ *   rdftype - requests will be made to entrystore to retrieve all entries with this type
+ *   context - restrict a search to the specified context,
+ *             if set to "true" it uses the context from the urlParams.
+ *   collection - name of a collection from where values will be taken,
+ *              the collection is typically provided via a preloaded component
+ *   openOnFocus - by default true, if set to false the dropdown will appear after typing one character
+ *   freeText   - if set to true the first option will be a "search for" option that does a free text match
+ *   freeTextTemplate - if freeText is provided the freeTextTemplate contains the search option, provide a
+ *   ${term} inside to provide the typed text.
+ *   matchStartOfWord - if set to true the input will only match against the beginning of words
+ *   property - the property to filter the selected values with.
+ *   literal - true if the values are to be considered literals.
+ */
 export default function (node, data) {
   node.classList.add('block_searchFilter');
   filter.guard(node, data.if);
@@ -49,18 +55,20 @@ export default function (node, data) {
     }
   };
 
+  const fst = template(data.freeTextTemplate || 'Search for "${term}"');
   data.openOnFocus = data.openOnFocus !== false;
   const settings = {
     valueField: 'value',
     labelField: 'label',
     searchField: 'label',
+    highlight: false,
     placeholder: data.placeholder,
     allowEmptyOption: data.allowEmptyOption !== false,
     mode: 'single',
     openOnFocus: data.openOnFocus,
     closeAfterSelect: true,
     preload: 'focus',
-    create: false,
+    create: data.freeText,
     render: {
       option(d, escape) {
         const label = d.value === '' ? data.emptyLabel || '&nbsp;' : escape(d.label);
@@ -72,6 +80,9 @@ export default function (node, data) {
           return `<div class="label--empty">${data.emptyLabel || ''}</div>`;
         }
         return `<div>${escape(d.label)}</div>`;
+      },
+      option_create(datum, escape) {
+        return `<div class="create esbSearch">${fst({ term: escape(datum.input) })}</div>`;
       },
     },
   };
@@ -139,6 +150,10 @@ export default function (node, data) {
     lock = true;
     clearEmptyValue(value);
     const newOption = value !== '' ? selectize.options[value] : undefined;
+    if (newOption && !newOption.group) {
+      newOption.group = data.collection;
+      newOption.value = `${value}*`;
+    }
     filter.replace(selectedOption, newOption);
     if (!newOption) {
       clearOptions();
