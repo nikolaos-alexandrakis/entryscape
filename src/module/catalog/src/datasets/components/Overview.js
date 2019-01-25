@@ -52,7 +52,7 @@ export default (vnode) => {
           <div class="flex--sb">
             <div class="distributions">
               <div class="header flex--sb">
-                <h2>Distributions</h2>
+                <h2 class="title">Distributions</h2>
                 <button class="btn--circle btn--action">+</button>
               </div>
               <div class="entryRow"></div>
