@@ -67,7 +67,6 @@ window.__entryscape_config = {
       label: 'Titel',
       property: 'dcterms:title',
       searchIndextype: 'text',
-      appendWildcard: true,
       nodetype: 'literal',
       includeAsFacet: false,
     },
@@ -197,6 +196,14 @@ window.__entryscape_config = {
 
   ],
   blocks: [
+    {
+      block: 'skrTitleSearch',
+      extends: 'searchFilter',
+      openOnFocus: false,
+      freeText: true,
+      freeTextTemplate: 'Sök efter "${term}"',
+      matchStartOfWord: true,
+    },
     {
       block: 'skrFilter',
       extends: 'searchFilter',
