@@ -1,6 +1,6 @@
 /* Variables */
-$main-colour:blue;
-$accent-colour: orange;
+$main-colour:#1C4CD1;
+$accent-colour: #FF8D41;
 $secondary-font: 'Montserrat';
 $text-size: 14px;
 $title-size:20px;
@@ -18,18 +18,42 @@ $title-size:20px;
     .flex--sb{
         display: flex;
         justify-content:space-between;
+        align-items: center;
     }
     .metadata--basic , .metadata--more{
         column-count: 2;
+        margin-bottom: 15px;
+        color:$main-colour;
+        max-width: 60%;
     }
+    .metadata--more{
+        padding: 10px;
+        border:3px solid $main-colour;
+        margin-top: -2px;
+    }
+   
     .distributions{
-        width: 50%;
+        width: 60%;
+        .header{
+            width: 50%;
+        }
+        .escoOverview__statBox{
+            width: 150px;
+            height: 150px;
+            .escoOverview__statLabel,.escoOverview__statCount{
+                font-size: $title-size;
+            }
+
+        }
     }
+    .icon--wrapper{
+        display: flex;
+        align-items: center;
+    }
+    
 }
 
-.header{
-    width: 50%;
-}
+
 
 /* Buttons */
 .btn--action{
@@ -55,6 +79,19 @@ $title-size:20px;
     
 }
 
+.btn--publish{
+    @include button;
+    font-size: 28px;
+    color:#5cb85c;
+    &.fa-rotate-180{
+        color:#d9534f;
+    }
+}
+
+.btn--edit{
+    margin-bottom: 15px;
+}
+
 /* Typography */
 .overview__wrapper{
     .title{
@@ -68,5 +105,16 @@ $title-size:20px;
     .description{
         font-size: 16px;
         color:$main-colour;
+    }
+    .icons{
+        font-size:24px;
+        color:$main-colour;
+    }
+
+    p{
+        margin: 0;
+    }
+    .metadata__label{
+     font-weight: bold;   
     }
 }

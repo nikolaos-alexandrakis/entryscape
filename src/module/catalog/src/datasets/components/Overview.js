@@ -26,15 +26,19 @@ export default (vnode) => {
             </div>
 
             <div>
-              <button class="btn--action">Edit</button>
+              <button class="btn--action btn--edit">Edit</button>
               <div class="flex--sb">
-                <span class="fa fa-globe"></span>
-                <p>Published</p>
+                <div class="icon--wrapper">
+                  <span class="icons fa fa-globe"></span>
+                  <p>Published</p>
+                </div>
                 <button class="fa fa-toggle-on fa-lg btn--publish"></button>
               </div>
               <div class="internalPublish flex--sb">
-                <span class="fa fa-eye"></span>
-                <p>Published</p>
+                <div class="icon--wrapper">
+                  <span class="icons fa fa-eye"></span>
+                  <p>Published</p>
+                </div>
                 <button class="fa fa-toggle-on fa-lg fa-rotate-180 btn--publish"></button>
               </div>
             </div>
@@ -48,10 +52,10 @@ export default (vnode) => {
           </div>
 
           <div class="metadata--wrapper">
-            <button class="btn--action">Show more metadata</button>
+            <button class="btn--action btn--show">Show more metadata</button>
             <div class="metadata--more">
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> { entryMetaData.modified }</p>
+              <p><span class="metadata__label">Last modified:</span> { entryMetaData.modified }</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
@@ -65,7 +69,7 @@ export default (vnode) => {
             <div class="distributions">
               <div class="header flex--sb">
                 <h2 class="title">Distributions</h2>
-                <button class="btn--circle btn--action">+</button>
+                <button class="btn--circle btn--action btn--add">+</button>
               </div>
               <div class="entryRow"></div>
             </div>
