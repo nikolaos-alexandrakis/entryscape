@@ -666,6 +666,7 @@
   .selectize-control {
     margin-left: 10px;
     width: 300px;
+    padding-right: 15px;
   }
 
   .selectize-dropdown {
