@@ -6,78 +6,129 @@ $text-size: 14px;
 $title-size:20px;
 
 /* Mixins */
-@mixin button{
-    background-color:transparent;
-    border:0;
+@mixin button {
+    background-color: transparent;
+    border: 0;
 }
 
 /* Layout */
 
-.overview__wrapper{
+.overview__wrapper {
     width: 100%;
-    .flex--sb{
+
+    .flex--sb {
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
     }
-    .metadata--basic , .metadata--more{
+
+    .intro--wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-width: 50%;
+        overflow-wrap: break-word;
+    }
+
+    .metadata--basic,
+    .metadata--more {
         column-count: 2;
         margin-bottom: 15px;
-        color:$main-colour;
+        color: $main-colour;
         max-width: 60%;
+
+        p {
+            margin-bottom: 10px;
+        }
     }
-    .metadata--more{
+
+    .metadata--more {
         padding: 10px;
-        border:3px solid $main-colour;
+        border: 3px solid $main-colour;
         margin-top: -2px;
     }
-   
-    .distributions{
+
+    .distributions {
         width: 60%;
-        .header{
+
+        .header {
             width: 50%;
-            border-bottom:1px solid $accent-colour;
+            border-bottom: 1px solid $accent-colour;
         }
-       
+
+        .distribution__row {
+            margin-top: 10px;
+            padding: 10px;
+            min-height: 50px;
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
+
+            &:focus {
+                border: 2px solid $main-colour;
+            }
+
+            .distribution__format {
+                align-items: center;
+                color: $main-colour;
+
+                p {
+                    margin-right: 10px;
+                }
+            }
+        }
+
     }
-    .escoOverview__statBox{
+
+    .escoOverview__statBox {
         width: 150px;
         height: 150px;
         margin-right: 0;
         margin-left: 30px;
+        &:focus{
+            border:2px solid $main-colour;
+        }
 
-        .escoOverview__statLabel,.escoOverview__statCount{
+        .escoOverview__statLabel,
+        .escoOverview__statCount {
             font-size: $title-size;
         }
 
     }
-    .icon--wrapper{
+
+    .icon--wrapper {
         display: flex;
         align-items: center;
     }
 
-    .cards--wrapper{
+    .cards--wrapper {
         display: flex;
         justify-content: end;
         flex-wrap: wrap;
         max-width: 40%;
     }
-    
+
 }
 
 
 
 /* Buttons */
-.btn--action{
+.btn--action {
     @include button;
-    font-size:$text-size;
-    background-color:$main-colour;
-    color:white;
+    font-size: $text-size;
+    background-color: $main-colour;
+    color: white;
     border-radius: 2px;
     text-transform: uppercase;
     width: 200px;
-    padding:5px;
+    padding: 5px;
+
+    &:focus {
+        background-color: $accent-colour;
+    }
 }
-.btn--circle{
+
+.btn--circle {
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -86,53 +137,96 @@ $title-size:20px;
     align-self: center;
     justify-content: center;
     align-items: center;
-    font-size:20px;
-    
-}
+    font-size: 20px;
+    margin-bottom: 10px;
 
-.btn--publish{
-    @include button;
-    font-size: 28px;
-    color:#5cb85c;
-    &.fa-rotate-180{
-        color:#d9534f;
+    &:focus {
+        background-color: $accent-colour;
     }
 }
 
-.btn--edit{
+.btn--publish {
+    @include button;
+    font-size: 28px;
+    color: #5cb85c;
+
+    &.fa-rotate-180 {
+        color: #d9534f;
+    }
+}
+
+.btn--edit {
     margin-bottom: 15px;
 }
 
-/* Typography */
-.overview__wrapper{
-    .title{
-        font-size:$title-size ;
-        text-transform: uppercase;
-        font-weight: 300;
-        color:$main-colour;
-        border-bottom: 1px solid $accent-colour;
-        padding-bottom: 10px;
-    }
-    .distributions{
-        .title{
-            margin-bottom: 0;
-            padding-bottom: 5px;
-            border:0;
+.overview__wrapper {
+    .distribution__row {
+        .icons {
+            font-size: 18px;
+            &:focus{
+                color:$accent-colour;
+            }
+
+            &:hover {
+                color: rgba(28, 76, 209, 0.658);
+            }
         }
     }
-    .description{
-        font-size: 16px;
-        color:$main-colour;
-    }
-    .icons{
-        font-size:24px;
-        color:$main-colour;
-    }
-
-    p{
-        margin: 0;
-    }
-    .metadata__label{
-     font-weight: bold;   
-    }
 }
+
+
+
+    /* Typography */
+    .overview__wrapper {
+        .title {
+            font-size: $title-size;
+            font-weight: 300;
+            margin-top: 0;
+            color: $main-colour;
+            border-bottom: 1px solid $accent-colour;
+            padding-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .distributions {
+            .title {
+                margin-bottom: 0;
+                padding-bottom: 5px;
+                border: 0;
+            }
+        }
+
+        .description {
+            font-size: 16px;
+            color: $main-colour;
+            margin-bottom: 40px;
+        }
+
+        .icons {
+            @include button;
+            font-size: 24px;
+            color: $main-colour;
+            margin-right: 10px;
+            width: 24px;
+
+            p {
+                color: $main-colour;
+            }
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .metadata__label {
+            font-weight: bold;
+        }
+        .distribution__date{
+            color:$main-colour;
+            font-size: $text-size;
+            margin-right: 10px;
+        }
+        .distribution__title{
+            font-weight: bold;
+        }
+    }

@@ -9,7 +9,7 @@ export default (vnode) => {
     view(vnode) {
       const { label, value, link } = vnode.attrs;
       return m('.col-md-6 escoOverview__statBox', [
-        m('a', { href: link }, [
+        m('a', { href: link, tabindex: 0 }, [
           m('p', { class: 'escoOverview__statCount' }, value),
         ]),
         m('label', { class: 'escoOverview__statLabel' }, label),

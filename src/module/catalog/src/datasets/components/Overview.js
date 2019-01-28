@@ -16,11 +16,12 @@ export default (vnode) => {
     view: (vnode) => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
+      console.log(metadata);
 
       return (
         <main class="overview__wrapper">
           <div class="flex--sb">
-            <div class="">
+            <div class="intro--wrapper">
               <h2 class="title">{ title }</h2>
               <p class="description">{ description }</p>
             </div>
@@ -71,12 +72,23 @@ export default (vnode) => {
                 <h2 class="title">Distributions</h2>
                 <button class="btn--circle btn--action btn--add">+</button>
               </div>
-              <div class="entryRow"></div>
+              <div tabindex="0" class="distribution__row flex--sb">
+                <div class="distribution__format flex--sb">
+                  <p class="distribution__title"> Downloadable file</p>
+                  <p class="file__format">CSV <span class="file__format--long">Common Separated Values</span></p>
+                </div>
+                <div class="icon--wrapper">
+                  <p class="distribution__date">Jan 17</p>
+                  <button class="icons fa fa-external-link"></button>
+                  <button class="icons fa fa-download"></button>
+                  <button class="icons fa fa-cog"></button>
+                </div>
+              </div>
             </div>
             <div class="cards--wrapper">
-              <StatBox value="blah" label="Comments" link=""/>
-              <StatBox value="blah" label="Ideas" link=""/>
-              <StatBox value="blah" label="Showcases" link=""/>
+              <StatBox value="3" label="Comments" link=""/>
+              <StatBox value="2" label="Ideas" link=""/>
+              <StatBox value="0" label="Showcases" link=""/>
             </div>
 
 
