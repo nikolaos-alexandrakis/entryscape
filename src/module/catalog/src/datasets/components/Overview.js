@@ -1,7 +1,7 @@
 import m from 'mithril';
 import StatBox from 'commons/overview/components/StatBox';
-import MoreMetadata from './MoreMetadata';
 import { createSetState } from 'commons/util/util';
+import MoreMetadata from './MoreMetadata';
 import './Overview.scss';
 
 export default (vnode) => {
@@ -28,7 +28,6 @@ export default (vnode) => {
     view: () => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
-      const hiddenClass = state.isHidden ? 'hidden' : '';
 
       return (
         <main class="overview__wrapper">
@@ -66,7 +65,7 @@ export default (vnode) => {
 
           <div class="metadata--wrapper">
             <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
-            <MoreMetadata metadata={entryInfo}></MoreMetadata>
+            <MoreMetadata isHidden={state.isHidden} metadata={entryInfo}></MoreMetadata>
           </div>
 
           <div class="flex--sb">

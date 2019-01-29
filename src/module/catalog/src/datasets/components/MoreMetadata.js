@@ -1,11 +1,13 @@
 import m from 'mithril';
 
+
 export default (vnode) => ({
   view(vnode) {
-    const {metadata} = vnode.attrs;
+    const { metadata, isHidden } = vnode.attrs;
     const modificationDate = metadata.getModificationDate().toString();
+    const hiddenClass = isHidden ? 'hidden' : '';
     return (
-      <div class="metadata--more">
+      <div class= {`metadata--more ${hiddenClass}`}>
         <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
         <p><span class="metadata__label">Last modified:</span>{modificationDate}</p>
         <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
