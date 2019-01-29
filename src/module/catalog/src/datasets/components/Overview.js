@@ -1,5 +1,7 @@
 import m from 'mithril';
+import DOMUtil from 'commons/util/htmlUtil';
 import StatBox from 'commons/overview/components/StatBox';
+import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import { createSetState } from 'commons/util/util';
 import MoreMetadata from './MoreMetadata';
 import './Overview.scss';
@@ -9,6 +11,8 @@ export default (vnode) => {
   const metadata = entry.getMetadata();
   const resourceURI = entry.getResourceURI();
   const entryInfo = entry.getEntryInfo();
+
+  const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, vnode.dom));
 
   const state = {
     isHidden: true,
@@ -27,6 +31,11 @@ export default (vnode) => {
   const toggleInternalPublish = () => {
     setState({ isInternalPublish: !state.isInternalPublish });
   };
+
+  const openEditDialog = () => {
+    editDialog.showEntry(entry);
+  };
+
   return {
     view: () => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
@@ -43,7 +52,7 @@ export default (vnode) => {
             </div>
 
             <div>
-              <button class="btn--action btn--edit">Edit</button>
+              <button class="btn--action btn--edit" onclick={openEditDialog}>Edit</button>
               <div class="flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
