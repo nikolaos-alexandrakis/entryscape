@@ -9,25 +9,33 @@ export default (vnode) => {
   const metadata = entry.getMetadata();
   const resourceURI = entry.getResourceURI();
   const entryInfo = entry.getEntryInfo();
+  
 
   const state = {
     isHidden: true,
+    isPublish: false,
+    isInternalPublish: false,
   };
 
   const setState = createSetState(state);
 
-  const entryMetaData = {
-    modified: entryInfo.getModificationDate().toString(),
-  };
-
+  
   const toggleMetadata = () => {
     setState({ isHidden: !state.isHidden });
   };
 
+  const togglePublish = () => {
+    setState({isPublish: !state.isPublish });
+  }
+  const toggleInternalPublish = () =>{
+    setState({isInternalPublish: !state.isInternalPublish });
+  }
   return {
     view: () => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
+      const publishClass = state.isPublish ? '' : 'fa-rotate-180';
+      const internalPublishClass= state.isInternalPublish ? '' : 'fa-rotate-180';
 
       return (
         <main class="overview__wrapper">
@@ -44,14 +52,14 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p class="published">Published</p>
                 </div>
-                <button class="fa fa-toggle-on fa-lg btn--publish"></button>
+                <button class={`fa fa-toggle-on fa-lg  btn--publish ${publishClass}`} onclick={togglePublish}></button>
               </div>
               <div class="internalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
                   <p class="unpublished">Unpublished</p>
                 </div>
-                <button class="fa fa-toggle-on fa-lg fa-rotate-180 btn--publish"></button>
+                <button class={`fa fa-toggle-on fa-lg  btn--publish ${internalPublishClass}`} onclick={toggleInternalPublish}></button>
               </div>
             </div>
           </div>
