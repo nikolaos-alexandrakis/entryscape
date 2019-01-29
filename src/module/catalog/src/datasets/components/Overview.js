@@ -1,5 +1,6 @@
 import m from 'mithril';
 import StatBox from 'commons/overview/components/StatBox';
+import { createSetState } from 'commons/util/util';
 import './Overview.scss';
 
 export default (vnode) => {
@@ -8,15 +9,25 @@ export default (vnode) => {
   const resourceURI = entry.getResourceURI();
   const entryInfo = entry.getEntryInfo();
 
+  const state = {
+    isHidden: true,
+  };
+
+  const setState = createSetState(state);
+
   const entryMetaData = {
     modified: entryInfo.getModificationDate().toString(),
   };
 
+  const toggleMetadata = () => {
+    setState({ isHidden: !state.isHidden });
+  };
+
   return {
-    view: (vnode) => {
+    view: () => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
-      console.log(metadata);
+      const hiddenClass = state.isHidden ? 'hidden' : '';
 
       return (
         <main class="overview__wrapper">
@@ -53,11 +64,11 @@ export default (vnode) => {
           </div>
 
           <div class="metadata--wrapper">
-            <button class="btn--action btn--show">Show more metadata</button>
-            <div class="metadata--more">
-              <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
-              <p><span class="metadata__label">Last modified:</span> { entryMetaData.modified }</p>
+            <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
+            <div class={`${hiddenClass} metadata--more`}>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
+              <p><span class="metadata__label">Last modified:</span> { entryMetaData.modified }</p>
+              <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
