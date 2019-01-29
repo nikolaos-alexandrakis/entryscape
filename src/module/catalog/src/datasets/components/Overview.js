@@ -31,14 +31,14 @@ export default (vnode) => {
               <div class="flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
-                  <p>Published</p>
+                  <p class="published">Published</p>
                 </div>
                 <button class="fa fa-toggle-on fa-lg btn--publish"></button>
               </div>
               <div class="internalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
-                  <p>Published</p>
+                  <p class="unpublished">Unpublished</p>
                 </div>
                 <button class="fa fa-toggle-on fa-lg fa-rotate-180 btn--publish"></button>
               </div>
@@ -47,15 +47,15 @@ export default (vnode) => {
 
           <div class="metadata--basic">
             <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-            <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-            <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-            <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
+            <p><span class="metadata__label">Theme:</span> Art</p>
+            <p><span class="metadata__label">Last update:</span> 16:57</p>
+            <p><span class="metadata__label">Edited by:</span> Althea Espejo, Valentino Hudra</p>
           </div>
 
           <div class="metadata--wrapper">
             <button class="btn--action btn--show">Show more metadata</button>
             <div class="metadata--more">
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
+              <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
               <p><span class="metadata__label">Last modified:</span> { entryMetaData.modified }</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
               <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
