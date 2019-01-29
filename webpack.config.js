@@ -190,6 +190,9 @@ module.exports = (env, argv) => {
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
+          watchOptions: {
+            ignored: /node_modules/,
+          },
         },
         plugins: [
           new webpack.HotModuleReplacementPlugin(),
