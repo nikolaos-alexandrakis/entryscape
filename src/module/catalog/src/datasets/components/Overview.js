@@ -1,5 +1,6 @@
 import m from 'mithril';
 import StatBox from 'commons/overview/components/StatBox';
+import MoreMetadata from './MoreMetadata';
 import { createSetState } from 'commons/util/util';
 import './Overview.scss';
 
@@ -65,16 +66,7 @@ export default (vnode) => {
 
           <div class="metadata--wrapper">
             <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
-            <div class={`${hiddenClass} metadata--more`}>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Last modified:</span> { entryMetaData.modified }</p>
-              <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-              <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-            </div>
+            <MoreMetadata metadata={entryInfo}></MoreMetadata>
           </div>
 
           <div class="flex--sb">
