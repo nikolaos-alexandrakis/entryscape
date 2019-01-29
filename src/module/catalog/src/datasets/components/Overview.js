@@ -9,7 +9,6 @@ export default (vnode) => {
   const metadata = entry.getMetadata();
   const resourceURI = entry.getResourceURI();
   const entryInfo = entry.getEntryInfo();
-  
 
   const state = {
     isHidden: true,
@@ -18,24 +17,22 @@ export default (vnode) => {
   };
 
   const setState = createSetState(state);
-
-  
   const toggleMetadata = () => {
     setState({ isHidden: !state.isHidden });
   };
 
   const togglePublish = () => {
-    setState({isPublish: !state.isPublish });
-  }
-  const toggleInternalPublish = () =>{
-    setState({isInternalPublish: !state.isInternalPublish });
-  }
+    setState({ isPublish: !state.isPublish });
+  };
+  const toggleInternalPublish = () => {
+    setState({ isInternalPublish: !state.isInternalPublish });
+  };
   return {
     view: () => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
       const publishClass = state.isPublish ? '' : 'fa-rotate-180';
-      const internalPublishClass= state.isInternalPublish ? '' : 'fa-rotate-180';
+      const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
 
       return (
         <main class="overview__wrapper">
