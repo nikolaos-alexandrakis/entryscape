@@ -16,7 +16,7 @@ export default declare([_WidgetBase], {
     const es = registry.get('entrystore');
     const contextObj = context ? es.getContextById(context) : registry.get('context');
     contextObj.getEntryById(dataset).then((entry) => {
-      m.render(this.domNode, m(OverviewComponent, { entry }));
+      m.mount(this.domNode, { view: () => m(OverviewComponent, { entry }) });
 
       return true;
     });
