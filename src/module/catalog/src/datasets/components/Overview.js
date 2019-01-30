@@ -1,6 +1,7 @@
 import m from 'mithril';
 import DOMUtil from 'commons/util/htmlUtil';
 import StatBox from 'commons/overview/components/StatBox';
+import DistributionList from './DistributionList';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import { createSetState } from 'commons/util/util';
 import MoreMetadata from './MoreMetadata';
@@ -28,6 +29,7 @@ export default (vnode) => {
   const togglePublish = () => {
     setState({ isPublish: !state.isPublish });
   };
+
   const toggleInternalPublish = () => {
     setState({ isInternalPublish: !state.isInternalPublish });
   };
@@ -83,24 +85,7 @@ export default (vnode) => {
           </div>
 
           <div class="flex--sb">
-            <div class="distributions">
-              <div class="header flex--sb">
-                <h2 class="title">Distributions</h2>
-                <button class="btn--circle btn--action btn--add">+</button>
-              </div>
-              <div tabindex="0" class="distribution__row flex--sb">
-                <div class="distribution__format flex--sb">
-                  <p class="distribution__title"> Downloadable file</p>
-                  <p class="file__format">CSV <span class="file__format--long">Common Separated Values</span></p>
-                </div>
-                <div class="icon--wrapper">
-                  <p class="distribution__date">Jan 17</p>
-                  <button class="icons fa fa-external-link"></button>
-                  <button class="icons fa fa-download"></button>
-                  <button class="icons fa fa-cog"></button>
-                </div>
-              </div>
-            </div>
+            <DistributionList entry={entry}></DistributionList>
             <div class="cards--wrapper">
               <StatBox value="3" label="Comments" link=""/>
               <StatBox value="2" label="Ideas" link=""/>
