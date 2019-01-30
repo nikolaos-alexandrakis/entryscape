@@ -1,9 +1,10 @@
 import m from 'mithril';
 import DOMUtil from 'commons/util/htmlUtil';
 import StatBox from 'commons/overview/components/StatBox';
-import DistributionList from './DistributionList';
-import EditDialog from 'catalog/datasets/DatasetEditDialog';
+import Toggle from 'commons/components/common/toggle/Toggle';
 import { createSetState } from 'commons/util/util';
+import EditDialog from 'catalog/datasets/DatasetEditDialog';
+import DistributionList from './DistributionList';
 import MoreMetadata from './MoreMetadata';
 import './Overview.scss';
 
@@ -22,6 +23,7 @@ export default (vnode) => {
   };
 
   const setState = createSetState(state);
+
   const toggleMetadata = () => {
     setState({ isHidden: !state.isHidden });
   };
@@ -42,7 +44,6 @@ export default (vnode) => {
     view: () => {
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
-      const publishClass = state.isPublish ? '' : 'fa-rotate-180';
       const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
 
       return (
@@ -60,7 +61,7 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p class="published">Published</p>
                 </div>
-                <button class={`fa fa-toggle-on fa-lg  btn--publish ${publishClass}`} onclick={togglePublish}></button>
+                <Toggle isPublish= {state.isPublish} onclick={togglePublish}></Toggle>
               </div>
               <div class="internalPublish flex--sb">
                 <div class="icon--wrapper">
