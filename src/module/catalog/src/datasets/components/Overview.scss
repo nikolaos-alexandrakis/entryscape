@@ -83,16 +83,18 @@ $title-size:20px;
     }
 
     .escoOverview__statBox {
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 120px;
         margin-right: 0;
         margin-left: 30px;
-        &:focus{
-            border:2px solid $main-colour;
-        }
+
 
         .escoOverview__statLabel,
         .escoOverview__statCount {
+            font-size: $text-size;
+            margin:0;
+        }
+        .escoOverview__statCount{
             font-size: $title-size;
         }
 
@@ -105,7 +107,7 @@ $title-size:20px;
 
     .cards--wrapper {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         flex-wrap: wrap;
         max-width: 30%;
     }
@@ -126,7 +128,10 @@ $title-size:20px;
     padding: 5px;
 
     &:focus {
-        background-color: $accent-colour;
+        border: solid 3px $main-colour;
+  padding: 2px;
+  background-clip: content-box; /* support: IE9+ */
+  background-color:$main-colour;
     }
 }
 
@@ -142,7 +147,9 @@ $title-size:20px;
     margin-bottom: 5px;
 
     &:focus {
-        background-color: $accent-colour;
+        border: solid 1px $main-colour;
+        padding: 1px;
+    
     }
 }
 
@@ -186,7 +193,6 @@ $title-size:20px;
             color: $main-colour;
             border-bottom: 1px solid $accent-colour;
             padding-bottom: 10px;
-            word-break: break-all;
         }
 
         .distributions {
@@ -231,3 +237,12 @@ $title-size:20px;
             font-weight: bold;
         }
     }
+
+     @media (max-width:1024px){
+         .distribution__row{
+             .distribution__format{
+                 margin-bottom: 15px;
+             }
+         }
+
+     }
