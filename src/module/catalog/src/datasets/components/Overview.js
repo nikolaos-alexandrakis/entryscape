@@ -61,7 +61,7 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p class="published">Published</p>
                 </div>
-                <Toggle isPublish= {state.isPublish} onclick={togglePublish}></Toggle>
+                <Toggle isPublish={state.isPublish} onToggle={togglePublish}></Toggle>
               </div>
               <div class="internalPublish flex--sb">
                 <div class="icon--wrapper">

@@ -1,5 +1,6 @@
 import m from 'mithril';
 import registry from 'commons/registry';
+import Distribution from './Distribution';
 import { createSetState } from 'commons/util/util';
 
 export default () => {
@@ -39,7 +40,7 @@ export default () => {
         // return null;
       );
     }))
-      .then((dists) => { console.log('setting', dists); setState({ distributions: dists }); });
+      .then(dists => setState({ distributions: dists }) );
   };
 
 
@@ -50,7 +51,6 @@ export default () => {
     },
     view: () => {
       const distributions = state.distributions;
-      console.log(distributions);
 
       return (
         <div class="distributions">
@@ -58,19 +58,8 @@ export default () => {
             <h2 class="title">Distributions</h2>
             <button class="btn--circle btn--action btn--add">+</button>
           </div>
-          { distributions.map(() => (
-            <div tabindex="0" class="distribution__row flex--sb">
-              <div class="distribution__format flex--sb">
-                <p class="distribution__title"> Downloadable file</p>
-                <p class="file__format">CSV <span class="file__format--long">Common Separated Values</span></p>
-              </div>
-              <div class="icon--wrapper">
-                <p class="distribution__date">Jan 17</p>
-                <button class="icons fa fa-external-link"></button>
-                <button class="icons fa fa-download"></button>
-                <button class="icons fa fa-cog"></button>
-              </div>
-            </div>
+          { distributions.map(distribution => (
+            <Distribution distribution={distribution}></Distribution>
           )) }
         </div>
       );
