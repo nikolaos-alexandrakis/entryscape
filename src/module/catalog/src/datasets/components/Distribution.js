@@ -9,7 +9,7 @@ export default () => {
     const md = entry.getMetadata();
     const subj = entry.getResourceURI();
     const title = md.findFirstValue(subj, namespaces.expand('dcterms:title'));
-    const access = md.findFirstValue(subj, namespaces.expand('dcat:accessURL'));
+    const accessURI = md.findFirstValue(subj, namespaces.expand('dcat:accessURL'));
     const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
 
     let format;
@@ -41,8 +41,8 @@ export default () => {
       // this.renderTitle();
     }
     if ((title == null) && (format == null)) {
-      // add accessURL or download URL
-      // this.urlNode.innerHTML = access || downloadURI;
+      // add accessURI or download URL
+      // this.urlNode.innerHTML = accessURI || downloadURI;
     }
     const modificationDate = entry.getEntryInfo().getModificationDate();
     // this.renderDate();
@@ -53,13 +53,14 @@ export default () => {
       title,
       format,
       modificationDate,
+      accessURI,
+      downloadURI
     };
   };
   return {
     view: (vnode) => {
       const { distribution } = vnode.attrs;
-
-      const { title, format, modificationDate } = getMetadata(distribution);
+      const { title, format, modificationDate, accessURI, downloadURI } = getMetadata(distribution);
 
       return (
         <div tabindex="0" class="distribution__row flex--sb">
@@ -69,8 +70,8 @@ export default () => {
           </div>
           <div class="icon--wrapper">
             <p class="distribution__date">Jan 17</p>
-            <button class="icons fa fa-external-link"></button>
-            <button class="icons fa fa-download"></button>
+            { accessURI && <a href={accessURI}><button class="icons fa fa-external-link"></button></a> }
+            { downloadURI && <a href={downloadURI}><button class="icons fa fa-download"></button></a> }
             <button class="icons fa fa-cog"></button>
           </div>
         </div>
