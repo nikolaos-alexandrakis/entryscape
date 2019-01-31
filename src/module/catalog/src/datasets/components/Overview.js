@@ -119,7 +119,6 @@ export default (vnode) => {
 
   return {
     view: () => {
-      console.log('redrawing in view');
       const entryInfo = entry.getEntryInfo();
       const metadata = entry.getMetadata();
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');

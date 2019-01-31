@@ -6,7 +6,7 @@ import config from 'config';
 export default declare([RDFormsEditDialog], {
   title: 'Edit Dataset',
   nlsHeaderTitle: 'metadataEditDialogHeader',
-  nlsFooterButtonLabel: 'metadataEditDialogDoneLabel',
+  nlsFooterButtonLabel: 'saveChanges',
 
   showEntry(entry, updateDataset) {
     this.entry = entry;
@@ -26,7 +26,6 @@ export default declare([RDFormsEditDialog], {
     async.addIgnore('commitMetadata', async.codes.GENERIC_PROBLEM, true);
     return this.entry.commitMetadata()
       .then(
-        // () => this.list.rowMetadataUpdated(this.row),
         () => this.updateDataset(),
         (err) => {
           if (err.response.status === 412) {
