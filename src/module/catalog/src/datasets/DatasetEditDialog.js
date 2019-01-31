@@ -4,8 +4,7 @@ import registry from 'commons/registry';
 import config from 'config';
 
 export default declare([RDFormsEditDialog], {
-  title: 'Edit Dataset',
-  nlsHeaderTitle: 'metadataEditDialogHeader',
+  nlsHeaderTitle: 'metadataEditDialogHeader', // should be editDatasetHeader
   nlsFooterButtonLabel: 'saveChanges',
 
   showEntry(entry, updateDataset) {

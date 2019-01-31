@@ -3,9 +3,12 @@ import DOMUtil from 'commons/util/htmlUtil';
 import StatBox from 'commons/overview/components/StatBox';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import { createSetState } from 'commons/util/util';
+import { i18n } from 'esi18n';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import DistributionList from './DistributionList';
 import MoreMetadata from './MoreMetadata';
+import escaPublicNLS from 'catalog/nls/escaPublic.nls';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import './Overview.scss';
 
 export default (vnode) => {
@@ -125,6 +128,9 @@ export default (vnode) => {
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
       const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
 
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
+      const escaPublic = i18n.getLocalization(escaPublicNLS);
+
       return (
         <main class="overview__wrapper">
           <div class="flex--sb">
@@ -153,7 +159,7 @@ export default (vnode) => {
           </div>
 
           <div class="metadata--basic">
-            <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
+            <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
             <p><span class="metadata__label">Theme:</span> Art</p>
             <p><span class="metadata__label">Last update:</span> 16:57</p>
             <p><span class="metadata__label">Edited by:</span> Althea Espejo, Valentino Hudra</p>
@@ -167,7 +173,7 @@ export default (vnode) => {
           <div class="flex--sb">
             <DistributionList entry={entry}></DistributionList>
             <div class="cards--wrapper">
-              <StatBox value="3" label="Comments" link=""/>
+              <StatBox value="3" label={escaDataset.commentMenu} link=""/>
               <StatBox value="2" label="Ideas" link=""/>
               <StatBox value="0" label="Showcases" link=""/>
             </div>

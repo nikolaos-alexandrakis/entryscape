@@ -1,13 +1,17 @@
 import m from 'mithril';
 import registry from 'commons/registry';
 import Distribution from './Distribution';
+import { i18n } from 'esi18n';
 import { createSetState } from 'commons/util/util';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
 export default () => {
   const state = {
     distributions: [],
   };
   const setState = createSetState(state);
+
+  const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
   const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -55,8 +59,8 @@ export default () => {
       return (
         <div class="distributions">
           <div class="header flex--sb">
-            <h2 class="title">Distributions</h2>
-            <button class="btn--circle btn--action btn--add">+</button>
+            <h2 class="title">{escaDataset.distributionsTitle}</h2>
+            <button class="btn--circle btn--action btn--add" alt={escaDataset.addDistributionTitle}>+</button>
           </div>
           { distributions.map(distribution => (
             <Distribution distribution={distribution}></Distribution>
