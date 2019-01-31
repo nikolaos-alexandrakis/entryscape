@@ -31,7 +31,7 @@ export default () => {
     return title;
   };
 
-  const formatDate = (modDate) => {
+  const getFormattedDates = (modDate) => {
     if (modDate != null) {
       const escoListLocalized = i18n.getLocalization(escoList);
       const dateFormats = dateUtil.getMultipleDateFormats(modDate);
@@ -47,6 +47,7 @@ export default () => {
     const accessURI = md.findFirstValue(subj, namespaces.expand('dcat:accessURL'));
     const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
 
+    // @scazan WHAT IS TEMPLATE DRIVEN FORMAT?
     let format;
     // Check for template driven format
     const formatTemplate = config.catalog.formatTemplateId ?
@@ -94,10 +95,10 @@ export default () => {
         <div tabindex="0" class="distribution__row flex--sb">
           <div class="distribution__format flex--sb">
             <p class="distribution__title">{ title }</p>
-            <p class="file__format">{ format } <span class="file__format--long">Common Separated Values</span></p>
+            <p class="file__format">{ format } <span class="file__format--long">Comma Separated Values</span></p>
           </div>
           <div class="icon--wrapper">
-            <p class="distribution__date">{ formatDate(modificationDate).short }</p>
+            <p class="distribution__date">{ getFormattedDates(modificationDate).short }</p>
             { accessURI && <a href={ accessURI }><button class="icons fa fa-external-link"></button></a> }
             { downloadURI && <a href={ downloadURI }><button class="icons fa fa-download"></button></a> }
             <button class="icons fa fa-cog"></button>

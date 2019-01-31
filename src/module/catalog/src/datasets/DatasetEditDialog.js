@@ -8,8 +8,9 @@ export default declare([RDFormsEditDialog], {
   nlsHeaderTitle: 'metadataEditDialogHeader',
   nlsFooterButtonLabel: 'metadataEditDialogDoneLabel',
 
-  showEntry(entry) {
+  showEntry(entry, updateDataset) {
     this.entry = entry;
+    this.updateDataset = updateDataset;
     this.inherited('showEntry', arguments, [entry, this.getTemplate()]);
   },
   getTemplate() {
@@ -26,7 +27,7 @@ export default declare([RDFormsEditDialog], {
     return this.entry.commitMetadata()
       .then(
         // () => this.list.rowMetadataUpdated(this.row),
-        () => console.log('saved'),
+        () => this.updateDataset(),
         (err) => {
           if (err.response.status === 412) {
             return registry.get('dialogs')
