@@ -7,7 +7,6 @@ import {engine, utils as rdformsUtils} from 'rdforms';
 import {template} from 'lodash-es';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoList from 'commons/nls/escoList.nls';
-import { createSetState } from 'commons/util/util';
 import { 
   isUploadedDistribution,
   isFileDistributionWithOutAPI,
@@ -16,11 +15,12 @@ import {
   isAccessURLEmpty,
   isDownloadURLEmpty,
 } from 'catalog/datasets/utils/distributionUtil';
+import {createSetState} from 'commons/util/util';
 
 export default() => {
- 
+
   const state = {
-    isExpanded: false,
+    isExpanded: false
   };
 
   const setState = createSetState(state);
@@ -94,9 +94,10 @@ export default() => {
   };
 
   const expandDistribution = () => {
-    setState({isExpanded: !state.isExpanded });
+    setState({
+      isExpanded: !state.isExpanded
+    });
   };
-
 
   const renderActions = (entry) => {
     const actions = [];
@@ -308,60 +309,64 @@ export default() => {
         description,
       } = getDistributionMetadata(distribution, namespaces);
 
-      const expandedClass = state.isExpanded ? 'expanded' : '';
+      const expandedClass = state.isExpanded
+        ? 'expanded'
+        : '';
 
       return (
         <div>
-          <div tabindex="0" class="distribution__row flex--sb" onclick={expandDistribution} >
-            <div class="distribution__format flex--sb">
+          <div tabindex="0" class="distribution__row flex--sb" onclick={expandDistribution}>
+            <div class="distribution__format">
               <p class="distribution__title">{title}</p>
-              <p class="file__format">{format}
-                <span class="file__format--long">Common Separated Values</span>
+              <p class="file__format">
+                <span class="file__format--short">{format}</span>
               </p>
-              <p class="distribution__date">Jan 17</p>
+              </div>
+              <div class="flex--sb">
+                <p class="distribution__date">Jan 17</p>
+                <span class="icons fa fa-angle-down"></span>
+              </div>
             </div>
-          </div>
 
           <div class={`distribution__expand ${expandedClass}`}>
-           <div class="flex--sb"> 
-            <div class="metadata--wrapper">
-              { description &&
+            <div class="flex--sb">
+              <div class="metadata--wrapper">
                 <div class="distribution__description">
-                <h2 class="title">Description</h2>
-                  <p>{ description }</p>
+                  <h2 class="title">Description</h2>
+                  <p class="text">
+                    If there is a description it should be here. If not then don't show anything</p>
                 </div>
-              }
-              <div class="distribution__format">
-                <p>This distribution has<span> 5 </span>files</p>
-                <h2 class="title">Format</h2>
+                <div class="distribution__format">
+                  <h2 class="title">Format</h2>
+                  <p class="text">This distribution has<span class="file__number">5</span>files</p>
+                </div>
               </div>
-            </div>
 
-            <div class="menu--wrapper">
-              <div class=" icon--wrapper distribution--file">
+              <div class="menu--wrapper">
+                <div class=" icon--wrapper distribution--file">
                 { renderActions(distribution) }
-                <a>
-                  <button class=" btn--distribution fa fa-fw fa-pencil">
-                    <span>Edit</span>
-                  </button>
-                </a>
-                <a>
-                  <button class=" btn--distribution fa fa-fw fa-remove">
-                    <span>Remove distribution</span>
-                  </button>
-                </a>
+                  <a>
+                    <button class=" btn--distribution">
+                      <span>Edit</span>
+                    </button>
+                  </a>
+                  <a>
+                    <button class=" btn--distribution fa fa-fw fa-remove">
+                      <span>Remove</span>
+                    </button>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div tabindex="0" class="distribution__row flex--sb">
-            <div class="distribution__format flex--sb">
-              <p class="distribution__title">{title}</p>
-              <div class="flex--sb">
-              <p class="distribution__date">Jan 17</p>
-              <span class="icons fa fa-cog"></span>
+            <div tabindex="0" class="distribution__row flex--sb">
+              <div class="distribution__format flex--sb">
+                <p class="distribution__title">{title}</p>
+                <div class="flex--sb">
+                  <p class="distribution__date">Jan 17</p>
+                  <span class="icons fa fa-cog"></span>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       );
