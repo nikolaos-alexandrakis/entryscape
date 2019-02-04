@@ -1,20 +1,26 @@
 import m from 'mithril';
 import registry from 'commons/registry';
 import Distribution from './Distribution';
+import CreateDistribution from 'catalog/datasets/CreateDistribution';
+import declare from 'dojo/_base/declare';
+import DOMUtil from 'commons/util/htmlUtil';
 import { i18n } from 'esi18n';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
-export default () => {
+export default (vnode) => {
   const state = {
     distributions: [],
   };
   const setState = createSetState(state);
 
+  const { entry } = vnode.attrs;
+
   const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
   const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
+  // Get the distributions from the entry and store them in the state
   const listDistributions = (entry) => {
     const entryStoreUtil = registry.get('entrystoreutil');
     const fileEntryURIs = [];
@@ -47,6 +53,11 @@ export default () => {
       .then(dists => setState({ distributions: dists }) );
   };
 
+  const openCreateDialog = () => {
+    const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, vnode.dom));
+    // TODO @scazan Some glue here to communicate with RDForms without a "row"
+    createDialog.open({ row: { entry }, onDone: () => listDistributions(entry) });
+  };
 
   return {
     oninit: (vnode) => {
@@ -60,7 +71,7 @@ export default () => {
         <div class="distributions">
           <div class="header flex--sb">
             <h2 class="title">{escaDataset.distributionsTitle}</h2>
-            <button class="btn--circle btn--action btn--add" alt={escaDataset.addDistributionTitle}>+</button>
+            <button class="btn--circle btn--action btn--add" onclick={openCreateDialog} alt={escaDataset.addDistributionTitle}>+</button>
           </div>
           { distributions.map(distribution => (
             <Distribution distribution={distribution}></Distribution>

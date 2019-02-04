@@ -1,5 +1,6 @@
 {
   "root": {
+    "lastUpdateLabel":"Last update",
     "listHeader": "Datasets in catalog \"$1\"",
     "createButtonLabel": "Create dataset",
     "createDatasetHeader": "Create dataset",

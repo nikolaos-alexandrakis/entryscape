@@ -161,7 +161,7 @@ export default (vnode) => {
           <div class="metadata--basic">
             <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
             <p><span class="metadata__label">Theme:</span> Art</p>
-            <p><span class="metadata__label">Last update:</span> 16:57</p>
+            <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
             <p><span class="metadata__label">Edited by:</span> Althea Espejo, Valentino Hudra</p>
           </div>
 
@@ -174,8 +174,8 @@ export default (vnode) => {
             <DistributionList entry={entry}></DistributionList>
             <div class="cards--wrapper">
               <StatBox value="3" label={escaDataset.commentMenu} link=""/>
-              <StatBox value="2" label="Ideas" link=""/>
-              <StatBox value="0" label="Showcases" link=""/>
+              <StatBox value="2" label={escaDataset.showideas} link=""/>
+              <StatBox value="0" label={escaDataset.showresults} link=""/>
             </div>
 
 
