@@ -1,14 +1,14 @@
 import m from 'mithril';
 import registry from 'commons/registry';
 import config from 'config';
-import { i18n } from 'esi18n';
+import {i18n} from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
-import { engine, utils as rdformsUtils } from 'rdforms';
-import { template } from 'lodash-es';
+import {engine, utils as rdformsUtils} from 'rdforms';
+import {template} from 'lodash-es';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoList from 'commons/nls/escoList.nls';
 
-export default () => {
+export default() => {
 
   const getTitle = (entry, namespaces) => {
     const escaDatasetLocalized = i18n.getLocalization(escaDataset);
@@ -35,7 +35,7 @@ export default () => {
     if (modDate != null) {
       const escoListLocalized = i18n.getLocalization(escoList);
       const dateFormats = dateUtil.getMultipleDateFormats(modDate);
-      const tStr = template(escoListLocalized.modifiedDateTitle)({ date: dateFormats.full });
+      const tStr = template(escoListLocalized.modifiedDateTitle)({date: dateFormats.full});
       return dateFormats;
     }
     return null;
@@ -50,85 +50,93 @@ export default () => {
     // @scazan WHAT IS TEMPLATE DRIVEN FORMAT?
     let format;
     // Check for template driven format
-    const formatTemplate = config.catalog.formatTemplateId ?
-      registry.get('itemstore').getItem(config.catalog.formatTemplateId) : undefined;
+    const formatTemplate = config.catalog.formatTemplateId
+      ? registry
+        .get('itemstore')
+        .getItem(config.catalog.formatTemplateId)
+      : undefined;
     if (formatTemplate) {
       format = rdformsUtils.findFirstValue(engine, md, subj, formatTemplate);
     }
     // Alternatively check for pure value via array of properties
     if (!format && config.catalog.formatProp) {
-      const formatPropArr = typeof config.catalog.formatProp === 'string' ? [config.catalog.formatProp] :
-        config.catalog.formatProp;
+      const formatPropArr = typeof config.catalog.formatProp === 'string'
+        ? [config.catalog.formatProp]
+        : config.catalog.formatProp;
       formatPropArr.find((prop) => {
         format = md.findFirstValue(subj, namespaces.expand(prop));
         return format != null;
       });
     }
 
-    const modificationDate = entry.getEntryInfo().getModificationDate();
-    // this.renderDate();
-    // this.clearDropdownMenu();
-    // this.renderDropdownMenu();
+    const modificationDate = entry
+      .getEntryInfo()
+      .getModificationDate();
+    // this.renderDate(); this.clearDropdownMenu(); this.renderDropdownMenu();
 
-    return {
-      format,
-      modificationDate,
-      accessURI,
-      downloadURI
-    };
+    return {format, modificationDate, accessURI, downloadURI};
   };
 
   const namespaces = registry.get('namespaces');
 
   return {
     view: (vnode) => {
-      const { distribution } = vnode.attrs;
+      const {distribution} = vnode.attrs;
       const title = getTitle(distribution, namespaces);
-      const {
-        format,
-        modificationDate,
-        accessURI,
-        downloadURI,
-      } = getDistributionMetadata(distribution, namespaces);
+      const {format, modificationDate, accessURI, downloadURI} = getDistributionMetadata(distribution, namespaces);
 
       return (
-      <div>
-        <div tabindex="0" class="distribution__row flex--sb">
-          <div class="distribution__format flex--sb">
-            <p class="distribution__title">{ title }</p>
-            <p class="file__format">{ format } <span class="file__format--long">Common Separated Values</span></p>
-            <p class="distribution__date">Jan 17</p>
+        <div>
+          <div tabindex="0" class="distribution__row flex--sb">
+            <div class="distribution__format flex--sb">
+              <p class="distribution__title">{title}</p>
+              <p class="file__format">{format}
+                <span class="file__format--long">Common Separated Values</span>
+              </p>
+              <p class="distribution__date">Jan 17</p>
+            </div>
           </div>
-          
-        </div>
-        <div class="distribution__expand">
-          <div class="menu--wrapper">
-              <div class=" icon--wrapper distribution--file">
-              <a><button class=" btn--distribution fa fa-fw fa-pencil"><span>Edit</span></button></a>
-              { downloadURI && <a href={downloadURI}><button class=" btn--distribution fa fa-fw fa-download"><span>Download</span></button></a> }
-              <a><button class=" btn--distribution fa fa-fw fa-link"><span>Activate API</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-info-circle"><span>API information</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-retweet"><span>Refresh API</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-exchange"><span>Replace file</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-file"><span>Add file</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-bookmark"><span>Revisions</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-remove"><span>Remove distribution</span></button></a>
-              </div>
 
-              <div class="icon--wrapper distribution--link">
-              <a><button class=" btn--distribution fa fa-fw fa-pencil"><span>Edit</span></button></a>
-              { accessURI && <a href={accessURI}><button class="btn--distribution fa fa-fw fa-info-circle"><span>Web adress of access point</span></button></a> }
-              <a><button class=" btn--distribution fa fa-fw fa-download"><span>Download</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-bookmark"><span>Revisions</span></button></a>
-              <a><button class=" btn--distribution fa fa-fw fa-remove"><span>Remove distribution</span></button></a>
+          <div class="distribution__expand">
+           <div class="flex--sb"> 
+            <div class="metadata--wrapper">
+              <div class="distribution__description">
+              <h2 class="title">Description</h2>
+                <p> If there is a description it should be here. If not then don't show anything</p>
               </div>
+              <div class="distribution__format">
+                <p>This distribution has<span> 5 </span>files</p>
+                <h2 class="title">Format</h2>
+              </div>
+            </div>
+
+            <div class="menu--wrapper">
+              <div class=" icon--wrapper distribution--file">
+                <a>
+                  <button class=" btn--distribution fa fa-fw fa-pencil">
+                    <span>Edit</span>
+                  </button>
+                </a>
+                <a>
+                  <button class=" btn--distribution fa fa-fw fa-remove">
+                    <span>Remove distribution</span>
+                  </button>
+                </a>
+              </div>
+            </div>
           </div>
-          <div>
-            
+          <div tabindex="0" class="distribution__row flex--sb">
+            <div class="distribution__format flex--sb">
+              <p class="distribution__title">{title}</p>
+              <div class="flex--sb">
+              <p class="distribution__date">Jan 17</p>
+              <span class="icons fa fa-cog"></span>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
-      </div>
       );
-    },
+    }
   };
 };

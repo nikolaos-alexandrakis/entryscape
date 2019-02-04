@@ -55,7 +55,7 @@ $title-size:20px;
 
         .header {
             width: 50%;
-            border-bottom: 1px solid $accent-colour;
+            border-bottom: 1.5px solid $accent-colour;
             align-items: center;
             margin-top: 15px;
         }
@@ -89,7 +89,11 @@ $title-size:20px;
             background-color:#e5e3e3;
             padding: 10px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            .distribution__format{
+                justify-content: space-between;
+                width: 100%;
+            }
             .menu--wrapper{
                 display: flex;
                 flex-direction: column;
@@ -230,7 +234,7 @@ $title-size:20px;
             font-weight: 300;
             margin-top: 0;
             color: $main-colour;
-            border-bottom: 1px solid $accent-colour;
+            border-bottom: 1.5px solid $accent-colour;
             padding-bottom: 10px;
             word-break: break-word;
         }
@@ -241,6 +245,12 @@ $title-size:20px;
                 padding-bottom: 5px;
                 border: 0;
             }
+        .distribution__format{
+            .title{
+                border-bottom: 1.5px solid $accent-colour;
+                width: 150px;
+            }
+        }
         }
 
         .description {
