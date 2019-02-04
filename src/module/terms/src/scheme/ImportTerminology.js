@@ -286,7 +286,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   footerButtonAction() {
     const fileUpload = this.fileOrLink.isFile();
-    return new Promise(resolve => resolve(this.process(fileUpload)));
+    return this.process(fileUpload);
   },
   process(fileUpload = false) {
     // show up the modal and initialize the UI with tasks
@@ -453,6 +453,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    * @param tasks
    * @param updateFooter Shows a result alert at the end of the modal
    * @param errorMessage
+   * // TODO @valentino this is duplicated in GenerateAPI in catalog. Move to commons
    */
   updateProgressDialog(tasks, updateFooter = false, errorMessage = null) {
     const modalBody = this.progressDialog.getModalBody();
