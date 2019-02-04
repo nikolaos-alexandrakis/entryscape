@@ -1,12 +1,11 @@
 /* Variables */
 $main-colour:#1C4CD1;
 $accent-colour: #FF8D41;
+$light-background:#1c4cd117;
 $secondary-font: 'Montserrat';
 $text-size: 14px;
 $title-size:20px;
-.expanded{
-    display: flex;
-}
+
 /* Mixins */
 @mixin button {
     background-color: transparent;
@@ -78,8 +77,12 @@ $title-size:20px;
             }
 
             .distribution__format {
+                width: 100%;
                 align-items: center;
                 color: $main-colour;
+                .file__format--short{
+                    margin-right: 10px;
+                }
 
                 p {
                     margin-right: 10px;
@@ -88,10 +91,13 @@ $title-size:20px;
         }
         .distribution__expand{
             min-height: 200px;
-            background-color:#e5e3e3;
+            background-color:$light-background;
             padding: 10px;
             display: none;
             flex-direction: column;
+            &.expanded{
+                display: flex;
+            }
             .distribution__format{
                 justify-content: space-between;
                 width: 100%;
@@ -247,12 +253,23 @@ $title-size:20px;
                 padding-bottom: 5px;
                 border: 0;
             }
-        .distribution__format{
+        .distribution__format, .distribution__description{
             .title{
                 border-bottom: 1.5px solid $accent-colour;
                 width: 150px;
+                font-size: $text-size;
+                margin:5px;
             }
-        }
+            .text{
+                margin:5px;
+                color:$main-colour;
+                }
+            }
+            .file__number{
+                font-weight: bold;
+                margin: 5px;
+            }
+
         }
 
         .description {

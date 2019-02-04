@@ -89,7 +89,7 @@ export default() => {
   const expandDistribution = () => {
     setState({isExpanded: !state.isExpanded });
   };
-  
+
   const namespaces = registry.get('namespaces');
 
   return {
@@ -104,10 +104,14 @@ export default() => {
           <div tabindex="0" class="distribution__row flex--sb" onclick={expandDistribution} >
             <div class="distribution__format flex--sb">
               <p class="distribution__title">{title}</p>
-              <p class="file__format">{format}
-                <span class="file__format--long">Common Separated Values</span>
+              <p class="file__format">
+                <span class="file__format--short">{format}</span>
               </p>
+              <div class="flex--sb">
               <p class="distribution__date">Jan 17</p>
+              <span class="icons fa fa-angle-down"></span>
+              </div>
+
             </div>
           </div>
 
@@ -116,11 +120,11 @@ export default() => {
             <div class="metadata--wrapper">
               <div class="distribution__description">
               <h2 class="title">Description</h2>
-                <p> If there is a description it should be here. If not then don't show anything</p>
+                <p class="text"> If there is a description it should be here. If not then don't show anything</p>
               </div>
               <div class="distribution__format">
-                <p>This distribution has<span> 5 </span>files</p>
                 <h2 class="title">Format</h2>
+                <p class="text">This distribution has<span class="file__number">5</span>files</p>
               </div>
             </div>
 
