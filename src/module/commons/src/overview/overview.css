@@ -1,3 +1,11 @@
+.catalogOverview.escoList{
+    height: auto;
+}
+
+.catalogOverview .statBoxList{
+    display: flex;
+    flex-wrap: wrap;
+}
 .catalogOverview .page-header{
     border-bottom: none;
 }
@@ -52,7 +60,7 @@ flex-direction: column;
     display: flex;
 }
 .catalog__status__label {
-    color: #333;
+    color:#1c4cd1;
     font-weight: bolder;
     margin-right: 10px;
 }
