@@ -30,6 +30,8 @@ export default (vnode) => {
     setState({ isHidden: !state.isHidden });
   };
 
+
+
   const toggleImplementation = (onSuccess) => {
     /*
     const f = () => {

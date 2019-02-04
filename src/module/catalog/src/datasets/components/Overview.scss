@@ -4,7 +4,9 @@ $accent-colour: #FF8D41;
 $secondary-font: 'Montserrat';
 $text-size: 14px;
 $title-size:20px;
-
+.expanded{
+    display: flex;
+}
 /* Mixins */
 @mixin button {
     background-color: transparent;
@@ -88,7 +90,7 @@ $title-size:20px;
             min-height: 200px;
             background-color:#e5e3e3;
             padding: 10px;
-            display: flex;
+            display: none;
             flex-direction: column;
             .distribution__format{
                 justify-content: space-between;

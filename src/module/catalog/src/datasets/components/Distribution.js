@@ -7,8 +7,17 @@ import {engine, utils as rdformsUtils} from 'rdforms';
 import {template} from 'lodash-es';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoList from 'commons/nls/escoList.nls';
+import { createSetState } from 'commons/util/util';
+
 
 export default() => {
+ 
+  const state = {
+    isExpanded: false,
+  };
+
+  const setState = createSetState(state);
+
 
   const getTitle = (entry, namespaces) => {
     const escaDatasetLocalized = i18n.getLocalization(escaDataset);
@@ -77,6 +86,10 @@ export default() => {
     return {format, modificationDate, accessURI, downloadURI};
   };
 
+  const expandDistribution = () => {
+    setState({isExpanded: !state.isExpanded });
+  };
+  
   const namespaces = registry.get('namespaces');
 
   return {
@@ -84,10 +97,11 @@ export default() => {
       const {distribution} = vnode.attrs;
       const title = getTitle(distribution, namespaces);
       const {format, modificationDate, accessURI, downloadURI} = getDistributionMetadata(distribution, namespaces);
+      const expandedClass = state.isExpanded ? 'expanded' : '';
 
       return (
         <div>
-          <div tabindex="0" class="distribution__row flex--sb">
+          <div tabindex="0" class="distribution__row flex--sb" onclick={expandDistribution} >
             <div class="distribution__format flex--sb">
               <p class="distribution__title">{title}</p>
               <p class="file__format">{format}
@@ -97,7 +111,7 @@ export default() => {
             </div>
           </div>
 
-          <div class="distribution__expand">
+          <div class={`distribution__expand ${expandedClass}`}>
            <div class="flex--sb"> 
             <div class="metadata--wrapper">
               <div class="distribution__description">
