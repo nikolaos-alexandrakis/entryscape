@@ -8,6 +8,7 @@
     "editDatasetButton": "Save changes",
     "editDatasetTitle": "Edit dataset",
     "removeDatasetTitle": "Remove dataset",
+    "distributionsTitle": "Distributions",
     "createDistributionHeader": "Create distribution",
     "createDistributionButton": "Create distribution",
     "editDistributionHeader": "Edit distribution",

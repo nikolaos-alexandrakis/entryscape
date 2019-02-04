@@ -7,7 +7,7 @@ export default (vnode) => ({
     const hiddenClass = isHidden ? 'hidden' : '';
 
     const metadataTriples = metadata.getGraph().forEach((subject, predicate, object) => {
-      console.log([subject, predicate, object]);
+      // console.log([subject, predicate, object]);
     });
 
     // console.log(metadataTriples);

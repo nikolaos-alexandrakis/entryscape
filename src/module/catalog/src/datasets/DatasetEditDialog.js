@@ -4,12 +4,12 @@ import registry from 'commons/registry';
 import config from 'config';
 
 export default declare([RDFormsEditDialog], {
-  title: 'Edit Dataset',
-  nlsHeaderTitle: 'metadataEditDialogHeader',
-  nlsFooterButtonLabel: 'metadataEditDialogDoneLabel',
+  nlsHeaderTitle: 'metadataEditDialogHeader', // should be editDatasetHeader
+  nlsFooterButtonLabel: 'saveChanges',
 
-  showEntry(entry) {
+  showEntry(entry, updateDataset) {
     this.entry = entry;
+    this.updateDataset = updateDataset;
     this.inherited('showEntry', arguments, [entry, this.getTemplate()]);
   },
   getTemplate() {
@@ -25,8 +25,7 @@ export default declare([RDFormsEditDialog], {
     async.addIgnore('commitMetadata', async.codes.GENERIC_PROBLEM, true);
     return this.entry.commitMetadata()
       .then(
-        // () => this.list.rowMetadataUpdated(this.row),
-        () => console.log('saved'),
+        () => this.updateDataset(),
         (err) => {
           if (err.response.status === 412) {
             return registry.get('dialogs')
