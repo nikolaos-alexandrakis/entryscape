@@ -7,10 +7,10 @@ import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import ImportTerminology from './ImportTerminology';
 import CreateTerminology from './CreateTerminology';
-import template from './CreateTerminologyDialogTemplate.html';
+import templateString from './CreateTerminologyDialogTemplate.html';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin, NLSMixin.Dijit], {
-  templateString: template,
+  templateString,
   maxWidth: 800,
   nlsBundles: [{ esteTerminology }],
   nlsHeaderTitle: 'createTerminology',

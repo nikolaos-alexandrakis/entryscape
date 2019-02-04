@@ -430,6 +430,18 @@
         {
           "extends": "dcterms:description",
           "cardinality": {"pref": 1}
+        },
+        {
+          "extends": "void:uriSpace",
+          "cardinality": {"pref": 1},
+          "styles": [
+            "nonEditable"
+          ],
+          "label": {
+            "en": "Namespace",
+            "sv": "Namespace",
+            "de": "Namespace"
+          }
         }
       ]
     },

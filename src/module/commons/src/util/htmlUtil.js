@@ -12,12 +12,12 @@ const htmlUtil = {
    * @param {string} type
    * @param {object} attributes
    * @param {Node} parent
-   * @param {boolean|Node} before - An optional argument to specify the position of the node.
+   * @param {boolean|Node|string|null} before - An optional argument to specify the position of the node.
    * If true, then insert first and if instance of Node insert before the given node.
    *
    * @returns {Node}
    */
-  create(type, attributes, parent, before) {
+  create(type, attributes, parent, before = null) {
     const newDOMNode = document.createElement(type);
 
     if (attributes) {

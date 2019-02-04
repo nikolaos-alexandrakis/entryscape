@@ -8,15 +8,17 @@ import { bundleLoader, ItemStore, renderingContext, utils } from 'rdforms';
 import initSite from 'spa/init';
 import { EntryStore, EntryStoreUtil } from 'store';
 import superagent from 'superagent';
+// default bundles
 import apBundle from 'templates/dcat-ap/dcat-ap';
 import apPropsBundle from 'templates/dcat-ap/dcat-ap_props';
 import dctermsBundle from 'templates/dcterms/dcterms';
 import escBundle from 'templates/entryscape/esc';
 import foafBundle from 'templates/foaf/foaf';
 import odrsBundle from 'templates/odrs/odrs';
-// default bundles
 import skosBundle from 'templates/skos/skos';
 import vcardBundle from 'templates/vcard/vcard';
+import voidBundle from 'templates/void/void';
+
 import AcknowledgeDialog from './dialog/AcknowledgeDialog';
 import AcknowledgeTextDialog from './dialog/AcknowledgeTextDialog';
 import ConfirmDialog from './dialog/ConfirmDialog';
@@ -28,8 +30,8 @@ import registry from './registry';
 import { getFallbackBundleUrls } from './util/bundleUtil';
 import configUtil from './util/configUtil';
 import { fixEoG } from './util/entryUtil';
-
 import DOMUtil from './util/htmlUtil';
+
 const jsonp = require('superagent-jsonp');
 
 /**
@@ -155,6 +157,7 @@ const init = {
           bundles.push(odrsBundle);
           bundles.push(apPropsBundle);
           bundles.push(apBundle);
+          bundles.push(voidBundle);
           bundles.push(escBundle);
         }
         if (config.itemstore.bundles) {

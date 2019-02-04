@@ -7,6 +7,7 @@ export default () => {
   const ns = registry.get('namespaces');
   ns.add('skos', 'http://www.w3.org/2004/02/skos/core#');
   ns.add('esterms', 'http://entryscape.com/terms/');
+  ns.add('void', 'http://rdfs.org/ns/void#');
 
   const cid2count = {};
 

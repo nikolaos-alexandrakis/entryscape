@@ -71,6 +71,7 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       'dcat-ap_props',
       'dcat-ap',
       'esc',
+      'void',
     ],
     languages: [
       { value: '', label: { en: '' } },

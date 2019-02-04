@@ -1,16 +1,16 @@
-import registry from 'commons/registry';
-import config from 'config';
-import skosUtil from 'commons/tree/skos/util';
-import ETBaseList from 'commons/list/common/ETBaseList';
 import CreateDialog from 'commons/list/common/CreateDialog';
+import ETBaseList from 'commons/list/common/ETBaseList';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
-import ConceptRow from 'commons/tree/skos/ConceptRow';
-import TreeModel from 'commons/tree/TreeModel';
-import { i18n, NLSMixin } from 'esi18n';
 import escoList from 'commons/nls/escoList.nls';
-import esteConcept from 'terms/nls/esteConcept.nls';
+import registry from 'commons/registry';
+import ConceptRow from 'commons/tree/skos/ConceptRow';
+import skosUtil from 'commons/tree/skos/util';
+import TreeModel from 'commons/tree/TreeModel';
+import config from 'config';
 
 import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import esteConcept from 'terms/nls/esteConcept.nls';
 
 let treeModel;
 const ns = registry.get('namespaces');
@@ -27,12 +27,31 @@ const CCreateDialog = declare(CreateDialog, {
     const context = registry.get('context');
     registry.get('entrystoreutil').getEntryByType('skos:ConceptScheme', context)
       .then((csEntry) => {
+        const schemeMetadata = csEntry.getMetadata();
+
+        /**
+         * get the concept resource URI based on the
+         * uriSpace of the conceptScheme if exists
+         */
+        let conceptRURI;
+        let uriSpace = schemeMetadata.findFirstValue(null, 'void:uriSpace');
+        if (uriSpace) {
+          uriSpace = uriSpace.endsWith('/') ? uriSpace : `${uriSpace}/`;
+          const conceptName = '1';
+          conceptRURI = `${uriSpace}${conceptName}`;
+        } else {
+          conceptRURI = this._newEntry.getResourceURI();
+        }
+        this._newEntry.setResourceURI(conceptRURI);
+
+        // create metadata graph for new concept scheme
         const md = skosUtil.addNewConceptStmts({
           md: graph,
-          conceptRURI: this._newEntry.getResourceURI(),
+          conceptRURI,
           schemeRURI: csEntry.getResourceURI(),
           isRoot: true, // created from list
         });
+
         this._newEntry.setMetadata(md).commit().then((newCEntry) => {
           skosUtil.addConceptToScheme(newCEntry).then(() => {
             this.list.addRowForEntry(newCEntry);

@@ -7,9 +7,14 @@
         </div>
         <div class="form-group">
             <label for="${id}-schemeDesc" data-dojo-attach-point="nls">createSchemeDesc</label>
-            <textarea id="${id}-schemeDesc" type="text" class="form-control" data-dojo-attach-point="nls,schemeDesc"
+            <textarea id="${id}-schemeDesc" class="form-control" data-dojo-attach-point="nls,schemeDesc"
                       placeholder="createSchemeDescPlaceholder"></textarea>
         </div>
+        <div class="form-group">
+            <label for="${id}-namespace" data-dojo-attach-point="nls">createSchemeNamespace</label>
+            <input id="${id}-namespace" type="url" class="form-control" data-dojo-attach-point="nls,schemeNamespace"
+                   placeholder="createSchemeNamespacePlaceholder"/>
+        </div>
     </form>
-    <p class="alert alert-info" data-dojo-attach-point="nls">createSchemeNote</p>
+    <p class="alert alert-info" data-dojo-attach-point="nls" style="margin-top: 40px">createSchemeNote</p>
 </div>

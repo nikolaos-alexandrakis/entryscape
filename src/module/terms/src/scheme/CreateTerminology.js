@@ -1,12 +1,13 @@
-import registry from 'commons/registry';
-import { renderingContext } from 'rdforms';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import { NLSMixin } from 'esi18n';
-import esteScheme from 'terms/nls/esteScheme.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import registry from 'commons/registry';
 import { createEntry } from 'commons/util/storeUtil';
+import { isUri } from 'commons/util/util';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import { renderingContext } from 'rdforms';
+import esteScheme from 'terms/nls/esteScheme.nls';
 import template from './CreateTerminologyTemplate.html';
 
 export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.Dijit], {
@@ -18,6 +19,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
   postCreate() {
     this.inherited(arguments);
     this.schemeName.addEventListener('keyup', this.checkValidInfoDelayed.bind(this));
+    this.schemeNamespace.addEventListener('keyup', this.checkValidInfoDelayed.bind(this));
   },
   open() {
     if (this.list.onLimit()) {
@@ -31,11 +33,20 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
     this.delayedCheckTimeout = setTimeout(this.checkValidInfo.bind(this), 300);
   },
   checkValidInfo() {
-    const schemeName = this.schemeName.value;
-    if (schemeName === '') {
+    // check validity of name input
+    const name = this.schemeName.value;
+    if (name === '') {
       this.dialog.lockFooterButton();
       return;
     }
+
+    // check validity of namespace input
+    const namespace = this.schemeNamespace.value;
+    if (namespace !== '' && !isUri(namespace)) {
+      this.dialog.lockFooterButton();
+      return;
+    }
+
     this.dialog.unlockFooterButton();
   },
 
@@ -58,12 +69,14 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
     let hc;
     const name = this.schemeName.value;
     const desc = this.schemeDesc.value;
-    const store = registry.get('entrystore');
+    const namespace = this.schemeNamespace.value;
+
     if (name === '') {
       // TODO remove this nls string as it will never happen (checkValidInfo method above)
       return this.NLSBundle0.insufficientInfoToCreateScheme;
     }
     let context;
+    const store = registry.get('entrystore');
     return store.createGroupAndContext()
       .then((entry) => {
         group = entry;
@@ -79,6 +92,9 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
         md.addL(pe.getResourceURI(), 'dcterms:title', name, l);
         if (desc) {
           md.addL(pe.getResourceURI(), 'dcterms:description', desc, l);
+        }
+        if (namespace) { // void:uriSpace is actually a URL literal
+          md.addL(pe.getResourceURI(), 'void:uriSpace', namespace);
         }
         return pe.commit();
       })
