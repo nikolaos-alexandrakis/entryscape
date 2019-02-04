@@ -139,8 +139,9 @@ export default (vnode) => {
               <p class="description">{ description }</p>
             </div>
 
-            <div>
+            <div class="btn__wrapper">
               <button class="btn--action btn--edit" onclick={openEditDialog}>Edit</button>
+              <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
               <div class="flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
@@ -166,7 +167,6 @@ export default (vnode) => {
           </div>
 
           <div class="metadata--wrapper">
-            <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
             <MoreMetadata isHidden={state.isHidden} metadata={entryInfo}></MoreMetadata>
           </div>
 

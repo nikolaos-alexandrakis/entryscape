@@ -20,7 +20,10 @@ $title-size:20px;
         display: flex;
         justify-content: space-between;
     }
-
+    .btn__wrapper{
+        display: flex;
+        flex-direction: column;
+    }
     .intro--wrapper {
         display: flex;
         flex-direction: column;
@@ -31,7 +34,7 @@ $title-size:20px;
 
     .metadata--basic,
     .metadata--more {
-        column-count: 2;
+  /*       column-count: 2; */
         margin-bottom: 15px;
         color: $main-colour;
         max-width: 60%;
@@ -67,7 +70,9 @@ $title-size:20px;
             box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
 
             &:focus {
-                border: 2px solid $main-colour;
+                border-bottom: 2px solid $main-colour;
+                box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
+
             }
 
             .distribution__format {
@@ -76,6 +81,21 @@ $title-size:20px;
 
                 p {
                     margin-right: 10px;
+                }
+            }
+        }
+        .distribution__expand{
+            min-height: 200px;
+            background-color:#e5e3e3;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            .menu--wrapper{
+                display: flex;
+                flex-direction: column;
+                .icon--wrapper{
+                    display: flex;
+                    flex-direction: column;
                 }
             }
         }
@@ -110,6 +130,7 @@ $title-size:20px;
         justify-content: flex-end;
         flex-wrap: wrap;
         max-width: 30%;
+        max-height: 300px;
     }
 
 }
@@ -134,7 +155,22 @@ $title-size:20px;
   background-color:$main-colour;
     }
 }
-
+.btn--distribution{
+    @include button;
+    width: 100px;
+    color:white;
+    background-color: $main-colour;
+    padding:5px;
+    margin:5px;
+    border-radius: 2px;
+    font-size: $text-size;
+    &:before{
+        margin-right: 5px;
+    }
+    span{
+        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    }
+}
 .btn--circle {
     border-radius: 50%;
     width: 20px;
@@ -145,6 +181,7 @@ $title-size:20px;
     line-height: 0;
     font-size: 20px;
     margin-bottom: 5px;
+
 
     &:focus {
         border: solid 1px $main-colour;
@@ -180,6 +217,7 @@ $title-size:20px;
             }
         }
     }
+   
 }
 
 
@@ -188,6 +226,7 @@ $title-size:20px;
     .overview__wrapper {
         .title {
             font-size: $title-size;
+            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
             font-weight: 300;
             margin-top: 0;
             color: $main-colour;

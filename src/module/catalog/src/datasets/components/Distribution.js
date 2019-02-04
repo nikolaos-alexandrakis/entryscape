@@ -92,18 +92,42 @@ export default () => {
       } = getDistributionMetadata(distribution, namespaces);
 
       return (
+      <div>
         <div tabindex="0" class="distribution__row flex--sb">
           <div class="distribution__format flex--sb">
             <p class="distribution__title">{ title }</p>
-            <p class="file__format">{ format } <span class="file__format--long">Comma Separated Values</span></p>
+            <p class="file__format">{ format } <span class="file__format--long">Common Separated Values</span></p>
+            <p class="distribution__date">Jan 17</p>
           </div>
-          <div class="icon--wrapper">
-            <p class="distribution__date">{ getFormattedDates(modificationDate).short }</p>
-            { accessURI && <a href={ accessURI }><button class="icons fa fa-external-link"></button></a> }
-            { downloadURI && <a href={ downloadURI }><button class="icons fa fa-download"></button></a> }
-            <button class="icons fa fa-cog"></button>
+          
+        </div>
+        <div class="distribution__expand">
+          <div class="menu--wrapper">
+              <div class=" icon--wrapper distribution--file">
+              <a><button class=" btn--distribution fa fa-fw fa-pencil"><span>Edit</span></button></a>
+              { downloadURI && <a href={downloadURI}><button class=" btn--distribution fa fa-fw fa-download"><span>Download</span></button></a> }
+              <a><button class=" btn--distribution fa fa-fw fa-link"><span>Activate API</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-info-circle"><span>API information</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-retweet"><span>Refresh API</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-exchange"><span>Replace file</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-file"><span>Add file</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-bookmark"><span>Revisions</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-remove"><span>Remove distribution</span></button></a>
+              </div>
+
+              <div class="icon--wrapper distribution--link">
+              <a><button class=" btn--distribution fa fa-fw fa-pencil"><span>Edit</span></button></a>
+              { accessURI && <a href={accessURI}><button class="btn--distribution fa fa-fw fa-info-circle"><span>Web adress of access point</span></button></a> }
+              <a><button class=" btn--distribution fa fa-fw fa-download"><span>Download</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-bookmark"><span>Revisions</span></button></a>
+              <a><button class=" btn--distribution fa fa-fw fa-remove"><span>Remove distribution</span></button></a>
+              </div>
+          </div>
+          <div>
+            
           </div>
         </div>
+      </div>
       );
     },
   };
