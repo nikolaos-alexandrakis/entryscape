@@ -1,21 +1,21 @@
-import registry from 'commons/registry';
-import htmlUtil from 'commons/util/htmlUtil';
-import EntryType from 'commons/create/EntryType';
-import m from 'mithril';
-import config from 'config';
-import { promiseUtil } from 'store';
-import { converters, Graph, utils } from 'rdfjson';
-import ProgressDialog from 'commons/progresstask/ProgressDialog';
-import TaskProgress from 'commons/progresstask/components/TaskProgress';
-import Row from 'commons/components/common/grid/Row';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
-import { i18n, NLSMixin } from 'esi18n';
-import esteImport from 'terms/nls/esteImport.nls';
-import { template as renderTemplate } from 'lodash-es';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import Row from 'commons/components/common/grid/Row';
+import EntryType from 'commons/create/EntryType';
+import TaskProgress from 'commons/progresstask/components/TaskProgress';
+import ProgressDialog from 'commons/progresstask/ProgressDialog';
+import registry from 'commons/registry';
+import htmlUtil from 'commons/util/htmlUtil';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { i18n, NLSMixin } from 'esi18n';
+import { template as renderTemplate } from 'lodash-es';
+import m from 'mithril';
+import { converters, Graph, utils } from 'rdfjson';
+import { promiseUtil } from 'store';
+import esteImport from 'terms/nls/esteImport.nls';
 import template from './ImportTerminologyTemplate.html';
 
 const createContext = (paramsArg) => {
@@ -321,14 +321,28 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         const keys = Object.keys(err);
         if (keys.indexOf('status') !== -1) {
           const store = registry.get('entrystore');
-          return store.getStatus().then((res) => {
+
+          /**
+           * Max entity size reached so update the error task and throw error
+           * // TODO @valentino hard-coded value, explained below
+           * @param [echoMaxEntitySize=10485760] 10MB
+           * @throws
+           */
+          const showMaxFileError = ({ echoMaxEntitySize = 10485760 }) => {
             const b = this.NLSBundles.esteImport;
-            err.message = renderTemplate(b.fileTooBigToUpload)({
-              size: res.echoMaxEntitySize,
+            const message = renderTemplate(b.fileTooBigToUpload)({
+              size: echoMaxEntitySize,
             });
             this.errorTask = 'upload';
-            throw Error(err.message);
-          });
+            throw Error(message);
+          };
+
+          return store.getStatus()
+            .then(showMaxFileError)
+            // TODO @valentino this is a temporary fix. Remove in the next available opportunity
+            // Essentially this hard-codes the 'echoMaxEntitySize' which can be read only by admins with current
+            // EntryStore API implementation
+            .catch(showMaxFileError);
         }
         this.errorTask = 'upload';
         throw Error(err.message);
@@ -510,7 +524,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       dialog.hide();
       return res.then(null, (err) => {
         if (err instanceof Error) {
-          this.showErrorMessage(res, this.errorTask);
+          this.showErrorMessage(err.message, this.errorTask);
           throw res;
         } else if (typeof err === 'object' && err.message) {
           this.showErrorMessage(err.message, this.errorTask);
