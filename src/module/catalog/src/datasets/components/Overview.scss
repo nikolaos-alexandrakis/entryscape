@@ -20,6 +20,7 @@ $title-size:20px;
     .flex--sb {
         display: flex;
         justify-content: space-between;
+        align-content: center;
     }
     .btn__wrapper{
         display: flex;
@@ -159,6 +160,7 @@ $title-size:20px;
     text-transform: uppercase;
     width: 200px;
     padding: 5px;
+    margin-bottom:15px;
 
     &:focus {
         border: solid 3px $main-colour;
@@ -212,14 +214,11 @@ $title-size:20px;
     }
 }
 
-.btn--edit {
-    margin-bottom: 15px;
-}
-
 .overview__wrapper {
     .distribution__row {
         .icons {
             font-size: 18px;
+            align-self: center;
             &:focus{
                 color:$accent-colour;
             }
@@ -279,6 +278,11 @@ $title-size:20px;
             word-break: break-word;
         }
 
+        .icon--wrapper{
+            p {
+                color: $main-colour;
+            }
+        }
         .icons {
             @include button;
             font-size: 24px;
@@ -286,9 +290,6 @@ $title-size:20px;
             margin-right: 10px;
             width: 24px;
 
-            p {
-                color: $main-colour;
-            }
         }
 
         p {
@@ -302,6 +303,7 @@ $title-size:20px;
             color:$main-colour;
             font-size: $text-size;
             margin-right: 10px;
+            align-self: center;
         }
         .distribution__title{
             font-weight: bold;

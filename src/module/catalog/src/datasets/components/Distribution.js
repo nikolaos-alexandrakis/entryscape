@@ -8,6 +8,8 @@ import {template} from 'lodash-es';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoList from 'commons/nls/escoList.nls';
 import {createSetState} from 'commons/util/util';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+
 
 export default() => {
 
@@ -97,9 +99,8 @@ export default() => {
       const {distribution} = vnode.attrs;
       const title = getTitle(distribution, namespaces);
       const {format, modificationDate, accessURI, downloadURI} = getDistributionMetadata(distribution, namespaces);
-      const expandedClass = state.isExpanded
-        ? 'expanded'
-        : '';
+      const expandedClass = state.isExpanded? 'expanded' : '';
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
       return (
         
@@ -121,12 +122,12 @@ export default() => {
             <div class="flex--sb">
               <div class="metadata--wrapper">
                 <div class="distribution__description">
-                  <h2 class="title">Description</h2>
+                  <h2 class="title">{escaDataset.distributionDescriptionTitle}</h2>
                   <p class="text">
                     If there is a description it should be here. If not then don't show anything</p>
                 </div>
                 <div class="distribution__format">
-                  <h2 class="title">Format</h2>
+                  <h2 class="title">{escaDataset.distributionFormatTitle}</h2>
                   <p class="text">This distribution has<span class="file__number">5</span>files</p>
                 </div>
               </div>
@@ -135,26 +136,18 @@ export default() => {
                 <div class=" icon--wrapper distribution--file">
                   <a>
                     <button class=" btn--distribution">
-                      <span>Edit</span>
+                      <span>{escaDataset.editDistributionTitle}</span>
                     </button>
                   </a>
                   <a>
                     <button class=" btn--distribution fa fa-fw fa-remove">
-                      <span>Remove</span>
+                      <span>{escaDataset.removeDistributionTitle}</span>
                     </button>
                   </a>
                 </div>
               </div>
             </div>
-            <div tabindex="0" class="distribution__row flex--sb">
-              <div class="distribution__format flex--sb">
-                <p class="distribution__title">{title}</p>
-                <div class="flex--sb">
-                  <p class="distribution__date">Jan 17</p>
-                  <span class="icons fa fa-cog"></span>
-                </div>
-              </div>
-            </div>
+              
           </div>
         </div>
       );
