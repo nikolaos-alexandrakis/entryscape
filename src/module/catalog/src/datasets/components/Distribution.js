@@ -299,7 +299,7 @@ export default() => {
 
   return {
     view: (vnode) => {
-      const {distribution} = vnode.attrs;
+      const {distribution, fileEntryURIs} = vnode.attrs;
       const title = getTitle(distribution, namespaces);
       const {
         format,

@@ -43,6 +43,7 @@ export default (vnode) => {
         if (format !== '' && format != null) {
           uri2Format[distributionEntry.getResourceURI()] = format;
         }
+        console.log(distributionEntry.getMetadata());
         return distributionEntry;
       }, () => null,
         // brokenReferences.style.display = '';
@@ -74,7 +75,9 @@ export default (vnode) => {
             <button class="btn--circle btn--action btn--add" onclick={openCreateDialog} alt={escaDataset.addDistributionTitle}>+</button>
           </div>
           { distributions.map(distribution => (
-            <Distribution distribution={distribution}></Distribution>
+            <Distribution 
+              distribution={distribution}
+            />
           )) }
         </div>
       );
