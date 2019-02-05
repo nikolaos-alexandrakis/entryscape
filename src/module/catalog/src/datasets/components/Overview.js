@@ -147,14 +147,14 @@ export default (vnode) => {
               <div class="flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
-                  <p class="published">Published</p>
+                  <p class="published">{escaDataset.publicDatasetTitle}</p>
                 </div>
                 <Toggle isPublish={state.isPublish} onToggle={togglePublish}></Toggle>
               </div>
               <div class="internalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
-                  <p class="unpublished">Unpublished</p>
+                  <p class="unpublished">{escaDataset.privateDatasetTitle}</p>
                 </div>
                 <button class={`fa fa-toggle-on fa-lg  btn--publish ${internalPublishClass}`} onclick={toggleInternalPublish}></button>
               </div>
