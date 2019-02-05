@@ -143,7 +143,7 @@ export default (vnode) => {
 
             <div class="btn__wrapper">
               <button class="btn--action btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</button>
-              <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
+              <button class="btn--action btn--show" onclick={toggleMetadata}>{escaDataset.showMetadataTitle}</button>
               <div class="flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
