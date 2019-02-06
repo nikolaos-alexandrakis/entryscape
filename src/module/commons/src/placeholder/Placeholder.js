@@ -31,7 +31,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       this.setImageClass(this.missingImageClass);
     }
     if (this.includeCreateButton) {
-      this.__placeholderButton.style.display = 'block';
+      this.__placeholderButton.style.display = 'flex';
     }
     if (this.NLSBundle0) {
       this.localeChange();
