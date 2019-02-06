@@ -124,6 +124,20 @@ export default declare([], {
    * Runs the activate/refresh API pipeline
    */
   async generateAPI() {
+    const asyncHandler = registry.get('asynchandler');
+    const addHandlers = handlers => handlers.forEach(handler => asyncHandler.addIgnore(handler, true, false));
+    const removeHandlers = handlers => handlers.forEach(handler => asyncHandler.removeHandler(handler));
+    const handlersToIgnore = [
+      'execute',
+      'loadViaProxy',
+      'getEntry',
+      'refresh',
+      'commitCachedExternalMetadata',
+      'commitGraph',
+    ];
+
+    addHandlers(handlersToIgnore);
+
     if (this.mode === 'refresh') {
       this.refreshAPI();
     } else {
@@ -133,7 +147,8 @@ export default declare([], {
       const isCatalogPublic = contextEntry.isPublic();
 
       if (isCatalogPublic && isDatasetPublic) {
-        this.activateAPI(); // note, we don't await for the activateAPI to finish as it would block the rendering of the progress dialog
+        this.activateAPI()
+          .then(() => removeHandlers(handlersToIgnore)); // note, we don't await for the activateAPI to finish as it would block the rendering of the progress dialog
       } else {
         /**
          * Inform the user that either or both parent dataset and catalog are not public. Activating the api will
@@ -147,7 +162,8 @@ export default declare([], {
         });
         await registry.get('dialogs').confirm(message, null, null, (confirm) => {
           if (confirm) {
-            this.activateAPI();
+            this.activateAPI()
+              .then(() => removeHandlers(handlersToIgnore)); // note, we don't await for the activateAPI to finish as it would block the rendering of the progress dialog
           }
         });
       }
@@ -230,7 +246,6 @@ export default declare([], {
    * @private
    */
   _processFiles(fileResourceURIs, pipelineResource) {
-    registry.get('asynchandler').addIgnore('execute', true, true);
     return promiseUtil.forEach(fileResourceURIs, fileResourceURI =>
       registry.get('entrystoreutil').getEntryByResourceURI(fileResourceURI)
         .then(fileEntry => pipelineResource.execute(fileEntry, {}))
@@ -278,8 +293,6 @@ export default declare([], {
    * @returns {Promise<void>}
    */
   async activateAPI() {
-    const async = registry.get('asynchandler');
-    async.addIgnore('execute', true, true);
     let tempFileURIs = clone(this.fileURIs);
 
     try {
@@ -364,9 +377,6 @@ export default declare([], {
     const esu = registry.get('entrystoreutil');
     let tempFileURIs = clone(this.fileURIs);
 
-    // Ignore spinner for this async task
-    const async = registry.get('asynchandler');
-    async.addIgnore('execute', true, true);
     try {
       // TODO explain
       const pipelineResource = await pipelineUtil.getPipelineResource();
