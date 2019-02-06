@@ -1,5 +1,5 @@
 {
   "manageFilesHeader": "Administrer filer",
   "manageFilesFooterButton": "Gennemført",
-  "reActivateAPI": "En API er allerede aktiveret, ønsker du at genindlæse den?"
+  "refreshAPI": "En API er allerede aktiveret, ønsker du at genindlæse den?"
 }

@@ -1,11 +1,11 @@
-import registry from 'commons/registry';
-import ReplaceDialog from 'workbench/bench/ReplaceDialog';
-import escaFiles from 'catalog/nls/escaFiles.nls';
 import escaApiProgress from 'catalog/nls/escaApiProgress.nls';
+import escaFiles from 'catalog/nls/escaFiles.nls';
 import escaManageFiles from 'catalog/nls/escaManageFiles.nls';
-import eswoReplaceDialog from 'workbench/nls/eswoReplaceDialog.nls';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import stamp from 'dojo/date/stamp'; // todo
+import ReplaceDialog from 'workbench/bench/ReplaceDialog';
+import eswoReplaceDialog from 'workbench/nls/eswoReplaceDialog.nls';
 import GenerateAPI from './GenerateAPI';
 
 export default declare([ReplaceDialog], {
@@ -55,22 +55,24 @@ export default declare([ReplaceDialog], {
             this.distributionRow.renderMetadata();
             if (this.isFileDistributionWithAPI()) {
               const dialogs = registry.get('dialogs');
-              const confirmMessage = this.NLSBundle1.reActivateAPI;
+              const confirmMessage = this.NLSBundle1.refreshAPI;
               return dialogs.confirm(confirmMessage, null, null, (confirm) => {
                 if (!confirm) {
                   this.dialog.hide();
                   return;
                 }
                 // this.apiProgressDialog.open({});
-                this._getApiDistributionEntry().then((apiDistrEntry) => {
+                this._getApiDistributionEntry().then((apiDistEntry) => {
                   const generateAPI = new GenerateAPI();
-                  generateAPI.show({
-                    apiDistrEntry,
-                    distributionEntry: this.distributionEntry,
-                    datasetEntry: this.datasetEntry,
-                    mode: 'edit',
-                    escaApiProgress: this.NLSBundles.escaApiProgress,
-                    escaFiles: this.NLSBundles.escaFiles,
+                  generateAPI.execute({
+                    params: {
+                      apiDistEntry,
+                      distributionEntry: this.distributionEntry,
+                      datasetEntry: this.datasetEntry,
+                      mode: 'refresh',
+                      escaApiProgress: this.NLSBundles.escaApiProgress,
+                      escaFiles: this.NLSBundles.escaFiles,
+                    },
                   });
                 });
               });

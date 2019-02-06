@@ -15,3 +15,10 @@ export const createEntry = (context, scope) => {
   }
   return c.newNamedEntry();
 };
+
+export const createRowstorePipeline = (context) => {
+  const pipelinePrototypeEntry = context.newPipeline('rowstorePipeline');
+  const pipelineResource = pipelinePrototypeEntry.getResource();
+  pipelineResource.addTransform(pipelineResource.transformTypes.ROWSTORE, {});
+  return pipelinePrototypeEntry.commit();
+};

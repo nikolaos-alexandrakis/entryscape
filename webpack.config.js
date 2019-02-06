@@ -80,7 +80,7 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|store|)\/).*/,
+          exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -165,6 +165,7 @@ module.exports = (env, argv) => {
         registry: getAlias('registry', 'app'),
         blocks: getAlias('blocks', 'app'),
         spa: getAlias('spa', 'lib'),
+        store: path.resolve(path.join(__dirname, 'node_modules', 'entrystore-js')),
         templates: path.resolve(path.join(__dirname, 'src', 'templates')),
         config: path.join(APP_PATH, 'src', 'config', 'config'),
         theme: path.join(APP_PATH, 'theme'),
@@ -188,6 +189,9 @@ module.exports = (env, argv) => {
           historyApiFallback: APP === 'blocks' ? false : true,
           headers: {
             'Access-Control-Allow-Origin': '*',
+          },
+          watchOptions: {
+            ignored: /node_modules/,
           },
         },
         plugins: [

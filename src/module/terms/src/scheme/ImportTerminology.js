@@ -323,12 +323,28 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         const keys = Object.keys(err);
         if (keys.indexOf('status') !== -1) {
           const store = registry.get('entrystore');
-          return store.getStatus().then((res) => {
+
+          /**
+           * Max entity size reached so update the error task and throw error
+           * // TODO @valentino hard-coded value, explained below
+           * @param [echoMaxEntitySize=10485760] 10MB
+           * @throws
+           */
+          const showMaxFileError = ({ echoMaxEntitySize = 10485760 }) => {
             const b = this.NLSBundles.esteImport;
-            err.message = renderTemplate(b.fileTooBigToUpload)({ size: res.echoMaxEntitySize });
+            const message = renderTemplate(b.fileTooBigToUpload)({
+              size: echoMaxEntitySize,
+            });
             this.errorTask = 'upload';
-            throw Error(err.message);
-          });
+            throw Error(message);
+          };
+
+          return store.getStatus()
+            .then(showMaxFileError)
+            // TODO @valentino this is a temporary fix. Remove in the next available opportunity
+            // Essentially this hard-codes the 'echoMaxEntitySize' which can be read only by admins with current
+            // EntryStore API implementation
+            .catch(showMaxFileError);
         }
         this.errorTask = 'upload';
         throw Error(err.message);

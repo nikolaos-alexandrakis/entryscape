@@ -1,22 +1,22 @@
-import registry from 'commons/registry';
-import htmlUtil from 'commons/util/htmlUtil';
-import DropdownMenu from 'commons/menu/DropdownMenu';
-import dateUtil from 'commons/util/dateUtil';
-import { utils } from 'store';
-import { engine, utils as rdformsUtils } from 'rdforms';
-import config from 'config';
-import { NLSMixin } from 'esi18n';
-import escaDataset from 'catalog/nls/escaDataset.nls';
-import escoList from 'commons/nls/escoList.nls';
-import escaFiles from 'catalog/nls/escaFiles.nls';
-import { template } from 'lodash-es';
-import jquery from 'jquery';
 import escaApiProgress from 'catalog/nls/escaApiProgress.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import escaDataset from 'catalog/nls/escaDataset.nls';
+import escaFiles from 'catalog/nls/escaFiles.nls';
+import DropdownMenu from 'commons/menu/DropdownMenu';
+import escoList from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
+import dateUtil from 'commons/util/dateUtil';
+import htmlUtil from 'commons/util/htmlUtil';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import templateString from './DistributionRowTemplate.html';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import jquery from 'jquery';
+import { template } from 'lodash-es';
+import { engine, utils as rdformsUtils } from 'rdforms';
+import { utils } from 'store';
 import ApiInfoDialog from './ApiInfoDialog';
+import templateString from './DistributionRowTemplate.html';
 import GenerateAPI from './GenerateAPI';
 
 const ns = registry.get('namespaces');
@@ -192,7 +192,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         icon: 'retweet',
         nlsKey: 'reGenerateAPI',
         nlsKeyTitle: 'reGenerateAPITitle',
-        method: this.reGenerateAPI.bind(this, this.entry),
+        method: this.refreshAPI.bind(this, this.entry),
       });
     } else {
       if (!this.isAccessURLEmpty()) {
@@ -409,20 +409,22 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       this.apiInfoDialog.open({ etlEntry, apiDistributionEntry: this.entry });
     });
   },
-  reGenerateAPI(entry) {
+  refreshAPI(entry) {
     const esUtil = registry.get('entrystoreutil');
     const distResURI = this.entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcterms:source'));
     return esUtil.getEntryByResourceURI(distResURI).then((distributionEntry) => {
       const generateAPI = new GenerateAPI();
-      generateAPI.show({
-        apiDistrEntry: this.entry,
-        distributionEntry,
-        datasetEntry: this.datasetRow.entry,
-        mode: 'edit',
-        distributionRow: this,
-        datasetRow: this.datasetRow,
-        escaApiProgress: this.NLSBundles.escaApiProgress,
-        escaFiles: this.NLSBundles.escaFiles,
+      generateAPI.execute({
+        params: {
+          apiDistEntry: this.entry,
+          distributionEntry,
+          datasetEntry: this.datasetRow.entry,
+          mode: 'refresh',
+          distributionRow: this,
+          datasetRow: this.datasetRow,
+          escaApiProgress: this.NLSBundles.escaApiProgress,
+          escaFiles: this.NLSBundles.escaFiles,
+        },
       });
     });
   },
@@ -491,14 +493,16 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   activateAPI() {
     const generateAPI = new GenerateAPI();
-    generateAPI.show({
-      distributionEntry: this.entry,
-      datasetEntry: this.datasetRow.entry,
-      mode: 'new',
-      distributionRow: this,
-      datasetRow: this.datasetRow,
-      escaApiProgress: this.NLSBundles.escaApiProgress,
-      escaFiles: this.NLSBundles.escaFiles,
+    generateAPI.execute({
+      params: {
+        distributionEntry: this.entry,
+        datasetEntry: this.datasetRow.entry,
+        mode: 'new',
+        distributionRow: this,
+        datasetRow: this.datasetRow,
+        escaApiProgress: this.NLSBundles.escaApiProgress,
+        escaFiles: this.NLSBundles.escaFiles,
+      },
     });
   },
   createDistributionForAPI(pipelineResultEntryURI) {
