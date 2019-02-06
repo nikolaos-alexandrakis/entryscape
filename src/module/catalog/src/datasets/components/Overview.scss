@@ -178,6 +178,7 @@ $title-size:20px;
     margin:5px;
     border-radius: 2px;
     font-size: $text-size;
+    min-height: 30px;
     &:before{
         margin-right: 5px;
     }
@@ -212,6 +213,10 @@ $title-size:20px;
     &.fa-rotate-180 {
         color: #d9534f;
     }
+}
+
+.externalPublish{
+    margin-bottom:10px;
 }
 
 .overview__wrapper {
