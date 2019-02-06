@@ -117,6 +117,9 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
     this.params = params;
     this.setStatus();
     this.updateExternalSignInOption();
+    PubSub.subscribeOnce('spa.afterViewChange', () => {
+      this.username.focus();
+    });
   },
   postCreate() {
     this.inherited('postCreate', arguments);
