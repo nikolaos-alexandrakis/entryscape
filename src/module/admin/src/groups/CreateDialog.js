@@ -64,11 +64,20 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
         });
     }
   },
+  /**
+   * Clears and resets the form
+   *
+   * @returns {undefined}
+   */
+  clearFields() {
+    this.groupnameInput.value = '';
+    this.fullnameInput.value = '';
+    this.dialog.lockFooterButton();
+  },
+
   open() {
     this.list.getView().clearSearch();
-    this.groupnameInput.setAttribute('value', '');
-    this.fullnameInput.setAttribute('value', '');
-    this.dialog.lockFooterButton();
+    this.clearFields();
     this.dialog.show();
   },
 
@@ -149,6 +158,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     }).then(() => {
       // Everything worked!
       this.list.getView().addRowForEntry(groupEntry);
+      this.clearFields();
     }, (err) => {
       // Something did not work, try to clean up.
       if (groupEntry != null) {

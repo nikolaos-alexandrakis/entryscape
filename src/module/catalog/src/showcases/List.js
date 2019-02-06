@@ -64,6 +64,7 @@ export default declare([ETBaseList], {
   rowClickDialog: 'edit',
 
   postCreate() {
+    this.includeSizeByDefault = config.get('catalog.includeListSizeByDefault', false);
     this.inherited('postCreate', arguments);
   },
 

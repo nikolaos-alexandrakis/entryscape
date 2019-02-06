@@ -58,7 +58,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   update(e) {
     const mdUri = this.entry.getEntryInfo().getMetadataURI();
     const format = this.format !== '' ? `&format=${this.format}` : '';
-    this.exportUrl.setAttribute('value', `${mdUri}?recursive=${this.profile}${format}`);
+    this.exportUrl.value = `${mdUri}?recursive=${this.profile}${format}`;
     if (e) {
       this.updateUI(e);
     }

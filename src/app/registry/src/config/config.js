@@ -24,6 +24,14 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
   theme: {
     appName: 'Registry',
     showModuleNameInHeader: true,
+    localTheme: false,
+    localAssets: false,
+    default: {
+      appName: 'Registry',
+      logo: LOGO_SVG_URL,
+      themePath: ASSETS_URL,
+      assetsPath: ASSETS_URL,
+    },
     startBanner: {
       header: {
         en: 'EntryScape Registry',
@@ -36,18 +44,10 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
         de: 'Hier finden Sie die Werkzeuge für Behörden, die Daten der öffentlichen Verwaltung zur Weiterverwendung durch Dritte bereitstellen wollen.',
       },
       icon: '',
-      localTheme: false,
-      localAssets: false,
-      default: {
-        appName: 'Registry',
-        logo: LOGO_SVG_URL,
-        themePath: ASSETS_URL,
-        assetsPath: ASSETS_URL,
-      },
       details: {
         buttonLabel: { en: 'Get started', sv: 'Kom igång', de: 'Anfangen' },
         header: { en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte Anleitung' },
-        path: '',
+        path: '/theme/assets/gettingstarted',
       },
     },
   },

@@ -1,5 +1,5 @@
 {
   "manageFilesHeader": "Hantera filer",
   "manageFilesFooterButton": "Klart",
-  "reActivateAPI": "Ett API är redan aktiverat, vill du uppdatera det?"
+  "refreshAPI": "Ett API är redan aktiverat, vill du uppdatera det?"
 }

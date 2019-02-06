@@ -33,11 +33,13 @@ export default declare([BaseList, PublicView], {
   updateLocaleStrings() {
     this.inherited(arguments);
     const b = this.NLSBundles.esreStatus;
-    this.getView().setTableHead(`${"<tr class='psirow'>" +
-      "<th class='vmiddle entryName'>"}${b.otherOrgLabel}</th>` +
-      `<th class='vmiddle dcatAP'>${b.dcatAPLabel}</th>` +
-      `<th class='vmiddle harvestDate'>${b.checkedLabel}</th>` +
-      '</tr>');
+    this.getView().setTableHead(`<div class='psirow'>
+      <div class='vmiddle entryName'>${b.otherOrgLabel}</div> 
+      <div class='flex-wrapper'>
+      <div class='vmiddle dcatAP'>${b.dcatAPLabel}</div>
+      <div class='vmiddle harvestDate'>${b.checkedLabel}</div> 
+      </div>
+      </div>`);
   },
 
   showStopSign() {

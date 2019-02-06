@@ -178,6 +178,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
     }
     if (config.theme && config.theme.footer && config.theme.footer.buttons) {
       const localize = registry.get('localize');
+      this.footerButtons.innerHTML = '';
       config.theme.footer.buttons.forEach((fButton) => {
         const label = localize(fButton.label);
         const title = localize(fButton.title);
@@ -185,7 +186,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
           type: 'button',
           href: fButton.link,
         }, this.footerButtons);
-        a.classList.add('bottom_footer_button btn btn-raised btn-link btn-sm');
+        DOMUtil.addClass(a, 'bottom_footer_button btn btn-raised btn-link btn-sm');
 
         if (fButton.faIcon) {
           DOMUtil.create('span', null, a).classList.add(`fa fa-${fButton.faIcon}`);
@@ -280,7 +281,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
       this.destroyComponent(this.menuListNode);
       this.showNode(this.privacyMenu);
     } else {
-      this.mountComponent(this.menu, this.menuListNode);
+      const userEntry = registry.get('userEntry');
+      if (userEntry && userEntry.getId() !== '_guest') {
+        this.mountComponent(this.menu, this.menuListNode);
+      }
       this.hideNode(this.privacyMenu);
     }
 

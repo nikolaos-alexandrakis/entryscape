@@ -67,7 +67,7 @@ export default (node, data) => {
     const existingValue = input.value;
 
     if (newValue !== existingValue) {
-      input.setAttribute('value', newValue);
+      input.value = newValue;
     }
     lock = false;
   }, true);

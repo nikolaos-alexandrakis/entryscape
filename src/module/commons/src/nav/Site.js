@@ -1,6 +1,6 @@
 import registry from 'commons/registry';
-import SiteClass from 'spa/Site';
 import ConfigError from 'spa/ConfigError';
+import SiteClass from 'spa/Site';
 
 //= ==================================================
 // CONFIG VALIDATION FUNCTIONS
@@ -21,23 +21,15 @@ const moduleValidationFuncs = [
 ];
 
 /**
- * A wrapper around main spa/Site that checks if a requested view can be shown.
+ * A wrapper around main spa/Site that is aware of modules (apart from views) and
+ * checks if a requested view can be shown.
  */
 class Site extends SiteClass {
   constructor() {
     super(arguments);
     this.modules = new Map();
 
-    const reRegisterViews = (user) => {
-      if (user.entryId === '_guest') {
-        this.modules = new Map();
-      } else {
-        this.registerViews();
-      }
-    };
-
-    registry.onChange('hasAdminRights', reRegisterViews);
-    registry.onChange('userEntryInfo', reRegisterViews);
+    registry.onChange('userEntry', this.registerViews.bind(this));
   }
 
   registerViews() {
@@ -115,6 +107,7 @@ class Site extends SiteClass {
       }
     });
 
+    this.modules = new Map();
     activeModules.forEach(module => this.modules.set(module.name, module), this);
   }
 

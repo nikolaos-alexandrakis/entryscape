@@ -1,4 +1,4 @@
-import chartist from 'chartist';
+import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 import registry from 'commons/registry';
 import PublicView from 'commons/view/PublicView';
@@ -78,23 +78,25 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
       return { x: idx, y: parseInt(psiAmount, 10) + parseInt(otherAmount, 10) };
     });
 
-    chartist.Line('.vis1', {
+    Chartist.Line('.vis1', {
       series: [{
         name: 'ticks',
         data,
       }],
     }, {
-      chartPadding: { top: 20, right: 20 },
+      chartPadding: { top: 20, right: 25, left: 50 },
       axisY: {
-        type: chartist.AutoScaleAxis, scaleMinSpace: 20, onlyInteger: true,
+        type: Chartist.AutoScaleAxis, scaleMinSpace: 20, onlyInteger: true,
       },
       axisX: {
-        type: chartist.AutoScaleAxis,
-        scaleMinSpace: 100,
+        type: Chartist.AutoScaleAxis,
+        scaleMinSpace: 150,
         onlyInteger: true,
         labelInterpolationFnc(value) {
-          return i18n.getDate(new Date(new Date().getTime() - ((arr.length - value) * 24 * 60 * 60 * 1000)).getTime())
-            .format('DD');
+          return i18n.getDate(
+            new Date(new Date().getTime() - ((arr.length - value) * 24 * 60 * 60 * 1000)).getTime(),
+            { datePattern: 'DD' },
+          );
         },
       },
       // low: 0,
@@ -162,7 +164,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
         labelOffset: 20,
         donutWidth: 20,
       }]];
-    chartist.Pie('.vis2', data, options, responsiveOptions);
+    Chartist.Pie('.vis2', data, options, responsiveOptions);
   },
   renderOrganisations(organizations) {
     if (organizations.length < 3) {
@@ -203,7 +205,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
           orgs.map(o => (o.d.length > l - 2 ? o.d[l - 2] : 0)).slice(0, max),
         ];
 
-        chartist.Bar('.vis3', {
+        Chartist.Bar('.vis3', {
           labels,
           series,
         }, {

@@ -34,14 +34,16 @@ export default declare([TitleDialog.ContentNLS], {
   },
   revert(entry, graph) {
     const g = graph.clone();
-    const b = this.getNLSBundleAt(0);
+    const b = this.NLSLocalized0;
     const re = this.revertExceptions(entry, g);
+
     registry.get('dialogs').confirm(b.revertMessage + re, b.revertConfirm, b.revertReject).then(() => {
       entry.setRefreshNeeded(true);
       entry.refresh().then(() => {
         entry.setMetadata(g);
         entry.commitMetadata().then(() => {
           this.versionList.search();
+          this.list.rowMetadataUpdated(this.row);
         });
       });
     });

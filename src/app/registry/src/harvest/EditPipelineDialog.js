@@ -179,6 +179,8 @@ export default declare([CreatePipelineDialog], {
     try {
       // Add title to the context metadata
       const { title } = data;
+      contextEntry.setRefreshNeeded(true);
+      await contextEntry.refresh();
       contextEntry.getMetadata().addL(contextEntry.getResourceURI(), 'dcterms:title', title);
       await contextEntry.commitMetadata();
     } catch (e) {

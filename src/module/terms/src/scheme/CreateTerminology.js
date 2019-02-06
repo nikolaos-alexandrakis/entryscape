@@ -38,10 +38,20 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
     }
     this.dialog.unlockFooterButton();
   },
+
+  /**
+   * Clears and resets the form
+   *
+   * @returns {undefined}
+   */
+  clearFields() {
+    this.schemeName.value = '';
+    this.schemeDesc.value = '';
+  },
+
   clear() {
     this.list.getView().clearSearch();
-    this.schemeName.setAttribute('value', '');
-    this.schemeDesc.setAttribute('value', '');
+    this.clearFields();
   },
   footerButtonAction() {
     let group;
@@ -90,6 +100,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
             }
             const row = this.list.getView().addRowForEntry(skos);
             this.list.rowMetadataUpdated(row);
+            this.clearFields();
             const userEntry = registry.get('userEntry');
             userEntry.setRefreshNeeded();
             return userEntry.refresh();

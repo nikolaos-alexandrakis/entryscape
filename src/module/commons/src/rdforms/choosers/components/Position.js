@@ -1,3 +1,4 @@
+import Button from 'commons/components/common/button/Button';
 import { createSetState } from 'commons/util/util';
 import m from 'mithril';
 import utils from '../utils';

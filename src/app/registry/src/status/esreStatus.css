@@ -1,24 +1,31 @@
-.escoList .entryList .psirow td {
+.escoList .entryList .psirow{
+    display: flex;
+    justify-content: space-between;
+}
+.escoList .entryList .psirow div {
     padding: 8px;
     height: 60px;
 }
+.escoList .entryList .rowTitle{
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
 
-.escoList .entryList .psirow th.entryName,
-.escoList .entryList .psirow td.entryName {
+.escoList .entryList .psirow .entryName {
     padding-left: 20px;
 }
 
-.escoList .entryList .psirow th.harvestDate,
-.escoList .entryList .psirow td.harvestDate {
+.escoList .entryList .psirow .harvestDate {
     padding-right: 20px;
+    min-width: 141px;
 }
 
 .psirow .entryName {
-    width: auto;
+    width: 500px;
+    word-break: break-all;
 }
 
 .psirow .dcatAP {
-    width: 100px;
     text-align: center;
 }
 
@@ -27,13 +34,22 @@
     text-align: center;
 }
 
-.psirow td.dcatAP,
-.psirow td.psiname {
+.psirow .dcatAP,
+.psirow .psiname {
     color: green;
+    margin-right: 25px;
 }
-
+.psirow .dcatAP>i{
+    margin-right: 25px;
+}
+.escoList .entryList .rowTitle .psirow .dcatAP,
+.escoList .entryList .rowTitle .psirow .psiname {
+    color: black;
+}
+.escoList .entryList .rowTitle .psirow .dcatAP{
+    margin-right: 30px;
+}
 .psirow .harvestDate {
-    width: 130px;
     text-align: right;
 }
 

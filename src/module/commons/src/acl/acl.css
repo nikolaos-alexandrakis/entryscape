@@ -17,6 +17,7 @@
 .entryList .principalRow .entryRowCol3 {
     width: 200px;
     text-align: right;
+    justify-content:end;
 }
 
 .entryList .principalRow .entryRowCol3 .dropdown-menu {

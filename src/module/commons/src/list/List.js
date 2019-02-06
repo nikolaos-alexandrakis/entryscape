@@ -35,7 +35,14 @@ export default declare([_WidgetBase, ViewMixin], {
   includeRefreshButton: false,
   includeHead: true,
   includeHeader: false,
+  /**
+   * Show the result size of a search
+   */
   includeResultSize: true,
+  /**
+   * Show the size of the list (even if no search is performed)
+   */
+  includeSizeByDefault: false,
   includeMassOperations: false,
   listInDialog: false,
   nlsTypeaheadPlaceholderKey: 'typeaheadPlaceholder',
@@ -83,6 +90,7 @@ export default declare([_WidgetBase, ViewMixin], {
       includeHead: this.includeHead,
       includeHeader: this.includeHeader,
       includeResultSize: this.includeResultSize,
+      includeSizeByDefault: this.includeSizeByDefault,
       nlsTypeaheadPlaceholderKey: this.nlsTypeaheadPlaceholderKey,
       nlsListHeaderKey: this.nlsListHeaderKey,
       nlsListHeaderTitleKey: this.nlsListHeaderTitleKey,

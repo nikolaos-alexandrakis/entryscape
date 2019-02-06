@@ -62,12 +62,21 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
         });
     }
   },
+  /**
+   * Clears and resets the form
+   *
+   * @returns {undefined}
+   */
+  clearFields() {
+    this.contextnameInput.value = '';
+    this.fullnameInput.value = '';
+    // domClass.add(this.createContextButton, "disabled"); // TODO @scazan What is this doing here?
+    this.dialog.lockFooterButton();
+  },
+
   open() {
     this.list.getView().clearSearch();
-    this.contextnameInput.setAttribute('value', '');
-    this.fullnameInput.setAttribute('value', '');
-    // domClass.add(this.createContextButton, "disabled");
-    this.dialog.lockFooterButton();
+    this.clearFields();
     this.dialog.show();
   },
 
@@ -121,6 +130,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       return contextEntry;
     }).then(ce => ce).then(() => {
       this.list.getView().addRowForEntry(contextEntry);
+      this.clearFields();
     }, (err) => {
       if (contextEntry != null) {
         contextEntry.del();

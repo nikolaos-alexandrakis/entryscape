@@ -5,7 +5,7 @@ const noUppercase = password => password === password.toLowerCase();
 const noLowercase = password => password === password.toUpperCase();
 const noSymbol = password => password.toLowerCase().match(/^[0-9a-z]+$/);
 const noNumber = password => password.match(/[0-9]/) === null;
-const failedCustomCheck = password => getPasswordConfigruation().custom.some(re => password.match(re) === null);
+const failedCustomCheck = password => getPasswordConfiguration().custom.some(re => password.match(re) === null);
 
 const P = {
   password: '',

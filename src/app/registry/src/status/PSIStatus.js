@@ -36,13 +36,15 @@ export default declare([BaseList, PublicView], {
    */
   updateLocaleStrings() {
     this.inherited(arguments);
-    const b = this.NLSBundles.esreStatus;
-    this.getView().setTableHead(`<tr class="psirow">
-        <th class="vmiddle entryName" title="${b.organizationTitle}">${b.organizationLabel}</th>
-        <th class="vmiddle psiname" title="${b.psiPageTitle}">${b.psiPageLabel}</th>
-        <th class="vmiddle dcatAP" title="${b.dcatAPTitle}">${b.dcatAPLabel}</th>
-        <th class="vmiddle harvestDate" title="${b.checkedTitle}">${b.checkedLabel}</th>
-      </tr>`);
+    const b = this.NLSLocalized.esreStatus;
+    this.getView().setTableHead(`<div class="psirow">
+        <div class="vmiddle entryName" title="${b.organizationTitle}">${b.organizationLabel}</div>
+        <div>
+        <div class="vmiddle psiname" title="${b.psiPageTitle}">${b.psiPageLabel}</div>
+        <div class="vmiddle dcatAP" title="${b.dcatAPTitle}">${b.dcatAPLabel}</div>
+        <div class="vmiddle harvestDate" title="${b.checkedTitle}">${b.checkedLabel}</div>
+        </div>
+      </div>`);
   },
 
   showStopSign() {
