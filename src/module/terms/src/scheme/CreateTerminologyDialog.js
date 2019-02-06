@@ -42,16 +42,20 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   },
   importT() {
     this.importTerminology.init();
+
     this.__importNode.style.display = 'block';
+    this.__importTab.classList.add('active');
+
     this.__createNode.style.display = 'none';
-    this.__importTab.classList.toggle('active');
-    this.__createTab.classList.toggle('active');
+    this.__createTab.classList.remove('active');
   },
   createT() {
     this.createTerminology.clear();
+
     this.__importNode.style.display = 'none';
+    this.__importTab.classList.remove('active');
+
     this.__createNode.style.display = 'block';
-    this.__importTab.classList.toggle('active');
-    this.__createTab.classList.toggle('active');
+    this.__createTab.classList.add('active');
   },
 });

@@ -5,7 +5,7 @@ import escaFiles from 'catalog/nls/escaFiles.nls';
 import escaDataset from 'catalog/nls/escaDataset.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import api from './api';
+import api from './utils/apiUtil';
 import pipelineUtil from './pipelineUtil';
 import template from './ApiInfoDialogTemplate.html';
 import './escaApiInfo.css';
@@ -75,7 +75,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
   },
   removeAlias() {
     pipelineUtil.removeAlias(this.etlEntry).then(() => {
-      this.apiAlias.setAttribute('value', '');
+      this.apiAlias.value = '';
       this.removeButton.setAttribute('disabled', true);
       this.currentAliasName = this.apiAlias.value;
       this._setAliasNameInExternalMetadata();
@@ -93,7 +93,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     const rURI = this.etlEntry.getResourceURI();
     const apiId = rURI.substr(rURI.lastIndexOf('/') + 1, rURI.length);
     this.apiId.innerHTML = apiId;
-    this.apiAlias.setAttribute('value', '');
+    this.apiAlias.value = '';
     // domClass.add(this.removeButton, 'disabled');
     this.removeButton.setAttribute('disabled', true);
     this._clearRows();
@@ -138,7 +138,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
       this.colName = cols[0];
       const aliasName = this.etlEntry.getCachedExternalMetadata().findFirstValue(null, 'store:aliasName');
       if (aliasName) {
-        this.apiAlias.setAttribute('value', aliasName);
+        this.apiAlias.value = aliasName;
         this.currentAliasName = aliasName;
         this._updateExampleURL(aliasName);
       } else {
@@ -196,6 +196,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
         }
       });
   },
+  // TODO potential this is the same code as ./utils/apiUtil::syncStatus
   getAPIStatus(etlEntry) {
     etlEntry.setRefreshNeeded();
     return etlEntry.refresh().then(() => {

@@ -272,6 +272,9 @@ export default declare([ETBaseList], {
     } else {
       this.rowActionNames.splice(this.rowActionNames.indexOf('showideas'), 1);
     }
+
+    this.includeSizeByDefault = config.get('catalog.includeListSizeByDefault', false);
+
     this.inherited('postCreate', arguments);
     // Overriding the default create dialog
     this.registerDialog('create', CreateDialog);

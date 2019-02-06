@@ -168,6 +168,9 @@ export default declare([ETBaseList], {
     } else {
       this.nlsListHeaderKey = sharedPublishers ? 'listHeaderSharedContacts' : 'contactpointsListHeader';
     }
+
+    this.includeSizeByDefault = config.get('catalog.includeListSizeByDefault', false);
+
     this.inherited('postCreate', arguments);
     // Set it to true for placeholder to work
     // It was initially set to false because we do not want the default createButton behaviour

@@ -179,6 +179,10 @@
     color: #fff !important;
     background-color: rgba(153, 153, 153, 0.2);
 }
+.spaSideDialogFooter .btn.btn-success.disabled:focus{
+    color: #fff !important;
+    background-color: rgba(28, 124, 209, 0.8);
+}
 
 .spaSideDialogListFix ul > li {
     margin-left: 2em;
@@ -197,6 +201,7 @@
     border-radius: 0;
     cursor: pointer;
     text-transform: uppercase;
+    user-select: none;
 }
 
 .spaSideDialogBody .nav-pills > li.active > a {

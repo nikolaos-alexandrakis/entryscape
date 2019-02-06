@@ -1,7 +1,7 @@
-import registry from 'commons/registry';
 import EntryRow from 'commons/list/EntryRow';
-import { i18n } from 'esi18n';
+import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 import template from './RowTemplate.html';
 
 const strEndsWith = (str, suffix) => str.match(`${suffix}$`) === suffix; // TODO use lodash?
@@ -34,9 +34,7 @@ export default declare([EntryRow], {
           if (!confirm) {
             return;
           }
-          this.entry.del()
-            .then(this.destroy, () =>
-              dialogs.acknowledge('Failed to remove responsible'));
+          this.entry.del().then(this.destroy.bind(this), () => dialogs.acknowledge('Failed to remove responsible'));
         });
       } else {
         const lbls = refs.map((ref, idx) => {

@@ -14,6 +14,6 @@ export default {
       vnodeList.push(m(DescriptionInfo, { label, value }));
     });
 
-    return m('dl', vnodeList);
+    return m('dl.catalog__status', vnodeList);
   },
 };

@@ -131,7 +131,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   fileSelected() {
     const label = this.__fileInput.value.replace(/\\/g, '/').replace(/.*\//, '');
-    // this.__filePathInput.setAttribute('value', label);
     this.__filePathInput.value = label;
     this.setValue(label === '' ? null : label, true);
   },
@@ -165,7 +164,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     return this.__value;
   },
   setLink(uri) {
-    this.__linkInput.setAttribute('value', uri);
+    this.__linkInput.value = uri;
     this.setValue(uri, false);
   },
   setValue(value, isFile) {

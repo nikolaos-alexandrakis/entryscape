@@ -12,7 +12,7 @@ const GeoChooser = {
     m.mount(node, { view: () => m(GeoCoordinates, { binding, editable: true, bundle }) });
   },
   presenter(node, binding) {
-    i18n.getLocalization(escoRdforms);
+    const bundle = i18n.getLocalization(escoRdforms);
     m.mount(node, { view: () => m(GeoCoordinates, { binding, editable: false, bundle }) });
   },
   registerDefaults() {
