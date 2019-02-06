@@ -13,7 +13,11 @@
 .escoPlaceholder__placeholderButton {
     margin-top: 25px
 }
+<<<<<<< HEAD
 .entryList .escoPlaceholder .escoPlaceholder--flex{
+=======
+.escoPlaceholder--flex{
+>>>>>>> develop
     display: flex;
     flex-direction: column;
     align-items: center;
