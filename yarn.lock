@@ -5899,6 +5899,10 @@ node-fetch@1.6.3:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
+node-fetch@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
+
 node-forge@0.7.5:
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.5.tgz#6c152c345ce11c52f465c2abd957e8639cd674df"
@@ -7326,7 +7330,7 @@ rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "10.0.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#0f15ea9c58333decab95bcf31837fa78f87d11de"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#00cee70d80ae9670ee6a4319d16bc4829ce9323c"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7347,6 +7351,7 @@ rc@^1.2.7:
     lodash-es "^4.17.10"
     moment "^2.22.2"
     nls-loader "https://bitbucket.org/metasolutions/nls-loader#1.1.0"
+    node-fetch "^2.3.0"
     popper.js "^1.12.9"
     rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     select2 "^4.0.6-rc.1"
