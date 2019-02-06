@@ -13,8 +13,8 @@
 .escoPlaceholder__placeholderButton {
     margin-top: 25px
 }
-.escoPlaceholder--flex{
-    display: flex !important;
+.entryList .escoPlaceholder .escoPlaceholder--flex{
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
