@@ -25,7 +25,10 @@
     "editDistributionTitle": "Edit",
     "removeDistributionTitle": "Remove",
     "removeDistributionQuestion": "Remove this distribution?",
-    "showMetadataTitle":"Show metadata",
+    "distributionFiles":"There {{PLURAL:$numFiles| is one file.|are $numFiles files.}}"
+    "showMoreTitle":"Show more",
+    "themeTitle":"Theme:",
+    "editedTitle": "Edited by:"
     "privateDatasetTitle": "This dataset is not public",
     "privateDisabledDatasetTitle": "The surrounding catalog is not public, therefore you cannot make the dataset public",
     "publicDatasetTitle": "This dataset is public",

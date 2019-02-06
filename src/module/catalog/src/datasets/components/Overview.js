@@ -143,7 +143,7 @@ export default (vnode) => {
 
             <div class="btn__wrapper">
               <button class="btn--action btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</button>
-              <button class="btn--action btn--show" onclick={toggleMetadata}>{escaDataset.showMetadataTitle}</button>
+              <button class="btn--action btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</button>
               <div class="flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
@@ -163,9 +163,9 @@ export default (vnode) => {
 
           <div class="metadata--basic">
             <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
-            <p><span class="metadata__label">Theme:</span> Art</p>
+            <p><span class="metadata__label">{escaDataset.themeTitle}:</span> Art</p>
             <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
-            <p><span class="metadata__label">Edited by:</span> Althea Espejo, Valentino Hudra</p>
+            <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
           </div>
 
           <div class="metadata--wrapper">

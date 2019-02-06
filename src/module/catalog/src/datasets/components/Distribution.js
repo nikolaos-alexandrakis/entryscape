@@ -128,7 +128,7 @@ export default() => {
                 </div>
                 <div class="distribution__format">
                   <h2 class="title">{escaDataset.distributionFormatTitle}</h2>
-                  <p class="text">This distribution has<span class="file__number">5</span>files</p>
+                  <p class="text">{ i18n.renderNLSTemplate(escoDataset.distributionFiles, {numFiles: files.length}) }</p>
                 </div>
               </div>
 
