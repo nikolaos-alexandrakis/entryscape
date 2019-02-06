@@ -1,311 +1,9 @@
 {
+  "namespaces": {
+    "prov": "http://www.w3.org/ns/prov#",
+    "cnt": "http://www.w3.org/2011/content#"
+  },
   "templates": [
-    {
-      "type": "choice",
-      "nodetype": "URI",
-      "id": "geodcat:dcterms:type",
-      "property": "http://purl.org/dc/terms/type",
-      "label": {
-        "en": "Resource type"
-      },
-      "choices": [
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/ResourceType/service",
-          "label": {
-            "en": "Spatial data service",
-            "sv": "Rumslig datatjänst",
-            "de": "Geodatendienst"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/ResourceType/dataset",
-          "label": {
-            "en": "Spatial data set",
-            "sv": "Rumslig datamängd",
-            "de": "Geodatensatz"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/ResourceType/series",
-          "label": {
-            "en": "Spatial data set series",
-            "sv": "Rumslig datamängdsserie",
-            "de": "Geodatensatzreihe"
-          }
-        }
-      ],
-      "cardinality": {
-        "min": 1,
-        "pref": 0,
-        "max": 1
-      },
-      "styles": [
-        "verticalRadioButtons"
-      ]
-    },
-    {
-      "type": "choice",
-      "nodetype": "URI",
-      "id": "geodcat:dcterms:subject",
-      "property": "http://purl.org/dc/terms/subject",
-      "label": {
-        "en": "Topic category"
-      },
-      "choices": [
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/farming",
-          "label": {
-            "en": "Farming",
-            "sv": "Areella näringar",
-            "de": "Landwirtschaft"
-          },
-          "description": {
-            "en": "Rearing of animals and/or cultivation of plants.",
-            "sv": "Uppfödning av djur och/eller odling av grödor.",
-            "de": "Tierzucht und/oder Pflanzenanbau."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/biota",
-          "label": {
-            "en": "Biota",
-            "sv": "Biologi och ekologi",
-            "de": "Biologie"
-          },
-          "description": {
-            "en": "Flora and/or fauna in natural environment.",
-            "sv": "Flora och/eller fauna i naturlig miljö.",
-            "de": "Flora und/oder Fauna in der natürlichen Umgebung."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/boundaries",
-          "label": {
-            "en": "Boundaries",
-            "sv": "Administrativa gränser",
-            "de": "Grenzen"
-          },
-          "description": {
-            "en": "Legal land descriptions.",
-            "sv": "Rättsliga arealbeskrivningar",
-            "de": "Gesetzlich festgelegte Grenzen."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/climatologyMeteorologyAtmosphere",
-          "label": {
-            "en": "Climatology / Meteorology / Atmosphere",
-            "sv": "Klimatologi och meteorologi",
-            "de": "Klimatologie/Meteorologie/Atmosphäre"
-          },
-          "description": {
-            "en": "Processes and phenomena of the atmosphere.",
-            "sv": "Atmosfäriska processer och fenomen.",
-            "de": "Prozesse und Phänomene der Atmosphäre inklusive Klimatologie und Meteorologie"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/economy",
-          "label": {
-            "en": "Economy",
-            "sv": "Ekonomi",
-            "de": "Wirtschaft"
-          },
-          "description": {
-            "en": "Economic activities, conditions and employment.",
-            "sv": "Ekonomisk verksamhet, ekonomiska förhållanden och sysselsättning.",
-            "de": "Wirtschaftliche Aktivitäten, Verhältnisse und Beschäftigung."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/elevation",
-          "label": {
-            "en": "Elevation",
-            "sv": "Höjddata",
-            "de": "Höhenangaben"
-          },
-          "description": {
-            "en": "Height above or below sea level.",
-            "sv": "Höjd över eller under havsytan.",
-            "de": "Höhenangabe bezogen auf ein Höhenreferenzsystem."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/environment",
-          "label": {
-            "en": "Environment",
-            "sv": "Miljö",
-            "de": "Umwelt"
-          },
-          "description": {
-            "en": "Environmental resources, protection and conservation.",
-            "sv": "Miljöresurser, skydd och miljövård.",
-            "de": "Umweltressourcen, Umweltschutz und Umwelterhaltung."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/geoscientificInformation",
-          "label": {
-            "en": "Geoscientific Information",
-            "sv": "Geovetenskap",
-            "de": "Geowissenschaften"
-          },
-          "description": {
-            "en": "Information pertaining to earth sciences.",
-            "sv": "Information om geologiska förhållanden.",
-            "de": "Geowissenschaftliche Informationen."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/health",
-          "label": {
-            "en": "Health",
-            "sv": "Hälsa",
-            "de": "Gesundheitswesen"
-          },
-          "description": {
-            "en": "Health, health services, human ecology, and safety.",
-            "sv": "Hälsa, hälsovårdstjänster, humanekologi och säkerhet.",
-            "de": "Gesundheit, Gesundheitsdienste, Humanökologie und Sicherheit."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/imageryBaseMapsEarthCover",
-          "label": {
-            "en": "Imagery / Base Maps / Earth Cover",
-            "sv": "Arealtäckande bilder och bakgrundskartor",
-            "de": "Bilddaten/Basiskarten/Landbedeckung"
-          },
-          "description": {
-            "en": "Base maps.",
-            "sv": "Grundkartor.",
-            "de": "Basisdaten und -karten."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/intelligenceMilitary",
-          "label": {
-            "en": "Intelligence / Military",
-            "sv": "Försvar",
-            "de": "Aufklärung/Militär"
-          },
-          "description": {
-            "en": "Military bases, structures, activities.",
-            "sv": "Militärbaser, organisation, verksamhet.",
-            "de": "Militärbasen, militärische Einrichtungen und Aktivitäten."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/inlandWaters",
-          "label": {
-            "en": "Inland Waters",
-            "sv": "Sjöar och vattendrag",
-            "de": "Binnengewässer"
-          },
-          "description": {
-            "en": "Inland water features, drainage systems and their characteristics.",
-            "sv": "Inlandsvatten, dräneringssystem och dessas egenskaper.",
-            "de": "Binnengewässermerkmale, Gewässernetze und deren Eigenschaften."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/location",
-          "label": {
-            "en": "Location",
-            "sv": "Positionering",
-            "de": "Ortsangaben"
-          },
-          "description": {
-            "en": "Positional information and services.",
-            "sv": "Lägesinformation och tjänster.",
-            "de": "Positionierungsangaben und -dienste."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/oceans",
-          "label": {
-            "en": "Oceans",
-            "sv": "Kust och hav",
-            "de": "Meere"
-          },
-          "description": {
-            "en": "Features and characteristics of salt water bodies (excluding inland waters).",
-            "sv": "Förhållanden och egenskaper hos saltvattenförekomster (exklusive inlandsvatten).",
-            "de": "Merkmale und Eigenschaften von Salzwasserkörpern (außer Binnengewässern)."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/planningCadastre",
-          "label": {
-            "en": "Planning / Cadastre",
-            "sv": "Fastigheter och fysisk planering",
-            "de": "Planungsunterlagen/Kataster"
-          },
-          "description": {
-            "en": "Information used for appropriate actions for future use of the land.",
-            "sv": "Information som används för att vidta lämpliga åtgärder för framtida användning av marken.",
-            "de": "Informationen für die Flächennutzungsplanung."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/society",
-          "label": {
-            "en": "Society",
-            "sv": "Samhälle och kultur",
-            "de": "Gesellschaft"
-          },
-          "description": {
-            "en": "Characteristics of society and cultures.",
-            "sv": "Samhällens och kulturers egenskaper.",
-            "de": "Kulturelle und gesellschaftliche Merkmale."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/structure",
-          "label": {
-            "en": "Structure",
-            "sv": "Byggnader och byggnadsanläggningar",
-            "de": "Bauwerke"
-          },
-          "description": {
-            "en": "Man-made construction.",
-            "sv": "Bebyggelse.",
-            "de": "Anthropogene Bauten."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/transportation",
-          "label": {
-            "en": "Transportation",
-            "sv": "Transporter",
-            "de": "Verkehrswesen"
-          },
-          "description": {
-            "en": "Means and aids for conveying persons and/or goods.",
-            "sv": "Färd- och hjälpmedel för att transportera människor och/eller varor.",
-            "de": "Mittel und Wege zur Beförderung von Personen und/oder Gütern."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/utilitiesCommunication",
-          "label": {
-            "en": "Utilities / Communication",
-            "sv": "Tekniska försörjningssystem",
-            "de": "Ver- und Entsorgung/Nachrichtenwesen"
-          },
-          "description": {
-            "en": "Energy, water and waste systems and communications infrastructure and services.",
-            "sv": "Energi-, vattenförsörjnings- och avloppssystem samt kommunikationer, infrastruktur och tjänster.",
-            "de": "Energie-, Wasser- und Abfallsysteme, Kommunikationsinfrastruktur und -dienste."
-          }
-        }
-      ],
-      "cardinality": {
-        "min": 1,
-        "pref": 0,
-        "max": 1
-      }
-    },
     {
       "type": "text",
       "nodetype": "URI",
@@ -313,548 +11,331 @@
       "id": "geodcat:dcterms:created",
       "property": "http://purl.org/dc/terms/created",
       "label": {
-        "en": "Date of creation"
+        "en": "Date of creation",
+        "sv": "Skapningsdatum",
+        "de": "Erstelldatum"
       },
       "cardinality": {
         "min": 0,
+        "pref": 1,
         "max": 1
       }
     },
     {
+      "type": "text",
+      "nodetype": "LANGUAGE_LITERAL",
+      "id": "geodcat:rdfs:comment",
+      "property": "rdfs:comment",
+      "label": {
+        "en": "Spatial resolution"
+      },
+      "styles": [
+        "multiline"
+      ]
+    },
+    {
       "type": "choice",
       "nodetype": "URI",
-      "id": "geodcat:spatial:dcterms:type",
-      "property": "http://purl.org/dc/terms/type",
+      "id": "geodcat:dcterms:creator",
+      "property": "dcterms:creator",
       "label": {
-        "en": "Spatial data service type"
+        "en": "Creator"
       },
-      "choices": [
+      "constraints": {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
+          "http://xmlns.com/foaf/0.1/Agent",
+          "http://xmlns.com/foaf/0.1/Person",
+          "http://xmlns.com/foaf/0.1/Organization"
+        ]
+      }
+    },
+    {
+      "type": "choice",
+      "nodetype": "RESOURCE",
+      "id": "geodcat:prov:agent",
+      "labelProperties": [
+        "http://www.w3.org/2006/vcard/ns#fn"
+      ],
+      "property": "prov:agent",
+      "label": {
+        "en": "Party",
+        "sv": "Part",
+        "de": "Partei"
+      },
+      "cardinality": {
+        "pref": 1
+      },
+      "constraints": {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
+          "http://www.w3.org/2006/vcard/ns#Organization",
+          "http://www.w3.org/2006/vcard/ns#Individual",
+          "http://www.w3.org/2006/vcard/ns#Kind"
+        ]
+      }
+    },
+    {
+      "type": "group",
+      "nodetype": "RESOURCE",
+      "id": "geodcat:prov:qualifiedAttribution",
+      "property": "prov:qualifiedAttribution",
+      "label": {
+        "en": "Responsible party"
+      },
+      "constraints": {
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
+          "prov:Attribution"
+        ]
+      },
+      "items": [
+        "geodcat:dcterms:type-responsiblepartyrole",
+        "geodcat:prov:agent"
+      ]
+    },
+    {
+      "type": "group",
+      "nodetype": "BLANK",
+      "id": "geodcat:dcterms:conformsTo",
+      "property": "dcterms:conformsTo",
+      "constraints": {
+        "dcterms:type": "http://inspire.ec.europa.eu/glossary/SpatialReferenceSystem"
+      },
+      "items": [
         {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/discovery",
+          "type": "text",
+          "nodetype": "ONLY_LITERAL",
+          "property": "dcterms:identifier",
+          "valueTemplate": "EPSG:",
+          "pattern": "\\d*",
           "label": {
-            "en": "Discovery Service",
-            "sv": "Söktjänst",
-            "de": "Suchdienste"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/view",
-          "label": {
-            "en": "View Service",
-            "sv": "Visningstjänst",
-            "de": "Darstellungsdienste"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download",
-          "label": {
-            "en": "Download Service",
-            "sv": "Nedladdningstjänst",
-            "de": "Download-Dienste"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/transformation",
-          "label": {
-            "en": "Transformation Service",
-            "sv": "Omvandlingstjänst",
-            "de": "Transformationsdienste"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/invoke",
-          "label": {
-            "en": "Invoke Spatial Data Service",
-            "sv": "Tjänst för förbindelse med datatjänster",
-            "de": "Dienste zum Abrufen von Geodatendiensten"
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/other",
-          "label": {
-            "en": "Other Service",
-            "sv": "Andra tjänster",
-            "de": "Sonstige Dienste"
+            "en": "Spatial reference system"
           }
         }
       ],
-      "cardinality": {
-        "min": 1,
-        "pref": 0,
-        "max": 1
-      }
+      "styles": ["invisibleGroup"]
     },
     {
       "type": "choice",
       "nodetype": "URI",
-      "id": "geodcat:theme-INSPIRE",
-      "property": "http://www.w3.org/ns/dcat#theme",
+      "id": "geodcat:adms:representationTechnique",
+      "property": "adms:representationTechnique",
       "label": {
-        "en": "INSPIRE theme"
-      },
-      "cardinality": {
-        "min": 1,
-        "pref": 0,
-        "max": 1
+        "en": "Spatial representation type",
+        "sv": "Typ av rumslig representation",
+        "de": "Art der räumlichen Darstellung"
       },
       "choices": [
         {
-          "value": "http://inspire.ec.europa.eu/theme/ad",
           "label": {
-            "en": "Addresses",
-            "sv": "Adresser",
-            "de": "Adressen"
+            "en": "Vector",
+            "sv": "Vektor",
+            "de": "Vektor"
           },
           "description": {
-            "en": "Location of properties based on address identifiers, usually by road name, house number, postal code.",
-            "sv": "Läge för fastigheter på grundval av adressuppgifter, vanligen i form av gatunamn, gatunummer och postnummer.",
-            "de": "Lokalisierung von Grundstücken anhand von Adressdaten, in der Regel Straßenname, Hausnummer und Postleitzahl."
-          }
+            "en": "Vector data is used to represent geographic data"
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationTypeCode/vector"
         },
         {
-          "value": "http://inspire.ec.europa.eu/theme/au",
           "label": {
-            "en": "Administrative units",
-            "sv": "Administrativa enheter",
-            "de": "Verwaltungseinheiten"
+            "en": "Grid",
+            "sv": "Rutnät",
+            "de": "Gitter"
           },
           "description": {
-            "en": "Units of administration, dividing areas where Member States have and/or exercise jurisdictional rights, for local, regional and national governance, separated by administrative boundaries.",
-            "sv": "Administrativa enheters, som delar upp områden där medlemsstater har och/eller utövar jurisdiktion, på lokal, regional och nationell nivå, åtskilda av administrativa gränser.",
-            "de": "Lokale, regionale und nationale Verwaltungseinheiten, die die Gebiete abgrenzen, in denen die Mitgliedstaaten Hoheitsbefugnisse haben und/oder ausüben und die durch Verwaltungsgrenzen voneinander getrennt sind."
-          }
+            "en": "Grid data is used to represent geographic data."
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationTypeCode/grid"
         },
         {
-          "value": "http://inspire.ec.europa.eu/theme/rs",
           "label": {
-            "en": "Coordinate reference systems",
-            "sv": "Referenskoordinatsystem",
-            "de": "Koordinatenreferenzsysteme"
+            "en": "Text table",
+            "sv": "Texttabell",
+            "de": "Texttabelle"
           },
           "description": {
-            "en": "Systems for uniquely referencing spatial information in space as a set of coordinates (x, y, z) and/or latitude and longitude and height, based on a geodetic horizontal and vertical datum.",
-            "sv": "System för att entydigt lägesbestämma rumslig information i rummet som en uppsättning koordinater (x, y, z) och/eller som latitud, longitud och höjd, på grundval av ett geodetiskt horisontellt och vertikalt datum.",
-            "de": "Systeme zur eindeutigen räumlichen Referenzierung von Geodaten anhand eines Koordinatensatzes (x, y, z) und/oder Angaben zu Breite, Länge und Höhe auf der Grundlage eines geodätischen horizontalen und vertikalen Datums."
-          }
+            "en": "Textual or tabular data is used to represent geographic data."
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationTypeCode/textTable"
         },
         {
-          "value": "http://inspire.ec.europa.eu/theme/gg",
           "label": {
-            "en": "Geographical grid systems",
-            "sv": "Geografiska rutnätssystem",
-            "de": "Geografische Gittersysteme"
+            "en": "Triangulated",
+            "sv": "Triangulerad",
+            "de": "Trianguliert"
           },
           "description": {
-            "en": "Harmonised multi-resolution grid with a common point of origin and standardised location and size of grid cells.",
-            "sv": "Harmoniserade rutnät med flera upplösningar, gemensam utgångspunkt och standardiserad placering och storlek på rutorna.",
-            "de": "Harmonisiertes Gittersystem mit Mehrfachauflösung, gemeinsamem Ursprungspunkt und standardisierter Lokalisierung und Größe der Gitterzellen."
-          }
+            "en": "Triangulated irregular network."
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationTypeCode/tin"
         },
         {
-          "value": "http://inspire.ec.europa.eu/theme/cp",
           "label": {
-            "en": "Cadastral parcels",
-            "sv": "Fastighetsområden",
-            "de": "Flurstücke/Grundstücke (Katasterparzellen)"
+            "en": "Stereo model",
+            "sv": "Stereomodell",
+            "de": "Stereo-Modell"
           },
           "description": {
-            "en": "Areas defined by cadastral registers or equivalent.",
-            "sv": "Områden definierade av fastighetsregister eller motsvarande.",
-            "de": "Gebiete, die anhand des Grundbuchs oder gleichwertiger Verzeichnisse bestimmt werden."
-          }
+            "en": "Three-dimensional view formed by the intersecting homologous rays of an overlapping pair of images."
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationTypeCode/stereoModel"
         },
         {
-          "value": "http://inspire.ec.europa.eu/theme/gn",
           "label": {
-            "en": "Geographical names",
-            "sv": "Geografiska namn",
-            "de": "Geografische Bezeichnungen"
+            "en": "Video",
+            "sv": "Video",
+            "de": "Video"
           },
           "description": {
-            "en": "Names of areas, regions, localities, cities, suburbs, towns or settlements, or any geographical or topographical feature of public or historical interest.",
-            "sv": "Namn på områden, regioner, platser, städer, förorter, tätorter och annan bebyggelse, samt andra geografiska och topografiska företeelser av allmänt eller historiskt intresse.",
-            "de": "Namen von Gebieten, Regionen, Orten, Großstädten, Vororten, Städten oder Siedlungen sowie jedes geografische oder topografische Merkmal von öffentlichem oder historischem Interesse."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/hy",
-          "label": {
-            "en": "Hydrography",
-            "sv": "Hydrografi",
-            "de": "Gewässernetz"
+            "en": "Scene from a video recording."
           },
-          "description": {
-            "en": "Hydrographic elements, including marine areas and all other water bodies and items related to them, including river basins and sub-basins. Where appropriate, according to the definitions set out in Directive 2000/60/EC of the European Parliament and of the Council of 23 October 2000 establishing a framework for Community action in the field of water policy (2) and in the form of networks.",
-            "sv": "Hydrografiska element, inbegripet havsområden och alla andra vattenförekomster och därtill hörande inslag, inbegripet avrinningsområden och delavrinningsområden. I förekommande fall i enlighet med definitionerna i Europaparlamentets och rådets direktiv 2000/60/EG av den 23 oktober 2000 om upprättande av en ram för gemenskapens åtgärder på vattenpolitikens område [2] och i form av nät.",
-            "de": "Elemente des Gewässernetzes, einschließlich Meeresgebieten und allen sonstigen Wasserkörpern und hiermit verbundenen Teilsystemen, darunter Einzugsgebiete und Teileinzugsgebiete. Gegebenenfalls gemäß den Definitionen der Richtlinie 2000/60/EG des Europäischen Parlaments und des Rates vom 23. Oktober 2000 zur Schaffung eines Ordnungsrahmens für Maßnahmen der Gemeinschaft im Bereich der Wasserpolitik [2] und in Form von Netzen."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/ps",
-          "label": {
-            "en": "Protected sites",
-            "sv": "Skyddade områden",
-            "de": "Schutzgebiete"
-          },
-          "description": {
-            "en": "Area designated or managed within a framework of international, Community and Member States' legislation to achieve specific conservation objectives.",
-            "sv": "Områden som är utsedda eller förvaltas inom ramen för internationell lagstiftning, gemenskapslagstiftning och medlemsstaternas lagstiftning för att uppnå specifika miljövårdsmål.",
-            "de": "Gebiete, die im Rahmen des internationalen und des gemeinschaftlichen Rechts sowie des Rechts der Mitgliedstaaten ausgewiesen sind oder verwaltet werden, um spezifische Erhaltungsziele zu erreichen."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/tn",
-          "label": {
-            "en": "Transport networks",
-            "sv": "Transportnät",
-            "de": "Verkehrsnetze"
-          },
-          "description": {
-            "en": "Road, rail, air and water transport networks and related infrastructure. Includes links between different networks. Also includes the trans-European transport network as defined in Decision No 1692/96/EC of the European Parliament and of the Council of 23 July 1996 on Community Guidelines for the development of the trans-European transport network (1) and future revisions of that Decision.",
-            "sv": "Väg-, järnvägs-, luft- och sjötransportnät och tillhörande infrastruktur. Innefattar länkar mellan olika nät. Innefattar också det transeuropeiska transportnät som definieras i Europaparlamentets och rådets beslut nr 1692/96/EG av den 23 juli 1996 om gemenskapens riktlinjer för utbyggnad av det transeuropeiska transportnätet [1] samt framtida ändringar av det beslutet.",
-            "de": "Verkehrsnetze und zugehörige Infrastruktureinrichtungen für Straßen-, Schienen- und Luftverkehr sowie Schifffahrt. Umfasst auch die Verbindungen zwischen den verschiedenen Netzen. Umfasst auch das transeuropäische Verkehrsnetz im Sinne der Entscheidung Nr. 1692/96/EG des Europäischen Parlaments und des Rates vom 23. Juli 1996 über gemeinschaftliche Leitlinien für den Aufbau eines transeuropäischen Verkehrsnetzes [1] und künftiger Überarbeitungen dieser Entscheidung."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/el",
-          "label": {
-            "en": "Elevation",
-            "sv": "Höjd",
-            "de": "Höhe"
-          },
-          "description": {
-            "en": "Digital elevation models for land, ice and ocean surface. Includes terrestrial elevation, bathymetry and shoreline.",
-            "sv": "Digitala höjdmodeller för mark-, is- och havsyta. Inbegriper höjdförhållanden på land, batymetri samt kustlinje.",
-            "de": "Digitale Höhenmodelle für Land-, Eis- und Meeresflächen. Dazu gehören Geländemodell, Tiefenmessung und Küstenlinie."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/ge",
-          "label": {
-            "en": "Geology",
-            "sv": "Geologi",
-            "de": "Geologie"
-          },
-          "description": {
-            "en": "Geology characterised according to composition and structure. Includes bedrock, aquifers and geomorphology.",
-            "sv": "Geologiska förhållanden indelade efter sammansättning och struktur. Innefattar berggrund, akviferer och geomorfologi.",
-            "de": "Geologische Beschreibung anhand von Zusammensetzung und Struktur. Dies umfasst auch Grundgestein, Grundwasserleiter und Geomorphologie."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/lc",
-          "label": {
-            "en": "Land cover",
-            "sv": "Landtäcke",
-            "de": "Bodenbedeckung"
-          },
-          "description": {
-            "en": "Physical and biological cover of the earth's surface including artificial surfaces, agricultural areas, forests, (semi-)natural areas, wetlands, water bodies.",
-            "sv": "Fysiskt och biologiskt landtäcke på jordytan, inbegripet artificiella ytor, jordbruksmark, skogar, (delvis) naturliga områden, våtmarker, vattenförekomster.",
-            "de": "Physische und biologische Bedeckung der Erdoberfläche, einschließlich künstlicher Flächen, landwirtschaftlicher Flächen, Wäldern, natürlicher (naturnaher) Gebiete, Feuchtgebieten und Wasserkörpern."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/oi",
-          "label": {
-            "en": "Orthoimagery",
-            "sv": "Ortofoto",
-            "de": "Orthofotografie"
-          },
-          "description": {
-            "en": "Geo-referenced image data of the Earth's surface, from either satellite or airborne sensors.",
-            "sv": "Georefererade bilddata över jordytan, antingen från satelliter eller från flygburna sensorer.",
-            "de": "Georeferenzierte Bilddaten der Erdoberfläche von satelliten- oder luftfahrzeuggestützten Sensoren."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/af",
-          "label": {
-            "en": "Agricultural and aquaculture facilities",
-            "sv": "Jordbruks- och vattenbruksanläggningar",
-            "de": "Landwirtschaftliche Anlagen und Aquakulturanlagen"
-          },
-          "description": {
-            "en": "Farming equipment and production facilities (including irrigation systems, greenhouses and stables).",
-            "sv": "Jordbruksutrustning och produktionsanläggningar (inbegripet bevattningssystem, växthus och djurstallar).",
-            "de": "Landwirtschaftliche Anlagen und Produktionsstätten (einschließlich Bewässerungssystemen, Gewächshäusern und Ställen)."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/am",
-          "label": {
-            "en": "Area management/restriction/regulation zones and reporting units",
-            "sv": "Områden med särskild förvaltning/begränsningar/reglering samt enheter för rapportering",
-            "de": "Bewirtschaftungsgebiete/Schutzgebiete/geregelte Gebiete und Berichterstattungseinheiten"
-          },
-          "description": {
-            "en": "Areas managed, regulated or used for reporting at international, European, national, regional and local levels. Includes dumping sites, restricted areas around drinking water sources, nitrate-vulnerable zones, regulated fairways at sea or large inland waters, areas for the dumping of waste, noise restriction zones, prospecting and mining permit areas, river basin districts, relevant reporting units and coastal zone management areas.",
-            "sv": "Områden som förvaltas, regleras eller används för rapportering på internationell, europeisk, nationell, regional och lokal nivå. Innefattar avfallsdeponier, skyddsområden runt dricksvattentäkter, områden som är känsliga för nitratbelastning, reglerade farleder till havs och i större inlandsvatten, områden för dumpning av avfall, områden med bullerrestriktioner, områden med tillstånd för prospektering och gruvbrytning, avrinningsdistrikt, relevanta enheter för rapportering och områden med kustförvaltning.",
-            "de": "Auf internationaler, europäischer, nationaler, regionaler und lokaler Ebene bewirtschaftete, geregelte oder zu Zwecken der Berichterstattung herangezogene Gebiete. Dazu zählen Deponien, Trinkwasserschutzgebiete, nitratempfindliche Gebiete, geregelte Fahrwasser auf See oder auf großen Binnengewässern, Gebiete für die Abfallverklappung, Lärmschutzgebiete, für Exploration und Bergbau ausgewiesene Gebiete, Flussgebietseinheiten, entsprechende Berichterstattungseinheiten und Gebiete des Küstenzonenmanagements."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/ac",
-          "label": {
-            "en": "Atmospheric conditions",
-            "sv": "Atmosfäriska förhållanden",
-            "de": "Atmosphärische Bedingungen"
-          },
-          "description": {
-            "en": "Physical conditions in the atmosphere. Includes spatial data based on measurements, on models or on a combination thereof and includes measurement locations.",
-            "sv": "Fysikaliska förhållanden i atmosfären. Inbegriper rumsliga data baserade på mätningar, modeller eller en kombination av dessa, samt mätpunkternas läge.",
-            "de": "Physikalische Bedingungen in der Atmosphäre. Dazu zählen Geodaten auf der Grundlage von Messungen, Modellen oder einer Kombination aus beiden sowie Angabe der Messstandorte."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/br",
-          "label": {
-            "en": "Bio-geographical regions",
-            "sv": "Biogeografiska regioner",
-            "de": "Biogeografische Regionen"
-          },
-          "description": {
-            "en": "Areas of relatively homogeneous ecological conditions with common characteristics.",
-            "sv": "Områden som har relativt homogena ekologiska förhållanden med likartade egenskaper.",
-            "de": "Gebiete mit relativ homogenen ökologischen Bedingungen und gemeinsamen Merkmalen."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/bu",
-          "label": {
-            "en": "Buildings",
-            "sv": "Byggnader",
-            "de": "Gebäude"
-          },
-          "description": {
-            "en": "Geographical location of buildings.",
-            "sv": "Geografiskt läge för byggnader.",
-            "de": "Geografischer Standort von Gebäuden."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/er",
-          "label": {
-            "en": "Energy resources",
-            "sv": "Energiresurser",
-            "de": "Energiequellen"
-          },
-          "description": {
-            "en": "Energy resources including hydrocarbons, hydropower, bio-energy, solar, wind, etc., where relevant including depth/height information on the extent of the resource.",
-            "sv": "Energiresurser, inbegripet kolväten, vattenkraft, bioenergi, sol, vind osv., i tillämpliga fall med djup-/höjdinformation om resursens omfattning.",
-            "de": "Energiequellen wie Kohlenwasserstoffe, Wasserkraft, Bioenergie, Sonnen- und Windenergie usw., gegebenenfalls mit Tiefen- bzw. Höhenangaben zur Ausdehnung der Energiequelle."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/ef",
-          "label": {
-            "en": "Environmental monitoring facilities",
-            "sv": "Anläggningar för miljöövervakning",
-            "de": "Umweltüberwachung"
-          },
-          "description": {
-            "en": "Location and operation of environmental monitoring facilities includes observation and measurement of emissions, of the state of environmental media and of other ecosystem parameters (biodiversity, ecological conditions of vegetation, etc.) by or on behalf of public authorities.",
-            "sv": "Placering och användning av anläggningar för miljöövervakning inbegriper iakttagelse och mätning av utsläpp, av situationen när det gäller miljömedier och av andra parametrar för ekosystemet (biologisk mångfald, ekologiska villkor för växtligheten etc.) som genomförs av offentliga myndigheter eller för deras räkning.",
-            "de": "Standort und Betrieb von Umweltüberwachungseinrichtungen einschließlich Beobachtung und Messung von Schadstoffen, des Zustands von Umweltmedien und anderen Parametern des Ökosystems (Artenvielfalt, ökologischer Zustand der Vegetation usw.) durch oder im Auftrag von öffentlichen Behörden."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/hb",
-          "label": {
-            "en": "Habitats and biotopes",
-            "sv": "Naturtyper och biotoper",
-            "de": "Lebensräume und Biotope"
-          },
-          "description": {
-            "en": "Geographical areas characterised by specific ecological conditions, processes, structure, and (life support) functions that physically support the organisms that live there. Includes terrestrial and aquatic areas distinguished by geographical, abiotic and biotic features, whether entirely natural or semi-natural.",
-            "sv": "Geografiska områden som kännetecknas av särskilda ekologiska förhållanden, processer, strukturer och (livsstödjande) funktioner och som är fysiska livsmiljöer för organismer som lever där. Inbegriper land- och vattenområden med särskilda geografiska, abiotiska och biotiska egenskaper, oavsett om de är naturliga eller delvis naturliga.",
-            "de": "Geografische Gebiete mit spezifischen ökologischen Bedingungen, Prozessen, Strukturen und (lebensunterstützenden) Funktionen als physische Grundlage für dort lebende Organismen. Dies umfasst auch durch geografische, abiotische und biotische Merkmale gekennzeichnete natürliche oder naturnahe terrestrische und aquatische Gebiete."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/hh",
-          "label": {
-            "en": "Human health and safety",
-            "sv": "Människors hälsa och säkerhet",
-            "de": "Gesundheit und Sicherheit"
-          },
-          "description": {
-            "en": "Geographical distribution of dominance of pathologies (allergies, cancers, respiratory diseases, etc.), information indicating the effect on health (biomarkers, decline of fertility, epidemics) or well-being of humans (fatigue, stress, etc.) linked directly (air pollution, chemicals, depletion of the ozone layer, noise, etc.) or indirectly (food, genetically modified organisms, etc.) to the quality of the environment.",
-            "sv": "Geografisk fördelning av dominansen av patologier (allergier, cancer, sjukdomar i andningsorganen osv.), all information om de effekter på människors hälsa (biomarkörer, minskad fertilitet, epidemier osv.) eller välbefinnande (trötthet, stress osv.) som har ett direkt (luftföroreningar, kemikalier, uttunning av ozonskiktet, buller osv.) eller ett indirekt (livsmedel, genetiskt modifierade organismer osv.) samband med miljöns kvalitet.",
-            "de": "Geografische Verteilung verstärkt auftretender pathologischer Befunde (Allergien, Krebserkrankungen, Erkrankungen der Atemwege usw.), Informationen über Auswirkungen auf die Gesundheit (Biomarker, Rückgang der Fruchtbarkeit, Epidemien) oder auf das Wohlbefinden (Ermüdung, Stress usw.) der Menschen in unmittelbarem Zusammenhang mit der Umweltqualität (Luftverschmutzung, Chemikalien, Abbau der Ozonschicht, Lärm usw.) oder in mittelbarem Zusammenhang mit der Umweltqualität (Nahrung, genetisch veränderte Organismen usw.)."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/lu",
-          "label": {
-            "en": "Land use",
-            "sv": "Markanvändning",
-            "de": "Bodennutzung"
-          },
-          "description": {
-            "en": "Territory characterised according to its current and future planned functional dimension or socio-economic purpose (e.g. residential, industrial, commercial, agricultural, forestry, recreational).",
-            "sv": "Territorium indelat efter nuvarande och framtida planerade funktion eller socioekonomisk användning (t.ex. bostadsmark, industrimark, handel, jordbruk, skogsbruk, friluftsliv).",
-            "de": "Beschreibung von Gebieten anhand ihrer derzeitigen und geplanten künftigen Funktion oder ihres sozioökonomischen Zwecks (z. B. Wohn-, Industrie- oder Gewerbegebiete, land- oder forstwirtschaftliche Flächen, Freizeitgebiete)."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/mr",
-          "label": {
-            "en": "Mineral resources",
-            "sv": "Mineralfyndigheter",
-            "de": "Mineralische Bodenschätze"
-          },
-          "description": {
-            "en": "Mineral resources including metal ores, industrial minerals, etc., where relevant including depth/height information on the extent of the resource.",
-            "sv": "Mineralfyndigheter, bland annat malm, industrimineraler osv., i tillämpliga fall med djup-/höjdinformation om resursens omfattning.",
-            "de": "Mineralische Bodenschätze wie Metallerze, Industrieminerale usw., gegebenenfalls mit Tiefen- bzw. Höhenangaben zur Ausdehnung der Bodenschätze."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/nz",
-          "label": {
-            "en": "Natural risk zones",
-            "sv": "Naturliga riskområden",
-            "de": "Gebiete mit naturbedingten Risiken"
-          },
-          "description": {
-            "en": "Vulnerable areas characterised according to natural hazards (all atmospheric, hydrologic, seismic, volcanic and wildfire phenomena that, because of their location, severity, and frequency, have the potential to seriously affect society), e.g. floods, landslides and subsidence, avalanches, forest fires, earthquakes, volcanic eruptions.",
-            "sv": "Sårbara områden klassificerade efter naturliga risker (alla atmosfäriska, hydrologiska, seismiska och vulkaniska fenomen samt bränder som på grund av läge, omfattning och frekvens har potential att allvarligt påverka samhället), exempelvis översvämningar, jordskred och sättningar, laviner, skogsbränder, jordbävningar, vulkanutbrott.",
-            "de": "Gefährdete Gebiete, eingestuft nach naturbedingten Risiken (sämtliche atmosphärischen, hydrologischen, seismischen, vulkanischen Phänomene sowie Naturfeuer, die aufgrund ihres örtlichen Auftretens sowie ihrer Schwere und Häufigkeit signifikante Auswirkungen auf die Gesellschaft haben können), z. B. Überschwemmungen, Erdrutsche und Bodensenkungen, Lawinen, Waldbrände, Erdbeben oder Vulkanausbrüche."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/of",
-          "label": {
-            "en": "Oceanographic geographical features",
-            "sv": "Geografiska oceanografiska förhållanden",
-            "de": "Ozeanografisch-geografische Kennwerte"
-          },
-          "description": {
-            "en": "Physical conditions of oceans (currents, salinity, wave heights, etc.).",
-            "sv": "Fysikaliska förhållanden i oceanerna (strömmar, salthalt, våghöjd osv.).",
-            "de": "Physikalische Bedingungen der Ozeane (Strömungsverhältnisse, Salinität, Wellenhöhe usw.)."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/pd",
-          "label": {
-            "en": "Population distribution — demography",
-            "sv": "Befolkningsfördelning – demografi",
-            "de": "Verteilung der Bevölkerung — Demografie"
-          },
-          "description": {
-            "en": "Geographical distribution of people, including population characteristics and activity levels, aggregated by grid, region, administrative unit or other analytical unit.",
-            "sv": "Geografisk fördelning av människor, inbegripet befolkningskarakteristiska och sysselsättningsgrader, i rutnät, regioner, administrativa enheter eller andra analysenheter.",
-            "de": "Geografische Verteilung der Bevölkerung, einschließlich Bevölkerungsmerkmalen und Tätigkeitsebenen, zusammengefasst nach Gitter, Region, Verwaltungseinheit oder sonstigen analytischen Einheiten."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/pf",
-          "label": {
-            "en": "Production and industrial facilities",
-            "sv": "Produktions- och industrianläggningar",
-            "de": "Produktions- und Industrieanlagen"
-          },
-          "description": {
-            "en": "Industrial production sites, including installations covered by Council Directive 96/61/EC of 24 September 1996 concerning integrated pollution prevention and control (1) and water abstraction facilities, mining, storage sites.",
-            "sv": "Industriella produktionsställen, inbegripet anläggningar som omfattas av rådets direktiv 96/61/EG av den 24 september 1996 om samordnande åtgärder för att förebygga och begränsa föroreningar [1] samt vattenverk, gruvor och upplagsplatser.",
-            "de": "Standorte für industrielle Produktion, einschließlich durch die Richtlinie 96/61/EG des Rates vom 24. September 1996 über die integrierte Vermeidung und Verminderung der Umweltverschmutzung [1] erfasste Anlagen und Einrichtungen zur Wasserentnahme sowie Bergbau- und Lagerstandorte."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/sr",
-          "label": {
-            "en": "Sea regions",
-            "sv": "Havsområden",
-            "de": "Meeresregionen"
-          },
-          "description": {
-            "en": "Physical conditions of seas and saline water bodies divided into regions and sub-regions with common characteristics.",
-            "sv": "Fysikaliska förhållanden i hav och saltsjöar indelade i områden och delområden med likartade egenskaper.",
-            "de": "Physikalische Bedingungen von Meeren und salzhaltigen Gewässern, aufgeteilt nach Regionen und Teilregionen mit gemeinsamen Merkmalen."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/so",
-          "label": {
-            "en": "Soil",
-            "sv": "Mark",
-            "de": "Boden"
-          },
-          "description": {
-            "en": "Soils and subsoil characterised according to depth, texture, structure and content of particles and organic material, stoniness, erosion, where appropriate mean slope and anticipated water storage capacity.",
-            "sv": "Jordmåner och jordarter klassificerade efter djup, textur, struktur och innehåll av partiklar och organiskt material, stenighet, erosion, vid behov genomsnittlig lutning och beräknad vattenhållande förmåga.",
-            "de": "Beschreibung von Boden und Unterboden anhand von Tiefe, Textur, Struktur und Gehalt an Teilchen sowie organischem Material, Steinigkeit, Erosion, gegebenenfalls durchschnittliches Gefälle und erwartete Wasserspeicherkapazität."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/sd",
-          "label": {
-            "en": "Species distribution",
-            "sv": "Arters utbredning",
-            "de": "Verteilung der Arten"
-          },
-          "description": {
-            "en": "Geographical distribution of occurrence of animal and plant species aggregated by grid, region, administrative unit or other analytical unit.",
-            "sv": "Geografisk fördelning av djur- och växtarters förekomst i rutnät, regioner, administrativa enheter eller andra analytiska enheter.",
-            "de": "Geografische Verteilung des Auftretens von Tier- und Pflanzenarten, zusammengefasst in Gittern, Region, Verwaltungseinheit oder sonstigen analytischen Einheiten."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/su",
-          "label": {
-            "en": "Statistical units",
-            "sv": "Statistiska enheter",
-            "de": "Statistische Einheiten"
-          },
-          "description": {
-            "en": "Units for dissemination or use of statistical information.",
-            "sv": "Enheter för spridning och användning av statistisk information.",
-            "de": "Einheiten für die Verbreitung oder Verwendung statistischer Daten."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/us",
-          "label": {
-            "en": "Utility and governmental services",
-            "sv": "Allmännyttiga och offentliga tjänster",
-            "de": "Versorgungswirtschaft und staatliche Dienste"
-          },
-          "description": {
-            "en": "Includes utility facilities such as sewage, waste management, energy supply and water supply, administrative and social governmental services such as public administrations, civil protection sites, schools and hospitals.",
-            "sv": "Inbegriper anläggningar för allmännyttiga tjänster, exempelvis för hantering av avloppsvatten, avfallshantering, energiförsörjning och vattenförsörjning, administrativa och sociala offentliga tjänster såsom offentliga förvaltningar, räddningstjänstens anläggningar, skolor och sjukhus.",
-            "de": "Versorgungseinrichtungen wie Abwasser- und Abfallentsorgung, Energieversorgung und Wasserversorgung; staatliche Verwaltungs- und Sozialdienste wie öffentliche Verwaltung, Katastrophenschutz, Schulen und Krankenhäuser."
-          }
-        },
-        {
-          "value": "http://inspire.ec.europa.eu/theme/mf",
-          "label": {
-            "en": "Meteorological geographical features",
-            "sv": "Geografiska meteorologiska förhållanden",
-            "de": "Meteorologisch-geografische Kennwerte"
-          },
-          "description": {
-            "en": "Weather conditions and their measurements; precipitation, temperature, evapotranspiration, wind speed and direction.",
-            "sv": "Väderförhållanden och mätningar av dessa; nederbörd, temperatur, evapotranspiration, vindhastighet och vindriktning.",
-            "de": "Witterungsbedingungen und deren Messung; Niederschlag, Temperatur, Gesamtverdunstung (Evapotranspiration), Windgeschwindigkeit und Windrichtung."
-          }
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationTypeCode/video"
         }
       ]
     },
     {
       "type": "choice",
       "nodetype": "URI",
-      "id": "geodcat:theme-INSPIRE",
-      "property": "http://www.w3.org/ns/dcat#theme",
+      "id": "geodcat:accrualPeriodicity-missing",
+      "property": "http://purl.org/dc/terms/accrualPeriodicity",
+      "pattern": "http://inspire.ec.europa.eu/metadata-codelist/MaintenanceFrequencyCode",
       "label": {
-        "en": "INSPIRE theme"
+        "en": "Frequency of update (missing INSPIRE)"
       },
-      "cardinality": {
-        "min": 1,
-        "pref": 0,
-        "max": 1
-      },
-
+      "choices": [
+        {
+          "label": {
+            "en": "As needed",
+            "sv": "Vid behov",
+            "de": "Wie benötigt"
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/MaintenanceFrequencyCode/asNeeded"
+        },
+        {
+          "label": {
+            "en": "Not planned",
+            "sv": "Inte planerat",
+            "de": "Nicht geplant"
+          },
+          "value": "http://inspire.ec.europa.eu/metadata-codelist/MaintenanceFrequencyCode/notPlanned"
+        }
       ]
+    },
+    {
+      "type": "group",
+      "nodetype": "RESOURCE",
+      "id": "geodcat:conformity",
+      "property": "prov:wasUsedBy",
+      "constraints": {
+        "rdf:type": "prov:Activity"
+      },
+      "label": {
+        "en": "Conformity"
+      },
+      "items": [
+        {
+          "type": "group",
+          "nodetype": "RESOURCE",
+          "property": "prov:generated",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "styles": ["invisibleGroup"],
+          "items": [
+            "geodcat:dcterms:type-degreeOfConformity",
+            {
+              "type": "text",
+              "nodetype": "LANGUAGE_LITERAL",
+              "extends": "dcterms:description",
+              "label": {
+                "en": "Description"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "nodetype": "RESOURCE",
+          "property": "prov:qualifiedAssociation",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "styles": ["invisibleGroup"],
+          "items": [
+            {
+              "type": "group",
+              "nodetype": "RESOURCE",
+              "property": "prov:hadPlan",
+              "constraints": {
+                "rdf:type": "prov:Plan"
+              },
+              "styles": ["invisibleGroup"],
+              "cardinality": {
+                "min": 1,
+                "max": 1
+              },
+              "items": [
+                "geodcat:prov:wasDerivedFrom"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "nodetype": "URI",
+      "id": "geodcat:prov:wasDerivedFrom",
+      "property": "prov:wasDerivedFrom",
+      "constraints": {
+        "rdf:type": "dcterms:Standard"
+      },
+      "label": {
+        "en": "Specification"
+      }
+    },
+    {
+      "type": "choice",
+      "nodetype": "PLAIN_LITERAL",
+      "id": "geodcat:cnt:characterEncoding",
+      "property": "cnt:characterEncoding",
+      "label": {
+        "en": "Character encoding",
+        "sv": "Teckenkodning",
+        "de": "Zeichenkodierung"
+      },
+      "choices": [
+        {"label": {"en": "ucs2"}, "description": { "en": "16-bit fixed size Universal Character Set, based on ISO/IEC 10646"}, "value": "ISO-10646-UCS-2"},
+        {"label": {"en": "ucs4"}, "description": { "en": "32-bit fixed size Universal Character Set, based on ISO/IEC 10646"}, "value": "ISO-10646-UCS-4"},
+        {"label": {"en": "utf7"}, "description": { "en": "7-bit variable size UCS Transfer Format, based on ISO/IEC 10646"}, "value": "UTF-7"},
+        {"label": {"en": "utf8"}, "description": { "en": "8-bit variable size UCS Transfer Format, based on ISO/IEC 10646"}, "value": "UTF-8"},
+        {"label": {"en": "utf16"}, "description": { "en": "16-bit variable size UCS Transfer Format, based on ISO/IEC 10646"}, "value": "UTF-16"},
+        {"label": {"en": "8859part1"}, "description": { "en": "ISO/IEC 8859-1, Information technology - 8-bit single byte coded graphic character sets - Part 1 : Latin alphabet No.1"}, "value": "ISO-8859-1"},
+        {"label": {"en": "8859part2"}, "description": { "en": "ISO/IEC 8859-2, Information technology - 8-bit single byte coded graphic character sets - Part 2 : Latin alphabet No.2"}, "value": "ISO-8859-2"},
+        {"label": {"en": "8859part3"}, "description": { "en": "ISO/IEC 8859-3, Information technology - 8-bit single byte coded graphic character sets - Part 3 : Latin alphabet No.3"}, "value": "ISO-8859-3"},
+        {"label": {"en": "8859part4"}, "description": { "en": "ISO/IEC 8859-4, Information technology - 8-bit single byte coded graphic character sets - Part 4 : Latin alphabet No.4"}, "value": "ISO-8859-4"},
+        {"label": {"en": "8859part5"}, "description": { "en": "ISO/IEC 8859-5, Information technology - 8-bit single byte coded graphic character sets - Part 5 : Latin/Cyrillic alphabet"}, "value": "ISO-8859-5"},
+        {"label": {"en": "8859part6"}, "description": { "en": "ISO/IEC 8859-6, Information technology - 8-bit single byte coded graphic character sets - Part 6 : Latin/Arabic alphabet"}, "value": "ISO-8859-6"},
+        {"label": {"en": "8859part7"}, "description": { "en": "ISO/IEC 8859-7, Information technology - 8-bit single byte coded graphic character sets - Part 7 : Latin/Greek alphabet"}, "value": "ISO-8859-7"},
+        {"label": {"en": "8859part8"}, "description": { "en": "ISO/IEC 8859-8, Information technology - 8-bit single byte coded graphic character sets - Part 8 : Latin/Hebrew alphabet"}, "value": "ISO-8859-8"},
+        {"label": {"en": "8859part9"}, "description": { "en": "ISO/IEC 8859-9, Information technology - 8-bit single byte coded graphic character sets - Part 9 : Latin alphabet No.5"}, "value": "ISO-8859-9"},
+        {"label": {"en": "8859part10"}, "description": { "en": "ISO/IEC 8859-10, Information technology - 8-bit single byte coded graphic character sets - Part 10 : Latin alphabet No.6"}, "value": "ISO-8859-10"},
+        {"label": {"en": "8859part11"}, "description": { "en": "ISO/IEC 8859-11, Information technology - 8-bit single byte coded graphic character sets - Part 11 : Latin/Thai alphabet"}, "value": "ISO-8859-11"},
+        {"label": {"en": "8859part13"}, "description": { "en": "ISO/IEC 8859-13, Information technology - 8-bit single byte coded graphic character sets - Part 13 : Latin alphabet No.7"}, "value": "ISO-8859-13"},
+        {"label": {"en": "8859part14"}, "description": { "en": "ISO/IEC 8859-14, Information technology - 8-bit single byte coded graphic character sets - Part 14 : Latin alphabet No.8 (Celtic)"}, "value": "ISO-8859-14"},
+        {"label": {"en": "8859part15"}, "description": { "en": "ISO/IEC 8859-15, Information technology - 8-bit single byte coded graphic character sets - Part 15 : Latin alphabet No.9"}, "value": "ISO-8859-15"},
+        {"label": {"en": "8859part16"}, "description": { "en": "ISO/IEC 8859-16, Information technology - 8-bit single byte coded graphic character sets - Part 16 : Latin alphabet No.10"}, "value": "ISO-8859-16"},
+        {"label": {"en": "jis"}, "description": { "en": "japanese code set used for electronic transmission"}, "value": "JIS_Encoding"},
+        {"label": {"en": "shiftJIS"}, "description": { "en": "japanese code set used on MS-DOS machines"}, "value": "Shift_JIS"},
+        {"label": {"en": "eucJP"}, "description": { "en": "japanese code set used on UNIX based machines"}, "value": "EUC-JP"},
+        {"label": {"en": "usAscii"}, "description": { "en": "United States ASCII code set (ISO 646 US)"}, "value": "US-ASCII"},
+        {"label": {"en": "ebcdic"}, "description": { "en": "IBM mainframe code set"}, "value": "IBM037"},
+        {"label": {"en": "eucKR"}, "description": { "en": "Korean code set"}, "value": "EUC-KR"},
+        {"label": {"en": "big5"}, "description": { "en": "traditional Chinese code set used in Taiwan, Hong Kong of China and other areas"}, "value": "Big5"},
+        {"label": {"en": "GB2312"}, "description": { "en": "simplified Chinese code set"}, "value": "GB2312"}
+      ]
+    }
+  ]
 }
+

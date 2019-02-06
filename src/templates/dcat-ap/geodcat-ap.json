@@ -14,9 +14,6 @@
       "items": [
         "dcat:dcterms:title_da",
         "dcat:dcterms:description_da",
-        "geodcat:dcterms:type",
-        "geodcat:dcterms:subject",
-        "geodcat:spatial:dcterms:type",
         "dcat:foaf:Agent_da",
         "adms:contactPoint-choice_da",
         "dcat:contactPoint-choice_da",
@@ -44,7 +41,31 @@
         "dcat:isVersionOf_da",
         "dcat:dcterms:relation_da",
         "dcat:foaf:page_da",
-        "dcat:dcterms:provenance_da"
+        "dcat:dcterms:provenance_da",
+        {
+          "type": "group",
+          "label": {
+            "en": "Geographic information"
+          },
+          "items": [
+            "geodcat:dcterms:subject",
+            "geodcat:dcterms:type",
+            "geodcat:spatial:dcterms:type",
+            "geodcat:dcterms:created",
+            "geodcat:rdfs:comment",
+            "geodcat:dcterms:creator",
+            "geodcat:prov:qualifiedAttribution",
+            "geodcat:conformity",
+            "geodcat:dcterms:conformsTo"
+          ],
+          "cls": [
+            "cardgroup"
+          ],
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          }
+        }
       ]
     },
     {
@@ -69,7 +90,24 @@
         "dcat:odrs:RSSA_di",
         "dcat:spdx:checksum_di",
         "dcat:foaf:page_di",
-        "dcat:dcterms:conformsTo_di"
+        "dcat:dcterms:conformsTo_di",
+        {
+          "type": "group",
+          "label": {
+            "en": "Geographic information"
+          },
+          "items": [
+            "geodcat:adms:representationTechnique",
+            "geodcat:cnt:characterEncoding"
+          ],
+          "cls": [
+            "cardgroup"
+          ],
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          }
+        }
       ],
       "cardinality": {
         "min": 0,

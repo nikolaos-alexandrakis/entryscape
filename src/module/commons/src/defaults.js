@@ -10,6 +10,7 @@ import { EntryStore, EntryStoreUtil } from 'store';
 import superagent from 'superagent';
 import dcatBundle from 'templates/dcat-ap/dcat-ap';
 import geoDcatBundle from 'templates/dcat-ap/geodcat-ap';
+import geoDcatVocabsBundle from 'templates/dcat-ap/geodcat-ap_vocabs';
 import geoDcatPropsBundle from 'templates/dcat-ap/geodcat-ap_props';
 import dcatPropsBundle from 'templates/dcat-ap/dcat-ap_props';
 import dctermsBundle from 'templates/dcterms/dcterms';
@@ -157,6 +158,7 @@ const init = {
           bundles.push(odrsBundle);
           bundles.push(dcatPropsBundle);
           bundles.push(dcatBundle);
+          bundles.push(geoDcatVocabsBundle);
           bundles.push(geoDcatPropsBundle);
           bundles.push(geoDcatBundle);
           bundles.push(escBundle);
