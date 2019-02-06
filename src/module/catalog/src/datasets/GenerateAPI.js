@@ -139,7 +139,8 @@ export default declare([], {
     addHandlers(handlersToIgnore);
 
     if (this.mode === 'refresh') {
-      this.refreshAPI();
+      this.refreshAPI()
+        .then(() => removeHandlers(handlersToIgnore));
     } else {
       // check if catalog/dataset are public
       const isDatasetPublic = this.datasetEntry.isPublic();
