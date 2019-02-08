@@ -22,7 +22,7 @@
   "emptyListWarning": "Begriffe die Sie erstellen werden hier angezeigt werden",
   "emptyTreeWarning": "Details des gewählten Begriffes werden hier angezeigt werden",
   "reasonForRevisionMessage": "Die Position des Begriffes in der Hierarchie, welche Unterbegriffe es hat oder welchen Sammlungen es angehört hat sich seit der vorherigen Version verändert.",
-  "noRevertSameGraphExcludeTitle": "Es gibt nichts zurückzusetzen. Die letzte Version ist identisch mit Ausnahme von Informationen die nicht leicht zurückgesetzt werden können (z. B. die Stelle in der Hierarchie, die Unterbegriffe sowie die Mitgliedschaft in Sammlungen).",
+  "noRevertSameGraphExcludeTitle": "Es gibt nichts zurückzusetzen. Die letzte Version ist identisch mit Ausnahme von Informationen die nicht leicht zurückgesetzt werden können (z. B. die Platzierung in der Hierarchie, die Unterbegriffe sowie die Mitgliedschaft in Sammlungen).",
   "revertExcludeMessage": "Die Position des Begriffes in der Hierarchie, seine Unterbegriffe und die Mitgliedschaft in Sammlungen werden nicht geändert.",
   "selectedTermDesc": "Begriff erstellen in"
 }

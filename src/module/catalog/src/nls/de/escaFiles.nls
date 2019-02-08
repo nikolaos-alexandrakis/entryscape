@@ -39,5 +39,6 @@
   "columnLabel": "Spalten in der API:",
   "searchExampleLabel": "Beispiel für eine API-Anfrage:",
   "searchExampleTitle": "Eine Abfrage besteht aus mindestens einer Spalte mit Teilzeichenfolgen oder regulären Ausdrücken und wird mit passenden Zeilen beantwortet.",
-  "apiAliasNamePlaceholder": "Nur alphanumerische Zeichen erlaubt"
+  "apiAliasNamePlaceholder": "Nur alphanumerische Zeichen erlaubt",
+  "activateAPINotAllowedDatasetNotPublic": "Der Datensatz oder der Datenkatalog sind nicht veröffentlicht. Alle generierten APIs sind jedoch immer öffentlich zugänglich. Dies bedeutet, dass durch die Aktivierung der API die Daten für diese Distribution öffentlich zugänglich werden.<br/><br/>Möchten Sie mit der Aktivierung der API fortfahren?"
 }
