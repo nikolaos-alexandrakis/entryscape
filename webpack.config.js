@@ -170,7 +170,6 @@ module.exports = (env, argv) => {
         config: path.join(APP_PATH, 'src', 'config', 'config'),
         theme: path.join(APP_PATH, 'theme'),
       },
-      mainFields: ['module', 'browser', 'main'],
     },
     stats: {
       warnings: false,
