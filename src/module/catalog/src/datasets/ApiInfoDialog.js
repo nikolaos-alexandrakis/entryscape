@@ -43,19 +43,16 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     this.__aliasError.style.display = 'none';
     const aliasName = this.apiAlias.value;
     if (aliasName === '' || aliasName === this.currentAliasName) {
-      // domClass.add(this.saveButton, 'disabled');
       this.saveButton.setAttribute('disabled', true);
     } else {
       const alphanum = /^[0-9a-zA-Z]+$/;
       if (!aliasName.match(alphanum)) {
-        // domClass.add(this.saveButton, 'disabled');
         this.saveButton.setAttribute('disabled', true);
         this.__aliasError.style.display = '';
         this.__aliasError.innerHTML = this.NLSBundles.escaDataset.invalidAliasName;
         return;
       }
-      // domClass.remove(this.saveButton, 'disabled');
-      this.saveButton.setAttribute('disabled', false); // maybe remove the attribute completely?
+      this.saveButton.removeAttribute('disabled');
     }
   },
 
