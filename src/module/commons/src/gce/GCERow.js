@@ -1,7 +1,6 @@
 import registry from 'commons/registry';
 import ToggleRow from 'commons/list/common/ToggleRow';
 import declare from 'dojo/_base/declare';
-import { escape } from 'lodash-es';
 
 export default declare([ToggleRow], {
   nlsPublicTitle: '',
@@ -72,7 +71,7 @@ export default declare([ToggleRow], {
       context: this.getContext().getId(),
     };
     const path = sm.getViewPath(this.list.rowClickView, params);
-    return `<a onclick='' href='${path}'>${escape(this.getRenderName())}</a>`;
+    return `<a onclick='' href='${path}'>${this.getRenderName()}</a>`;
   },
   getRenderName() {
     return this.inherited(arguments) || this.entry.getId();
