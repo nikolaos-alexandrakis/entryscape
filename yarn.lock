@@ -837,8 +837,8 @@ ajv-keywords@^2.1.0:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.1.tgz#617997fc5f60576894c435f940d819e135b80762"
 
 ajv-keywords@^3.1.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.3.0.tgz#cb6499da9b83177af8bc1732b2f0a1a1a3aacf8c"
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.4.0.tgz#4b831e7b531415a7cc518cd404e73f6193c6349d"
 
 ajv@^5.2.3, ajv@^5.3.0:
   version "5.5.2"
@@ -850,8 +850,8 @@ ajv@^5.2.3, ajv@^5.3.0:
     json-schema-traverse "^0.3.0"
 
 ajv@^6.1.0:
-  version "6.8.1"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.8.1.tgz#0890b93742985ebf8973cd365c5b23920ce3cb20"
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.9.1.tgz#a4d3683d74abc5670e75f0b16520f70a20ea8dc1"
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
@@ -3209,7 +3209,7 @@ entities@~1.1.1:
 
 "entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#develop":
   version "4.7.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#7ae182d96c80bb3cd0fa284df179828d0395a8e8"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#b43a01fa5b0276e1641be0d2503cedc84543e98e"
   dependencies:
     "@babel/core" "^7.2.2"
     babel-core "^6.26.3"
@@ -6205,8 +6205,8 @@ object-copy@^0.1.0:
     kind-of "^3.0.3"
 
 object-keys@^1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.0.12.tgz#09c53855377575310cca62f55bb334abff7b3ed2"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.0.tgz#11bd22348dd2e096a045ab06f6c85bcc340fa032"
 
 object-visit@^1.0.0:
   version "1.0.1"
@@ -7418,14 +7418,14 @@ rc@^1.2.7:
 
 "rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#develop":
   version "2.1.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdfjson.git#83eee25bd343f2553139a958a71fbb150074fe3c"
+  resolved "https://bitbucket.org/metasolutions/rdfjson.git#6b573e9c113d3bf6b515156e49cf7d7b009c0f25"
   dependencies:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "10.0.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#30328c3f6590ed64e7549677bf5f8bef7253c7f5"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#03106e3932ea7980fa3653a44a3d8bf055f8a87b"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
