@@ -27,5 +27,6 @@ export const isExternalLink = (url) => {
   const anchor = document.createElement('a');
   anchor.href = url;
 
-  return anchor.hostname !== window.location.hostname;
+  // Check empty hostname for IE11
+  return anchor === '' || (anchor.hostname !== window.location.hostname);
 };
