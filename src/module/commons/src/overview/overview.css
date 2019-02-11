@@ -20,7 +20,7 @@
 }
 .escoOverview__statBox {
     width: 200px;
-    height: 200px;
+    min-height: 200px;
     background-color: white;
     box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.5);
     margin: 15px;
