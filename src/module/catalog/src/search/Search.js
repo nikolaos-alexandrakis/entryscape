@@ -87,7 +87,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         this.domNode.classList.remove(`${this.bid}--noListAvailable`);
         this.__back.setAttribute('href', site.getViewPath(view, p));
       }
-      toggleDisplayNoneEmpty(this.__catalogControls); // TODO might not need a toggle but rather just setting of display
+      // toggleDisplayNoneEmpty(this.__catalogControls);
+      this.__catalogControls.style.display = ''; // TODO might not need a toggle but rather just setting of display
     } else {
       this.domNode.classList.add(`${this.bid}--list`);
       catalogs.forEach((catal) => {
