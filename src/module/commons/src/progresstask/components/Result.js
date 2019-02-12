@@ -1,5 +1,6 @@
 import Row from 'commons/components/common/grid/Row';
 import m from 'mithril';
+import './Result.css';
 
 const Result = {
   bid: 'escoProgressTask',
@@ -12,7 +13,7 @@ const Result = {
           resultIcon = 'i.fa.fa-spinner.fa-spin';
           break;
         case 'done':
-          resultIcon = 'i.fa.fa-check';
+          resultIcon = 'i.fa.fa-check.noAnimate';
           break;
         case 'failed':
           resultIcon = 'i.fa.fa-ban';
