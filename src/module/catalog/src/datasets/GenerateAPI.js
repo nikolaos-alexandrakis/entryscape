@@ -126,7 +126,7 @@ export default declare([], {
   async generateAPI() {
     const asyncHandler = registry.get('asynchandler');
     const addHandlers = handlers => handlers.forEach(handler => asyncHandler.addIgnore(handler, true, false));
-    const removeHandlers = handlers => handlers.forEach(handler => asyncHandler.removeHandler(handler));
+    const removeHandlers = handlers => handlers.forEach(handler => asyncHandler.removeIgnore(handler));
     const handlersToIgnore = [
       'execute',
       'loadViaProxy',
