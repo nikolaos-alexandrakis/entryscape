@@ -60,7 +60,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     const aliasName = this.apiAlias.value;
     pipelineUtil.setAlias(this.etlEntry, aliasName).then(() => {
       this.currentAliasName = aliasName;
-      this.removeButton.setAttribute('disabled', false); // maybe remove the attribute completely?
+      this.removeButton.removeAttribute('disabled');
       this._setAliasNameInExternalMetadata(aliasName);
       this._updateExampleURL(aliasName);
     }, (err) => {
@@ -142,8 +142,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
         this._updateExampleURL();
       }
       if (this.currentAliasName) { // check for
-        // domClass.remove(this.removeButton, 'disabled');
-        this.removeButton.setAttribute('disabled', false);
+        this.removeButton.removeAttribute('disabled');
       }
       /*
       const exampleURL = `${this.etlEntry.getResourceURI()}?${cols[0]}=some_string_pattern`;
