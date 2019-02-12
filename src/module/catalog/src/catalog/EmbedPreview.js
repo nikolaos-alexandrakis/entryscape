@@ -19,9 +19,12 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
   open(params) {
     this.inherited(arguments);
     if (this.iframe) {
-      this.iframe.remove();
+      this.iframe.parentNode.removeChild(this.iframe);
+      this.iframe = null;
     }
-    this.iframe = htmlUtil.create('iframe', { class: `${this.bid}__embedCode` }, this.dialog.containerNode);
+    this.iframe = htmlUtil.create('iframe', {
+      class: `${this.bid}__embedCode`,
+    }, this.dialog.containerNode);
     const embedCode = params.embededCode;
     const html = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>${embedCode}</body></html>`;
     setTimeout(() => {
