@@ -65,10 +65,12 @@ body {
     color: #333;
 }
 
+
 .active a span.fa {
     text-align: right !important;
     margin-right: 4px
 }
+
 
 .nav_menu {
     float: left;
@@ -159,7 +161,9 @@ body {
         width: calc(100% - 60px);
         margin: 0;
     }
-
+    .main_menu span.fa{
+        display: none;
+    }
     .nav-md .container.body .left_col,
     .nav-md .container.body .left_col .nav_title {
         width: 60px;
