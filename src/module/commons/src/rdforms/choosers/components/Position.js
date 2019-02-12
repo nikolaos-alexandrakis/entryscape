@@ -32,7 +32,7 @@ export default () => {
   const updateGeoCoordinatesState = (direction, value) => {
     const newBounds = state.bounds;
     newBounds[direction] = parseFloat(value);
-    state = setState({ bounds: newBounds });
+    state = setState({ bounds: newBounds }, true);
 
     if (Number.isNaN(parseFloat(value))) {
       return false;

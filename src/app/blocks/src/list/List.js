@@ -111,7 +111,7 @@ class ListRow extends EntryRow {
     return this.domNode;
   }
   getRenderNameHTML() {
-    const name = escape(this.getRenderName());
+    const name = this.getRenderName();
     const href = this.list.getRowClickLink(this);
     return href ? `<a href="${href}">${name}</a>` : name;
   }

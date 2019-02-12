@@ -1282,6 +1282,9 @@
         "min": 0,
         "pref": 0
       },
+      "cls": [
+        "cardgroup"
+      ],
       "items": [
         {
           "type": "text",
@@ -1631,6 +1634,9 @@
       },
       "styles": [
         "disjoint"
+      ],
+      "cls": [
+        "cardgroup"
       ],
       "items": [
         {
@@ -2735,6 +2741,9 @@
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://spdx.org/rdf/terms#Checksum"
       },
+      "cls": [
+        "cardgroup"
+      ],
       "items": [
         {
           "type": "text",
@@ -4010,7 +4019,10 @@
         "da": "Reference til lisencen som distributioonen er gjort tilgængelig under. Bør angives som en URI, feks http://data.danmark.dk/nlod/dk/1.0",
         "de": "Diese Eigenschaft bezieht sich auf die Lizenz unter der die Distribution zur Verfügung gestellt wird.",
         "sv": "Den här egenskapen hänvisar till licensen enligt vilken distributionen görs tillgänglig."
-      }
+      },
+      "cls": [
+        "cardgroup"
+      ]
     },
     {
       "type": "group",
@@ -4029,7 +4041,10 @@
         "sv": "Rättigheter",
         "da": "Rettigheder",
         "de": "Rechteerklärung"
-      }
+      },
+      "cls": [
+        "cardgroup"
+      ]
     },
     {
       "type": "group",

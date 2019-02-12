@@ -97,6 +97,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
   },
   clearMergeCatalogs() {
     this.mergeCatalogsList.slice().forEach(cl => cl.destroy());
-    this.__mergeCatalogList = [];
+
   },
 });

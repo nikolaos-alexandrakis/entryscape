@@ -26,7 +26,11 @@
           "cardinality": {
             "min": 0,
             "pref": 0
-          }
+          },
+          "styles": [
+            "externalLink"
+          ],
+          "pattern": "https?://.+"
         }
       ]
     },
