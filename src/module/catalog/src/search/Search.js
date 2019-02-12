@@ -55,7 +55,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const context = registry.get('context');
     this.__catalogList.innerHTML = '';
 
-    this.domNode.classList.toggle(`${this.bid}--catalogs`, catalogs.length !== 0);
+    if (catalogs.length > 0) {
+      this.domNode.classList.add(`${this.bid}--catalogs`);
+    } else {
+      this.domNode.classList.remove(`${this.bid}--catalogs`);
+    }
+
     let catalog;
     if (catalogs.length === 1) {
       catalog = catalogs[0];
@@ -87,8 +92,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         this.domNode.classList.remove(`${this.bid}--noListAvailable`);
         this.__back.setAttribute('href', site.getViewPath(view, p));
       }
-      // toggleDisplayNoneEmpty(this.__catalogControls);
-      this.__catalogControls.style.display = ''; // TODO might not need a toggle but rather just setting of display
+      toggleDisplayNoneEmpty(this.__catalogControls); // TODO might not need a toggle but rather just setting of display
     } else {
       this.domNode.classList.add(`${this.bid}--list`);
       catalogs.forEach((catal) => {
