@@ -8,6 +8,6 @@
   "replaceFileMenu": "Ändra fil",
   "replaceFileMenuTitle": "Ändra fil",
   "confirmDocumentRemove": "Vill du ta bort detta dokument?",
-  "downloadButton": "Ladda ner",
-  "downloadButtonTitle": "Ladda ner fil"
+  "downloadButton": "Ladda ned",
+  "downloadButtonTitle": "Ladda ned fil"
 }
