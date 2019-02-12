@@ -55,10 +55,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.setEmbededText();
   },
   setEmbededText() {
-    this.embededTxt = `<script src="https://static.entryscape.com/embed/catalog/latest/embed.js"
+    this.embededTxt = `<script src="https://static.cdn.entryscape.com/embed/catalog/latest/embed.js"
                data-entry-id="${this.entryId}" data-context-id="${this.ctxId}" data-theme-style="${this.themeStyle}"
-               data-repository="${this.repobase}" ${this.blank}></script>`;
-    this.embededTxtWithAuth = `<script src="https://static.entryscape.com/embed/catalog/latest/embed.js"
+               data-repository="${this.repobase}" ${this.blank}></script>`; // TODO @valentino get the static URL from config
+    this.embededTxtWithAuth = `<script src="https://static.cdn.entryscape.com/embed/catalog/latest/embed.js"
                data-entry-id="${this.entryId}" data-context-id="${this.ctxId}" data-theme-style="${this.themeStyle}"
                data-repository="${this.repobase}" data-ignore-auth="false" ${this.blank}></script>`;
 
