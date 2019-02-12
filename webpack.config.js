@@ -83,8 +83,17 @@ module.exports = (env, argv) => {
           exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
           use: {
             loader: 'babel-loader',
+
             options: {
-              presets: ['@babel/preset-env'],
+              "presets": [
+                [
+                  "@babel/preset-env", {
+                  "targets": {
+                    "ie": 11,
+                  },
+                },
+                ]
+              ],
               plugins: [
                 'lodash',
                 '@babel/plugin-proposal-object-rest-spread',

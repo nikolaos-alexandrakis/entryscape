@@ -5,7 +5,7 @@ import merge from 'commons/merge';
 import workbenchConfig from 'workbench/config/config';
 
 const STATIC = {
-  URL: 'https://static.entryscape.com/',
+  URL: 'https://static.cdn.entryscape.com/',
   APP: 'registry',
   VERSION: 'latest',
 };
@@ -16,9 +16,9 @@ const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
 export default merge(adminConfig, catalogConfig, workbenchConfig, {
   entryscape: {
     static: {
-      url: 'https://static.entryscape.com/',
-      app: 'registry',
-      version: 'latest',
+      url: STATIC.URL,
+      app: STATIC.APP,
+      version: STATIC.VERSION,
     },
   },
   theme: {
