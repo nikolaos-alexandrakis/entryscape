@@ -147,11 +147,12 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /.+font-icon-css.+\.svg$/,
+          test: /.+flag-icon-css.+\.svg$/,
           loader: 'svg-url-loader'
         },
         {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          exclude: /.+flag-icon-css.+\.svg$/,
           use: [{
             loader: 'file-loader',
             options: {
