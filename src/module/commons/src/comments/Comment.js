@@ -58,7 +58,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       } else {
         this.__replies.style.display = 'none';
         this.__replyIcon.style.display = 'none';
-        this.__editComment.setAttribute('disabled', false);
+        this.__editComment.removeAttribute('disabled');
       }
     }
   },
@@ -91,7 +91,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.noOfReplies = comments.getNrOfReplies(this.entry);
     if (this.noOfReplies <= 0) {
       // enable edit
-      this.__editComment.setAttribute('disabled', false);
+      this.__editComment.removeAttribute('disabled');
     }
     this.updateLocaleStrings();
   },
@@ -141,7 +141,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     // enable editing and save
     this.__commentDisplay.style.display = 'none';
     this.__commentEditNode.style.display = '';
-    this.__commentInput.setAttribute('disabled', false);
+    this.__commentInput.removeAttribute('disabled');
     this.__commentEditButtons.style.display = '';
     focusUtil.focus(this.__commentInput);
   },
