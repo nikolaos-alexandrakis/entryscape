@@ -10,7 +10,7 @@ const loadDependencies = async () => {
     leaflet = await import(/* webpackChunkName: "leaflet" */ 'leaflet');
     import(/* webpackChunkName: "leaflet-css" */ 'leaflet/dist/leaflet.css');
 
-    leaflet.Icon.Default.imagePath = 'https://static.entryscape.com/libs/leaflet/dist/images/';
+    leaflet.Icon.Default.imagePath = 'https://static.cdn.entryscape.com/libs/leaflet/dist/images/';
   }
 
   return depLoad;

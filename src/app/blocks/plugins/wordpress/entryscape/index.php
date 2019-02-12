@@ -17,7 +17,7 @@ function entryscape_script_config() {
     if ($ese) {
         wp_enqueue_script('entryscape_extention_script', $ese, array(), null, true);
     }
-    $esb = 'https://static.entryscape.com/blocks/' . get_option('entryscape_base');
+    $esb = 'https://static.cdn.entryscape.com/blocks/' . get_option('entryscape_base');
     wp_enqueue_script('entryscape_script', $esb . '/app.js', array(), null, true);
 /*    wp_enqueue_style('entryscape_css', $esb . '/style.css');
     wp_enqueue_script('jquery');
