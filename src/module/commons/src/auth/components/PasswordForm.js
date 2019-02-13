@@ -8,12 +8,6 @@ import Password from '../Password';
 
 const passconfig = config.entrystore.password || {};
 
-let bundle;
-registry.onChange('locale', () => {
-  bundle = i18n.getLocalization(escoSignin);
-  m.redraw();
-}, true);
-
 const prevent = (f, notify) => (e) => {
   e.stopPropagation();
   e.preventDefault();
@@ -34,6 +28,7 @@ export default (type, notify) => ({
   view: (vnode) => {
     const id = vnode.state.id;
     let passwordPlaceholder;
+    const bundle = i18n.getLocalization(escoSignin);
     switch (type) {
       case 'reset':
         passwordPlaceholder = bundle.resetToNewPasswordPlaceholder;

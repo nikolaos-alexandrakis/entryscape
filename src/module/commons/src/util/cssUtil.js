@@ -51,11 +51,3 @@ export {
   toggleDisplayNoneBlock,
   toggleDisplayNoneEmpty,
 };
-
-
-// export default {
-//   toggleClass,
-//   togglePropertyValue,
-//   toggleDisplayNoneBlock,
-//   toggleDisplayNoneEmpty,
-// };

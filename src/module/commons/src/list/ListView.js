@@ -87,16 +87,16 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       this.buttonContainer.classList.add('col-md-12');
       this.buttonContainer.style.display = '';
       if (buttons.length > 1) {
-        if (this.includeResultSize) {
+        if (this.shouldShowResultSize()) {
           DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-6');
 
-          DOMUtil.addClass(this.resultSizeContainer, 'col-md-1 col-sm-1');
+          DOMUtil.addClass(this.resultSizeContainer, 'col-md-1 col-sm-1'); // TODO bad, this should be mithril
         } else {
           DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-7');
         }
-      } else if (this.includeResultSize) {
+      } else if (this.shouldShowResultSize()) {
         DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-6');
-        DOMUtil.addClass(this.resultSizeContainer, 'col-md-1 col-sm-1');
+        DOMUtil.addClass(this.resultSizeContainer, 'col-md-1 col-sm-1'); // TODO bad, this should be mithril
       } else {
         DOMUtil.addClass(this.headerContainer, 'col-md-5 col-sm-8');
       }
@@ -361,9 +361,22 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         this.nlsSpecificBundle : this.nlsGenericBundle;
       const tStr = i18n.renderNLSTemplate(bundle[this.nlsListResultSizeKey], this.getResultSize());
 
-      m.render(this.resultSizeContainer,
-        m(ResultSize, { text: tStr }));
+      m.render(this.resultSizeContainer, m(ResultSize, { text: tStr }));
     });
+  },
+
+  /**
+   * Determine if the size of the list should be shown given a certain state
+   *
+   * @return {boolean}
+   */
+  shouldShowResultSize() {
+    if (this.includeResultSize && (this.searchTerm != null && this.searchTerm.length !== 0)) {
+      return true;
+    } else if (this.includeSizeByDefault) {
+      return true;
+    }
+    return false;
   },
 
   showPage(page) {
@@ -392,11 +405,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       this._calculatePageCount(entryArr);
       entryArr.forEach(this._renderRow, this);
       this._updatePagination();
-      if (this.includeResultSize && (this.searchTerm != null && this.searchTerm.length !== 0)) {
+      if (this.shouldShowResultSize()) {
         this.resultSizeContainer.style.display = 'block';
         this.showResultSize();
       } else {
-        this.resultSizeContainer.style.display = 'none';
+        m.render(this.resultSizeContainer, null);
+        // this.resultSizeContainer.style.display = 'none';
       }
       this.doneRenderingPage();
     });
@@ -423,7 +437,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       }
     }
     this._enforceLimits();
-    if (this.includeResultSize) {
+    if (this.shouldShowResultSize()) {
       this.showResultSize();
     }
   },
@@ -440,7 +454,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     }
     this.selectallCheck.checked = false;
     const row = this._renderRow(entry, true);
-    if (this.includeResultSize) {
+    if (this.shouldShowResultSize()) {
       this.showResultSize();
     }
     return row;
@@ -649,7 +663,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
   action_refresh() {
     this.searchTerm = this.searchTermNode.value || '';
-    this.resultSizeContainer.style.display = 'none';
+    // m.render(this.resultSizeContainer, null);
+    // this.resultSizeContainer.style.display = 'none';
     this.searchBlockInner.classList.remove('has-error');
     this.searchBlockInner.classList.remove('has-warning');
     this.searchIconFeedback.classList.remove('fa-exclamation-triangle');

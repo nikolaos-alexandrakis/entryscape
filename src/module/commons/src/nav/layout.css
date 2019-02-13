@@ -57,18 +57,20 @@ body {
 }
 
 .main_menu span.fa {
-    float: right;
+/*     float: right; */
     text-align: center;
     margin-top: 5px;
-    font-size: 10px;
+    font-size: 14px;
     min-width: inherit;
-    color: #C4CFDA
+    color: #333;
 }
+
 
 .active a span.fa {
     text-align: right !important;
     margin-right: 4px
 }
+
 
 .nav_menu {
     float: left;
@@ -145,6 +147,8 @@ body {
     footer.sidebar-footer {
         width: 60px;
         position: fixed;
+        display:flex;
+        justify-content: space-between;
     }
 }
 
@@ -159,7 +163,9 @@ body {
         width: calc(100% - 60px);
         margin: 0;
     }
-
+    .main_menu span.fa{
+        display: none;
+    }
     .nav-md .container.body .left_col,
     .nav-md .container.body .left_col .nav_title {
         width: 60px;
@@ -209,8 +215,7 @@ body {
   opacity: 0.8
 }
 @media (min-width: 620px){
-  .col-xs-offset-8{
-  }
+
 
 }
 @media (max-width: 1200px) {

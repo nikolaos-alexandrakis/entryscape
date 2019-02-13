@@ -151,7 +151,7 @@ export default {
     },
     catalog__documents: {
       class: DocumentsList,
-      faClass: 'file-alt',
+      faClass: 'file',
       title: { en: 'Documents', sv: 'Dokument', de: 'Dokumente' },
       route: '/catalog/:context/documents',
       parent: 'catalog',

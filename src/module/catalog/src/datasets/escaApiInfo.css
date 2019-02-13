@@ -2,11 +2,17 @@
     margin-left: 5px
 }
 .escaApiInfo__aliasButtons {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     margin-top: 5px;
 }
 .escaApiInfo__aliasButtons .btn{
   color: #4f4f4f !important;
   border: 1px solid #4f4f4f;
+}
+.escaApiInfo__aliasButtons .escaApiInfo__saveAlias:disabled{
+    background-color: lightgray;
 }
 .escaApiInfo__saveAlias {
     margin-left: 5px
