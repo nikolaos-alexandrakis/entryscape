@@ -27,7 +27,9 @@
       "id": "geodcat:rdfs:comment",
       "property": "rdfs:comment",
       "label": {
-        "en": "Spatial resolution"
+        "en": "Spatial resolution",
+        "sv": "Rumslig upplösning",
+        "de": "TODO"
       },
       "styles": [
         "multiline"
@@ -39,7 +41,9 @@
       "id": "geodcat:dcterms:creator",
       "property": "dcterms:creator",
       "label": {
-        "en": "Creator"
+        "en": "Creator",
+        "sv": "Skapare",
+        "de": "Ersteller"
       },
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
@@ -60,7 +64,7 @@
       "label": {
         "en": "Party",
         "sv": "Part",
-        "de": "Partei"
+        "de": "Zuständige Stelle"
       },
       "cardinality": {
         "pref": 1
@@ -79,7 +83,9 @@
       "id": "geodcat:prov:qualifiedAttribution",
       "property": "prov:qualifiedAttribution",
       "label": {
-        "en": "Responsible party"
+        "en": "Responsible party",
+        "sv": "Ansvarig part",
+        "de": "TODO"
       },
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
@@ -107,7 +113,9 @@
           "valueTemplate": "EPSG:",
           "pattern": "\\d*",
           "label": {
-            "en": "Spatial reference system"
+            "en": "Spatial reference system",
+            "sv": "Rumsligt referenssystem",
+            "de": "TODO"
           }
         }
       ],
@@ -139,7 +147,7 @@
           "label": {
             "en": "Grid",
             "sv": "Rutnät",
-            "de": "Gitter"
+            "de": "TODO"
           },
           "description": {
             "en": "Grid data is used to represent geographic data."
@@ -229,7 +237,9 @@
         "rdf:type": "prov:Activity"
       },
       "label": {
-        "en": "Conformity"
+        "en": "Conformity",
+        "sv": "Konformitet",
+        "de": "TODO"
       },
       "items": [
         {
@@ -248,7 +258,9 @@
               "nodetype": "LANGUAGE_LITERAL",
               "extends": "dcterms:description",
               "label": {
-                "en": "Description"
+                "en": "Description",
+                "sv": "Beskrivning",
+                "de": "Beschreibung"
               }
             }
           ]
@@ -292,7 +304,9 @@
         "rdf:type": "dcterms:Standard"
       },
       "label": {
-        "en": "Specification"
+        "en": "Specification",
+        "sv": "Specifikation",
+        "de": "Spezifikation"
       }
     },
     {

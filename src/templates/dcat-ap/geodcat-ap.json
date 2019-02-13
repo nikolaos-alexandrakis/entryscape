@@ -12,6 +12,38 @@
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://www.w3.org/ns/dcat#Dataset"
       },
       "items": [
+        {
+          "type": "choice",
+          "nodetype": "DATATYPE_LITERAL",
+          "property": "",
+          "label": {
+            "en": "Include in PSI directory",
+            "sv": "Inkludera i PSI-förteckning",
+            "de": "In PSI Verzeichnis inkludieren"
+          },
+          "cardinality": {
+            "min": 1
+          },
+          "datatype": "xsd:boolean",
+          "choices": [
+            {
+              "value": "true",
+              "label": {
+                "en": "Yes",
+                "sv": "Ja",
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "false",
+              "label": {
+                "en": "No",
+                "sv": "Nej",
+                "de": "Nein"
+              }
+            }
+          ]
+        },
         "dcat:dcterms:title_da",
         "dcat:dcterms:description_da",
         "dcat:foaf:Agent_da",
@@ -45,7 +77,9 @@
         {
           "type": "group",
           "label": {
-            "en": "Geographic information"
+            "en": "Geographic information",
+            "sv": "Geografisk information",
+            "de": "TODO"
           },
           "items": [
             "geodcat:dcterms:subject",
@@ -94,7 +128,9 @@
         {
           "type": "group",
           "label": {
-            "en": "Geographic information"
+            "en": "Geographic information",
+            "sv": "Geografisk information",
+            "de": "TODO"
           },
           "items": [
             "geodcat:adms:representationTechnique",
