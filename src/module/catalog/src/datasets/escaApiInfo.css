@@ -2,6 +2,8 @@
     margin-left: 5px
 }
 .escaApiInfo__aliasButtons {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 5px;
 }
 .escaApiInfo__aliasButtons .btn{
