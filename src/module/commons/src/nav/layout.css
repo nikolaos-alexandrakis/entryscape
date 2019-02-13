@@ -147,6 +147,8 @@ body {
     footer.sidebar-footer {
         width: 60px;
         position: fixed;
+        display:flex;
+        justify-content: space-between;
     }
 }
 
