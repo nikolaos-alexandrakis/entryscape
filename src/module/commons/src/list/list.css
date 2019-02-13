@@ -127,13 +127,10 @@
     margin: 10px
 }
 
-.entryList .entryRow:hover .entryControls button {
+.entryList .entryRow:hover .entryControls button, .entryList .entryRow .entryControls button:hover,.entryList  .entryControls button:focus {
     visibility: visible;
 }
 
-.entryList .entryRow:focus .entryControls button {
-    visibility: visible;
-}
 
 .entryList .entryRowCol1,
 .entryList .col1hidden > .entryName {
