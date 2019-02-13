@@ -15,7 +15,7 @@
         {
           "type": "choice",
           "nodetype": "DATATYPE_LITERAL",
-          "property": "",
+          "property": "http://entryscape.com/terms/psi",
           "label": {
             "en": "Include in PSI directory",
             "sv": "Inkludera i PSI-förteckning",
