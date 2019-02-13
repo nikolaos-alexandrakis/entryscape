@@ -71,7 +71,7 @@
 .entryList .entryRow__grid:hover .entryControls button {
     visibility: visible;
 }
-.entryList .entryRow__grid:focus .entryControls button {
+.entryList .entryRow__grid .entryControls button:focus {
     visibility: visible;
 }
 
@@ -479,4 +479,10 @@
         visibility: visible;
     }
 
+}
+
+
+.entryList .entryRow
+.dropdown-backdrop{
+background-color: transparent;
 }
