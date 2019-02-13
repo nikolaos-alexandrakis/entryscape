@@ -3,6 +3,7 @@
 }
 .escaApiInfo__aliasButtons {
     display: flex;
+    justify-content: flex-end;
     flex-wrap: wrap;
     margin-top: 5px;
 }
