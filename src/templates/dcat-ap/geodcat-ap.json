@@ -83,7 +83,7 @@
           "label": {
             "en": "Geographic information",
             "sv": "Geografisk information",
-            "de": "TODO"
+            "de": "Geographische Informationen"
           },
           "items": [
             "geodcat:dcterms:subject",
@@ -134,7 +134,7 @@
           "label": {
             "en": "Geographic information",
             "sv": "Geografisk information",
-            "de": "TODO"
+            "de": "Geographische Informationen"
           },
           "items": [
             "geodcat:adms:representationTechnique",
