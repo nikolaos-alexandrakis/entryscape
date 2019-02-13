@@ -29,7 +29,7 @@
       "label": {
         "en": "Spatial resolution",
         "sv": "Rumslig upplösning",
-        "de": "TODO"
+        "de": "Räumliche Auflösung"
       },
       "styles": [
         "multiline"
@@ -85,7 +85,7 @@
       "label": {
         "en": "Responsible party",
         "sv": "Ansvarig part",
-        "de": "TODO"
+        "de": "Verantwortliche Partei"
       },
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
@@ -115,7 +115,7 @@
           "label": {
             "en": "Spatial reference system",
             "sv": "Rumsligt referenssystem",
-            "de": "TODO"
+            "de": "Räumliches Bezugssystem"
           }
         }
       ],
@@ -147,7 +147,7 @@
           "label": {
             "en": "Grid",
             "sv": "Rutnät",
-            "de": "TODO"
+            "de": "Raster"
           },
           "description": {
             "en": "Grid data is used to represent geographic data."
@@ -239,7 +239,7 @@
       "label": {
         "en": "Conformity",
         "sv": "Konformitet",
-        "de": "TODO"
+        "de": "Konformität"
       },
       "items": [
         {
