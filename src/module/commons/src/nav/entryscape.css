@@ -47,6 +47,7 @@ body {
 
 .logo-text.icon-text.footer-logo-text img {
     height: 18px;
+    margin: -3px 3px 0px 0px;
 }
 
 .logo-text.full img {
