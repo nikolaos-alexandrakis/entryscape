@@ -45,6 +45,10 @@ body {
     margin: -3px 5px 0px 0px;
 }
 
+.logo-text.icon-text.footer-logo-text img {
+    height: 18px;
+}
+
 .logo-text.full img {
     height: 50px;
     max-width: 175px;
