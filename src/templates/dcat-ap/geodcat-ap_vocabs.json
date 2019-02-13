@@ -1059,6 +1059,9 @@
       "cardinality": {
         "max": 1
       },
+      "styles": [
+        "verticalRadioButtons"
+      ],
       "choices": [
         {
           "value": "http://inspire.ec.europa.eu/metadata-codelist/DegreeOfConformity/conformant",
