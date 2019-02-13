@@ -142,19 +142,19 @@ export default (vnode) => {
             </div>
 
             <div class="btn__wrapper">
-              <button class="btn--action btn--edit" onclick={openEditDialog}>Edit</button>
-              <button class="btn--action btn--show" onclick={toggleMetadata}>Show more metadata</button>
-              <div class="flex--sb">
+              <button class="btn--action btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</button>
+              <button class="btn--action btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</button>
+              <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
-                  <p class="published">Published</p>
+                  <p class="published">{escaDataset.publicDatasetTitle}</p>
                 </div>
                 <Toggle isPublish={state.isPublish} onToggle={togglePublish}></Toggle>
               </div>
               <div class="internalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
-                  <p class="unpublished">Unpublished</p>
+                  <p class="unpublished">{escaDataset.privateDatasetTitle}</p>
                 </div>
                 <button class={`fa fa-toggle-on fa-lg  btn--publish ${internalPublishClass}`} onclick={toggleInternalPublish}></button>
               </div>
@@ -163,9 +163,9 @@ export default (vnode) => {
 
           <div class="metadata--basic">
             <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
-            <p><span class="metadata__label">Theme:</span> Art</p>
+            <p><span class="metadata__label">{escaDataset.themeTitle}:</span> Art</p>
             <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
-            <p><span class="metadata__label">Edited by:</span> Althea Espejo, Valentino Hudra</p>
+            <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
           </div>
 
           <div class="metadata--wrapper">

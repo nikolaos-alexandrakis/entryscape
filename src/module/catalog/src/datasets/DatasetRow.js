@@ -21,8 +21,8 @@ export default declare([ToggleRow], {
     this.inherited('postCreate', arguments);
     this.entry.getContext().getEntry().then((contextEntry) => {
       this.catalogPublic = contextEntry.isPublic();
-      this.setToggled(contextEntry.isPublic(), this.entry.isPublic());
-      this.renderCol4();
+/*       this.setToggled(contextEntry.isPublic(), this.entry.isPublic());
+ */      this.renderCol4();
       if (this.nlsSpecificBundle) {
         this._updateLocaleStrings();
       }

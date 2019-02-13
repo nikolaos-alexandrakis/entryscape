@@ -176,6 +176,8 @@ div.errorreport {
 
 .entryRow .flex-wrapper{
     width:300px;
+}
+.entryRow .flex-wrapper:first-child{
     justify-content: flex-start;
 }
 .entryRow .flex-wrapper .distributionModificationDate{
