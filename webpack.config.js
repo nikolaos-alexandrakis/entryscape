@@ -36,6 +36,7 @@ module.exports = (env, argv) => {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
       publicPath: `${STATIC_URL}/${APP}/${VERSION}/`,
       filename: 'app.js',
+      chunkFilename: '[name].js',
       library: APP,
     },
     context: APP_PATH,
