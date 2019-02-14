@@ -208,11 +208,7 @@ body {
   background-color: white;
   opacity: 0.8
 }
-@media (min-width: 620px){
-  .col-xs-offset-8{
-  }
 
-}
 @media (max-width: 1200px) {
     .x_title h2 {
         width: 62%;
