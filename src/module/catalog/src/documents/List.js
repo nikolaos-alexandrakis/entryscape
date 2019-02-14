@@ -1,8 +1,9 @@
-import List from 'workbench/bench/List';
+import escaDocuments from 'catalog/nls/escaDocuments.nls';
 import typeIndex from 'commons/create/typeIndex';
 import escoList from 'commons/nls/escoList.nls';
-import escaDocuments from 'catalog/nls/escaDocuments.nls';
+import config from 'config';
 import declare from 'dojo/_base/declare';
+import List from 'workbench/bench/List';
 
 export default declare([List], {
   nlsBundles: [{ escoList }, { escaDocuments }],
@@ -17,5 +18,6 @@ export default declare([List], {
       },
     };
     this.mode = 'edit';
+    this.includeSizeByDefault = config.get('catalog.includeListSizeByDefault', false);
   },
 });

@@ -83,8 +83,17 @@ module.exports = (env, argv) => {
           exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
           use: {
             loader: 'babel-loader',
+
             options: {
-              presets: ['@babel/preset-env'],
+              "presets": [
+                [
+                  "@babel/preset-env", {
+                  "targets": {
+                    "ie": 11,
+                  },
+                },
+                ]
+              ],
               plugins: [
                 'lodash',
                 '@babel/plugin-proposal-object-rest-spread',
@@ -138,11 +147,12 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /.+font-icon-css.+\.svg$/,
+          test: /.+flag-icon-css.+\.svg$/,
           loader: 'svg-url-loader'
         },
         {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          exclude: /.+flag-icon-css.+\.svg$/,
           use: [{
             loader: 'file-loader',
             options: {

@@ -309,7 +309,7 @@ export default {
       includeFile: true,
       includeLink: true,
       inlineCreation: true,
-      faClass: 'lightbulb-o',
+      faClass: 'file',
     },
   },
   contexttypes: {

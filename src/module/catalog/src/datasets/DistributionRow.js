@@ -18,6 +18,7 @@ import { utils } from 'store';
 import ApiInfoDialog from './ApiInfoDialog';
 import templateString from './DistributionRowTemplate.html';
 import GenerateAPI from './GenerateAPI';
+import distributionUtil from './utils/distributionUtil';
 
 const ns = registry.get('namespaces');
 
@@ -122,9 +123,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       nlsKeyTitle: 'editDistributionTitle',
       method: this.edit.bind(this),
     });
-    if (this.isUploadedDistribution()) { // added newly
+    if (this.isUploadedDistribution(this.entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
-      if (this.isFileDistributionWithOutAPI()) {
+      if (distributionUtil.isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
         this.dropdownMenu.addItem({
           name: 'activateAPI',
           button: 'default',
@@ -135,7 +136,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           method: this.activateAPI.bind(this, this.entry),
         });
       }
-      if (this.isSingleFileDistribution()) {
+      if (this.isSingleFileDistribution(this.entry)) {
         this.dropdownMenu.addItem({
           name: 'download',
           button: 'default',
@@ -175,7 +176,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           method: this.manageFiles.bind(this, this.entry),
         });
       }
-    } else if (this.isAPIDistribution()) { // Add ApiInfo menu item,if its api distribution
+    } else if (this.isAPIDistribution(this.entry)) { // Add ApiInfo menu item,if its api distribution
       this.dropdownMenu.addItem({
         name: 'apiInfo',
         button: 'default',
@@ -195,7 +196,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         method: this.refreshAPI.bind(this, this.entry),
       });
     } else {
-      if (!this.isAccessURLEmpty()) {
+      if (!this.isAccessURLEmpty(this.entry)) {
         this.dropdownMenu.addItem({
           name: 'access',
           button: 'default',
@@ -206,7 +207,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           method: this.openNewTab.bind(this, this.entry),
         });
       }
-      if (!this.isDownloadURLEmpty()) {
+      if (!this.isDownloadURLEmpty(this.entry)) {
         this.dropdownMenu.addItem({
           name: 'download',
           button: 'default',
@@ -243,62 +244,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     }
     this.dropdownMenu.updateLocaleStrings(this.NLSLocalized.escoList, this.NLSLocalized.escaDataset);
   },
-  isFileDistributionWithOutAPI() {
-    // old code to check API activated or not
-    const fileStmts = this.entry.getMetadata().find(this.entry.getResourceURI(),
-      'dcat:downloadURL');
-    const es = registry.get('entrystore');
-    const baseURI = es.getBaseURI();
-    const apiResourceURIs = this.dctSource;
-    const old = fileStmts.every((fileStmt) => {
-      const fileResourceURI = fileStmt.getValue();
-      return (fileResourceURI.indexOf(baseURI) > -1) &&
-        (apiResourceURIs.indexOf(fileResourceURI) !== -1);
-    });
-    if (!old) {
-      // new code apiDistribution have dct:source to parentFileDistribution
-      return (apiResourceURIs.indexOf(this.entry.getResourceURI()) === -1);
-    }
-    return !old;
-  },
-  isSingleFileDistribution() {
-    const fileStmts = this.entry.getMetadata().find(this.entry.getResourceURI(), 'dcat:downloadURL');
-    return fileStmts.length === 1;
-  },
-  isAPIDistribution() {
-    const md = this.entry.getMetadata();
-    const subj = this.entry.getResourceURI();
-    const source = md.findFirstValue(subj, ns.expand('dcterms:source'));
-    return !!((source !== '' && source != null));
-  },
-  isUploadedDistribution() {
-    const md = this.entry.getMetadata();
-    const subj = this.entry.getResourceURI();
-    const downloadURI = md.findFirstValue(subj, ns.expand('dcat:downloadURL'));
-    const es = registry.get('entrystore');
-    const baseURI = es.getBaseURI();
-    return !!((downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1));
-  },
-  isAccessDistribution() {
-    const md = this.entry.getMetadata();
-    const subj = this.entry.getResourceURI();
-    const accessURI = md.findFirstValue(subj, ns.expand('dcat:accessURL'));
-    const downloadURI = md.findFirstValue(subj, ns.expand('dcat:downloadURL'));
-    const base = registry.get('entrystore').getBaseURI();
-    return accessURI !== downloadURI || downloadURI.indexOf(base) !== 0;
-  },
-  isAccessURLEmpty() {
-    const md = this.entry.getMetadata();
-    const subj = this.entry.getResourceURI();
-    const accessURI = md.findFirstValue(subj, ns.expand('dcat:accessURL'));
-    return !((accessURI !== '' && accessURI != null));
-  },
-  isDownloadURLEmpty() {
-    const md = this.entry.getMetadata();
-    const subj = this.entry.getResourceURI();
-    const downloadURI = md.findFirstValue(subj, ns.expand('dcat:downloadURL'));
-    return !((downloadURI !== '' && downloadURI != null));
-  },
+
   localeChange() {
     this.renderDate();
     this.dropdownMenu.updateLocaleStrings(this.NLSBundles.escoList, this.NLSBundles.escaDataset);
@@ -324,7 +270,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
   remove() {
     const dialogs = registry.get('dialogs');
-    if (this.isFileDistributionWithOutAPI()) {
+    if (distributionUtil.isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
       dialogs.confirm(this.NLSBundles.escaDataset.removeDistributionQuestion,
         null, null, (confirm) => {
           if (!confirm) {
@@ -332,7 +278,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           }
           this.removeDistribution();
         });
-    } else if (this.isAPIDistribution()) {
+    } else if (this.isAPIDistribution(this.entry)) {
       dialogs.confirm(this.NLSBundles.escaDataset.removeDistributionQuestion,
         null, null, (confirm) => {
           if (!confirm) {
@@ -340,7 +286,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           }
           this.deactivateAPInRemoveDist();
         });
-    } else if (this.isAccessDistribution()) {
+    } else if (this.isAccessDistribution(this.entry, registry.get('entrystore'))) {
       dialogs.confirm(this.NLSBundles.escaDataset.removeDistributionQuestion,
         null, null, (confirm) => {
           if (!confirm) {
@@ -519,9 +465,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   openVersions() {
     const dv = this.datasetRow.list.dialogs.distributionVersions;
-    if (this.isUploadedDistribution()) {
+    if (this.isUploadedDistribution(this.entry, registry.get('entrystore'))) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
-    } else if (this.isAPIDistribution()) {
+    } else if (this.isAPIDistribution(this.entry)) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
     } else {
       dv.excludeProperties = [];
