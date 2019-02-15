@@ -2076,8 +2076,8 @@ chokidar@^2.0.0, chokidar@^2.0.3:
     fsevents "^1.2.2"
 
 chokidar@^2.0.2:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.0.tgz#5fcb70d0b28ebe0867eb0f09d5f6a08f29a1efa0"
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.1.tgz#adc39ad55a2adf26548bd2afa048f611091f9184"
   dependencies:
     anymatch "^2.0.0"
     async-each "^1.0.1"
@@ -3209,7 +3209,7 @@ entities@~1.1.1:
 
 "entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#4.7":
   version "4.7.0"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#7c211464fdbc1c139d19e10f44746cb849b34d0f"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#79c1ab1673c369ea3015bd0690708124e9f2c652"
   dependencies:
     "@babel/core" "^7.2.2"
     babel-core "^6.26.3"
@@ -4167,9 +4167,13 @@ global-prefix@^1.0.1:
     is-windows "^1.0.1"
     which "^1.2.14"
 
-globals@^11.0.1, globals@^11.1.0:
+globals@^11.0.1:
   version "11.10.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.10.0.tgz#1e09776dffda5e01816b3bb4077c8b59c24eaa50"
+
+globals@^11.1.0:
+  version "11.11.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.11.0.tgz#dcf93757fa2de5486fbeed7118538adf789e9c2e"
 
 globals@^9.18.0:
   version "9.18.0"
@@ -6516,8 +6520,8 @@ param-case@2.1.x:
     no-case "^2.2.0"
 
 parse-asn1@^5.0.0:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/parse-asn1/-/parse-asn1-5.1.3.tgz#1600c6cc0727365d68b97f3aa78939e735a75204"
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/parse-asn1/-/parse-asn1-5.1.4.tgz#37f6628f823fbdeb2273b4d540434a22f3ef1fcc"
   dependencies:
     asn1.js "^4.0.0"
     browserify-aes "^1.0.0"
