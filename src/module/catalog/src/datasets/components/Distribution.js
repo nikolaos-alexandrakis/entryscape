@@ -107,7 +107,7 @@ export default() => {
 
     actions.push(
       <button
-        class=" btn--distribution fa fa-fw fa-pencil"
+        class="btn--distributionFile fa fa-fw fa-pencil"
         title={nls.editDistributionTitle}
         onclick={()=>console.log('edit')}
       >
@@ -118,7 +118,7 @@ export default() => {
 
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
-      if (isFileDistributionWithOutAPI(entry, this.dctSource, registry.get('entrystore'))) {
+     /*  if (isFileDistributionWithOutAPI(entry, this.dctSource, registry.get('entrystore'))) {
           // name: 'activateAPI',
           // method: this.activateAPI.bind(this, entry),
         actions.push(
@@ -130,7 +130,7 @@ export default() => {
             <span>{nls.apiActivateTitle}</span>
           </button>
         );
-      }
+      } */
       if (isSingleFileDistribution(entry)) {
           // nlsKeyTitle: 'downloadButtonTitle',
           // method: this.openNewTab.bind(this, entry),
@@ -143,21 +143,21 @@ export default() => {
 
         actions.push([
           <button
-            class="btn--distribution fa fa-fw fa-download"
+            class="btn--distributionFile fa fa-fw fa-download"
             title={nls.downloadButtonTitle}
             onclick={()=>console.log('download')}
           >
             <span>{nls.downloadButtonTitle}</span>
           </button>,
           <button 
-            class="btn--distribution fa fa-fw fa-exchange"
+            class="btn--distributionFile fa fa-fw fa-exchange"
             title={nls.replaceFileTitle}
             onclick={()=>console.log('replace')}
           >
             <span>{nls.replaceFile}</span>
           </button>,
           <button 
-            class="btn--distribution fa fa-fw fa-file"
+            class="btn--distributionFile fa fa-fw fa-file"
             title={nls.addFileTitle}
             onclick={()=>console.log('add file')}
           >
@@ -169,7 +169,7 @@ export default() => {
           // method: this.manageFiles.bind(this, entry),
         actions.push(
           <button
-            class=" btn--distribution fa fa-fw fa-files-o"
+            class="btn--distributionFile fa fa-fw fa-files-o"
             title={nls.manageFilesTitle}
             onclick={()=>console.log('manage files')}
           >
@@ -186,14 +186,14 @@ export default() => {
 
       actions.push([
         <button 
-          class="btn--distribution fa fa-fw fa-info-circle"
+          class="btn--distributionFile fa fa-fw fa-info-circle"
           title={nls.apiDistributionTitle}
           onclick={()=>console.log('open api info')}
         >
           <span>{nls.apiDistributionTitle}</span>
         </button>,
         <button
-          class=" btn--distribution fa fa-fw fa-retweet"
+          class="btn--distributionFile  fa fa-fw fa-retweet"
           title={nls.reGenerateAPITitle}
           onclick={()=>console.log('Regenerate api')}
         >
@@ -207,7 +207,7 @@ export default() => {
           // method: this.openNewTab.bind(this, entry),
       actions.push(
         <button
-          class="btn--distribution fa fa-fw fa-info-circle"
+          class="btn--distributionFile fa fa-fw fa-info-circle"
           title={nls.accessURLButtonTitle}
           onclick={()=>console.log('access')}
         >
@@ -220,7 +220,7 @@ export default() => {
           // method: this.openNewTab.bind(this, entry),
       actions.push(
         <button 
-          class=" btn--distribution fa fa-fw fa-download"
+          class="btn--distributionFile  fa fa-fw fa-download"
           title={nls.downloadButtonTitle}
           onclick={()=>console.log('download')}
         >
@@ -235,8 +235,13 @@ export default() => {
         // method: this.openVersions.bind(this, entry),
       actions.push(
         <button
+<<<<<<< HEAD
           class=" btn--distribution fa fa-fw fa-bookmark"
           title={nls.versionsTitle} // This comes out of escoList so a different nls bundle needs to be passed in
+=======
+          class="btn--distributionFile fa fa-fw fa-bookmark"
+          title={nls.versionsTitle}
+>>>>>>> 68b72443b95d12f351b2a628d38e137184c64d16
           onclick={() => console.log('versions')}
         >
           <span>{nls.versionsLabel}</span>
@@ -249,7 +254,7 @@ export default() => {
         // method: this.remove.bind(this),
       actions.push(
         <button
-          class=" btn--distribution fa fa-fw fa-remove"
+          class=" btn--distributionFile fa fa-fw fa-remove"
           title={nls.removeDistributionTitle}
           onclick={() => console.log('remove')}
         >
@@ -295,6 +300,7 @@ export default() => {
 
           <div class={`distribution__expand ${expandedClass}`}>
             <div class="flex--sb">
+            <div>
               <div class="metadata--wrapper">
                 <div class="distribution__description">
                   <h2 class="title">{escaDataset.distributionDescriptionTitle}</h2>
@@ -306,10 +312,27 @@ export default() => {
                   <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, {numFiles: 2}) }</p>
                 </div>
               </div>
+              <div class="distribution__fileRow">
+                <div class="distribution__format">
+                <p class="distribution__title">{title}</p>
+                <p class="file__format">
+                  <span class="file__format--short">{format}</span>
+                </p>
+                </div>
+                <div class="flex--sb">
+                  <p class="distributionFile__date">Jan 17</p>
+                  <button class="icons fa fa-cog"></button>
+                </div>
+                <div class="dropdownMenu">
+                { renderActions(distribution, escaDataset) }
+              </div>
+              </div>
+
+            </div>
 
               <div class="menu--wrapper">
                 <div class=" icon--wrapper distribution--file">
-                { renderActions(distribution, escaDataset) }
+                
                   <a>
                     <button class=" btn--distribution">
                       <span>{escaDataset.editDistributionTitle}</span>
