@@ -1,3 +1,5 @@
+import { isExternalLink } from 'commons/util/util';
+
 /**
  * Terminology
  * path - a relative materialized route
@@ -63,7 +65,7 @@ export default class Router {
     window.history.pushState = function (state, title, url) {
       const ret = pushState.apply(window.history, arguments);
       if (typeof window.history.onpushstate === 'function') {
-        window.history.onpushstate({stateParams: state, title, url});
+        window.history.onpushstate({ stateParams: state, title, url });
       }
       return ret;
     };
@@ -150,6 +152,11 @@ export default class Router {
    */
   getRoutePath(route, params = {}) {
     if (this.routes.has(route)) {
+      // Check if this is an external link
+      if (isExternalLink(route)) {
+        return route.trim();
+      }
+
       const path = [];
       const parts = route.split('/');
 
@@ -314,4 +321,4 @@ export default class Router {
 
     return document.location.pathname;
   }
-};
+}

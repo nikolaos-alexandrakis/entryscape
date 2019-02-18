@@ -1,4 +1,5 @@
 import m from 'mithril';
+import { isExternalLink } from 'commons/util/util';
 
 export default {
   view(vnode) {
@@ -15,6 +16,7 @@ export default {
         m('a', Object.assign({ href }, selected ? { class: 'selected' } : {}), [
           m(`i.fa.fa-${icon}`),
           m('span.menu-title', label),
+          isExternalLink(href) ? m('span.fa.fa-external-link') : null,
         ]),
       ],
     );

@@ -1,6 +1,6 @@
 {
   "name": "EntryScape",
-  "version": "2.1.0-SNAPSHOT",
+  "version": "2.2.0-SNAPSHOT",
   "license": "AGPL-3.0-only",
   "private": true,
   "ignore": [
@@ -18,7 +18,7 @@
     "dijit": "^1.14.2",
     "dojo": "^1.14.2",
     "entrystore-js": "https://bitbucket.org/metasolutions/entrystore.js.git#develop",
-    "esi18n": "https://bitbucket.org/metasolutions/esi18n.git#master",
+    "esi18n": "https://bitbucket.org/metasolutions/esi18n.git#develop",
     "file-saver": "^1.3.8",
     "flag-icon-css": "^3.2.1",
     "font-awesome": "4.7",
@@ -75,7 +75,7 @@
     "imports-loader": "^0.8.0",
     "less": "^3.8.1",
     "mini-css-extract-plugin": "^0.4.1",
-    "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#1.1.0",
+    "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#master",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "pre-commit": "^1.2.2",
     "print-licenses": "https://bitbucket.org/metasolutions/print-licenses",

@@ -12,16 +12,13 @@
 }
 
 .escoRDFEdit .tab-content {
-    position: absolute;
-    top: 41px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    position: relative;
+    height: 500px;
 }
 
 .escoRDFEdit .tab-content textarea {
     width: 100%;
-    height: 95%;
+    height: 450px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     overflow: auto;

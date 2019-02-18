@@ -13,7 +13,7 @@ const getStaticUrl = () => {
 
 const getStaticBuild = () => {
   const { app, version } = config.entryscape.static;
-  return `${getStaticUrl()}/${app}/${version}/`;
+  return `${getStaticUrl()}${app}/${version}/`;
 };
 
 const getThemeDefaults = () => {

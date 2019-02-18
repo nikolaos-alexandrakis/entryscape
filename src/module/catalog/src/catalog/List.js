@@ -1,13 +1,13 @@
-import registry from 'commons/registry';
-import List from 'commons/gce/List';
 import MemberDialog from 'admin/groups/MemberDialog';
+import escaCatalog from 'catalog/nls/escaCatalog.nls';
 import Export from 'commons/export/Export';
 import GCERow from 'commons/gce/GCERow';
-import { i18n } from 'esi18n';
-import config from 'config';
+import List from 'commons/gce/List';
 import escoList from 'commons/nls/escoList.nls';
-import escaCatalog from 'catalog/nls/escaCatalog.nls';
+import registry from 'commons/registry';
+import config from 'config';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 import CreateDialog from './CreateDialog';
 import EmbedDialog from './EmbedDialog';
 
@@ -201,6 +201,9 @@ export default declare([List], {
         && !config.catalog.catalogLimitDialog) {
       this.createLimit = parseInt(config.catalog.catalogLimit, 10);
     }
+
+    this.includeSizeByDefault = config.get('catalog.includeListSizeByDefault', false);
+
     this.inherited('postCreate', arguments);
     // Overriding the default create dialog
     this.registerDialog('create', CreateDialog);

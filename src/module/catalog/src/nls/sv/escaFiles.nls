@@ -39,5 +39,6 @@
   "columnLabel": "Kolumner i API:et:",
   "searchExampleLabel": "Exempel för API-anrop:",
   "searchExampleTitle": "Du kan matcha rader genom att tillhandahålla värden för en eller flera fält via delsträngar eller reguljära uttryck.",
-  "apiAliasNamePlaceholder": "Endast alfanumeriska tecken är tillåtna"
+  "apiAliasNamePlaceholder": "Endast alfanumeriska tecken är tillåtna",
+  "activateAPINotAllowedDatasetNotPublic": "Datamängden eller katalogen är inte offentlig. Alla genererade API:er är alltid publikt tillgängliga, det innebär att aktivering av API:et gör datan för denna distribution publikt tillgänglig.<br/><br/>Vill du fortsätta med aktiveringen av API:et?"
 }

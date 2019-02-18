@@ -11,18 +11,20 @@ const getStaticTemplateUrl = () => `${configUtil.getStaticBuild()}templates`;
 
 /**
  * NOTE! order matters here
+ * @returns {Array<string>}
  */
-
 export const getFallbackUrls = (id, format) => [
   getThemeUrl,
   getStaticTemplateUrl,
 ].map(baseUrlFunc => `${baseUrlFunc()}/${id}.${format}`);
 
-export const getFallbackBundleUrls = (id, format = 'json') => {
-  const fallbackUrls = getFallbackUrls(id, format);
-  if (isUri(id)) {
-    return [`${id}.${format}`, ...fallbackUrls];
-  }
-
-  return fallbackUrls;
-};
+/**
+ * Get an array of fallback urls where a specific bundle may be found.
+ * Can be also passed a full url which would ignore the fallback mechanism
+ *
+ * @param {string} id The id of the bundle or a full url
+ * @param {string} [format=json]
+ * @return {Array<string>}
+ */
+export const getFallbackBundleUrls = (id, format = 'json') =>
+  (isUri(id) ? [id] : getFallbackUrls(id, format));

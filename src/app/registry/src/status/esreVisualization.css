@@ -4,7 +4,7 @@
 
 .esreVisualization__container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-bottom: 60px;
 }
 @media (max-width: 824px) {
