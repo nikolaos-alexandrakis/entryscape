@@ -315,8 +315,8 @@ div.modules a:hover {
 
 .entryscapeViewList {
     border-top: 1px solid #ededed;
-    display: flex;
-    flex-wrap: wrap;
+/*     display: flex;
+    flex-wrap: wrap; */
 }
 
 .entryscapeViewList a {
