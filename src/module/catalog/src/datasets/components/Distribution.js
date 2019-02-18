@@ -18,7 +18,6 @@ import {
 import {createSetState} from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
-
 export default() => {
 
   const state = {
@@ -101,21 +100,18 @@ export default() => {
     });
   };
 
-  const renderActions = (entry) => {
+  const renderActions = (entry, nls) => {
     const actions = [];
-    // this.dropdownMenu.addItem({
       // name: 'edit',
-      // button: 'default',
-      // icon: 'pencil',
-      // iconType: 'fa',
-      // nlsKey: 'editDistributionTitle',
-      // nlsKeyTitle: 'editDistributionTitle',
       // method: this.edit.bind(this),
-    // });
 
     actions.push(
-      <button class=" btn--distribution fa fa-fw fa-pencil" onclick={()=>console.log('edit')}>
-        <span>Edit editDistributionTitle</span>
+      <button
+        class=" btn--distribution fa fa-fw fa-pencil"
+        title={nls.editDistributionTitle}
+        onclick={()=>console.log('edit')}
+      >
+        <span>{nls.editDistributionTitle}</span>
       </button>
     );
 
@@ -123,173 +119,141 @@ export default() => {
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
       if (isFileDistributionWithOutAPI(entry, this.dctSource, registry.get('entrystore'))) {
-        // this.dropdownMenu.addItem({
           // name: 'activateAPI',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'link',
-          // nlsKey: 'apiActivateTitle',
-          // nlsKeyTitle: 'apiActivateTitle',
           // method: this.activateAPI.bind(this, entry),
-        // });
         actions.push(
-          <button class=" btn--distribution fa fa-fw fa-link" onclick={()=>console.log('activateAPI')}>
-            <span>apiActivateTitle</span>
+          <button 
+            class="btn--distribution fa fa-fw fa-link"
+            title={nls.apiActivateTitle}
+            onclick={()=>console.log('activateAPI')}
+          >
+            <span>{nls.apiActivateTitle}</span>
           </button>
         );
       }
       if (isSingleFileDistribution(entry)) {
-        // this.dropdownMenu.addItem({
-          // name: 'download',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'download',
-          // nlsKey: 'downloadButtonTitle',
           // nlsKeyTitle: 'downloadButtonTitle',
           // method: this.openNewTab.bind(this, entry),
-        // });
-        // this.dropdownMenu.addItem({
+
           // name: 'replaceFile',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'exchange',
-          // nlsKey: 'replaceFile',
-          // nlsKeyTitle: 'replaceFileTitle',
           // method: this.replaceFile.bind(this, entry),
-        // });
-        // this.dropdownMenu.addItem({
+
           // name: 'addFile',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'file',
-          // nlsKey: 'addFile',
-          // nlsKeyTitle: 'addFileTitle',
           // method: this.addFile.bind(this, entry),
-        // });
 
         actions.push([
-          <button class=" btn--distribution fa fa-fw fa-download" onclick={()=>console.log('download')}>
-            <span>downloadButtonTitle</span>
+          <button
+            class="btn--distribution fa fa-fw fa-download"
+            title={nls.downloadButtonTitle}
+            onclick={()=>console.log('download')}
+          >
+            <span>{nls.downloadButtonTitle}</span>
           </button>,
-          <button class=" btn--distribution fa fa-fw fa-exchange" onclick={()=>console.log('replace')}>
-            <span>replaceFile</span>
+          <button 
+            class="btn--distribution fa fa-fw fa-exchange"
+            title={nls.replaceFileTitle}
+            onclick={()=>console.log('replace')}
+          >
+            <span>{nls.replaceFile}</span>
           </button>,
-          <button class=" btn--distribution fa fa-fw fa-file" onclick={()=>console.log('add file')}>
-            <span>addFile</span>
+          <button 
+            class="btn--distribution fa fa-fw fa-file"
+            title={nls.addFileTitle}
+            onclick={()=>console.log('add file')}
+          >
+            <span>{nls.addFile}</span>
           </button>
         ]);
       } else {
-        // manage files
-        // this.dropdownMenu.addItem({
           // name: 'manageFiles',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'files-o',
-          // nlsKey: 'manageFiles',
-          // nlsKeyTitle: 'manageFilesTitle',
           // method: this.manageFiles.bind(this, entry),
-        // });
-
         actions.push(
-          <button class=" btn--distribution fa fa-fw fa-files-o" onclick={()=>console.log('manage files')}>
-            <span>manageFiles</span>
+          <button
+            class=" btn--distribution fa fa-fw fa-files-o"
+            title={nls.manageFilesTitle}
+            onclick={()=>console.log('manage files')}
+          >
+            <span>{nls.manageFiles}</span>
           </button>
         );
       }
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
-      // this.dropdownMenu.addItem({
         // name: 'apiInfo',
-        // button: 'default',
-        // iconType: 'fa',
-        // icon: 'info-circle',
-        // nlsKey: 'apiDistributionTitle',
-        // nlsKeyTitle: 'apiDistributionTitle',
         // method: this.openApiInfo.bind(this, entry),
-      // });
-      // this.dropdownMenu.addItem({
+
         // name: 'reGenerateAPI',
-        // button: 'default',
-        // iconType: 'fa',
-        // icon: 'retweet',
-        // nlsKey: 'reGenerateAPI',
-        // nlsKeyTitle: 'reGenerateAPITitle',
         // method: this.refreshAPI.bind(this, entry),
-      // });
 
       actions.push([
-        <button class=" btn--distribution fa fa-fw fa-info-circle" onclick={()=>console.log('open api info')}>
-          <span>apiDistributionTitle</span>
+        <button 
+          class="btn--distribution fa fa-fw fa-info-circle"
+          title={nls.apiDistributionTitle}
+          onclick={()=>console.log('open api info')}
+        >
+          <span>{nls.apiDistributionTitle}</span>
         </button>,
-        <button class=" btn--distribution fa fa-fw fa-retweet" onclick={()=>console.log('Regenerate api')}>
-          <span>reGenerateAPI</span>
+        <button
+          class=" btn--distribution fa fa-fw fa-retweet"
+          title={nls.reGenerateAPITitle}
+          onclick={()=>console.log('Regenerate api')}
+        >
+          <span>{nls.reGenerateAPI}</span>
         </button>
       ]);
 
     } else {
       if (!isAccessURLEmpty(entry)) {
-        // this.dropdownMenu.addItem({
           // name: 'access',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'info-circle',
-          // nlsKey: 'accessURLButtonTitle',
-          // nlsKeyTitle: 'accessURLButtonTitle',
           // method: this.openNewTab.bind(this, entry),
-        // });
       actions.push(
-        <button class=" btn--distribution fa fa-fw fa-info-circle" onclick={()=>console.log('access')}>
-          <span>accessURLButtonTitle</span>
+        <button
+          class="btn--distribution fa fa-fw fa-info-circle"
+          title={nls.accessURLButtonTitle}
+          onclick={()=>console.log('access')}
+        >
+          <span>{nls.accessURLButtonTitle}</span>
         </button>
       );
       }
       if (!isDownloadURLEmpty(entry)) {
-        // this.dropdownMenu.addItem({
           // name: 'download',
-          // button: 'default',
-          // iconType: 'fa',
-          // icon: 'download',
-          // nlsKey: 'downloadButtonTitle',
-          // nlsKeyTitle: 'downloadButtonTitle',
           // method: this.openNewTab.bind(this, entry),
-        // });
       actions.push(
-        <button class=" btn--distribution fa fa-fw fa-download" onclick={()=>console.log('download')}>
-          <span>downloadButtonTitle</span>
+        <button 
+          class=" btn--distribution fa fa-fw fa-download"
+          title={nls.downloadButtonTitle}
+          onclick={()=>console.log('download')}
+        >
+          <span>{nls.downloadButtonTitle}</span>
         </button>
       );
       }
     }
     // Versions for other dist
     if (entry.getEntryInfo().hasMetadataRevisions()) {
-      // this.dropdownMenu.addItem({
         // name: 'versions',
-        // button: 'default',
-        // icon: 'bookmark',
-        // iconType: 'fa',
-        // nlsKey: 'versionsLabel',
-        // nlsKeyTitle: 'versionsTitle',
         // method: this.openVersions.bind(this, entry),
-      // });
       actions.push(
-        <button class=" btn--distribution fa fa-fw fa-bookmark" onclick={() => console.log('versions')}>
-          <span>versionsLabel</span>
+        <button
+          class=" btn--distribution fa fa-fw fa-bookmark"
+          title={nls.versionsTitle}
+          onclick={() => console.log('versions')}
+        >
+          <span>{nls.versionsLabel}</span>
         </button>
       );
     }
     // if (this.datasetRow.list.createAndRemoveDistributions) {
     if (false==true) {
-      // this.dropdownMenu.addItem({
         // name: 'remove',
-        // button: 'default',
-        // icon: 'remove',
-        // iconType: 'fa',
-        // nlsKey: 'removeDistributionTitle',
-        // nlsKeyTitle: 'removeDistributionTitle',
         // method: this.remove.bind(this),
-      // });
       actions.push(
-        <button class=" btn--distribution fa fa-fw fa-remove" onclick={() => console.log('remove')}>
-          <span>removeDistributionTitle</span>
+        <button
+          class=" btn--distribution fa fa-fw fa-remove"
+          title={nls.removeDistributionTitle}
+          onclick={() => console.log('remove')}
+        >
+          <span>{nls.removeDistributionTitle}</span>
         </button>
       );
     }
@@ -345,7 +309,7 @@ export default() => {
 
               <div class="menu--wrapper">
                 <div class=" icon--wrapper distribution--file">
-                { renderActions(distribution) }
+                { renderActions(distribution, escaDataset) }
                   <a>
                     <button class=" btn--distribution">
                       <span>{escaDataset.editDistributionTitle}</span>
@@ -359,7 +323,6 @@ export default() => {
                 </div>
               </div>
             </div>
-              
           </div>
         </div>
       );
