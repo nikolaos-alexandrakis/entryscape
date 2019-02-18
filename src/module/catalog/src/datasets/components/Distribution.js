@@ -235,7 +235,7 @@ export default() => {
         // method: this.openVersions.bind(this, entry),
       actions.push(
         <button
-          class=" btn--distribution fa fa-fw fa-bookmark"
+          class=" btn--distributionFile fa fa-fw fa-bookmark"
           title={nls.versionsTitle} // This comes out of escoList so a different nls bundle needs to be passed in
           onclick={() => console.log('versions')}
         >
