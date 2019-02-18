@@ -17,7 +17,7 @@
     "addDistributionTitle": "Create distribution",
     "distributionFormatTitle":"Format",
     "distributionDescriptionTitle":"Description",
-    "distributionFiles": "There {{PLURAL:{$numFiles}| is one file.|are ${numFiles} files.}}",
+    "distributionFiles": "There {{PLURAL:${numFiles}|is one file.|are ${numFiles} files.}}",
     "removeBrokenDatasetRefs": "Remove broken references",
     "removeBrokenDatasetRefsWarning": "This dataset has references to distributions that don't exist. Maybe they have been removed.",
     "removeDatasetQuestion": "Remove this dataset?",

@@ -236,7 +236,7 @@ export default() => {
       actions.push(
         <button
           class=" btn--distribution fa fa-fw fa-bookmark"
-          title={nls.versionsTitle}
+          title={nls.versionsTitle} // This comes out of escoList so a different nls bundle needs to be passed in
           onclick={() => console.log('versions')}
         >
           <span>{nls.versionsLabel}</span>
@@ -303,7 +303,7 @@ export default() => {
                 </div>
                 <div class="distribution__format">
                   <h2 class="title">{escaDataset.distributionFormatTitle}</h2>
-                  <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, {}) }</p>
+                  <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, {numFiles: 2}) }</p>
                 </div>
               </div>
 
