@@ -18,7 +18,6 @@ import {
 import {createSetState} from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
-
 export default() => {
 
   const state = {
@@ -101,7 +100,7 @@ export default() => {
     });
   };
 
-  const renderActions = (entry) => {
+  const renderActions = (entry, nlsBundle) => {
     const actions = [];
     // this.dropdownMenu.addItem({
       // name: 'edit',
@@ -115,7 +114,7 @@ export default() => {
 
     actions.push(
       <button class=" btn--distribution fa fa-fw fa-pencil" onclick={()=>console.log('edit')}>
-        <span>Edit editDistributionTitle</span>
+        <span>{nlsBundle.editDistributionTitle}</span>
       </button>
     );
 
@@ -134,7 +133,7 @@ export default() => {
         // });
         actions.push(
           <button class=" btn--distribution fa fa-fw fa-link" onclick={()=>console.log('activateAPI')}>
-            <span>apiActivateTitle</span>
+            <span>{nlsBundle.apiActivateTitle}</span>
           </button>
         );
       }
@@ -169,13 +168,13 @@ export default() => {
 
         actions.push([
           <button class=" btn--distribution fa fa-fw fa-download" onclick={()=>console.log('download')}>
-            <span>downloadButtonTitle</span>
+            <span>{nlsBundle.downloadButtonTitle}</span>
           </button>,
           <button class=" btn--distribution fa fa-fw fa-exchange" onclick={()=>console.log('replace')}>
-            <span>replaceFile</span>
+            <span>{nlsBundle.replaceFile}</span>
           </button>,
           <button class=" btn--distribution fa fa-fw fa-file" onclick={()=>console.log('add file')}>
-            <span>addFile</span>
+            <span>{nlsBundle.addFile}</span>
           </button>
         ]);
       } else {
@@ -192,7 +191,7 @@ export default() => {
 
         actions.push(
           <button class=" btn--distribution fa fa-fw fa-files-o" onclick={()=>console.log('manage files')}>
-            <span>manageFiles</span>
+            <span>{nlsBundle.manageFiles}</span>
           </button>
         );
       }
@@ -218,10 +217,10 @@ export default() => {
 
       actions.push([
         <button class=" btn--distribution fa fa-fw fa-info-circle" onclick={()=>console.log('open api info')}>
-          <span>apiDistributionTitle</span>
+          <span>{nlsBundle.apiDistributionTitle}</span>
         </button>,
         <button class=" btn--distribution fa fa-fw fa-retweet" onclick={()=>console.log('Regenerate api')}>
-          <span>reGenerateAPI</span>
+          <span>{nlsBundle.reGenerateAPI}</span>
         </button>
       ]);
 
@@ -238,7 +237,7 @@ export default() => {
         // });
       actions.push(
         <button class=" btn--distribution fa fa-fw fa-info-circle" onclick={()=>console.log('access')}>
-          <span>accessURLButtonTitle</span>
+          <span>{nlsBundle.accessURLButtonTitle}</span>
         </button>
       );
       }
@@ -254,7 +253,7 @@ export default() => {
         // });
       actions.push(
         <button class=" btn--distribution fa fa-fw fa-download" onclick={()=>console.log('download')}>
-          <span>downloadButtonTitle</span>
+          <span>{nlsBundle.downloadButtonTitle}</span>
         </button>
       );
       }
@@ -272,7 +271,7 @@ export default() => {
       // });
       actions.push(
         <button class=" btn--distribution fa fa-fw fa-bookmark" onclick={() => console.log('versions')}>
-          <span>versionsLabel</span>
+          <span>{nlsBundle.versionsLabel}</span>
         </button>
       );
     }
@@ -289,7 +288,7 @@ export default() => {
       // });
       actions.push(
         <button class=" btn--distribution fa fa-fw fa-remove" onclick={() => console.log('remove')}>
-          <span>removeDistributionTitle</span>
+          <span>{nlsBundle.removeDistributionTitle}</span>
         </button>
       );
     }
@@ -345,7 +344,7 @@ export default() => {
 
               <div class="menu--wrapper">
                 <div class=" icon--wrapper distribution--file">
-                { renderActions(distribution) }
+                { renderActions(distribution, escaDataset) }
                   <a>
                     <button class=" btn--distribution">
                       <span>{escaDataset.editDistributionTitle}</span>
@@ -359,7 +358,6 @@ export default() => {
                 </div>
               </div>
             </div>
-              
           </div>
         </div>
       );
