@@ -33,10 +33,8 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       valueChange,
     }, htmlUtil.create('div', null, this.__fileOrLink, true));
     const localeChangeFileOrLink = this.localeChange_fileOrLink.bind(this);
-    aspect.after(this.fileOrLink, 'localeChange', () => {
-      localeChangeFileOrLink();
-    });
     this.inherited(arguments);
+    localeChangeFileOrLink();
   },
   localeChange() {
     if (this.isFile) {
