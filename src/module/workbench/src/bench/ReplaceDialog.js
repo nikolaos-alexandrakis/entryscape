@@ -5,7 +5,6 @@ import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import eswoReplaceDialog from 'workbench/nls/eswoReplaceDialog.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import aspect from 'dojo/aspect';
 import template from './ReplaceDialogTemplate.html';
 import './eswoReplaceDialog.css';
 
