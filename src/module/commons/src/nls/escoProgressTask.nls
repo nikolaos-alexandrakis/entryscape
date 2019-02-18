@@ -1,6 +1,6 @@
 {
   "root": {
-    "uploadFileSizeLimit": "Uploaded file is too large. Current upload limit is set to ${limit} bytes"
+    "uploadFileSizeLimit": "Uploaded file is too large. Current upload limit is set to ${limit} Megabytes"
   },
   "sv": true,
   "de": true

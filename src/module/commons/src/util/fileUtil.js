@@ -1,8 +1,7 @@
 import escoProgressTask from 'commons/nls/escoProgressTask.nls';
 import { i18n } from 'esi18n';
 import configUtil from './configUtil';
-
-const isFileTooLarge = file => file.size > configUtil.uploadFileSizeLimit;
+import { convertBytesToMBytes } from './util';
 
 /**
  *
@@ -11,14 +10,15 @@ const isFileTooLarge = file => file.size > configUtil.uploadFileSizeLimit;
  * @returns {Promise}
  */
 const readFileAsText = (file, encoding = 'UTF-8') => {
-  if (isFileTooLarge(file)) {
+  const fileSizeLimit = configUtil.uploadFileSizeLimit();
+  if (file.size > fileSizeLimit) {
     return Promise.reject(
-      i18n.localize(escoProgressTask, 'uploadFileSizeLimit', { limit: configUtil.uploadFileSizeLimit }),
+      i18n.localize(escoProgressTask, 'uploadFileSizeLimit', { limit: convertBytesToMBytes(fileSizeLimit) }),
     );
   }
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
+    reader.onloadend = () => resolve(reader.result);
     reader.onerror = () => reject(reader.error);
     // reader.onabort = () => callback('abort'); // TODO not supported on IE11?
     reader.readAsText(file, encoding);

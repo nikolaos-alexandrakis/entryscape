@@ -41,13 +41,17 @@ export default declare([TitleDialog], {
       const file = inputElement.files.item(0);
 
       // read file in browser and try to parse RDF
-      return readFileAsText(file).then((data) => {
-        const report = converters.detect(data);
-
-        // the resolve is used for the footerButtonAction while the callback for the functionality
-        // TODO somehow merge resolve and callback
-        return Promise.resolve(cb(report.graph, entryTypeValue));
-      }, err => Promise.reject(err)); // TODO nls
+      return readFileAsText(file)
+        .then((data) => {
+          const report = converters.detect(data);
+          if (report.error) {
+            throw Error(report.error);
+          }
+          // the resolve is used for the footerButtonAction while the callback for the functionality
+          // TODO somehow merge resolve and callback
+          return Promise.resolve(cb(report.graph, entryTypeValue));
+        })
+        .catch(err => Promise.reject(err)); // TODO nls
     }
 
     return registry.get('entrystore').loadViaProxy(entryTypeValue, 'application/rdf+xml').then(f);
