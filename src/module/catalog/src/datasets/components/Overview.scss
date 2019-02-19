@@ -161,8 +161,8 @@ $title-size:20px;
     }
 
     .escoOverview__statBox {
-        width: 100px;
-        height: 120px;
+        min-width: 100px;
+        min-height: 120px;
         margin-right: 0;
         margin-left: 30px;
 
