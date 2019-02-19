@@ -1,18 +1,17 @@
 import config from 'config';
 
-const getBaseUrl = () => (config.baseAppPath ?
-  `${window.location.origin}/${config.baseAppPath}` : window.location.origin);
+const getBaseUrl = () => (config.get('baseAppPath') ?
+  `${window.location.origin}/${config.get('baseAppPath')}` : window.location.origin);
 
-const getStaticUrl = () => {
-  if (config.entryscape && config.entryscape.static && config.entryscape.static.url) {
-    return config.entryscape.static.url;
-  }
+/**
+ *
+ */
+const getLocalBuildUrl = () => `${getBaseUrl()}/dist/`;
 
-  return getBaseUrl(); // TODO better return null since this is used in constructing other urls
-};
+const getStaticUrl = () => config.get('entryscape.static.url');
 
 const getStaticBuild = () => {
-  const { app, version } = config.entryscape.static;
+  const { app, version = 'stable' } = config.entryscape.static;
   return `${getStaticUrl()}${app}/${version}/`;
 };
 
@@ -128,6 +127,7 @@ const getResourceBase = (scope) => {
 
 export default {
   getBaseUrl,
+  getLocalBuildUrl,
   getStaticBuild,
   getAssetsPath,
   getLogoInfo,
