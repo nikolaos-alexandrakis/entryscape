@@ -37,8 +37,8 @@ export const isExternalLink = (url) => {
 
 /**
  * Converts bytes to mega bytes.
- * NOTE! there is no sanity check for the past bytes
+ * NOTE! there is no sanity check for the give param 'bytes'
  * @param {number} bytes
- * @return {number}ø
+ * @return {number}
  */
 export const convertBytesToMBytes = bytes => Number.parseFloat(bytes / 1048576); // convert bytes to Mb
