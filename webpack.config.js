@@ -37,7 +37,7 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: (argv && argv.localbuild || `${STATIC_URL}/${APP}/${VERSION}/`),
+      publicPath: (argv && argv.localbuild ? '/dist/' : `${STATIC_URL}/${APP}/${VERSION}/`),
       filename: 'app.js',
       chunkFilename: '[name].js',
       library: APP,
