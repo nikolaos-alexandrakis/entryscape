@@ -173,7 +173,7 @@ export default (vnode) => {
           </div>
 
           <div class="flex--sb">
-            <DistributionList entry={entry}></DistributionList>
+            <DistributionList dataset={entry}></DistributionList>
             <div class="cards--wrapper">
               <StatBox value="3" label={escaDataset.commentMenu} link=""/>
               <StatBox value="2" label={escaDataset.showideas} link=""/>

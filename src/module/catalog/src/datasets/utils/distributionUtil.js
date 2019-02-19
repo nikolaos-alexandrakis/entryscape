@@ -61,7 +61,7 @@ export const getDistributionFilesInfo = async (distributionEntry) => {
 };
 
 
-const isFileDistributionWithOutAPI = (entry, dctSource, entrystore) => {
+export const isFileDistributionWithOutAPI = (entry, dctSource, entrystore) => {
   // old code to check API activated or not
   const fileStmts = entry.getMetadata().find(entry.getResourceURI(),
     'dcat:downloadURL');

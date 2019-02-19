@@ -95,8 +95,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     // domAttr.set(this.formatNode, "innerHTML", format || "");
     this.modDate = this.entry.getEntryInfo().getModificationDate();
     this.renderDate();
-    this.clearDropdownMenu();
-    this.renderDropdownMenu();
+    // this.clearDropdownMenu();
+    // this.renderDropdownMenu();
   },
   renderDate() {
     if (this.NLSBundles.escoList && this.modDate != null) { // Localization strings are loaded.

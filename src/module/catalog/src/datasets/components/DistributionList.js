@@ -14,19 +14,19 @@ export default (vnode) => {
   };
   const setState = createSetState(state);
 
-  const { entry } = vnode.attrs;
+  const { dataset } = vnode.attrs;
 
   const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
   const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
   // Get the distributions from the entry and store them in the state
-  const listDistributions = (entry) => {
+  const listDistributions = (datasetEntry) => {
     const entryStoreUtil = registry.get('entrystoreutil');
     const fileEntryURIs = [];
     const uri2Format = [];
 
-    const stmts = getDistributionStatements(entry) || [];
+    const stmts = getDistributionStatements(datasetEntry) || [];
 
     return Promise.all(stmts.map((stmt) => {
       const resourceURI = stmt.getValue();
@@ -43,7 +43,9 @@ export default (vnode) => {
         if (format !== '' && format != null) {
           uri2Format[distributionEntry.getResourceURI()] = format;
         }
-        console.log(distributionEntry.getMetadata());
+
+        setState({fileEntryURIs}, true);
+
         return distributionEntry;
       }, () => null,
         // brokenReferences.style.display = '';
@@ -57,15 +59,16 @@ export default (vnode) => {
   const openCreateDialog = () => {
     const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, vnode.dom));
     // TODO @scazan Some glue here to communicate with RDForms without a "row"
-    createDialog.open({ row: { entry }, onDone: () => listDistributions(entry) });
+    createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
   };
 
   return {
     oninit: (vnode) => {
-      const { entry } = vnode.attrs;
-      listDistributions(entry);
+      const { dataset } = vnode.attrs;
+      listDistributions(dataset);
     },
     view: () => {
+      const { dataset } = vnode.attrs;
       const distributions = state.distributions;
 
       return (
@@ -75,8 +78,10 @@ export default (vnode) => {
             <button class="btn--circle btn--action btn--add" onclick={openCreateDialog} alt={escaDataset.addDistributionTitle}>+</button>
           </div>
           { distributions.map(distribution => (
-            <Distribution 
+            <Distribution
               distribution={distribution}
+              fileEntryURIs={state.fileEntryURIs}
+              dataset={dataset}
             />
           )) }
         </div>

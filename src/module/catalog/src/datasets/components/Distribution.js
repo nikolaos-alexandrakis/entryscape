@@ -18,13 +18,20 @@ import {
 import {createSetState} from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
+import GenerateAPI from '../GenerateAPI';
+
 export default() => {
 
   const state = {
-    isExpanded: false
+    isExpanded: false,
+    fileEntryURIs: [],
+    distributionEntry: {},
+    dataset: {},
   };
 
   const setState = createSetState(state);
+
+  const namespaces = registry.get('namespaces');
 
   const getTitle = (entry, namespaces) => {
     const escaDatasetLocalized = i18n.getLocalization(escaDataset);
@@ -96,9 +103,42 @@ export default() => {
 
   const expandDistribution = () => {
     setState({
-      isExpanded: !state.isExpanded
+      isExpanded: !state.isExpanded,
     });
   };
+
+  //ACTIONS
+  const activateAPI = () => {
+    const generateAPI = new GenerateAPI();
+    generateAPI.execute({
+      params: {
+        distributionEntry: state.distributionEntry,
+        // datasetEntry: this.datasetRow.entry,
+        dataset: state.dataset,
+        mode: 'new',
+        // datasetRow: this.datasetRow,
+      },
+    });
+  };
+
+  const refreshAPI = () => {
+    const apiDistributionEntry = state.distributionEntry;
+    const esUtil = registry.get('entrystoreutil');
+    const sourceDistributionResURI = apiDistributionEntry.getMetadata().findFirstValue(apiDistributionEntry.getResourceURI(), namespaces.expand('dcterms:source'));
+    return esUtil.getEntryByResourceURI(sourceDistributionResURI).then((sourceDistributionEntry) => {
+      const generateAPI = new GenerateAPI();
+      generateAPI.execute({
+        params: {
+          apiDistEntry: apiDistributionEntry,
+          distributionEntry: sourceDistributionEntry,
+          dataset: state.dataset,
+          mode: 'refresh',
+          // distributionEntry: state.distributionEntry,
+        },
+      });
+    });
+  };
+  // END ACTIONS
 
   const renderActions = (entry, nls) => {
     const actions = [];
@@ -118,19 +158,20 @@ export default() => {
 
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
-     /*  if (isFileDistributionWithOutAPI(entry, this.dctSource, registry.get('entrystore'))) {
+      // if (isFileDistributionWithOutAPI(entry, this.dctSource, registry.get('entrystore'))) {
+      if (isFileDistributionWithOutAPI(entry, state.fileEntryURIs, registry.get('entrystore'))) {
           // name: 'activateAPI',
           // method: this.activateAPI.bind(this, entry),
         actions.push(
           <button 
             class="btn--distribution fa fa-fw fa-link"
             title={nls.apiActivateTitle}
-            onclick={()=>console.log('activateAPI')}
+            onclick={activateAPI}
           >
             <span>{nls.apiActivateTitle}</span>
           </button>
         );
-      } */
+      }
       if (isSingleFileDistribution(entry)) {
           // nlsKeyTitle: 'downloadButtonTitle',
           // method: this.openNewTab.bind(this, entry),
@@ -195,7 +236,7 @@ export default() => {
         <button
           class="btn--distributionFile  fa fa-fw fa-retweet"
           title={nls.reGenerateAPITitle}
-          onclick={()=>console.log('Regenerate api')}
+          onclick={refreshAPI}
         >
           <span>{nls.reGenerateAPI}</span>
         </button>
@@ -261,11 +302,16 @@ export default() => {
     return actions;
   };
 
-  const namespaces = registry.get('namespaces');
 
   return {
     view: (vnode) => {
-      const {distribution, fileEntryURIs} = vnode.attrs;
+      const {distribution, dataset, fileEntryURIs} = vnode.attrs;
+      setState({
+        fileEntryURIs,
+        distributionEntry: distribution,
+        dataset,
+      }, true);
+
       const title = getTitle(distribution, namespaces);
       const {
         format,
