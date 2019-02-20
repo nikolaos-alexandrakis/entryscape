@@ -41,4 +41,4 @@ export const isExternalLink = (url) => {
  * @param {number} bytes
  * @return {number}
  */
-export const convertBytesToMBytes = bytes => Number.parseFloat(bytes / 1048576); // convert bytes to Mb
+export const convertBytesToMBytes = bytes => Number(parseFloat(bytes / 1048576).toFixed(2)); // convert bytes to Mb
