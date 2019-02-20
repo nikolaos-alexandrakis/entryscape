@@ -1,4 +1,4 @@
-import escoProgressTask from 'commons/nls/escoProgressTask.nls';
+import escoProgressTask from 'commons/nls/escoFile.nls';
 import { i18n } from 'esi18n';
 import configUtil from './configUtil';
 import { convertBytesToMBytes } from './util';
