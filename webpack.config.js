@@ -9,7 +9,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 /** ********** INIT *********** */
-const VERSION = require('./package.json').version;
+  // Get the version from the package.json. If on a snapshot version then use the 'latest' version
+  // to keep consistency between local.js entryscape.version and generated publicPath of the webpack
+let VERSION = require('./package.json').version;
+VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
 
 const STATIC_URL = 'https://static.entryscape.com';
 
@@ -34,7 +37,7 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: `${STATIC_URL}/${APP}/${VERSION}/`,
+      publicPath: (argv && argv.localbuild ? '/dist/' : `${STATIC_URL}/${APP}/${VERSION}/`),
       filename: 'app.js',
       chunkFilename: '[name].js',
       library: APP,
@@ -197,7 +200,7 @@ module.exports = (env, argv) => {
         devServer: {
           hot: true,
           contentBase: APP_PATH,
-          historyApiFallback: APP === 'blocks' ? false : true,
+          historyApiFallback: APP !== 'blocks',
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
