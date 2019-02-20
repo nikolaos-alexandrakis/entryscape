@@ -531,9 +531,9 @@ const remove = () => {
                   <p class="distributionFile__date">Jan 17</p>
                   <button class="icons fa fa-cog"></button>
                 </div>
-                <div class={`dropdownMenu`}>
-                { renderActions(distribution, escaDataset) }
-              </div>
+                <div class="file__dropdownMenu">
+                  { renderActions(distribution, escaDataset) }
+                </div>
               </div>
 
             </div>
