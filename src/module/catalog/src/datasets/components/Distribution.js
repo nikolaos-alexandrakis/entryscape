@@ -247,6 +247,13 @@ const remove = () => {
     });
   };
 
+  const openResource = () => {
+    openNewTab(state.distributionEntry);
+  };
+
+
+// END ACTIONS
+// UTILS
   const openNewTab = (distributionEntry) => {
     const resURI = distributionEntry.getResourceURI();
     const md = distributionEntry.getMetadata();
@@ -265,9 +272,6 @@ const remove = () => {
 
     window.open(uri, '_blank');
   };
-
-// END ACTIONS
-// UTILS
   /*
    This deletes selected distribution and also deletes
    its relation to dataset
@@ -365,7 +369,7 @@ const remove = () => {
           <button
             class="btn--distributionFile fa fa-fw fa-download"
             title={nls.downloadButtonTitle}
-            onclick={() => openNewTab(entry)}
+            onclick={openResource}
           >
             <span>{nls.downloadButtonTitle}</span>
           </button>,
@@ -424,7 +428,7 @@ const remove = () => {
           <button
             class="btn--distributionFile fa fa-fw fa-info-circle"
             title={nls.accessURLButtonTitle}
-            onclick={() => openNewTab(entry)}
+            onclick={openResource}
           >
           <span>{nls.accessURLButtonTitle}</span>
           </button>
@@ -435,7 +439,7 @@ const remove = () => {
           <button 
             class="btn--distributionFile  fa fa-fw fa-download"
             title={nls.downloadButtonTitle}
-            onclick={() => openNewTab(entry)}
+            onclick={openResource}
           >
             <span>{nls.downloadButtonTitle}</span>
           </button>
