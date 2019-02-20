@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 /** ********** INIT *********** */
-  // Get tge version from the package.json. If on asnapshot version then use the 'latest' version
+  // Get the version from the package.json. If on a snapshot version then use the 'latest' version
   // to keep consistency between local.js entryscape.version and generated publicPath of the webpack
 let VERSION = require('./package.json').version;
 VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
