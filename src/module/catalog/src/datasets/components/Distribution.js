@@ -16,6 +16,7 @@ import {
   isAPIDistribution,
   isAccessURLEmpty,
   isDownloadURLEmpty,
+  isAccessDistribution,
 } from 'catalog/datasets/utils/distributionUtil';
 import {createSetState} from 'commons/util/util';
 import escoList from 'commons/nls/escoList.nls';
@@ -24,7 +25,7 @@ import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import GenerateAPI from '../GenerateAPI';
 
 export default(vnode) => {
-
+  const { removeDistribution, deactivateAPInRemoveDist } = vnode.attrs;
   const state = {
     isExpanded: false,
     fileEntryURIs: [],
@@ -114,7 +115,6 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
   maxWidth: 800,
   explicitNLS: true,
   open(params) {
-
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     this.inherited(arguments);
     const getDistributionTemplate = () => {
@@ -196,13 +196,44 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
       });
     });
   };
-  // END ACTIONS
+
+const remove = () => {
+  const escaDataset = i18n.getLocalization(escaDatasetNLS);
+  const dialogs = registry.get('dialogs');
+  // if (isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
+  if (isFileDistributionWithOutAPI(state.distributionEntry, state.fileEntryURIs, registry.get('entrystore'))) {
+    dialogs.confirm(escaDataset.removeDistributionQuestion,
+      null, null, (confirm) => {
+        if (!confirm) {
+          return;
+        }
+        removeDistribution(state.distributionEntry);
+      });
+  } else if (isAPIDistribution(state.distributionEntry)) {
+    dialogs.confirm(escaDataset.removeDistributionQuestion,
+      null, null, (confirm) => {
+        if (!confirm) {
+          return;
+        }
+        deactivateAPInRemoveDist(state.distributionEntry);
+      });
+  } else if (isAccessDistribution(state.distributionEntry, registry.get('entrystore'))) {
+    dialogs.confirm(escaDataset.removeDistributionQuestion,
+      null, null, (confirm) => {
+        if (!confirm) {
+          return;
+        }
+        removeDistribution(state.distributionEntry);
+      });
+  } else {
+    dialogs.acknowledge(escaDataset.removeFileDistWithAPI);
+  }
+};
+
+// END ACTIONS
 
   const renderActions = (entry, nls) => {
     const actions = [];
-      // name: 'edit',
-      // method: this.edit.bind(this),
-
     actions.push(
       <button
         class="btn--distributionFile fa fa-fw fa-pencil"
@@ -212,7 +243,6 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
         <span>{nls.editDistributionTitle}</span>
       </button>
     );
-
 
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
@@ -342,15 +372,15 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
         </button>
       );
     }
-    // if (this.datasetRow.list.createAndRemoveDistributions) {
-    if (false==true) {
+    // if (this.datasetRow.list.createAndRemoveDistributions) { // @scazan simple boolean defined in the class
+    if (true==true) {
         // name: 'remove',
         // method: this.remove.bind(this),
       actions.push(
         <button
           class=" btn--distributionFile fa fa-fw fa-remove"
           title={nls.removeDistributionTitle}
-          onclick={() => console.log('remove')}
+          onclick={remove}
         >
           <span>{nls.removeDistributionTitle}</span>
         </button>

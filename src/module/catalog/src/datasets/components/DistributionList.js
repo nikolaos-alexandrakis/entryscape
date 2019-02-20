@@ -62,14 +62,76 @@ export default (vnode) => {
     createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
   };
 
+  /*
+   This deletes selected distribution and also deletes
+   its relation to dataset
+   */
+  const removeDistribution = (distributionEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const entryStoreUtil = registry.get('entrystoreutil');
+    const fileStmts = distributionEntry.getMetadata().find(distributionEntry.getResourceURI(), 'dcat:downloadURL');
+    const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
+    distributionEntry.del().then(() => {
+      dataset.getMetadata().findAndRemove(null, registry.get('namespaces').expand('dcat:distribution'), {
+        value: resURI,
+        type: 'uri',
+      });
+      return dataset.commitMetadata().then(() => {
+        distributionEntry.setRefreshNeeded();
+        // self.datasetRow.clearDistributions();
+        // self.datasetRow.listDistributions();
+        return Promise.all(fileURIs.map(
+          fileURI => entryStoreUtil.getEntryByResourceURI(fileURI)
+            .then(fEntry => fEntry.del()))
+        );
+      });
+    })
+    .then(() => m.redraw());
+      // .then(this.destroy.bind(this, false)); // TODO handle errors
+  };
+
+  /*
+   * This deletes the selected API distribution. It also deletes relation to dataset,
+   * corresponding API, pipelineResultEntry.
+   */
+  const deactivateAPInRemoveDist = (distributionEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const es = distributionEntry.getEntryStore();
+    const contextId = distributionEntry.getContext().getId();
+    distributionEntry.del().then(() => {
+      dataset.getMetadata().findAndRemove(null, registry.get('namespaces').expand('dcat:distribution'), {
+        value: resURI,
+        type: 'uri',
+      });
+      dataset.commitMetadata().then(() => {
+        getEtlEntry(distributionEntry).then((etlEntry) => {
+          const uri = `${es.getBaseURI() + contextId}/resource/${etlEntry.getId()}`;
+          return es.getREST().del(`${uri}?proxy=true`)
+            .then(() => etlEntry.del().then(() => {
+              m.redraw();
+              // this.datasetRow.clearDistributions();
+              // this.datasetRow.listDistributions();
+            }));
+        });
+      });
+    });
+  };
+
+  const getEtlEntry = (entry) => {
+    const md = entry.getMetadata();
+    const esUtil = registry.get('entrystoreutil');
+    const pipelineResultResURI = md.findFirstValue(entry.getResourceURI(), registry.get('namespaces').expand('dcat:accessURL'));
+    return esUtil.getEntryByResourceURI(pipelineResultResURI)
+      .then(pipelineResult => new Promise(r => r(pipelineResult)));
+  };
+
   return {
     oninit: (vnode) => {
       const { dataset } = vnode.attrs;
-      listDistributions(dataset);
     },
     view: () => {
-      const { dataset } = vnode.attrs;
       const distributions = state.distributions;
+      listDistributions(dataset);
 
       return (
         <div class="distributions">
@@ -82,6 +144,8 @@ export default (vnode) => {
               distribution={distribution}
               fileEntryURIs={state.fileEntryURIs}
               dataset={dataset}
+              removeDistribution={removeDistribution}
+              deactivateAPInRemoveDist={deactivateAPInRemoveDist}
             />
           )) }
         </div>
