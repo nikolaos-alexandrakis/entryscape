@@ -713,7 +713,7 @@ table.no-margin .progress {
 }
 
 .spaTwoMenu .nav.spaBreadcrumbs.breadcrumb a {
-    line-height: initial;
+    line-height: normal
     color: #535353;
 }
 
