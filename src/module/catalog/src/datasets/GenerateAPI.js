@@ -208,12 +208,14 @@ export default class {
    */
   validateFiles(newFilesURI = null) {
     if (newFilesURI) {
+      this.appendMode = true;
       this.fileURIs = newFilesURI; // refresh the API only with the new files
       this.totalNoFiles = newFilesURI.length;
     } else {
       // get all file resource URIs from the dcat:downloadURL property
       this.fileURIs = getDistributionFileRURIs(this.distributionEntry);
       this.totalNoFiles = this.fileURIs.length;
+      this.appendMode = false;
     }
 
     // asynchronously get the file infos and make checks
@@ -433,7 +435,7 @@ export default class {
       const etlEntryResourceURI = this.apiDistEntry.getMetadata().findFirstValue(null, 'dcat:accessURL');
       pipelineResource.setTransformArguments(transformId, {});
       pipelineResource.setTransformArguments(transformId, {
-        action: 'replace',
+        action: this.appendMode ? 'append' : 'replace',
         datasetURL: etlEntryResourceURI, // etl Entry
       });
       await pipelineResource.commit();

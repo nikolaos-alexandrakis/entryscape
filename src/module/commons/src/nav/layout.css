@@ -195,7 +195,7 @@ body {
 
     footer.sidebar-footer {
         width: 60px;
-        position: absolute;
+        position: fixed;
     }
 
     footer.sidebar-footer a {
@@ -299,7 +299,7 @@ body {
 
 .main_container .bottom_footer {
     display: block;
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
     padding-top: 10px;
@@ -310,7 +310,7 @@ body {
 
 .main_container .bottom_footer .bottom_logo {
     display: block;
-    position: absolute;
+    position: fixed;
     right: 20px;
     bottom: 3px;
 }
@@ -711,7 +711,7 @@ table.no-margin .progress {
 }
 
 .spaTwoMenu .nav.spaBreadcrumbs.breadcrumb a {
-    line-height: initial;
+    line-height: normal
     color: #535353;
 }
 

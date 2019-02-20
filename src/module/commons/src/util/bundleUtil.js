@@ -1,4 +1,5 @@
 import { isUri } from 'commons/util/util';
+import config from 'config';
 import configUtil from './configUtil';
 
 /**
@@ -7,7 +8,8 @@ import configUtil from './configUtil';
 
 const getBaseUrl = () => configUtil.getBaseUrl().replace(/\/?$/, '/');
 const getThemeUrl = () => `${getBaseUrl()}theme/templates`;
-const getStaticTemplateUrl = () => `${configUtil.getStaticBuild()}templates`;
+const getBuildTemplateUrl = () =>
+  `${config.get('entryscape.localBuild') ? configUtil.getLocalBuildUrl() : configUtil.getStaticBuild()}templates`;
 
 /**
  * NOTE! order matters here
@@ -15,7 +17,7 @@ const getStaticTemplateUrl = () => `${configUtil.getStaticBuild()}templates`;
  */
 export const getFallbackUrls = (id, format) => [
   getThemeUrl,
-  getStaticTemplateUrl,
+  getBuildTemplateUrl,
 ].map(baseUrlFunc => `${baseUrlFunc()}/${id}.${format}`);
 
 /**
@@ -26,5 +28,4 @@ export const getFallbackUrls = (id, format) => [
  * @param {string} [format=json]
  * @return {Array<string>}
  */
-export const getFallbackBundleUrls = (id, format = 'json') =>
-  (isUri(id) ? [id] : getFallbackUrls(id, format));
+export const getFallbackBundleUrls = (id, format = 'json') => (isUri(id) ? [id] : getFallbackUrls(id, format));

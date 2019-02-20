@@ -37,9 +37,6 @@
     flex-direction: column;
     justify-content: space-around;
 }
-.col-md-12::-webkit-scrollbar{
-    width: 0!important;
-}
 .escoOverview__wrapper{
     display:flex;
     flex-direction: column;
