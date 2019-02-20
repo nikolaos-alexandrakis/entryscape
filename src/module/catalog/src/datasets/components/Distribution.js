@@ -18,7 +18,6 @@ import {
   isDownloadURLEmpty,
 } from 'catalog/datasets/utils/distributionUtil';
 import {createSetState} from 'commons/util/util';
-import escaDataset from 'catalog/nls/escaDataset.nls';
 import escoList from 'commons/nls/escoList.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
@@ -38,7 +37,7 @@ export default(vnode) => {
   const namespaces = registry.get('namespaces');
 
   const getTitle = (entry, namespaces) => {
-    const escaDatasetLocalized = i18n.getLocalization(escaDataset);
+    const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
 
     const md = entry.getMetadata();
     const subj = entry.getResourceURI();
@@ -115,6 +114,8 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
   maxWidth: 800,
   explicitNLS: true,
   open(params) {
+
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
     this.inherited(arguments);
     const getDistributionTemplate = () => {
       // if (!this.dtemplate) { // TODO @scazan don't forget to re-institute this!!!!
@@ -125,10 +126,11 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     };
 
     const entry = params.row.entry;
-    // this.set("title", this.list.nlsSpecificBundle.editDistributionHeader);
-    // this.set("doneLabel", this.list.nlsSpecificBundle.editDistributionButton);
-    // this.doneLabel = this.list.nlsSpecificBundle.editDistributionButton;
-    // this.title = this.list.nlsSpecificBundle.editDistributionHeader;
+    this.distributionEntry = entry;
+    this.set("title", escaDataset.editDistributionHeader);
+    this.set("doneLabel", escaDataset.editDistributionButton);
+    this.doneLabel = escaDataset.editDistributionButton;
+    this.title = escaDataset.editDistributionHeader;
     this.updateTitleAndButton();
     registry.set('context', entry.getContext());
     if (isUploadedDistribution(entry, registry.get('entrystore')) ||
@@ -147,9 +149,9 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     });
   },
   doneAction(graph) {
-    this.row.entry.setMetadata(graph);
-    return this.row.entry.commitMetadata().then(() => {
-      this.row.renderMetadata();
+    this.distributionEntry.setMetadata(graph);
+    return this.distributionEntry.commitMetadata().then(() => {
+      m.redraw();
     });
   },
 });
