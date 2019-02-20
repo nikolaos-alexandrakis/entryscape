@@ -1,43 +1,5 @@
-import PubSub from 'pubsub-js';
 import declare from 'dojo/_base/declare';
-
-const _findHierarchyNodeFor = (node, viewName) => {
-  if (node.view === viewName) {
-    return node;
-  }
-  if (node.subViews != null) {
-    for (let i = 0; i < node.subViews.length; i++) {
-      const sv = node.subViews[i];
-      if (typeof sv === 'object') {
-        return _findHierarchyNodeFor(node.subViews[i], viewName);
-      }
-    }
-  }
-
-  return undefined;
-};
-
-const _findParentHierarchyNodeFor = (node, viewName) => {
-  if (node.subViews != null) {
-    for (let i = 0; i < node.subViews.length; i++) {
-      const sv = node.subViews[i];
-      const svType = typeof sv;
-      if ((svType === 'string' && viewName === sv) || (
-        svType === 'array' && sv.view === viewName
-      )) {
-        return node;
-      }
-    }
-    for (let i = 0; i < node.subViews.length; i++) {
-      const sv = node.subViews[i];
-      if (typeof sv === 'object') {
-        return _findParentHierarchyNodeFor(sv, viewName);
-      }
-    }
-  }
-
-  return undefined;
-};
+import PubSub from 'pubsub-js';
 
 /**
  * TODO
@@ -59,7 +21,7 @@ export default declare(null, {
     // }
 
     PubSub.subscribe('spa.beforeViewChange', (res, args) => {
-      const {switchingToView, switchingToParams} = args;
+      const { switchingToView, switchingToParams } = args;
       this.show.call(this, switchingToView, switchingToParams);
     });
   },
@@ -84,21 +46,6 @@ export default declare(null, {
     }
 
     return res;
-  },
-
-  /**
-   * @param view {Object|String} A view name or view definition
-   * @return {Array} of view definitions that have the same parent as view
-   */
-  getSiblingViews(view) {
-    const config = this.site.getConfig();
-    const viewDef = (typeof view === 'object') ? view : this.site.getViewDef(view);
-
-    if (viewDef.parent) {
-      return config.views.filter(v => v.parent === viewDef.parent);
-    }
-
-    return [];
   },
 
   /**
@@ -179,16 +126,6 @@ export default declare(null, {
   },
 
   /**
-   *
-   * @param moduleName
-   * @return {Array}
-   */
-  getModuleViewsDef(moduleName) {
-    const config = this.site.getConfig();
-    return config.views.filter(view => (('module' in view) ? view.module === moduleName : false));
-  },
-
-  /**
    * @param mod
    * @param viewDef
    * @param topLevel (top level views can be either literally top level or the children of the
@@ -214,5 +151,5 @@ export default declare(null, {
     arr.push(viewDef.name);
 
     return arr;
-  }
+  },
 });
