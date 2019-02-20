@@ -14,19 +14,19 @@ export default (vnode) => {
   };
   const setState = createSetState(state);
 
-  const { entry } = vnode.attrs;
+  const { dataset } = vnode.attrs;
 
   const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
   const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
   // Get the distributions from the entry and store them in the state
-  const listDistributions = (entry) => {
+  const listDistributions = (datasetEntry) => {
     const entryStoreUtil = registry.get('entrystoreutil');
     const fileEntryURIs = [];
     const uri2Format = [];
 
-    const stmts = getDistributionStatements(entry) || [];
+    const stmts = getDistributionStatements(datasetEntry) || [];
 
     return Promise.all(stmts.map((stmt) => {
       const resourceURI = stmt.getValue();
@@ -43,7 +43,9 @@ export default (vnode) => {
         if (format !== '' && format != null) {
           uri2Format[distributionEntry.getResourceURI()] = format;
         }
-        console.log(distributionEntry.getMetadata());
+
+        setState({fileEntryURIs}, true);
+
         return distributionEntry;
       }, () => null,
         // brokenReferences.style.display = '';
@@ -57,16 +59,79 @@ export default (vnode) => {
   const openCreateDialog = () => {
     const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, vnode.dom));
     // TODO @scazan Some glue here to communicate with RDForms without a "row"
-    createDialog.open({ row: { entry }, onDone: () => listDistributions(entry) });
+    createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
+  };
+
+  /*
+   This deletes selected distribution and also deletes
+   its relation to dataset
+   */
+  const removeDistribution = (distributionEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const entryStoreUtil = registry.get('entrystoreutil');
+    const fileStmts = distributionEntry.getMetadata().find(distributionEntry.getResourceURI(), 'dcat:downloadURL');
+    const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
+    distributionEntry.del().then(() => {
+      dataset.getMetadata().findAndRemove(null, registry.get('namespaces').expand('dcat:distribution'), {
+        value: resURI,
+        type: 'uri',
+      });
+      return dataset.commitMetadata().then(() => {
+        distributionEntry.setRefreshNeeded();
+        // self.datasetRow.clearDistributions();
+        // self.datasetRow.listDistributions();
+        return Promise.all(fileURIs.map(
+          fileURI => entryStoreUtil.getEntryByResourceURI(fileURI)
+            .then(fEntry => fEntry.del()))
+        );
+      });
+    })
+    .then(() => m.redraw());
+      // .then(this.destroy.bind(this, false)); // TODO handle errors
+  };
+
+  /*
+   * This deletes the selected API distribution. It also deletes relation to dataset,
+   * corresponding API, pipelineResultEntry.
+   */
+  const deactivateAPInRemoveDist = (distributionEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const es = distributionEntry.getEntryStore();
+    const contextId = distributionEntry.getContext().getId();
+    distributionEntry.del().then(() => {
+      dataset.getMetadata().findAndRemove(null, registry.get('namespaces').expand('dcat:distribution'), {
+        value: resURI,
+        type: 'uri',
+      });
+      dataset.commitMetadata().then(() => {
+        getEtlEntry(distributionEntry).then((etlEntry) => {
+          const uri = `${es.getBaseURI() + contextId}/resource/${etlEntry.getId()}`;
+          return es.getREST().del(`${uri}?proxy=true`)
+            .then(() => etlEntry.del().then(() => {
+              m.redraw();
+              // this.datasetRow.clearDistributions();
+              // this.datasetRow.listDistributions();
+            }));
+        });
+      });
+    });
+  };
+
+  const getEtlEntry = (entry) => {
+    const md = entry.getMetadata();
+    const esUtil = registry.get('entrystoreutil');
+    const pipelineResultResURI = md.findFirstValue(entry.getResourceURI(), registry.get('namespaces').expand('dcat:accessURL'));
+    return esUtil.getEntryByResourceURI(pipelineResultResURI)
+      .then(pipelineResult => new Promise(r => r(pipelineResult)));
   };
 
   return {
     oninit: (vnode) => {
-      const { entry } = vnode.attrs;
-      listDistributions(entry);
+      const { dataset } = vnode.attrs;
     },
     view: () => {
       const distributions = state.distributions;
+      listDistributions(dataset);
 
       return (
         <div class="distributions">
@@ -75,8 +140,12 @@ export default (vnode) => {
             <button class="btn--circle btn--action btn--add" onclick={openCreateDialog} alt={escaDataset.addDistributionTitle}>+</button>
           </div>
           { distributions.map(distribution => (
-            <Distribution 
+            <Distribution
               distribution={distribution}
+              fileEntryURIs={state.fileEntryURIs}
+              dataset={dataset}
+              removeDistribution={removeDistribution}
+              deactivateAPInRemoveDist={deactivateAPInRemoveDist}
             />
           )) }
         </div>
