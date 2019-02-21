@@ -136,10 +136,20 @@ export default (vnode) => {
       return (
         <main class="overview__wrapper">
           <div class="flex--sb">
-            <div class="intro--wrapper">
-              <h2 class="title">{ title }</h2>
-              <p class="description">{ description }</p>
+            <div class="metadata--wrapper">
+              <div class="intro--wrapper">
+                <h2 class="title">{ title }</h2>
+                <p class="description">{ description }</p>
+              </div>
+              <div class="metadata--basic">
+              <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
+              <p><span class="metadata__label">{escaDataset.themeTitle}:</span> Art</p>
+              <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
+              <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
+          </div>
+
             </div>
+            
 
             <div class="btn__wrapper">
               <button class="btn--action btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</button>
@@ -161,12 +171,7 @@ export default (vnode) => {
             </div>
           </div>
 
-          <div class="metadata--basic">
-            <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
-            <p><span class="metadata__label">{escaDataset.themeTitle}:</span> Art</p>
-            <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
-            <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
-          </div>
+          
 
           <div class="metadata--wrapper">
             <MoreMetadata isHidden={state.isHidden} metadata={entryInfo}></MoreMetadata>

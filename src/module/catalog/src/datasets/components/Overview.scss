@@ -30,8 +30,11 @@ $title-size:20px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        max-width: 50%;
         overflow-wrap: break-word;
+    }
+    .metadata--wrapper{
+        max-width: 50%;
+
     }
 
     .metadata--basic,
@@ -39,7 +42,7 @@ $title-size:20px;
   /*       column-count: 2; */
         margin-bottom: 15px;
         color: $main-colour;
-        max-width: 60%;
+/*         max-width: 60%; */
 
         p {
             margin-bottom: 10px;
