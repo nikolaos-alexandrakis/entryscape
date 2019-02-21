@@ -94,7 +94,7 @@ window.__entryscape_config = {
       rowhead: '<div class="esbRowHead"><a href="{{prop "dcat:accessURL"}}" class="pull-right btn btn-sm btn-primary"' +
         ' role="button"' +
         ' target="_blank">' +
-        '<i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;Webbsida</a>' +
+        '<i class="fas fa-external-link-square-alt" aria-hidden="true"></i>&nbsp;Webbsida</a>' +
         '{{#ifprop "dcat:downloadURL"}}' +
         '<a href="{{prop "dcat:downloadURL"}}" class="pull-right btn btn-sm btn-default" role="button" target="_blank">' +
         '<i class="fa fa-download" aria-hidden="true"></i>&nbsp;Ladda ned</a>' +
