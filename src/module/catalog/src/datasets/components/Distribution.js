@@ -30,6 +30,7 @@ export default(vnode) => {
 
   const state = {
     isExpanded: false,
+    isShowing: false,
     fileEntryURIs: [],
     distributionEntry: {},
   };
@@ -109,6 +110,12 @@ export default(vnode) => {
   const expandDistribution = () => {
     setState({
       isExpanded: !state.isExpanded,
+    });
+  };
+
+  const showFileDropdown = () => {
+    setState({
+      isShowing: !state.isShowing,
     });
   };
 
@@ -474,7 +481,6 @@ const remove = () => {
     return actions;
   };
 
-
   return {
     view: (vnode) => {
       const {distribution, dataset, fileEntryURIs} = vnode.attrs;
@@ -493,6 +499,7 @@ const remove = () => {
       } = getDistributionMetadata(distribution, namespaces);
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
+      const showingDropdownClass = state.isShowing ? 'show': '';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
       return (
@@ -533,9 +540,9 @@ const remove = () => {
                 </div>
                 <div class="flex--sb">
                   <p class="distributionFile__date">Jan 17</p>
-                  <button class="icons fa fa-cog"></button>
+                  <button class="icons fa fa-cog" onclick={showFileDropdown}></button>
                 </div>
-                <div class="file__dropdownMenu">
+                <div class={`file__dropdownMenu ${showingDropdownClass}`}>
                   { renderActions(distribution, escaDataset) }
                 </div>
               </div>

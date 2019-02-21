@@ -136,7 +136,7 @@ $title-size:20px;
                 }
             }
             .file__dropdownMenu{
-                display: flex;
+                display: none;
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
@@ -152,9 +152,10 @@ $title-size:20px;
                 list-style: none;
                 background-color: #fff;
                 background-clip: padding-box;
-                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-
-               
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);  
+            }
+            .file__dropdownMenu.show{
+                display: flex;
             }
         }
 
