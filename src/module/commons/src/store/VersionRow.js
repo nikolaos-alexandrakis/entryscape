@@ -92,7 +92,7 @@ export default declare([ExpandRow], {
       type: 'button',
       class: `pull-right btn btn-primary btn--revert ${disClass}`,
       title: revertTitle,
-      innerHTML: '<span class="fa fa-level-up"></span>' +
+      innerHTML: '<span class="fas fa-level-up-alt"></span>' +
         `&nbsp;<span>${b.revertLabel}</span>`,
     }, buttonRow);
     button.style['pointer-events'] = 'visible';
