@@ -46,7 +46,7 @@ export default (node, data) => {
     const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
     inputgroup.appendChild(inputGroupButtonEl);
     const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);
-    DOMUtil.create('span', { 'aria-hidden': true, class: 'fa fa-search' }, button);
+    DOMUtil.create('span', { 'aria-hidden': true, class: 'fas fa-search' }, button);
     button.onclick = searchTriggered;
   }
   input.onkeyup = () => {
