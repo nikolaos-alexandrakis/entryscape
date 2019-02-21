@@ -23,8 +23,8 @@ stepdefinitions:
         - yarn build:registry
         - echo $ES_VERSION > src/app/registry/dist/VERSION.txt
         # We check whether the sizes of the builds are below 3.5MB (probably needs to be raised in the future)
-        - [ `wc -c < src/app/suite/dist/app.js` -lt 3500000 ]
-        - [ `wc -c < src/app/registry/dist/app.js` -lt 3500000 ]
+        - if [ `wc -c < src/app/suite/dist/app.js` -gt 3500000 ]; then exit 1 ; fi
+        - if [ `wc -c < src/app/registry/dist/app.js` -gt 3500000 ]; then exit 1 ; fi
       artifacts:
         - src/app/**
 #      caches:
