@@ -62,9 +62,6 @@ export default (vnode) => {
     createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
   };
 
-
-
-
   return {
     oninit: (vnode) => {
       const { dataset } = vnode.attrs;
