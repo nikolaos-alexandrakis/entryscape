@@ -148,7 +148,13 @@ module.exports = (env, argv) => {
         },
         {
           test: /.+flag-icon-css.+\.svg$/,
-          loader: 'svg-url-loader'
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[folder][name].[ext]',
+              outputPath: 'flags/',
+            },
+          }],
         },
         {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
