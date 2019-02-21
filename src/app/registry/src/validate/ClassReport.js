@@ -19,7 +19,7 @@ const InstanceReport = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   postCreate() {
     this.inherited('postCreate', arguments);
     const messages = this.NLSBundle0;
-    const errorSeverityHTML = '<i class="fa fa-exclamation-triangle"></i>';
+    const errorSeverityHTML = '<i class="fas fa-exclamation-triangle"></i>';
     const warningSeverityHTML = '<i class="fa fa-exclamation-circle"></i>';
     const deprecatedSeverityHTML = '<i class="fa fa-question-circle"></i>';
     this.report.errors.forEach((err) => {
@@ -93,7 +93,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     if (nrErr > 0) {
       htmlUtil.create('span', {
         title: i18n.renderNLSTemplate(this.NLSLocalized0.errorTitle, nrErr),
-        innerHTML: `${nrErr}<i class="fa fa-exclamation-triangle"></i>`,
+        innerHTML: `${nrErr}<i class="fas fa-exclamation-triangle"></i>`,
       }, this.problems);
     }
     if (nrWarn > 0) {
