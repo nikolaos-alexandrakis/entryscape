@@ -137,7 +137,7 @@ export default function (node, data) {
         }
         item.appendChild(DOMUtil.create('span', { class: 'itemLabel', innerHTML: escape(data.label) }));
 
-        const faRemoveIconEl = DOMUtil.create('i', { class: 'fa fa-remove' });
+        const faRemoveIconEl = DOMUtil.create('i', { class: 'fas fa-times' });
         faRemoveIconEl.onclick = () => {
           selectize.removeItem(data.value);
         };
