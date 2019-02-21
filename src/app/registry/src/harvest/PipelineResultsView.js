@@ -141,7 +141,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       ],
     }),
     contactText ? m('div', { class: `alert alert-info ${this.bid}__info` }, [
-      m('i', { class: `fa fa-info-circle fa-2x ${this.bid}__infoIcon` }),
+      m('i', { class: `fas fa-info-circle fa-2x ${this.bid}__infoIcon` }),
       m('span', {}, contactText),
     ]) : null,
     ]);
