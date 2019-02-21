@@ -34,3 +34,11 @@ export const isExternalLink = (url) => {
 
   return anchor.hostname !== window.location.hostname;
 };
+
+/**
+ * Converts bytes to mega bytes.
+ * NOTE! there is no sanity check for the give param 'bytes'
+ * @param {number} bytes
+ * @return {number}
+ */
+export const convertBytesToMBytes = bytes => Number(parseFloat(bytes / 1048576).toFixed(2)); // convert bytes to Mb
