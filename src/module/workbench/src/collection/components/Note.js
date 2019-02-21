@@ -12,7 +12,7 @@ export default Note = {
           m('span', addLabel),
         ]),
         m('li', [
-          m('span', { className: 'fa fa-fw fa-remove' }),
+          m('span', { className: 'fas fa-times fa-fw' }),
           m('span', removeLabel),
         ]),
       ])]);
