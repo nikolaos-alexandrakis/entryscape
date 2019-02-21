@@ -26,6 +26,7 @@ module.exports = (env, argv) => {
 
   const APP = (argv && argv.app) || 'suite'; // needed for eslint to read the config
   const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
+  const PUBLIC_PATH = `${STATIC_URL}/${APP}/${VERSION}/`;
   const showNLSWarnings = (argv && argv['nls-warnings']) || false;
 
   let config = {
@@ -34,7 +35,7 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: `${STATIC_URL}/${APP}/${VERSION}/`,
+      publicPath: PUBLIC_PATH,
       filename: 'app.js',
       library: APP,
     },
@@ -66,10 +67,6 @@ module.exports = (env, argv) => {
           from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'assets')),
           to: 'assets', // dist/assets
         },
-        Object.assign({}, (APP !== 'blocks' ? {
-          from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.html')),
-          to: 'index.html', // dist/index.html
-        } : { from: 'README.md', to: '' })), // TODO the README was added as a temp solution for blocks
       ]),
       new CleanWebpackPlugin([
         path.join(__dirname, 'src', 'app', APP, 'dist'),
@@ -167,6 +164,10 @@ module.exports = (env, argv) => {
             },
           }],
         },
+        {
+          test: /\.hbs$/,
+          loader: 'handlebars-loader',
+        }
       ],
     },
     resolve: {
@@ -239,6 +240,15 @@ module.exports = (env, argv) => {
         optimization: {
           minimizer: [new UglifyJsPlugin()],
         },
+        plugins: [
+          new HtmlWebpackPlugin({  // Also generate a test.html
+            filename: 'index.html',
+            template: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.hbs')),
+            inject: false,
+            identifier: VERSION,
+            source: `${PUBLIC_PATH}index.html`,
+          }),
+        ]
       });
     }
   }
