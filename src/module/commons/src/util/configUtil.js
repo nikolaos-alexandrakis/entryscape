@@ -125,6 +125,8 @@ const getResourceBase = (scope) => {
   return typeof o === 'object' ? o[scope] || o.default : o;
 };
 
+const uploadFileSizeLimit = () => config.get('fileUploadSizeLimit', 26214400); // 25 MB
+
 export default {
   getBaseUrl,
   getLocalBuildUrl,
@@ -134,4 +136,5 @@ export default {
   getAppName,
   objToArray,
   getResourceBase,
+  uploadFileSizeLimit,
 };
