@@ -499,6 +499,7 @@ const remove = () => {
       } = getDistributionMetadata(distribution, namespaces);
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
+      const distributionArrowClass= state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
       const showingDropdownClass = state.isShowing ? 'show': '';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
@@ -513,7 +514,7 @@ const remove = () => {
               </div>
               <div class="flex--sb">
                 <p class="distribution__date">Jan 17</p>
-                <span class="icons fa fa-angle-down"></span>
+                <span class={`icons fa ${distributionArrowClass}`}></span>
               </div>
             </div>
 
