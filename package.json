@@ -1,5 +1,5 @@
 {
-  "name": "EntryScape",
+  "name": "entryscape",
   "version": "2.2.0-SNAPSHOT",
   "license": "AGPL-3.0-only",
   "private": true,
@@ -70,6 +70,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-requirejs": "^3.1.1",
     "file-loader": "^1.1.11",
+    "handlebars-loader": "^1.7.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "imports-loader": "^0.8.0",
