@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="dc.identifier" content="{{htmlWebpackPlugin.options.identifier}}" />
+    <meta name="dc.source" content="{{htmlWebpackPlugin.options.source}}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
-    <title>Registry</title>
+    <title>EntryScape</title>
     <script src="/theme/local.js"></script>
     <script defer>
       var paramsToMap = function (params, arr, seperator) {
@@ -78,18 +80,18 @@
        * if __entryscape_config_dev is defined already then override values in __entryscape_config
        */
       if (window.__entryscape_config_dev) {
-        Object.assign(__entryscape_config, __entryscape_config_dev);
+        Object.assign(__entryscape_config, __entryscape_config_dev); // TODO @valentino not supported in IE11
       }
 
-      var localBuild = __entryscape_config.entryscape.localBuild;
-      var path = localBuild ? '/dist' : __entryscape_config.entryscape.static.url;
+      var useLocalBuild = queryParamsMap.localbuild || queryParamsMap.debug;
       var app = __entryscape_config.entryscape.static.app;
-      var version = localBuild ? '' : ( __entryscape_config.entryscape.static.version || 'latest');
+      var path = queryParamsMap.localbuild || queryParamsMap.debug ? '/dist' : __entryscape_config.entryscape.static.url;
+      var version = useLocalBuild ? '' : ( __entryscape_config.entryscape.static.version || 'latest');
 
       /**
        * load the right css/js for the given config/queryParams
        */
-      const appPath = path + (localBuild ? '' : app) + (version ? '/' : '') + version + '/app.js';
+      const appPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/app.js';
       js(appPath);
     </script>
 </head>
