@@ -213,6 +213,9 @@ $title-size:20px;
     width: 100%;
     padding: 5px;
     margin-bottom:15px;
+    &:hover{
+        background-color:royalblue;
+    }
 
     &:focus {
         border: solid 3px $main-colour;
@@ -234,6 +237,9 @@ $title-size:20px;
     &:before{
         margin-right: 5px;
     }
+    &:hover{
+        background-color:royalblue;
+    }
     span{
         font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     }
@@ -245,6 +251,9 @@ $title-size:20px;
     display: flex;
     &:before{
         margin-right: 5px;
+    }
+    &:hover{
+        border-bottom: 2px solid $main-colour;
     }
     span{
         font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
@@ -358,6 +367,9 @@ $title-size:20px;
             color: $main-colour;
             margin-right: 10px;
             width: 24px;
+            &:hover{
+                color:royalblue;
+            }
 
         }
 
