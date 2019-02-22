@@ -14,7 +14,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 let VERSION = require('./package.json').version;
 VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
 
-const STATIC_URL = 'https://static.cdn.entryscape.com';
+const STATIC_URL = `https://static.${VERSION !== 'latest' ? 'cdn.' : ''}entryscape.com`;
 
 const getAlias = (name, type = 'module', noSource = false) =>
   path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
