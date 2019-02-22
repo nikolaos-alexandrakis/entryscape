@@ -6,7 +6,7 @@ import workbenchConfig from 'workbench/config/config';
 
 const isDev = __entryscape_config.entryscape.static.version === 'latest';
 const STATIC = {
-  URL: `https://static.${!isDev ? 'cdn.' : ''}.entryscape.com/`, // always with a trailing slash
+  URL: `https://static.${!isDev ? 'cdn.' : ''}entryscape.com/`, // always with a trailing slash
   APP: 'registry',
   VERSION: 'latest',
 };
