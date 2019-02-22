@@ -358,7 +358,7 @@ const remove = () => {
       if (isFileDistributionWithOutAPI(entry, state.fileEntryURIs, registry.get('entrystore'))) {
         actions.push(
           <button 
-            class="btn--distribution fa fa-fw fa-link"
+            class="btn--distributionFile fa fa-fw fa-link"
             title={nls.apiActivateTitle}
             onclick={activateAPI}
           >
