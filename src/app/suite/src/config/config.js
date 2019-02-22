@@ -5,8 +5,13 @@ import { i18n } from 'esi18n';
 import termsConfig from 'terms/config/config';
 import workbenchConfig from 'workbench/config/config';
 
+/**
+ * TODO @valentino remove as soon as you fix ES-710
+ */
+const isDev = __entryscape_config.entryscape.static.version === 'latest';
+
 const STATIC = {
-  URL: 'https://static.cdn.entryscape.com/', // always with a trailing slash
+  URL: `https://static.${!isDev ? 'cdn.' : ''}.entryscape.com/`, // always with a trailing slash
   APP: 'suite',
   VERSION: 'latest',
 };
