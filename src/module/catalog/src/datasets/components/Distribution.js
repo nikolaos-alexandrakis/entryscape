@@ -142,21 +142,20 @@ export default () => {
                   </div>
                 </div>
               </div>
-              <div class="distribution__fileRow">
-                <div class="distribution__format">
-                  <p class="distribution__title">{title}</p>
-                  <p class="file__format">
-                    <span class="file__format--short">{format}</span>
-                  </p>
-                </div>
-
-                <DistributionActions
-                  distribution={distribution}
-                  dataset={dataset}
-                  nls={escaDataset}
-                  fileEntryURIs={fileEntryURIs}
-                />
+            </div>
+            <div class="distribution__fileRow">
+              <div class="distribution__format">
+                <p class="distribution__title">{title}</p>
+                <p class="file__format">
+                  <span class="file__format--short">{format}</span>
+                </p>
               </div>
+              <DistributionActions
+                distribution={distribution}
+                dataset={dataset}
+                nls={escaDataset}
+                fileEntryURIs={fileEntryURIs}
+              />
             </div>
           </div>
         </div>
