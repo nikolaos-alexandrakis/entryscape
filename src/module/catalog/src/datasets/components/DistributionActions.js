@@ -430,7 +430,6 @@ export default (vnode) => {
       );
     }
 
-    debugger;
     return actions;
   };
 

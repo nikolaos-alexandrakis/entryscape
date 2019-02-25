@@ -8,7 +8,7 @@ import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
 import DistributionActions from './DistributionActions';
 
-export default (vnode) => {
+export default () => {
   const state = {
     isExpanded: false,
   };
@@ -114,8 +114,8 @@ export default (vnode) => {
           </div>
 
           <div class={`distribution__expand ${expandedClass}`}>
-            <div class="flex--sb">
-              <div>
+            <div>
+              <div class="flex--sb">
                 <div class="metadata--wrapper">
                   <div class="distribution__description">
                     <h2 class="title">{escaDataset.distributionDescriptionTitle}</h2>
@@ -127,36 +127,35 @@ export default (vnode) => {
                     <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, { numFiles: 2 }) }</p>
                   </div>
                 </div>
-                <div class="distribution__fileRow">
-                  <div class="distribution__format">
-                    <p class="distribution__title">{title}</p>
-                    <p class="file__format">
-                      <span class="file__format--short">{format}</span>
-                    </p>
+                <div class="menu--wrapper">
+                  <div class=" icon--wrapper distribution--file">
+                    <a>
+                      <button class=" btn--distribution">
+                        <span>{escaDataset.editDistributionTitle}</span>
+                      </button>
+                    </a>
+                    <a>
+                      <button class=" btn--distribution fa fa-fw fa-remove">
+                        <span>{escaDataset.removeDistributionTitle}</span>
+                      </button>
+                    </a>
                   </div>
-                    <DistributionActions
-                      distribution={distribution}
-                      dataset={dataset}
-                      nls={escaDataset}
-                      fileEntryURIs={fileEntryURIs}
-                    />
                 </div>
-
               </div>
-
-              <div class="menu--wrapper">
-                <div class=" icon--wrapper distribution--file">
-                  <a>
-                    <button class=" btn--distribution">
-                      <span>{escaDataset.editDistributionTitle}</span>
-                    </button>
-                  </a>
-                  <a>
-                    <button class=" btn--distribution fa fa-fw fa-remove">
-                      <span>{escaDataset.removeDistributionTitle}</span>
-                    </button>
-                  </a>
+              <div class="distribution__fileRow">
+                <div class="distribution__format">
+                  <p class="distribution__title">{title}</p>
+                  <p class="file__format">
+                    <span class="file__format--short">{format}</span>
+                  </p>
                 </div>
+
+                <DistributionActions
+                  distribution={distribution}
+                  dataset={dataset}
+                  nls={escaDataset}
+                  fileEntryURIs={fileEntryURIs}
+                />
               </div>
             </div>
           </div>

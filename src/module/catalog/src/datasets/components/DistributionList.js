@@ -8,13 +8,14 @@ import { i18n } from 'esi18n';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
-export default (vnode) => {
+export default (initialVnode) => {
   const state = {
     distributions: [],
   };
   const setState = createSetState(state);
 
-  const { dataset } = vnode.attrs;
+  const { dataset } = initialVnode.attrs;
+  const dom = initialVnode.dom;
 
   const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
@@ -44,7 +45,7 @@ export default (vnode) => {
           uri2Format[distributionEntry.getResourceURI()] = format;
         }
 
-        setState({fileEntryURIs}, true);
+        setState({ fileEntryURIs }, true);
 
         return distributionEntry;
       }, () => null,
@@ -57,7 +58,7 @@ export default (vnode) => {
   };
 
   const openCreateDialog = () => {
-    const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, vnode.dom));
+    const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, dom));
     // TODO @scazan Some glue here to communicate with RDForms without a "row"
     createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
   };
@@ -74,8 +75,14 @@ export default (vnode) => {
         <div class="distributions">
           <div class="header flex--sb">
             <h2 class="title">{escaDataset.distributionsTitle}</h2>
-            <button class="btn--circle btn--action btn--add" onclick={openCreateDialog} alt={escaDataset.addDistributionTitle}>+</button>
+            <button class="btn--circle btn--action btn--add"
+              onclick={openCreateDialog}
+              alt={escaDataset.addDistributionTitle}
+            >
+              +
+            </button>
           </div>
+
           { distributions.map(distribution => (
             <Distribution
               distribution={distribution}
@@ -83,6 +90,7 @@ export default (vnode) => {
               dataset={dataset}
             />
           )) }
+
         </div>
       );
     },
