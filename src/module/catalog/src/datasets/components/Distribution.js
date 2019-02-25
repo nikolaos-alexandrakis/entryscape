@@ -539,8 +539,8 @@ const remove = () => {
             </div>
 
           <div class={`distribution__expand ${expandedClass}`}>
-            <div class="flex--sb">
             <div>
+            <div class="flex--sb">
               <div class="metadata--wrapper">
                 <div class="distribution__description">
                   <h2 class="title">{escaDataset.distributionDescriptionTitle}</h2>
@@ -552,7 +552,22 @@ const remove = () => {
                   <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, {numFiles: 2}) }</p>
                 </div>
               </div>
-              <div class="distribution__fileRow">
+              <div class="menu--wrapper">
+                <div class=" icon--wrapper distribution--file">
+                  <a>
+                    <button class=" btn--distribution">
+                      <span>{escaDataset.editDistributionTitle}</span>
+                    </button>
+                  </a>
+                  <a>
+                    <button class=" btn--distribution fa fa-fw fa-remove">
+                      <span>{escaDataset.removeDistributionTitle}</span>
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="distribution__fileRow">
                 <div class="distribution__format">
                 <p class="distribution__title">{title}</p>
                 <p class="file__format">
@@ -568,22 +583,7 @@ const remove = () => {
                 </div>
               </div>
 
-            </div>
-
-              <div class="menu--wrapper">
-                <div class=" icon--wrapper distribution--file">
-                  <a>
-                    <button class=" btn--distribution">
-                      <span>{escaDataset.editDistributionTitle}</span>
-                    </button>
-                  </a>
-                  <a>
-                    <button class=" btn--distribution fa fa-fw fa-remove">
-                      <span>{escaDataset.removeDistributionTitle}</span>
-                    </button>
-                  </a>
-                </div>
-              </div>
+            
             </div>
           </div>
         </div>
