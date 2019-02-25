@@ -1,3 +1,4 @@
+import m from 'mithril';
 import VersionsDialog from 'commons/store/VersionsDialog';
 import declare from 'dojo/_base/declare';
 import escoVersionsNLS from 'commons/nls/escoVersions.nls';

@@ -53,7 +53,7 @@ export default (vnode) => {
         // return null;
       );
     }))
-      .then(dists => setState({ distributions: dists }) );
+      .then(dists => setState({ distributions: dists }));
   };
 
   const openCreateDialog = () => {
@@ -65,10 +65,10 @@ export default (vnode) => {
   return {
     oninit: (vnode) => {
       const { dataset } = vnode.attrs;
-    },
-    view: () => {
-      const distributions = state.distributions;
       listDistributions(dataset);
+    },
+    view() {
+      const distributions = state.distributions;
 
       return (
         <div class="distributions">
