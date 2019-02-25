@@ -25,9 +25,9 @@ export default declare([VersionsDialog], {
     this.show(params.row.entry, params.template || this.list.getTemplate(params.row.entry));
   },
   localeChange() {
-    this.updateLocaleStrings(
+    this.dialog.updateLocaleStrings(
       this.NLSLocalized.escoList,
-      this.NLSLocalized.escoVersions
+      this.NLSLocalized.escoVersions,
     );
   },
   getNLSString(nlsKey) {

@@ -113,11 +113,30 @@ export default(vnode) => {
     });
   };
 
-  const showFileDropdown = () => {
+  const hideFileDropdown = () => {
+    setState({
+      isShowing: false,
+    });
+  };
+
+  const handleOutsideClick = (e) => {
+    if(!vnode.dom.contains(e.target)) {
+      hideFileDropdown();
+    }
+  };
+
+  const toggleFileDropdown = () => {
+    if (!state.isShowing) {
+      document.addEventListener('click', handleOutsideClick, false);
+    } else {
+      document.removeEventListener('click', handleOutsideClick, false);
+    }
+
     setState({
       isShowing: !state.isShowing,
     });
   };
+
 
   const getDistributionTemplate = () => {
     // if (!this.dtemplate) { // TODO @scazan don't forget to re-institute this!!!!
@@ -235,8 +254,9 @@ const remove = () => {
 };
 
   const openRevisions = () => {
+    const { distributionEntry } = state;
     const dv = RevisionsDialog;
-    if (isUploadedDistribution(state.distributionEntry, registry.get('entrystore'))) {
+    if (isUploadedDistribution(distributionEntry, registry.get('entrystore'))) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
     } else if (isAPIDistribution(distributionEntry)) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
@@ -248,7 +268,7 @@ const remove = () => {
     const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, vnode.dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     revisionsDialog.open({
-      row: { entry: state.distributionEntry },
+      row: { entry: distributionEntry },
       onDone: () => m.redraw(),
       template: getDistributionTemplate(),
     });
@@ -541,7 +561,7 @@ const remove = () => {
                 </div>
                 <div class="flex--sb">
                   <p class="distributionFile__date">Jan 17</p>
-                  <button class="icons fa fa-cog" onclick={showFileDropdown}></button>
+                  <button class="icons fa fa-cog" onclick={toggleFileDropdown}></button>
                 </div>
                 <div class={`file__dropdownMenu ${showingDropdownClass}`}>
                   { renderActions(distribution, escaDataset) }
