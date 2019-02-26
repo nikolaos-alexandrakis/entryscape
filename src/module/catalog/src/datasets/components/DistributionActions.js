@@ -5,6 +5,7 @@ import registry from 'commons/registry';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
+import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
 import GenerateAPI from '../GenerateAPI';
 import DOMUtil from 'commons/util/htmlUtil';
 import { template } from 'lodash-es';
@@ -185,7 +186,12 @@ export default (vnode) => {
   const refreshAPI = () => {
     const apiDistributionEntry = distributionEntry;
     const esUtil = registry.get('entrystoreutil');
-    const sourceDistributionResURI = apiDistributionEntry.getMetadata().findFirstValue(apiDistributionEntry.getResourceURI(), namespaces.expand('dcterms:source'));
+    const sourceDistributionResURI = apiDistributionEntry
+      .getMetadata()
+      .findFirstValue(
+        apiDistributionEntry.getResourceURI(),
+        registry.get('namespaces').expand('dcterms:source')
+      );
     return esUtil.getEntryByResourceURI(sourceDistributionResURI).then((sourceDistributionEntry) => {
       const generateAPI = new GenerateAPI();
       generateAPI.execute({
@@ -259,6 +265,29 @@ export default (vnode) => {
     openNewTab(distributionEntry);
   };
 
+  const replaceFile = () => {
+    const md = distributionEntry.getMetadata();
+    const entryStoreUtil = registry.get('entrystoreutil');
+    const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
+    entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
+
+      const replaceFileDialog = new FileReplaceDialog({}, DOMUtil.create('div', null, vnode.dom));
+      replaceFileDialog.open({
+        entry: fileEntry,
+        distributionEntry,
+        // distributionRow: this,
+        distributionRow: {renderMetadata: () => {}}, // TODO: @scazan Look into what this was doing before!!!!
+        row: {
+          entry: fileEntry,
+          domNode: vnode.dom,
+        },
+        // apiEntryURIs: this.dctSource,
+        apiEntryURIs: fileEntryURIs,
+        datasetEntry: dataset,
+      });
+
+    });
+  };
 
   // END ACTIONS
 
@@ -302,7 +331,7 @@ export default (vnode) => {
           <button
             class="btn--distributionFile fa fa-fw fa-exchange"
             title={nls.replaceFileTitle}
-            onclick={() => console.log('replace')}
+            onclick={replaceFile}
           >
             <span>{nls.replaceFile}</span>
           </button>,
