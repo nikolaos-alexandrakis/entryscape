@@ -54,26 +54,12 @@
     }
 
     .distributions {
+
         .title {
+            @include title--underlined;
             margin-bottom: 0;
             padding-bottom: 5px;
-            border: 0;
-        }
-    .distribution__format, .distribution__description{
-        .title{
-            border-bottom: 1.5px solid $accent-colour;
-            width: 150px;
-            font-size: $text-size;
-            margin:5px;
-        }
-        .text{
-            margin:5px;
-            color:$main-colour;
-            }
-        }
-        .file__number{
-            font-weight: bold;
-            margin: 5px;
+            border-bottom: 0;
         }
 
     }
