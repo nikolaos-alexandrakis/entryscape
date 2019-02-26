@@ -1,5 +1,6 @@
 import m from 'mithril';
 import DOMUtil from 'commons/util/htmlUtil';
+import registry from 'commons/registry';
 import StatBox from 'commons/overview/components/StatBox';
 import Button from './button/Button';
 import Toggle from 'commons/components/common/toggle/Toggle';
@@ -12,11 +13,12 @@ import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import './Overview.scss';
 import './settings.scss';
-import './button/Button.scss'
+import './button/Button.scss';
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
   const resourceURI = entry.getResourceURI();
+  const getProperty = (metadata, prop) => metadata.findFirstValue(resourceURI, prop);
   const entryInfo = entry.getEntryInfo();
 
   const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, vnode.dom));
@@ -32,7 +34,6 @@ export default (vnode) => {
   const toggleMetadata = () => {
     setState({ isHidden: !state.isHidden });
   };
-
 
 
   const toggleImplementation = (onSuccess) => {
@@ -129,12 +130,18 @@ export default (vnode) => {
     view: () => {
       const entryInfo = entry.getEntryInfo();
       const metadata = entry.getMetadata();
+      const comments = entry.getComments();
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
+
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
       const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
 
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
+
+      const theme = getProperty(metadata, 'dcat:theme');
+      const themeChoices = registry.get('itemstore').getItem('dcat:theme-isa').getChoices();
+      const themeLabels = themeChoices.find(choice => choice.value === theme);
 
       return (
         <main class="overview__wrapper">
@@ -145,14 +152,13 @@ export default (vnode) => {
                 <p class="description">{ description }</p>
               </div>
               <div class="metadata--basic">
-              <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
-              <p><span class="metadata__label">{escaDataset.themeTitle}:</span> Art</p>
-              <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
-              <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
-          </div>
+                <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
+                <p><span class="metadata__label">{escaDataset.themeTitle}:</span> {themeLabels.label[i18n.getLocale()]}</p>
+                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
+                <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
+              </div>
 
             </div>
-            
 
             <div class="btn__wrapper">
               <button class="btn--action btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</button>
@@ -174,8 +180,6 @@ export default (vnode) => {
             </div>
           </div>
 
-          
-
           <div class="metadata--wrapper">
             <MoreMetadata isHidden={state.isHidden} metadata={entryInfo}></MoreMetadata>
           </div>
@@ -183,7 +187,7 @@ export default (vnode) => {
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
             <div class="cards--wrapper">
-              <StatBox value="3" label={escaDataset.commentMenu} link=""/>
+              <StatBox value={comments.length} label={escaDataset.commentMenu} link=""/>
               <StatBox value="2" label={escaDataset.showideas} link=""/>
               <StatBox value="0" label={escaDataset.showresults} link=""/>
             </div>
