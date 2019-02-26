@@ -4,6 +4,7 @@ import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ManageFilesDialog from 'catalog/datasets/ManageFiles';
+import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
 import GenerateAPI from '../GenerateAPI';
 import DOMUtil from 'commons/util/htmlUtil';
 import { template } from 'lodash-es';
@@ -147,7 +148,7 @@ export default (vnode) => {
       .then(pipelineResult => new Promise(r => r(pipelineResult)));
   };
   // END UTILS
-  //
+
   // ACTIONS
   const manageFiles = () => {
     const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, vnode.dom));
@@ -160,6 +161,13 @@ export default (vnode) => {
       onDone: () => m.redraw(),
     });
 
+  };
+
+  const openApiInfo = () => {
+    const apiInfoDialog = new ApiInfoDialog({}, DOMUtil.create('div', null, vnode.dom));
+    getEtlEntry(distributionEntry).then((etlEntry) => {
+      apiInfoDialog.open({ etlEntry, apiDistributionEntry: distributionEntry });
+    });
   };
 
   const activateAPI = () => {
@@ -327,7 +335,7 @@ export default (vnode) => {
         <button
           class="btn--distributionFile fa fa-fw fa-info-circle"
           title={nls.apiDistributionTitle}
-          onclick={() => console.log('open api info')}
+          onclick={openApiInfo}
         >
           <span>{nls.apiDistributionTitle}</span>
         </button>,
