@@ -1,6 +1,7 @@
 import m from 'mithril';
 import DOMUtil from 'commons/util/htmlUtil';
 import StatBox from 'commons/overview/components/StatBox';
+import Button from './button/Button';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
@@ -10,6 +11,8 @@ import MoreMetadata from './MoreMetadata';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import './Overview.scss';
+import './settings.scss';
+import './button/Button.scss'
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
@@ -166,7 +169,7 @@ export default (vnode) => {
                   <span class="icons fa fa-eye"></span>
                   <p class="unpublished">{escaDataset.privateDatasetTitle}</p>
                 </div>
-                <button class={`fa fa-toggle-on fa-lg  btn--publish ${internalPublishClass}`} onclick={toggleInternalPublish}></button>
+                <Toggle class={`fa fa-toggle-on fa-lg  btn--publish ${internalPublishClass}`} onclick={toggleInternalPublish}></Toggle>
               </div>
             </div>
           </div>

@@ -1,18 +1,10 @@
-/* Variables */
-$main-colour:#1C4CD1;
-$accent-colour: #FF8D41;
-$light-background:#1c4cd117;
-$secondary-font: 'Montserrat';
-$text-size: 14px;
-$title-size:20px;
+@import 'button/Button.scss';
+@import './settings.scss';
+@import './Distribution.scss';
+@import './DistributionList.scss';
 
-/* Mixins */
-@mixin button {
-    background-color: transparent;
-    border: 0;
-}
 
-/* Layout */
+
 
 .overview__wrapper {
     width: 100%;
@@ -39,11 +31,8 @@ $title-size:20px;
 
     .metadata--basic,
     .metadata--more {
-  /*       column-count: 2; */
         margin-bottom: 15px;
         color: $main-colour;
-/*         max-width: 60%; */
-
         p {
             margin-bottom: 10px;
         }
@@ -55,114 +44,6 @@ $title-size:20px;
         margin-top: -2px;
     }
 
-    .distributions {
-        width: 50%;
-
-        .header {
-            width: 50%;
-            border-bottom: 1.5px solid $accent-colour;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .distribution__row {
-            margin-top: 10px;
-            padding: 10px;
-            min-height: 50px;
-            background-color: white;
-            display: flex;
-            flex-wrap: wrap;
-            box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
-
-            &:focus {
-                border-bottom: 2px solid $main-colour;
-                box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
-
-            }
-
-            .distribution__format {
-                display: flex;
-                align-items: center;
-                color: $main-colour;
-                .file__format--short{
-                    margin-right: 10px;
-                }
-
-                p {
-                    margin-right: 10px;
-                }
-            }
-        }
-        .distribution__expand{
-            min-height: 200px;
-            background-color:$light-background;
-            padding: 10px;
-            display: none;
-            flex-direction: column;
-            &.expanded{
-                display: flex;
-            }
-            .distribution__format{
-                justify-content: space-between;
-                width: 100%;
-            }
-            .menu--wrapper{
-                display: flex;
-                flex-direction: column;
-                .icon--wrapper{
-                    display: flex;
-                    flex-direction: column;
-                }
-            }
-      
-        }
-
-        .distribution__fileRow{
-            position: relative;
-            margin-top: 10px;
-            padding: 10px;
-            min-height: 50px;
-            background-color: white;
-            color: $main-colour;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
-            .distribution__format{
-                width: 50%;
-            }
-            .flex--sb{
-                align-items: center;
-                .distributionFile__date{
-                    margin-right: 5px;
-                }
-            }
-            .file__dropdownMenu{
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: auto;
-                z-index: 1000;
-                float: left;
-                min-width: 160px;
-                padding: 5px 0;
-                margin: 2px 0 0;
-                font-size: 14px;
-                text-align: left;
-                list-style: none;
-                background-color: #fff;
-                background-clip: padding-box;
-                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);  
-            }
-            .file__dropdownMenu.show{
-                display: flex;
-            }
-        }
-
-    }
 
     .cards--wrapper {
         display: flex;
@@ -196,70 +77,14 @@ $title-size:20px;
         display: flex;
         align-items: center;
     }
-
-   
-
 }
 
 
 
 /* Buttons */
-.btn--action {
-    @include button;
-    font-size: $text-size;
-    background-color: $main-colour;
-    color: white;
-    border-radius: 2px;
-    text-transform: uppercase;
-    width: 100%;
-    padding: 5px;
-    margin-bottom:15px;
-    &:hover{
-        background-color:royalblue;
-    }
 
-    &:focus {
-        border: solid 3px $main-colour;
-  padding: 2px;
-  background-clip: content-box; /* support: IE9+ */
-  background-color:$main-colour;
-    }
-}
-.btn--distribution{
-    @include button;
-    width: 80px;
-    color:white;
-    background-color: $main-colour;
-    padding:5px;
-    margin:5px;
-    border-radius: 2px;
-    font-size: $text-size;
-    min-height: 30px;
-    &:before{
-        margin-right: 5px;
-    }
-    &:hover{
-        background-color:royalblue;
-    }
-    span{
-        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    }
-}
-.btn--distributionFile{
-    @include button;
-    padding: 3px 20px;
-    width: 100%;
-    display: flex;
-    &:before{
-        margin-right: 5px;
-    }
-    &:hover{
-        border-bottom: 2px solid $main-colour;
-    }
-    span{
-        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    }
-}
+
+
 .btn--circle {
     border-radius: 50%;
     width: 20px;
@@ -293,62 +118,15 @@ $title-size:20px;
     margin-bottom:10px;
 }
 
-.overview__wrapper {
-    .distribution__row {
-        .icons {
-            font-size: 18px;
-            align-self: center;
-            &:focus{
-                color:$accent-colour;
-            }
-
-            &:hover {
-                color: rgba(28, 76, 209, 0.658);
-            }
-        }
-    }
-   
-}
 
 
 
     /* Typography */
     .overview__wrapper {
-        .title {
-            font-size: $title-size;
-            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-            font-weight: 300;
-            margin-top: 0;
-            color: $main-colour;
-            border-bottom: 1.5px solid $accent-colour;
-            padding-bottom: 10px;
-            word-break: break-word;
-        }
 
-        .distributions {
-            .title {
-                margin-bottom: 0;
-                padding-bottom: 5px;
-                border: 0;
-            }
-        .distribution__format, .distribution__description{
-            .title{
-                border-bottom: 1.5px solid $accent-colour;
-                width: 150px;
-                font-size: $text-size;
-                margin:5px;
-            }
-            .text{
-                margin:5px;
-                color:$main-colour;
-                }
-            }
-            .file__number{
-                font-weight: bold;
-                margin: 5px;
-            }
-
-        }
+     .title{
+         @include title--underlined;
+     }
 
         .description {
             font-size: 16px;
@@ -381,22 +159,7 @@ $title-size:20px;
         .metadata__label {
             font-weight: bold;
         }
-        .distribution__date{
-            color:$main-colour;
-            font-size: $text-size;
-            margin-right: 10px;
-            align-self: center;
-        }
-        .distribution__title{
-            font-weight: bold;
-        }
+     
     }
 
-     @media (max-width:1024px){
-         .distribution__row{
-             .distribution__format{
-                 margin-bottom: 15px;
-             }
-         }
-
-     }
+  
