@@ -1,12 +1,11 @@
 import m from 'mithril';
 import registry from 'commons/registry';
-import Distribution from './Distribution';
 import CreateDistribution from 'catalog/datasets/CreateDistribution';
-import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
 import { i18n } from 'esi18n';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import Distribution from './Distribution';
 
 export default (initialVnode) => {
   const state = {

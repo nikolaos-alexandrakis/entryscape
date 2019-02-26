@@ -405,15 +405,17 @@ export default (vnode) => {
         );
       }
     }
+
+    const escoList = i18n.getLocalization(escoListNLS);
     // Versions for other dist
     if (entry.getEntryInfo().hasMetadataRevisions()) {
       actions.push(
         <button
           class=" btn--distributionFile fa fa-fw fa-bookmark"
-          title={nls.versionsTitle} // This comes out of escoList so a different nls bundle needs to be passed in
+          title={escoList.versionsTitle} // This comes out of escoList so a different nls bundle needs to be passed in
           onclick={openRevisions}
         >
-          <span>{nls.versionsLabel}</span>
+          <span>{escoList.versionsLabel}</span>
         </button>,
       );
     }
