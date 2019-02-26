@@ -130,18 +130,18 @@ export default (vnode) => {
     view: () => {
       const entryInfo = entry.getEntryInfo();
       const metadata = entry.getMetadata();
+
       const comments = entry.getComments();
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
-
+      const lastUpdatedDate = metadata.findFirstValue(resourceURI, 'dcterms:modified');
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
-      const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
-
-      const escaDataset = i18n.getLocalization(escaDatasetNLS);
-      const escaPublic = i18n.getLocalization(escaPublicNLS);
-
       const theme = getProperty(metadata, 'dcat:theme');
       const themeChoices = registry.get('itemstore').getItem('dcat:theme-isa').getChoices();
       const themeLabels = themeChoices.find(choice => choice.value === theme);
+
+      const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
+      const escaPublic = i18n.getLocalization(escaPublicNLS);
 
       return (
         <main class="overview__wrapper">
@@ -154,7 +154,7 @@ export default (vnode) => {
               <div class="metadata--basic">
                 <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
                 <p><span class="metadata__label">{escaDataset.themeTitle}:</span> {themeLabels.label[i18n.getLocale()]}</p>
-                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> 16:57</p>
+                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate}</p>
                 <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
               </div>
 

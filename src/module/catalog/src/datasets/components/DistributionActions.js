@@ -3,6 +3,7 @@ import config from 'config';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import GenerateAPI from '../GenerateAPI';
 import DOMUtil from 'commons/util/htmlUtil';
 import { template } from 'lodash-es';
@@ -148,6 +149,18 @@ export default (vnode) => {
   // END UTILS
   //
   // ACTIONS
+  const manageFiles = () => {
+    const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, vnode.dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    manageFilesDialog.open({
+      entry: distributionEntry,
+      row: { entry: distributionEntry },
+      fileEntryURIs,
+      datasetEntry: dataset,
+      onDone: () => m.redraw(),
+    });
+
+  };
 
   const activateAPI = () => {
     const generateAPI = new GenerateAPI();
@@ -270,8 +283,6 @@ export default (vnode) => {
         // name: 'replaceFile',
         // method: this.replaceFile.bind(this, entry),
 
-        // name: 'addFile',
-        // method: this.addFile.bind(this, entry),
         actions.push([
           <button
             class="btn--distributionFile fa fa-fw fa-download"
@@ -290,7 +301,7 @@ export default (vnode) => {
           <button
             class="btn--distributionFile fa fa-fw fa-file"
             title={nls.addFileTitle}
-            onclick={() => console.log('add file')}
+            onclick={manageFiles}
           >
             <span>{nls.addFile}</span>
           </button>,
@@ -302,7 +313,7 @@ export default (vnode) => {
           <button
             class="btn--distributionFile fa fa-fw fa-files-o"
             title={nls.manageFilesTitle}
-            onclick={() => console.log('manage files')}
+            onclick={manageFiles}
           >
             <span>{nls.manageFiles}</span>
           </button>,
