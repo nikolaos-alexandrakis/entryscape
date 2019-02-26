@@ -57,6 +57,20 @@
             flex-direction: column;
         }
     }
+    .distribution__format, .distribution__description{
+        .title{
+            @include title--underlined;
+            border-bottom: 1.5px solid $accent-colour;
+            width: 150px;
+            font-size: $text-size;
+            margin:5px;
+            padding-bottom: 5px;
+        }
+        .text{
+            margin:5px;
+            color:$main-colour;
+            }
+        }
 
 }
 

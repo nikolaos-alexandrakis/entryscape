@@ -119,14 +119,17 @@
 }
 
 
+.intro--wrapper{
+    .title{
+        @include title--underlined;
+    }
+}
 
 
     /* Typography */
     .overview__wrapper {
 
-     .title{
-         @include title--underlined;
-     }
+     
 
         .description {
             font-size: 16px;
