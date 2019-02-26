@@ -1,0 +1,98 @@
+@import 'settings';
+.distributions {
+    width: 50%;
+
+    .header {
+        width: 50%;
+        border-bottom: 1.5px solid $accent-colour;
+        align-items: center;
+        margin-top: 15px;
+    }
+}
+
+    .distribution__row {
+        margin-top: 10px;
+        padding: 10px;
+        min-height: 50px;
+        background-color: white;
+        display: flex;
+        flex-wrap: wrap;
+        box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
+
+        &:focus {
+            border-bottom: 2px solid $main-colour;
+            box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
+
+        }
+
+        .distribution__format {
+            display: flex;
+            align-items: center;
+            color: $main-colour;
+            .file__format--short{
+                margin-right: 10px;
+            }
+
+            p {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .distribution__row {
+        .icons {
+            font-size: 18px;
+            align-self: center;
+            &:focus{
+                color:$accent-colour;
+            }
+
+            &:hover {
+                color: rgba(28, 76, 209, 0.658);
+            }
+        }
+    }
+
+    .distributions {
+        .title {
+            margin-bottom: 0;
+            padding-bottom: 5px;
+            border: 0;
+        }
+    .distribution__format, .distribution__description{
+        .title{
+            border-bottom: 1.5px solid $accent-colour;
+            width: 150px;
+            font-size: $text-size;
+            margin:5px;
+        }
+        .text{
+            margin:5px;
+            color:$main-colour;
+            }
+        }
+        .file__number{
+            font-weight: bold;
+            margin: 5px;
+        }
+
+    }
+
+    .distribution__date{
+        color:$main-colour;
+        font-size: $text-size;
+        margin-right: 10px;
+        align-self: center;
+    }
+    .distribution__title{
+        font-weight: bold;
+    }
+
+@media (max-width:1024px){
+    .distribution__row{
+        .distribution__format{
+            margin-bottom: 15px;
+        }
+    }
+
+}
