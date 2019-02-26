@@ -5,10 +5,18 @@ import { i18n } from 'esi18n';
 import { engine, utils as rdformsUtils } from 'rdforms';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-
+import declare from 'dojo/_base/declare';
+import DOMUtil from 'commons/util/htmlUtil';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import {
+  isUploadedDistribution,
+  getDistributionTemplate,
+} from 'catalog/datasets/utils/distributionUtil';
 import DistributionActions from './DistributionActions';
 
-export default () => {
+export default (vnode) => {
+  const distributionEntry = vnode.attrs.distribution;
   const state = {
     isExpanded: false,
   };
@@ -16,6 +24,50 @@ export default () => {
   const setState = createSetState(state);
 
   const namespaces = registry.get('namespaces');
+
+  const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
+    maxWidth: 800,
+    explicitNLS: true,
+    open(params) {
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
+      this.inherited(arguments);
+
+      const entry = params.row.entry;
+      this.distributionEntry = entry;
+      this.set('title', escaDataset.editDistributionHeader);
+      this.set('doneLabel', escaDataset.editDistributionButton);
+      this.doneLabel = escaDataset.editDistributionButton;
+      this.title = escaDataset.editDistributionHeader;
+      this.updateTitleAndButton();
+      registry.set('context', entry.getContext());
+      if (isUploadedDistribution(entry, registry.get('entrystore')) ||
+      isAPIDistribution(entry)) {
+        this.editor.filterPredicates = {
+          'http://www.w3.org/ns/dcat#accessURL': true,
+          'http://www.w3.org/ns/dcat#downloadURL': true,
+        };
+      } else {
+        this.editor.filterPredicates = {};
+      }
+      entry.setRefreshNeeded();
+      entry.refresh().then(() => {
+        this.showEntry(
+          entry, getDistributionTemplate(config.catalog.distributionTemplateId), 'mandatory');
+      });
+    },
+    doneAction(graph) {
+      this.distributionEntry.setMetadata(graph);
+      return this.distributionEntry.commitMetadata().then(() => {
+        m.redraw();
+      });
+    },
+  });
+
+  const editDistribution = () => {
+    const editDialog = new EditDistributionDialog({}, DOMUtil.create('div', null, vnode.dom));
+    // TODO @scazan Some glue here to communicate with RDForms without a "row"
+    editDialog.open({ row: { entry: distributionEntry }, onDone: () => listDistributions(dataset) });
+  };
 
   const getTitle = (entry, namespaces) => {
     const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
@@ -43,7 +95,7 @@ export default () => {
     const subj = entry.getResourceURI();
     const accessURI = md.findFirstValue(subj, namespaces.expand('dcat:accessURL'));
     const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
-    const description = md.findFirstValue(subj, namespaces.expand('dcat:description'));
+    const description = md.findFirstValue(subj, namespaces.expand('dcterms:description'));
 
     // @scazan WHAT IS TEMPLATE DRIVEN FORMAT?
     let format;
@@ -117,11 +169,14 @@ export default () => {
             <div>
               <div class="flex--sb">
                 <div class="metadata--wrapper">
-                  <div class="distribution__description">
-                    <h2 class="title">{escaDataset.distributionDescriptionTitle}</h2>
-                    <p class="text">
-                    If there is a description it should be here. If not then don't show anything</p>
-                  </div>
+                  { description &&
+                    <div class="distribution__description">
+                      <h2 class="title">{escaDataset.distributionDescriptionTitle}</h2>
+                      <p class="text">
+                        { description }
+                      </p>
+                    </div>
+                  }
                   <div class="distribution__format">
                     <h2 class="title">{escaDataset.distributionFormatTitle}</h2>
                     <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, { numFiles: 2 }) }</p>
@@ -130,7 +185,9 @@ export default () => {
                 <div class="menu--wrapper">
                   <div class=" icon--wrapper distribution--file">
                     <a>
-                      <button class=" btn--distribution">
+                      <button class=" btn--distribution"
+                        onclick={editDistribution}
+                      >
                         <span>{escaDataset.editDistributionTitle}</span>
                       </button>
                     </a>

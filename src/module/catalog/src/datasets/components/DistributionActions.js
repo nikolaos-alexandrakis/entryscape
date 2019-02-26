@@ -1,10 +1,7 @@
 import m from 'mithril';
 import config from 'config';
 import { i18n } from 'esi18n';
-import declare from 'dojo/_base/declare';
 import registry from 'commons/registry';
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import GenerateAPI from '../GenerateAPI';
 import DOMUtil from 'commons/util/htmlUtil';
@@ -20,6 +17,7 @@ import {
   isAccessURLEmpty,
   isDownloadURLEmpty,
   isAccessDistribution,
+  getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import { createSetState } from 'commons/util/util';
 
@@ -67,14 +65,6 @@ export default (vnode) => {
       return dateFormats;
     }
     return null;
-  };
-
-  const getDistributionTemplate = () => {
-    // if (!this.dtemplate) { // TODO @scazan don't forget to re-institute this!!!!
-    const dtemplate = registry.get('itemstore').getItem(
-      config.catalog.distributionTemplateId);
-    // }
-    return dtemplate;
   };
 
   const openNewTab = (distributionEntry) => {
@@ -158,11 +148,6 @@ export default (vnode) => {
   // END UTILS
   //
   // ACTIONS
-  const editDistribution = () => {
-    const editDialog = new EditDistributionDialog({}, DOMUtil.create('div', null, vnode.dom));
-    // TODO @scazan Some glue here to communicate with RDForms without a "row"
-    editDialog.open({ row: { entry: distributionEntry }, onDone: () => listDistributions(dataset) });
-  };
 
   const activateAPI = () => {
     const generateAPI = new GenerateAPI();
@@ -243,7 +228,7 @@ export default (vnode) => {
     revisionsDialog.open({
       row: { entry: distributionEntry },
       onDone: () => m.redraw(),
-      template: getDistributionTemplate(),
+      template: getDistributionTemplate(config.catalog.distributionTemplateId),
     });
 
     hideFileDropdown();
@@ -256,43 +241,6 @@ export default (vnode) => {
 
   // END ACTIONS
 
-  const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
-    maxWidth: 800,
-    explicitNLS: true,
-    open(params) {
-      const escaDataset = i18n.getLocalization(escaDatasetNLS);
-      this.inherited(arguments);
-
-      const entry = params.row.entry;
-      this.distributionEntry = entry;
-      this.set('title', escaDataset.editDistributionHeader);
-      this.set('doneLabel', escaDataset.editDistributionButton);
-      this.doneLabel = escaDataset.editDistributionButton;
-      this.title = escaDataset.editDistributionHeader;
-      this.updateTitleAndButton();
-      registry.set('context', entry.getContext());
-      if (isUploadedDistribution(entry, registry.get('entrystore')) ||
-      isAPIDistribution(entry)) {
-        this.editor.filterPredicates = {
-          'http://www.w3.org/ns/dcat#accessURL': true,
-          'http://www.w3.org/ns/dcat#downloadURL': true,
-        };
-      } else {
-        this.editor.filterPredicates = {};
-      }
-      entry.setRefreshNeeded();
-      entry.refresh().then(() => {
-        this.showEntry(
-          entry, getDistributionTemplate(), 'mandatory');
-      });
-    },
-    doneAction(graph) {
-      this.distributionEntry.setMetadata(graph);
-      return this.distributionEntry.commitMetadata().then(() => {
-        m.redraw();
-      });
-    },
-  });
 
   const renderActions = (entry, nls) => {
     const actions = [];
@@ -300,7 +248,6 @@ export default (vnode) => {
       <button
         class="btn--distributionFile fa fa-fw fa-pencil"
         title={nls.editDistributionTitle}
-        onclick={editDistribution}
       >
         <span>{nls.editDistributionTitle}</span>
       </button>,
