@@ -6,7 +6,6 @@ import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
 import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
-import GenerateAPI from '../GenerateAPI';
 import DOMUtil from 'commons/util/htmlUtil';
 import { template } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
@@ -23,6 +22,7 @@ import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import { createSetState } from 'commons/util/util';
+import GenerateAPI from '../GenerateAPI';
 
 export default (vnode) => {
   const distributionEntry = vnode.attrs.distribution;
@@ -161,7 +161,6 @@ export default (vnode) => {
       datasetEntry: dataset,
       onDone: () => m.redraw(),
     });
-
   };
 
   const openApiInfo = () => {
@@ -190,7 +189,7 @@ export default (vnode) => {
       .getMetadata()
       .findFirstValue(
         apiDistributionEntry.getResourceURI(),
-        registry.get('namespaces').expand('dcterms:source')
+        registry.get('namespaces').expand('dcterms:source'),
       );
     return esUtil.getEntryByResourceURI(sourceDistributionResURI).then((sourceDistributionEntry) => {
       const generateAPI = new GenerateAPI();
@@ -270,13 +269,11 @@ export default (vnode) => {
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
     entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
-
       const replaceFileDialog = new FileReplaceDialog({}, DOMUtil.create('div', null, vnode.dom));
       replaceFileDialog.open({
         entry: fileEntry,
         distributionEntry,
-        // distributionRow: this,
-        distributionRow: {renderMetadata: () => {}}, // TODO: @scazan Look into what this was doing before!!!!
+        distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
         row: {
           entry: fileEntry,
           domNode: vnode.dom,
@@ -285,13 +282,10 @@ export default (vnode) => {
         apiEntryURIs: fileEntryURIs,
         datasetEntry: dataset,
       });
-
     });
   };
 
   // END ACTIONS
-
-
   const renderActions = (entry, nls) => {
     const actions = [];
     actions.push(
@@ -317,9 +311,6 @@ export default (vnode) => {
         );
       }
       if (isSingleFileDistribution(entry)) {
-        // name: 'replaceFile',
-        // method: this.replaceFile.bind(this, entry),
-
         actions.push([
           <button
             class="btn--distributionFile fa fa-fw fa-download"
@@ -344,8 +335,6 @@ export default (vnode) => {
           </button>,
         ]);
       } else {
-        // name: 'manageFiles',
-        // method: this.manageFiles.bind(this, entry),
         actions.push(
           <button
             class="btn--distributionFile fa fa-fw fa-files-o"
@@ -357,9 +346,6 @@ export default (vnode) => {
         );
       }
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
-      // name: 'apiInfo',
-      // method: this.openApiInfo.bind(this, entry),
-
       actions.push([
         <button
           class="btn--distributionFile fa fa-fw fa-info-circle"
@@ -415,24 +401,23 @@ export default (vnode) => {
       );
     }
     // if (this.datasetRow.list.createAndRemoveDistributions) { // @scazan simple boolean defined in the class
-    if (true === true) {
-      actions.push(
-        <button
-          class=" btn--distributionFile fa fa-fw fa-remove"
-          title={nls.removeDistributionTitle}
-          onclick={remove}
-        >
-          <span>{nls.removeDistributionTitle}</span>
-        </button>,
-      );
-    }
+    actions.push(
+      <button
+      class=" btn--distributionFile fa fa-fw fa-remove"
+      title={nls.removeDistributionTitle}
+      onclick={remove}
+      >
+        <span>{nls.removeDistributionTitle}</span>
+      </button>,
+    );
+    // }
 
     return actions;
   };
 
 
   return {
-    view: (vnode) => {
+    view(vnode) {
       const showingDropdownClass = state.isShowing ? 'show' : '';
       return (
         <div>
@@ -441,7 +426,7 @@ export default (vnode) => {
             <button class="icons fa fa-cog" onclick={toggleFileDropdown}></button>
           </div>
           <div class={`file__dropdownMenu ${showingDropdownClass}`}>
-             { renderActions(vnode.attrs.distribution, vnode.attrs.nls) }
+            { renderActions(vnode.attrs.distribution, vnode.attrs.nls) }
           </div>
         </div>
       );

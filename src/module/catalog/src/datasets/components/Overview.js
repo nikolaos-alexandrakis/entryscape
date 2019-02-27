@@ -139,11 +139,9 @@ export default (vnode) => {
       const themeChoices = registry.get('itemstore').getItem('dcat:theme-isa').getChoices();
       const themeLabels = themeChoices.find(choice => choice.value === theme);
 
-      const psiPublishClass = state.isPsiPublish ? '' : 'fa-rotate-180';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
       const publishToggleString = state.isPublish ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
-
 
       return (
         <main class="overview__wrapper">
@@ -170,14 +168,14 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p>{publishToggleString}</p>
                 </div>
-                <Toggle isPublish={state.isPublish} onToggle={togglePublish}></Toggle>
+                <Toggle isEnabled={state.isPublish} onToggle={togglePublish}></Toggle>
               </div>
               <div class="psiPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
                   <p>{escaDataset.psiDatasetTitle}</p>
                 </div>
-                <Toggle class={`fa fa-toggle-on fa-lg  btn--publish ${psiPublishClass}`} on={togglePsiPublish}></Toggle>
+                <Toggle isEnabled={state.isPsiPublish} onToggle={togglePsiPublish}></Toggle>
               </div>
             </div>
           </div>
