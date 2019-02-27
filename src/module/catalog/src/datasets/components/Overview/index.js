@@ -1,114 +1,33 @@
 import m from 'mithril';
-import DOMUtil from 'commons/util/htmlUtil';
+import { createSetState } from 'commons/util/util';
 import registry from 'commons/registry';
+import { i18n } from 'esi18n';
 import StatBox from 'commons/overview/components/StatBox';
 import Toggle from 'commons/components/common/toggle/Toggle';
-import { createSetState } from 'commons/util/util';
-import { i18n } from 'esi18n';
-import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
+import Button from '../Button';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import './index.scss';
-import Button from '../Button';
+import bindActions from './actions';
 import '../settings.scss';
+import './index.scss';
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
   const resourceURI = entry.getResourceURI();
   const getProperty = (metadata, prop) => metadata.findFirstValue(resourceURI, prop);
-  const entryInfo = entry.getEntryInfo();
-
-  const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, vnode.dom));
 
   const state = {
     isHidden: true,
     isPublish: false,
     isPsiPublish: false,
   };
-
   const setState = createSetState(state);
+  const actions = bindActions(entry, vnode.dom);
 
   const toggleMetadata = () => {
     setState({ isHidden: !state.isHidden });
-  };
-
-
-  const toggleImplementation = (onSuccess) => {
-    /*
-    const f = () => {
-      const ns = registry.get('namespaces');
-      const ei = this.entry.getEntryInfo();
-      const dialogs = registry.get('dialogs');
-      registry.get('getGroupWithHomeContext')(this.entry.getContext()).then((groupEntry) => {
-        if (groupEntry.canAdministerEntry()) {
-          if (this.isPublicToggle) {
-            const apiDistributionURIs = [];
-            const esu = registry.get('entrystoreutil');
-            const stmts = this.getDistributionStatements();
-            Promise.all(stmts.forEach((stmt) => {
-              const ruri = stmt.getValue();
-              esu.getEntryByResourceURI(ruri).then((entry) => {
-                const source = entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcterms:source'));
-                if (source !== '' && source != null) {
-                  apiDistributionURIs.push(source);
-                }
-              }, () => {
-              }); // fail silently
-            }));
-            if (apiDistributionURIs.length === 0) {
-              return this.unpublishDataset(groupEntry, onSuccess);
-            }
-            const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset];
-            return dialogs.confirm(confirmMessage, null, null, (confirm) => {
-              if (confirm) {
-                return this.unpublishDataset(groupEntry, onSuccess);
-              }
-              return null;
-            });
-          }
-          ei.setACL({});
-          this.reRender();
-          ei.commit().then(onSuccess);
-          this.updateDistributionACL({});
-        } else {
-          registry.get('dialogs').acknowledge(this.nlsSpecificBundle.datasetSharingNoAccess);
-        }
-      });
-    };
-
-    if (this.isPublicToggle) {
-      const es = registry.get('entrystore');
-      const adminRights = registry.get('hasAdminRights');
-      const userEntry = registry.get('userEntry');
-      const ccg = config.catalog.unpublishDatasetAllowedFor;
-      const allowed = ccg === '_users' ? true :
-        userEntry.getParentGroups().indexOf(es.getEntryURI('_principals', ccg)) >= 0;
-      if (!adminRights && !allowed) {
-        registry.get('dialogs').acknowledge(this.nlsSpecificBundle.unpublishProhibited);
-        return;
-      }
-    } else if (this.entry.getMetadata().find(null, 'dcat:distribution').length === 0) {
-      const b = this.nlsSpecificBundle;
-      registry.get('dialogs').confirm(
-        b.confirmPublishWithoutDistributions,
-        b.proceedPublishWithoutDistributions,
-        b.cancelPublishWithoutDistributions).then(f);
-      return;
-    }
-    f();
-    */
-  };
-
-  const unpublishDataset = (entryInfo, groupEntry) => {
-    const acl = entryInfo.getACL(true);
-    acl.admin = acl.admin || [];
-    acl.admin.push(groupEntry.getId());
-    entryInfo.setACL(acl);
-    // this.reRender();
-    ei.commit().then(() => m.redraw());
-    // this.updateDistributionACL(acl);
   };
 
   const togglePublish = () => {
@@ -117,12 +36,6 @@ export default (vnode) => {
 
   const togglePsiPublish = () => {
     setState({ isPsiPublish: !state.isPsiPublish });
-  };
-
-  const openEditDialog = () => {
-    editDialog.showEntry(entry, () => {
-      entry.refresh().then(() => m.redraw());
-    });
   };
 
   return {
@@ -160,7 +73,7 @@ export default (vnode) => {
             </div>
 
             <div class="btn__wrapper">
-              <Button class="btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</Button>
+              <Button class="btn--edit" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
               <Button class="btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
               <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
