@@ -1,3 +1,7 @@
+::-ms-clear {
+  display: none;
+}
+
 .facets {
   display: flex;
   flex-direction: column;
