@@ -8,7 +8,7 @@ export default Note = {
       m('.note', { style: 'margin-bottom: 10px' }, text),
       m('ul', { style: listStyle }, [
         m('li', [
-          m('span', { className: 'fa fa-fw fa-check' }),
+          m('span', { className: 'fas fa-fw fa-check' }),
           m('span', addLabel),
         ]),
         m('li', [

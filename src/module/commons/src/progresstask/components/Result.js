@@ -10,13 +10,13 @@ const Result = {
       let resultIcon;
       switch (result.status) {
         case 'progress':
-          resultIcon = 'i.fa.fa-spinner.fa-spin';
+          resultIcon = 'i.fas.fa-spinner.fa-spin';
           break;
         case 'done':
-          resultIcon = 'i.fa.fa-check.noAnimate';
+          resultIcon = 'i.fas.fa-check.noAnimate';
           break;
         case 'failed':
-          resultIcon = 'i.fa.fa-ban';
+          resultIcon = 'i.fas.fa-ban';
           break;
         default:
           resultIcon = '';
