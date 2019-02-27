@@ -2,7 +2,7 @@ import m from 'mithril';
 
 export default () => ({
   view(vnode) {
-    const { isPublish, isInternalPublish, onToggle } = vnode.attrs;
+    const { isPublish, isPsiPublish, onToggle } = vnode.attrs;
     const publishClass = isPublish ? '' : 'fa-rotate-180';
 
     return (

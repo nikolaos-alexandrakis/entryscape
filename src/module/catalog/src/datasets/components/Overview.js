@@ -26,7 +26,7 @@ export default (vnode) => {
   const state = {
     isHidden: true,
     isPublish: false,
-    isInternalPublish: false,
+    isPsiPublish: false,
   };
 
   const setState = createSetState(state);
@@ -116,8 +116,8 @@ export default (vnode) => {
     setState({ isPublish: !state.isPublish });
   };
 
-  const toggleInternalPublish = () => {
-    setState({ isInternalPublish: !state.isInternalPublish });
+  const togglePsiPublish = () => {
+    setState({ isPsiPublish: !state.isPsiPublish });
   };
 
   const openEditDialog = () => {
@@ -139,9 +139,11 @@ export default (vnode) => {
       const themeChoices = registry.get('itemstore').getItem('dcat:theme-isa').getChoices();
       const themeLabels = themeChoices.find(choice => choice.value === theme);
 
-      const internalPublishClass = state.isInternalPublish ? '' : 'fa-rotate-180';
+      const psiPublishClass = state.isPsiPublish ? '' : 'fa-rotate-180';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
+      const publishToggleString = state.isPublish ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
+
 
       return (
         <main class="overview__wrapper">
@@ -166,16 +168,16 @@ export default (vnode) => {
               <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
-                  <p class="published">{escaDataset.publicDatasetTitle}</p>
+                  <p>{publishToggleString}</p>
                 </div>
                 <Toggle isPublish={state.isPublish} onToggle={togglePublish}></Toggle>
               </div>
-              <div class="internalPublish flex--sb">
+              <div class="psiPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
-                  <p class="unpublished">{escaDataset.privateDatasetTitle}</p>
+                  <p>{escaDataset.psiDatasetTitle}</p>
                 </div>
-                <Toggle class={`fa fa-toggle-on fa-lg  btn--publish ${internalPublishClass}`} onclick={toggleInternalPublish}></Toggle>
+                <Toggle class={`fa fa-toggle-on fa-lg  btn--publish ${psiPublishClass}`} on={togglePsiPublish}></Toggle>
               </div>
             </div>
           </div>
