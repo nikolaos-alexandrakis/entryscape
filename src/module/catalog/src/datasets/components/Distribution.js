@@ -5,18 +5,28 @@ import { i18n } from 'esi18n';
 import { engine, utils as rdformsUtils } from 'rdforms';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escoListNLS from 'commons/nls/escoList.nls';
 import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import {
   isUploadedDistribution,
+  isFileDistributionWithOutAPI,
+  isSingleFileDistribution,
+  isAPIDistribution,
+  isAccessURLEmpty,
+  isDownloadURLEmpty,
+  isAccessDistribution,
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import DistributionActions from './DistributionActions';
+import GenerateAPI from '../GenerateAPI';
 
 export default (vnode) => {
-  const distributionEntry = vnode.attrs.distribution;
+  const { distribution, dataset, fileEntryURIs } = vnode.attrs;
   const state = {
     isExpanded: false,
   };
@@ -63,11 +73,171 @@ export default (vnode) => {
     },
   });
 
+  // ACTIONS
   const editDistribution = () => {
     const editDialog = new EditDistributionDialog({}, DOMUtil.create('div', null, vnode.dom));
     // TODO @scazan Some glue here to communicate with RDForms without a "row"
-    editDialog.open({ row: { entry: distributionEntry }, onDone: () => listDistributions(dataset) });
+    editDialog.open({ row: { entry: distribution }, onDone: () => listDistributions(dataset) });
   };
+
+  const openResource = () => {
+    openNewTab(distribution);
+  };
+
+  const openApiInfo = () => {
+    const apiInfoDialog = new ApiInfoDialog({}, DOMUtil.create('div', null, vnode.dom));
+    getEtlEntry(distribution).then((etlEntry) => {
+      apiInfoDialog.open({ etlEntry, apiDistributionEntry: distribution });
+    });
+  };
+
+  const activateAPI = () => {
+    const generateAPI = new GenerateAPI();
+    generateAPI.execute({
+      params: {
+        distribution,
+        dataset,
+        mode: 'new',
+        fileEntryURIs,
+      },
+    });
+  };
+
+  const refreshAPI = () => {
+    const apiDistributionEntry = distribution;
+    const esUtil = registry.get('entrystoreutil');
+    const sourceDistributionResURI = apiDistributionEntry
+      .getMetadata()
+      .findFirstValue(
+        apiDistributionEntry.getResourceURI(),
+        registry.get('namespaces').expand('dcterms:source'),
+      );
+    return esUtil.getEntryByResourceURI(sourceDistributionResURI).then((sourceDistributionEntry) => {
+      const generateAPI = new GenerateAPI();
+      generateAPI.execute({
+        params: {
+          apiDistEntry: apiDistributionEntry,
+          distributionEntry: sourceDistributionEntry,
+          dataset,
+          mode: 'refresh',
+          fileEntryURIs,
+        },
+      });
+    });
+  };
+
+  const openRevisions = () => {
+    const dv = RevisionsDialog;
+    if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
+      dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
+    } else if (isAPIDistribution(distribution)) {
+      dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
+    } else {
+      dv.excludeProperties = [];
+    }
+    dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
+
+    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, vnode.dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    revisionsDialog.open({
+      row: { entry: distribution },
+      onDone: () => m.redraw(),
+      template: getDistributionTemplate(config.catalog.distributionTemplateId),
+    });
+  };
+
+  /*
+   This deletes selected distribution and also deletes
+   its relation to dataset
+   */
+  const removeDistribution = (distributionEntry, datasetEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const entryStoreUtil = registry.get('entrystoreutil');
+    const fileStmts = distributionEntry.getMetadata().find(distributionEntry.getResourceURI(), 'dcat:downloadURL');
+    const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
+    distributionEntry.del().then(() => {
+      datasetEntry.getMetadata().findAndRemove(null, registry.get('namespaces').expand('dcat:distribution'), {
+        value: resURI,
+        type: 'uri',
+      });
+      return datasetEntry.commitMetadata().then(() => {
+        distributionEntry.setRefreshNeeded();
+        return Promise.all(fileURIs.map(
+          fileURI => entryStoreUtil.getEntryByResourceURI(fileURI)
+            .then(fEntry => fEntry.del())),
+        );
+      });
+    })
+      .then(() => m.redraw());
+  };
+  const remove = () => {
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
+    const dialogs = registry.get('dialogs');
+    // if (isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
+    if (isFileDistributionWithOutAPI(distribution, fileEntryURIs, registry.get('entrystore'))) {
+      dialogs.confirm(escaDataset.removeDistributionQuestion,
+        null, null, (confirm) => {
+          if (!confirm) {
+            return;
+          }
+          removeDistribution(distribution, dataset);
+        });
+    } else if (isAPIDistribution(distribution)) {
+      dialogs.confirm(escaDataset.removeDistributionQuestion,
+        null, null, (confirm) => {
+          if (!confirm) {
+            return;
+          }
+          deactivateAPInRemoveDist(distribution, dataset);
+        });
+    } else if (isAccessDistribution(distribution, registry.get('entrystore'))) {
+      dialogs.confirm(escaDataset.removeDistributionQuestion,
+        null, null, (confirm) => {
+          if (!confirm) {
+            return;
+          }
+          removeDistribution(distribution, dataset);
+        });
+    } else {
+      dialogs.acknowledge(escaDataset.removeFileDistWithAPI);
+    }
+  };
+  // END ACTIONS
+
+  // UTILS
+  const getEtlEntry = (entry) => {
+    const md = entry.getMetadata();
+    const esUtil = registry.get('entrystoreutil');
+    const pipelineResultResURI = md.findFirstValue(entry.getResourceURI(), registry.get('namespaces').expand('dcat:accessURL'));
+    return esUtil.getEntryByResourceURI(pipelineResultResURI)
+      .then(pipelineResult => new Promise(r => r(pipelineResult)));
+  };
+
+  /*
+   * This deletes the selected API distribution. It also deletes relation to dataset,
+   * corresponding API, pipelineResultEntry.
+   */
+  const deactivateAPInRemoveDist = (distributionEntry, datasetEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const es = distributionEntry.getEntryStore();
+    const contextId = distributionEntry.getContext().getId();
+    distributionEntry.del().then(() => {
+      datasetEntry.getMetadata().findAndRemove(null, registry.get('namespaces').expand('dcat:distribution'), {
+        value: resURI,
+        type: 'uri',
+      });
+      datasetEntry.commitMetadata().then(() => {
+        getEtlEntry(distributionEntry).then((etlEntry) => {
+          const uri = `${es.getBaseURI() + contextId}/resource/${etlEntry.getId()}`;
+          return es.getREST().del(`${uri}?proxy=true`)
+            .then(() => etlEntry.del().then(() => {
+              m.redraw();
+            }));
+        });
+      });
+    });
+  };
+  // END UTILS
 
   const getTitle = (entry, namespaces) => {
     const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
@@ -149,6 +319,7 @@ export default (vnode) => {
       const expandedClass = state.isExpanded ? 'expanded' : '';
       const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
+      const escoList = i18n.getLocalization(escoListNLS);
 
       return (
         <div>
@@ -192,10 +363,44 @@ export default (vnode) => {
                       </button>
                     </a>
                     <a>
-                      <button class=" btn--distribution fa fa-fw fa-remove">
+                      <button class=" btn--distribution fa fa-fw fa-remove"
+                        onclick={remove}
+                      >
                         <span>{escaDataset.removeDistributionTitle}</span>
                       </button>
                     </a>
+
+                    { distribution.getEntryInfo().hasMetadataRevisions() &&
+                        <a>
+                        <button
+                          class=" btn--distribution fa fa-fw fa-bookmark"
+                          title={escoList.versionsTitle}
+                          onclick={openRevisions}
+                        >
+                          <span>{escoList.versionsLabel}</span>
+                        </button>
+                        </a>
+                    }
+                    { isAPIDistribution(distribution) && [
+                      <a>
+                        <button
+                         class="btn--distribution fa fa-fw fa-info-circle"
+                         title={escaDataset.apiDistributionTitle}
+                         onclick={openApiInfo}
+                        >
+                          <span>{escaDataset.apiDistributionTitle}</span>
+                        </button>
+                      </a>,
+                      <a>
+                        <button
+                         class="btn--distribution fa fa-fw fa-retweet"
+                         title={escaDataset.reGenerateAPITitle}
+                         onclick={refreshAPI}
+                        >
+                          <span>{escaDataset.reGenerateAPI}</span>
+                        </button>
+                      </a>
+                    ]}
                   </div>
                 </div>
               </div>
