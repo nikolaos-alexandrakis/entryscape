@@ -175,6 +175,7 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
+      mainFiles: ['index'],
       alias: {
         jquery: path.resolve(path.join(__dirname, 'node_modules', 'jquery')),
         commons: getAlias('commons'),

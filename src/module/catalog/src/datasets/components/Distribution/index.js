@@ -22,8 +22,9 @@ import {
   isAccessDistribution,
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
-import DistributionActions from './DistributionActions';
-import GenerateAPI from '../GenerateAPI';
+import GenerateAPI from 'catalog/datasets/GenerateAPI';
+import DistributionActions from '../DistributionActions';
+import './index.scss';
 
 export default (vnode) => {
   const { distribution, dataset, fileEntryURIs } = vnode.attrs;

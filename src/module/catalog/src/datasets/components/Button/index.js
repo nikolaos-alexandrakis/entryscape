@@ -1,13 +1,14 @@
 import m from 'mithril';
-import './Button.scss';
+import './index.scss';
 
-
-const ButtonComponent = (vnode) => {
+export default (vnode) => {
   return {
     view(vnode) {
       const buttonContent = vnode.children;
+      const { onclick } = vnode.attrs;
+
       return (
-        <button>
+        <button class={`btn--action ${vnode.attrs.class}`} onclick={onclick}>
           {buttonContent}
         </button>
       );

@@ -2,18 +2,17 @@ import m from 'mithril';
 import DOMUtil from 'commons/util/htmlUtil';
 import registry from 'commons/registry';
 import StatBox from 'commons/overview/components/StatBox';
-import Button from './button/Button';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
-import DistributionList from './DistributionList';
-import MoreMetadata from './MoreMetadata';
+import DistributionList from '../DistributionList';
+import MoreMetadata from '../MoreMetadata';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import './Overview.scss';
-import './settings.scss';
-import './button/Button.scss';
+import './index.scss';
+import Button from '../Button';
+import '../settings.scss';
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
@@ -161,8 +160,8 @@ export default (vnode) => {
             </div>
 
             <div class="btn__wrapper">
-              <button class="btn--action btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</button>
-              <button class="btn--action btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</button>
+              <Button class="btn--edit" onclick={openEditDialog}>{escaDataset.editDatasetTitle}</Button>
+              <Button class="btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
               <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>

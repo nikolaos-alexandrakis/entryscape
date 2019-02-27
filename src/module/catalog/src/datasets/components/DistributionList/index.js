@@ -5,7 +5,8 @@ import DOMUtil from 'commons/util/htmlUtil';
 import { i18n } from 'esi18n';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import Distribution from './Distribution';
+import Distribution from '../Distribution';
+import './index.scss';
 
 export default (initialVnode) => {
   const state = {

@@ -1,10 +1,5 @@
-@import 'button/Button.scss';
-@import './settings.scss';
-@import './Distribution.scss';
-@import './DistributionList.scss';
-
-
-
+@import '../Button/index.scss';
+@import '../settings.scss';
 
 .overview__wrapper {
     width: 100%;
@@ -59,8 +54,7 @@
             height: 120px;
             margin-right: 0;
             margin-left: 30px;
-    
-    
+
             .escoOverview__statLabel,
             .escoOverview__statCount {
                 font-size: $text-size;
@@ -129,41 +123,33 @@
 }
 
 
-    /* Typography */
-    .overview__wrapper {
-
-     
-
-        .description {
-            font-size: 16px;
-            color: $main-colour;
-            margin-bottom: 40px;
-            word-break: break-word;
-        }
-
-        .icon--wrapper{
-            p {
-                color: $main-colour;
-            }
-        }
-        .icons {
-            @include button;
-            font-size: 24px;
-            color: $main-colour;
-            margin-right: 10px;
-            width: 24px;
-            &:hover{
-                color:royalblue;
-            }
-
-        }
-
-     
-
-        .metadata__label {
-            font-weight: bold;
-        }
-     
+/* Typography */
+.overview__wrapper {
+    .description {
+        font-size: 16px;
+        color: $main-colour;
+        margin-bottom: 40px;
+        word-break: break-word;
     }
 
-  
+    .icon--wrapper{
+        p {
+            color: $main-colour;
+        }
+    }
+    .icons {
+        @include button;
+        font-size: 24px;
+        color: $main-colour;
+        margin-right: 10px;
+        width: 24px;
+        &:hover{
+            color: royalblue;
+        }
+
+    }
+
+    .metadata__label {
+        font-weight: bold;
+    }
+}
