@@ -10,7 +10,6 @@ import {
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escoListNLS from 'commons/nls/escoList.nls';
 import DistributionActions from '../DistributionActions';
-import bindActions from './actions';
 import './index.scss';
 
 export default (vnode) => {
@@ -19,7 +18,6 @@ export default (vnode) => {
     isExpanded: false,
   };
   const setState = createSetState(state);
-  const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
 
   const expandDistribution = () => {
     setState({
