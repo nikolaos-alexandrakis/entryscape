@@ -88,18 +88,13 @@ export default (vnode) => {
       // </button>,
     // );
 
-    actionButtons.push([
+    actionButtons.push(
       <button class=" btn--distribution"
         onclick={actions.editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
-      </button>,
-      <button class=" btn--distribution fa fa-fw fa-remove"
-        onclick={actions.remove}
-      >
-        <span>{escaDataset.removeDistributionTitle}</span>
-      </button>,
-    ]);
+      </button>
+    );
 
     if (distribution.getEntryInfo().hasMetadataRevisions()) {
       actionButtons.push(
@@ -208,7 +203,7 @@ export default (vnode) => {
       <button
         class=" btn--distribution fa fa-fw fa-remove"
         title={escaDataset.removeDistributionTitle}
-        // onclick={actions.remove}
+        onclick={actions.remove}
       >
         <span>{escaDataset.removeDistributionTitle}</span>
       </button>,
