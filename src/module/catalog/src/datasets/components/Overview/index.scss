@@ -44,7 +44,7 @@
         display: flex;
         justify-content: flex-end;
         flex-wrap: wrap;
-        max-width: 40%;
+        max-width: 30%;
         max-height: 300px;
         margin-top:35px;
         .escoOverview__statBox {
@@ -151,5 +151,15 @@
 
     .metadata__label {
         font-weight: bold;
+    }
+}
+.distributions {
+    width: 70%;
+
+    .header {
+        width: 50%;
+        border-bottom: 1.5px solid $accent-colour;
+        align-items: center;
+        margin-top: 15px;
     }
 }

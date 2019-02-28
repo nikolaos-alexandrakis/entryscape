@@ -136,7 +136,7 @@ export default (vnode) => {
                   </div>
                 </div>
                 <div class="menu--wrapper">
-                  <div class=" icon--wrapper distribution--file">
+                  <div class=" icon--wrapper">
                     <a>
                       <button class=" btn--distribution"
                         onclick={actions.editDistribution}
