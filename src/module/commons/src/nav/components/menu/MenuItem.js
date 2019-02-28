@@ -16,7 +16,7 @@ export default {
         m('a', Object.assign({ href }, selected ? { class: 'selected' } : {}), [
           m(`i.fa.fa-${icon}`),
           m('span.menu-title', label),
-          isExternalLink(href) ? m('span.fa.fa-external-link') : null,
+          isExternalLink(href) ? m('span.fas.fa-external-link') : null,
         ]),
       ],
     );
