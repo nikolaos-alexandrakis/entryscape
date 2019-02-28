@@ -48,14 +48,12 @@
         justify-content: space-between;
         width: 100%;
     }
-    .menu--wrapper{
-        display: flex;
-        flex-direction: column;
-        .icon--wrapper{
+  
+        .icon--wrapper.distribution--file{
             display: flex;
             flex-direction: column;
         }
-    }
+    
     .distribution__format, .distribution__description{
         .title{
             @include title--underlined;
