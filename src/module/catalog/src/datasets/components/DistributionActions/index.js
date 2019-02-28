@@ -1,5 +1,4 @@
 import m from 'mithril';
-import config from 'config';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import ManageFilesDialog from 'catalog/datasets/ManageFiles';
@@ -19,11 +18,10 @@ import {
   isAccessDistribution,
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
-import { createSetState } from 'commons/util/util';
 import bindActions from './actions';
 
 export default (vnode) => {
-  const {distribution, dataset, fileEntryURIs } = vnode.attrs;
+  const { distribution, dataset, fileEntryURIs } = vnode.attrs;
   const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
 
   // UTILS

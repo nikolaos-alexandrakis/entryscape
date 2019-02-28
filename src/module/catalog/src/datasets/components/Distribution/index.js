@@ -150,7 +150,14 @@ export default (vnode) => {
                   <span class="file__format--short">{format}</span>
                 </p>
               </div>
-              <div class="cogwheelGoesHere"></div>
+              <div>
+                <div class="flex--sb">
+                  <p class="distributionFile__date">Jan 17</p>
+                  <button class="icons fa fa-cog"></button>
+                </div>
+                <div class={`file__dropdownMenu`}>
+                </div>
+              </div>
             </div>
           </div>
         </div>
