@@ -147,14 +147,11 @@ export default (vnode) => {
                     <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, { numFiles: fileEntries.length }) }</p>
                   </div>
                 </div>
-                <div class="menu--wrapper">
-                  <DistributionActions
-                    distribution={distribution}
-                    dataset={dataset}
-                    nls={escaDataset}
-                    fileEntryURIs={fileEntryURIs}
-                  />
-                </div>
+                <DistributionActions
+                  distribution={distribution}
+                  dataset={dataset}
+                  fileEntryURIs={fileEntryURIs}
+                />
               </div>
             </div>
             <FileList
