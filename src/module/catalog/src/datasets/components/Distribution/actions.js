@@ -76,6 +76,25 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
       .then(pipelineResult => new Promise(r => r(pipelineResult)));
   };
 
+  const openNewTab = (distributionEntry) => {
+    const resURI = distributionEntry.getResourceURI();
+    const md = distributionEntry.getMetadata();
+    const subj = distributionEntry.getResourceURI();
+    const accessURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:accessURL'));
+    const downloadURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:downloadURL'));
+    const es = registry.get('entrystore');
+    let uri = '';
+    const baseURI = es.getBaseURI();
+
+    if (downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1) {
+      uri = `${downloadURI}?${resURI}`;
+    } else {
+      uri = accessURI;
+    }
+
+    window.open(uri, '_blank');
+  };
+
   /*
    This deletes selected distribution and also deletes
    its relation to dataset

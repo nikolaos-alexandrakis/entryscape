@@ -136,48 +136,12 @@ export default (vnode) => {
                   </div>
                 </div>
                 <div class="menu--wrapper">
-                    <DistributionActions
-                      distribution={distribution}
-                      dataset={dataset}
-                      nls={escaDataset}
-                      fileEntryURIs={fileEntryURIs}
-                    />
-                      <button class=" btn--distribution"
-                        onclick={actions.editDistribution}
-                      >
-                        <span>{escaDataset.editDistributionTitle}</span>
-                      </button>
-                      <button class=" btn--distribution fa fa-fw fa-remove"
-                        onclick={actions.remove}
-                      >
-                        <span>{escaDataset.removeDistributionTitle}</span>
-                      </button>
-
-                    { distribution.getEntryInfo().hasMetadataRevisions() &&
-                        <button
-                          class=" btn--distribution fa fa-fw fa-bookmark"
-                          title={escoList.versionsTitle}
-                          onclick={actions.openRevisions}
-                        >
-                          <span>{escoList.versionsLabel}</span>
-                        </button>
-                    }
-                    { isAPIDistribution(distribution) && [
-                        <button
-                         class="btn--distribution fa fa-fw fa-info-circle"
-                         title={escaDataset.apiDistributionTitle}
-                         onclick={actions.openApiInfo}
-                        >
-                          <span>{escaDataset.apiDistributionTitle}</span>
-                        </button>,
-                        <button
-                         class="btn--distribution fa fa-fw fa-retweet"
-                         title={escaDataset.reGenerateAPITitle}
-                         onclick={actions.refreshAPI}
-                        >
-                          <span>{escaDataset.reGenerateAPI}</span>
-                        </button>
-                    ]}
+                  <DistributionActions
+                    distribution={distribution}
+                    dataset={dataset}
+                    nls={escaDataset}
+                    fileEntryURIs={fileEntryURIs}
+                  />
                 </div>
               </div>
             </div>
