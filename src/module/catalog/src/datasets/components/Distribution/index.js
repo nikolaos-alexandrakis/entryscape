@@ -136,24 +136,24 @@ export default (vnode) => {
                   </div>
                 </div>
                 <div class="menu--wrapper">
-                  <div class=" icon--wrapper distribution--file">
-                    <a>
+                    <DistributionActions
+                      distribution={distribution}
+                      dataset={dataset}
+                      nls={escaDataset}
+                      fileEntryURIs={fileEntryURIs}
+                    />
                       <button class=" btn--distribution"
                         onclick={actions.editDistribution}
                       >
                         <span>{escaDataset.editDistributionTitle}</span>
                       </button>
-                    </a>
-                    <a>
                       <button class=" btn--distribution fa fa-fw fa-remove"
                         onclick={actions.remove}
                       >
                         <span>{escaDataset.removeDistributionTitle}</span>
                       </button>
-                    </a>
 
                     { distribution.getEntryInfo().hasMetadataRevisions() &&
-                        <a>
                         <button
                           class=" btn--distribution fa fa-fw fa-bookmark"
                           title={escoList.versionsTitle}
@@ -161,19 +161,15 @@ export default (vnode) => {
                         >
                           <span>{escoList.versionsLabel}</span>
                         </button>
-                        </a>
                     }
                     { isAPIDistribution(distribution) && [
-                      <a>
                         <button
                          class="btn--distribution fa fa-fw fa-info-circle"
                          title={escaDataset.apiDistributionTitle}
                          onclick={actions.openApiInfo}
                         >
                           <span>{escaDataset.apiDistributionTitle}</span>
-                        </button>
-                      </a>,
-                      <a>
+                        </button>,
                         <button
                          class="btn--distribution fa fa-fw fa-retweet"
                          title={escaDataset.reGenerateAPITitle}
@@ -181,9 +177,7 @@ export default (vnode) => {
                         >
                           <span>{escaDataset.reGenerateAPI}</span>
                         </button>
-                      </a>
                     ]}
-                  </div>
                 </div>
               </div>
             </div>
@@ -194,12 +188,7 @@ export default (vnode) => {
                   <span class="file__format--short">{format}</span>
                 </p>
               </div>
-              <DistributionActions
-                distribution={distribution}
-                dataset={dataset}
-                nls={escaDataset}
-                fileEntryURIs={fileEntryURIs}
-              />
+              <div class="cogwheelGoesHere"></div>
             </div>
           </div>
         </div>
