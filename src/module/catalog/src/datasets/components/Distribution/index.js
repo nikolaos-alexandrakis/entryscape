@@ -8,8 +8,8 @@ import {
   isAPIDistribution,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import escoListNLS from 'commons/nls/escoList.nls';
 import DistributionActions from '../DistributionActions';
+import FileList from '../FileList';
 import './index.scss';
 
 export default (vnode) => {
@@ -23,6 +23,17 @@ export default (vnode) => {
     setState({
       isExpanded: !state.isExpanded,
     });
+  };
+
+  const getFileEntries = (entry) => {
+    // const fileStmts = entry.getMetadata().find(entry.getResourceURI(), 'dcat:downloadURL');
+    // const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
+    /** @type {store/EntryStore} */
+    const es = registry.get('entrystore');
+    const context = registry.get('context');
+    const entryType = registry.get('namespaces').expand('esterms:File');
+    return es.newSolrQuery().rdfType(entryType).context(context.getResourceURI())
+      .resource(fileEntryURIs);
   };
 
   const getTitle = (entry) => {
@@ -87,7 +98,7 @@ export default (vnode) => {
   };
 
   return {
-    view: (vnode) => {
+    view(vnode) {
       const title = getTitle(distribution);
       const {
         format,
@@ -98,10 +109,11 @@ export default (vnode) => {
         fileEntries,
       } = getDistributionMetadata(distribution);
 
+      // const fileEntries = getFileEntries(distribution);
+
       const expandedClass = state.isExpanded ? 'expanded' : '';
       const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
-      const escoList = i18n.getLocalization(escoListNLS);
 
       return (
         <div>
@@ -145,22 +157,9 @@ export default (vnode) => {
                 </div>
               </div>
             </div>
-            <div class="distribution__fileRow">
-              <div class="distribution__format">
-                <p class="distribution__title">{title}</p>
-                <p class="file__format">
-                  <span class="file__format--short">{format}</span>
-                </p>
-              </div>
-              <div>
-                <div class="flex--sb">
-                  <p class="distributionFile__date">Jan 17</p>
-                  <button class="icons fa fa-cog"></button>
-                </div>
-                <div class={`file__dropdownMenu`}>
-                </div>
-              </div>
-            </div>
+            <FileList
+              files={fileEntries}
+            />
           </div>
         </div>
       );
