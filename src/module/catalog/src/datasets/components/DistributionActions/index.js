@@ -252,7 +252,6 @@ export default (vnode) => {
             <button class="icons fa fa-cog" onclick={toggleFileDropdown}></button>
           </div>
           <div class={`file__dropdownMenu ${showingDropdownClass}`}>
-            { renderActions(vnode.attrs.distribution, vnode.attrs.nls) }
           </div>
         </div>
       );

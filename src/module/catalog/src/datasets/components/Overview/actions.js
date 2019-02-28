@@ -1,4 +1,3 @@
-import m from 'mithril';
 import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';

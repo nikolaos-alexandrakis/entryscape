@@ -1,3 +1,4 @@
+import m from 'mithril';
 import config from 'config';
 import registry from 'commons/registry';
 import { i18n } from 'esi18n';
