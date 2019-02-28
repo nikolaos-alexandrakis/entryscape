@@ -54,6 +54,7 @@ export default (vnode) => {
     const accessURI = md.findFirstValue(subj, namespaces.expand('dcat:accessURL'));
     const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
     const description = md.findFirstValue(subj, namespaces.expand('dcterms:description'));
+    const fileEntries = md.find(subj, 'dcat:downloadURL');
 
     // @scazan WHAT IS TEMPLATE DRIVEN FORMAT?
     let format;
@@ -82,7 +83,7 @@ export default (vnode) => {
       .getModificationDate();
     // this.renderDate(); this.clearDropdownMenu(); this.renderDropdownMenu();
 
-    return { format, modificationDate, accessURI, downloadURI, description };
+    return { format, modificationDate, accessURI, downloadURI, description, fileEntries };
   };
 
   return {
@@ -94,6 +95,7 @@ export default (vnode) => {
         accessURI,
         downloadURI,
         description,
+        fileEntries,
       } = getDistributionMetadata(distribution);
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
@@ -130,7 +132,7 @@ export default (vnode) => {
                   }
                   <div class="distribution__format">
                     <h2 class="title">{escaDataset.distributionFormatTitle}</h2>
-                    <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, { numFiles: 2 }) }</p>
+                    <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, { numFiles: fileEntries.length }) }</p>
                   </div>
                 </div>
                 <DistributionActions
