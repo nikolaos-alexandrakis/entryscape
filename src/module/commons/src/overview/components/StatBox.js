@@ -9,10 +9,6 @@ export default () => {
     view(vnode) {
       const { label, value, link, onclick } = vnode.attrs;
 
-      // return m('a.col-md-6 escoOverview__statBox', { href: link, tabindex: 0 }, [
-        // m('p', { class: 'escoOverview__statCount' }, value),
-        // m('label', { class: 'escoOverview__statLabel' }, label),
-      // ]);
       return (
         <a
           class="col-md-6 escoOverview__statBox"

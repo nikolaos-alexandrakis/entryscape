@@ -10,7 +10,6 @@ import Button from '../Button';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import bindActions from './actions';
-import '../settings.scss';
 import './index.scss';
 
 export default (vnode) => {
