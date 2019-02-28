@@ -24,7 +24,8 @@
 .escoOverview__statLabel{
     font-size: 28px;
     color:#1C4CD1;
-    text-align: center;
+    text-align: start;
+    cursor: pointer;
 }
 .escoOverview__statBox {
     min-width: 200px;
