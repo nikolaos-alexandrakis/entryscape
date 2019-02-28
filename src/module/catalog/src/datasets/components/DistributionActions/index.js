@@ -20,11 +20,12 @@ import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import { createSetState } from 'commons/util/util';
-import actions from './actions';
+import bindActions from './actions';
 
 export default (vnode) => {
   const distributionEntry = vnode.attrs.distribution;
-  const { dataset, fileEntryURIs } = vnode.attrs;
+  const {distribution, dataset, fileEntryURIs } = vnode.attrs;
+  const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
 
   // UTILS
   const getFormattedDates = (modDate) => {
@@ -37,24 +38,6 @@ export default (vnode) => {
     return null;
   };
 
-  const openNewTab = (distributionEntry) => {
-    const resURI = distributionEntry.getResourceURI();
-    const md = distributionEntry.getMetadata();
-    const subj = distributionEntry.getResourceURI();
-    const accessURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:accessURL'));
-    const downloadURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:downloadURL'));
-    const es = registry.get('entrystore');
-    let uri = '';
-    const baseURI = es.getBaseURI();
-
-    if (downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1) {
-      uri = `${downloadURI}?${resURI}`;
-    } else {
-      uri = accessURI;
-    }
-
-    window.open(uri, '_blank');
-  };
 
   // END UTILS
 
@@ -93,7 +76,9 @@ export default (vnode) => {
   };
 
   // END ACTIONS
-  const renderActions = (entry, nls) => {
+  const renderActions = (entry) => {
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
+    const escoList = i18n.getLocalization(escoListNLS);
     const actionButtons = [];
     // actions.push(
       // <button
@@ -104,16 +89,41 @@ export default (vnode) => {
       // </button>,
     // );
 
+    actionButtons.push([
+      <button class=" btn--distribution"
+        onclick={actions.editDistribution}
+      >
+        <span>{escaDataset.editDistributionTitle}</span>
+      </button>,
+      <button class=" btn--distribution fa fa-fw fa-remove"
+        onclick={actions.remove}
+      >
+        <span>{escaDataset.removeDistributionTitle}</span>
+      </button>,
+    ]);
+
+    if (distribution.getEntryInfo().hasMetadataRevisions()) {
+      actionButtons.push(
+        <button
+          class=" btn--distribution fa fa-fw fa-bookmark"
+          title={escoList.versionsTitle}
+          onclick={actions.openRevisions}
+        >
+          <span>{escoList.versionsLabel}</span>
+        </button>
+      );
+    }
+
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
       if (isFileDistributionWithOutAPI(entry, fileEntryURIs, registry.get('entrystore'))) {
         actionButtons.push(
           <button
             class="btn--distribution fa fa-fw fa-link"
-            title={nls.apiActivateTitle}
+            title={escaDataset.apiActivateTitle}
             onclick={actions.activateAPI}
           >
-            <span>{nls.apiActivateTitle}</span>
+            <span>{escaDataset.apiActivateTitle}</span>
           </button>,
         );
       }
@@ -121,34 +131,34 @@ export default (vnode) => {
         actionButtons.push([
           <button
             class="btn--distribution fa fa-fw fa-download"
-            title={nls.downloadButtonTitle}
+            title={escaDataset.downloadButtonTitle}
             onclick={actions.openResource}
           >
-            <span>{nls.downloadButtonTitle}</span>
+            <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
           <button
             class="btn--distribution fa fa-fw fa-exchange"
-            title={nls.replaceFileTitle}
+            title={escaDataset.replaceFileTitle}
             onclick={replaceFile}
           >
-            <span>{nls.replaceFile}</span>
+            <span>{escaDataset.replaceFile}</span>
           </button>,
           <button
             class="btn--distribution fa fa-fw fa-file"
-            title={nls.addFileTitle}
+            title={escaDataset.addFileTitle}
             onclick={manageFiles}
           >
-            <span>{nls.addFile}</span>
+            <span>{escaDataset.addFile}</span>
           </button>,
         ]);
       } else {
         actionButtons.push(
           <button
             class="btn--distribution fa fa-fw fa-files-o"
-            title={nls.manageFilesTitle}
+            title={escaDataset.manageFilesTitle}
             onclick={manageFiles}
           >
-            <span>{nls.manageFiles}</span>
+            <span>{escaDataset.manageFiles}</span>
           </button>,
         );
       }
@@ -156,17 +166,17 @@ export default (vnode) => {
       actionButtons.push([
         <button
           class="btn--distribution fa fa-fw fa-info-circle"
-          title={nls.apiDistributionTitle}
+          title={escaDataset.apiDistributionTitle}
           onclick={actions.openApiInfo}
         >
-          <span>{nls.apiDistributionTitle}</span>
+          <span>{escaDataset.apiDistributionTitle}</span>
         </button>,
         <button
           class="btn--distribution  fa fa-fw fa-retweet"
-          title={nls.reGenerateAPITitle}
+          title={escaDataset.reGenerateAPITitle}
           onclick={actions.refreshAPI}
         >
-          <span>{nls.reGenerateAPI}</span>
+          <span>{escaDataset.reGenerateAPI}</span>
         </button>,
       ]);
     } else {
@@ -174,10 +184,10 @@ export default (vnode) => {
         actionButtons.push(
           <button
             class="btn--distribution fa fa-fw fa-info-circle"
-            title={nls.accessURLButtonTitle}
+            title={escaDataset.accessURLButtonTitle}
             onclick={actions.openResource}
           >
-            <span>{nls.accessURLButtonTitle}</span>
+            <span>{escaDataset.accessURLButtonTitle}</span>
           </button>,
         );
       }
@@ -185,10 +195,10 @@ export default (vnode) => {
         actionButtons.push(
           <button
             class="btn--distribution  fa fa-fw fa-download"
-            title={nls.downloadButtonTitle}
+            title={escaDataset.downloadButtonTitle}
             onclick={actions.openResource}
           >
-            <span>{nls.downloadButtonTitle}</span>
+            <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
         );
       }
@@ -198,10 +208,10 @@ export default (vnode) => {
     actionButtons.push(
       <button
         class=" btn--distribution fa fa-fw fa-remove"
-        title={nls.removeDistributionTitle}
+        title={escaDataset.removeDistributionTitle}
         // onclick={actions.remove}
       >
-        <span>{nls.removeDistributionTitle}</span>
+        <span>{escaDataset.removeDistributionTitle}</span>
       </button>,
     );
     // }
@@ -213,11 +223,9 @@ export default (vnode) => {
   return {
     view(vnode) {
       const { distribution } =vnode.attrs;
-      const escaDataset = i18n.getLocalization(escaDatasetNLS);
-      const escoList = i18n.getLocalization(escoListNLS);
       return (
         <div class=" icon--wrapper distribution--file">
-        { renderActions(distribution, escaDataset) }
+          { renderActions(distribution) }
         </div>
       );
     },
