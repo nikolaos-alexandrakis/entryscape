@@ -23,7 +23,6 @@ import { createSetState } from 'commons/util/util';
 import bindActions from './actions';
 
 export default (vnode) => {
-  const distributionEntry = vnode.attrs.distribution;
   const {distribution, dataset, fileEntryURIs } = vnode.attrs;
   const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
 
@@ -46,8 +45,8 @@ export default (vnode) => {
     const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, vnode.dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     manageFilesDialog.open({
-      entry: distributionEntry,
-      row: { entry: distributionEntry },
+      entry: distribution,
+      row: { entry: distribution },
       fileEntryURIs,
       datasetEntry: dataset,
       onDone: () => m.redraw(),
@@ -55,14 +54,14 @@ export default (vnode) => {
   };
 
   const replaceFile = () => {
-    const md = distributionEntry.getMetadata();
+    const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
     entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
       const replaceFileDialog = new FileReplaceDialog({}, DOMUtil.create('div', null, vnode.dom));
       replaceFileDialog.open({
         entry: fileEntry,
-        distributionEntry,
+        distributionEntry: distribution,
         distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
         row: {
           entry: fileEntry,
@@ -89,18 +88,13 @@ export default (vnode) => {
       // </button>,
     // );
 
-    actionButtons.push([
+    actionButtons.push(
       <button class=" btn--distribution"
         onclick={actions.editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
-      </button>,
-      <button class=" btn--distribution fa fa-fw fa-remove"
-        onclick={actions.remove}
-      >
-        <span>{escaDataset.removeDistributionTitle}</span>
-      </button>,
-    ]);
+      </button>
+    );
 
     if (distribution.getEntryInfo().hasMetadataRevisions()) {
       actionButtons.push(
@@ -209,7 +203,7 @@ export default (vnode) => {
       <button
         class=" btn--distribution fa fa-fw fa-remove"
         title={escaDataset.removeDistributionTitle}
-        // onclick={actions.remove}
+        onclick={actions.remove}
       >
         <span>{escaDataset.removeDistributionTitle}</span>
       </button>,
@@ -222,7 +216,7 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const { distribution } =vnode.attrs;
+      const { distribution } = vnode.attrs;
       return (
         <div class=" icon--wrapper distribution--file">
           { renderActions(distribution) }
