@@ -37,10 +37,10 @@ window.__entryscape_config = {
 
   ],
   bundles: [
-    'https://static.entryscape.com/suite/2.0.0/templates/rdfs',
-    'https://static.entryscape.com/suite/2.0.0/templates/dc',
-    'https://static.entryscape.com/suite/2.0.0/templates/schema',
-    'https://opendata.statenskonstrad.se/theme_blocks/templates/skr',
+    'https://static.cdn.entryscape.com/suite/2.0.0/templates/rdfs.json',
+    'https://static.cdn.entryscape.com/suite/2.0.0/templates/dc.json',
+    'https://static.cdn.entryscape.com/suite/2.0.0/templates/schema.json',
+    'https://opendata.statenskonstrad.se/theme_blocks/templates/skr.json',
   ],
   type2template: {
     'skr:Artist': 'skr:Artist',
@@ -107,7 +107,7 @@ window.__entryscape_config = {
       limit: 5,
       includeAsFacet: true,
     },
-    {
+/*    {
       type: 'facet',
       name: 'sex',
       label: 'Kön',
@@ -122,7 +122,7 @@ window.__entryscape_config = {
         female: { sv: 'Kvinna' },
         km: { sv: 'Grupp' },
       },
-    },
+    },*/
     {
       type: 'facet',
       name: 'situation',
@@ -219,6 +219,7 @@ window.__entryscape_config = {
       facets: true,
       headless: true,
       initsearch: true,
+      randomize: true,
       layout: 'cards',
       //      click: 'details.html?debug',
       dependencyproperties: 'dcterms:creator,schema:address',
