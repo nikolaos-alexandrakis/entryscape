@@ -1,4 +1,3 @@
-import m from 'mithril';
 import config from 'config';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
@@ -20,11 +19,41 @@ import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import { createSetState } from 'commons/util/util';
-import actions from './actions';
 
 export default (vnode) => {
   const distributionEntry = vnode.attrs.distribution;
   const { dataset, fileEntryURIs } = vnode.attrs;
+
+  const state = {
+    isShowing: false,
+  };
+
+  const setState = createSetState(state);
+
+
+  const hideFileDropdown = () => {
+    setState({
+      isShowing: false,
+    });
+  };
+
+  const handleOutsideClick = (e) => {
+    if (!vnode.dom.contains(e.target)) {
+      hideFileDropdown();
+    }
+  };
+
+  const toggleFileDropdown = () => {
+    if (!state.isShowing) {
+      document.addEventListener('click', handleOutsideClick, false);
+    } else {
+      document.removeEventListener('click', handleOutsideClick, false);
+    }
+
+    setState({
+      isShowing: !state.isShowing,
+    });
+  };
 
   // UTILS
   const getFormattedDates = (modDate) => {
@@ -71,6 +100,8 @@ export default (vnode) => {
     });
   };
 
+
+
   const replaceFile = () => {
     const md = distributionEntry.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
@@ -94,7 +125,7 @@ export default (vnode) => {
 
   // END ACTIONS
   const renderActions = (entry, nls) => {
-    const actionButtons = [];
+    const actions = [];
     // actions.push(
       // <button
         // class="btn--distributionFile fa fa-fw fa-pencil"
@@ -107,34 +138,34 @@ export default (vnode) => {
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
       if (isFileDistributionWithOutAPI(entry, fileEntryURIs, registry.get('entrystore'))) {
-        actionButtons.push(
+        actions.push(
           <button
-            class="btn--distribution fa fa-fw fa-link"
+            class="btn--distributionFile fa fa-fw fa-link"
             title={nls.apiActivateTitle}
-            onclick={actions.activateAPI}
+            onclick={activateAPI}
           >
             <span>{nls.apiActivateTitle}</span>
           </button>,
         );
       }
       if (isSingleFileDistribution(entry)) {
-        actionButtons.push([
+        actions.push([
           <button
-            class="btn--distribution fa fa-fw fa-download"
+            class="btn--distributionFile fa fa-fw fa-download"
             title={nls.downloadButtonTitle}
-            onclick={actions.openResource}
+            onclick={openResource}
           >
             <span>{nls.downloadButtonTitle}</span>
           </button>,
           <button
-            class="btn--distribution fa fa-fw fa-exchange"
+            class="btn--distributionFile fa fa-fw fa-exchange"
             title={nls.replaceFileTitle}
             onclick={replaceFile}
           >
             <span>{nls.replaceFile}</span>
           </button>,
           <button
-            class="btn--distribution fa fa-fw fa-file"
+            class="btn--distributionFile fa fa-fw fa-file"
             title={nls.addFileTitle}
             onclick={manageFiles}
           >
@@ -142,9 +173,9 @@ export default (vnode) => {
           </button>,
         ]);
       } else {
-        actionButtons.push(
+        actions.push(
           <button
-            class="btn--distribution fa fa-fw fa-files-o"
+            class="btn--distributionFile fa fa-fw fa-files-o"
             title={nls.manageFilesTitle}
             onclick={manageFiles}
           >
@@ -153,40 +184,40 @@ export default (vnode) => {
         );
       }
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
-      actionButtons.push([
+      actions.push([
         <button
-          class="btn--distribution fa fa-fw fa-info-circle"
+          class="btn--distributionFile fa fa-fw fa-info-circle"
           title={nls.apiDistributionTitle}
-          onclick={actions.openApiInfo}
+          onclick={openApiInfo}
         >
           <span>{nls.apiDistributionTitle}</span>
         </button>,
         <button
-          class="btn--distribution  fa fa-fw fa-retweet"
+          class="btn--distributionFile  fa fa-fw fa-retweet"
           title={nls.reGenerateAPITitle}
-          onclick={actions.refreshAPI}
+          onclick={refreshAPI}
         >
           <span>{nls.reGenerateAPI}</span>
         </button>,
       ]);
     } else {
       if (!isAccessURLEmpty(entry)) {
-        actionButtons.push(
+        actions.push(
           <button
-            class="btn--distribution fa fa-fw fa-info-circle"
+            class="btn--distributionFile fa fa-fw fa-info-circle"
             title={nls.accessURLButtonTitle}
-            onclick={actions.openResource}
+            onclick={openResource}
           >
             <span>{nls.accessURLButtonTitle}</span>
           </button>,
         );
       }
       if (!isDownloadURLEmpty(entry)) {
-        actionButtons.push(
+        actions.push(
           <button
-            class="btn--distribution  fa fa-fw fa-download"
+            class="btn--distributionFile  fa fa-fw fa-download"
             title={nls.downloadButtonTitle}
-            onclick={actions.openResource}
+            onclick={openResource}
           >
             <span>{nls.downloadButtonTitle}</span>
           </button>,
@@ -195,29 +226,32 @@ export default (vnode) => {
     }
 
     // if (this.datasetRow.list.createAndRemoveDistributions) { // @scazan simple boolean defined in the class
-    actionButtons.push(
+    actions.push(
       <button
-        class=" btn--distribution fa fa-fw fa-remove"
-        title={nls.removeDistributionTitle}
-        // onclick={actions.remove}
+      class=" btn--distributionFile fa fa-fw fa-remove"
+      title={nls.removeDistributionTitle}
+      // onclick={remove}
       >
         <span>{nls.removeDistributionTitle}</span>
       </button>,
     );
     // }
 
-    return actionButtons;
+    return actions;
   };
 
 
   return {
     view(vnode) {
-      const { distribution } =vnode.attrs;
-      const escaDataset = i18n.getLocalization(escaDatasetNLS);
-      const escoList = i18n.getLocalization(escoListNLS);
+      const showingDropdownClass = state.isShowing ? 'show' : '';
       return (
-        <div class=" icon--wrapper distribution--file">
-        { renderActions(distribution, escaDataset) }
+        <div>
+          <div class="flex--sb">
+            <p class="distributionFile__date">Jan 17</p>
+            <button class="icons fa fa-cog" onclick={toggleFileDropdown}></button>
+          </div>
+          <div class={`file__dropdownMenu ${showingDropdownClass}`}>
+          </div>
         </div>
       );
     },
