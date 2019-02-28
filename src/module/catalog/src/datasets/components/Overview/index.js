@@ -64,11 +64,12 @@ export default (vnode) => {
               </div>
               <div class="metadata--basic">
                 <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> Name of catalog</p>
-                <p><span class="metadata__label">{escaDataset.themeTitle}:</span> {themeLabels.label[i18n.getLocale()]}</p>
+                { theme &&
+                  <p><span class="metadata__label">{escaDataset.themeTitle}:</span> {themeLabels.label[i18n.getLocale()]}</p>
+                }
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate}</p>
                 <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
               </div>
-
             </div>
 
             <div class="btn__wrapper">
