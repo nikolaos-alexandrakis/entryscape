@@ -154,34 +154,34 @@ export default (vnode) => {
 
                     { distribution.getEntryInfo().hasMetadataRevisions() &&
                         <a>
-                        <button
-                          class=" btn--distribution fa fa-fw fa-bookmark"
-                          title={escoList.versionsTitle}
-                          onclick={actions.openRevisions}
-                        >
-                          <span>{escoList.versionsLabel}</span>
-                        </button>
+                          <button
+                            class=" btn--distribution fa fa-fw fa-bookmark"
+                            title={escoList.versionsTitle}
+                            onclick={actions.openRevisions}
+                          >
+                            <span>{escoList.versionsLabel}</span>
+                          </button>
                         </a>
                     }
                     { isAPIDistribution(distribution) && [
                       <a>
                         <button
-                         class="btn--distribution fa fa-fw fa-info-circle"
-                         title={escaDataset.apiDistributionTitle}
-                         onclick={actions.openApiInfo}
+                          class="btn--distribution fa fa-fw fa-info-circle"
+                          title={escaDataset.apiDistributionTitle}
+                          onclick={actions.openApiInfo}
                         >
                           <span>{escaDataset.apiDistributionTitle}</span>
                         </button>
                       </a>,
                       <a>
                         <button
-                         class="btn--distribution fa fa-fw fa-retweet"
-                         title={escaDataset.reGenerateAPITitle}
-                         onclick={actions.refreshAPI}
+                          class="btn--distribution fa fa-fw fa-retweet"
+                          title={escaDataset.reGenerateAPITitle}
+                          onclick={actions.refreshAPI}
                         >
                           <span>{escaDataset.reGenerateAPI}</span>
                         </button>
-                      </a>
+                      </a>,
                     ]}
                   </div>
                 </div>
