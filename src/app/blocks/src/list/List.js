@@ -15,6 +15,7 @@ import handlebars from 'blocks/boot/handlebars';
 import error from 'blocks/boot/error';
 import constraints from 'blocks/utils/constraints';
 import dependencyList from 'blocks/utils/dependencyList';
+import randomizeList from 'blocks/utils/randomizeList';
 import filter from 'blocks/utils/filter';
 import { termsConstraint } from 'blocks/utils/query';
 import MetadataExpandRow from './MetadataExpandRow';
@@ -90,14 +91,13 @@ const CardRow = declare([_WidgetBase], {
   },
 });
 
-
-class ListRow extends EntryRow {
+const ListRow = declare([EntryRow], {
   postCreate() {
     this.showCol3 = false;
     this.initExpandTitles = initExpandTitles;
     this.rowNode.classList.add('col4hidden');
     this.inherited(arguments);
-  }
+  },
   render() {
     const conf = this.list.conf;
     if (!conf.templates || !conf.templates.rowhead) {
@@ -110,13 +110,13 @@ class ListRow extends EntryRow {
     }, null, this.entry);
 
     return this.domNode;
-  }
+  },
   getRenderNameHTML() {
-    const name = escape(this.getRenderName());
+    const name = this.getRenderName();
     const href = this.list.getRowClickLink(this);
     return href ? `<a href="${href}">${name}</a>` : name;
-  }
-}
+  },
+});
 
 export default declare([List, NLSMixin.Dijit], {
   includeHead: false,
@@ -147,6 +147,9 @@ export default declare([List, NLSMixin.Dijit], {
       },
       showEntryList(list) {
         dependencyList(list, data);
+        if (data.randomize && filter.isEmpty()) {
+          randomizeList(list, data);
+        }
         this.inherited(arguments);
       },
       doneRenderingPage() {
@@ -244,8 +247,11 @@ export default declare([List, NLSMixin.Dijit], {
       this.listView.showEntryList(new ArrayList({ arr: [] }));
     } else {
       const qo = this.getSearchObject(_params ? _params.term : undefined);
-      if (_params.sortOrder === 'title') {
-        const l = this.useNoLangSort ? 'nolang' : i18n.getLocale();
+      const l = this.useNoLangSort ? 'nolang' : i18n.getLocale();
+      if (this.conf.randomize && filter.isEmpty()) {
+        const sortOptions = [`title.${l}+asc`, `title.${l}+asc`, 'modified+desc', 'modified+asc'];
+        qo.sort(sortOptions[Math.floor((Math.random() * 4))]);
+      } else if (_params.sortOrder === 'title') {
         qo.sort(`title.${l}+asc`);
       } else {
         qo.sort('modified+desc');

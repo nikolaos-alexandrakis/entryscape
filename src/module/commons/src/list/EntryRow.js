@@ -1,4 +1,4 @@
-import { clone, template, escape } from 'lodash-es';
+import { clone, template } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
@@ -191,7 +191,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
 
   getRenderNameHTML() {
-    const name = escape(this.getRenderName());
+    const name = this.getRenderName();
     const href = this.getRowClickLink() || this.list.getRowClickLink(this);
     if (href) {
       return `<a href="${href}">${name}</a>`;
@@ -201,8 +201,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
   getRenderName() {
     const rdfutils = registry.get('rdfutils');
-    const name = rdfutils.getLabel(this.entry);
-    return name;
+    return rdfutils.getLabel(this.entry);
   },
 
   renderCol1() {
