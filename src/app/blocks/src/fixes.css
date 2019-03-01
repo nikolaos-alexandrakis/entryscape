@@ -60,6 +60,12 @@ body .lightbox {
     border-width: 0px;
 }
 
+/*--- Chartist make long names on x-axis break rather than overwrite each other --- */
+
+.ct-chart-bar .ct-label.ct-horizontal.ct-end {
+    word-break: break-all;
+}
+
 /*---Legend specific css below ---*/
 
 .ct-chart-donut .ct-label, .ct-chart-pie .ct-label {
