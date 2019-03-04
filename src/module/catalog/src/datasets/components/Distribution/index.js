@@ -43,9 +43,12 @@ export default (vnode) => {
     const title = getTitle(entry);
 
     if (title == null) {
+      const namespaces = registry.get('namespaces');
       const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
-      const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
-      const source = md.findFirstValue(subj, namespaces.expand('dcterms:source'));
+      const subj = entry.getResourceURI();
+      const metadata = entry.getMetadata();
+      const downloadURI = metadata.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
+      const source = metadata.findFirstValue(subj, namespaces.expand('dcterms:source'));
 
       if (downloadURI != null && downloadURI !== '') {
         return escaDatasetLocalized.defaultDownloadTitle;
