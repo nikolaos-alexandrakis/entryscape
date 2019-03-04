@@ -6,8 +6,10 @@ import { engine, utils as rdformsUtils } from 'rdforms';
 import { createSetState } from 'commons/util/util';
 import {
   isAPIDistribution,
-  getTitle,
 } from 'catalog/datasets/utils/distributionUtil';
+import {
+  getTitle,
+} from 'commons/util/metadata';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import DistributionActions from '../DistributionActions';
 import FileList from '../FileList';

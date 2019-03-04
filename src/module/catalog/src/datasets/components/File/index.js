@@ -1,8 +1,7 @@
 import m from 'mithril';
 import {
   getTitle,
-} from 'catalog/datasets/utils/distributionUtil';
-
+} from 'commons/util/metadata';
 
 export default () => ({
   view(vnode) {
