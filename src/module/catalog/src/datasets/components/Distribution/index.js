@@ -6,6 +6,7 @@ import { engine, utils as rdformsUtils } from 'rdforms';
 import { createSetState } from 'commons/util/util';
 import {
   isAPIDistribution,
+  getTitle,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import DistributionActions from '../DistributionActions';
@@ -13,9 +14,10 @@ import FileList from '../FileList';
 import './index.scss';
 
 export default (vnode) => {
-  const { distribution, dataset, fileEntryURIs } = vnode.attrs;
+  const { distribution, dataset } = vnode.attrs;
   const state = {
-    isExpanded: false,
+    isExpanded: true,
+    fileEntries: [],
   };
   const setState = createSetState(state);
 
@@ -25,27 +27,24 @@ export default (vnode) => {
     });
   };
 
-  const getFileEntries = (entry) => {
-    // const fileStmts = entry.getMetadata().find(entry.getResourceURI(), 'dcat:downloadURL');
-    // const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
-    /** @type {store/EntryStore} */
-    const es = registry.get('entrystore');
-    const context = registry.get('context');
-    const entryType = registry.get('namespaces').expand('esterms:File');
-    return es.newSolrQuery().rdfType(entryType).context(context.getResourceURI())
-      .resource(fileEntryURIs);
+  const getFileEntries = (distributionEntry) => {
+    const entryStoreUtil = registry.get('entrystoreutil');
+    Promise.all(
+      distributionEntry
+        .getMetadata()
+        .find(distributionEntry.getResourceURI(), 'dcat:downloadURL')
+        .map(statement => entryStoreUtil.getEntryByResourceURI(statement.getValue())),
+    ).then(fileEntries => setState({ fileEntries }));
   };
 
-  const getTitle = (entry) => {
-    const namespaces = registry.get('namespaces');
-    const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
+  const getSafeTitle = (entry) => {
+    const title = getTitle(entry);
 
-    const md = entry.getMetadata();
-    const subj = entry.getResourceURI();
-    const title = md.findFirstValue(subj, namespaces.expand('dcterms:title'));
-    const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
-    const source = md.findFirstValue(subj, namespaces.expand('dcterms:source'));
     if (title == null) {
+      const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
+      const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
+      const source = md.findFirstValue(subj, namespaces.expand('dcterms:source'));
+
       if (downloadURI != null && downloadURI !== '') {
         return escaDatasetLocalized.defaultDownloadTitle;
       } else if (source != null && source !== '') {
@@ -98,18 +97,19 @@ export default (vnode) => {
   };
 
   return {
+    oninit() {
+      getFileEntries(distribution);
+    },
     view(vnode) {
-      const title = getTitle(distribution);
+      const { fileEntryURIs } = vnode.attrs;
+      const title = getSafeTitle(distribution);
       const {
         format,
         modificationDate,
         accessURI,
         downloadURI,
         description,
-        fileEntries,
       } = getDistributionMetadata(distribution);
-
-      // const fileEntries = getFileEntries(distribution);
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
       const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
@@ -144,7 +144,12 @@ export default (vnode) => {
                   }
                   <div class="distribution__format">
                     <h2 class="title">{escaDataset.distributionFormatTitle}</h2>
-                    <p class="text">{ i18n.renderNLSTemplate(escaDataset.distributionFiles, { numFiles: fileEntries.length }) }</p>
+                    <p class="text">
+                      { i18n.renderNLSTemplate(
+                        escaDataset.distributionFiles,
+                        { numFiles: state.fileEntries.length },
+                      ) }
+                    </p>
                   </div>
                 </div>
                 <DistributionActions
@@ -155,7 +160,7 @@ export default (vnode) => {
               </div>
             </div>
             <FileList
-              files={fileEntries}
+              files={state.fileEntries}
             />
           </div>
         </div>
