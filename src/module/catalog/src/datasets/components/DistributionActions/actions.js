@@ -1,6 +1,8 @@
+import m from 'mithril';
 import config from 'config';
 import registry from 'commons/registry';
 import { i18n } from 'esi18n';
+import stamp from 'dojo/date/stamp';
 import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
@@ -64,78 +66,81 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     },
   });
 
-const AddFileDialog = declare(RDFormsEditDialog, {
-  explicitNLS: true,
-  maxWidth: 800,
-  postCreate() {
-    const valueChange = (value) => {
-      if (value != null) {
-        this.unlockFooterButton();
-      } else {
-        this.lockFooterButton();
-      }
-    };
-    this.fileOrLink = new EntryType({
-      valueChange,
-    }, DOMUtil.create('div', null, this.containerNode, true));
-    this.inherited(arguments);
-  },
-  updateGenericCreateNLS() {
-    this.doneLabel = this.list.nlsSpecificBundle.createButton;
-    this.title = this.list.nlsSpecificBundle.createHeader;
-    this.updateTitleAndButton();
-  },
-  open(params) {
-    this.currentParams = params;
-    this.list = params.list;
-    const context = registry.get('context');
-    this.distributionEntry = params.list.entry;
-    this.fileOrLink.show(true, false, false);
-    this.updateGenericCreateNLS();
-    this._newEntry = context.newEntry();
-    const nds = this._newEntry;
-    nds.getMetadata().add(nds.getResourceURI(), 'rdf:type', 'esterms:File');
-    this.show(nds.getResourceURI(), nds.getMetadata(), this.list.getTemplate(), 'recommended');
-  },
-  doneAction(graph) {
-    this.distributionEntry = this.list.entry;
-    const title = graph.findFirstValue(null, 'dcterms:title');
-    if (!title) {
-      // check whether graph have title or not
-      graph.addL(this._newEntry.getResourceURI(), 'dcterms:title', this.fileOrLink.getValue());
-    }
-    this._newEntry.setMetadata(graph);
-    return this._newEntry.commit().then(fileEntry => fileEntry.getResource(true)
-      .putFile(this.fileOrLink.getFileInputElement())
-      .then(() => fileEntry.refresh().then(() => {
-        // this.list.getView().addRowForEntry(fileEntry);
-        const fileResourceURI = fileEntry.getResourceURI();
-        const distMetadata = this.distributionEntry.getMetadata();
-        const distResourceURI = this.distributionEntry.getResourceURI();
-        distMetadata.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
-        distMetadata.add(distResourceURI, 'dcat:downloadURL', fileResourceURI);
-        distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
-        distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
-        const format = fileEntry.getEntryInfo().getFormat();
-        const manualFormatList = distMetadata.find(distResourceURI, 'dcterms:format');
-        if (typeof format !== 'undefined' && manualFormatList.length === 0) {
-          distMetadata.addL(distResourceURI, 'dcterms:format', format);
+  const AddFileDialog = declare(RDFormsEditDialog, {
+    explicitNLS: true,
+    maxWidth: 800,
+    postCreate() {
+      const valueChange = (value) => {
+        if (value != null) {
+          this.unlockFooterButton();
+        } else {
+          this.lockFooterButton();
         }
-        return this.distributionEntry.commitMetadata().then(() => {
-          // update row menu items
-          if (this.currentParams.list.parentRow) {
-            this.currentParams.list.parentRow.updateDropdownMenu();
-          }
-          this.list.setListModified('add', fileResourceURI);
-          this.distributionEntry.setRefreshNeeded();
-          return this.distributionEntry.refresh();
+      };
+      this.fileOrLink = new EntryType({
+        valueChange,
+      }, DOMUtil.create('div', null, this.containerNode, true));
+      this.inherited(arguments);
+    },
+    updateGenericCreateNLS() {
+      this.doneLabel = this.list.nlsSpecificBundle.createButton;
+      this.title = this.list.nlsSpecificBundle.createHeader;
+      this.updateTitleAndButton();
+    },
+    open(params) {
+      this.currentParams = params;
+      this.list = params.list;
+      const context = registry.get('context');
+      this.distributionEntry = params.list.entry;
+      this.fileOrLink.show(true, false, false);
+      this.updateGenericCreateNLS();
+      this._newEntry = context.newEntry();
+      const nds = this._newEntry;
+      nds.getMetadata().add(nds.getResourceURI(), 'rdf:type', 'esterms:File');
+      this.show(nds.getResourceURI(), nds.getMetadata(), this.list.getTemplate(), 'recommended');
+      this.onDone = params.onDone;
+    },
+    doneAction(graph) {
+      this.distributionEntry = this.list.entry;
+      const title = graph.findFirstValue(null, 'dcterms:title');
+      if (!title) {
+        // check whether graph have title or not
+        graph.addL(this._newEntry.getResourceURI(), 'dcterms:title', this.fileOrLink.getValue());
+      }
+      this._newEntry.setMetadata(graph);
+      return this._newEntry.commit().then(fileEntry => fileEntry.getResource(true)
+        .putFile(this.fileOrLink.getFileInputElement())
+        .then(() => fileEntry.refresh().then(() => {
           // this.list.getView().addRowForEntry(fileEntry);
-          // this.list.getView().action_refresh();
+          const fileResourceURI = fileEntry.getResourceURI();
+          const distMetadata = this.distributionEntry.getMetadata();
+          const distResourceURI = this.distributionEntry.getResourceURI();
+          distMetadata.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
+          distMetadata.add(distResourceURI, 'dcat:downloadURL', fileResourceURI);
+          distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
+          distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
+          const format = fileEntry.getEntryInfo().getFormat();
+          const manualFormatList = distMetadata.find(distResourceURI, 'dcterms:format');
+          if (typeof format !== 'undefined' && manualFormatList.length === 0) {
+            distMetadata.addL(distResourceURI, 'dcterms:format', format);
+          }
+          return this.distributionEntry.commitMetadata();
+          // .then(() => {
+          // // update row menu items
+          // if (this.currentParams.list.parentRow) {
+          // this.currentParams.list.parentRow.updateDropdownMenu();
+          // }
+          // this.list.setListModified('add', fileResourceURI);
+          // this.distributionEntry.setRefreshNeeded();
+          // return this.distributionEntry.refresh();
+          // // this.list.getView().addRowForEntry(fileEntry);
+          // // this.list.getView().action_refresh();
+          // })
         })
-        .then(() => m.redraw());
-      })));
-  },
-});
+        .then(this.onDone)
+      ));
+    },
+  });
   // END DIALOGS
   //
   // UTILS

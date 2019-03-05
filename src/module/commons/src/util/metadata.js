@@ -5,10 +5,13 @@ export const getTitle = (entry) => {
 
   const metadata = entry.getMetadata();
   const resourceURI = entry.getResourceURI();
-  const title = metadata.findFirstValue(resourceURI, namespaces.expand('dcterms:title'));
+  const name = metadata.findFirstValue(resourceURI, namespaces.expand('foaf:name'));
 
-  return title;
+  if (!name) {
+    return metadata.findFirstValue(resourceURI, namespaces.expand('dcterms:title'));
+  }
+
+  return name;
 };
-
 
 export const getModifiedDate = entry => entry.getEntryInfo().getModificationDate();

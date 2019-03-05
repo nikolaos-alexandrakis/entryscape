@@ -4,7 +4,8 @@ import declare from 'dojo/_base/declare';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import EntryType from 'commons/create/EntryType';
 import DOMUtil from 'commons/util/htmlUtil';
-import typeIndex from 'commons/create/typeIndex';
+import stamp from 'dojo/date/stamp';
+import RemoveDialog from 'commons/list/common/RemoveDialog';
 
 /*
 const DownloadDialog = declare(null, {
@@ -36,11 +37,38 @@ const FileReplaceDialog = declare(ReplaceDialog, {
     }));
   },
 });
+*/
 
 const RemoveFileDialog = declare([RemoveDialog], {
+  open(params) {
+    this.currentParams = params;
+    this.inherited(arguments);
+    const list = this.list;
+    const gb = list.nlsGenericBundle;
+    const sb = list.nlsSpecificBundle;
+    const removeConfirmMessage = sb[list.nlsRemoveEntryConfirm] ?
+      sb[list.nlsRemoveEntryConfirm] : gb[list.nlsRemoveEntryConfirm];
+    const removeFailedMessage = sb[list.nlsRemoveFailedKey] ?
+      sb[list.nlsRemoveFailedKey] : gb[list.nlsRemoveFailedKey];
+    const dialogs = registry.get('dialogs');
+    dialogs.confirm(removeConfirmMessage, null, null,
+      (confirm) => {
+        if (confirm) {
+          this.remove().then(() => {
+            list.removeRow(params.row);
+            params.row.destroy();
+          }, () => {
+            dialogs.acknowledge(removeFailedMessage);
+          }).then(params.onDone);
+        } else {
+          params.onDone && params.onDone();
+          // list.getView().clearSelection();
+        }
+      });
+  },
   remove() {
     this.distributionEntry = this.list.entry;
-    this.fileEntry = this.currentParams.row.entry;
+    this.fileEntry = this.list.fileEntry;
     const fileResourceURI = this.fileEntry.getResourceURI();
     const distMetadata = this.distributionEntry.getMetadata();
     const distResourceURI = this.distributionEntry.getResourceURI();
@@ -60,9 +88,24 @@ const RemoveFileDialog = declare([RemoveDialog], {
     });
   },
 });
-*/
 
-export default (entry, dom) => {
+export default (entry, distribution, onUpdate, dom) => {
+
+  const removeFile = () => {
+    const removeFileDialog = new RemoveFileDialog({
+      list: {
+        entry: distribution,
+        fileEntry: entry,
+        nlsSpecificBundle: {},
+        nlsGenericBundle: {},
+      },
+    }, DOMUtil.create('div', null, dom));
+    removeFileDialog.open({
+      onDone: onUpdate,
+    });
+  };
+
   return {
+    removeFile,
   };
 };

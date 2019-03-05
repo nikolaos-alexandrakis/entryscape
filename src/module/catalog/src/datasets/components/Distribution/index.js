@@ -31,12 +31,12 @@ export default (vnode) => {
     });
   };
 
-  const getFileEntries = (distributionEntry) => {
+  const getFileEntries = () => {
     const entryStoreUtil = registry.get('entrystoreutil');
     Promise.all(
-      distributionEntry
+      distribution
         .getMetadata()
-        .find(distributionEntry.getResourceURI(), 'dcat:downloadURL')
+        .find(distribution.getResourceURI(), 'dcat:downloadURL')
         .map(statement => entryStoreUtil.getEntryByResourceURI(statement.getValue())),
     ).then(fileEntries => setState({ fileEntries }));
   };
@@ -100,7 +100,7 @@ export default (vnode) => {
 
   return {
     oninit() {
-      getFileEntries(distribution);
+      getFileEntries();
     },
     view(vnode) {
       const { fileEntryURIs } = vnode.attrs;
@@ -163,6 +163,8 @@ export default (vnode) => {
             </div>
             <FileList
               files={state.fileEntries}
+              distribution={distribution}
+              onUpdate={getFileEntries}
             />
           </div>
         </div>

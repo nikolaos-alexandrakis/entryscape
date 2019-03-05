@@ -9,8 +9,8 @@ import {
 import bindActions from './actions';
 
 export default (vnode) => {
-  const { entry } = vnode.attrs;
-  const actions = bindActions(entry, vnode.dom);
+  const { entry, distribution, onUpdate } = vnode.attrs;
+  const actions = bindActions(entry, distribution, onUpdate, vnode.dom);
 
   return {
     view(vnode) {
@@ -30,9 +30,9 @@ export default (vnode) => {
                 <Button
                   class=" btn--distribution fa fa-fw fa-bookmark"
                   title="hello"
-                  onclick={actions.openAddFile}
+                  onclick={actions.removeFile}
                 >
-                  ADD FILE LABEL
+                  Remove FILE LABEL
                 </Button>
               </Dropdown>
             </div>

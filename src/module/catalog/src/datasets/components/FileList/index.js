@@ -3,10 +3,14 @@ import File from '../File';
 
 export default () => ({
   view(vnode) {
-    const { files } = vnode.attrs;
+    const { files, distribution, onUpdate } = vnode.attrs;
     return (
       <div>
-        { files.map(fileEntry => <File entry={fileEntry}/>)}
+        { files.map(fileEntry => <File 
+          entry={fileEntry}
+          distribution={distribution}
+          onUpdate={onUpdate}
+          />)}
       </div>
     );
   }
