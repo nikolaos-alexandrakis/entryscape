@@ -243,7 +243,7 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const showingDropdownClass = state.isShowing ? 'show' : '';
+      const showingDropdownClass = state.isShowing ? 'ESshow' : '';
       return (
         <div>
           <div class="flex--sb">

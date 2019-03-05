@@ -93,26 +93,5 @@
             margin-right: 5px;
         }
     }
-    .file__dropdownMenu{
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: auto;
-        z-index: 1000;
-        float: left;
-        min-width: 160px;
-        padding: 5px 0;
-        margin: 2px 0 0;
-        font-size: 14px;
-        text-align: left;
-        list-style: none;
-        background-color: #fff;
-        background-clip: padding-box;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);  
-    }
-    .file__dropdownMenu.show{
-        display: flex;
-    }
+  
 }

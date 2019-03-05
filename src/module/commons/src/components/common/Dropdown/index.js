@@ -1,5 +1,6 @@
 import m from 'mithril';
 import { createSetState } from 'commons/util/util';
+import './index.scss';
 
 export default (vnode) => {
   const state = {
@@ -39,12 +40,9 @@ export default (vnode) => {
 
       return (
         <div>
-          <div class="flex--sb">
-            <button class="icons fa fa-cog" onclick={toggleDropdown}></button>
-          </div>
+          <button class="icons fa fa-cog" onclick={toggleDropdown}></button>
           <div class={`file__dropdownMenu ${showingDropdownClass}`}>
             { children }
-            BLAMMO
           </div>
         </div>
       );
