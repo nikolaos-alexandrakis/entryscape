@@ -6,16 +6,9 @@ import EntryType from 'commons/create/EntryType';
 import DOMUtil from 'commons/util/htmlUtil';
 import stamp from 'dojo/date/stamp';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
+import ReplaceDialog from 'workbench/bench/ReplaceDialog';
 
-/*
-const DownloadDialog = declare(null, {
-  open(params) {
-    this.entry = params.row.entry;
-    const resURI = this.entry.getResourceURI();
-    window.open(resURI, '_blank');
-  },
-});
-const FileReplaceDialog = declare(ReplaceDialog, {
+const ReplaceFileDialog = declare(ReplaceDialog, {
   footerButtonAction() {
     this.distributionEntry = this.list.entry;
     const distResourceURI = this.distributionEntry.getResourceURI();
@@ -29,15 +22,16 @@ const FileReplaceDialog = declare(ReplaceDialog, {
       distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
       return this.distributionEntry.commitMetadata().then(() => {
         // check here ..need to update list rows to update dropdown items
-        this.list.setListModified('replace', this.entry.getResourceURI());
-        this.list.rowMetadataUpdated(this.row, true);
+        // this.list.setListModified('replace', this.entry.getResourceURI());
+        // this.list.rowMetadataUpdated(this.row, true);
         this.entry.setRefreshNeeded();
         return this.entry.refresh();
       });
-    }));
+    })
+      .then(this.onDone)
+    );
   },
 });
-*/
 
 const RemoveFileDialog = declare([RemoveDialog], {
   open(params) {
@@ -90,6 +84,27 @@ const RemoveFileDialog = declare([RemoveDialog], {
 });
 
 export default (entry, distribution, onUpdate, dom) => {
+  const replaceFile = () => {
+    const replaceFileDialog = new ReplaceFileDialog({
+      list: {
+        entry: distribution,
+      },
+      onDone: onUpdate,
+    }, DOMUtil.create('div', null, dom));
+
+    replaceFileDialog.open({
+      entry,
+      distributionEntry: distribution,
+      distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
+      row: {
+        entry,
+        domNode: dom,
+      },
+      // apiEntryURIs: this.dctSource,
+      // apiEntryURIs: fileEntryURIs,
+      // datasetEntry: dataset,
+    });
+  };
 
   const removeFile = () => {
     const removeFileDialog = new RemoveFileDialog({
@@ -105,7 +120,14 @@ export default (entry, distribution, onUpdate, dom) => {
     });
   };
 
+  const downloadFile = () => {
+    const resURI = entry.getResourceURI();
+    window.open(resURI, '_blank');
+  };
+
   return {
     removeFile,
+    replaceFile,
+    downloadFile,
   };
 };

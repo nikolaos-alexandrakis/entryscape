@@ -1,7 +1,9 @@
 import m from 'mithril';
+import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
 import Dropdown from 'commons/components/common/Dropdown';
 import Button from 'catalog/datasets/components/Button';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import {
   getTitle,
   getModifiedDate,
@@ -17,6 +19,7 @@ export default (vnode) => {
       const { entry } = vnode.attrs;
       const title = getTitle(entry);
       const modifiedDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
       return (
         <div class="distribution__fileRow">
@@ -29,10 +32,24 @@ export default (vnode) => {
               <Dropdown>
                 <Button
                   class=" btn--distribution fa fa-fw fa-bookmark"
-                  title="hello"
+                  title={escaDataset.removeDistributionTitle}
                   onclick={actions.removeFile}
                 >
-                  Remove FILE LABEL
+                  {escaDataset.removeDistributionTitle}
+                </Button>
+                <Button
+                  class="btn--distribution fa fa-fw fa-exchange"
+                  title={escaDataset.replaceFileTitle}
+                  onclick={actions.replaceFile}
+                >
+                  {escaDataset.replaceFile}
+                </Button>
+                <Button
+                  class="btn--distribution fa fa-fw fa-download"
+                  title={escaDataset.downloadButtonTitle}
+                  onclick={actions.downloadFile}
+                >
+                  {escaDataset.downloadButtonTitle}
                 </Button>
               </Dropdown>
             </div>
