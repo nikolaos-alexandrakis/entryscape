@@ -44,7 +44,6 @@ export default (vnode) => {
           </div>
           <div class={`file__dropdownMenu ${showingDropdownClass}`}>
             { children }
-            BLAMMO
           </div>
         </div>
       );
