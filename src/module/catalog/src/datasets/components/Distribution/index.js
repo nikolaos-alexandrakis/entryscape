@@ -2,6 +2,7 @@ import m from 'mithril';
 import registry from 'commons/registry';
 import config from 'config';
 import { i18n } from 'esi18n';
+import dateUtil from 'commons/util/dateUtil';
 import { engine, utils as rdformsUtils } from 'rdforms';
 import { createSetState } from 'commons/util/util';
 import {
@@ -9,6 +10,7 @@ import {
 } from 'catalog/datasets/utils/distributionUtil';
 import {
   getTitle,
+  getModifiedDate,
 } from 'commons/util/metadata';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import DistributionActions from '../DistributionActions';
@@ -93,12 +95,7 @@ export default (vnode) => {
       });
     }
 
-    const modificationDate = entry
-      .getEntryInfo()
-      .getModificationDate();
-    // this.renderDate(); this.clearDropdownMenu(); this.renderDropdownMenu();
-
-    return { format, modificationDate, accessURI, downloadURI, description, fileEntries };
+    return { format, accessURI, downloadURI, description, fileEntries };
   };
 
   return {
@@ -110,11 +107,11 @@ export default (vnode) => {
       const title = getSafeTitle(distribution);
       const {
         format,
-        modificationDate,
         accessURI,
         downloadURI,
         description,
       } = getDistributionMetadata(distribution);
+      const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(distribution));
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
       const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
@@ -130,7 +127,7 @@ export default (vnode) => {
               </p>
             </div>
             <div class="flex--sb">
-              <p class="distribution__date">Jan 17</p>
+              <p class="distribution__date">{modificationDate.short}</p>
               <span class={`icons fa ${distributionArrowClass}`}></span>
             </div>
           </div>

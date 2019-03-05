@@ -8,6 +8,8 @@ import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
 import GenerateAPI from 'catalog/datasets/GenerateAPI';
+import EntryType from 'commons/create/EntryType';
+import typeIndex from 'commons/create/typeIndex';
 import {
   isUploadedDistribution,
   isFileDistributionWithOutAPI,
@@ -61,6 +63,79 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
       });
     },
   });
+
+const AddFileDialog = declare(RDFormsEditDialog, {
+  explicitNLS: true,
+  maxWidth: 800,
+  postCreate() {
+    const valueChange = (value) => {
+      if (value != null) {
+        this.unlockFooterButton();
+      } else {
+        this.lockFooterButton();
+      }
+    };
+    this.fileOrLink = new EntryType({
+      valueChange,
+    }, DOMUtil.create('div', null, this.containerNode, true));
+    this.inherited(arguments);
+  },
+  updateGenericCreateNLS() {
+    this.doneLabel = this.list.nlsSpecificBundle.createButton;
+    this.title = this.list.nlsSpecificBundle.createHeader;
+    this.updateTitleAndButton();
+  },
+  open(params) {
+    this.currentParams = params;
+    this.list = params.list;
+    const context = registry.get('context');
+    this.distributionEntry = params.list.entry;
+    this.fileOrLink.show(true, false, false);
+    this.updateGenericCreateNLS();
+    this._newEntry = context.newEntry();
+    const nds = this._newEntry;
+    nds.getMetadata().add(nds.getResourceURI(), 'rdf:type', 'esterms:File');
+    this.show(nds.getResourceURI(), nds.getMetadata(), this.list.getTemplate(), 'recommended');
+  },
+  doneAction(graph) {
+    this.distributionEntry = this.list.entry;
+    const title = graph.findFirstValue(null, 'dcterms:title');
+    if (!title) {
+      // check whether graph have title or not
+      graph.addL(this._newEntry.getResourceURI(), 'dcterms:title', this.fileOrLink.getValue());
+    }
+    this._newEntry.setMetadata(graph);
+    return this._newEntry.commit().then(fileEntry => fileEntry.getResource(true)
+      .putFile(this.fileOrLink.getFileInputElement())
+      .then(() => fileEntry.refresh().then(() => {
+        // this.list.getView().addRowForEntry(fileEntry);
+        const fileResourceURI = fileEntry.getResourceURI();
+        const distMetadata = this.distributionEntry.getMetadata();
+        const distResourceURI = this.distributionEntry.getResourceURI();
+        distMetadata.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
+        distMetadata.add(distResourceURI, 'dcat:downloadURL', fileResourceURI);
+        distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
+        distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
+        const format = fileEntry.getEntryInfo().getFormat();
+        const manualFormatList = distMetadata.find(distResourceURI, 'dcterms:format');
+        if (typeof format !== 'undefined' && manualFormatList.length === 0) {
+          distMetadata.addL(distResourceURI, 'dcterms:format', format);
+        }
+        return this.distributionEntry.commitMetadata().then(() => {
+          // update row menu items
+          if (this.currentParams.list.parentRow) {
+            this.currentParams.list.parentRow.updateDropdownMenu();
+          }
+          this.list.setListModified('add', fileResourceURI);
+          this.distributionEntry.setRefreshNeeded();
+          return this.distributionEntry.refresh();
+          // this.list.getView().addRowForEntry(fileEntry);
+          // this.list.getView().action_refresh();
+        })
+        .then(() => m.redraw());
+      })));
+  },
+});
   // END DIALOGS
   //
   // UTILS
@@ -231,6 +306,28 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
       dialogs.acknowledge(escaDataset.removeFileDistWithAPI);
     }
   };
+
+  const openAddFile = () => {
+    const addFileDialog = new AddFileDialog({}, DOMUtil.create('div', null, dom));
+    addFileDialog.open({
+      list: {
+        entry: distribution,
+        nlsSpecificBundle: {},
+        getTemplate(entry) {
+          const conf = typeIndex.getConf(entry);
+          if (conf) {
+            return registry.get('itemstore').getItem(conf.template);
+          }
+
+          return registry.get('itemstore').createTemplateFromChildren([
+            'dcterms:title',
+            'dcterms:description',
+          ]);
+        },
+      },
+      onDone: () => m.redraw(),
+    });
+  };
   // END ACTIONS
 
   return {
@@ -241,5 +338,6 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     refreshAPI,
     openRevisions,
     remove,
+    openAddFile,
   };
 };

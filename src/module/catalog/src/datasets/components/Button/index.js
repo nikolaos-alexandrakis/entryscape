@@ -9,7 +9,7 @@ export default (vnode) => {
 
       return (
         <button class={`btn--action ${vnode.attrs.class}`} onclick={onclick}>
-          {buttonContent}
+          <span>{buttonContent}</span>
         </button>
       );
     },

@@ -2,6 +2,7 @@ import m from 'mithril';
 import { createSetState } from 'commons/util/util';
 import registry from 'commons/registry';
 import { i18n } from 'esi18n';
+import dateUtil from 'commons/util/dateUtil';
 import StatBox from 'commons/overview/components/StatBox';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import DistributionList from '../DistributionList';
@@ -9,6 +10,10 @@ import MoreMetadata from '../MoreMetadata';
 import Button from '../Button';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import {
+  getTitle,
+  getModifiedDate,
+} from 'commons/util/metadata';
 import bindActions from './actions';
 import './index.scss';
 
@@ -44,7 +49,7 @@ export default (vnode) => {
 
       const comments = entry.getComments();
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
-      const lastUpdatedDate = metadata.findFirstValue(resourceURI, 'dcterms:modified');
+      const lastUpdatedDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
       const theme = getProperty(metadata, 'dcat:theme');
       const themeChoices = registry.get('itemstore').getItem('dcat:theme-isa').getChoices();
@@ -67,7 +72,7 @@ export default (vnode) => {
                 { theme &&
                   <p><span class="metadata__label">{escaDataset.themeTitle}:</span> {themeLabels.label[i18n.getLocale()]}</p>
                 }
-                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate}</p>
+                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate.short}</p>
                 <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
               </div>
             </div>
