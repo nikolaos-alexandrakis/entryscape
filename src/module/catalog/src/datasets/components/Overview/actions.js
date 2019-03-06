@@ -21,21 +21,21 @@ export default (entry, dom) => {
   };
 
   const toggleImplementation = (onSuccess) => {
-    /*
-    const f = () => {
+    const toggleThisImplementation = () => {
       const ns = registry.get('namespaces');
-      const ei = this.entry.getEntryInfo();
+      const ei = entry.getEntryInfo();
       const dialogs = registry.get('dialogs');
-      registry.get('getGroupWithHomeContext')(this.entry.getContext()).then((groupEntry) => {
+      registry.get('getGroupWithHomeContext')(entry.getContext()).then((groupEntry) => {
         if (groupEntry.canAdministerEntry()) {
-          if (this.isPublicToggle) {
+          if (this.isPublicToggle) { // @scazan THIS
             const apiDistributionURIs = [];
             const esu = registry.get('entrystoreutil');
-            const stmts = this.getDistributionStatements();
+            const stmts = this.getDistributionStatements(); // @scazan THIS
             Promise.all(stmts.forEach((stmt) => {
               const ruri = stmt.getValue();
-              esu.getEntryByResourceURI(ruri).then((entry) => {
-                const source = entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcterms:source'));
+              esu.getEntryByResourceURI(ruri).then((distEntry) => {
+                const source = distEntry.getMetadata()
+                  .findFirstValue(distEntry.getResourceURI(), ns.expand('dcterms:source'));
                 if (source !== '' && source != null) {
                   apiDistributionURIs.push(source);
                 }
@@ -43,27 +43,28 @@ export default (entry, dom) => {
               }); // fail silently
             }));
             if (apiDistributionURIs.length === 0) {
-              return this.unpublishDataset(groupEntry, onSuccess);
+              return this.unpublishDataset(groupEntry, onSuccess); // @scazan THIS
             }
-            const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset];
+            const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
-                return this.unpublishDataset(groupEntry, onSuccess);
+                return this.unpublishDataset(groupEntry, onSuccess); // @scazan THIS
               }
               return null;
             });
           }
+
           ei.setACL({});
-          this.reRender();
+          // this.reRender();
           ei.commit().then(onSuccess);
-          this.updateDistributionACL({});
+          this.updateDistributionACL({}); // @scazan THIS
         } else {
-          registry.get('dialogs').acknowledge(this.nlsSpecificBundle.datasetSharingNoAccess);
+          registry.get('dialogs').acknowledge(this.nlsSpecificBundle.datasetSharingNoAccess); // @scazan THIS
         }
       });
     };
 
-    if (this.isPublicToggle) {
+    if (this.isPublicToggle) { // @scazan THIS
       const es = registry.get('entrystore');
       const adminRights = registry.get('hasAdminRights');
       const userEntry = registry.get('userEntry');
@@ -71,23 +72,26 @@ export default (entry, dom) => {
       const allowed = ccg === '_users' ? true :
         userEntry.getParentGroups().indexOf(es.getEntryURI('_principals', ccg)) >= 0;
       if (!adminRights && !allowed) {
-        registry.get('dialogs').acknowledge(this.nlsSpecificBundle.unpublishProhibited);
+        registry.get('dialogs').acknowledge(this.nlsSpecificBundle.unpublishProhibited); // @scazan THIS
         return;
       }
-    } else if (this.entry.getMetadata().find(null, 'dcat:distribution').length === 0) {
-      const b = this.nlsSpecificBundle;
+    } else if (entry.getMetadata().find(null, 'dcat:distribution').length === 0) {
+      const nls = this.nlsSpecificBundle; // @scazan THIS
       registry.get('dialogs').confirm(
-        b.confirmPublishWithoutDistributions,
-        b.proceedPublishWithoutDistributions,
-        b.cancelPublishWithoutDistributions).then(f);
+        nls.confirmPublishWithoutDistributions,
+        nls.proceedPublishWithoutDistributions,
+        nls.cancelPublishWithoutDistributions,
+      ).then(toggleThisImplementation);
+
       return;
     }
-    f();
-    */
+
+    toggleThisImplementation();
   };
 
   return {
     openEditDialog,
     unpublishDataset,
+    toggleImplementation,
   };
 };

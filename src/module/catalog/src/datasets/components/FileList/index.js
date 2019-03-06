@@ -6,8 +6,9 @@ export default () => ({
     const { files, distribution, onUpdate } = vnode.attrs;
     return (
       <div>
-        { files.map(fileEntry => <File 
+        { files.map(fileEntry => <File
           entry={fileEntry}
+          key={fileEntry.getId()}
           distribution={distribution}
           onUpdate={onUpdate}
           />)}

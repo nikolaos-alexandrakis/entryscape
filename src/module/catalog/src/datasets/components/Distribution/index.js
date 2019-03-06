@@ -31,7 +31,7 @@ export default (vnode) => {
     });
   };
 
-  const getFileEntries = () => {
+  const updateFileEntries = () => {
     const entryStoreUtil = registry.get('entrystoreutil');
     Promise.all(
       distribution
@@ -100,7 +100,7 @@ export default (vnode) => {
 
   return {
     oninit() {
-      getFileEntries();
+      updateFileEntries();
     },
     view(vnode) {
       const { fileEntryURIs } = vnode.attrs;
@@ -164,7 +164,7 @@ export default (vnode) => {
             <FileList
               files={state.fileEntries}
               distribution={distribution}
-              onUpdate={getFileEntries}
+              onUpdate={updateFileEntries}
             />
           </div>
         </div>
