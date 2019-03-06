@@ -20,7 +20,7 @@ import './index.scss';
 export default (vnode) => {
   const { distribution, dataset } = vnode.attrs;
   const state = {
-    isExpanded: true,
+    isExpanded: false,
     fileEntries: [],
   };
   const setState = createSetState(state);
