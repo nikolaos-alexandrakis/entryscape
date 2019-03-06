@@ -36,7 +36,7 @@ export default (vnode) => {
   return {
     view(vnode) {
       const { children } = vnode;
-      const showingDropdownClass = state.isShowing ? 'show' : '';
+      const showingDropdownClass = state.isShowing ? 'ESshow' : '';
 
       return (
         <div>
