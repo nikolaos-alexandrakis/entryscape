@@ -10,6 +10,7 @@ import MoreMetadata from '../MoreMetadata';
 import Button from '../Button';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escoListNLS from 'commons/nls/escoList.nls';
 import {
   getTitle,
   getModifiedDate,
@@ -57,6 +58,7 @@ export default (vnode) => {
 
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
+      const escoList = i18n.getLocalization(escoListNLS);
       const publishToggleString = state.isPublish ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
 
       return (
@@ -74,12 +76,16 @@ export default (vnode) => {
                 }
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate.short}</p>
                 <p><span class="metadata__label">{escaDataset.editedTitle}</span> Althea Espejo, Valentino Hudra</p>
+                <Button class="btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
+
               </div>
             </div>
 
             <div class="btn__wrapper">
               <Button class="btn--edit" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
-              <Button class="btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
+              <Button>{escaDataset.downgrade}</Button>
+              <Button>{escaDataset.removeDatasetTitle}</Button>
+
               <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
@@ -104,9 +110,11 @@ export default (vnode) => {
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
             <div class="cards--wrapper">
+              <StatBox value="3" label={escoList.versionsLabel} link=""/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} link=""/>
               <StatBox value="2" label={escaDataset.showideas} link=""/>
               <StatBox value="0" label={escaDataset.showresults} link=""/>
+
             </div>
 
 
