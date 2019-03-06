@@ -18,6 +18,7 @@ import {
 import bindActions from './actions';
 import './index.scss';
 
+
 export default (vnode) => {
   const { entry } = vnode.attrs;
   const resourceURI = entry.getResourceURI();
