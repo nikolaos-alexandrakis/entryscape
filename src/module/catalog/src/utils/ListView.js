@@ -23,7 +23,7 @@ export default declare([ListView], {
 
             this.listHeader.innerHTML = listheader;
             this.listHeader.setAttribute('title', this.nlsSpecificBundle[
-              this.nlsListHeaderTitleKey] || this.nlsGenericBundle[this.nlsListHeaderTitleKeyo] || '');
+              this.nlsListHeaderTitleKey] || this.nlsGenericBundle[this.nlsListHeaderTitleKey] || '');
             resolve(dcat);
           }, () => reject(dcat));
       });
