@@ -1,23 +1,25 @@
-import registry from 'commons/registry';
-import config from 'config';
-import keys from 'commons/util/keyCodeUtil';
-import Tree from 'commons/tree/Tree';
-import EntryChooser from 'commons/rdforms/choosers/EntryChooser';
 import Placeholder from 'commons/placeholder/Placeholder';
-import ViewMixin from 'commons/view/ViewMixin';
-import { LevelEditor, renderingContext } from 'rdforms';
+import EntryChooser from 'commons/rdforms/choosers/EntryChooser';
+import registry from 'commons/registry';
 import skosRepair from 'commons/tree/skos/repair';
 import skosUtil from 'commons/tree/skos/util';
-import { i18n, NLSMixin } from 'esi18n';
-import esteConcept from 'terms/nls/esteConcept.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import aspect from 'dojo/aspect';
-import jquery from 'jquery';
+import Tree from 'commons/tree/Tree';
+import keys from 'commons/util/keyCodeUtil';
 import { createEntry } from 'commons/util/storeUtil';
+import ViewMixin from 'commons/view/ViewMixin';
+import config from 'config';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
+import aspect from 'dojo/aspect';
+import { i18n, NLSMixin } from 'esi18n';
+import jquery from 'jquery';
+import m from 'mithril';
+import { LevelEditor, renderingContext } from 'rdforms';
+import esteConcept from 'terms/nls/esteConcept.nls';
 import utils from '../utils';
+import ConceptUriComponent from './components/ConceptUri';
 import template from './ConceptsTemplate.html';
 import './style.css';
 
@@ -226,8 +228,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this._updateButtons();
 
       this._editor.domNode.style.display = '';
-      const templateId = config.terms.conceptTemplateId || 'skosmos:concept';
+      const templateId = config.get('terms.conceptTemplateId', 'skosmos:concept');
       this._editor.show(entry.getResourceURI(), md, itemstore.getItem(templateId));
+    }).then(() => {
+      // update the concept URI field
+      const firstChild = jquery(this._editor.domNode).find('.rdforms.rdformsEditor')[0];
+      const newEl = document.createElement('div', { id: 'concept-update-uri', style: 'margin: 15px' });
+      this._editor.domNode.insertBefore(newEl, firstChild);
+      m.mount(newEl, ConceptUriComponent(entry));
     });
   },
   _saveC() {

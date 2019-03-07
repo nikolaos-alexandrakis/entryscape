@@ -484,6 +484,17 @@
       "nodetype": "RESOURCE",
       "items": [
         {
+          "id": "skos:uri",
+          "property": "http://www.w3.org/2004/02/skos/core#test",
+          "label": {
+            "en": "URI",
+            "sv": "URI",
+            "de": "URI"
+          },
+          "type": "text",
+          "nodetype": "URI"
+        },
+        {
           "id": "skos:prefLabel"
         },
         {
@@ -774,6 +785,17 @@
       "nodetype": "RESOURCE",
       "id": "skos:easyConcept",
       "items": [
+        {
+          "id": "skos:uri",
+          "property": "http://www.w3.org/2004/02/skos/core#test",
+          "label": {
+            "en": "URI",
+            "sv": "URI",
+            "de": "URI"
+          },
+          "type": "text",
+          "nodetype": "URI"
+        },
         {
           "id": "skos:conceptLabels"
         },

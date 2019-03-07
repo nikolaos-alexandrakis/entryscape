@@ -54,6 +54,7 @@ module.exports = (env, argv) => {
         jquery: 'jquery',
         // 'window.jquery': 'jquery',
         Popper: ['popper.js', 'default'],
+        m: 'mithril',
       }),
       new CopyWebpackPlugin([
         {
@@ -91,6 +92,7 @@ module.exports = (env, argv) => {
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-syntax-dynamic-import',
                 ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
+                ['@babel/plugin-transform-react-jsx', { 'pragma': 'm' }],
               ],
             },
           },

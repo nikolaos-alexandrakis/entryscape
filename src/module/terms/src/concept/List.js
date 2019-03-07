@@ -15,6 +15,32 @@ import esteConcept from 'terms/nls/esteConcept.nls';
 let treeModel;
 const ns = registry.get('namespaces');
 
+/**
+ * TODO @valentino if the inverse relational cache is available for the ConceptScheme then use that instead of the query
+ * @param conceptPrefLabel
+ * @param {store/Context} context
+ * @param {string} conceptSchemeNamespace
+ */
+const getUniqueConceptRURI = async (conceptPrefLabel, context, conceptSchemeNamespace) => {
+  const conceptURIs = new Set();
+
+  await registry.getEntryStore().newSolrQuery()
+    .context(context)
+    .rdfType('skos:Concept')
+    .forEach((conceptEntry) => {
+      console.log(conceptEntry);
+      conceptURIs.add(conceptEntry.getResourceURI());
+    });
+
+  let conceptCandidateRURI = `${conceptSchemeNamespace}${conceptPrefLabel}`;
+  if (conceptURIs.has(conceptCandidateRURI)) {
+    // out of luck, find a new namespace uri
+    conceptCandidateRURI = `${conceptSchemeNamespace}${conceptPrefLabel}-${Math.floor(Math.random() * Math.floor(10))};`;
+  }
+
+  return conceptCandidateRURI;
+};
+
 const CCreateDialog = declare(CreateDialog, {
   open() {
     registry.get('setConceptCount')(this.list.getView().getSize());
@@ -23,42 +49,58 @@ const CCreateDialog = declare(CreateDialog, {
     }
     this.inherited(arguments);
   },
-  doneAction(graph) {
+  /**
+   * @override
+   * @param {rdfjson/Graph} graph
+   */
+  async doneAction(graph) {
+    /**
+     * Get concept scheme info
+     */
     const context = registry.get('context');
-    registry.get('entrystoreutil').getEntryByType('skos:ConceptScheme', context)
-      .then((csEntry) => {
-        const schemeMetadata = csEntry.getMetadata();
+    const schemeEntry = await registry.get('entrystoreutil').getEntryByType('skos:ConceptScheme', context);
+    const schemeMetadata = schemeEntry.getMetadata();
+    const schemeRURI = schemeEntry.getResourceURI();
 
-        /**
-         * get the concept resource URI based on the
-         * uriSpace of the conceptScheme if exists
-         */
-        let conceptRURI;
-        let uriSpace = schemeMetadata.findFirstValue(null, 'void:uriSpace');
-        if (uriSpace) {
-          uriSpace = uriSpace.endsWith('/') ? uriSpace : `${uriSpace}/`;
-          const conceptName = '1';
-          conceptRURI = `${uriSpace}${conceptName}`;
-        } else {
-          conceptRURI = this._newEntry.getResourceURI();
-        }
-        this._newEntry.setResourceURI(conceptRURI);
+    /**
+     * get the concept resource URI based on the uriSpace of the conceptScheme if exists
+     */
+    let conceptRURI;
+    let namespaceURI = schemeMetadata.findFirstValue(null, 'void:uriSpace');
+    if (namespaceURI) {
+      namespaceURI = namespaceURI.endsWith('/') ? namespaceURI : `${namespaceURI}/`;
+      const conceptName = graph.findFirstValue(null, 'skos:prefLabel');
+      conceptRURI = await getUniqueConceptRURI(conceptName, context, namespaceURI);
+    } else {
+      conceptRURI = this._newEntry.getResourceURI();
+    }
 
-        // create metadata graph for new concept scheme
-        const md = skosUtil.addNewConceptStmts({
-          md: graph,
-          conceptRURI,
-          schemeRURI: csEntry.getResourceURI(),
-          isRoot: true, // created from list
-        });
+    /**
+     * create metadata graph for new concept scheme
+     */
+    this._newEntry.setResourceURI(conceptRURI);
+    const md = skosUtil.addNewConceptStmts({
+      md: graph,
+      conceptRURI,
+      schemeRURI,
+      isRoot: true, // created from list
+    });
 
-        this._newEntry.setMetadata(md).commit().then((newCEntry) => {
-          skosUtil.addConceptToScheme(newCEntry).then(() => {
-            this.list.addRowForEntry(newCEntry);
-            registry.get('incrementConceptCount')();
-          });
-        });
-      });
+    /**
+     * create entry and add to concept scheme
+     */
+    const newConceptEntry = await this._newEntry.setMetadata(md).commit();
+    await skosUtil.addConceptToScheme(newConceptEntry);
+
+    /**
+     * Append newly created entry to the list of entries
+     */
+    this.list.addRowForEntry(newConceptEntry);
+
+    /**
+     * Keep a general count of added concepts. Some instances have a limit
+     */
+    registry.get('incrementConceptCount')();
   },
 });
 

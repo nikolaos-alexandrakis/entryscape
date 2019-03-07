@@ -36,6 +36,11 @@ export default declare([RDFormsEditDialog, ListDialogMixin], {
     this.doneLabel = i18n.renderNLSTemplate(bundle.createButton, name);
     this.updateTitleAndButton();
   },
+  /**
+   *
+   * @param {rdfjson/Graph} graph
+   * @return {Promise}
+   */
   doneAction(graph) {
     return this._newEntry.setMetadata(graph).commit().then((newEntry) => {
       this.list.addRowForEntry(newEntry);

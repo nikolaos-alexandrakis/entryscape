@@ -1,6 +1,5 @@
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import registry from 'commons/registry';
-import { createEntry } from 'commons/util/storeUtil';
 import { isUri } from 'commons/util/util';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
@@ -75,28 +74,34 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
       // TODO remove this nls string as it will never happen (checkValidInfo method above)
       return this.NLSBundle0.insufficientInfoToCreateScheme;
     }
+
+    /** @type {entrystore-js/Context} */
     let context;
+
     const store = registry.get('entrystore');
     return store.createGroupAndContext()
       .then((entry) => {
         group = entry;
         hc = entry.getResource(true).getHomeContext();
+
         context = store.getContextById(hc);
         return entry;
       })
       .then(() => {
-        const pe = createEntry(context, 'skos:ConceptScheme');
-        const md = pe.getMetadata();
-        const l = renderingContext.getDefaultLanguage();
-        md.add(pe.getResourceURI(), 'rdf:type', 'skos:ConceptScheme');
-        md.addL(pe.getResourceURI(), 'dcterms:title', name, l);
+        // create an entry with a preset resource uri
+        const conceptSchemeEntry = context.newLink(namespace);
+        const resourceURI = conceptSchemeEntry.getResourceURI();
+        const md = conceptSchemeEntry.getMetadata();
+        const lang = renderingContext.getDefaultLanguage();
+        md.add(resourceURI, 'rdf:type', 'skos:ConceptScheme');
+        md.addL(resourceURI, 'dcterms:title', name, lang);
         if (desc) {
-          md.addL(pe.getResourceURI(), 'dcterms:description', desc, l);
+          md.addL(resourceURI, 'dcterms:description', desc, lang);
         }
         if (namespace) { // void:uriSpace is actually a URL literal
-          md.addL(pe.getResourceURI(), 'void:uriSpace', namespace);
+          md.addL(resourceURI, 'void:uriSpace', namespace);
         }
-        return pe.commit();
+        return conceptSchemeEntry.commit();
       })
       .then((skos) => {
         context.getEntry().then((ctxEntry) => {
