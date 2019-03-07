@@ -1,0 +1,12 @@
+.concept-uri input {
+    font-size: 14px;
+}
+
+.concept-uri .edit-action {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.concept-uri .input-group.rdformsField {
+    width: 80%;
+}
