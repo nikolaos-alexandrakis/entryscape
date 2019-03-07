@@ -378,6 +378,7 @@ export default class Site {
    * @return {*}
    */
   createView(viewDef) {
+    this.resetView(); // empty this.config.viewsNode
     const { class: ViewClass } = viewDef;
     if (viewDef.node == null) {
       // this.config.viewsNode should be a DOM node (?)
@@ -389,12 +390,21 @@ export default class Site {
     viewDef.constructorParams = viewDef.constructorParams || {};
     Object.assign(viewDef.constructorParams, { _siteManager: this });
     const view = new ViewClass(viewDef.constructorParams, viewDef.node);
-    if (view.startup) view.startup();
+    if (view.startup) {
+      view.startup();
+    }
     if (view.domNode) { // In case a dijit uses a template and creates a new node.
       viewDef.node = view.domNode;
       domNodeHide(viewDef.node);
     }
     return view;
+  }
+
+  /**
+   *
+   */
+  resetView() {
+    m.mount(this.config.viewsNode, null);
   }
 
   createSiteController(SiteControllerClass, node) {

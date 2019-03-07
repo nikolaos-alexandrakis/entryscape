@@ -10,6 +10,7 @@ import IdeasList from 'catalog/ideas/List';
 import ContactsList from 'catalog/contacts/List';
 import Search from 'catalog/search/Search';
 import DocumentsList from 'catalog/documents/List';
+import StatisticsView from 'catalog/statistics/View';
 
 export default {
   modules: {
@@ -144,6 +145,14 @@ export default {
       faClass: 'file',
       title: { en: 'Documents', sv: 'Dokument', de: 'Dokumente' },
       route: '/catalog/:context/documents',
+      parent: 'catalog',
+      module: 'catalog',
+    },
+    catalog__statistics: {
+      title: { en: 'Statistics', sv: 'Statistics', de: 'Statistics' },
+      class: StatisticsView,
+      faClass: 'stat',
+      route: '/catalog/:context/statistics',
       parent: 'catalog',
       module: 'catalog',
     },
