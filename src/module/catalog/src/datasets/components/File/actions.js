@@ -1,12 +1,15 @@
 import m from 'mithril';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import EntryType from 'commons/create/EntryType';
 import DOMUtil from 'commons/util/htmlUtil';
 import stamp from 'dojo/date/stamp';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
 import ReplaceDialog from 'workbench/bench/ReplaceDialog';
+import escoListNLS from 'commons/nls/escoList.nls';
+import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
 
 const ReplaceFileDialog = declare(ReplaceDialog, {
   footerButtonAction() {
@@ -33,7 +36,10 @@ const ReplaceFileDialog = declare(ReplaceDialog, {
   },
 });
 
+// When you remove the File, we need to ask whether "...the API should be refreshed"
 const RemoveFileDialog = declare([RemoveDialog], {
+  nlsRemoveEntryConfirm: 'confirmRemoveFile',
+  nlsRemoveFailedKey: 'removeEntryFailed',
   open(params) {
     this.currentParams = params;
     this.inherited(arguments);
@@ -111,8 +117,8 @@ export default (entry, distribution, onUpdate, dom) => {
       list: {
         entry: distribution,
         fileEntry: entry,
-        nlsSpecificBundle: {},
-        nlsGenericBundle: {},
+        nlsSpecificBundle: i18n.getLocalization(escaFilesListNLS),
+        nlsGenericBundle: i18n.getLocalization(escoListNLS),
       },
     }, DOMUtil.create('div', null, dom));
     removeFileDialog.open({
