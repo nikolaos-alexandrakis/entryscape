@@ -4,11 +4,8 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 100%;
     right: 0;
-    left: auto;
-    z-index: 1000;
-    float: left;
+    z-index: 6;
     min-width: 120px;
     padding: 5px 0;
     margin: 2px 0 0;
@@ -17,7 +14,7 @@
     list-style: none;
     background-color: #fff;
     background-clip: padding-box;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);  
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     Button{
         width: 100%;
         background-color: white;
