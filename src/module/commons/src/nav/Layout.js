@@ -1,33 +1,48 @@
-import SiteController from 'spa/SiteController';
-import registry from 'commons/registry';
-import config from 'config';
-import m from 'mithril';
-import { NLSMixin, i18n } from 'esi18n';
+import Settings from 'commons/nav/Settings';
 import escoLayout from 'commons/nls/escoLayout.nls';
 import escoModules from 'commons/nls/escoModules.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import registry from 'commons/registry';
+import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
 import has from 'dojo/has';
-import Settings from 'commons/nav/Settings';
-import DOMUtil from '../util/htmlUtil';
+import { i18n, NLSMixin } from 'esi18n';
+import m from 'mithril';
+import PubSub from 'pubsub-js';
 import configUtil from '../util/configUtil';
-import utils from './utils';
-import Signin from './Signin'; // In template
-import template from './LayoutTemplate.html';
-import Menu from './components/Menu';
+import DOMUtil from '../util/htmlUtil';
+import * as siteUtil from '../util/siteUtil';
 import Breadcrumb from './components/Breadcrumb';
 import Logo from './components/Logo';
-import './layout.css';
+import Menu from './components/Menu';
 import './entryscape.css';
+import './layout.css';
+import template from './LayoutTemplate.html';
+import Signin from './Signin'; // In template
+import utils from './utils';
 
-export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, SiteController, NLSMixin.Dijit], {
+export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   templateString: template,
   _entry2label: {},
   nlsBundles: [{ escoLayout }, { escoModules }],
   _firstLoad: true,
   bid: 'layout',
+
+  /**
+   * Subscribe to the view change and re-render before each view change
+   *
+   * @param {*} params
+   */
+  constructor(params) {
+    this.site = params.site; // TODO @valentino perhaps registry.getSiteManager() is enough
+
+    PubSub.subscribe('spa.beforeViewChange', (res, args) => {
+      const { switchingToView, switchingToParams } = args;
+      this.show.call(this, switchingToView, switchingToParams);
+    });
+  },
 
   postCreate() {
     this.inherited('postCreate', arguments);
@@ -207,6 +222,41 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
       }, this);
     }
   },
+  /**
+   *
+   * @param viewName
+   * @return {Object}
+   */
+  getNavBarInfo(viewName) {
+    const siteConfig = this.site.getConfig();
+    let views = [];
+    let wideSidebar;
+    const alwaysSidebar = (siteConfig.sidebar && siteConfig.sidebar.always);
+    const alwaysWideSidebar = siteConfig.sidebar && siteConfig.sidebar.wide === true;
+    const onlySidebar = false;
+    const viewDef = this.site.getViewDef(viewName);
+    const module = siteUtil.getModuleOfView(viewName);
+
+    if (viewDef.parent) {
+      views = siteUtil.getSubviewsOfView(viewDef.parent);
+      views = siteUtil.filterViewsByAttribute(views, 'navbar');
+      if (views.length > 0 && (module.sidebar || alwaysSidebar)) {
+        wideSidebar = module.wideSidebar;
+      }
+    } else if (module) {
+      const viewsArray = siteUtil.getTopLevelViewsOfModule(module, viewDef, true);
+      views = (viewsArray.length > 1) ? viewsArray : [viewDef];
+    } else {
+      views = [viewDef];
+    }
+
+    return {
+      show: views.length > 1,
+      views: views || [],
+      wide: wideSidebar === true || alwaysWideSidebar,
+      alone: onlySidebar,
+    };
+  },
   manageUserLayout(user = null) {
     if (registry.getSiteConfig().public) {
       return;
@@ -313,7 +363,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, S
 
     const upcomingView = site.getUpcomingOrCurrentView();
     const upcomingViewDef = site.getViewDef(upcomingView);
-    const viewsPathArr = this.getBreadcrumbViews(upcomingViewDef);
+    const viewsPathArr = siteUtil.getBreadcrumbViews(upcomingViewDef);
     const breadcrumbItems = [];
     if (module.asCrumb) {
       breadcrumbItems.push(this.createModuleCrumb(params));
