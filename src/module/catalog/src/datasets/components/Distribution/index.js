@@ -14,7 +14,6 @@ import {
 } from 'commons/util/metadata';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import DistributionActions from '../DistributionActions';
-import FileList from '../FileList';
 import './index.scss';
 
 export default (vnode) => {
@@ -119,7 +118,7 @@ export default (vnode) => {
 
       return (
         <div>
-          <div tabindex="0" class="distribution__row flex--sb" onclick={expandDistribution}>
+          <div tabindex="0" class="distribution__row flex--sb">
             <div class="distribution__format">
               <p class="distribution__title">{title}</p>
               <p class="file__format">
@@ -128,8 +127,12 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
-              <span class={`icons fa ${distributionArrowClass}`}></span>
             </div>
+            <DistributionActions
+              distribution={distribution}
+              dataset={dataset}
+              fileEntryURIs={fileEntryURIs}
+            />
           </div>
 
           <div class={`distribution__expand ${expandedClass}`}>
@@ -154,18 +157,8 @@ export default (vnode) => {
                     </p>
                   </div>
                 </div>
-                <DistributionActions
-                  distribution={distribution}
-                  dataset={dataset}
-                  fileEntryURIs={fileEntryURIs}
-                />
               </div>
             </div>
-            <FileList
-              files={state.fileEntries}
-              distribution={distribution}
-              onUpdate={updateFileEntries}
-            />
           </div>
         </div>
       );

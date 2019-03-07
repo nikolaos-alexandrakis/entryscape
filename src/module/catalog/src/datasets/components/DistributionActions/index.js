@@ -8,6 +8,7 @@ import { template } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
 import escoListNLS from 'commons/nls/escoList.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import Dropdown from 'commons/components/common/Dropdown';
 import {
   isUploadedDistribution,
   isFileDistributionWithOutAPI,
@@ -224,7 +225,9 @@ export default (vnode) => {
       const { distribution } = vnode.attrs;
       return (
         <div class=" icon--wrapper distribution--file">
+            <Dropdown>
           { renderActions(distribution) }
+            </Dropdown>
         </div>
       );
     },
