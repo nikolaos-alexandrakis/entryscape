@@ -1,0 +1,33 @@
+.stats__wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.visualization__chart{
+    width: 400px;
+    height:400px;
+    background:royalblue;
+}
+.distributionList__tabs{
+    display: flex;
+    margin:50px 0;
+    p{
+        margin-right: 10px;
+    }
+}
+.distributionList{
+    width:500px;
+    height: 500px;
+    background-color:lightblue;
+}
+.chooser, .pagination{
+    background-color: white;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+}
+.pagination__wrapper{
+    display: flex;
+    justify-content: center;
+}
