@@ -11,10 +11,11 @@
         margin:0 10px;
     }
 }
-.visualization__chart{
-    width: 400px;
-    height:400px;
-    background:royalblue;
+
+.visualization__chart {
+  width: 400px;
+  height: 400px;
+  background: royalblue;
 }
 .distributionList__tabs{
     display: flex;
@@ -39,8 +40,4 @@
     width: 200px;
     height: 30px;
     text-align: center;
-}
-.pagination__wrapper{
-    display: flex;
-    justify-content: center;
 }
