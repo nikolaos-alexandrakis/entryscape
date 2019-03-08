@@ -1,6 +1,5 @@
 import registry from 'commons/registry';
 
-
 /**
  * Get files uri from the distribution entry graph. The connector property is 'dcat:downloadURL'
  *
@@ -125,4 +124,12 @@ export const isDownloadURLEmpty = (entry) => {
   const subj = entry.getResourceURI();
   const downloadURI = md.findFirstValue(subj, ns.expand('dcat:downloadURL'));
   return !((downloadURI !== '' && downloadURI != null));
+};
+
+
+export const getDistributionTemplate = (templateId, dtemplate) => {
+  if (!dtemplate) { // TODO @scazan don't forget to re-institute this!!!!
+    return registry.get('itemstore').getItem(templateId);
+  }
+  return dtemplate;
 };

@@ -1,3 +1,4 @@
+import m from 'mithril';
 import VersionsDialog from 'commons/store/VersionsDialog';
 import declare from 'dojo/_base/declare';
 import escoVersionsNLS from 'commons/nls/escoVersions.nls';
@@ -25,9 +26,9 @@ export default declare([VersionsDialog], {
     this.show(params.row.entry, params.template || this.list.getTemplate(params.row.entry));
   },
   localeChange() {
-    this.updateLocaleStrings(
+    this.dialog.updateLocaleStrings(
       this.NLSLocalized.escoList,
-      this.NLSLocalized.escoVersions
+      this.NLSLocalized.escoVersions,
     );
   },
   getNLSString(nlsKey) {

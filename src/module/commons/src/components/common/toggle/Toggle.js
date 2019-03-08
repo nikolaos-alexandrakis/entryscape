@@ -2,11 +2,11 @@ import m from 'mithril';
 
 export default () => ({
   view(vnode) {
-    const { isPublish, isInternalPublish, onToggle } = vnode.attrs;
-    const publishClass = isPublish ? '' : 'fa-rotate-180';
+    const { isEnabled, onToggle } = vnode.attrs;
+    const enabledClass = isEnabled ? '' : 'fa-rotate-180';
 
     return (
-      <button class={`fa fa-toggle-on fa-lg  btn--publish ${publishClass}`} onclick={onToggle} ></button>
+      <button class={`fa fa-toggle-on fa-lg  btn--publish ${enabledClass}`} onclick={onToggle} ></button>
     );
   },
 });

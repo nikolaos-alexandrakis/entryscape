@@ -1,0 +1,166 @@
+@import '~commons/theme.scss';
+@import '../Button/index.scss';
+
+.overview__wrapper {
+    width: 100%;
+
+    .flex--sb {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+    }
+    .btn__wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+    .intro--wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        overflow-wrap: break-word;
+    }
+    .metadata--wrapper{
+        max-width: 70%;
+
+    }
+
+    .metadata--basic,
+    .metadata--more {
+        margin-bottom: 15px;
+        color: $main-colour;
+        p {
+            margin-bottom: 10px;
+        }
+    }
+
+    .metadata--more {
+        padding: 10px;
+        border: 3px solid $main-colour;
+        margin-top: -2px;
+    }
+
+
+    .cards--wrapper {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        max-width: 40%;
+        max-height: 300px;
+        margin-top:38px;
+        .escoOverview__statBox {
+            min-width: 110px;
+            max-width: 110px;
+            min-height: 120px;
+            height: 120px;
+            margin-right: 0;
+            margin-left: 15px;
+            padding: 7px;
+
+            .escoOverview__statLabel,
+            .escoOverview__statCount {
+                font-size: $text-size;
+                margin:0;
+            }
+            .escoOverview__statCount{
+                font-size: $title-size;
+            }
+    
+        }
+
+    }
+  
+
+    .icon--wrapper {
+        display: flex;
+        align-items: center;
+    }
+}
+
+
+
+/* Buttons */
+
+
+
+.btn--circle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    line-height: 0;
+    font-size: 20px;
+    margin-bottom: 5px;
+
+
+    &:focus {
+        border: solid 1px $main-colour;
+        padding: 1px;
+        line-height: 0.8;
+    }
+}
+
+.btn--publish {
+    @include button;
+    font-size: 28px;
+    color: #5cb85c;
+
+    &.fa-rotate-180 {
+        color: #d9534f;
+    }
+}
+
+.externalPublish{
+    margin-bottom:10px;
+    min-width: 150px;
+}
+
+
+.intro--wrapper{
+    .title{
+        @include title--underlined;
+    }
+}
+
+
+/* Typography */
+.overview__wrapper {
+    .description {
+        font-size: 16px;
+        color: $main-colour;
+        margin-bottom: 40px;
+        word-break: break-word;
+    }
+
+    .icon--wrapper{
+        p {
+            color: $main-colour;
+        }
+    }
+    .icons {
+        @include button;
+        font-size: 24px;
+        color: $main-colour;
+        margin-right: 10px;
+        width: 24px;
+        &:hover{
+            color: royalblue;
+        }
+
+    }
+
+    .metadata__label {
+        font-weight: bold;
+    }
+}
+.distributions {
+    width: 60%;
+
+    .header {
+        width: 50%;
+        border-bottom: 1.5px solid $accent-colour;
+        align-items: center;
+        margin-top: 15px;
+    }
+}

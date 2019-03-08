@@ -3,7 +3,7 @@ import htmlUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import m from 'mithril';
-import OverviewComponent from 'catalog/datasets/components/Overview';
+import OverviewComponent from 'catalog/datasets/components/Overview/';
 
 export default declare([_WidgetBase], {
   buildRendering() {
