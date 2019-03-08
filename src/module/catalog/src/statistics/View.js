@@ -19,8 +19,14 @@ export default declare(MithrilView, {
               </div>
               <div className="distributions__wrapper">
                 <div class="distributionList__tabs">
-                  <p><span class="fa fa-file"></span>Files</p>
-                  <p><span class="fa fa-repeat"></span>API Calls</p>
+                  <ul class="nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#"><span class="fa fa-file"></span>Files</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#"><span class="fa fa-repeat"></span>Link</a>
+                    </li>
+                  </ul>
                 </div>
                 <div class="distributionList__header">
                   <p>Title</p>
