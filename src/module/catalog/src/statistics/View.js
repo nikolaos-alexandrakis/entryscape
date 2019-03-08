@@ -22,6 +22,13 @@ export default declare(MithrilView, {
                   <p><span class="fa fa-file"></span>Files</p>
                   <p><span class="fa fa-repeat"></span>API Calls</p>
                 </div>
+                <div class="distributionList__header">
+                  <p>Title</p>
+                  <div class="flex">
+                    <p>Format</p>
+                    <p class="fa fa-download"></p>
+                  </div>
+                </div>
                 <div class="distributionList"></div>
               </div>
               <div className="pagination__wrapper">
