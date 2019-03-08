@@ -21,8 +21,8 @@ export default declare([ToggleRow], {
     this.inherited('postCreate', arguments);
     this.entry.getContext().getEntry().then((contextEntry) => {
       this.catalogPublic = contextEntry.isPublic();
-      this.setToggled(contextEntry.isPublic(), this.entry.isPublic());
-      this.renderCol4();
+/*       this.setToggled(contextEntry.isPublic(), this.entry.isPublic());
+ */      this.renderCol4();
       if (this.nlsSpecificBundle) {
         this._updateLocaleStrings();
       }
@@ -33,17 +33,10 @@ export default declare([ToggleRow], {
     return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', this.entry.getContext());
   },
   updateLocaleStrings() {
-    this.inherited('updateLocaleStrings', arguments);
-    this._updateLocaleStrings();
+   this.inherited('updateLocaleStrings', arguments);
+   this._updateLocaleStrings();
   },
   _updateLocaleStrings() {
-    if (!this.catalogPublic) {
-      this.protectedNode.setAttribute('title', this.nlsSpecificBundle.privateDisabledDatasetTitle);
-    } else {
-      this.protectedNode.setAttribute('title', this.nlsSpecificBundle[this.nlsProtectedTitle]);
-    }
-    this.removeBrokenDatasetRefs.innerHTML = this.nlsSpecificBundle.removeBrokenDatasetRefs;
-    this.removeBrokenDatasetRefsWarning.innerHTML = this.nlsSpecificBundle.removeBrokenDatasetRefsWarning;
     this.maybeUpdate();
   },
   getDistributionStatements() {
@@ -344,6 +337,10 @@ export default declare([ToggleRow], {
       this.badgeNode.style.display = 'none';
     }
     this.maybeUpdate();
+  },
+
+  updateActions() {
+
   },
   maybeUpdate() {
     if (this.nlsSpecificBundle) {

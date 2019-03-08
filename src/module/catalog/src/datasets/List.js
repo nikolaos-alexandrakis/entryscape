@@ -130,11 +130,12 @@ const CloneDialog = declare([ListDialogMixin], {
     const confirmMessage = this.list.nlsSpecificBundle.cloneDatasetQuestion;
     dialogs.confirm(confirmMessage, null, null, (confirm) => {
       if (!confirm) {
-        return;
+        return undefined;
       }
       const nds = createEntry(null, 'dcat:Dataset');
       const nmd = datasetEntry.getMetadata().clone()
         .replaceURI(datasetEntry.getResourceURI(), nds.getResourceURI());
+
       return registry.get('getGroupWithHomeContext')(nds.getContext()).then((groupEntry) => {
         const ei = nds.getEntryInfo();
         const acl = ei.getACL(true);
@@ -162,6 +163,7 @@ const CloneDialog = declare([ListDialogMixin], {
     });
   },
 });
+
 export default declare([ETBaseList], {
   createAndRemoveDistributions: true,
   includeCreateButton: true,
@@ -176,7 +178,7 @@ export default declare([ETBaseList], {
   listViewClass: ListView,
   class: 'datasets',
   searchVisibleFromStart: false,
-  rowClickDialog: 'edit',
+  rowClickView: 'catalog__datasets__dataset',
   versionExcludeProperties: ['dcat:distribution'],
   rowActionNames: ['edit', 'versions', 'preview', 'downgrade', 'comment',
     'distributionCreate', 'showresults', 'showideas', 'clone',

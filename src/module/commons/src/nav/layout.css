@@ -214,10 +214,8 @@ body {
   background-color: white;
   opacity: 0.8
 }
-@media (min-width: 620px){
 
 
-}
 @media (max-width: 1200px) {
     .x_title h2 {
         width: 62%;
