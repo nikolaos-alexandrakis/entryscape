@@ -17,6 +17,7 @@
 }
 .btn--distribution{
     @include button;
+    text-align: start;
     width: 120px;
     background-color: $main-colour;
     padding:5px;
