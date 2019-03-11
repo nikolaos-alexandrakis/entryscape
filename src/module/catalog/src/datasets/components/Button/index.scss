@@ -46,3 +46,24 @@
 
     }
 }
+
+.btn.btn-raised.btn-primary,.btn.btn-fab.btn-primary{
+    background-color:#3f51b5; //primary colour on Bootstrap 4
+}
+.btn.btn-fab{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    margin-bottom:5px;
+}
+
+
+.btn--publish {
+    @include button;
+    font-size: 28px;
+    color: #5cb85c;
+
+    &.fa-rotate-180 {
+        color: #d9534f;
+    }
+}

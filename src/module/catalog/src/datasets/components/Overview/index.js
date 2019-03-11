@@ -112,15 +112,15 @@ export default (vnode) => {
                     <p><span class="metadata__label">{escaDataset.editedTitle}</span>{contributorName}</p>
                   ))
                 }
-                <Button class="btn--show btn--secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
+                <Button class=" btn-sm btn-secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
 
               </div>
             </div>
 
             <div class="btn__wrapper">
-              <Button class="btn--edit" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
-              <Button class="btn--secondary">{escaDataset.downgrade}</Button>
-              <Button class="btn--secondary">{escaDataset.removeDatasetTitle}</Button>
+              <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
+              <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
+              <Button class=" btn-secondary ">{escaDataset.removeDatasetTitle}</Button>
               <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
