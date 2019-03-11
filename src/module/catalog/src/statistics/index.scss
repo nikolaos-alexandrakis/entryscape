@@ -10,6 +10,10 @@
     .fa{
         margin:0 10px;
     }
+    nav{
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .visualization__chart {
@@ -18,27 +22,5 @@
   margin-left: 50px;
   background: royalblue;
 }
-.distributionList__tabs{
-    display: flex;
-    margin:40px 0 20px;
-    p{
-        margin-right: 10px;
-    }
-}
-.distributionList{
-    width:600px;
-    height: 500px;
-    background-color:lightblue;
-}
-.distributionList__header{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
 
-}
-.chooser, .pagination{
-    background-color: white;
-    width: 200px;
-    height: 30px;
-    text-align: center;
-}
+

@@ -5,6 +5,7 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import DistributionList from './components/DistributionList';
 import APICallList from './components/APICallList';
+import Pagination from 'commons/components/bootstrap/Pagination';
 import './index.scss';
 import m from 'mithril';
 
@@ -13,33 +14,33 @@ import m from 'mithril';
  * @todo @valentino localize
  * @return {string[]}
  */
-const getLocalizedTimeRanges = () => {
-  return [
-    'Today',
-    'Yesterday',
-    'Last 7 days',
-    'Last 14 days',
-    'Last 30 days',
-    'More preset rangs',
-    '-', // denotes li.divider
-    'Custom',
-  ];
-};
+const getLocalizedTimeRanges = () => [
+  'Today',
+  'Yesterday',
+  'Last 7 days',
+  'Last 14 days',
+  'Last 30 days',
+  'More preset rangs',
+  '-', // denotes li.divider
+  'Custom',
+];
 
-const getTabs = () => {
-  return [
-    {
-      label: 'Files', icon: 'fa-file', component: {
-        class: DistributionList,
-      },
+const getTabs = () => [
+  {
+    label: 'Files',
+    icon: 'fa-file',
+    component: {
+      class: DistributionList,
     },
-    {
-      label: 'API calls', icon: 'fa-repeat', component: {
-        class: APICallList,
-      },
+  },
+  {
+    label: 'API calls',
+    icon: 'fa-repeat',
+    component: {
+      class: APICallList,
     },
-  ];
-};
+  },
+];
 
 export default declare(MithrilView, {
   mainComponent: () => {
@@ -92,9 +93,9 @@ export default declare(MithrilView, {
                     <ListComponent />
                   </div>
                 </div>
-                <div className="pagination__wrapper">
-                  <div className="pagination">Pagination</div>
-                </div>
+                <nav>
+                  <Pagination/>
+                </nav>
 
               </div>
               <div className="visualization__wrapper">

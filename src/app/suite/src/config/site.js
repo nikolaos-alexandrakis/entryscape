@@ -1,8 +1,10 @@
+import m from 'mithril';
 import merge from 'commons/merge';
 import adminSiteConfig from 'admin/config/site';
 import catalogSiteConfig from 'catalog/config/site';
 import workbenchSiteConfig from 'workbench/config/site';
 import termsSiteConfig from 'terms/config/site';
+
 
 import Site from 'commons/nav/Site';
 import Layout from 'commons/nav/Layout';

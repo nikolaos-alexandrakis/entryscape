@@ -1,3 +1,4 @@
+import m from 'mithril';
 import registry from 'commons/registry';
 import ConfigError from 'spa/ConfigError';
 import SiteClass from 'spa/Site';

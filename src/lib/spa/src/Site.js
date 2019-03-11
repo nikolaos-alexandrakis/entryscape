@@ -1,3 +1,4 @@
+import m from 'mithril';
 import PubSub from 'pubsub-js';
 import ConfigError from './ConfigError';
 
