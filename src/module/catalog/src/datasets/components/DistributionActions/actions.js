@@ -247,7 +247,7 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     const generateAPI = new GenerateAPI();
     generateAPI.execute({
       params: {
-        distribution,
+        distributionEntry: distribution,
         dataset,
         mode: 'new',
         fileEntryURIs,
