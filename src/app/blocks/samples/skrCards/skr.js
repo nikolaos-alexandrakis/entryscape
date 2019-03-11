@@ -40,7 +40,7 @@ window.__entryscape_config = {
     'https://static.cdn.entryscape.com/suite/2.0.0/templates/rdfs.json',
     'https://static.cdn.entryscape.com/suite/2.0.0/templates/dc.json',
     'https://static.cdn.entryscape.com/suite/2.0.0/templates/schema.json',
-    'https://opendata.statenskonstrad.se/theme_blocks/templates/skr.json',
+    'https://opendata.statenskonstrad.se/theme/templates/skr.json',
   ],
   type2template: {
     'skr:Artist': 'skr:Artist',

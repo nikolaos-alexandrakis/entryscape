@@ -1,3 +1,13 @@
+.entryscape {
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
+.entryscape .slider-container {
+  max-width: 400px;
+  min-width: 300px;
+}
+
 ::-ms-clear {
   display: none;
 }
