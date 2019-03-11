@@ -28,14 +28,6 @@ export default (node, data) => {
 
       if (images.length === 0 && data.fallback) {
         images.push(data.fallback);
-      }
-
-      if (images.length === 1) {
-        DOMUtil.create('img', {
-          class: 'slider-img',
-          src: images[0],
-        });
-        sliderContainer.appendChild('img');
         return;
       }
 

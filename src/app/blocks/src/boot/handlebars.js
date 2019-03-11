@@ -79,7 +79,8 @@ let initializeHelpers = () => {
     const localize = registry.get('localize');
     const es = registry.get('entrystore');
     const rdfutils = registry.get('rdfutils');
-    const ret = stmts.map((stmt) => {
+    const filterFunc = stmt => (!options.nodetype || stmt.getType() === options.nodetype);
+    const ret = stmts.filter(filterFunc).map((stmt) => {
       const val = stmt.getValue();
       const choice = val2choice[val];
       let label;

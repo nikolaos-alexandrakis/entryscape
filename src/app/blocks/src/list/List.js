@@ -290,15 +290,16 @@ export default declare([List, NLSMixin.Dijit], {
       constraints(so, this.conf.constraints);
     }
 
+    if (this.conf.rdftype) {
+      so.rdfType(this.conf.rdftype);
+    }
+
     if (this.block === 'searchList' && this.conf.headless) {
       filter.constraints(so);
     }
+
     if (this.conf.facets) {
       filter.facets(so);
-    }
-
-    if (this.conf.rdftype) {
-      so.rdfType(this.conf.rdftype);
     }
 
     termsConstraint(so, term);

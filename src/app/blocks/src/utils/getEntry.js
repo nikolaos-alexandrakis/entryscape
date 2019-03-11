@@ -33,10 +33,10 @@ export default (data, callback, useSearch = true) => {
         }
       });
     } else if (data.relation) {
-      const relatedResource = entry.getMetadata().findFirstValue(entry.getResourceURI(),
-          data.relation);
-      if (relatedResource) {
-        esu.getEntryByResourceURI(relatedResource).then(f).then(callback);
+      const stmts = entry.getMetadata().find(entry.getResourceURI(), data.relation)
+        .filter(stmt => stmt.getType() === 'uri');
+      if (stmts.length > 0) {
+        esu.getEntryByResourceURI(stmts[0].getValue()).then(f).then(callback);
       }
     }
   };
@@ -46,7 +46,7 @@ export default (data, callback, useSearch = true) => {
       useRelation(entry);
     } else if (useSearch && data.rdftype) {
       esu.getEntryByType(data.rdftype, cid ? es.getContextById(cid) : null)
-          .then(f).then(callback);
+        .then(f).then(callback);
     } else {
       f(entry);
       callback(entry);
@@ -79,7 +79,7 @@ export default (data, callback, useSearch = true) => {
         const query = es.newSolrQuery().limit(1);
         if (config.econfig.lookupLiteral || urlParams.lookupLiteral) {
           query.literalProperty(config.econfig.lookupLiteral || urlParams.lookupLiteral,
-              urlParams.lookup);
+            urlParams.lookup);
         } else if (config.econfig.lookupURI || urlParams.lookupURI) {
           query.uriProperty(config.econfig.lookupURI || urlParams.lookupURI, urlParams.lookup);
         } else {

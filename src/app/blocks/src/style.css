@@ -7,11 +7,6 @@
 }
 
 /* --- Slider block --- */
-
-.entryscape .slider-container {
-  max-width: 400px;
-  min-width: 300px;
-}
 .entryscape .slider-img{
   width: 100%;
 }
@@ -248,4 +243,25 @@
     max-width: 300px;
     margin-right: 20px;
     background: #ededed;
+}
+
+.fullWidthExpandButton .block_facet button {
+    width: 189px;
+    margin: 10px;
+    float: unset !important;
+}
+
+.cleanRDForms .rdformsPresenter .rdformsLabel {
+    border-bottom-style: hidden;
+}
+.cleanRDForms .rdformsLanguage {
+    display: none;
+}
+.cleanRDForms .rdformsLabel {
+    text-transform: uppercase;
+    color: #585757;
+}
+.cleanRDForms .rdformsUrl,
+.cleanRDForms .rdformsField>div {
+    font-weight: bold;
 }

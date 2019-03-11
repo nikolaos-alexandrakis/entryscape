@@ -199,50 +199,53 @@ const filterObj = {
       }
     });
   },
-  facets2collections(facetIdx) {
-    const collections = registry.get('blocks_collections');
-    collections.forEach((def) => {
-      const facet = facetIdx[namespaces.expand(def.property)];
-      const group = def.name;
-      const localize = registry.get('localize');
-      if (facet) {
-        def.changeLoadLimit = (limit) => {
-          def.loadedLimit = limit;
-          const vocab = def.vocab || {};
-          if (def.nodetype === 'literal') {
-            def.source = facet.values.map(value => ({
-              label: vocab[value.name] ? localize(vocab[value.name]) : value.name,
+};
+
+registry.onChange('blocks_search_facets', (facets) => {
+  const collections = registry.get('blocks_collections');
+  const findFacet = d => facets.find(f => (f.predicate === namespaces.expand(d.property)
+    && (!f.type || f.type.indexOf(d.nodetype || 'literal') === 0)));
+  collections.forEach((def) => {
+    const facet = findFacet(def);
+    const group = def.name;
+    const localize = registry.get('localize');
+    if (facet) {
+      def.changeLoadLimit = (limit) => {
+        def.loadedLimit = limit;
+        const vocab = def.vocab || {};
+        if (def.nodetype === 'literal') {
+          def.source = facet.values.map(value => ({
+            label: vocab[value.name] ? localize(vocab[value.name]) : value.name,
+            value: value.name,
+            group,
+            occurence: value.count,
+          }));
+          def.list = (limit && facet.values.length > limit) ?
+            def.source.slice(0, limit) : def.source;
+          registry.set(`blocks_collection_${def.name}`, def);
+        } else {
+          let values = facet.values;
+          if (limit && values.length > limit) {
+            values = values.slice(0, limit);
+          }
+          const svalues = values.map(value => value.name);
+          labels(svalues, def.nodetype).then((lbls) => {
+            def.source = values.map(value => ({
+              label: lbls[value.name] || shorten(value.name),
               value: value.name,
               group,
               occurence: value.count,
             }));
-            def.list = (limit && facet.values.length > limit) ?
-              def.source.slice(0, limit) : def.source;
+            def.list = def.source;
+            def.list.searchFacets = true;
             registry.set(`blocks_collection_${def.name}`, def);
-          } else {
-            let values = facet.values;
-            if (limit && values.length > limit) {
-              values = values.slice(0, limit);
-            }
-            const svalues = values.map(value => value.name);
-            labels(svalues, def.nodetype).then((lbls) => {
-              def.source = values.map(value => ({
-                label: lbls[value.name] || shorten(value.name),
-                value: value.name,
-                group,
-                occurence: value.count,
-              }));
-              def.list = def.source;
-              def.list.searchFacets = true;
-              registry.set(`blocks_collection_${def.name}`, def);
-            });
-          }
-        };
-        def.changeLoadLimit(def.limit);
-      }
-    });
-  },
-};
+          });
+        }
+      };
+      def.changeLoadLimit(def.limit);
+    }
+  });
+});
 
 registry.onChange('blocks_collections', (collections) => {
   let addListener = true;

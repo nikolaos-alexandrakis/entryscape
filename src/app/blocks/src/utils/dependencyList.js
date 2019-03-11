@@ -1,12 +1,11 @@
 import registry from 'commons/registry';
-import filter from './filter';
 
 export default function (list, data) {
   if (!data.dependencyproperties && !data.facets) {
     return list;
   }
   const dps = data.dependencyproperties ?
-            data.dependencyproperties.split(',') : [];
+    data.dependencyproperties.split(',') : [];
   list.getEntries2 = list.getEntries;
   list.getEntries = function (page) {
     const es = registry.get('entrystore');
@@ -14,12 +13,7 @@ export default function (list, data) {
 
     const setFacets = () => {
       if (data.facets && typeof list.getFacets === 'function') {
-        const facets = {};
-        (list.getFacets() || []).forEach((f) => {
-          facets[f.predicate] = f;
-        });
-        filter.facets2collections(facets);
-        registry.set('blocks_search_facets', facets);
+        registry.set('blocks_search_facets', list.getFacets() || []);
       }
     };
 
