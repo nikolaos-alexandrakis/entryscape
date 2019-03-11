@@ -22,7 +22,7 @@
         .distribution__format {
             display: flex;
             align-items: center;
-            color: $main-colour;
+            color: $text-colour;
             .file__format--short{
                 margin-right: 10px;
             }
@@ -59,7 +59,7 @@
     }
 
     .distribution__date{
-        color:$main-colour;
+        color:$text-colour;
         font-size: $text-size;
         margin-right: 10px;
         align-self: center;

@@ -59,9 +59,9 @@ export default (vnode) => {
   const getContributors = () => {
     const es = registry.get('entrystore');
     const contributorsEntryURIs = entryInfo.getContributors()
-      .map(contributorURI => es.getEntryURIFromURI(contributorURI) );
+      .map(contributorURI => es.getEntryURIFromURI(contributorURI));
 
-    return Promise.all(contributorsEntryURIs.map( uri => es.getEntry(uri)));
+    return Promise.all(contributorsEntryURIs.map(uri => es.getEntry(uri)));
   };
 
   return {
@@ -102,25 +102,25 @@ export default (vnode) => {
                 { themes.length &&
                   themes.map(theme => (
                     <p><span class="metadata__label">{escaDataset.themeTitle}:</span>
-                       {theme}
+                      {theme}
                     </p>
                   ))
                 }
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate.short}</p>
                 {contributorsNames &&
-                  contributorsNames.map( contributorName => (
-                        <p><span class="metadata__label">{escaDataset.editedTitle}</span>{contributorName}</p>
+                  contributorsNames.map(contributorName => (
+                    <p><span class="metadata__label">{escaDataset.editedTitle}</span>{contributorName}</p>
                   ))
                 }
-                <Button class="btn--show" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
+                <Button class="btn--show btn--secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
 
               </div>
             </div>
 
             <div class="btn__wrapper">
               <Button class="btn--edit" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
-              <Button>{escaDataset.downgrade}</Button>
-              <Button>{escaDataset.removeDatasetTitle}</Button>
+              <Button class="btn--secondary">{escaDataset.downgrade}</Button>
+              <Button class="btn--secondary">{escaDataset.removeDatasetTitle}</Button>
               <div class=" externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
@@ -145,7 +145,7 @@ export default (vnode) => {
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
             <div class="cards--wrapper">
-              <StatBox value="3" label={escoList.versionsLabel} link=""/>
+              <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} link=""/>
               <StatBox value="1" label={escaDataset.previewDatasetTitle} link=""/>
               <StatBox value="2" label={escaDataset.showideas} link=""/>

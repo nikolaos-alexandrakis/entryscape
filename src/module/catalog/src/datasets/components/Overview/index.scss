@@ -27,7 +27,7 @@
     .metadata--basic,
     .metadata--more {
         margin-bottom: 15px;
-        color: $main-colour;
+        color: $text-colour;
         p {
             margin-bottom: 10px;
         }
@@ -128,14 +128,14 @@
 .overview__wrapper {
     .description {
         font-size: 16px;
-        color: $main-colour;
+        color: $text-colour;
         margin-bottom: 40px;
         word-break: break-word;
     }
 
     .icon--wrapper{
         p {
-            color: $main-colour;
+            color: $text-colour;
         }
     }
     .icons {

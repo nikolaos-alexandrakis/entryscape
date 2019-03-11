@@ -88,7 +88,8 @@ export default (vnode) => {
     // );
 
     actionButtons.push(
-      <button class=" btn--distribution"
+      <button
+        class=" btn--distribution fa fa-fw fa-pencil"
         onclick={actions.editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
