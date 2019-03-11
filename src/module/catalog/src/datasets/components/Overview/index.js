@@ -149,8 +149,8 @@ export default (vnode) => {
               <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} onclick={actions.openComments}/>
               <StatBox value="1" label={escaDataset.previewDatasetTitle} link=""/>
-              <StatBox value="2" label={escaDataset.showideas} link=""/>
-              <StatBox value="0" label={escaDataset.showresults} link=""/>
+              <StatBox value="2" label={escaDataset.showideas} onclick={actions.openIdeas}/>
+              <StatBox value="0" label={escaDataset.showresults} onclick={actions.openShowcases}/>
             </div>
 
 

@@ -6,6 +6,8 @@ import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
+import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
+import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
@@ -146,9 +148,30 @@ export default (entry, dom) => {
     const commentsDialog = new CommentDialog({}, DOMUtil.create('div', null, dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
+      nlsPublicTitle: 'publicDatasetTitle',
+      nlsProtectedTitle: 'privateDatasetTitle',
       row: { entry },
       onDone: () => m.redraw(),
     });
+  };
+
+  const openDialog = (DialogClass) => {
+    const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    dialog.open({
+      // nlsPublicTitle: 'publicDatasetTitle',
+      // nlsProtectedTitle: 'privateDatasetTitle',
+      row: { entry },
+      onDone: () => m.redraw(),
+    });
+  };
+
+  const openIdeas = () => {
+    openDialog(ShowIdeasDialog);
+  };
+
+  const openShowcases = () => {
+    openDialog(ShowShowcasesDialog);
   };
 
   return {
@@ -156,5 +179,7 @@ export default (entry, dom) => {
     setPublished,
     openRevisions,
     openComments,
+    openIdeas,
+    openShowcases,
   };
 };
