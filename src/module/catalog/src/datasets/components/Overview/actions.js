@@ -5,6 +5,7 @@ import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import CommentDialog from 'commons/comments/CommentDialog';
 import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
@@ -83,6 +84,7 @@ export default (entry, dom) => {
             });
           }
 
+          // Make this dataset public by emptying the ACL and relying on parent
           ei.setACL({});
           // this.reRender();
           ei.commit().then(onSuccess);
@@ -140,9 +142,19 @@ export default (entry, dom) => {
     });
   };
 
+  const openComments = () => {
+    const commentsDialog = new CommentDialog({}, DOMUtil.create('div', null, dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    commentsDialog.open({
+      row: { entry },
+      onDone: () => m.redraw(),
+    });
+  };
+
   return {
     openEditDialog,
     setPublished,
     openRevisions,
+    openComments,
   };
 };
