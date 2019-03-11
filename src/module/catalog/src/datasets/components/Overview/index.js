@@ -27,23 +27,24 @@ export default (vnode) => {
   const entryInfo = entry.getEntryInfo();
 
   const state = {
-    isHidden: true,
-    isPublish: false,
-    isPsiPublish: false,
+    metadataHidden: true,
+    isPublished: false,
+    psiPublished: false,
   };
   const setState = createSetState(state);
   const actions = bindActions(entry, vnode.dom);
 
   const toggleMetadata = () => {
-    setState({ isHidden: !state.isHidden });
+    setState({ metadataHidden: !state.metadataHidden });
   };
 
   const togglePublish = () => {
-    setState({ isPublish: !state.isPublish });
+    // setState({ isPublished: !state.isPublished });
+    actions.setPublished(!entry.isPublic());
   };
 
   const togglePsiPublish = () => {
-    setState({ isPsiPublish: !state.isPsiPublish });
+    setState({ psiPublished: !state.psiPublished });
   };
 
   const rdfutils = registry.get('rdfutils');
@@ -66,6 +67,8 @@ export default (vnode) => {
 
   return {
     oninit() {
+      // Cache the entry context
+      entry.getContext().getEntry().then(() => m.redraw);
       getParentCatalogEntry();
       getContributors().then((entries) => {
         contributors = entries;
@@ -84,7 +87,9 @@ export default (vnode) => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
       const escoList = i18n.getLocalization(escoListNLS);
-      const publishToggleString = state.isPublish ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
+      // const publishToggleString = state.isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
+      const isPublished = entry.isPublic();
+      const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
 
       const catalogName = catalogEntry ? rdfutils.getLabel(catalogEntry) : null;
       const contributorsNames = contributors ? contributors.map(contributor => rdfutils.getLabel(contributor)) : null;
@@ -126,20 +131,20 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p>{publishToggleString}</p>
                 </div>
-                <Toggle isEnabled={state.isPublish} onToggle={togglePublish}></Toggle>
+                <Toggle isEnabled={isPublished} onToggle={togglePublish}></Toggle>
               </div>
               <div class="psiPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
                   <p>{escaDataset.psiDatasetTitle}</p>
                 </div>
-                <Toggle isEnabled={state.isPsiPublish} onToggle={togglePsiPublish}></Toggle>
+                <Toggle isEnabled={state.psiPublished} onToggle={togglePsiPublish}></Toggle>
               </div>
             </div>
           </div>
 
           <div class="metadata--wrapper">
-            <MoreMetadata isHidden={state.isHidden} metadata={entryInfo}></MoreMetadata>
+            <MoreMetadata isHidden={state.metadataHidden} metadata={entryInfo}></MoreMetadata>
           </div>
 
           <div class="flex--sb">

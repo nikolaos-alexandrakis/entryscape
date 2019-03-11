@@ -1,11 +1,32 @@
+import m from 'mithril';
 import registry from 'commons/registry';
 import config from 'config';
+import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+
+const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
+
+const updateDistributionACL = (acl, entry) => {
+  const stmts = getDistributionStatements(entry);
+  stmts.forEach((stmt) => {
+    const esu = registry.get('entrystoreutil');
+    const resourceURI = stmt.getValue();
+
+    esu.getEntryByResourceURI(resourceURI).then((resourceEntry) => {
+      if (acl) {
+        const resourceEntryInfo = resourceEntry.getEntryInfo();
+        resourceEntryInfo.setACL(acl);
+        resourceEntryInfo.commit();
+      }
+    });
+  });
+};
 
 export default (entry, dom) => {
   const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
@@ -15,45 +36,48 @@ export default (entry, dom) => {
     });
   };
 
-  const unpublishDataset = (entryInfo, groupEntry) => {
-    const acl = entryInfo.getACL(true);
+  const unpublishDataset = (groupEntry, onSuccess) => {
+    const ei = entry.getEntryInfo();
+    const acl = ei.getACL(true);
     acl.admin = acl.admin || [];
     acl.admin.push(groupEntry.getId());
-    entryInfo.setACL(acl);
+    ei.setACL(acl);
     // this.reRender();
-    ei.commit().then(() => m.redraw());
-    // this.updateDistributionACL(acl);
+    ei.commit().then(onSuccess);
+    updateDistributionACL(acl, entry);
   };
 
-  const toggleImplementation = (onSuccess) => {
+  const setPublished = (publishedState) => {
+    const onSuccess = () => m.redraw;
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
       const ns = registry.get('namespaces');
       const ei = entry.getEntryInfo();
       const dialogs = registry.get('dialogs');
       registry.get('getGroupWithHomeContext')(entry.getContext()).then((groupEntry) => {
         if (groupEntry.canAdministerEntry()) {
-          if (this.isPublicToggle) { // @scazan THIS
+          if (publishedState) {
             const apiDistributionURIs = [];
             const esu = registry.get('entrystoreutil');
-            const stmts = this.getDistributionStatements(); // @scazan THIS
-            Promise.all(stmts.forEach((stmt) => {
+            const stmts = getDistributionStatements(entry);
+            Promise.all(stmts.map((stmt) => {
               const ruri = stmt.getValue();
-              esu.getEntryByResourceURI(ruri).then((distEntry) => {
+              return esu.getEntryByResourceURI(ruri).then((distEntry) => {
                 const source = distEntry.getMetadata()
                   .findFirstValue(distEntry.getResourceURI(), ns.expand('dcterms:source'));
                 if (source !== '' && source != null) {
                   apiDistributionURIs.push(source);
                 }
-              }, () => {
-              }); // fail silently
+              }, () => undefined); // fail silently
             }));
             if (apiDistributionURIs.length === 0) {
-              return this.unpublishDataset(groupEntry, onSuccess); // @scazan THIS
+              return unpublishDataset(groupEntry, onSuccess);
             }
-            const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
+            // const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
+            const confirmMessage = "CHANGE THIS"; // @scazan THIS
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
-                return this.unpublishDataset(groupEntry, onSuccess); // @scazan THIS
+                return unpublishDataset(groupEntry, onSuccess);
               }
               return null;
             });
@@ -62,14 +86,16 @@ export default (entry, dom) => {
           ei.setACL({});
           // this.reRender();
           ei.commit().then(onSuccess);
-          this.updateDistributionACL({}); // @scazan THIS
+          updateDistributionACL({}, entry);
         } else {
-          registry.get('dialogs').acknowledge(this.nlsSpecificBundle.datasetSharingNoAccess); // @scazan THIS
+          registry.get('dialogs').acknowledge(escaDataset.datasetSharingNoAccess);
         }
+
+        return undefined;
       });
     };
 
-    if (this.isPublicToggle) { // @scazan THIS
+    if (publishedState) {
       const es = registry.get('entrystore');
       const adminRights = registry.get('hasAdminRights');
       const userEntry = registry.get('userEntry');
@@ -77,15 +103,14 @@ export default (entry, dom) => {
       const allowed = ccg === '_users' ? true :
         userEntry.getParentGroups().indexOf(es.getEntryURI('_principals', ccg)) >= 0;
       if (!adminRights && !allowed) {
-        registry.get('dialogs').acknowledge(this.nlsSpecificBundle.unpublishProhibited); // @scazan THIS
+        registry.get('dialogs').acknowledge(escaDataset.unpublishProhibited);
         return;
       }
     } else if (entry.getMetadata().find(null, 'dcat:distribution').length === 0) {
-      const nls = this.nlsSpecificBundle; // @scazan THIS
       registry.get('dialogs').confirm(
-        nls.confirmPublishWithoutDistributions,
-        nls.proceedPublishWithoutDistributions,
-        nls.cancelPublishWithoutDistributions,
+        escaDataset.confirmPublishWithoutDistributions,
+        escaDataset.proceedPublishWithoutDistributions,
+        escaDataset.cancelPublishWithoutDistributions,
       ).then(toggleThisImplementation);
 
       return;
@@ -117,8 +142,7 @@ export default (entry, dom) => {
 
   return {
     openEditDialog,
-    unpublishDataset,
-    toggleImplementation,
+    setPublished,
     openRevisions,
   };
 };
