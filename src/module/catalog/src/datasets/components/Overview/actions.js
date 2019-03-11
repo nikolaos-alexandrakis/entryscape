@@ -11,7 +11,6 @@ import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
-import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -32,6 +31,17 @@ const updateDistributionACL = (acl, entry) => {
 };
 
 export default (entry, dom) => {
+  const openDialog = (DialogClass) => {
+    const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    dialog.open({
+      // nlsPublicTitle: 'publicDatasetTitle',
+      // nlsProtectedTitle: 'privateDatasetTitle',
+      row: { entry },
+      onDone: () => m.redraw(),
+    });
+  };
+
   const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
   const openEditDialog = () => {
     editDialog.showEntry(entry, () => {
@@ -155,16 +165,6 @@ export default (entry, dom) => {
     });
   };
 
-  const openDialog = (DialogClass) => {
-    const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
-    // @scazan Some glue here to communicate with RDForms without a "row"
-    dialog.open({
-      // nlsPublicTitle: 'publicDatasetTitle',
-      // nlsProtectedTitle: 'privateDatasetTitle',
-      row: { entry },
-      onDone: () => m.redraw(),
-    });
-  };
 
   const openIdeas = () => {
     openDialog(ShowIdeasDialog);
@@ -174,6 +174,22 @@ export default (entry, dom) => {
     openDialog(ShowShowcasesDialog);
   };
 
+  const openPreview = () => {
+    /**
+     * Encoded resource URI; base64 used
+     * @type {string}
+     */
+    const dataset = entry.getId();
+    if (config.catalog && config.catalog.previewURLNewWindow) {
+      window.open(url, '_blank');
+    } else {
+      const site = registry.get('siteManager');
+      const state = site.getState();
+      const { context } = state[state.view];
+      site.render('catalog__datasets__preview', { context, dataset });
+    }
+  };
+
   return {
     openEditDialog,
     setPublished,
@@ -181,5 +197,6 @@ export default (entry, dom) => {
     openComments,
     openIdeas,
     openShowcases,
+    openPreview,
   };
 };

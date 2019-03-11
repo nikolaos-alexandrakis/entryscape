@@ -64,15 +64,45 @@ export default (vnode) => {
     return Promise.all(contributorsEntryURIs.map(uri => es.getEntry(uri)));
   };
 
+  const getSolrQueryResults = (entry, type, onSuccess) => {
+    const context = registry.get('context');
+    const es = registry.get('entrystore');
+    const ns = registry.get('namespaces');
+
+    es.newSolrQuery().rdfType(ns.expand(type))
+      .uriProperty('dcterms:source', entry.getResourceURI())
+      .context(context.getResourceURI())
+      .getEntries()
+      .then(onSuccess);
+  };
+
+  let ideas = [];
+  const getIdeas = (entry) => {
+    getSolrQueryResults(entry, 'esterms:Idea', (entries) => {
+      ideas = entries;
+      m.redraw();
+    });
+  };
+
+  let showcases = [];
+  const getShowcases = (entry) => {
+    getSolrQueryResults(entry, 'esterms:Result', (entries) => {
+      showcases = entries;
+      m.redraw();
+    });
+  };
+
   return {
     oninit() {
       // Cache the entry context
-      entry.getContext().getEntry().then(() => m.redraw);
+      entry.getContext().getEntry();
       getParentCatalogEntry();
       getContributors().then((entries) => {
         contributors = entries;
         m.redraw();
       });
+      getIdeas(entry);
+      getShowcases(entry);
     },
     view: () => {
       const metadata = entry.getMetadata();
@@ -103,14 +133,14 @@ export default (vnode) => {
               </div>
               <div class="metadata--basic">
                 { catalogName && <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}: </span> {catalogName}</p> }
-                { themes.length &&
+                { themes.length > 0 &&
                     <p>
                       <span class="metadata__label">{escaDataset.themeTitle}: </span>{themes.join(', ')}
                     </p>
                 }
 
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}: </span> {lastUpdatedDate.short}</p>
-                {contributorsNames &&
+                { contributorsNames &&
                     <p><span class="metadata__label">{escaDataset.editedTitle}: </span>{contributorsNames.join(', ')}</p>
                 }
                 <Button class=" btn-sm btn-secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
@@ -122,7 +152,7 @@ export default (vnode) => {
               <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
               <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary ">{escaDataset.removeDatasetTitle}</Button>
-              <div class=" externalPublish flex--sb">
+              <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
                   <p>{publishToggleString}</p>
@@ -148,9 +178,9 @@ export default (vnode) => {
             <div class="cards--wrapper">
               <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} onclick={actions.openComments}/>
-              <StatBox value="1" label={escaDataset.previewDatasetTitle} link=""/>
-              <StatBox value="2" label={escaDataset.showideas} onclick={actions.openIdeas}/>
-              <StatBox value="0" label={escaDataset.showresults} onclick={actions.openShowcases}/>
+              <StatBox value="1" label={escaDataset.previewDatasetTitle} onclick={actions.openPreview}/>
+              <StatBox value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
+              <StatBox value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
             </div>
 
 
