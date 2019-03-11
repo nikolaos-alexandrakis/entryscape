@@ -145,7 +145,7 @@ export default (vnode) => {
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
             <div class="cards--wrapper">
-              <StatBox value="3" label={escoList.versionsLabel} link=""/>
+              <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} link=""/>
               <StatBox value="1" label={escaDataset.previewDatasetTitle} link=""/>
               <StatBox value="2" label={escaDataset.showideas} link=""/>

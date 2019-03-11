@@ -1,6 +1,11 @@
 import registry from 'commons/registry';
+import config from 'config';
 import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
+import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import {
+  getDistributionTemplate,
+} from 'catalog/datasets/utils/distributionUtil';
 
 export default (entry, dom) => {
   const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
@@ -89,9 +94,31 @@ export default (entry, dom) => {
     toggleThisImplementation();
   };
 
+  // @scazan CODE is DUPLICATED SOMEWHAT
+  const openRevisions = () => {
+    // const dv = RevisionsDialog;
+    // if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
+      // dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
+    // } else if (isAPIDistribution(distribution)) {
+      // dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
+    // } else {
+      // dv.excludeProperties = [];
+    // }
+    // dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
+
+    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    revisionsDialog.open({
+      row: { entry },
+      onDone: () => m.redraw(),
+      template: getDistributionTemplate(config.catalog.distributionTemplateId),
+    });
+  };
+
   return {
     openEditDialog,
     unpublishDataset,
     toggleImplementation,
+    openRevisions,
   };
 };
