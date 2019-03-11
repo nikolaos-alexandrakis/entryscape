@@ -213,6 +213,7 @@ registry.onChange('blocks_search_facets', (facets) => {
       def.changeLoadLimit = (limit) => {
         def.loadedLimit = limit;
         const vocab = def.vocab || {};
+        def.limitReached = limit && facet.values.length > limit;
         if (def.nodetype === 'literal') {
           def.source = facet.values.map(value => ({
             label: vocab[value.name] ? localize(vocab[value.name]) : value.name,

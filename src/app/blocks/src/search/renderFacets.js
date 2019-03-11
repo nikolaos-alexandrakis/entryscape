@@ -58,8 +58,8 @@ class FacetBlock {
   }
 
   renderExpand(collection) {
-    if (typeof this.def.limit === 'undefined' || (this.def.limit > 0 &&
-      collection.length < this.def.limit)) {
+    if (!this.def.limitReached && (typeof this.def.limit === 'undefined' || (this.def.limit > 0 &&
+      collection.length <= this.def.limit))) {
       // Nothing to expand
       this.viewAllNode.style.display = 'none';
     } else if (this.def.loadedLimit > 0) {
