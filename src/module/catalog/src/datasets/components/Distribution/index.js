@@ -98,9 +98,6 @@ export default (vnode) => {
   };
 
   return {
-    oninit() {
-      updateFileEntries();
-    },
     view(vnode) {
       const { fileEntryURIs } = vnode.attrs;
       const title = getSafeTitle(distribution);
