@@ -59,9 +59,9 @@ export default (vnode) => {
   const getContributors = () => {
     const es = registry.get('entrystore');
     const contributorsEntryURIs = entryInfo.getContributors()
-      .map(contributorURI => es.getEntryURIFromURI(contributorURI) );
+      .map(contributorURI => es.getEntryURIFromURI(contributorURI));
 
-    return Promise.all(contributorsEntryURIs.map( uri => es.getEntry(uri)));
+    return Promise.all(contributorsEntryURIs.map(uri => es.getEntry(uri)));
   };
 
   return {
@@ -102,14 +102,14 @@ export default (vnode) => {
                 { themes.length &&
                   themes.map(theme => (
                     <p><span class="metadata__label">{escaDataset.themeTitle}:</span>
-                       {theme}
+                      {theme}
                     </p>
                   ))
                 }
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate.short}</p>
                 {contributorsNames &&
-                  contributorsNames.map( contributorName => (
-                        <p><span class="metadata__label">{escaDataset.editedTitle}</span>{contributorName}</p>
+                  contributorsNames.map(contributorName => (
+                    <p><span class="metadata__label">{escaDataset.editedTitle}</span>{contributorName}</p>
                   ))
                 }
                 <Button class="btn--show btn--secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
