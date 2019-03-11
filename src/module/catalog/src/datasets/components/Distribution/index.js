@@ -124,12 +124,13 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
-            </div>
+            
             <DistributionActions
               distribution={distribution}
               dataset={dataset}
               fileEntryURIs={fileEntryURIs}
             />
+           </div>
           </div>
 
           <div class={`distribution__expand ${expandedClass}`}>
