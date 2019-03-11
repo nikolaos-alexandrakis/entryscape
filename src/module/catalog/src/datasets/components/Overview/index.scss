@@ -33,12 +33,6 @@
         }
     }
 
-    .metadata--more {
-        padding: 10px;
-        border: 3px solid $main-colour;
-        margin-top: -2px;
-    }
-
 
     .cards--wrapper {
         display: flex;
@@ -82,34 +76,7 @@
 
 
 
-.btn--circle {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    line-height: 0;
-    font-size: 20px;
-    margin-bottom: 5px;
 
-
-    &:focus {
-        border: solid 1px $main-colour;
-        padding: 1px;
-        line-height: 0.8;
-    }
-}
-
-.btn--publish {
-    @include button;
-    font-size: 28px;
-    color: #5cb85c;
-
-    &.fa-rotate-180 {
-        color: #d9534f;
-    }
-}
 
 .externalPublish{
     margin-bottom:10px;

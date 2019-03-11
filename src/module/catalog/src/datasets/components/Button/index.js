@@ -8,7 +8,7 @@ export default (vnode) => {
       const { onclick } = vnode.attrs;
 
       return (
-        <button class={`btn--primary ${vnode.attrs.class}`} onclick={onclick}>
+        <button class={` btn btn-raised ${vnode.attrs.class}`} onclick={onclick}>
           <span>{buttonContent}</span>
         </button>
       );
