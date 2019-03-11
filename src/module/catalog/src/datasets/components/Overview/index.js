@@ -102,19 +102,16 @@ export default (vnode) => {
                 <p class="description">{ description }</p>
               </div>
               <div class="metadata--basic">
-                { catalogName && <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}</span> {catalogName}</p> }
+                { catalogName && <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}: </span> {catalogName}</p> }
                 { themes.length &&
-                  themes.map(theme => (
-                    <p><span class="metadata__label">{escaDataset.themeTitle}:</span>
-                      {theme}
+                    <p>
+                      <span class="metadata__label">{escaDataset.themeTitle}: </span>{themes.join(', ')}
                     </p>
-                  ))
                 }
-                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}:</span> {lastUpdatedDate.short}</p>
+
+                <p><span class="metadata__label">{escaDataset.lastUpdateLabel}: </span> {lastUpdatedDate.short}</p>
                 {contributorsNames &&
-                  contributorsNames.map(contributorName => (
-                    <p><span class="metadata__label">{escaDataset.editedTitle}</span>{contributorName}</p>
-                  ))
+                    <p><span class="metadata__label">{escaDataset.editedTitle}: </span>{contributorsNames.join(', ')}</p>
                 }
                 <Button class=" btn-sm btn-secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
 
