@@ -215,8 +215,19 @@ div.errorreport {
     border:3px solid #1C4CD1;
 }
 .dataset__icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dataset__icon .fa{
     font-size: 28px;
-    color:#1C4CD1;
+    color:#6ea92a;
+    color: #3ead61;
+}
+.dataset__state{
+font-size: 10px;
+color:#1C4CD1;
 }
 
 .dataset__icon--disabled{
