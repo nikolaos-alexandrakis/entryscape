@@ -6,7 +6,7 @@
   "templates": [
     {
       "type": "text",
-      "nodetype": "URI",
+      "nodetype": "DATATYPE_LITERAL",
       "datatype": "xsd:date",
       "id": "geodcat:dcterms:created",
       "property": "http://purl.org/dc/terms/created",
