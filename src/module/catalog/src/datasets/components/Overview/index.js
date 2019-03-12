@@ -151,7 +151,10 @@ export default (vnode) => {
             <div class="btn__wrapper">
               <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
               <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
+              <Button class=" btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class=" btn-secondary ">{escaDataset.removeDatasetTitle}</Button>
+            
+
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
@@ -178,7 +181,6 @@ export default (vnode) => {
             <div class="cards--wrapper">
               <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} onclick={actions.openComments}/>
-              <StatBox value="1" label={escaDataset.previewDatasetTitle} onclick={actions.openPreview}/>
               <StatBox value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
               <StatBox value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
             </div>
