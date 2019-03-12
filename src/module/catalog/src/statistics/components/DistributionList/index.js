@@ -1,3 +1,4 @@
+import './index.scss';
 /**
  * @todo @valentino
  *  nls
