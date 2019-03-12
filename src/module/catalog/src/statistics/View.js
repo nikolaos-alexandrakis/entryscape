@@ -1,15 +1,15 @@
 import { getDatatsetByDistributionURI, getDistributionByFileResourceURI } from 'catalog/utils/dcatUtil';
 import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
 import InlineList from 'commons/components/bootstrap/InlineList';
-import registry from "commons/registry";
-import statsAPI from "commons/statistics/api";
+import Pagination from 'commons/components/bootstrap/Pagination';
+import registry from 'commons/registry';
+import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from "commons/util/entryUtil";
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import APICallList from './components/APICallList';
 import DistributionList from './components/DistributionList';
-import Pagination from 'commons/components/bootstrap/Pagination';
 import './index.scss';
 
 /**
@@ -177,7 +177,7 @@ export default declare(MithrilView, {
                   <BootstrapDropdown items={timeRanges} selected={state.activeTimeRangeIdx} onclick={onclickTimeRange}/>
                 </div>
                 <div className="distributions__wrapper">
-                  <div class="distributionList__tabs">
+                  <div className="distributionList__tabs">
                     <InlineList items={tabs} selected={state.activeTabIdx} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
