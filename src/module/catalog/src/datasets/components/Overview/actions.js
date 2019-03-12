@@ -66,7 +66,7 @@ export default (entry, dom) => {
   };
 
   const setPublished = (publishedState) => {
-    const onSuccess = () => m.redraw;
+    const onSuccess = () => m.redraw();
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
       const ns = registry.get('namespaces');
