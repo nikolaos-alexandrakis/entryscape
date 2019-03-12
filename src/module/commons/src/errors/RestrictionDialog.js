@@ -31,10 +31,10 @@ export default declare([AcknowledgeTextDialog, NLSMixin.Dijit], {
       this.currentLanguage = language;
       // TODO: @scazan figure this out in webpack
       this.getContentHTML(`${restrictionPath}_${language}.html`).then((content) => {
-        restrictionNode.innerHTML = content;
+        restrictionNode.innerHTML = content.text;
       }, () => {
         this.getContentHTML(`${restrictionPath}.html`).then((content) => {
-          restrictionNode.innerHTML = `<hr>${content}`;
+          restrictionNode.innerHTML = `<hr>${content.text}`;
         });
       });
     }
