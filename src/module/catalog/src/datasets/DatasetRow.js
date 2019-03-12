@@ -21,13 +21,25 @@ export default declare([ToggleRow], {
     this.inherited('postCreate', arguments);
     this.entry.getContext().getEntry().then((contextEntry) => {
       this.catalogPublic = contextEntry.isPublic();
-/*       this.setToggled(contextEntry.isPublic(), this.entry.isPublic());
- */      this.renderCol4();
+      this.setToggled(this.entry.isPublic());
+      this.renderCol4();
+
       if (this.nlsSpecificBundle) {
         this._updateLocaleStrings();
       }
     });
     this.listDistributions();
+  },
+  /**
+   * Set a class to the published icon if the entry is published
+   *
+   * @params {boolean} isPublic Whether the entry is public or not
+   * @returns {undefined}
+   */
+  setToggled(isPublic) {
+    if (isPublic) {
+      this.publishedIcon.classList.add('active');
+    }
   },
   getCatalog() {
     return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', this.entry.getContext());

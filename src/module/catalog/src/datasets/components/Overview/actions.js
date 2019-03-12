@@ -5,12 +5,17 @@ import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
 import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
+  getParentCatalogEntry,
+} from 'commons/util/metadata';
+import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -87,7 +92,7 @@ export default (entry, dom) => {
               return unpublishDataset(groupEntry, onSuccess);
             }
             // const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
-            const confirmMessage = "CHANGE THIS"; // @scazan THIS
+            const confirmMessage = escaDataset.apiExistsToUnpublishDataset; // @scazan THIS
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
                 return unpublishDataset(groupEntry, onSuccess);
@@ -133,6 +138,111 @@ export default (entry, dom) => {
     toggleThisImplementation();
   };
 
+  const removeDataset = () => {
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
+    const dialogs = registry.get('dialogs');
+    const store = registry.get('entrystore');
+    const ns = registry.get('namespaces');
+    const cache = store.getCache();
+    const stmts = getDistributionStatements(entry);
+
+    // check for filedistribution/api distrubtions
+    const esu = registry.get('entrystoreutil');
+    const fileDistributionURIs = [];
+    const apiDistributionURIs = [];
+    const baseURI = store.getBaseURI();
+
+    const es = registry.get('entrystore');
+    Promise.all(stmts.map((stmt) => {
+      const ruri = stmt.getValue();
+      return esu.getEntryByResourceURI(ruri).then((entry) => {
+        const source = entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcterms:source'));
+        const downloadURI = entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcat:downloadURL'));
+
+        if (source !== '' && source != null) {
+          apiDistributionURIs.push(source);
+        }
+        if (downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1) {
+          fileDistributionURIs.push(downloadURI);
+        }
+      }, () => {
+      }); // fail silently
+    })).then(() => {
+      if (apiDistributionURIs.length > 0 && fileDistributionURIs.length > 0) {
+        dialogs.acknowledge(escaDataset.removeDatasetWithFileAndApiDistributions);
+        return;
+      } else if (apiDistributionURIs.length > 0) {
+        dialogs.acknowledge(escaDataset.removeFileDistAPI);
+        return;
+      } else if (fileDistributionURIs.length > 0) {
+        dialogs.acknowledge(escaDataset.removeDatasetWithFileDistributions);
+        return;
+      }
+      if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
+        let confirmMessage;
+        if (stmts.length > 0) {
+          if (self.noOfComments > 0) { // TODO @scazan
+            confirmMessage = i18n.renderNLSTemplate(
+              escaDataset.removeDatasetDistributionsAndCommentsConfirm,
+              { distributions: stmts.length, comments: self.noOfComments },
+            );
+          } else {
+            confirmMessage = i18n.renderNLSTemplate(
+              escaDataset.removeDatasetAndDistributionsQuestion,
+              stmts.length,
+            );
+          }
+        } else if (self.noOfComments > 0) { // TODO @scazan
+          confirmMessage = i18n.renderNLSTemplate(
+            escaDataset.removeDatasetAndCommentsConfirm,
+            self.noOfComments,
+          );
+        } else {
+          confirmMessage = escaDataset.removeDatasetQuestion;
+        }
+        dialogs.confirm(confirmMessage, null, null, (confirm) => {
+          if (!confirm) {
+            return;
+          }
+          const dists = stmts.map((stmt) => {
+            const ruri = stmt.getValue();
+            return cache.getByResourceURI(ruri);
+          })
+            .filter(dist => dist.length > 0);
+
+          es.newSolrQuery()
+            .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')
+            .list()
+            .getEntries(0)
+            .then((allComments) => {
+              Promise.all(allComments.map(comment => comment.del())).then(() => {
+                Promise.all(dists.map(dist => dist[0].del())).then(() => {
+                  const resURI = entry.getResourceURI();
+                  return entry.del().then(() => {
+                    // this.list.getView().removeRow(this);
+                    // this.destroy();
+                    // TODO @scazan Redirect to upper catalog
+                    // getParentCatalogEntry(entry);
+                  }).then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
+                    .then((catalog) => {
+                      catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
+                        value: resURI,
+                        type: 'uri',
+                      });
+                      return catalog.commitMetadata();
+                    }));
+                }, () => {
+                  // this.distributions.innerHTML = '';
+                  // this.listDistributions();
+                  dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
+                });
+              });
+            });
+        });
+      }
+    });
+  };
+
   // @scazan CODE is DUPLICATED SOMEWHAT
   const openRevisions = () => {
     // const dv = RevisionsDialog;
@@ -174,6 +284,10 @@ export default (entry, dom) => {
     openDialog(ShowShowcasesDialog);
   };
 
+  const openDowngrade = () => {
+    openDialog(DowngradeDialog);
+  };
+
   const openPreview = () => {
     /**
      * Encoded resource URI; base64 used
@@ -192,11 +306,13 @@ export default (entry, dom) => {
 
   return {
     openEditDialog,
+    removeDataset,
     setPublished,
     openRevisions,
     openComments,
     openIdeas,
     openShowcases,
     openPreview,
+    openDowngrade,
   };
 };

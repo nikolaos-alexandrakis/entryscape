@@ -15,6 +15,7 @@ import {
   getTitle,
   getModifiedDate,
   getThemeLabels,
+  getParentCatalogEntry,
 } from 'commons/util/metadata';
 import bindActions from './actions';
 import './index.scss';
@@ -51,11 +52,6 @@ export default (vnode) => {
 
   let catalogEntry;
   let contributors;
-  const getParentCatalogEntry = () => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
-    .then((entry) => {
-      catalogEntry = entry;
-      m.redraw();
-    });
   const getContributors = () => {
     const es = registry.get('entrystore');
     const contributorsEntryURIs = entryInfo.getContributors()
@@ -96,7 +92,11 @@ export default (vnode) => {
     oninit() {
       // Cache the entry context
       entry.getContext().getEntry();
-      getParentCatalogEntry();
+      getParentCatalogEntry(entry)
+        .then((parentEntry) => {
+          catalogEntry = parentEntry;
+          m.redraw();
+        });
       getContributors().then((entries) => {
         contributors = entries;
         m.redraw();
@@ -141,7 +141,10 @@ export default (vnode) => {
 
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}: </span> {lastUpdatedDate.short}</p>
                 { contributorsNames &&
-                    <p><span class="metadata__label">{escaDataset.editedTitle}: </span>{contributorsNames.join(', ')}</p>
+                  <p>
+                    <span class="metadata__label">{escaDataset.editedTitle}: </span>
+                    {contributorsNames.join(', ')}
+                  </p>
                 }
                 <Button class=" btn-sm btn-secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
 
@@ -150,8 +153,8 @@ export default (vnode) => {
 
             <div class="btn__wrapper">
               <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
-              <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
-              <Button class=" btn-secondary ">{escaDataset.removeDatasetTitle}</Button>
+              <Button class=" btn-secondary " onclick={actions.openDowngrade}>{escaDataset.downgrade}</Button>
+              <Button class=" btn-secondary " onclick={actions.removeDataset}>{escaDataset.removeDatasetTitle}</Button>
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
