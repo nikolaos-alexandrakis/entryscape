@@ -2,8 +2,12 @@ import m from 'mithril';
 import PubSub from 'pubsub-js';
 import ConfigError from './ConfigError';
 
-const domNodeHide = (n) => { n.style.display = 'none'; };
-const domNodeShow = (n) => { n.style.display = ''; }; // TODO set to initial or block?
+const domNodeHide = (n) => {
+  n.style.display = 'none';
+};
+const domNodeShow = (n) => {
+  n.style.display = '';
+}; // TODO set to initial or block?
 
 /**
  * Base class for displaying a set of interchangable views.
@@ -459,6 +463,7 @@ export default class Site {
     this._queue.push({ view, params, callback });
 
     if (this._queue.length === 1) {
+      this.resetView();
       this._process();
     }
   }

@@ -4,7 +4,7 @@ import InlineList from 'commons/components/bootstrap/InlineList';
 import Pagination from 'commons/components/bootstrap/Pagination';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
-import { getEntryRenderName } from "commons/util/entryUtil";
+import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
@@ -28,6 +28,10 @@ const getLocalizedTimeRanges = () => {
   ];
 };
 
+/**
+ * @todo @valentino nls
+ * @return {*[]}
+ */
 const getTabs = () => {
   return [
     {
@@ -50,12 +54,18 @@ const getTabs = () => {
 const timeRangeIdx2ApiStructure = (idx) => {
   let date = new Date();
   switch (idx) {
-    case 0:
+    case 0: // today
       break;
-    case 1:
-      date = date.setDate(date.getDay() - 1);
+    case 1: // yesterday
+      date.setDate(date.getDate() - 1);
       break;
-    case 2:
+    case 2: // this month
+      return {
+        year: date.getFullYear().toString(),
+        month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
+      };
+    case 3: // last month
+      date.setMonth(date.getMonth() - 1);
       return {
         year: date.getFullYear().toString(),
         month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
@@ -65,7 +75,7 @@ const timeRangeIdx2ApiStructure = (idx) => {
   return {
     year: date.getFullYear().toString(),
     month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
-    day: date.getDay() < 10 ? `0${date.getDay()}` : date.getDay().toString(),
+    day: date.getDate() < 10 ? `0${date.getDate()}` : date.getDate().toString(),
   };
 };
 

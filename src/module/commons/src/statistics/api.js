@@ -34,13 +34,13 @@ const getTopStatistics = (contextId, type = 'all', filters = {}) => {
   requestURL = `${requestURL}${applyFilters(filters)}`;
 
   return fetch(requestURL)
-    .then(res => {
-      if (res.status === 404) {
+    .then((response) => {
+      if (response.status === 404) {
         return { _: [] };
       }
-      return res.json();
+      return response.json();
     })
-    .then(response => response._);
+    .then(res => res._);
 
   // return m.request(requestURL)
   //   .then(res => res.json())
