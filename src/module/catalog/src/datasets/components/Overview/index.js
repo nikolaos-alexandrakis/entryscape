@@ -153,8 +153,10 @@ export default (vnode) => {
 
             <div class="btn__wrapper">
               <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
+              <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={actions.openDowngrade}>{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={actions.removeDataset}>{escaDataset.removeDatasetTitle}</Button>
+
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-globe"></span>
