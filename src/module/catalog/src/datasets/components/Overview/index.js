@@ -181,7 +181,6 @@ export default (vnode) => {
             <div class="cards--wrapper">
               <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
               <StatBox value={comments.length} label={escaDataset.commentMenu} onclick={actions.openComments}/>
-              <StatBox value="1" label={escaDataset.previewDatasetTitle} onclick={actions.openPreview}/>
               <StatBox value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
               <StatBox value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
             </div>
