@@ -1,10 +1,14 @@
+import { getDatatsetByDistributionURI, getDistributionByFileResourceURI } from 'catalog/utils/dcatUtil';
 import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
 import InlineList from 'commons/components/bootstrap/InlineList';
+import registry from "commons/registry";
+import statsAPI from "commons/statistics/api";
+import { getEntryRenderName } from "commons/util/entryUtil";
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
-import DistributionList from './components/DistributionList';
 import APICallList from './components/APICallList';
+import DistributionList from './components/DistributionList';
 import './index.scss';
 
 /**
@@ -15,10 +19,9 @@ const getLocalizedTimeRanges = () => {
   return [
     'Today',
     'Yesterday',
-    'Last 7 days',
-    'Last 14 days',
-    'Last 30 days',
-    'More preset rangs',
+    'This month',
+    'Last month',
+    'More preset ranges',
     '-', // denotes li.divider
     'Custom',
   ];
@@ -27,17 +30,78 @@ const getLocalizedTimeRanges = () => {
 const getTabs = () => {
   return [
     {
-      label: 'Files', icon: 'fa-file', component: {
+      label: 'Files',
+      icon: 'fa-file',
+      component: {
         class: DistributionList,
       },
     },
     {
-      label: 'API calls', icon: 'fa-repeat', component: {
+      label: 'API calls',
+      icon: 'fa-repeat',
+      component: {
         class: APICallList,
       },
     },
   ];
 };
+
+const timeRangeIdx2ApiStructure = (idx) => {
+  let date = new Date();
+  switch (idx) {
+    case 0:
+      break;
+    case 1:
+      date = date.setDate(date.getDay() - 1);
+      break;
+    case 2:
+      return {
+        year: date.getFullYear().toString(),
+        month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
+      };
+    default:
+  }
+  return {
+    year: date.getFullYear().toString(),
+    month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
+    day: date.getDay() < 10 ? `0${date.getDay()}` : date.getDay().toString(),
+  };
+};
+
+/**
+ *
+ * @param distRURIs
+ * @param context
+ * @return {Promise<Map<string, store/Entry>[]>}
+ */
+const getDatasetByDistributionRURI = async (distRURIs, context) => {
+  const fileORAPIRURIs = distRURIs.map(dist => dist.uri); // @todo valentino change name
+  /**
+   * Get the actual distribution entries from the file/api resource URI
+   * @type {Map<string, store/Entry>}
+   */
+  const distributionEntries = await getDistributionByFileResourceURI(fileORAPIRURIs, context);
+
+  /**
+   * for each distribution entry get the resource URIs
+   */
+  const fileRURI2DistributionEntry = new Map(); // @todo @valentino better naming
+  const distributions2Resources = new Map();
+  for (const [ruri, entry] of distributionEntries) { // eslint-disable-line
+    fileRURI2DistributionEntry.set(ruri, entry);
+    distributions2Resources.set(entry.getResourceURI(), ruri);
+  }
+  const distributionRURIs = Array.from(distributions2Resources.keys());
+  const datasetEntries = await getDatatsetByDistributionURI(distributionRURIs, context);
+  const fileRURI2DatasetEntry = new Map();
+  for (const [ruri, entry] of datasetEntries) { // eslint-disable-line
+    const fileOrAPIRURI = distributions2Resources.get(ruri);
+    fileRURI2DatasetEntry.set(fileOrAPIRURI, entry);
+  }
+
+  return [fileRURI2DistributionEntry, fileRURI2DatasetEntry];
+};
+
 
 export default declare(MithrilView, {
   mainComponent: () => {
@@ -52,21 +116,49 @@ export default declare(MithrilView, {
 
     const setState = createSetState(state);
 
-    const onclickTab = (e) => {
-      console.log(e.currentTarget.dataset.tab);
+    const getListItems = async () => {
+      const timeRangeFilter = timeRangeIdx2ApiStructure(state.activeTimeRangeIdx);
+      const type = state.activeTabIdx === 0 ? 'file' : 'api';
+      const context = registry.getContext();
 
+      try {
+        const itemStats = await statsAPI.getTopStatistics(context.getId(), type, timeRangeFilter);
+        const [distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
+        const items = itemStats.map((item) => {
+          const distEntry = distributionEntries.get(item.uri);
+          item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
+          item.name = getEntryRenderName(datasetEntries.get(item.uri));
+
+          return item;
+        });
+
+        setState({ items });
+      } catch (err) {
+        // no statistics found
+        setState({ items: [] });
+      }
+    };
+
+    const onclickTab = (e) => {
       setState({
         activeTabIdx: parseInt(e.currentTarget.dataset.tab, 10),
       });
+
+      getListItems();
     };
 
     const onclickTimeRange = (e) => {
       setState({
         activeTimeRangeIdx: parseInt(e.currentTarget.dataset.range, 10),
       });
+
+      getListItems();
     };
 
     return {
+      oninit() {
+        getListItems();
+      },
       view(vnode) {
         const timeRanges = getLocalizedTimeRanges();
         const tabs = getTabs();
@@ -87,7 +179,7 @@ export default declare(MithrilView, {
                     <InlineList items={tabs} selected={state.activeTabIdx} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
-                    <ListComponent />
+                    <ListComponent items={state.items}/>
                   </div>
                 </div>
                 <div className="pagination__wrapper">
