@@ -150,8 +150,8 @@ export default (vnode) => {
 
             <div class="btn__wrapper">
               <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
-              <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
+              <Button class=" btn-secondary ">{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary ">{escaDataset.removeDatasetTitle}</Button>
             
 
