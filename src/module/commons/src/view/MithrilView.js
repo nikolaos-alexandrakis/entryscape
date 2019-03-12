@@ -1,4 +1,5 @@
 import config from 'config';
+import m from 'mithril';
 import declare from 'dojo/_base/declare';
 import ViewMixin from './ViewMixin';
 

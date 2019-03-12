@@ -9,6 +9,7 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import APICallList from './components/APICallList';
 import DistributionList from './components/DistributionList';
+import Pagination from 'commons/components/bootstrap/Pagination';
 import './index.scss';
 
 /**
@@ -106,6 +107,7 @@ const getDatasetByDistributionRURI = async (distRURIs, context) => {
 export default declare(MithrilView, {
   mainComponent: () => {
     const state = {
+      items: [],
       activeTimeRangeIdx: 0,
       activeTabIdx: 0,
       customTimeRange: {
@@ -182,10 +184,9 @@ export default declare(MithrilView, {
                     <ListComponent items={state.items}/>
                   </div>
                 </div>
-                <div className="pagination__wrapper">
-                  <div className="pagination">Pagination</div>
-                </div>
-
+                <nav>
+                  <Pagination/>
+                </nav>
               </div>
               <div className="visualization__wrapper">
                 <h4>Catalog/Distribution statistics for <span>2018</span></h4>
