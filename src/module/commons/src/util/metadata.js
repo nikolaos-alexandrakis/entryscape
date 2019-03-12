@@ -24,4 +24,7 @@ export const getTitle = (entry) => {
 };
 
 export const getModifiedDate = entry => entry.getEntryInfo().getModificationDate();
-export const getThemeLabels = (entry) => getChoiceLabels(entry, 'dcat:theme', 'dcat:theme-isa');
+export const getThemeLabels = entry => getChoiceLabels(entry, 'dcat:theme', 'dcat:theme-isa');
+
+export const getParentCatalogEntry = entry => registry.get('entrystoreutil')
+  .getEntryByType('dcat:Catalog', entry.getContext());

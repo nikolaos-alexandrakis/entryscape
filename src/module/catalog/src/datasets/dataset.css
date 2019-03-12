@@ -222,8 +222,15 @@ div.errorreport {
 }
 .dataset__icon .fa{
     font-size: 28px;
-    color:#6ea92a;
-    color: #3ead61;
+    color:#1C4CD1;
+    opacity: 0.4;
+
+}
+.dataset__icon .fa.active{
+    font-size: 28px;
+    color: #00aa9a;
+    opacity: 1;
+
 }
 .dataset__state{
 font-size: 10px;

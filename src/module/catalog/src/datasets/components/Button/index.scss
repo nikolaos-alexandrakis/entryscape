@@ -18,7 +18,7 @@
     width: 100%;
     margin-bottom:15px;
     &:hover{
-        background-color:royalblue;
+        background-color:#00aa9a;
     }
 
     &:focus {
@@ -44,5 +44,27 @@
         background-color:$main-colour;
         color:white;
 
+    }
+}
+
+.btn.btn-raised.btn-primary,.btn.btn-fab.btn-primary{
+    background-color:#3f51b5; //primary colour on Bootstrap 4
+}
+.btn.btn-fab{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    margin-bottom:5px;
+    line-height: 1;
+}
+
+
+.btn--publish {
+    @include button;
+    font-size: 28px;
+    color: #5cb85c;
+
+    &.fa-rotate-180 {
+        color: #d9534f;
     }
 }

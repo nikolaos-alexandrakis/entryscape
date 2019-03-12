@@ -1,13 +1,52 @@
+import m from 'mithril';
 import registry from 'commons/registry';
 import config from 'config';
+import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
+import CommentDialog from 'commons/comments/CommentDialog';
+import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
+import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
+import {
+  getParentCatalogEntry,
+} from 'commons/util/metadata';
 import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+
+const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
+
+const updateDistributionACL = (acl, entry) => {
+  const stmts = getDistributionStatements(entry);
+  stmts.forEach((stmt) => {
+    const esu = registry.get('entrystoreutil');
+    const resourceURI = stmt.getValue();
+
+    esu.getEntryByResourceURI(resourceURI).then((resourceEntry) => {
+      if (acl) {
+        const resourceEntryInfo = resourceEntry.getEntryInfo();
+        resourceEntryInfo.setACL(acl);
+        resourceEntryInfo.commit();
+      }
+    });
+  });
+};
 
 export default (entry, dom) => {
+  const openDialog = (DialogClass) => {
+    const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    dialog.open({
+      // nlsPublicTitle: 'publicDatasetTitle',
+      // nlsProtectedTitle: 'privateDatasetTitle',
+      row: { entry },
+      onDone: () => m.redraw(),
+    });
+  };
+
   const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
   const openEditDialog = () => {
     editDialog.showEntry(entry, () => {
@@ -15,61 +54,67 @@ export default (entry, dom) => {
     });
   };
 
-  const unpublishDataset = (entryInfo, groupEntry) => {
-    const acl = entryInfo.getACL(true);
+  const unpublishDataset = (groupEntry, onSuccess) => {
+    const ei = entry.getEntryInfo();
+    const acl = ei.getACL(true);
     acl.admin = acl.admin || [];
     acl.admin.push(groupEntry.getId());
-    entryInfo.setACL(acl);
+    ei.setACL(acl);
     // this.reRender();
-    ei.commit().then(() => m.redraw());
-    // this.updateDistributionACL(acl);
+    ei.commit().then(onSuccess);
+    updateDistributionACL(acl, entry);
   };
 
-  const toggleImplementation = (onSuccess) => {
+  const setPublished = (publishedState) => {
+    const onSuccess = () => m.redraw();
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
       const ns = registry.get('namespaces');
       const ei = entry.getEntryInfo();
       const dialogs = registry.get('dialogs');
       registry.get('getGroupWithHomeContext')(entry.getContext()).then((groupEntry) => {
         if (groupEntry.canAdministerEntry()) {
-          if (this.isPublicToggle) { // @scazan THIS
+          if (publishedState) {
             const apiDistributionURIs = [];
             const esu = registry.get('entrystoreutil');
-            const stmts = this.getDistributionStatements(); // @scazan THIS
-            Promise.all(stmts.forEach((stmt) => {
+            const stmts = getDistributionStatements(entry);
+            Promise.all(stmts.map((stmt) => {
               const ruri = stmt.getValue();
-              esu.getEntryByResourceURI(ruri).then((distEntry) => {
+              return esu.getEntryByResourceURI(ruri).then((distEntry) => {
                 const source = distEntry.getMetadata()
                   .findFirstValue(distEntry.getResourceURI(), ns.expand('dcterms:source'));
                 if (source !== '' && source != null) {
                   apiDistributionURIs.push(source);
                 }
-              }, () => {
-              }); // fail silently
+              }, () => undefined); // fail silently
             }));
             if (apiDistributionURIs.length === 0) {
-              return this.unpublishDataset(groupEntry, onSuccess); // @scazan THIS
+              return unpublishDataset(groupEntry, onSuccess);
             }
-            const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
+            // const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
+            const confirmMessage = escaDataset.apiExistsToUnpublishDataset; // @scazan THIS
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
-                return this.unpublishDataset(groupEntry, onSuccess); // @scazan THIS
+                return unpublishDataset(groupEntry, onSuccess);
               }
               return null;
             });
           }
 
+          // Make this dataset public by emptying the ACL and relying on parent
           ei.setACL({});
           // this.reRender();
           ei.commit().then(onSuccess);
-          this.updateDistributionACL({}); // @scazan THIS
+          updateDistributionACL({}, entry);
         } else {
-          registry.get('dialogs').acknowledge(this.nlsSpecificBundle.datasetSharingNoAccess); // @scazan THIS
+          registry.get('dialogs').acknowledge(escaDataset.datasetSharingNoAccess);
         }
+
+        return undefined;
       });
     };
 
-    if (this.isPublicToggle) { // @scazan THIS
+    if (publishedState) {
       const es = registry.get('entrystore');
       const adminRights = registry.get('hasAdminRights');
       const userEntry = registry.get('userEntry');
@@ -77,21 +122,125 @@ export default (entry, dom) => {
       const allowed = ccg === '_users' ? true :
         userEntry.getParentGroups().indexOf(es.getEntryURI('_principals', ccg)) >= 0;
       if (!adminRights && !allowed) {
-        registry.get('dialogs').acknowledge(this.nlsSpecificBundle.unpublishProhibited); // @scazan THIS
+        registry.get('dialogs').acknowledge(escaDataset.unpublishProhibited);
         return;
       }
     } else if (entry.getMetadata().find(null, 'dcat:distribution').length === 0) {
-      const nls = this.nlsSpecificBundle; // @scazan THIS
       registry.get('dialogs').confirm(
-        nls.confirmPublishWithoutDistributions,
-        nls.proceedPublishWithoutDistributions,
-        nls.cancelPublishWithoutDistributions,
+        escaDataset.confirmPublishWithoutDistributions,
+        escaDataset.proceedPublishWithoutDistributions,
+        escaDataset.cancelPublishWithoutDistributions,
       ).then(toggleThisImplementation);
 
       return;
     }
 
     toggleThisImplementation();
+  };
+
+  const removeDataset = () => {
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
+    const dialogs = registry.get('dialogs');
+    const store = registry.get('entrystore');
+    const ns = registry.get('namespaces');
+    const cache = store.getCache();
+    const stmts = getDistributionStatements(entry);
+
+    // check for filedistribution/api distrubtions
+    const esu = registry.get('entrystoreutil');
+    const fileDistributionURIs = [];
+    const apiDistributionURIs = [];
+    const baseURI = store.getBaseURI();
+
+    const es = registry.get('entrystore');
+    Promise.all(stmts.map((stmt) => {
+      const ruri = stmt.getValue();
+      return esu.getEntryByResourceURI(ruri).then((entry) => {
+        const source = entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcterms:source'));
+        const downloadURI = entry.getMetadata().findFirstValue(entry.getResourceURI(), ns.expand('dcat:downloadURL'));
+
+        if (source !== '' && source != null) {
+          apiDistributionURIs.push(source);
+        }
+        if (downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1) {
+          fileDistributionURIs.push(downloadURI);
+        }
+      }, () => {
+      }); // fail silently
+    })).then(() => {
+      if (apiDistributionURIs.length > 0 && fileDistributionURIs.length > 0) {
+        dialogs.acknowledge(escaDataset.removeDatasetWithFileAndApiDistributions);
+        return;
+      } else if (apiDistributionURIs.length > 0) {
+        dialogs.acknowledge(escaDataset.removeFileDistAPI);
+        return;
+      } else if (fileDistributionURIs.length > 0) {
+        dialogs.acknowledge(escaDataset.removeDatasetWithFileDistributions);
+        return;
+      }
+      if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
+        let confirmMessage;
+        if (stmts.length > 0) {
+          if (self.noOfComments > 0) { // TODO @scazan
+            confirmMessage = i18n.renderNLSTemplate(
+              escaDataset.removeDatasetDistributionsAndCommentsConfirm,
+              { distributions: stmts.length, comments: self.noOfComments },
+            );
+          } else {
+            confirmMessage = i18n.renderNLSTemplate(
+              escaDataset.removeDatasetAndDistributionsQuestion,
+              stmts.length,
+            );
+          }
+        } else if (self.noOfComments > 0) { // TODO @scazan
+          confirmMessage = i18n.renderNLSTemplate(
+            escaDataset.removeDatasetAndCommentsConfirm,
+            self.noOfComments,
+          );
+        } else {
+          confirmMessage = escaDataset.removeDatasetQuestion;
+        }
+        dialogs.confirm(confirmMessage, null, null, (confirm) => {
+          if (!confirm) {
+            return;
+          }
+          const dists = stmts.map((stmt) => {
+            const ruri = stmt.getValue();
+            return cache.getByResourceURI(ruri);
+          })
+            .filter(dist => dist.length > 0);
+
+          es.newSolrQuery()
+            .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')
+            .list()
+            .getEntries(0)
+            .then((allComments) => {
+              Promise.all(allComments.map(comment => comment.del())).then(() => {
+                Promise.all(dists.map(dist => dist[0].del())).then(() => {
+                  const resURI = entry.getResourceURI();
+                  return entry.del().then(() => {
+                    // this.list.getView().removeRow(this);
+                    // this.destroy();
+                    // TODO @scazan Redirect to upper catalog
+                    // getParentCatalogEntry(entry);
+                  }).then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
+                    .then((catalog) => {
+                      catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
+                        value: resURI,
+                        type: 'uri',
+                      });
+                      return catalog.commitMetadata();
+                    }));
+                }, () => {
+                  // this.distributions.innerHTML = '';
+                  // this.listDistributions();
+                  dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
+                });
+              });
+            });
+        });
+      }
+    });
   };
 
   // @scazan CODE is DUPLICATED SOMEWHAT
@@ -115,10 +264,55 @@ export default (entry, dom) => {
     });
   };
 
+  const openComments = () => {
+    const commentsDialog = new CommentDialog({}, DOMUtil.create('div', null, dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    commentsDialog.open({
+      nlsPublicTitle: 'publicDatasetTitle',
+      nlsProtectedTitle: 'privateDatasetTitle',
+      row: { entry },
+      onDone: () => m.redraw(),
+    });
+  };
+
+
+  const openIdeas = () => {
+    openDialog(ShowIdeasDialog);
+  };
+
+  const openShowcases = () => {
+    openDialog(ShowShowcasesDialog);
+  };
+
+  const openDowngrade = () => {
+    openDialog(DowngradeDialog);
+  };
+
+  const openPreview = () => {
+    /**
+     * Encoded resource URI; base64 used
+     * @type {string}
+     */
+    const dataset = entry.getId();
+    if (config.catalog && config.catalog.previewURLNewWindow) {
+      window.open(url, '_blank');
+    } else {
+      const site = registry.get('siteManager');
+      const state = site.getState();
+      const { context } = state[state.view];
+      site.render('catalog__datasets__preview', { context, dataset });
+    }
+  };
+
   return {
     openEditDialog,
-    unpublishDataset,
-    toggleImplementation,
+    removeDataset,
+    setPublished,
     openRevisions,
+    openComments,
+    openIdeas,
+    openShowcases,
+    openPreview,
+    openDowngrade,
   };
 };
