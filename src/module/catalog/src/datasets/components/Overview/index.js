@@ -24,7 +24,6 @@ import './index.scss';
 export default (vnode) => {
   const { entry } = vnode.attrs;
   const resourceURI = entry.getResourceURI();
-  const getProperty = (metadata, prop) => metadata.findFirstValue(resourceURI, prop);
   const entryInfo = entry.getEntryInfo();
 
   const state = {
