@@ -13,9 +13,13 @@ import {
   getParentCatalogEntry,
 } from 'commons/util/metadata';
 import {
+  isUploadedDistribution,
+  isAPIDistribution,
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escoCommentNLS from 'commons/nls/escoComment.nls';
+import escoVersionsNLS from 'commons/nls/escoVersions.nls';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -40,8 +44,8 @@ export default (entry, dom) => {
     const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     dialog.open({
-      // nlsPublicTitle: 'publicDatasetTitle',
-      // nlsProtectedTitle: 'privateDatasetTitle',
+      nlsPublicTitle: 'publicDatasetTitle',
+      nlsProtectedTitle: 'privateDatasetTitle',
       row: { entry },
       onDone: () => m.redraw(),
     });
@@ -245,17 +249,18 @@ export default (entry, dom) => {
 
   // @scazan CODE is DUPLICATED SOMEWHAT
   const openRevisions = () => {
-    // const dv = RevisionsDialog;
-    // if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
-      // dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
-    // } else if (isAPIDistribution(distribution)) {
-      // dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
-    // } else {
-      // dv.excludeProperties = [];
-    // }
-    // dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
-
     const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, dom));
+
+    if (isUploadedDistribution(entry, registry.get('entrystore'))) {
+      revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
+    } else if (isAPIDistribution(entry)) {
+      revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
+    } else {
+      revisionsDialog.excludeProperties = [];
+    }
+    revisionsDialog.excludeProperties = revisionsDialog
+      .excludeProperties.map(property => registry.get('namespaces').expand(property));
+
     // @scazan Some glue here to communicate with RDForms without a "row"
     revisionsDialog.open({
       row: { entry },
@@ -264,17 +269,24 @@ export default (entry, dom) => {
     });
   };
 
-  const openComments = () => {
-    const commentsDialog = new CommentDialog({}, DOMUtil.create('div', null, dom));
+  const openComments = (onUpdate) => {
+    const commentsDialog = new CommentDialog({
+      nlsBundles: [{ escoCommentNLS, escaDatasetNLS }],
+    }, DOMUtil.create('div', null, dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
-      row: { entry },
-      onDone: () => m.redraw(),
+      row: {
+        entry,
+        renderCommentCount: () => onUpdate(commentsDialog.row.noOfComments),
+      },
+    });
+
+    onUpdate().then((numComments) => {
+      commentsDialog.row.noOfComments = numComments;
     });
   };
-
 
   const openIdeas = () => {
     openDialog(ShowIdeasDialog);

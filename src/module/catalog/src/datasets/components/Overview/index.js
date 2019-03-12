@@ -3,6 +3,7 @@ import { createSetState } from 'commons/util/util';
 import registry from 'commons/registry';
 import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
+import comments from 'commons/comments/comments';
 import StatBox from 'commons/overview/components/StatBox';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import DistributionList from '../DistributionList';
@@ -86,6 +87,21 @@ export default (vnode) => {
       m.redraw();
     });
   };
+  let numComments = 0;
+  const refreshComments = (explicitNumComments) => {
+    if (explicitNumComments) {
+      numComments = explicitNumComments;
+      m.redraw();
+      return explicitNumComments;
+    }
+
+    return comments.getNrOfComments(entry).then((numberComments) => {
+      numComments = numberComments;
+      m.redraw();
+      return numComments;
+    });
+  };
+  const openCommentsDialog = () => actions.openComments(refreshComments);
 
   return {
     oninit() {
@@ -100,13 +116,13 @@ export default (vnode) => {
         contributors = entries;
         m.redraw();
       });
+      refreshComments();
       getIdeas(entry);
       getShowcases(entry);
     },
     view: () => {
       const metadata = entry.getMetadata();
 
-      const comments = entry.getComments();
       const title = metadata.findFirstValue(resourceURI, 'dcterms:title');
       const lastUpdatedDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
       const description = metadata.findFirstValue(resourceURI, 'dcterms:description');
@@ -131,7 +147,11 @@ export default (vnode) => {
                 <p class="description">{ description }</p>
               </div>
               <div class="metadata--basic">
-                { catalogName && <p><span class="metadata__label">{escaPublic.datasetBelongsToCatalog}: </span> {catalogName}</p> }
+                { catalogName && 
+                  <p><span class="metadata__label">
+                    {escaPublic.datasetBelongsToCatalog}: </span> {catalogName}
+                  </p>
+                }
                 { themes.length > 0 &&
                     <p>
                       <span class="metadata__label">{escaDataset.themeTitle}: </span>{themes.join(', ')}
@@ -151,7 +171,10 @@ export default (vnode) => {
             </div>
 
             <div class="btn__wrapper">
-              <Button class="btn--edit btn-primary" onclick={actions.openEditDialog}>{escaDataset.editDatasetTitle}</Button>
+              <Button class="btn--edit btn-primary"
+                onclick={actions.openEditDialog}>
+                {escaDataset.editDatasetTitle}
+              </Button>
               <Button class=" btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class=" btn-secondary " onclick={actions.openDowngrade}>{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={actions.removeDataset}>{escaDataset.removeDatasetTitle}</Button>
@@ -174,14 +197,17 @@ export default (vnode) => {
           </div>
 
           <div class="metadata--wrapper">
-            <MoreMetadata isHidden={state.metadataHidden} metadata={entryInfo}></MoreMetadata>
+            <MoreMetadata
+              isHidden={state.metadataHidden}
+              metadata={entryInfo}
+            ></MoreMetadata>
           </div>
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
             <div class="cards--wrapper">
               <StatBox value="3" label={escoList.versionsLabel} onclick={actions.openRevisions}/>
-              <StatBox value={comments.length} label={escaDataset.commentMenu} onclick={actions.openComments}/>
+              <StatBox value={numComments} label={escaDataset.commentMenu} onclick={openCommentsDialog}/>
               <StatBox value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
               <StatBox value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
             </div>

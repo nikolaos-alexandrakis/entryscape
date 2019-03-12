@@ -27,7 +27,6 @@ export default declare([VersionsDialog], {
   },
   localeChange() {
     this.dialog.updateLocaleStrings(
-      this.NLSLocalized.escoList,
       this.NLSLocalized.escoVersions,
     );
   },
