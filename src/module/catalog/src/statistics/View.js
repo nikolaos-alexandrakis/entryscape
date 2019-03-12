@@ -130,6 +130,7 @@ export default declare(MithrilView, {
           const distEntry = distributionEntries.get(item.uri);
           item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
           item.name = getEntryRenderName(datasetEntries.get(item.uri));
+          item.subname = getEntryRenderName(distributionEntries.get(item.uri));
 
           return item;
         });

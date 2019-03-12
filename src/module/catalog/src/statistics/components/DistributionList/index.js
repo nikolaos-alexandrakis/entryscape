@@ -1,3 +1,8 @@
+/**
+ * @todo @valentino
+ *  nls
+ */
+
 export default (vnode) => ({
   view(vnode) {
     /**
@@ -6,6 +11,7 @@ export default (vnode) => ({
      */
     const { items } = vnode.attrs;
     const hasData = !!items.length > 0;
+
     return hasData ?
       (<div>
         <div className="stats-header">
@@ -18,11 +24,11 @@ export default (vnode) => ({
         {items.map(item => (<div tabIndex="0" className="stats__row flex--sb">
           <div className="row__title--wrapper">
             <p className="row__title">{item.name}</p>
-            <p className="row__text">{item.name}</p>
+            <p className="row__text">{item.subname}</p>
           </div>
           <div className="flex--sb row--right--wrapper">
             <span className="row__text">{item.format}</span>
-            <span className="row__text">675</span>
+            <span className="row__text">{item.count}</span>
           </div>
         </div>))}
       </div>) :
