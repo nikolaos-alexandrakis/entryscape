@@ -1,23 +1,39 @@
 import m from 'mithril';
-import { engine } from 'rdforms';
+import registry from 'commons/registry';
+import config from 'config';
+import { Presenter } from 'rdforms';
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
-  // const binding = engine.match(this.graph, this.resource, this.template);
+
+  const attachMetadataRendered = () => {
+    vnode.dom.innerHTML = '';
+    const dataResultTemplate = registry.get('itemstore').getItem(config.catalog.datasetResultTemplateId);
+
+    const presenterView = new Presenter({
+      resource: entry.getResourceURI(),
+      graph: entry.getMetadata(),
+      template: dataResultTemplate,
+    }, document.createElement('div'));
+
+    return vnode.dom.appendChild(presenterView.domNode);
+  };
 
   return {
     view(vnode) {
-      const { metadata, isHidden } = vnode.attrs;
-      const modificationDate = metadata.getModificationDate().toString();
+      const { isHidden } = vnode.attrs;
       const hiddenClass = isHidden ? 'hidden' : '';
 
       return (
-        <div class= {`metadata--more ${hiddenClass}`}>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-        <p><span class="metadata__label">Last modified:</span>{modificationDate}</p>
-        <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
-      </div>
-    );
-  },
-};
+        <div class={`metadata--more ${hiddenClass}`}>
+        </div>
+      );
+    },
+    onupdate(vnode) {
+      // We are using an RDForms presenter here which creates it's own
+      // DOM elements. So we wait until after render, then empty the component
+      // and attach the RDForms Presenter data instead
+      attachMetadataRendered();
+    },
+  };
 };

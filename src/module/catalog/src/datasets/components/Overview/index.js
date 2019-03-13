@@ -101,11 +101,12 @@ export default (vnode) => {
 
   const openCommentsDialog = () => actions.openComments(refreshComments);
 
+
   return {
     oninit() {
       // Cache the entry context
       entry.getContext().getEntry();
-      setParentCatalogEntry()
+      setParentCatalogEntry();
       setContributors();
       refreshComments();
       setIdeas();
@@ -187,7 +188,7 @@ export default (vnode) => {
           <div class="metadata--wrapper">
             <MoreMetadata
               isHidden={state.metadataHidden}
-              metadata={entryInfo}
+              entry={entry}
             ></MoreMetadata>
           </div>
 
