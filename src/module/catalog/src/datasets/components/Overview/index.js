@@ -29,6 +29,7 @@ import './index.scss';
 export default (vnode) => {
   const { entry } = vnode.attrs;
   const entryInfo = entry.getEntryInfo();
+  const rdfutils = registry.get('rdfutils');
 
   const state = {
     metadataHidden: true,
@@ -50,7 +51,6 @@ export default (vnode) => {
     setState({ psiPublished: !state.psiPublished });
   };
 
-  const rdfutils = registry.get('rdfutils');
   let catalogEntry;
   const setParentCatalogEntry = () => {
     getParentCatalogEntry(entry)
@@ -68,7 +68,6 @@ export default (vnode) => {
     });
   };
 
-
   let ideas = [];
   const setIdeas = () => {
     getIdeas(entry, (entries) => {
@@ -77,7 +76,6 @@ export default (vnode) => {
     });
   };
 
-
   let showcases = [];
   const setShowcases = () => {
     getShowcases(entry, (entries) => {
@@ -85,6 +83,7 @@ export default (vnode) => {
       m.redraw();
     });
   };
+
   let numComments = 0;
   const refreshComments = (explicitNumComments) => {
     if (explicitNumComments) {
@@ -99,6 +98,7 @@ export default (vnode) => {
       return numComments;
     });
   };
+
   const openCommentsDialog = () => actions.openComments(refreshComments);
 
   return {
@@ -119,7 +119,7 @@ export default (vnode) => {
       const title = getTitle(entry);
       const lastUpdatedDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
       const description = getDescription(entry);
-      const numRevisions = entry.getEntryInfo().getMetadataRevisions().length;
+      const numRevisions = entryInfo.getMetadataRevisions().length;
       const themes = getThemeLabels(entry);
       const isPublished = entry.isPublic();
       const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
@@ -199,11 +199,7 @@ export default (vnode) => {
               <StatBox value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
               <StatBox value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
             </div>
-
-
           </div>
-
-
         </main>
       );
     },

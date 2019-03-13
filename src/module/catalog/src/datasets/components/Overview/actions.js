@@ -19,7 +19,6 @@ import {
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escoCommentNLS from 'commons/nls/escoComment.nls';
-import escoVersionsNLS from 'commons/nls/escoVersions.nls';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -51,8 +50,8 @@ export default (entry, dom) => {
     });
   };
 
-  const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
   const openEditDialog = () => {
+    const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
     });
@@ -92,11 +91,12 @@ export default (entry, dom) => {
                 }
               }, () => undefined); // fail silently
             }));
+
             if (apiDistributionURIs.length === 0) {
               return unpublishDataset(groupEntry, onSuccess);
             }
-            // const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
-            const confirmMessage = escaDataset.apiExistsToUnpublishDataset; // @scazan THIS
+
+            const confirmMessage = escaDataset.apiExistsToUnpublishDataset;
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
                 return unpublishDataset(groupEntry, onSuccess);
@@ -107,7 +107,6 @@ export default (entry, dom) => {
 
           // Make this dataset public by emptying the ACL and relying on parent
           ei.setACL({});
-          // this.reRender();
           ei.commit().then(onSuccess);
           updateDistributionACL({}, entry);
         } else {
@@ -171,83 +170,82 @@ export default (entry, dom) => {
         }
       }, () => {
       }); // fail silently
-    })).then(() => {
-      if (apiDistributionURIs.length > 0 && fileDistributionURIs.length > 0) {
-        dialogs.acknowledge(escaDataset.removeDatasetWithFileAndApiDistributions);
-        return;
-      } else if (apiDistributionURIs.length > 0) {
-        dialogs.acknowledge(escaDataset.removeFileDistAPI);
-        return;
-      } else if (fileDistributionURIs.length > 0) {
-        dialogs.acknowledge(escaDataset.removeDatasetWithFileDistributions);
-        return;
-      }
-      if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
-        let confirmMessage;
-        if (stmts.length > 0) {
-          if (self.noOfComments > 0) { // TODO @scazan
+    }))
+      .then(() => {
+        if (apiDistributionURIs.length > 0 && fileDistributionURIs.length > 0) {
+          dialogs.acknowledge(escaDataset.removeDatasetWithFileAndApiDistributions);
+          return;
+        } else if (apiDistributionURIs.length > 0) {
+          dialogs.acknowledge(escaDataset.removeFileDistAPI);
+          return;
+        } else if (fileDistributionURIs.length > 0) {
+          dialogs.acknowledge(escaDataset.removeDatasetWithFileDistributions);
+          return;
+        }
+        if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
+          let confirmMessage;
+          if (stmts.length > 0) {
+            if (self.noOfComments > 0) { // TODO @scazan
+              confirmMessage = i18n.renderNLSTemplate(
+                escaDataset.removeDatasetDistributionsAndCommentsConfirm,
+                { distributions: stmts.length, comments: self.noOfComments },
+              );
+            } else {
+              confirmMessage = i18n.renderNLSTemplate(
+                escaDataset.removeDatasetAndDistributionsQuestion,
+                stmts.length,
+              );
+            }
+          } else if (self.noOfComments > 0) { // TODO @scazan
             confirmMessage = i18n.renderNLSTemplate(
-              escaDataset.removeDatasetDistributionsAndCommentsConfirm,
-              { distributions: stmts.length, comments: self.noOfComments },
+              escaDataset.removeDatasetAndCommentsConfirm,
+              self.noOfComments,
             );
           } else {
-            confirmMessage = i18n.renderNLSTemplate(
-              escaDataset.removeDatasetAndDistributionsQuestion,
-              stmts.length,
-            );
+            confirmMessage = escaDataset.removeDatasetQuestion;
           }
-        } else if (self.noOfComments > 0) { // TODO @scazan
-          confirmMessage = i18n.renderNLSTemplate(
-            escaDataset.removeDatasetAndCommentsConfirm,
-            self.noOfComments,
-          );
-        } else {
-          confirmMessage = escaDataset.removeDatasetQuestion;
-        }
-        dialogs.confirm(confirmMessage, null, null, (confirm) => {
-          if (!confirm) {
-            return;
-          }
-          const dists = stmts.map((stmt) => {
-            const ruri = stmt.getValue();
-            return cache.getByResourceURI(ruri);
-          })
-            .filter(dist => dist.length > 0);
+          dialogs.confirm(confirmMessage, null, null, (confirm) => {
+            if (!confirm) {
+              return;
+            }
+            const dists = stmts.map((stmt) => {
+              const ruri = stmt.getValue();
+              return cache.getByResourceURI(ruri);
+            })
+              .filter(dist => dist.length > 0);
 
-          es.newSolrQuery()
-            .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')
-            .list()
-            .getEntries(0)
-            .then((allComments) => {
-              Promise.all(allComments.map(comment => comment.del())).then(() => {
-                Promise.all(dists.map(dist => dist[0].del())).then(() => {
-                  const resURI = entry.getResourceURI();
-                  return entry.del().then(() => {
-                    // this.list.getView().removeRow(this);
-                    // this.destroy();
-                    // TODO @scazan Redirect to upper catalog
-                    // getParentCatalogEntry(entry);
-                  }).then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
-                    .then((catalog) => {
-                      catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
-                        value: resURI,
-                        type: 'uri',
-                      });
-                      return catalog.commitMetadata();
-                    }));
-                }, () => {
-                  // this.distributions.innerHTML = '';
-                  // this.listDistributions();
-                  dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
+            es.newSolrQuery()
+              .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')
+              .list()
+              .getEntries(0)
+              .then((allComments) => {
+                Promise.all(allComments.map(comment => comment.del())).then(() => {
+                  Promise.all(dists.map(dist => dist[0].del())).then(() => {
+                    const resURI = entry.getResourceURI();
+                    return entry.del().then(() => {
+                      // TODO @scazan Redirect to upper catalog
+                      getParentCatalogEntry(entry)
+                        .then(() => {
+                          console.log('redirect');
+                        });
+                    }).then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
+                      .then((catalog) => {
+                        catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
+                          value: resURI,
+                          type: 'uri',
+                        });
+                        return catalog.commitMetadata();
+                      }));
+                  }, () => {
+                    dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
+                  });
                 });
               });
-            });
-        });
-      }
-    });
+          });
+        }
+      });
   };
 
-  // @scazan CODE is DUPLICATED SOMEWHAT
   const openRevisions = () => {
     const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, dom));
 
