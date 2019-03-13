@@ -3,7 +3,7 @@ import registry from 'commons/registry';
 import config from 'config';
 import declare from 'dojo/_base/declare';
 import { Presenter } from 'rdforms';
-import { Graph } from 'rdfjson';
+import './index.scss';
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
@@ -11,7 +11,6 @@ export default (vnode) => {
   const attachMetadataRendered = () => {
     vnode.dom.innerHTML = '';
     const dataResultTemplate = registry.get('itemstore').getItem(config.catalog.datasetTemplateId);
-    // const graph = new Graph(entry.getMetadata().exportRDFJSON());
     const presenterContainer = document.createElement('div');
     presenterContainer.classList.add('mithrilMounted');
 
