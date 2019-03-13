@@ -2,6 +2,7 @@ import m from 'mithril';
 import registry from 'commons/registry';
 import config from 'config';
 import { Presenter } from 'rdforms';
+import './index.scss';
 
 export default (vnode) => {
   const { entry } = vnode.attrs;
