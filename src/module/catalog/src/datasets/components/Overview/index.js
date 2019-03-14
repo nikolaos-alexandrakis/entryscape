@@ -138,6 +138,7 @@ export default (vnode) => {
       const themes = getThemeLabels(entry);
       const isPublished = entry.isPublic();
       const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
+      const publishToggleTooltip = isPublished ?escaDataset.publicDatasetTitle : escaDataset.privateDatasetTitle;
       const catalogName = catalogEntry ? rdfutils.getLabel(catalogEntry) : null;
       const contributorsNames = contributors ? contributors.map(contributor => rdfutils.getLabel(contributor)) : null;
 
@@ -188,14 +189,14 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p>{publishToggleString}</p>
                 </div>
-                <Toggle isEnabled={isPublished} onToggle={togglePublish}></Toggle>
+                <Toggle title={publishToggleTooltip} isEnabled={isPublished} onToggle={togglePublish}></Toggle>
               </div>
               <div class="psiPublish flex--sb">
                 <div class="icon--wrapper">
                   <span class="icons fa fa-eye"></span>
                   <p>{escaDataset.psiDatasetTitle}</p>
                 </div>
-                <Toggle isEnabled={state.psiPublished} onToggle={togglePsiPublish}></Toggle>
+                <Toggle title={escaDataset.privateDatasetTitle} isEnabled={state.psiPublished} onToggle={togglePsiPublish}></Toggle>
               </div>
             </div>
           </div>
