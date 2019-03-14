@@ -1,5 +1,4 @@
 import m from 'mithril';
-import jquery from 'jquery';
 import { createSetState } from 'commons/util/util';
 import './index.scss';
 
@@ -47,7 +46,7 @@ export default (vnode) => {
     const spaceBelow = Math.abs(window.innerHeight - dropdownScreenPositionY);
     const elementHeight = toggleButtonHeight + dropdownHeight;
 
-    if ((spaceBelow < elementHeight) && (spaceAbove > spaceBelow) ) {
+    if ((spaceBelow < elementHeight) && (spaceAbove > spaceBelow)) {
       dropdownElement.classList.add('dropup');
     }
   };
