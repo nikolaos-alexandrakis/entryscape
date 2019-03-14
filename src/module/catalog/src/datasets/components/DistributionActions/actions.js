@@ -9,6 +9,8 @@ import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
+import ManageFilesDialog from 'catalog/datasets/ManageFiles';
+import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
 import GenerateAPI from 'catalog/datasets/GenerateAPI';
 import EntryType from 'commons/create/EntryType';
 import typeIndex from 'commons/create/typeIndex';
@@ -25,8 +27,6 @@ import {
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 
 export default (distribution, dataset, fileEntryURIs, dom) => {
-  // const namespaces = registry.get('namespaces');
-
   // DIALOGS
   const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     maxWidth: 800,
@@ -142,7 +142,7 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     },
   });
   // END DIALOGS
-  //
+
   // UTILS
   const getEtlEntry = (entry) => {
     const md = entry.getMetadata();
@@ -352,7 +352,44 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
       onDone: () => m.redraw(),
     });
   };
-  // END ACTIONS
+
+  const openManageFiles = () => {
+    const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, vnode.dom));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    manageFilesDialog.open({
+      entry: distribution,
+      row: { entry: distribution },
+      fileEntryURIs,
+      datasetEntry: dataset,
+      onDone: () => m.redraw(),
+    });
+  };
+
+  /**
+   * Open the replace file dialog
+   *
+   * @returns {undefined}
+   */
+  const openReplaceFile = () => {
+    const md = distribution.getMetadata();
+    const entryStoreUtil = registry.get('entrystoreutil');
+    const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
+    entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
+      const replaceFileDialog = new FileReplaceDialog({}, DOMUtil.create('div', null, vnode.dom));
+      replaceFileDialog.open({
+        entry: fileEntry,
+        distributionEntry: distribution,
+        distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
+        row: {
+          entry: fileEntry,
+          domNode: vnode.dom,
+        },
+        // apiEntryURIs: this.dctSource,
+        apiEntryURIs: fileEntryURIs,
+        datasetEntry: dataset,
+      });
+    });
+  };
 
   return {
     editDistribution,
@@ -363,5 +400,7 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     openRevisions,
     remove,
     openAddFile,
+    openManageFiles,
+    openReplaceFile,
   };
 };

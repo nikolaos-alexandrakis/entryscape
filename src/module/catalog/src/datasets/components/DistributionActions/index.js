@@ -1,13 +1,8 @@
 import m from 'mithril';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
-import ManageFilesDialog from 'catalog/datasets/ManageFiles';
-import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
-import DOMUtil from 'commons/util/htmlUtil';
 import { template } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
-import escoListNLS from 'commons/nls/escoList.nls';
-import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import Dropdown from 'commons/components/common/Dropdown';
 import {
   isUploadedDistribution,
@@ -19,13 +14,14 @@ import {
   isAccessDistribution,
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
+import escoListNLS from 'commons/nls/escoList.nls';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import bindActions from './actions';
 
 export default (vnode) => {
   const { distribution, dataset, fileEntryURIs } = vnode.attrs;
   const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
 
-  // UTILS
   const getFormattedDates = (modDate) => {
     if (modDate != null) {
       const escoList = i18n.getLocalization(escoListNLS);
@@ -36,44 +32,6 @@ export default (vnode) => {
     return null;
   };
 
-
-  // END UTILS
-
-  // ACTIONS
-  const manageFiles = () => {
-    const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, vnode.dom));
-    // @scazan Some glue here to communicate with RDForms without a "row"
-    manageFilesDialog.open({
-      entry: distribution,
-      row: { entry: distribution },
-      fileEntryURIs,
-      datasetEntry: dataset,
-      onDone: () => m.redraw(),
-    });
-  };
-
-  const replaceFile = () => {
-    const md = distribution.getMetadata();
-    const entryStoreUtil = registry.get('entrystoreutil');
-    const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
-    entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
-      const replaceFileDialog = new FileReplaceDialog({}, DOMUtil.create('div', null, vnode.dom));
-      replaceFileDialog.open({
-        entry: fileEntry,
-        distributionEntry: distribution,
-        distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
-        row: {
-          entry: fileEntry,
-          domNode: vnode.dom,
-        },
-        // apiEntryURIs: this.dctSource,
-        apiEntryURIs: fileEntryURIs,
-        datasetEntry: dataset,
-      });
-    });
-  };
-
-  // END ACTIONS
   const renderActions = (entry) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const escoList = i18n.getLocalization(escoListNLS);
@@ -104,12 +62,12 @@ export default (vnode) => {
           onclick={actions.openRevisions}
         >
           <span>{escoList.versionsLabel}</span>
-        </button>
+        </button>,
       );
     }
 
     if (isUploadedDistribution(entry, registry.get('entrystore'))) { // added newly
-      // Add ActivateApI menu item,if its fileEntry distribution
+      // Add ActivateApI menu item, if its fileEntry distribution
       if (isFileDistributionWithOutAPI(entry, fileEntryURIs, registry.get('entrystore'))) {
         actionButtons.push(
           <button
@@ -133,7 +91,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-exchange"
             title={escaDataset.replaceFileTitle}
-            onclick={replaceFile}
+            onclick={actions.openReplaceFile}
           >
             <span>{escaDataset.replaceFile}</span>
           </button>,
@@ -150,7 +108,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-files-o"
             title={escaDataset.manageFilesTitle}
-            onclick={manageFiles}
+            onclick={actions.openManageFiles}
           >
             <span>{escaDataset.manageFiles}</span>
           </button>,
@@ -220,15 +178,15 @@ export default (vnode) => {
     return actionButtons;
   };
 
-
   return {
     view(vnode) {
       const { distribution } = vnode.attrs;
+
       return (
         <div class=" icon--wrapper distribution--file">
-            <Dropdown>
-          { renderActions(distribution) }
-            </Dropdown>
+          <Dropdown>
+            { renderActions(distribution) }
+          </Dropdown>
         </div>
       );
     },

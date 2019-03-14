@@ -10,9 +10,6 @@ import CommentDialog from 'commons/comments/CommentDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
 import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
-  getParentCatalogEntry,
-} from 'commons/util/metadata';
-import {
   isUploadedDistribution,
   isAPIDistribution,
   getDistributionTemplate,
@@ -50,6 +47,11 @@ export default (entry, dom) => {
     });
   };
 
+  /**
+   * Open an Edit Side Dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openEditDialog = () => {
     const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
     editDialog.showEntry(entry, () => {
@@ -57,7 +59,14 @@ export default (entry, dom) => {
     });
   };
 
-  const unpublishDataset = (groupEntry, onSuccess) => {
+  /**
+   * Set this dataset a unpublished/not public
+   *
+   * @param {store/Entry} groupEntry
+   * @param {function} onSuccess A callback called after the state has been committed
+   * @returns {undefined}
+   */
+  const setUnpublished = (groupEntry, onSuccess) => {
     const ei = entry.getEntryInfo();
     const acl = ei.getACL(true);
     acl.admin = acl.admin || [];
@@ -68,7 +77,13 @@ export default (entry, dom) => {
     updateDistributionACL(acl, entry);
   };
 
-  const setPublished = (publishedState) => {
+  /**
+   * Set this dataset as public
+   *
+   * @param {boolean} publishedState
+   * @returns {undefined}
+   */
+  const setPublishedState = (publishedState) => {
     const onSuccess = () => m.redraw();
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
@@ -93,13 +108,13 @@ export default (entry, dom) => {
             }));
 
             if (apiDistributionURIs.length === 0) {
-              return unpublishDataset(groupEntry, onSuccess);
+              return setUnpublished(groupEntry, onSuccess);
             }
 
             const confirmMessage = escaDataset.apiExistsToUnpublishDataset;
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
-                return unpublishDataset(groupEntry, onSuccess);
+                return setUnpublished(groupEntry, onSuccess);
               }
               return null;
             });
@@ -141,6 +156,12 @@ export default (entry, dom) => {
     toggleThisImplementation();
   };
 
+  /**
+   *
+   * Remove this dataset
+   *
+   * @returns {undefined}
+   */
   const removeDataset = () => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const dialogs = registry.get('dialogs');
@@ -243,6 +264,12 @@ export default (entry, dom) => {
       });
   };
 
+  /**
+   *
+   * Open the Revisions dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openRevisions = () => {
     const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, dom));
 
@@ -264,6 +291,12 @@ export default (entry, dom) => {
     });
   };
 
+  /**
+   *
+   * Open the Comments dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openComments = (onUpdate) => {
     const commentsDialog = new CommentDialog({
       nlsBundles: [{ escoCommentNLS, escaDatasetNLS }],
@@ -283,11 +316,21 @@ export default (entry, dom) => {
     });
   };
 
+  /**
+   * Open the Ideas dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openIdeas = () => {
     openDialog(ShowIdeasDialog);
   };
 
   const openShowcases = () => {
+    /**
+     * Open the showcases dialog for this dataset
+     *
+     * @returns {undefined}
+     */
     openDialog(ShowShowcasesDialog);
   };
 
@@ -321,6 +364,11 @@ export default (entry, dom) => {
     }
   };
 
+  /**
+   * Navigate to the parent Catalog of this dataset
+   *
+   * @returns {undefined}
+   */
   const navigateToCatalog = () => {
     const site = registry.get('siteManager');
     const state = site.getState();
@@ -331,7 +379,7 @@ export default (entry, dom) => {
   return {
     openEditDialog,
     removeDataset,
-    setPublished,
+    setPublishedState,
     navigateToCatalog,
     openRevisions,
     openComments,
