@@ -36,7 +36,8 @@
             font-size: 18px;
             align-self: center;
             &:focus{
-                color:$green;
+                color: #3f51b5;
+                background-color: hsla(0,0%,60%,.4) !important;
             }
 
             &:hover {
