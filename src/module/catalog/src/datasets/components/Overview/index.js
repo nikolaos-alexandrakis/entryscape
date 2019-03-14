@@ -154,7 +154,7 @@ export default (vnode) => {
 
       return (
         <main class="overview__wrapper">
-          <Button class="btn-link btn-sm btn-back" onclick={actions.navigateToCatalog}>Back</Button>
+          <Button class="btn-link btn-sm btn-back"  onclick={actions.navigateToCatalog}>{escaDataset.backTitle}</Button>
           <div class="flex--sb">
             <div class="metadata--wrapper">
               <div class="intro--wrapper">
