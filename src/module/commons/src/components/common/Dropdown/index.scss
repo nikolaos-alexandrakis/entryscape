@@ -13,8 +13,8 @@
     font-size: 14px;
     list-style: none;
     background-color: #fff;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.26);
-    Button{
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        Button{
         width: 100%;
         background-color: white;
         color:$text-colour;
@@ -36,6 +36,9 @@
     top: auto;
     bottom: 100%;
     margin-bottom: 2px;
+    box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.26);
+
+
     
 }
 
