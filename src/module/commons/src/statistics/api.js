@@ -1,5 +1,4 @@
 import config from 'config';
-import m from 'mithril';
 
 /**
  * {base-uri}/statistics/{context-id}/top/{type}/{year}/{month}/{day}
@@ -74,9 +73,13 @@ const getEntryStatistics = (contextId, entryId, filters = {}) => {
   let requestURL = `${STATS_BASE_URL}${contextId}/${entryId}/`;
   requestURL = `${requestURL}${applyFilters(filters)}`;
 
-  return m.request(requestURL)
-    .then(res => res.json())
-    .then(response => response._);
+  return fetch(requestURL)
+    .then((response) => {
+      if (response.status === 404) {
+        return {};
+      }
+      return response.json();
+    });
 };
 
 /**

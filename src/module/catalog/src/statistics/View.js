@@ -10,6 +10,7 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import jquery from 'jquery';
 import APICallList from './components/APICallList';
+import BarChart from './components/BarChart';
 import DistributionList from './components/DistributionList';
 import './index.scss';
 
@@ -128,6 +129,67 @@ const timeRange2ApiStructure = (selected) => {
   };
 };
 
+
+const timeRange2Chart = (selected, data) => {
+  const date = new Date();
+  const wholeData = [];
+  let max;
+  let day;
+  let month;
+  let year;
+
+  const daysInMonth = (m, y) => new Date(y, m + 1, 0).getDate();
+  switch (selected) {
+    case 'today':
+      max = 24;
+      day = date.getDate();
+      month = date.getMonth();
+      year = date.getFullYear();
+      break;
+    case 'yesterday':
+      date.setDate(date.getDate() - 1);
+      max = 24;
+      day = date.getDate();
+      month = date.getMonth();
+      year = date.getFullYear();
+      break;
+    case 'this-month':
+      max = daysInMonth(date.getMonth(), date.getFullYear());
+      day = date.getDate();
+      month = date.getMonth();
+      year = date.getFullYear();
+      for (let i = 1; i < max + 1; i++) {
+        let y = null;
+        if (i in data) {
+          y = data[i].count;
+        }
+
+        wholeData.push({
+          x: new Date(year, month, i),
+          y: y || 0,
+        });
+      }
+      break;
+    case 'last-month':
+      date.setMonth(date.getMonth() - 1);
+      max = daysInMonth(date.getMonth() - 1, date.getFullYear());
+      break;
+    case 'this-year':
+      max = 12;
+      break;
+    case 'last-year':
+      date.setFullYear(date.getFullYear() - 1);
+      max = 12;
+      break;
+    case 'custom':
+      break;
+    default:
+  }
+
+  return wholeData;
+};
+
+
 /**
  *
  * @param distRURIs
@@ -162,11 +224,21 @@ const getDatasetByDistributionRURI = async (distRURIs, context) => {
   return [fileRURI2DistributionEntry, fileRURI2DatasetEntry];
 };
 
-
 export default declare(MithrilView, {
   mainComponent: () => {
     const state = {
-      items: [],
+      list: {
+        items: [],
+        selected: null,
+      },
+      chart: {
+        data: {
+          series: [{
+            name: 'test',
+            data: [{}],
+          }],
+        },
+      },
       timeRanges: {
         selected: 'this-month',
         items: getLocalizedTimeRanges(),
@@ -191,8 +263,6 @@ export default declare(MithrilView, {
             await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRange2ApiStructure(selected));
         }
 
-        console.log(itemStats);
-
         const [distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
         return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
@@ -208,12 +278,51 @@ export default declare(MithrilView, {
       }
     };
 
+    const getChartItems = async () => {
+      const context = registry.getContext();
+      let chartData;
+      const { custom, selected } = state.timeRanges;
+      // if (state.timeRanges.selected === 'custom') {
+      //   itemStats =
+      //     await statsAPI.getTopStatisticsAggregate(context.getId(), state.activeTab, custom);
+      const entryId = 5; // state.list.selected
+      chartData =
+        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRange2ApiStructure(selected));
+
+      delete chartData.count; // keep only pure data
+      const data = {
+        series: [
+          {
+            name: 'whatever',
+            data: timeRange2Chart(selected, chartData),
+          },
+        ],
+      };
+      // Object.keys(chartData).map((hourDayOrMonth) => {
+      //   swith()
+      //   dayOrMonthOrYear
+      // })
+
+
+      // labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      // series: [
+      // [5, 2, 4, 2, 0, 1],
+      // ]
+
+
+      setState({
+        chart: {
+          data,
+        },
+      });
+    };
+
     const onclickTab = (e) => {
       setState({
         activeTab: e.currentTarget.dataset.tab,
       });
 
-      getListItems().then(items => setState({ items }));
+      getListItems().then(items => setState({ list: { items, selected: items[0].uri } }));
     };
 
     const onclickTimeRange = (e) => {
@@ -227,15 +336,26 @@ export default declare(MithrilView, {
           },
         });
 
-        getListItems().then(items => setState({ items }));
+        getListItems().then(items => setState({ list: { items, selected: state.list.selected } }));
       }
     };
 
+    const onclickListItem = (e) => {
+      setState({
+        list: {
+          items: state.list.items,
+          selected: e.currentTarget.dataset.uri,
+        },
+      });
+
+      getChartItems().then(data => setState({ chart: { data } }));
+    };
+
     return {
-      oninit(vnode) {
-        getListItems().then(items => setState({ items }));
+      oninit() {
+        getListItems().then(items => setState({ list: { items, selected: items[0].uri } }));
       },
-      oncreate(vnode) {
+      oncreate() {
         const startDatePicker = jquery('#custom-date-start').bootstrapMaterialDatePicker({
           weekStart: 0,
           time: false,
@@ -264,7 +384,7 @@ export default declare(MithrilView, {
             }, true);
 
             // get statistics for custom time range and redraw
-            getListItems().then(items => setState({ items }));
+            getListItems().then(items => setState({ list: { items, selected: state.list.selected } }));
           });
           endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
           endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'End date');
@@ -274,7 +394,7 @@ export default declare(MithrilView, {
           startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'Start date');
         };
       },
-      view(vnode) {
+      view() {
         const tabs = getTabs();
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component.class;
         return (
@@ -294,7 +414,7 @@ export default declare(MithrilView, {
                     <InlineList items={tabs} selected={state.activeTab} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
-                    <ListComponent items={state.items}/>
+                    <ListComponent items={state.list.items} selected={state.list.selected} onclick={onclickListItem}/>
                   </div>
                 </div>
                 <nav>
@@ -303,7 +423,9 @@ export default declare(MithrilView, {
               </div>
               <div className="visualization__wrapper">
                 <h4>Catalog/Distribution statistics for <span>2018</span></h4>
-                <div className="visualization__chart"></div>
+                <div className="visualization__chart">
+                  <BarChart data={state.chart.data}/>
+                </div>
               </div>
             </section>
           </div>
