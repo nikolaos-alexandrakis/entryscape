@@ -9,6 +9,7 @@ import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
 import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
+import comments from 'commons/comments/comments';
 import {
   isUploadedDistribution,
   isAPIDistribution,
@@ -160,9 +161,10 @@ export default (entry, dom) => {
    *
    * Remove this dataset
    *
+   * @params {number} noOfComments The number of comments on the dataset
    * @returns {undefined}
    */
-  const removeDataset = () => {
+  const removeDataset = (noOfComments) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const dialogs = registry.get('dialogs');
     const store = registry.get('entrystore');
@@ -206,10 +208,10 @@ export default (entry, dom) => {
         if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
           let confirmMessage;
           if (stmts.length > 0) {
-            if (self.noOfComments > 0) { // TODO @scazan
+            if (noOfComments > 0) {
               confirmMessage = i18n.renderNLSTemplate(
                 escaDataset.removeDatasetDistributionsAndCommentsConfirm,
-                { distributions: stmts.length, comments: self.noOfComments },
+                { distributions: stmts.length, comments: noOfComments },
               );
             } else {
               confirmMessage = i18n.renderNLSTemplate(
@@ -217,10 +219,10 @@ export default (entry, dom) => {
                 stmts.length,
               );
             }
-          } else if (self.noOfComments > 0) { // TODO @scazan
+          } else if (noOfComments > 0) {
             confirmMessage = i18n.renderNLSTemplate(
               escaDataset.removeDatasetAndCommentsConfirm,
-              self.noOfComments,
+              noOfComments,
             );
           } else {
             confirmMessage = escaDataset.removeDatasetQuestion;
