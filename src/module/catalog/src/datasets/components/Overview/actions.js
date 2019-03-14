@@ -291,10 +291,20 @@ export default (entry, dom) => {
     openDialog(ShowShowcasesDialog);
   };
 
-  const openDowngrade = () => {
+  /**
+   * Open a "dialog" (which is just a modal) fr
+   *
+   * @returns {undefined}
+   */
+  const downgrade = () => {
     openDialog(DowngradeDialog);
   };
 
+  /**
+   * Open a Dataset Preview window
+   *
+   * @returns {undefined}
+   */
   const openPreview = () => {
     /**
      * Encoded resource URI; base64 used
@@ -328,6 +338,6 @@ export default (entry, dom) => {
     openIdeas,
     openShowcases,
     openPreview,
-    openDowngrade,
+    downgrade,
   };
 };
