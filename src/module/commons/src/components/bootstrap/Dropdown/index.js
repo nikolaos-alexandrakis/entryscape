@@ -1,4 +1,3 @@
-import m from 'mithril';
 export default (vnode) => ({
   view(vnode) {
     /**
@@ -6,19 +5,20 @@ export default (vnode) => ({
      * @type {{items: []}}
      */
     const { items, selected, onclick } = vnode.attrs;
+    const selectedItem = items.find(item => item.id === selected);
     return (
       <div className="btn-group">
-        <a className="btn btn-default">{items[selected]}</a>
+        <a className="btn btn-default">{selectedItem.name}</a>
         <a className="btn btn-default dropdown-toggle" data-toggle="dropdown">
           <span className="caret"></span>
         </a>
         <ul className="dropdown-menu">
-          {items.map((item, idx) => {
-            if (item === '-') {
+          {items.map((item) => {
+            if (item.id === '-') {
               return <li className="divider"/>;
             }
-            return <li className={selected === idx ? 'active' : ''} data-range={idx} onclick={onclick}>
-              <a>{item}</a>
+            return <li className={selected === item.id ? 'active' : ''} data-range={item.id} onclick={onclick}>
+              <a>{item.name}</a>
             </li>;
           })}
         </ul>
