@@ -228,7 +228,7 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
   // ACTIONS
   const editDistribution = () => {
     const editDialog = new EditDistributionDialog({}, DOMUtil.create('div', null, dom));
-    // TODO @scazan Some glue here to communicate with RDForms without a "row"
+    // @scazan Some glue here to communicate with RDForms without a "row"
     editDialog.open({ row: { entry: distribution }, onDone: () => listDistributions(dataset) });
   };
 

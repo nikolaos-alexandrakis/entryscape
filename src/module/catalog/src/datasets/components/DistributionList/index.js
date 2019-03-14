@@ -59,7 +59,7 @@ export default (initialVnode) => {
 
   const openCreateDialog = () => {
     const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, dom));
-    // TODO @scazan Some glue here to communicate with RDForms without a "row"
+    // @scazan Some glue here to communicate with RDForms without a "row"
     createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
   };
 
