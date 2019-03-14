@@ -143,6 +143,7 @@ export default (vnode) => {
 
       return (
         <main class="overview__wrapper">
+        <Button class="btn-primary btn-sm btn-back">Back</Button>
           <div class="flex--sb">
             <div class="metadata--wrapper">
               <div class="intro--wrapper">
