@@ -115,10 +115,21 @@ export default (vnode) => {
     );
   };
 
+  let isPublishable = false;
+  const getCatalogPublicStateAndSetFlag = () => {
+    entry
+      .getContext()
+      .getEntry()
+      .then((contextEntry) => {
+        // Set the dataset as publishable only if the parent catalog is public
+        isPublishable = contextEntry.isPublic();
+      });
+  };
+
   return {
     oninit() {
       // Cache the entry context
-      entry.getContext().getEntry();
+      getCatalogPublicStateAndSetFlag();
       setParentCatalogEntry();
       setContributors();
       refreshComments();
@@ -136,7 +147,6 @@ export default (vnode) => {
       const numRevisions = entryInfo.getMetadataRevisions().length;
       const themes = getThemeLabels(entry);
       const isPublished = entry.isPublic();
-      const isPublishable = entry.isPublic();
       const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
       const publishToggleTooltip = isPublished ? escaDataset.publicDatasetTitle : escaDataset.privateDatasetTitle;
       const catalogName = catalogEntry ? rdfutils.getLabel(catalogEntry) : null;

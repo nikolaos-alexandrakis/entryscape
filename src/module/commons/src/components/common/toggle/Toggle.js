@@ -15,7 +15,7 @@ export default () => ({
       <button
         class={`fa fa-toggle-on fa-lg  btn--publish ${disabledClass} ${toggledOnClass}`}
         title={title}
-        onclick={onToggle}
+        onclick={isEnabled ? onToggle : undefined}
       ></button>
     );
   },
