@@ -40,6 +40,11 @@ stepdefinitions:
         - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta9.metasolutions.se "cd /srv/static.infra.entryscape.com/suite; rm -r latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta9.metasolutions.se "cd /srv/static.infra.entryscape.com/suite; rm -r stable; ln -s $ES_VERSION stable" ; fi
         - ( cd src/app/registry/dist && rsync -arvz --delete-after . "deploy@meta9.metasolutions.se:/srv/static.infra.entryscape.com/registry/$ES_VERSION/" )
         - if [ $BITBUCKET_BRANCH == "develop" ]; then ssh deploy@meta9.metasolutions.se "cd /srv/static.infra.entryscape.com/registry; rm -r latest; ln -s $ES_VERSION latest" ; elif [ $BITBUCKET_BRANCH == "master" ]; then ssh deploy@meta9.metasolutions.se "cd /srv/static.infra.entryscape.com/registry; rm -r stable; ln -s $ES_VERSION stable" ; fi
+  - deploybranch: &deploybranch
+      name: Deploy branch
+      script:
+        - ( cd src/app/suite/dist && rsync -arvz --delete-after . "deploy@meta9.metasolutions.se:/srv/static.infra.entryscape.com/_branches/${BITBUCKET_BRANCH#*/}/" )
+
 
 pipelines:
   default:
@@ -48,11 +53,14 @@ pipelines:
     master:
       - step: *build
       - step: *deploy
+      - step: *deploybranch
     develop:
       - step: *build
       - step: *deploy
+      - step: *deploybranch
     feature/*:
       - step: *build
+      - step: *deploybranch
 
 #definitions:
 #  caches:
