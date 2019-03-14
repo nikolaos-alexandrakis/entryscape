@@ -34,8 +34,6 @@ export default (vnode) => {
 
   const state = {
     metadataHidden: true,
-    isPublished: false,
-    psiPublished: false,
   };
   const setState = createSetState(state);
   const actions = bindActions(entry, vnode.dom);
@@ -46,7 +44,7 @@ export default (vnode) => {
   };
 
   const togglePublish = () => {
-    actions.setPublished(entry.isPublic());
+    actions.setPublishedState(entry.isPublic());
   };
 
   const togglePsiPublish = () => {
@@ -154,7 +152,9 @@ export default (vnode) => {
 
       return (
         <main class="overview__wrapper">
-          <Button class="btn-link btn-sm btn-back"  onclick={actions.navigateToCatalog}>{escaDataset.backTitle}</Button>
+          <Button class="btn-link btn-sm btn-back" onclick={actions.navigateToCatalog}>
+            {escaDataset.backTitle}
+          </Button>
           <div class="flex--sb">
             <div class="metadata--wrapper">
               <div class="intro--wrapper">
@@ -211,7 +211,11 @@ export default (vnode) => {
                   <span class="icons fa fa-eye"></span>
                   <p>{escaDataset.psiDatasetTitle}</p>
                 </div>
-                <Toggle title={escaDataset.privateDatasetTitle} isEnabled={state.psiPublished} onToggle={togglePsiPublish}></Toggle>
+                <Toggle
+                  title={escaDataset.privateDatasetTitle}
+                  toggleState={false}
+                  onToggle={togglePsiPublish}
+                ></Toggle>
               </div>
             </div>
           </div>
