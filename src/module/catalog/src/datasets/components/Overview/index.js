@@ -1,6 +1,7 @@
 import m from 'mithril';
 import { createSetState } from 'commons/util/util';
 import registry from 'commons/registry';
+import config from 'config';
 import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
 import comments from 'commons/comments/comments';
@@ -21,6 +22,7 @@ import StatBox from 'commons/overview/components/StatBox';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
+import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import Button from '../Button';
 import bindActions from './actions';
 import './index.scss';
@@ -40,7 +42,8 @@ export default (vnode) => {
   const actions = bindActions(entry, vnode.dom);
 
   const toggleMetadata = () => {
-    setState({ metadataHidden: !state.metadataHidden });
+    openMoreMetadata();
+    // setState({ metadataHidden: !state.metadataHidden });
   };
 
   const togglePublish = () => {
@@ -101,6 +104,17 @@ export default (vnode) => {
 
   const openCommentsDialog = () => actions.openComments(refreshComments);
 
+  const openMoreMetadata = () => {
+    const dataTemplate = registry.get('itemstore').getItem(config.catalog.datasetTemplateId);
+    const dialog = new RDFormsPresentDialog({ maxWidth: 800 });
+    dialog.title = getTitle(entry);
+    dialog.localeChange();
+    dialog.show(
+      entry.getResourceURI(),
+      entry.getMetadata(),
+      dataTemplate,
+    );
+  };
 
   return {
     oninit() {
