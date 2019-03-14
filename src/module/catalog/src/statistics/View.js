@@ -99,32 +99,32 @@ const timeRange2ApiStructure = (selected) => {
       break;
     case 'this-month':
       return {
-        year: date.getFullYear().toString(),
-        month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
+        year: date.getFullYear(),
+        month: date.getMonth(),
       };
     case 'last-month':
       date.setMonth(date.getMonth() - 1);
       return {
-        year: date.getFullYear().toString(),
-        month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
+        year: date.getFullYear(),
+        month: date.getMonth(),
       };
     case 'this-year':
       return {
-        year: date.getFullYear().toString(),
+        year: date.getFullYear(),
       };
     case 'last-year':
       date.setFullYear(date.getFullYear() - 1);
       return {
-        year: date.getFullYear().toString(),
+        year: date.getFullYear(),
       };
     case 'custom':
       break;
     default:
   }
   return {
-    year: date.getFullYear().toString(),
-    month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : (date.getMonth() + 1).toString(),
-    date: date.getDate() < 10 ? `0${date.getDate()}` : date.getDate().toString(),
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    date: date.getDate(),
   };
 };
 
@@ -191,6 +191,8 @@ export default declare(MithrilView, {
             await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRange2ApiStructure(selected));
         }
 
+        console.log(itemStats);
+
         const [distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
         return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
@@ -239,17 +241,17 @@ export default declare(MithrilView, {
           time: false,
         });
 
+        const endDatePicker = jquery('#custom-date-end').bootstrapMaterialDatePicker({
+          weekStart: 0,
+          time: false,
+        });
+
         // @todo startDatePicker.bootstrapMaterialDatePicker('setMinDate', getTopStatisticsStartAndEnd)
         startDatePicker.bootstrapMaterialDatePicker('setMaxDate', new Date());
         startDatePicker.on('change', (evt, startDate) => {
-          const endDatePicker = jquery('#custom-date-end').bootstrapMaterialDatePicker({
-            weekStart: 0,
-            time: false,
-          });
-
           endDatePicker.bootstrapMaterialDatePicker('setMinDate', startDate);
           endDatePicker.bootstrapMaterialDatePicker('setMaxDate', new Date());
-          endDatePicker.on('change', (ev, endDate) => {
+          endDatePicker.one('change', (ev, endDate) => {
             const timeRangeItems = getLocalizedTimeRanges({ startDate, endDate });
 
             // update the state but don't redraw yet
@@ -265,8 +267,12 @@ export default declare(MithrilView, {
             getListItems().then(items => setState({ items }));
           });
           endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
+          endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'End date');
         });
-        fireCalendar = () => startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
+        fireCalendar = () => {
+          startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
+          startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'Start date');
+        };
       },
       view(vnode) {
         const tabs = getTabs();

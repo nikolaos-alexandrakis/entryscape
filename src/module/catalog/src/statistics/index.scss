@@ -24,3 +24,14 @@
   margin-left: 50px;
   background: royalblue;
 }
+
+
+// HACK for the datepicker
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+  background-color: #1C4CD1;
+}
+
+.dtp-header-title {
+  font-size: 14px;
+  text-transform: uppercase;
+}
