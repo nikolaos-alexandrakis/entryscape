@@ -101,6 +101,8 @@ export default (vnode) => {
 
   const openCommentsDialog = () => actions.openComments(refreshComments);
 
+  const removeDataset = () => actions.removeDataset(numComments);
+
   const openMoreMetadata = () => {
     const dataTemplate = registry.get('itemstore').getItem(config.catalog.datasetTemplateId);
     const dialog = new RDFormsPresentDialog({ maxWidth: 800 });
@@ -192,7 +194,7 @@ export default (vnode) => {
               </Button>
               <Button class=" btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class=" btn-secondary " onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
-              <Button class=" btn-secondary " onclick={actions.removeDataset}>{escaDataset.removeDatasetTitle}</Button>
+              <Button class=" btn-secondary " onclick={removeDataset}>{escaDataset.removeDatasetTitle}</Button>
 
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
