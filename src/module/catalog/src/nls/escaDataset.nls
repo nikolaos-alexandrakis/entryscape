@@ -109,7 +109,8 @@
     "unpublishProhibited": "You are not allowed to unpublish datasets",
     "confirmPublishWithoutDistributions": "This dataset does not have any distributions. It is recommended to provide at least one distribution, do you want to proceed anyway?",
     "proceedPublishWithoutDistributions": "Proceed",
-    "cancelPublishWithoutDistributions": "Cancel"
+    "cancelPublishWithoutDistributions": "Cancel",
+    "backTitle":"Back"
   },
   "sv": true,
   "da": true,
