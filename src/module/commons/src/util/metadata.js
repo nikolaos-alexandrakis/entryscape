@@ -24,6 +24,12 @@ const getSolrQueryResults = (entry, type, onSuccess) => {
 };
 // END UTILS
 
+/**
+ * Get a the title of an Entry
+ *
+ * @param  {store/Entry} An Entry
+ * @returns {string}
+ */
 export const getTitle = (entry) => {
   const metadata = entry.getMetadata();
   const resourceURI = entry.getResourceURI();
@@ -35,18 +41,32 @@ export const getTitle = (entry) => {
 
   return name;
 };
+
+/**
+ * Get the dcat:description of an Entry`
+ *
+ * @param  {store/Entry} An Entry
+ * @returns {string}
+ */
 export const getDescription = (entry) => {
   const metadata = entry.getMetadata();
   const resourceURI = entry.getResourceURI();
   return metadata.findFirstValue(resourceURI, 'dcterms:description');
 };
 
+/**
+ * Get the last modified date of an Entry
+ *
+ * @param  {store/Entry} An Entry
+ * @returns {Date}
+ */
 export const getModifiedDate = entry => entry.getEntryInfo().getModificationDate();
+
 /**
  * Get all the labels for themes
  *
  * @param  {store/Entry} An Entry
- * @returns {undefined}
+ * @returns {string}
  */
 export const getThemeLabels = entry => getChoiceLabels(entry, 'dcat:theme', 'dcat:theme-isa');
 
@@ -73,7 +93,6 @@ export const getDownloadURI = (entry) => {
   const resourceURI = entry.getResourceURI();
   return metadata.findFirstValue(resourceURI, registry.get('namespaces').expand('dcat:downloadURL'));
 };
-
 
 /**
  * Get all file URLs from an entry (dcat:downloadURL)
@@ -123,6 +142,12 @@ export const getDistributionFormat = (entry) => {
   return format;
 };
 
+/**
+ * Get the parent catalog of a Dataset
+ *
+ * @param {store/Entry} A dataset Entry
+ * @returns {Promise}
+ */
 export const getParentCatalogEntry = entry => registry.get('entrystoreutil')
   .getEntryByType('dcat:Catalog', entry.getContext());
 

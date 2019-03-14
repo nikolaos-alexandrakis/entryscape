@@ -222,20 +222,17 @@ export default (entry, dom) => {
                 Promise.all(allComments.map(comment => comment.del())).then(() => {
                   Promise.all(dists.map(dist => dist[0].del())).then(() => {
                     const resURI = entry.getResourceURI();
-                    return entry.del().then(() => {
-                      // TODO @scazan Redirect to upper catalog
-                      getParentCatalogEntry(entry)
-                        .then(() => {
-                          console.log('redirect');
-                        });
-                    }).then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
-                      .then((catalog) => {
-                        catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
-                          value: resURI,
-                          type: 'uri',
-                        });
-                        return catalog.commitMetadata();
-                      }));
+                    return entry.del()
+                      .then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
+                        .then((catalog) => {
+                          catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
+                            value: resURI,
+                            type: 'uri',
+                          });
+                          return catalog.commitMetadata();
+                        }))
+                        // Redirect to upper catalog after deletion
+                      .then(navigateToCatalog);
                   }, () => {
                     dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
                   });
@@ -294,10 +291,20 @@ export default (entry, dom) => {
     openDialog(ShowShowcasesDialog);
   };
 
-  const openDowngrade = () => {
+  /**
+   * Open a "dialog" (which is just a modal) fr
+   *
+   * @returns {undefined}
+   */
+  const downgrade = () => {
     openDialog(DowngradeDialog);
   };
 
+  /**
+   * Open a Dataset Preview window
+   *
+   * @returns {undefined}
+   */
   const openPreview = () => {
     /**
      * Encoded resource URI; base64 used
@@ -305,7 +312,7 @@ export default (entry, dom) => {
      */
     const dataset = entry.getId();
     if (config.catalog && config.catalog.previewURLNewWindow) {
-      window.open(url, '_blank');
+      window.open(url, '_blank'); // @scazan TODO url is undefined but was, seemingly, also undefined in the original
     } else {
       const site = registry.get('siteManager');
       const state = site.getState();
@@ -314,15 +321,23 @@ export default (entry, dom) => {
     }
   };
 
+  const navigateToCatalog = () => {
+    const site = registry.get('siteManager');
+    const state = site.getState();
+    const { context } = state[state.view];
+    site.render('catalog__datasets', { context });
+  };
+
   return {
     openEditDialog,
     removeDataset,
     setPublished,
+    navigateToCatalog,
     openRevisions,
     openComments,
     openIdeas,
     openShowcases,
     openPreview,
-    openDowngrade,
+    downgrade,
   };
 };

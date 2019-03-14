@@ -27,7 +27,6 @@ import Button from '../Button';
 import bindActions from './actions';
 import './index.scss';
 
-
 export default (vnode) => {
   const { entry } = vnode.attrs;
   const entryInfo = entry.getEntryInfo();
@@ -137,14 +136,15 @@ export default (vnode) => {
       const numRevisions = entryInfo.getMetadataRevisions().length;
       const themes = getThemeLabels(entry);
       const isPublished = entry.isPublic();
+      const isPublishable = entry.isPublic();
       const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
-      const publishToggleTooltip = isPublished ?escaDataset.publicDatasetTitle : escaDataset.privateDatasetTitle;
+      const publishToggleTooltip = isPublished ? escaDataset.publicDatasetTitle : escaDataset.privateDatasetTitle;
       const catalogName = catalogEntry ? rdfutils.getLabel(catalogEntry) : null;
       const contributorsNames = contributors ? contributors.map(contributor => rdfutils.getLabel(contributor)) : null;
 
       return (
         <main class="overview__wrapper">
-        <Button class="btn-link btn-sm btn-back">{escaDataset.backTitle}</Button>
+          <Button class="btn-link btn-sm btn-back"  onclick={actions.navigateToCatalog}>{escaDataset.backTitle}</Button>
           <div class="flex--sb">
             <div class="metadata--wrapper">
               <div class="intro--wrapper">
@@ -181,7 +181,7 @@ export default (vnode) => {
                 {escaDataset.editDatasetTitle}
               </Button>
               <Button class=" btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
-              <Button class=" btn-secondary " onclick={actions.openDowngrade}>{escaDataset.downgrade}</Button>
+              <Button class=" btn-secondary " onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={actions.removeDataset}>{escaDataset.removeDatasetTitle}</Button>
 
               <div class="externalPublish flex--sb">
@@ -189,7 +189,12 @@ export default (vnode) => {
                   <span class="icons fa fa-globe"></span>
                   <p>{publishToggleString}</p>
                 </div>
-                <Toggle title={publishToggleTooltip} isEnabled={isPublished} onToggle={togglePublish}></Toggle>
+                <Toggle
+                  title={publishToggleTooltip}
+                  toggleState={isPublished}
+                  onToggle={togglePublish}
+                  isEnabled={isPublishable}
+                ></Toggle>
               </div>
               <div class="psiPublish flex--sb">
                 <div class="icon--wrapper">
