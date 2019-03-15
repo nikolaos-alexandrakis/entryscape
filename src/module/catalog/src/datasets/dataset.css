@@ -172,9 +172,7 @@ div.errorreport {
     margin-top: 20px;
 }
 
-.entryRow .flex-wrapper{
-    width:300px;
-}
+
 .entryRow .flex-wrapper:first-child{
     justify-content: flex-start;
 }
