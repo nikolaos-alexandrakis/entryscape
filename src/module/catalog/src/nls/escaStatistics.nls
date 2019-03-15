@@ -1,0 +1,16 @@
+{
+  "root": {
+    "timeRangeToday": "Today",
+    "timeRangeYesterday": "Yesterday",
+    "timeRangeThisMonth": "This Month",
+    "timeRangeLastMonth": "Last Month",
+    "timeRangeThisYear": "This Year",
+    "timeRangeLastYear": "Last Year",
+    "timeRangeCustom": "Custom",
+    "tabItemFiles": "Files",
+    "tabItemApiCalls": "Api Calls"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}
