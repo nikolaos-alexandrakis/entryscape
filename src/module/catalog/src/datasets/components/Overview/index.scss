@@ -44,7 +44,7 @@
         .escoOverview__statBox {
             cursor: pointer;
             min-width: 110px;
-            max-width: 110px;
+            max-width: 115px;
             min-height: 120px;
             height: 120px;
             margin-right: 0;
@@ -55,6 +55,7 @@
             .escoOverview__statCount {
                 font-size: $text-size;
                 margin:0;
+                margin-left: 3px;
             }
             .escoOverview__statCount{
                 font-size: $title-size;
@@ -126,7 +127,7 @@
     width: 60%;
 
     .header {
-        width: 40%;
+        width: 28%;
         border-bottom: 1.5px solid $accent-colour;
         align-items: center;
         margin-top: 15px;

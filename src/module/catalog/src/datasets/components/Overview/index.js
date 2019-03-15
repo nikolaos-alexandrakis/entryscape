@@ -182,7 +182,7 @@ export default (vnode) => {
                     {contributorsNames.join(', ')}
                   </p>
                 )}
-                <Button class=" btn-sm btn-secondary" onclick={toggleMetadata}>{escaDataset.showMoreTitle}</Button>
+              <Button class=" btn-sm btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
 
               </div>
             </div>
@@ -192,7 +192,6 @@ export default (vnode) => {
                 onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
-              <Button class=" btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class=" btn-secondary " onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={removeDataset}>{escaDataset.removeDatasetTitle}</Button>
 
