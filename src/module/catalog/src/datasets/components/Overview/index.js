@@ -18,7 +18,7 @@ import {
   getIdeas,
   getShowcases,
 } from 'commons/util/metadata';
-import StatBox from 'commons/overview/components/StatBox';
+import StatBoxInline from 'commons/overview/components/StatBoxInline';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
@@ -182,9 +182,14 @@ export default (vnode) => {
                     {contributorsNames.join(', ')}
                   </p>
                 )}
-              <Button class=" btn-sm btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
-
+                <div class="cards--wrapper">
+                  <StatBoxInline icon="bookmark-o" value={numRevisions} label={escoList.versionsLabel} onclick={actions.openRevisions}/>
+                  <StatBoxInline icon="comment-o" value={numComments} label={escaDataset.commentMenu} onclick={openCommentsDialog}/>
+                  <StatBoxInline icon="lightbulb-o" value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
+                  <StatBoxInline icon="diamond" value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
+                </div>
               </div>
+
             </div>
 
             <div class="btn__wrapper">
@@ -192,6 +197,7 @@ export default (vnode) => {
                 onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
+              <Button class=" btn btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class=" btn-secondary " onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class=" btn-secondary " onclick={removeDataset}>{escaDataset.removeDatasetTitle}</Button>
 
@@ -230,12 +236,7 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
-            <div class="cards--wrapper">
-              <StatBox value={numRevisions} label={escoList.versionsLabel} onclick={actions.openRevisions}/>
-              <StatBox value={numComments} label={escaDataset.commentMenu} onclick={openCommentsDialog}/>
-              <StatBox value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
-              <StatBox value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
-            </div>
+
           </div>
         </main>
       );
