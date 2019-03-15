@@ -1,193 +1,39 @@
+import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { getDatatsetByDistributionURI, getDistributionByFileResourceURI } from 'catalog/utils/dcatUtil';
 import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
 import InlineList from 'commons/components/bootstrap/InlineList';
-import Pagination from 'commons/components/bootstrap/Pagination';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 import jquery from 'jquery';
 import APICallList from './components/APICallList';
 import BarChart from './components/BarChart';
 import DistributionList from './components/DistributionList';
+import SearchInput from './components/SearchInput';
 import './index.scss';
+import timeRangeUtil from './utils/timeRange';
 
 /**
- * @todo @valentino
- *  - localize
- *  - make map?
- * @return {string[]}
- */
-const getLocalizedTimeRanges = (custom = null) => {
-  let customName = 'Custom';
-  if (custom) {
-    if (custom.startDate.year() === custom.endDate.year()) { // time range in same year
-      customName = `${custom.startDate.format('MMM DD')} - ${custom.endDate.format('MMM DD')}`;
-    } else {
-      customName = `${custom.startDate.format('MMM DD, YYYY')} - ${custom.endDate.format('MMM DD, YYYY')}`;
-    }
-  }
-  return [
-    {
-      id: 'today',
-      name: 'Today',
-    },
-    {
-      id: 'yesterday',
-      name: 'Yesterday',
-    },
-    {
-      id: 'this-month',
-      name: 'This month',
-    },
-    {
-      id: 'last-month',
-      name: 'Last month',
-    },
-    {
-      id: 'this-year',
-      name: 'This year',
-    },
-    {
-      id: 'last-year',
-      name: 'Last year',
-    },
-    { // denotes li.divider
-      id: '-',
-      name: '-',
-    },
-    {
-      id: 'custom',
-      name: customName,
-    },
-  ];
-};
-
-/**
- * @todo @valentino nls
  * @return {*[]}
  */
-const getTabs = () => {
-  return [
-    {
-      id: 'file',
-      label: 'Files',
-      icon: 'fa-file',
-      component: {
-        class: DistributionList,
-      },
-    },
-    {
-      id: 'api',
-      label: 'API calls',
-      icon: 'fa-repeat',
-      component: {
-        class: APICallList,
-      },
-    },
-  ];
-};
-
-const timeRange2ApiStructure = (selected) => {
-  let date = new Date();
-  switch (selected) {
-    case 'today':
-      break;
-    case 'yesterday':
-      date.setDate(date.getDate() - 1);
-      break;
-    case 'this-month':
-      return {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-      };
-    case 'last-month':
-      date.setMonth(date.getMonth() - 1);
-      return {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-      };
-    case 'this-year':
-      return {
-        year: date.getFullYear(),
-      };
-    case 'last-year':
-      date.setFullYear(date.getFullYear() - 1);
-      return {
-        year: date.getFullYear(),
-      };
-    case 'custom':
-      break;
-    default:
-  }
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth(),
-    date: date.getDate(),
-  };
-};
-
-
-const timeRange2Chart = (selected, data) => {
-  const date = new Date();
-  const wholeData = [];
-  let max;
-  let day;
-  let month;
-  let year;
-
-  const daysInMonth = (m, y) => new Date(y, m + 1, 0).getDate();
-  switch (selected) {
-    case 'today':
-      max = 24;
-      day = date.getDate();
-      month = date.getMonth();
-      year = date.getFullYear();
-      break;
-    case 'yesterday':
-      date.setDate(date.getDate() - 1);
-      max = 24;
-      day = date.getDate();
-      month = date.getMonth();
-      year = date.getFullYear();
-      break;
-    case 'this-month':
-      max = daysInMonth(date.getMonth(), date.getFullYear());
-      day = date.getDate();
-      month = date.getMonth();
-      year = date.getFullYear();
-      for (let i = 1; i < max + 1; i++) {
-        let y = null;
-        if (i in data) {
-          y = data[i].count;
-        }
-
-        wholeData.push({
-          x: new Date(year, month, i),
-          y: y || 0,
-        });
-      }
-      break;
-    case 'last-month':
-      date.setMonth(date.getMonth() - 1);
-      max = daysInMonth(date.getMonth() - 1, date.getFullYear());
-      break;
-    case 'this-year':
-      max = 12;
-      break;
-    case 'last-year':
-      date.setFullYear(date.getFullYear() - 1);
-      max = 12;
-      break;
-    case 'custom':
-      break;
-    default:
-  }
-
-  return wholeData;
-};
+const getTabs = () => [
+  {
+    id: 'file',
+    label: i18n.localize(escaStatistics, 'tabItemFiles'),
+    icon: 'fa-file',
+    component: DistributionList,
+  },
+  {
+    id: 'api',
+    label: i18n.localize(escaStatistics, 'tabItemApiCalls'),
+    icon: 'fa-repeat',
+    component: APICallList,
+  },
+];
 
 
 /**
@@ -241,7 +87,7 @@ export default declare(MithrilView, {
       },
       timeRanges: {
         selected: 'this-month',
-        items: getLocalizedTimeRanges(),
+        items: timeRangeUtil.getTimeRanges(),
         custom: null, // custom.start, custom.end
       },
       activeTab: 'file',
@@ -260,7 +106,7 @@ export default declare(MithrilView, {
             await statsAPI.getTopStatisticsAggregate(context.getId(), state.activeTab, custom);
         } else {
           itemStats =
-            await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRange2ApiStructure(selected));
+            await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRangeUtil.toAPIRequestPath(selected));
         }
 
         const [distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
@@ -280,34 +126,23 @@ export default declare(MithrilView, {
 
     const getChartItems = async () => {
       const context = registry.getContext();
-      let chartData;
-      const { custom, selected } = state.timeRanges;
+      const { selected } = state.timeRanges;
       // if (state.timeRanges.selected === 'custom') {
       //   itemStats =
       //     await statsAPI.getTopStatisticsAggregate(context.getId(), state.activeTab, custom);
       const entryId = 5; // state.list.selected
-      chartData =
-        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRange2ApiStructure(selected));
+      const chartData =
+        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
 
       delete chartData.count; // keep only pure data
       const data = {
         series: [
           {
             name: 'whatever',
-            data: timeRange2Chart(selected, chartData),
+            data: timeRangeUtil.normalizeChartData(selected, chartData),
           },
         ],
       };
-      // Object.keys(chartData).map((hourDayOrMonth) => {
-      //   swith()
-      //   dayOrMonthOrYear
-      // })
-
-
-      // labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-      // series: [
-      // [5, 2, 4, 2, 0, 1],
-      // ]
 
 
       setState({
@@ -322,7 +157,7 @@ export default declare(MithrilView, {
         activeTab: e.currentTarget.dataset.tab,
       });
 
-      getListItems().then(items => setState({ list: { items, selected: items[0].uri } }));
+      getListItems().then(items => setState({ list: { items, selected: items[0] ? items[0].uri : '' } }));
     };
 
     const onclickTimeRange = (e) => {
@@ -331,7 +166,7 @@ export default declare(MithrilView, {
       } else {
         setState({
           timeRanges: {
-            items: getLocalizedTimeRanges(),
+            items: timeRangeUtil.getTimeRanges(),
             selected: e.currentTarget.dataset.range,
           },
         });
@@ -349,6 +184,30 @@ export default declare(MithrilView, {
       });
 
       getChartItems().then(data => setState({ chart: { data } }));
+    };
+
+    const onchangeSearch = (e) => {
+      if (e.target.value) {
+        console.log(e.target.value);
+        const filterString = e.target.value;
+        const filteredItems =
+          state.list.items.filter(item => !!(item.name.includes(filterString) || (item.subname && item.subname.includes(filterString))));
+
+        setState({
+          list: {
+            selected: state.list.selected,
+            items: state.list.items,
+            filteredItems: filteredItems,
+          },
+        });
+      } else {
+        setState({
+          list: {
+            selected: state.list.selected,
+            items: state.list.items,
+          },
+        });
+      }
     };
 
     return {
@@ -372,7 +231,7 @@ export default declare(MithrilView, {
           endDatePicker.bootstrapMaterialDatePicker('setMinDate', startDate);
           endDatePicker.bootstrapMaterialDatePicker('setMaxDate', new Date());
           endDatePicker.one('change', (ev, endDate) => {
-            const timeRangeItems = getLocalizedTimeRanges({ startDate, endDate });
+            const timeRangeItems = timeRangeUtil.getTimeRanges({ startDate, endDate });
 
             // update the state but don't redraw yet
             setState({
@@ -396,7 +255,7 @@ export default declare(MithrilView, {
       },
       view() {
         const tabs = getTabs();
-        const ListComponent = tabs.find(tab => tab.id === state.activeTab).component.class;
+        const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
         return (
           <div className="">
             <div className="">
@@ -414,12 +273,11 @@ export default declare(MithrilView, {
                     <InlineList items={tabs} selected={state.activeTab} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
-                    <ListComponent items={state.list.items} selected={state.list.selected} onclick={onclickListItem}/>
+                    <SearchInput onchange={onchangeSearch}/>
+                    <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
+                                   selected={state.list.selected} onclick={onclickListItem}/>
                   </div>
                 </div>
-                <nav>
-                  <Pagination/>
-                </nav>
               </div>
               <div className="visualization__wrapper">
                 <h4>Catalog/Distribution statistics for <span>2018</span></h4>

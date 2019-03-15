@@ -11,8 +11,10 @@ export default (vnode) => ({
      * @todo fix jsdoc
      * @type {{items: []}}
      */
-    const { items, selected, onclick } = vnode.attrs;
-    const hasData = !!items.length > 0;
+    const { items, filteredItems, selected, onclick } = vnode.attrs;
+    console.log(items, filteredItems);
+    const toRenderItems = filteredItems || items;
+    const hasData = !!toRenderItems.length > 0;
 
     return hasData ?
       (<div>
@@ -23,7 +25,7 @@ export default (vnode) => ({
             <p className="distribution__head__title fa fa-download"></p>
           </div>
         </div>
-        {items.map(item =>
+        {toRenderItems.map(item =>
           <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri} className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
               <p className="row__title">{item.name}</p>

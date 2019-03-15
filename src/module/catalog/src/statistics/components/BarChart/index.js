@@ -1,7 +1,7 @@
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 // Create a simple bar chart
-import moment from 'moment'; //@todo valentino
+import moment from 'moment'; // @todo valentino
 
 
 let chart; // @todo @valentino
@@ -26,11 +26,9 @@ export default () => ({
   view(vnode) {
     const { data } = vnode.attrs;
     if (chart) {
+      console.log(data);
       chart.update(data);
     }
-    console.log(chart);
-    // chart.update({ series: data });
-    // update chart vnode.state.chart
 
     return <div className="ct-chart"/>;
   },
