@@ -36,28 +36,46 @@
 
     .cards--wrapper {
         display: flex;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        max-width: 40%;
-        max-height: 300px;
-        margin-top:38px;
+        justify-content: space-evenly;
+        margin-top: 50px;
+        & a:first-child{
+            margin-left:0;
+        }
         .escoOverview__statBox {
             cursor: pointer;
-            min-width: 110px;
-            max-width: 110px;
-            min-height: 120px;
-            height: 120px;
-            margin-right: 0;
+            min-width: 130px;
+            min-height: 40px;
+            height: 40px;
+            margin:0;
             margin-left: 15px;
             padding: 7px;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);;
 
             .escoOverview__statLabel,
             .escoOverview__statCount {
                 font-size: $text-size;
                 margin:0;
+                margin-left: 3px;
             }
             .escoOverview__statCount{
                 font-size: $title-size;
+                font-weight: bold;
+                align-self: flex-end;
+            }
+            .escoOverview__statLabel{
+                font-family:$main-font;
+                color:$text-colour;
+            }
+
+            .fa{
+                color:$main-colour;
+                font-weight: bold;
+                font-size: 15px;
+                align-self: center;
+                height: 20px;
             }
     
         }
@@ -123,10 +141,10 @@
     }
 }
 .distributions {
-    width: 60%;
+    width: 70%;
 
     .header {
-        width: 40%;
+        width: 28%;
         border-bottom: 1.5px solid $accent-colour;
         align-items: center;
         margin-top: 15px;

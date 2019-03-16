@@ -1,5 +1,5 @@
 import m from 'mithril';
-import StatBox from './StatBox';
+import StatBox from './StatBoxInline';
 
 export default {
   view(vnode) {
