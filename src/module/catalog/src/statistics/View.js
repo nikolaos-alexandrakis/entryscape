@@ -70,17 +70,19 @@ const getDatasetByDistributionRURI = async (distRURIs, context) => {
   return [fileRURI2DistributionEntry, fileRURI2DatasetEntry];
 };
 
+
 export default declare(MithrilView, {
   mainComponent: () => {
     const state = {
       list: {
         items: [],
         selected: null,
+        filteredItems: null,
       },
       chart: {
         data: {
           series: [{
-            name: 'test',
+            name: '',
             data: [{}],
           }],
         },
@@ -124,18 +126,27 @@ export default declare(MithrilView, {
       }
     };
 
-    const getChartItems = async () => {
-      const context = registry.getContext();
-      const { selected } = state.timeRanges;
-      // if (state.timeRanges.selected === 'custom') {
-      //   itemStats =
-      //     await statsAPI.getTopStatisticsAggregate(context.getId(), state.activeTab, custom);
-      const entryId = 5; // state.list.selected
-      const chartData =
-        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
+    const resetChart = () => {
+      setState({
+        chart: {
+          data: [],
+        },
+      });
+    };
 
-      delete chartData.count; // keep only pure data
-      const data = {
+    const getChartItems = async () => {
+      const { selected } = state.timeRanges;
+      if (state.timeRanges.selected === 'custom') {
+        return [];
+      }
+
+      const context = registry.getContext();
+      const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected);
+      const chartData =
+        await statsAPI.getEntryStatistics(context.getId(), entry.getId(), timeRangeUtil.toAPIRequestPath(selected));
+
+      delete chartData.count; // keep only chart relevant data
+      return {
         series: [
           {
             name: 'whatever',
@@ -143,13 +154,6 @@ export default declare(MithrilView, {
           },
         ],
       };
-
-
-      setState({
-        chart: {
-          data,
-        },
-      });
     };
 
     const onclickTab = (e) => {
@@ -157,12 +161,15 @@ export default declare(MithrilView, {
         activeTab: e.currentTarget.dataset.tab,
       });
 
-      getListItems().then(items => setState({ list: { items, selected: items[0] ? items[0].uri : '' } }));
+      getListItems()
+        .then(items => setState({ list: { items, selected: items[0] ? items[0].uri : '' } }));
+
+      resetChart();
     };
 
     const onclickTimeRange = (e) => {
       if (e.currentTarget.dataset.range === 'custom') {
-        fireCalendar();
+        showDatePickers();
       } else {
         setState({
           timeRanges: {
@@ -173,6 +180,8 @@ export default declare(MithrilView, {
 
         getListItems().then(items => setState({ list: { items, selected: state.list.selected } }));
       }
+
+      resetChart();
     };
 
     const onclickListItem = (e) => {
@@ -183,12 +192,12 @@ export default declare(MithrilView, {
         },
       });
 
-      getChartItems().then(data => setState({ chart: { data } }));
+      getChartItems()
+        .then(data => setState({ chart: { data } }));
     };
 
     const onchangeSearch = (e) => {
       if (e.target.value) {
-        console.log(e.target.value);
         const filterString = e.target.value;
         const filteredItems =
           state.list.items.filter(item => !!(item.name.includes(filterString) || (item.subname && item.subname.includes(filterString))));
@@ -197,7 +206,7 @@ export default declare(MithrilView, {
           list: {
             selected: state.list.selected,
             items: state.list.items,
-            filteredItems: filteredItems,
+            filteredItems,
           },
         });
       } else {
@@ -210,11 +219,20 @@ export default declare(MithrilView, {
       }
     };
 
+    /**
+     * Will be initialized on creation of component.
+     * Can be called to show the start/end date pickers
+     * @type {Function}
+     */
+    let showDatePickers;
+
     return {
       oninit() {
+        // update list item state
         getListItems().then(items => setState({ list: { items, selected: items[0].uri } }));
       },
       oncreate() {
+        // create date pickers
         const startDatePicker = jquery('#custom-date-start').bootstrapMaterialDatePicker({
           weekStart: 0,
           time: false,
@@ -248,7 +266,7 @@ export default declare(MithrilView, {
           endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
           endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'End date');
         });
-        fireCalendar = () => {
+        showDatePickers = async () => {
           startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
           startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'Start date');
         };

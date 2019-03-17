@@ -25,8 +25,7 @@ export default () => ({
   },
   view(vnode) {
     const { data } = vnode.attrs;
-    if (chart) {
-      console.log(data);
+    if (chart && data) {
       chart.update(data);
     }
 

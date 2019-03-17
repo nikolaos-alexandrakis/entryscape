@@ -16,6 +16,11 @@ const getSiteConfig = () => exports.get('siteConfig');
  */
 const getEntryStore = () => exports.get('entrystore');
 /**
+ *
+ * @return {store/EntryStoreUtil}
+ */
+const getEntryStoreUtil = () => exports.get('entrystoreutil');
+/**
  * @returns {store/Entry}
  */
 const getEntry = () => exports.get('entry');
@@ -80,6 +85,7 @@ const exports = {
   getSiteManager,
   getSiteConfig,
   getEntryStore,
+  getEntryStoreUtil,
   getEntry,
   getContext,
 };
