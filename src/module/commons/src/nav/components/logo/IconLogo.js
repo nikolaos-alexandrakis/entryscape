@@ -14,14 +14,16 @@ export default () => ({
       classes.push('footer-logo-text');
     }
 
+    const title = i18n.localize(escoLayoutNLS, 'goHomeLink');
+
     return m('div', { class: classes.join(' ') }, [
       m('img', {
         src: icon,
         alt: 'logo image',
-        title: i18n.localize(escoLayoutNLS, 'goHomeLink'),
+        title,
       }),
       text ? m('span.hidden-sm-down', {
-        title: i18n.localize(escoLayoutNLS, 'goHomeLink'),
+        title,
       }, text) : null,
     ]);
   },
