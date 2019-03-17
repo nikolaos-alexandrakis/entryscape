@@ -1,6 +1,8 @@
 import m from 'mithril';
+import { i18n } from 'esi18n';
+import escoLayoutNLS from 'commons/nls/escoLayout.nls';
 
-export default {
+export default () => ({
   view(vnode) {
     const { type, src: { icon }, text, isFooter = false } = vnode.attrs;
 
@@ -13,8 +15,14 @@ export default {
     }
 
     return m('div', { class: classes.join(' ') }, [
-      m('img', { src: icon, alt: 'logo image' }),
-      text ? m('span.hidden-sm-down', text) : null,
+      m('img', {
+        src: icon,
+        alt: 'logo image',
+        title: i18n.localize(escoLayoutNLS, 'goHomeLink'),
+      }),
+      text ? m('span.hidden-sm-down', {
+        title: i18n.localize(escoLayoutNLS, 'goHomeLink'),
+      }, text) : null,
     ]);
   },
-};
+});
