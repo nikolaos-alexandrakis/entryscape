@@ -6,17 +6,16 @@ import m from 'mithril';
 
 export default () => ({
   view(vnode) {
-    const { label, value, link, onclick, icon } = vnode.attrs;
+    const { label, value, link, onclick } = vnode.attrs;
 
     return (
       <a
-        class="col-md-6 escoOverview__statBox"
+        class="escoOverview__statBox"
         href={link}
         onclick={onclick}
         tabindex="0"
       >
-        <span class={`fa fa-${icon} fa-fw`}
-        ></span>
+
         <p class="escoOverview__statCount">{value}</p>
         <label class="escoOverview__statLabel">{label}</label>
       </a>

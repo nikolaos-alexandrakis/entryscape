@@ -20,9 +20,9 @@ import {
 } from 'commons/util/metadata';
 import StatBoxInline from 'commons/overview/components/StatBoxInline';
 import Toggle from 'commons/components/common/toggle/Toggle';
+import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
-import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import Button from '../Button';
 import bindActions from './actions';
 import './index.scss';
@@ -183,10 +183,22 @@ export default (vnode) => {
                   </p>
                 )}
                 <div class="cards--wrapper">
-                  <StatBoxInline icon="bookmark-o" value={numRevisions} label={escoList.versionsLabel} onclick={actions.openRevisions}/>
-                  <StatBoxInline icon="comment-o" value={numComments} label={escaDataset.commentMenu} onclick={openCommentsDialog}/>
-                  <StatBoxInline icon="lightbulb-o" value={ideas.length} label={escaDataset.showideas} onclick={actions.openIdeas}/>
-                  <StatBoxInline icon="diamond" value={showcases.length} label={escaDataset.showresults} onclick={actions.openShowcases}/>
+                  <StatBoxInline
+                    value={numRevisions}
+                    label={escoList.versionsLabel}
+                    onclick={actions.openRevisions}/>
+                  <StatBoxInline
+                    value={numComments}
+                    label={escaDataset.commentMenu}
+                    onclick={openCommentsDialog}/>
+                  <StatBoxInline
+                    value={ideas.length}
+                    label={escaDataset.showideas}
+                    onclick={actions.openIdeas}/>
+                  <StatBoxInline
+                    value={showcases.length}
+                    label={escaDataset.showresults}
+                    onclick={actions.openShowcases}/>
                 </div>
               </div>
 
@@ -197,9 +209,9 @@ export default (vnode) => {
                 onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
-              <Button class=" btn btn-secondary " onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
-              <Button class=" btn-secondary " onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
-              <Button class=" btn-secondary " onclick={removeDataset}>{escaDataset.removeDatasetTitle}</Button>
+              <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
+              <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
+              <Button class="btn-secondary" onclick={removeDataset}>{escaDataset.removeDatasetTitle}</Button>
 
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
