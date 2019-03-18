@@ -25,6 +25,7 @@ import {
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
 
 export default (distribution, dataset, fileEntryURIs, dom) => {
   // DIALOGS
@@ -110,35 +111,34 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
       this._newEntry.setMetadata(graph);
       return this._newEntry.commit().then(fileEntry => fileEntry.getResource(true)
         .putFile(this.fileOrLink.getFileInputElement())
-        .then(() => fileEntry.refresh().then(() => {
-          // this.list.getView().addRowForEntry(fileEntry);
-          const fileResourceURI = fileEntry.getResourceURI();
-          const distMetadata = this.distributionEntry.getMetadata();
-          const distResourceURI = this.distributionEntry.getResourceURI();
-          distMetadata.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
-          distMetadata.add(distResourceURI, 'dcat:downloadURL', fileResourceURI);
-          distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
-          distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
-          const format = fileEntry.getEntryInfo().getFormat();
-          const manualFormatList = distMetadata.find(distResourceURI, 'dcterms:format');
-          if (typeof format !== 'undefined' && manualFormatList.length === 0) {
-            distMetadata.addL(distResourceURI, 'dcterms:format', format);
-          }
-          return this.distributionEntry.commitMetadata();
-          // .then(() => {
-          // // update row menu items
-          // if (this.currentParams.list.parentRow) {
-          // this.currentParams.list.parentRow.updateDropdownMenu();
-          // }
-          // this.list.setListModified('add', fileResourceURI);
-          // this.distributionEntry.setRefreshNeeded();
-          // return this.distributionEntry.refresh();
-          // // this.list.getView().addRowForEntry(fileEntry);
-          // // this.list.getView().action_refresh();
-          // })
-        })
-        .then(this.onDone)
-      ));
+        .then(() => fileEntry.refresh()
+          .then(() => {
+            const fileResourceURI = fileEntry.getResourceURI();
+            const distMetadata = this.distributionEntry.getMetadata();
+            const distResourceURI = this.distributionEntry.getResourceURI();
+            distMetadata.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
+            distMetadata.add(distResourceURI, 'dcat:downloadURL', fileResourceURI);
+            distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
+            distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
+            const format = fileEntry.getEntryInfo().getFormat();
+            const manualFormatList = distMetadata.find(distResourceURI, 'dcterms:format');
+            if (typeof format !== 'undefined' && manualFormatList.length === 0) {
+              distMetadata.addL(distResourceURI, 'dcterms:format', format);
+            }
+            return this.distributionEntry.commitMetadata();
+            // .then(() => {
+            // // update row menu items
+            // if (this.currentParams.list.parentRow) {
+            // this.currentParams.list.parentRow.updateDropdownMenu();
+            // }
+            // this.list.setListModified('add', fileResourceURI);
+            // this.distributionEntry.setRefreshNeeded();
+            // return this.distributionEntry.refresh();
+            // })
+          })
+          .then(this.onDone),
+        ),
+      );
     },
   });
   // END DIALOGS
@@ -149,7 +149,7 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     const esUtil = registry.get('entrystoreutil');
     const pipelineResultResURI = md.findFirstValue(
       entry.getResourceURI(),
-      registry.get('namespaces').expand('dcat:accessURL')
+      registry.get('namespaces').expand('dcat:accessURL'),
     );
     return esUtil.getEntryByResourceURI(pipelineResultResURI)
       .then(pipelineResult => new Promise(r => r(pipelineResult)));
@@ -332,11 +332,12 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
   };
 
   const openAddFile = () => {
+    const escaFilesList = i18n.getLocalization(escaFilesListNLS);
     const addFileDialog = new AddFileDialog({}, DOMUtil.create('div', null, dom));
     addFileDialog.open({
       list: {
         entry: distribution,
-        nlsSpecificBundle: {},
+        nlsSpecificBundle: escaFilesList,
         getTemplate(entry) {
           const conf = typeIndex.getConf(entry);
           if (conf) {
@@ -354,7 +355,7 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
   };
 
   const openManageFiles = () => {
-    const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, vnode.dom));
+    const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div', null, dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     manageFilesDialog.open({
       entry: distribution,
