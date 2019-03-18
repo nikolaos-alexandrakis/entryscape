@@ -1,8 +1,6 @@
 import m from 'mithril';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
-import { template } from 'lodash-es';
-import dateUtil from 'commons/util/dateUtil';
 import Dropdown from 'commons/components/common/Dropdown';
 import {
   isUploadedDistribution,
@@ -11,8 +9,8 @@ import {
   isAPIDistribution,
   isAccessURLEmpty,
   isDownloadURLEmpty,
-  isAccessDistribution,
-  getDistributionTemplate,
+  // isAccessDistribution,
+  // getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escoListNLS from 'commons/nls/escoList.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
@@ -22,27 +20,17 @@ export default (vnode) => {
   const { distribution, dataset, fileEntryURIs } = vnode.attrs;
   const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
 
-  const getFormattedDates = (modDate) => {
-    if (modDate != null) {
-      const escoList = i18n.getLocalization(escoListNLS);
-      const dateFormats = dateUtil.getMultipleDateFormats(modDate);
-      const tStr = template(escoList.modifiedDateTitle)({ date: dateFormats.full });
-      return dateFormats;
-    }
-    return null;
-  };
-
   const renderActions = (entry) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const escoList = i18n.getLocalization(escoListNLS);
     const actionButtons = [];
     // actions.push(
-      // <button
-        // class="btn--distributionFile fa fa-fw fa-pencil"
-        // title={nls.editDistributionTitle}
-      // >
-        // <span>{nls.editDistributionTitle}</span>
-      // </button>,
+    // <button
+    // class="btn--distributionFile fa fa-fw fa-pencil"
+    // title={nls.editDistributionTitle}
+    // >
+    // <span>{nls.editDistributionTitle}</span>
+    // </button>,
     // );
 
     actionButtons.push(
@@ -51,7 +39,7 @@ export default (vnode) => {
         onclick={actions.editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
-      </button>
+      </button>,
     );
 
     if (distribution.getEntryInfo().hasMetadataRevisions()) {

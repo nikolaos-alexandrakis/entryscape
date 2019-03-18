@@ -9,7 +9,6 @@ import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
 import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
-import comments from 'commons/comments/comments';
 import {
   isUploadedDistribution,
   isAPIDistribution,
