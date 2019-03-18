@@ -275,8 +275,8 @@ export default declare(MithrilView, {
         const tabs = getTabs();
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
         return (
-          <div className="">
-            <div className="">
+          <div>
+            <div className="stats__title">
               <h3>Here you can find some <span>info about stats</span></h3>
             </div>
             <section className="stats__wrapper">

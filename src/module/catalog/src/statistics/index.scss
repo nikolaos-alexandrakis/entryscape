@@ -2,11 +2,18 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  h4{
+    font-weight:bold;
+  }
 
   .flex {
     display: flex;
     align-items: center;
   }
+.data__wrapper{
+  width: 50%;
+  padding-right: 40px;
+
 
   .fa {
     margin: 0 10px;
@@ -16,15 +23,22 @@
     display: flex;
     justify-content: center;
   }
+ 
+  li{
+    cursor: pointer;
+  }
+  }
 }
 
 .visualization__chart {
   width: 400px;
-  height: 85.5%;
-  margin-left: 50px;
-  background: royalblue;
 }
-
+.stats__title{
+  margin-bottom:15px;
+  h3{
+    font-size: 20px;
+  }
+}
 
 // HACK for the datepicker
 .dtp > .dtp-content > .dtp-date-view > header.dtp-header {

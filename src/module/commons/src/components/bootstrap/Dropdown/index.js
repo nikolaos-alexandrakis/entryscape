@@ -1,3 +1,5 @@
+import './index.scss';
+
 export default (vnode) => ({
   view(vnode) {
     /**
@@ -7,7 +9,7 @@ export default (vnode) => ({
     const { items, selected, onclick } = vnode.attrs;
     const selectedItem = items.find(item => item.id === selected);
     return (
-      <div className="btn-group">
+      <div className="btn-group btn-group--chooser">
         <a className="btn btn-default">{selectedItem.name}</a>
         <a className="btn btn-default dropdown-toggle" data-toggle="dropdown">
           <span className="caret"></span>
