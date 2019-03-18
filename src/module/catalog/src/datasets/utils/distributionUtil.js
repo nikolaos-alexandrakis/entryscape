@@ -59,7 +59,6 @@ export const getDistributionFilesInfo = async (distributionEntry) => {
   });
 };
 
-
 export const isFileDistributionWithOutAPI = (entry, dctSource, entrystore) => {
   // old code to check API activated or not
   const fileStmts = entry.getMetadata().find(entry.getResourceURI(),
@@ -101,6 +100,7 @@ export const isUploadedDistribution = (entry, entrystore) => {
   const baseURI = es.getBaseURI();
   return !!((downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1));
 };
+
 export const isAccessDistribution = (entry, entrystore) => {
   const ns = registry.get('namespaces');
   const md = entry.getMetadata();
@@ -110,6 +110,7 @@ export const isAccessDistribution = (entry, entrystore) => {
   const base = entrystore.getBaseURI();
   return accessURI !== downloadURI || downloadURI.indexOf(base) !== 0;
 };
+
 export const isAccessURLEmpty = (entry) => {
   const ns = registry.get('namespaces');
   const md = entry.getMetadata();
@@ -118,6 +119,12 @@ export const isAccessURLEmpty = (entry) => {
   return !((accessURI !== '' && accessURI != null));
 };
 
+/**
+ * Checks if there is a dcat:downloadURL for an entry
+ *
+ * @param {store/Entry} entry
+ * @returns {boolean}
+ */
 export const isDownloadURLEmpty = (entry) => {
   const ns = registry.get('namespaces');
   const md = entry.getMetadata();
@@ -125,7 +132,6 @@ export const isDownloadURLEmpty = (entry) => {
   const downloadURI = md.findFirstValue(subj, ns.expand('dcat:downloadURL'));
   return !((downloadURI !== '' && downloadURI != null));
 };
-
 
 export const getDistributionTemplate = (templateId, dtemplate) => {
   if (!dtemplate) { // TODO @scazan don't forget to re-institute this!!!!
