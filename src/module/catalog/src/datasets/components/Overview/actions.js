@@ -253,7 +253,7 @@ export default (entry, dom) => {
                           });
                           return catalog.commitMetadata();
                         }))
-                        // Redirect to upper catalog after deletion
+                    // Redirect to upper catalog after deletion
                       .then(navigateToCatalog);
                   }, () => {
                     dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
@@ -299,8 +299,17 @@ export default (entry, dom) => {
    * @returns {undefined}
    */
   const openComments = (onUpdate) => {
+    const escoComment = escoCommentNLS;
+    const escaDataset = escaDatasetNLS;
     const commentsDialog = new CommentDialog({
-      nlsBundles: [{ escoCommentNLS, escaDatasetNLS }],
+      nlsBundles: [{ escoComment, escaDataset }],
+      open(params) {
+        this.inherited('open', arguments);
+        const name = registry.get('rdfutils').getLabel(params.row.entry);
+        this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
+        this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
+        this.localeChange();
+      },
     }, DOMUtil.create('div', null, dom));
     // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
