@@ -15,10 +15,17 @@ import jquery from 'jquery';
 import { template } from 'lodash-es';
 import { engine, utils as rdformsUtils } from 'rdforms';
 import { utils } from 'store';
+import {
+  isUploadedDistribution,
+  isFileDistributionWithOutAPI,
+  isSingleFileDistribution,
+  isAPIDistribution,
+  isAccessURLEmpty,
+  isDownloadURLEmpty,
+} from 'catalog/datasets/utils/distributionUtil';
 import ApiInfoDialog from './ApiInfoDialog';
 import templateString from './DistributionRowTemplate.html';
 import GenerateAPI from './GenerateAPI';
-import distributionUtil from './utils/distributionUtil';
 
 const ns = registry.get('namespaces');
 
@@ -123,9 +130,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       nlsKeyTitle: 'editDistributionTitle',
       method: this.edit.bind(this),
     });
-    if (this.isUploadedDistribution(this.entry, registry.get('entrystore'))) { // added newly
+    if (isUploadedDistribution(this.entry, registry.get('entrystore'))) { // added newly
       // Add ActivateApI menu item,if its fileEntry distribution
-      if (distributionUtil.isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
+      if (isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
         this.dropdownMenu.addItem({
           name: 'activateAPI',
           button: 'default',
@@ -136,7 +143,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           method: this.activateAPI.bind(this, this.entry),
         });
       }
-      if (this.isSingleFileDistribution(this.entry)) {
+      if (isSingleFileDistribution(this.entry)) {
         this.dropdownMenu.addItem({
           name: 'download',
           button: 'default',
@@ -176,7 +183,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           method: this.manageFiles.bind(this, this.entry),
         });
       }
-    } else if (this.isAPIDistribution(this.entry)) { // Add ApiInfo menu item,if its api distribution
+    } else if (isAPIDistribution(this.entry)) { // Add ApiInfo menu item,if its api distribution
       this.dropdownMenu.addItem({
         name: 'apiInfo',
         button: 'default',
@@ -196,7 +203,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         method: this.refreshAPI.bind(this, this.entry),
       });
     } else {
-      if (!this.isAccessURLEmpty(this.entry)) {
+      if (!isAccessURLEmpty(this.entry)) {
         this.dropdownMenu.addItem({
           name: 'access',
           button: 'default',
@@ -207,7 +214,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           method: this.openNewTab.bind(this, this.entry),
         });
       }
-      if (!this.isDownloadURLEmpty(this.entry)) {
+      if (!isDownloadURLEmpty(this.entry)) {
         this.dropdownMenu.addItem({
           name: 'download',
           button: 'default',
@@ -270,7 +277,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
   remove() {
     const dialogs = registry.get('dialogs');
-    if (distributionUtil.isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
+    if (isFileDistributionWithOutAPI(this.entry, this.dctSource, registry.get('entrystore'))) {
       dialogs.confirm(this.NLSBundles.escaDataset.removeDistributionQuestion,
         null, null, (confirm) => {
           if (!confirm) {
@@ -278,7 +285,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           }
           this.removeDistribution();
         });
-    } else if (this.isAPIDistribution(this.entry)) {
+    } else if (isAPIDistribution(this.entry)) {
       dialogs.confirm(this.NLSBundles.escaDataset.removeDistributionQuestion,
         null, null, (confirm) => {
           if (!confirm) {
@@ -465,9 +472,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   openVersions() {
     const dv = this.datasetRow.list.dialogs.distributionVersions;
-    if (this.isUploadedDistribution(this.entry, registry.get('entrystore'))) {
+    if (isUploadedDistribution(this.entry, registry.get('entrystore'))) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
-    } else if (this.isAPIDistribution(this.entry)) {
+    } else if (isAPIDistribution(this.entry)) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
     } else {
       dv.excludeProperties = [];

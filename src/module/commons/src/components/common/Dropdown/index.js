@@ -13,6 +13,7 @@ export default (vnode) => {
     setState({
       isShowing: false,
     });
+    vnode.dom.classList.remove('dropup');
   };
 
   const handleOutsideClick = (e) => {
@@ -33,6 +34,23 @@ export default (vnode) => {
     });
   };
 
+
+  const setDropdownOrientation = () => {
+    const dropdownElement = vnode.dom.querySelector('.row__dropdownMenu');
+    const dropdownHeight = dropdownElement.offsetHeight;
+    const toggleButton = vnode.dom.querySelector('.dropdown-toggle');
+    const toggleButtonHeight = toggleButton.offsetHeight;
+    const dropdownScreenPositionY = toggleButton.getBoundingClientRect().top;
+
+    const spaceAbove = dropdownScreenPositionY;
+    const spaceBelow = Math.abs(window.innerHeight - dropdownScreenPositionY);
+    const elementHeight = toggleButtonHeight + dropdownHeight;
+
+    if ((spaceBelow < elementHeight) && (spaceAbove > spaceBelow)) {
+      dropdownElement.classList.add('dropup');
+    }
+  };
+
   return {
     view(vnode) {
       const { children } = vnode;
@@ -40,12 +58,17 @@ export default (vnode) => {
 
       return (
         <div>
-          <button class="icons fa fa-cog" onclick={toggleDropdown}></button>
-          <div class={`file__dropdownMenu ${showingDropdownClass}`}>
+          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown}></button>
+          <div class={`row__dropdownMenu ${showingDropdownClass}`}>
             { children }
           </div>
         </div>
       );
+    },
+    onupdate() {
+      if (state.isShowing) {
+        setDropdownOrientation();
+      }
     },
   };
 };

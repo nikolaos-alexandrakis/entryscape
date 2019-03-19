@@ -49,11 +49,20 @@
 
 .btn.btn-raised.btn-primary,.btn.btn-fab.btn-primary{
     background-color:#3f51b5; //primary colour on Bootstrap 4
+    &:hover{
+        color: #3f51b5;
+        background-color: hsla(0,0%,60%,.4) !important;
+    }
+}
+
+.btn-back{
+    margin-bottom: 50px;
 }
 .btn.btn-fab{
     width: 24px;
     height: 24px;
     min-width: 24px;
+    margin: 0;
     margin-bottom:5px;
     line-height: 1;
 }

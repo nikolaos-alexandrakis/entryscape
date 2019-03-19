@@ -10,12 +10,12 @@ import CommentDialog from 'commons/comments/CommentDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
 import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
-  getParentCatalogEntry,
-} from 'commons/util/metadata';
-import {
+  isUploadedDistribution,
+  isAPIDistribution,
   getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escoCommentNLS from 'commons/nls/escoComment.nls';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -35,26 +35,38 @@ const updateDistributionACL = (acl, entry) => {
   });
 };
 
-export default (entry, dom) => {
+export default (entry) => {
   const openDialog = (DialogClass) => {
-    const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
+    const dialog = new DialogClass({}, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     dialog.open({
-      // nlsPublicTitle: 'publicDatasetTitle',
-      // nlsProtectedTitle: 'privateDatasetTitle',
+      nlsPublicTitle: 'publicDatasetTitle',
+      nlsProtectedTitle: 'privateDatasetTitle',
       row: { entry },
       onDone: () => m.redraw(),
     });
   };
 
-  const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
+  /**
+   * Open an Edit Side Dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openEditDialog = () => {
+    const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
     });
   };
 
-  const unpublishDataset = (groupEntry, onSuccess) => {
+  /**
+   * Set this dataset a unpublished/not public
+   *
+   * @param {store/Entry} groupEntry
+   * @param {function} onSuccess A callback called after the state has been committed
+   * @returns {undefined}
+   */
+  const setUnpublished = (groupEntry, onSuccess) => {
     const ei = entry.getEntryInfo();
     const acl = ei.getACL(true);
     acl.admin = acl.admin || [];
@@ -65,7 +77,13 @@ export default (entry, dom) => {
     updateDistributionACL(acl, entry);
   };
 
-  const setPublished = (publishedState) => {
+  /**
+   * Set this dataset as public
+   *
+   * @param {boolean} publishedState
+   * @returns {undefined}
+   */
+  const setPublishedState = (publishedState) => {
     const onSuccess = () => m.redraw();
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
@@ -88,14 +106,15 @@ export default (entry, dom) => {
                 }
               }, () => undefined); // fail silently
             }));
+
             if (apiDistributionURIs.length === 0) {
-              return unpublishDataset(groupEntry, onSuccess);
+              return setUnpublished(groupEntry, onSuccess);
             }
-            // const confirmMessage = this.nlsSpecificBundle[this.list.nlsApiExistsToUnpublishDataset]; // @scazan THIS
-            const confirmMessage = escaDataset.apiExistsToUnpublishDataset; // @scazan THIS
+
+            const confirmMessage = escaDataset.apiExistsToUnpublishDataset;
             return dialogs.confirm(confirmMessage, null, null, (confirm) => {
               if (confirm) {
-                return unpublishDataset(groupEntry, onSuccess);
+                return setUnpublished(groupEntry, onSuccess);
               }
               return null;
             });
@@ -103,7 +122,6 @@ export default (entry, dom) => {
 
           // Make this dataset public by emptying the ACL and relying on parent
           ei.setACL({});
-          // this.reRender();
           ei.commit().then(onSuccess);
           updateDistributionACL({}, entry);
         } else {
@@ -138,7 +156,17 @@ export default (entry, dom) => {
     toggleThisImplementation();
   };
 
-  const removeDataset = () => {
+  const setPSIPublishedState = (publishedState) => {
+    console.log('For future use');
+  };
+  /**
+   *
+   * Remove this dataset
+   *
+   * @params {number} noOfComments The number of comments on the dataset
+   * @returns {undefined}
+   */
+  const removeDataset = (noOfComments) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const dialogs = registry.get('dialogs');
     const store = registry.get('entrystore');
@@ -167,95 +195,98 @@ export default (entry, dom) => {
         }
       }, () => {
       }); // fail silently
-    })).then(() => {
-      if (apiDistributionURIs.length > 0 && fileDistributionURIs.length > 0) {
-        dialogs.acknowledge(escaDataset.removeDatasetWithFileAndApiDistributions);
-        return;
-      } else if (apiDistributionURIs.length > 0) {
-        dialogs.acknowledge(escaDataset.removeFileDistAPI);
-        return;
-      } else if (fileDistributionURIs.length > 0) {
-        dialogs.acknowledge(escaDataset.removeDatasetWithFileDistributions);
-        return;
-      }
-      if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
-        let confirmMessage;
-        if (stmts.length > 0) {
-          if (self.noOfComments > 0) { // TODO @scazan
+    }))
+      .then(() => {
+        if (apiDistributionURIs.length > 0 && fileDistributionURIs.length > 0) {
+          dialogs.acknowledge(escaDataset.removeDatasetWithFileAndApiDistributions);
+          return;
+        } else if (apiDistributionURIs.length > 0) {
+          dialogs.acknowledge(escaDataset.removeFileDistAPI);
+          return;
+        } else if (fileDistributionURIs.length > 0) {
+          dialogs.acknowledge(escaDataset.removeDatasetWithFileDistributions);
+          return;
+        }
+        if (apiDistributionURIs.length === 0 && fileDistributionURIs.length === 0) {
+          let confirmMessage;
+          if (stmts.length > 0) {
+            if (noOfComments > 0) {
+              confirmMessage = i18n.renderNLSTemplate(
+                escaDataset.removeDatasetDistributionsAndCommentsConfirm,
+                { distributions: stmts.length, comments: noOfComments },
+              );
+            } else {
+              confirmMessage = i18n.renderNLSTemplate(
+                escaDataset.removeDatasetAndDistributionsQuestion,
+                stmts.length,
+              );
+            }
+          } else if (noOfComments > 0) {
             confirmMessage = i18n.renderNLSTemplate(
-              escaDataset.removeDatasetDistributionsAndCommentsConfirm,
-              { distributions: stmts.length, comments: self.noOfComments },
+              escaDataset.removeDatasetAndCommentsConfirm,
+              noOfComments,
             );
           } else {
-            confirmMessage = i18n.renderNLSTemplate(
-              escaDataset.removeDatasetAndDistributionsQuestion,
-              stmts.length,
-            );
+            confirmMessage = escaDataset.removeDatasetQuestion;
           }
-        } else if (self.noOfComments > 0) { // TODO @scazan
-          confirmMessage = i18n.renderNLSTemplate(
-            escaDataset.removeDatasetAndCommentsConfirm,
-            self.noOfComments,
-          );
-        } else {
-          confirmMessage = escaDataset.removeDatasetQuestion;
-        }
-        dialogs.confirm(confirmMessage, null, null, (confirm) => {
-          if (!confirm) {
-            return;
-          }
-          const dists = stmts.map((stmt) => {
-            const ruri = stmt.getValue();
-            return cache.getByResourceURI(ruri);
-          })
-            .filter(dist => dist.length > 0);
+          dialogs.confirm(confirmMessage, null, null, (confirm) => {
+            if (!confirm) {
+              return;
+            }
+            const dists = stmts.map((stmt) => {
+              const ruri = stmt.getValue();
+              return cache.getByResourceURI(ruri);
+            })
+              .filter(dist => dist.length > 0);
 
-          es.newSolrQuery()
-            .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')
-            .list()
-            .getEntries(0)
-            .then((allComments) => {
-              Promise.all(allComments.map(comment => comment.del())).then(() => {
-                Promise.all(dists.map(dist => dist[0].del())).then(() => {
-                  const resURI = entry.getResourceURI();
-                  return entry.del().then(() => {
-                    // this.list.getView().removeRow(this);
-                    // this.destroy();
-                    // TODO @scazan Redirect to upper catalog
-                    // getParentCatalogEntry(entry);
-                  }).then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
-                    .then((catalog) => {
-                      catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
-                        value: resURI,
-                        type: 'uri',
-                      });
-                      return catalog.commitMetadata();
-                    }));
-                }, () => {
-                  // this.distributions.innerHTML = '';
-                  // this.listDistributions();
-                  dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
+            es.newSolrQuery()
+              .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')
+              .list()
+              .getEntries(0)
+              .then((allComments) => {
+                Promise.all(allComments.map(comment => comment.del())).then(() => {
+                  Promise.all(dists.map(dist => dist[0].del())).then(() => {
+                    const resURI = entry.getResourceURI();
+                    return entry.del()
+                      .then(() => registry.get('entrystoreutil').getEntryByType('dcat:Catalog', entry.getContext())
+                        .then((catalog) => {
+                          catalog.getMetadata().findAndRemove(null, ns.expand('dcat:dataset'), {
+                            value: resURI,
+                            type: 'uri',
+                          });
+                          return catalog.commitMetadata();
+                        }))
+                    // Redirect to upper catalog after deletion
+                      .then(navigateToCatalog);
+                  }, () => {
+                    dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
+                  });
                 });
               });
-            });
-        });
-      }
-    });
+          });
+        }
+      });
   };
 
-  // @scazan CODE is DUPLICATED SOMEWHAT
+  /**
+   *
+   * Open the Revisions dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openRevisions = () => {
-    // const dv = RevisionsDialog;
-    // if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
-      // dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
-    // } else if (isAPIDistribution(distribution)) {
-      // dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
-    // } else {
-      // dv.excludeProperties = [];
-    // }
-    // dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
+    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
 
-    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, dom));
+    if (isUploadedDistribution(entry, registry.get('entrystore'))) {
+      revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
+    } else if (isAPIDistribution(entry)) {
+      revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
+    } else {
+      revisionsDialog.excludeProperties = [];
+    }
+    revisionsDialog.excludeProperties = revisionsDialog
+      .excludeProperties.map(property => registry.get('namespaces').expand(property));
+
     // @scazan Some glue here to communicate with RDForms without a "row"
     revisionsDialog.open({
       row: { entry },
@@ -264,30 +295,72 @@ export default (entry, dom) => {
     });
   };
 
-  const openComments = () => {
-    const commentsDialog = new CommentDialog({}, DOMUtil.create('div', null, dom));
+  /**
+   *
+   * Open the Comments dialog for this dataset
+   *
+   * @returns {undefined}
+   */
+  const openComments = (onUpdate) => {
+    const escoComment = escoCommentNLS;
+    const escaDataset = escaDatasetNLS;
+    const commentsDialog = new CommentDialog({
+      nlsBundles: [{ escoComment, escaDataset }],
+      open(params) {
+        this.inherited('open', arguments);
+        const name = registry.get('rdfutils').getLabel(params.row.entry);
+        this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
+        this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
+        this.localeChange();
+      },
+    }, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
-      row: { entry },
-      onDone: () => m.redraw(),
+      row: {
+        entry,
+        renderCommentCount: () => onUpdate(commentsDialog.row.noOfComments),
+      },
+    });
+
+    onUpdate().then((numComments) => {
+      commentsDialog.row.noOfComments = numComments;
     });
   };
 
-
+  /**
+   * Open the Ideas dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openIdeas = () => {
     openDialog(ShowIdeasDialog);
   };
 
   const openShowcases = () => {
+    /**
+     * Open the showcases dialog for this dataset
+     *
+     * @returns {undefined}
+     */
     openDialog(ShowShowcasesDialog);
   };
 
-  const openDowngrade = () => {
+  /**
+   * Open a "dialog" (which is just a modal) fr
+   *
+   * @returns {undefined}
+   */
+  const downgrade = () => {
     openDialog(DowngradeDialog);
   };
 
+  /**
+   * Open a Dataset Preview window
+   *
+   * @returns {undefined}
+   */
   const openPreview = () => {
     /**
      * Encoded resource URI; base64 used
@@ -295,7 +368,7 @@ export default (entry, dom) => {
      */
     const dataset = entry.getId();
     if (config.catalog && config.catalog.previewURLNewWindow) {
-      window.open(url, '_blank');
+      window.open(url, '_blank'); // @scazan TODO url is undefined but was, seemingly, also undefined in the original
     } else {
       const site = registry.get('siteManager');
       const state = site.getState();
@@ -304,15 +377,29 @@ export default (entry, dom) => {
     }
   };
 
+  /**
+   * Navigate to the parent Catalog of this dataset
+   *
+   * @returns {undefined}
+   */
+  const navigateToCatalog = () => {
+    const site = registry.get('siteManager');
+    const state = site.getState();
+    const { context } = state[state.view];
+    site.render('catalog__datasets', { context });
+  };
+
   return {
     openEditDialog,
     removeDataset,
-    setPublished,
+    setPublishedState,
+    setPSIPublishedState,
+    navigateToCatalog,
     openRevisions,
     openComments,
     openIdeas,
     openShowcases,
     openPreview,
-    openDowngrade,
+    downgrade,
   };
 };

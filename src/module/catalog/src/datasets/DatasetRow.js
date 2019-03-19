@@ -45,10 +45,17 @@ export default declare([ToggleRow], {
     return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', this.entry.getContext());
   },
   updateLocaleStrings() {
-   this.inherited('updateLocaleStrings', arguments);
-   this._updateLocaleStrings();
+    this.inherited('updateLocaleStrings', arguments);
+
+    this._updateLocaleStrings();
   },
   _updateLocaleStrings() {
+    if (this.entry.isPublic()) {
+      this.publishedIcon.title = this.nlsSpecificBundle[this.nlsPublicTitle];
+    } else {
+      this.publishedIcon.title = this.nlsSpecificBundle[this.nlsProtectedTitle];
+    }
+
     this.maybeUpdate();
   },
   getDistributionStatements() {

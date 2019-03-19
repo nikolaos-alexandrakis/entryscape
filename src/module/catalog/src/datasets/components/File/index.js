@@ -1,4 +1,3 @@
-import m from 'mithril';
 import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
 import Dropdown from 'commons/components/common/Dropdown';
@@ -10,13 +9,17 @@ import {
 } from 'commons/util/metadata';
 import bindActions from './actions';
 
+/**
+ * Displays a file row
+ *
+ * @returns {object} A Mithril component
+ */
 export default (vnode) => {
   const { entry, distribution, onUpdate } = vnode.attrs;
-  const actions = bindActions(entry, distribution, onUpdate, vnode.dom);
+  const actions = bindActions(entry, distribution, onUpdate);
 
   return {
-    view(vnode) {
-      const { entry } = vnode.attrs;
+    view() {
       const title = getTitle(entry);
       const modifiedDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
       const escaDataset = i18n.getLocalization(escaDatasetNLS);

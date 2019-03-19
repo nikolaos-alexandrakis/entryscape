@@ -61,6 +61,12 @@ pipelines:
     feature/*:
       - step: *build
       - step: *deploybranch
+    hotfix/*:
+      - step: *build
+      - step: *deploybranch
+    release/*:
+      - step: *build
+      - step: *deploybranch
 
 #definitions:
 #  caches:

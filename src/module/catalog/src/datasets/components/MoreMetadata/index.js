@@ -1,27 +1,17 @@
-import m from 'mithril';
+import './index.scss';
 
-export default (vnode) => ({
+/**
+ * Displays an extended view of metadata
+ *
+ * @returns {object} A Mithril component
+ */
+export default () => ({
   view(vnode) {
-    const { metadata, isHidden } = vnode.attrs;
-    const modificationDate = metadata.getModificationDate().toString();
+    const { isHidden } = vnode.attrs;
     const hiddenClass = isHidden ? 'hidden' : '';
 
-    const metadataTriples = metadata.getGraph().forEach((subject, predicate, object) => {
-      // console.log([subject, predicate, object]);
-    });
-
-    // console.log(metadataTriples);
-
     return (
-      <div class= {`metadata--more ${hiddenClass}`}>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-        <p><span class="metadata__label">Last modified:</span>{modificationDate}</p>
-        <p><span class="metadata__label">Publisher:</span> Mattias Palmer</p>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
-        <p><span class="metadata__label">Belongs to catalog:</span> Name of catalog</p>
+      <div class={`metadata--more ${hiddenClass}`}>
       </div>
     );
   },

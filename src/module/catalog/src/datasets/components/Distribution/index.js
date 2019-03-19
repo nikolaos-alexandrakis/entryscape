@@ -1,16 +1,13 @@
-import m from 'mithril';
 import registry from 'commons/registry';
-import config from 'config';
 import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
-import { engine, utils as rdformsUtils } from 'rdforms';
 import { createSetState } from 'commons/util/util';
-import {
-  isAPIDistribution,
-} from 'catalog/datasets/utils/distributionUtil';
 import {
   getTitle,
   getModifiedDate,
+  getDescription,
+  getDownloadURI,
+  getDistributionFormat,
 } from 'commons/util/metadata';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import DistributionActions from '../DistributionActions';
@@ -24,31 +21,30 @@ export default (vnode) => {
   };
   const setState = createSetState(state);
 
+  // @scazan Phase II
   const expandDistribution = () => {
     setState({
       isExpanded: !state.isExpanded,
     });
   };
 
-  const updateFileEntries = () => {
-    const entryStoreUtil = registry.get('entrystoreutil');
-    Promise.all(
-      distribution
-        .getMetadata()
-        .find(distribution.getResourceURI(), 'dcat:downloadURL')
-        .map(statement => entryStoreUtil.getEntryByResourceURI(statement.getValue())),
-    ).then(fileEntries => setState({ fileEntries }));
-  };
+  // @scazan Phase II
 
+  /**
+   * Gets a title from an entry with nls defaults in case there isn't one
+   *
+   * @param {store/Entry} entry
+   * @returns {string}
+   */
   const getSafeTitle = (entry) => {
     const title = getTitle(entry);
 
     if (title == null) {
       const namespaces = registry.get('namespaces');
       const escaDatasetLocalized = i18n.getLocalization(escaDatasetNLS);
+      const downloadURI = getDownloadURI(entry);
       const subj = entry.getResourceURI();
       const metadata = entry.getMetadata();
-      const downloadURI = metadata.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
       const source = metadata.findFirstValue(subj, namespaces.expand('dcterms:source'));
 
       if (downloadURI != null && downloadURI !== '') {
@@ -63,54 +59,16 @@ export default (vnode) => {
     return title;
   };
 
-  const getDistributionMetadata = (entry) => {
-    const namespaces = registry.get('namespaces');
-    const md = entry.getMetadata();
-    const subj = entry.getResourceURI();
-    const accessURI = md.findFirstValue(subj, namespaces.expand('dcat:accessURL'));
-    const downloadURI = md.findFirstValue(subj, namespaces.expand('dcat:downloadURL'));
-    const description = md.findFirstValue(subj, namespaces.expand('dcterms:description'));
-    const fileEntries = md.find(subj, 'dcat:downloadURL');
-
-    // @scazan WHAT IS TEMPLATE DRIVEN FORMAT?
-    let format;
-    // Check for template driven format
-    const formatTemplate = config.catalog.formatTemplateId
-      ? registry
-        .get('itemstore')
-        .getItem(config.catalog.formatTemplateId)
-      : undefined;
-    if (formatTemplate) {
-      format = rdformsUtils.findFirstValue(engine, md, subj, formatTemplate);
-    }
-    // Alternatively check for pure value via array of properties
-    if (!format && config.catalog.formatProp) {
-      const formatPropArr = typeof config.catalog.formatProp === 'string'
-        ? [config.catalog.formatProp]
-        : config.catalog.formatProp;
-      formatPropArr.find((prop) => {
-        format = md.findFirstValue(subj, namespaces.expand(prop));
-        return format != null;
-      });
-    }
-
-    return { format, accessURI, downloadURI, description, fileEntries };
-  };
-
   return {
     view(vnode) {
       const { fileEntryURIs } = vnode.attrs;
       const title = getSafeTitle(distribution);
-      const {
-        format,
-        accessURI,
-        downloadURI,
-        description,
-      } = getDistributionMetadata(distribution);
+      const format = getDistributionFormat(distribution);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(distribution));
+      const description = getDescription(distribution);
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
-      const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
+      // const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
       return (
@@ -124,7 +82,6 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
-            
               <DistributionActions
                 distribution={distribution}
                 dataset={dataset}
