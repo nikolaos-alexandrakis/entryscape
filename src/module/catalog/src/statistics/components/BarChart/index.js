@@ -1,6 +1,7 @@
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 import moment from 'moment'; // @todo valentino
+import './index.scss';
 
 let chart; // @todo @valentino
 
@@ -48,6 +49,6 @@ export default () => ({
       chart.update(data, getChartOptions(guessedDateFormat));
     }
 
-    return <div className="ct-chart"/>;
+    return <div className="ct-chart ct-square"/>;
   },
 });
