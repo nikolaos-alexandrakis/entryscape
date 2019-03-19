@@ -1,28 +1,32 @@
-import m from 'mithril';
 import registry from 'commons/registry';
-import CreateDistribution from 'catalog/datasets/CreateDistribution';
-import DOMUtil from 'commons/util/htmlUtil';
 import { i18n } from 'esi18n';
 import { createSetState } from 'commons/util/util';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import Distribution from '../Distribution';
+import bindActions from './actions';
 import './index.scss';
 
+/**
+ * Displays a list of Distributions (PHASE II)
+ *
+ * @returns {object} A mithril component
+ */
 export default (initialVnode) => {
+  const { dataset } = initialVnode.attrs;
+  const actions = bindActions(dataset);
+
   const state = {
     distributions: [],
   };
   const setState = createSetState(state);
 
-  const { dataset } = initialVnode.attrs;
-  const dom = initialVnode.dom;
-
   const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
-  const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
   // Get the distributions from the entry and store them in the state
   const listDistributions = (datasetEntry) => {
+    const getDistributionStatements = entry => entry.getMetadata()
+      .find(entry.getResourceURI(), 'dcat:distribution');
     const entryStoreUtil = registry.get('entrystoreutil');
     const fileEntryURIs = [];
     const uri2Format = [];
@@ -49,23 +53,13 @@ export default (initialVnode) => {
 
         return distributionEntry;
       }, () => null,
-        // brokenReferences.style.display = '';
-        // fail silently for missing distributions, list those that do exist.
-        // return null;
       );
     }))
       .then(dists => setState({ distributions: dists }));
   };
 
-  const openCreateDialog = () => {
-    const createDialog = new CreateDistribution({}, DOMUtil.create('div', null, dom));
-    // @scazan Some glue here to communicate with RDForms without a "row"
-    createDialog.open({ row: { entry: dataset }, onDone: () => listDistributions(dataset) });
-  };
-
   return {
     oninit: (vnode) => {
-      const { dataset } = vnode.attrs;
       listDistributions(dataset);
     },
     view() {
@@ -76,7 +70,7 @@ export default (initialVnode) => {
           <div class="header flex--sb">
             <h2 class="title">{escaDataset.distributionsTitle}</h2>
             <button class="btn btn-primary btn--add btn-fab btn-raised"
-              onclick={openCreateDialog}
+              onclick={actions.openCreateDialog}
               alt={escaDataset.addDistributionTitle}
             >
               +

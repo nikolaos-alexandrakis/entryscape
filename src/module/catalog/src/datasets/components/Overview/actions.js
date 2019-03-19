@@ -35,9 +35,9 @@ const updateDistributionACL = (acl, entry) => {
   });
 };
 
-export default (entry, dom) => {
+export default (entry) => {
   const openDialog = (DialogClass) => {
-    const dialog = new DialogClass({}, DOMUtil.create('div', null, dom));
+    const dialog = new DialogClass({}, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     dialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
@@ -53,7 +53,7 @@ export default (entry, dom) => {
    * @returns {undefined}
    */
   const openEditDialog = () => {
-    const editDialog = new EditDialog({ entry }, DOMUtil.create('div', null, dom));
+    const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
     });
@@ -156,6 +156,9 @@ export default (entry, dom) => {
     toggleThisImplementation();
   };
 
+  const setPSIPublishedState = (publishedState) => {
+    console.log('For future use');
+  };
   /**
    *
    * Remove this dataset
@@ -272,7 +275,7 @@ export default (entry, dom) => {
    * @returns {undefined}
    */
   const openRevisions = () => {
-    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div', null, dom));
+    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
 
     if (isUploadedDistribution(entry, registry.get('entrystore'))) {
       revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
@@ -310,7 +313,7 @@ export default (entry, dom) => {
         this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
         this.localeChange();
       },
-    }, DOMUtil.create('div', null, dom));
+    }, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
@@ -390,6 +393,7 @@ export default (entry, dom) => {
     openEditDialog,
     removeDataset,
     setPublishedState,
+    setPSIPublishedState,
     navigateToCatalog,
     openRevisions,
     openComments,

@@ -59,6 +59,7 @@ module.exports = (env, argv) => {
         jquery: 'jquery',
         // 'window.jquery': 'jquery',
         Popper: ['popper.js', 'default'],
+        m: 'mithril',
       }),
       new CopyWebpackPlugin([
         {
@@ -177,7 +178,6 @@ module.exports = (env, argv) => {
     resolve: {
       mainFiles: ['index'],
       alias: {
-        m: 'mithril',
         jquery: path.resolve(path.join(__dirname, 'node_modules', 'jquery')),
         commons: getAlias('commons'),
         catalog: getAlias('catalog'),

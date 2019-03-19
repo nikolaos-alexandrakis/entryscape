@@ -12,3 +12,4 @@ yalc.lock
 /src/scripts/nls/apikey.js
 theme
 *.temp
+.tern-project

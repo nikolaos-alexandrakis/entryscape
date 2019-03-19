@@ -1,9 +1,6 @@
-import m from 'mithril';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import EntryType from 'commons/create/EntryType';
 import DOMUtil from 'commons/util/htmlUtil';
 import stamp from 'dojo/date/stamp';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
@@ -24,14 +21,11 @@ const ReplaceFileDialog = declare(ReplaceDialog, {
       distMetadata.findAndRemove(distResourceURI, 'dcterms:modified');
       distMetadata.addD(distResourceURI, 'dcterms:modified', stamp.toISOString(new Date()), 'xsd:date');
       return this.distributionEntry.commitMetadata().then(() => {
-        // check here ..need to update list rows to update dropdown items
-        // this.list.setListModified('replace', this.entry.getResourceURI());
-        // this.list.rowMetadataUpdated(this.row, true);
         this.entry.setRefreshNeeded();
         return this.entry.refresh();
       });
     })
-      .then(this.onDone)
+      .then(this.onDone),
     );
   },
 });
@@ -62,7 +56,6 @@ const RemoveFileDialog = declare([RemoveDialog], {
           }).then(params.onDone);
         } else {
           params.onDone && params.onDone();
-          // list.getView().clearSelection();
         }
       });
   },
@@ -89,26 +82,25 @@ const RemoveFileDialog = declare([RemoveDialog], {
   },
 });
 
-export default (entry, distribution, onUpdate, dom) => {
+export default (entry, distribution, onUpdate) => {
   const replaceFile = () => {
+    const dom = DOMUtil.create('div');
     const replaceFileDialog = new ReplaceFileDialog({
       list: {
         entry: distribution,
       },
       onDone: onUpdate,
-    }, DOMUtil.create('div', null, dom));
+    }, dom);
 
     replaceFileDialog.open({
       entry,
       distributionEntry: distribution,
-      distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
+      distributionRow: { renderMetadata: () => {} }, // @scazan this is handled by m.render now
       row: {
         entry,
         domNode: dom,
       },
       // apiEntryURIs: this.dctSource,
-      // apiEntryURIs: fileEntryURIs,
-      // datasetEntry: dataset,
     });
   };
 
@@ -120,7 +112,7 @@ export default (entry, distribution, onUpdate, dom) => {
         nlsSpecificBundle: i18n.getLocalization(escaFilesListNLS),
         nlsGenericBundle: i18n.getLocalization(escoListNLS),
       },
-    }, DOMUtil.create('div', null, dom));
+    }, DOMUtil.create('div'));
     removeFileDialog.open({
       onDone: onUpdate,
     });

@@ -1,4 +1,3 @@
-import m from 'mithril';
 import registry from 'commons/registry';
 import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
@@ -22,22 +21,21 @@ export default (vnode) => {
   };
   const setState = createSetState(state);
 
+  // @scazan Phase II
   const expandDistribution = () => {
     setState({
       isExpanded: !state.isExpanded,
     });
   };
 
-  const updateFileEntries = () => {
-    const entryStoreUtil = registry.get('entrystoreutil');
-    Promise.all(
-      distribution
-        .getMetadata()
-        .find(distribution.getResourceURI(), 'dcat:downloadURL')
-        .map(statement => entryStoreUtil.getEntryByResourceURI(statement.getValue())),
-    ).then(fileEntries => setState({ fileEntries }));
-  };
+  // @scazan Phase II
 
+  /**
+   * Gets a title from an entry with nls defaults in case there isn't one
+   *
+   * @param {store/Entry} entry
+   * @returns {string}
+   */
   const getSafeTitle = (entry) => {
     const title = getTitle(entry);
 
@@ -70,7 +68,7 @@ export default (vnode) => {
       const description = getDescription(distribution);
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
-      const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
+      // const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
       return (

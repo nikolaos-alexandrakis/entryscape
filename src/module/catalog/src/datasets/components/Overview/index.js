@@ -38,6 +38,7 @@ export default (vnode) => {
   const setState = createSetState(state);
   const actions = bindActions(entry, vnode.dom);
 
+  // @scazan Keeping this here for Phase II
   const toggleMetadata = () => {
     openMoreMetadata();
     // setState({ metadataHidden: !state.metadataHidden });
@@ -225,17 +226,20 @@ export default (vnode) => {
                   isEnabled={isPublishable}
                 ></Toggle>
               </div>
-              <div class="psiPublish flex--sb">
-                <div class="icon--wrapper">
-                  <span class="icons fa fa-eye"></span>
-                  <p>{escaDataset.psiDatasetTitle}</p>
+              {/* This will be determined by configuration */}
+              { false &&
+                <div class="psiPublish flex--sb">
+                  <div class="icon--wrapper">
+                    <span class="icons fa fa-eye"></span>
+                    <p>{escaDataset.psiDatasetTitle}</p>
+                  </div>
+                  <Toggle
+                    title={escaDataset.privateDatasetTitle}
+                    toggleState={false}
+                    onToggle={togglePsiPublish}
+                  ></Toggle>
                 </div>
-                <Toggle
-                  title={escaDataset.privateDatasetTitle}
-                  toggleState={false}
-                  onToggle={togglePsiPublish}
-                ></Toggle>
-              </div>
+              }
             </div>
           </div>
 

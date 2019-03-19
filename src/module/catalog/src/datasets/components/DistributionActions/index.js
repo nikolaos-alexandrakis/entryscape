@@ -1,4 +1,3 @@
-import m from 'mithril';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import Dropdown from 'commons/components/common/Dropdown';
@@ -9,29 +8,24 @@ import {
   isAPIDistribution,
   isAccessURLEmpty,
   isDownloadURLEmpty,
-  // isAccessDistribution,
-  // getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escoListNLS from 'commons/nls/escoList.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import bindActions from './actions';
 
+/**
+ * Renders a list of action buttons that can be applied to a distribution
+ *
+ * @returns {undefined}
+ */
 export default (vnode) => {
   const { distribution, dataset, fileEntryURIs } = vnode.attrs;
-  const actions = bindActions(distribution, dataset, fileEntryURIs, vnode.dom);
+  const actions = bindActions(distribution, dataset, fileEntryURIs);
 
   const renderActions = (entry) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const escoList = i18n.getLocalization(escoListNLS);
     const actionButtons = [];
-    // actions.push(
-    // <button
-    // class="btn--distributionFile fa fa-fw fa-pencil"
-    // title={nls.editDistributionTitle}
-    // >
-    // <span>{nls.editDistributionTitle}</span>
-    // </button>,
-    // );
 
     actionButtons.push(
       <button
@@ -151,7 +145,6 @@ export default (vnode) => {
       }
     }
 
-    // if (this.datasetRow.list.createAndRemoveDistributions) { // @scazan simple boolean defined in the class
     actionButtons.push(
       <button
         class=" btn--distribution fa fa-fw fa-remove"
@@ -161,15 +154,12 @@ export default (vnode) => {
         <span>{escaDataset.removeDistributionTitle}</span>
       </button>,
     );
-    // }
 
     return actionButtons;
   };
 
   return {
-    view(vnode) {
-      const { distribution } = vnode.attrs;
-
+    view() {
       return (
         <div class=" icon--wrapper distribution--file">
           <Dropdown>
