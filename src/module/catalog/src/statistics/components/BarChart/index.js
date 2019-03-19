@@ -10,10 +10,10 @@ let chart; // @todo @valentino
  *  nls
  */
 
-const getChartOptions = (xAxisDateFormat = 'MMM D') => ({
+const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
   axisX: {
     type: Chartist.FixedScaleAxis,
-    divisor: 5,
+    divisor,
     labelInterpolationFnc(value) {
       return moment(value).format(xAxisDateFormat);
     },
@@ -23,11 +23,11 @@ const getChartOptions = (xAxisDateFormat = 'MMM D') => ({
 const guessAxisFormatFromData = (dataLength) => {
   let xAxisDateFormat = 'MMM D';
   if (dataLength < 13) {
-    xAxisDateFormat = 'MMM YY';
+    xAxisDateFormat = 'MMM';
   } else if (dataLength < 25) {
-    xAxisDateFormat = 'H HH';
+    xAxisDateFormat = 'H';
   } else if (dataLength < 32) {
-    xAxisDateFormat = 'MMM D';
+    xAxisDateFormat = 'D';
   }
 
   return xAxisDateFormat;
@@ -41,12 +41,13 @@ export default () => ({
     const { data } = vnode.attrs;
     if (chart && data) {
       let guessedDateFormat;
+      let dataLength = 1;
       if (data.series && data.series.length > 0) {
-        const dataLength = data.series[0].data.length;
+        dataLength = data.series[0].data.length;
         guessedDateFormat = guessAxisFormatFromData(dataLength);
       }
       // update chart data and xAxis if needed
-      chart.update(data, getChartOptions(guessedDateFormat));
+      chart.update(data, getChartOptions(guessedDateFormat, dataLength - 1));
     }
 
     return <div className="ct-chart ct-square"/>;
