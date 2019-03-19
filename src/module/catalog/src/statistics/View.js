@@ -37,6 +37,10 @@ const getTabs = () => [
 
 
 /**
+ * Retrieves the inverse property paths of the file/apis to their respective distribution and datasets.
+ * Returns an array of two elements:
+ *  1: A map of type <fleOrApiResourceURI, parentDistributionEntry>
+ *  2: A map of type <fleOrApiResourceURI, parentDatasetEntry>
  *
  * @param distRURIs
  * @param context
@@ -57,19 +61,25 @@ const getDatasetByDistributionRURI = async (distRURIs, context) => {
   const distributions2Resources = new Map();
   for (const [ruri, entry] of distributionEntries) { // eslint-disable-line
     fileRURI2DistributionEntry.set(ruri, entry);
-    distributions2Resources.set(entry.getResourceURI(), ruri);
+
+    if (distributions2Resources.has(entry.getResourceURI())) {
+      const ruris = distributions2Resources.get(entry.getResourceURI());
+      ruris.push(ruri);
+      distributions2Resources.set(entry.getResourceURI(), ruris);
+    } else {
+      distributions2Resources.set(entry.getResourceURI(), [ruri]);
+    }
   }
   const distributionRURIs = Array.from(distributions2Resources.keys());
   const datasetEntries = await getDatatsetByDistributionURI(distributionRURIs, context);
   const fileRURI2DatasetEntry = new Map();
   for (const [ruri, entry] of datasetEntries) { // eslint-disable-line
-    const fileOrAPIRURI = distributions2Resources.get(ruri);
-    fileRURI2DatasetEntry.set(fileOrAPIRURI, entry);
+    const fileOrAPIRURIs = distributions2Resources.get(ruri);
+    fileOrAPIRURIs.forEach(fileOrAPIRURI => fileRURI2DatasetEntry.set(fileOrAPIRURI, entry));
   }
 
   return [fileRURI2DistributionEntry, fileRURI2DatasetEntry];
 };
-
 
 export default declare(MithrilView, {
   mainComponent: () => {
@@ -229,7 +239,7 @@ export default declare(MithrilView, {
     return {
       oninit() {
         // update list item state
-        getListItems().then(items => setState({ list: { items, selected: items[0].uri } }));
+        getListItems().then(items => setState({ list: { items, selected: items.length > 0 ? items[0].uri : null } }));
       },
       oncreate() {
         // create date pickers
