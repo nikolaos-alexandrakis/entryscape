@@ -1,5 +1,8 @@
 {
   "root": {
+    "statsViewHeader": "Here you can find some info about stats",
+    "statsViewTimeRange": "Time range",
+    "statsViewDistributionStats": "Distribution statistics for selected time range",
     "timeRangeToday": "Today",
     "timeRangeYesterday": "Yesterday",
     "timeRangeThisMonth": "This Month",
@@ -7,8 +10,11 @@
     "timeRangeThisYear": "This Year",
     "timeRangeLastYear": "Last Year",
     "timeRangeCustom": "Custom",
+    "timeRangeNoDataAvailable": "No data available data for the selected time range",
     "tabItemFiles": "Files",
-    "tabItemApiCalls": "Api Calls"
+    "tabItemApiCalls": "Api Calls",
+    "tabHeaderTitle": "Title",
+    "tabHeaderFormat": "Format"
   },
   "sv": true,
   "da": true,

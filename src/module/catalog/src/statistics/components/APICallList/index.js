@@ -1,4 +1,7 @@
+import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import { i18n } from 'esi18n';
 import './index.scss';
+
 /**
  * @todo @valentino
  *  nls
@@ -33,7 +36,7 @@ export default (vnode) => ({
           </div>
         </div>))}
       </div>) :
-      (<div className="no-data">No data available data for the selected time range. <a>Try last month</a></div>);
+      (<div className="no-data">{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>);
   },
 });
 

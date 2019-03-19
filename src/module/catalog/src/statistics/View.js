@@ -1,5 +1,4 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import { getDatatsetByDistributionURI, getDistributionByFileResourceURI } from 'catalog/utils/dcatUtil';
 import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
 import InlineList from 'commons/components/bootstrap/InlineList';
 import registry from 'commons/registry';
@@ -10,76 +9,12 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
-import APICallList from './components/APICallList';
 import BarChart from './components/BarChart';
-import DistributionList from './components/DistributionList';
 import SearchInput from './components/SearchInput';
 import './index.scss';
+import getDatasetByDistributionRURI from './utils/distribution';
+import getTabs from './utils/tabs';
 import timeRangeUtil from './utils/timeRange';
-
-/**
- * @return {*[]}
- */
-const getTabs = () => [
-  {
-    id: 'file',
-    label: i18n.localize(escaStatistics, 'tabItemFiles'),
-    icon: 'fa-file',
-    component: DistributionList,
-  },
-  {
-    id: 'api',
-    label: i18n.localize(escaStatistics, 'tabItemApiCalls'),
-    icon: 'fa-repeat',
-    component: APICallList,
-  },
-];
-
-
-/**
- * Retrieves the inverse property paths of the file/apis to their respective distribution and datasets.
- * Returns an array of two elements:
- *  1: A map of type <fleOrApiResourceURI, parentDistributionEntry>
- *  2: A map of type <fleOrApiResourceURI, parentDatasetEntry>
- *
- * @param distRURIs
- * @param context
- * @return {Promise<Map<string, store/Entry>[]>}
- */
-const getDatasetByDistributionRURI = async (distRURIs, context) => {
-  const fileORAPIRURIs = distRURIs.map(dist => dist.uri); // @todo valentino change name
-  /**
-   * Get the actual distribution entries from the file/api resource URI
-   * @type {Map<string, store/Entry>}
-   */
-  const distributionEntries = await getDistributionByFileResourceURI(fileORAPIRURIs, context);
-
-  /**
-   * for each distribution entry get the resource URIs
-   */
-  const fileRURI2DistributionEntry = new Map(); // @todo @valentino better naming
-  const distributions2Resources = new Map();
-  for (const [ruri, entry] of distributionEntries) { // eslint-disable-line
-    fileRURI2DistributionEntry.set(ruri, entry);
-
-    if (distributions2Resources.has(entry.getResourceURI())) {
-      const ruris = distributions2Resources.get(entry.getResourceURI());
-      ruris.push(ruri);
-      distributions2Resources.set(entry.getResourceURI(), ruris);
-    } else {
-      distributions2Resources.set(entry.getResourceURI(), [ruri]);
-    }
-  }
-  const distributionRURIs = Array.from(distributions2Resources.keys());
-  const datasetEntries = await getDatatsetByDistributionURI(distributionRURIs, context);
-  const fileRURI2DatasetEntry = new Map();
-  for (const [ruri, entry] of datasetEntries) { // eslint-disable-line
-    const fileOrAPIRURIs = distributions2Resources.get(ruri);
-    fileOrAPIRURIs.forEach(fileOrAPIRURI => fileRURI2DatasetEntry.set(fileOrAPIRURI, entry));
-  }
-
-  return [fileRURI2DistributionEntry, fileRURI2DatasetEntry];
-};
 
 export default declare(MithrilView, {
   mainComponent: () => {
@@ -287,12 +222,12 @@ export default declare(MithrilView, {
         return (
           <div>
             <div className="stats__title">
-              <h3>Here you can find some <span>info about stats</span></h3>
+              <h3>{i18n.localize(escaStatistics, 'statsViewHeader')}</h3>
             </div>
             <section className="stats__wrapper">
               <div className="data__wrapper">
                 <div className="chooser__wrapper">
-                  <h4>Time frame</h4>
+                  <h4>{i18n.localize(escaStatistics, 'statsViewTimeRange')}</h4>
                   <BootstrapDropdown items={state.timeRanges.items} selected={state.timeRanges.selected}
                                      onclick={onclickTimeRange}/>
                 </div>
@@ -308,7 +243,7 @@ export default declare(MithrilView, {
                 </div>
               </div>
               <div className="visualization__wrapper">
-                <h4>Catalog/Distribution statistics for <span>2018</span></h4>
+                <h4>{i18n.localize(escaStatistics, 'statsViewDistributionStats')}</h4>
                 <div className="visualization__chart">
                   <BarChart data={state.chart.data}/>
                 </div>
