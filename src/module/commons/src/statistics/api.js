@@ -8,7 +8,7 @@ import config from 'config';
 // @todo @valentino delete
 // const STATS_BASE_URL = 'https://stats.infra.entryscape.com/v.dev.entryscape.com/' || `${config.get('entrystore.repository')}/statistics`;
 
-const STATS_BASE_URL = `${config.get('entrystore.repository')}/statistics`;
+const STATS_BASE_URL = `${config.get('entrystore.repository')}/statistics/`;
 
 const getTopStatisticsStartAndEnd = (contextId, type = 'file') => {
   const requestURL = `${STATS_BASE_URL}${contextId}/${`top/${type}/`}`;
