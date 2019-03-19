@@ -33,13 +33,13 @@ export default declare([TitleDialog], {
           containerNode.innerHTML = res.text;
           resolve(true);
           clearTimeout(t);
-        });
-    }, () => {
-      this.getContentHTML(`${path}.html`)
-        .then((res) => {
-          containerNode.innerHTML = res.text;
-          resolve(true);
-          clearTimeout(t);
+        }, () => {
+          this.getContentHTML(`${path}.html`)
+            .then((res) => {
+              containerNode.innerHTML = res.text;
+              resolve(true);
+              clearTimeout(t);
+            });
         });
     });
     if (callback) {
