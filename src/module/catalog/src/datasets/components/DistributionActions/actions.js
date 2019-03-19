@@ -232,6 +232,11 @@ export default (distribution, dataset, fileEntryURIs, dom) => {
     editDialog.open({ row: { entry: distribution }, onDone: () => listDistributions(dataset) });
   };
 
+  /**
+   * Open a resource in a new tab
+   *
+   * @returns {undefined}
+   */
   const openResource = () => {
     openNewTab(distribution);
   };
