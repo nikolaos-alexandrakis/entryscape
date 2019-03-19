@@ -43,11 +43,9 @@ export default () => ({
       let dataLength = 1;
       if (data.series && data.series.length > 0) {
         dataLength = data.series[0].data.length;
-        console.log(dataLength);
         guessedDateFormat = guessAxisFormatFromData(dataLength);
       }
       // update chart data and xAxis if needed
-      console.log(data);
       chart.update(data, getChartOptions(guessedDateFormat, dataLength - 1));
     }
 
