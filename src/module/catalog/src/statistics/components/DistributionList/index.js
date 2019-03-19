@@ -2,11 +2,6 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { i18n } from 'esi18n';
 import './index.scss';
 
-/**
- * @todo @valentino
- *  nls
- */
-
 export default () => ({
   view(vnode) {
     /**
