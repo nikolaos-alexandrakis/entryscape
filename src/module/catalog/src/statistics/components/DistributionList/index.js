@@ -13,7 +13,7 @@ export default () => ({
     const hasData = !!toRenderItems.length > 0;
 
     return hasData ?
-      (<div class="stats__row__wrapper">
+      (<div class="stats__row__wrapper--file">
         <div className="stats-header">
           <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</span>
           <div className="flex header--wrapper--right">
