@@ -29,7 +29,7 @@
   "activateAPI": "Aktivieren",
   "deactivateAPI": "Deaktivieren",
   "refreshAPIState": "Status der API überprüfen",
-  "activateAPINotAllowedFileToBig": "Die Größe der Datei übersteigt das erlaubte Limit von ${size} Bytes.",
+  "activateAPINotAllowedFileToBig": "Die Größe der Datei übersteigt das erlaubte Limit von ${size} MB.",
   "onlyCSVSupported": "Das Dateiformat wurde als \"${format}\" angegeben und die Aktivierung der API wird nur für das Format \"text/csv\" unterstützt. Sie können trotzdem fortfahren wenn Sie wissen dass das angegebene Format falsch ist und dass die Datei \"text/csv\" enthält.",
   "confirmAPIActivation": "Fortfahren, um die API zu aktivieren",
   "abortAPIActivation": "Abbrechen",
