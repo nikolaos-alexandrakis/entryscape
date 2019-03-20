@@ -58,11 +58,11 @@
    border: 2px solid transparent;
     .row__title{
         font-weight: bold;
-        word-break: break-word;
+        word-break: normal;
 
     }
     .row__text{
-        word-break: break-word;
+        word-break: normal;
     }
     .stat__count{
         width: 25%;
