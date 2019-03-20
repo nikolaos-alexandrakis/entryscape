@@ -110,7 +110,7 @@
     "confirmPublishWithoutDistributions": "This dataset does not have any distributions. It is recommended to provide at least one distribution, do you want to proceed anyway?",
     "proceedPublishWithoutDistributions": "Proceed",
     "cancelPublishWithoutDistributions": "Cancel",
-    "backTitle":"Back"
+    "backTitle":"Back to dataset list"
   },
   "sv": true,
   "da": true,

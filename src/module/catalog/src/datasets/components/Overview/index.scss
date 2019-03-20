@@ -30,7 +30,6 @@
         color: $text-colour;
         p {
             margin-bottom: 10px;
-            margin-left: 10px;
         }
     }
 
@@ -46,7 +45,7 @@
             min-height: 40px;
             height: 40px;
             margin:0;
-            margin-left: 10px;
+            margin-right: 10px;
             margin-top:10px;
             padding: 7px;
             flex-direction: row;
@@ -118,7 +117,6 @@
         color: $text-colour;
         margin-bottom: 40px;
         word-break: break-word;
-        margin-left: 10px;
     }
 
     .icon--wrapper{
