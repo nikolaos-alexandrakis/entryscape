@@ -1,13 +1,13 @@
-/**
- * @todo @valentino
- *  nls
- */
+import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import { i18n } from 'esi18n';
 
-export default (vnode) => ({
+export default () => ({
   view(vnode) {
-    const { onchange } = vnode.attrs;
+    const { onchange, onkeyup } = vnode.attrs;
     return (<div className="input-group col-md-9">
-      <input type="text" className="form-control" placeholder="Search for resources..." onchange={onchange}/>
+      <input type="text" id="stats-search-input" className="form-control"
+             placeholder={i18n.localize(escaStatistics, 'statsSearchInputPlaceholder')} onchange={onchange}
+             onkeyup={onkeyup}/>
       <span className="input-group-btn">
         <button className="btn btn-default searchButton" type="button" title="" aria-label="Search">
           <span className="screenreader__span"></span>

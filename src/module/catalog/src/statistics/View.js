@@ -79,6 +79,11 @@ export default declare(MithrilView, {
       });
     };
 
+    const resetSearchField = () => {
+      // this is not done with jquery to avoid keeping a mithril state
+      jquery('#stats-search-input').val('');
+    };
+
     const getChartItems = async () => {
       const { selected } = state.timeRanges;
       if (state.timeRanges.selected === 'custom') {
@@ -110,7 +115,15 @@ export default declare(MithrilView, {
         .then(items => setState({ list: { items, selected: items[0] ? items[0].uri : '' } }));
 
       resetChart();
+      resetSearchField();
     };
+
+    /**
+     * Will be initialized on creation of component.
+     * Can be called to show the start/end date pickers
+     * @type {Function}
+     */
+    let showDatePickers;
 
     const onclickTimeRange = (e) => {
       if (e.currentTarget.dataset.range === 'custom') {
@@ -127,6 +140,7 @@ export default declare(MithrilView, {
       }
 
       resetChart();
+      resetSearchField();
     };
 
     const onclickListItem = (e) => {
@@ -163,13 +177,6 @@ export default declare(MithrilView, {
         });
       }
     };
-
-    /**
-     * Will be initialized on creation of component.
-     * Can be called to show the start/end date pickers
-     * @type {Function}
-     */
-    let showDatePickers;
 
     return {
       oninit() {
@@ -236,7 +243,7 @@ export default declare(MithrilView, {
                     <InlineList items={tabs} selected={state.activeTab} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
-                    <SearchInput onchange={onchangeSearch}/>
+                    <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch} />
                     <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
                                    selected={state.list.selected} onclick={onclickListItem}/>
                   </div>
