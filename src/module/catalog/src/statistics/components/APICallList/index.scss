@@ -1,8 +1,12 @@
 @import '~commons/theme';
 
+.distributionList{
+    width:100%;
+    position: relative;
+}
 .stats__row__wrapper--API{
-    height: 390px;
-    overflow-y: scroll;
+    height: 300px;
+    overflow-y: auto;
 .stats-header{
     display: flex;
     justify-content: space-between;
@@ -22,9 +26,7 @@
         margin-right: 10px;
     }
 }
-.distributionList{
-    width:100%;
-}
+
 .flex--sb{
     display: flex;
     justify-content: space-between;
