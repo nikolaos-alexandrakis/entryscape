@@ -58,7 +58,9 @@
 }
 .header--wrapper--right{
     justify-content: space-between;
-    padding-right: 5px;
+    .fa{
+        width: 25%;
+    }
 
 }
 
