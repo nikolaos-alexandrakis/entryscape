@@ -3,6 +3,7 @@
 .distributionList{
     width:100%;
     position: relative;
+    min-height: 300px;
 }
 .stats__row__wrapper--API{
     height: 300px;
@@ -44,7 +45,7 @@
     cursor: pointer;
    @include row--shadow;
    &.selected{
-    border:2px solid #1C4CD1;
+    border:2px solid $main-colour;
 }
     .row__title{
         font-weight: bold;

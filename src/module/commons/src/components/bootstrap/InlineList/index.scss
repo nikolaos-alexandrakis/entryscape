@@ -1,3 +1,5 @@
+@import '~commons/theme';
+
 .entryscape__view__list__bottom {
   border-bottom: 1px solid #ededed;
 
@@ -17,7 +19,7 @@
   }
 
   li.selected {
-    border-bottom: 3px solid #1C4CD1;
+    border-bottom: 3px solid $main-colour;
   }
 
   li.selected a {

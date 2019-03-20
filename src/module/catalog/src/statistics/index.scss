@@ -1,3 +1,5 @@
+@import '~commons/theme';
+
 .stats__wrapper {
   width: 100%;
   display: flex;
@@ -53,7 +55,7 @@
 }
 // HACK for the datepicker
 .dtp > .dtp-content > .dtp-date-view > header.dtp-header {
-  background-color: #1C4CD1;
+  background-color: $main-colour;
 }
 
 .dtp-header-title {

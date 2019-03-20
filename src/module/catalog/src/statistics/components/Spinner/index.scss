@@ -1,3 +1,5 @@
+@import '~commons/theme';
+
 .spinner__wrapper {
   position: absolute;
   top: 50%;
@@ -6,6 +8,6 @@
 
   .fa {
     font-size: 48px;
-    color: #1C4CD1;
+    color:$main-colour;
   }
 }
