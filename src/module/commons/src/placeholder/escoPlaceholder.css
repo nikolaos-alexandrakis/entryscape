@@ -6,6 +6,10 @@
 }
 .escoPlaceholder__placeholderText {
     margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 400px;
+    text-align: center;
 }
 .escoPlaceholder__createButtonIcon {
     margin-right: 7px;

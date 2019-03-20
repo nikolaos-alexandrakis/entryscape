@@ -75,7 +75,7 @@
 }
 
 .conceptsControlls.addTerm > .row .form-group {
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 .conceptsControlls.addTerm input {
@@ -87,12 +87,22 @@
     font-size: 12px;
 }
 
-.conceptsControlls.addTerm button {
-}
 
 .leaveAlternatives button {
     float: right;
     margin-left: 5px;
+}
+.conceptsControlls .input-group-btn{
+    padding: 0;
+}
+.conceptsControlls .input-group-btn > button{
+    padding: 10px;
+}
+.conceptsControlls label.control-label{
+    margin-top:5px;
+}
+.conceptsControlls .input-group .form-control{
+    width: 100%;
 }
 
 .conceptsControlls .cardinality {

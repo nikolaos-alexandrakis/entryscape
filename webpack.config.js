@@ -9,9 +9,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 /** ********** INIT *********** */
-const VERSION = require('./package.json').version;
+  // Get the version from the package.json. If on a snapshot version then use the 'latest' version
+  // to keep consistency between local.js entryscape.version and generated publicPath of the webpack
+let VERSION = require('./package.json').version;
+VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
 
-const STATIC_URL = 'https://static.cdn.entryscape.com';
+const STATIC_URL = `https://static.${VERSION !== 'latest' ? 'cdn.' : ''}entryscape.com`;
 
 const getAlias = (name, type = 'module', noSource = false) =>
   path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
@@ -35,16 +38,17 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: PUBLIC_PATH,
+      publicPath: (argv && argv.localbuild ? '/dist/' : PUBLIC_PATH),
       filename: 'app.js',
+      chunkFilename: '[name].js',
       library: APP,
     },
     context: APP_PATH,
     plugins: [
       new DojoWebpackPlugin({
-        loaderConfig: require('./config/dojoConfig'),
+        loaderConfig: require('./dojo/config'),
         locales: ['en'],
-        environment: { dojoRoot: '/' }, // used at run time for non-packed resources (e.g.
+        environment: { dojoRoot: `${STATIC_URL}/libs` }, // used at run time for non-packed resources (e.g.
         // blank.gif)
         buildEnvironment: { dojoRoot: '../../../node_modules' }, // used at build time
         noConsole: true,
@@ -203,7 +207,7 @@ module.exports = (env, argv) => {
         devServer: {
           hot: true,
           contentBase: APP_PATH,
-          historyApiFallback: APP === 'blocks' ? false : true,
+          historyApiFallback: APP !== 'blocks',
           headers: {
             'Access-Control-Allow-Origin': '*',
           },

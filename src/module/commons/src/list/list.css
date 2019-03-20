@@ -115,6 +115,10 @@
     margin-left: 10px;
 }
 
+.entryList .entryName a:hover{
+    color:#333;
+}
+
 
 
 .entryList.datasets .entryControls.datasetControls button.btn {
