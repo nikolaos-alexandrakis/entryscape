@@ -82,6 +82,7 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
+              <span class="fa fa-exclamation-triangle"></span>
               <DistributionActions
                 distribution={distribution}
                 dataset={dataset}
