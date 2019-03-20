@@ -237,8 +237,9 @@ export default class {
         }
         // CHECK 2 - Max file(s) size
         if (config.catalog && totalFilesSize > config.get('catalog.maxFileSizeForAPI')) {
+          const maxSizeInMb = parseFloat((config.get('catalog.maxFileSizeForAPI') / 1048576).toFixed(2)); // convert bytes to Mb
           const acknowledgeMsg =
-            template(this.escaFiles.activateAPINotAllowedFileToBig)({ size: config.get('catalog.maxFileSizeForAPI') });
+            template(this.escaFiles.activateAPINotAllowedFileToBig)({ size: maxSizeInMb });
 
           return registry.get('dialogs').acknowledge(acknowledgeMsg)
             .then(() => {

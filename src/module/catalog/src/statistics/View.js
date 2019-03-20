@@ -75,7 +75,7 @@ export default declare(MithrilView, {
     };
 
     const resetChart = () => {
-      if (state.list.selected) {
+      if (state.list.selected && state.timeRanges.selected !== 'custom') {
         getChartData().then(data => setState({ chart: { data } }));
       } else {
         setState({ chart: { data: [] } });
@@ -241,17 +241,28 @@ export default declare(MithrilView, {
                 selected: 'custom',
                 custom: { start: startDate, end: endDate },
               },
-            }, true);
+              loadingData: true,
+            });
 
-            // get statistics for custom time range and redraw
-            getListItems().then(items => setState({ list: { items, selected: state.list.selected } }));
+            // get statistics for custom time range and
+            getListItems()
+              .then(items => setState({
+                list: { items, selected: null }, // don't preselect for custom time range to avoid chartist draw
+                loadingData: false,
+              }))
+              .then(() => {
+                resetChart();
+                resetSearchField();
+              });
           });
           endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
-          endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'End date');
+          endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle',
+            i18n.localize(escaStatistics, 'timeRangeDatePickerEndDate'));
         });
         showDatePickers = async () => {
           startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
-          startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', 'Start date');
+          startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle',
+            i18n.localize(escaStatistics, 'timeRangeDatePickerStartDate'));
         };
       },
       view() {

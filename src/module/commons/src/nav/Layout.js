@@ -322,6 +322,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       }
     }
 
+    this.renderLogo();
     this.constructFooter();
   },
   show(viewName, params) {

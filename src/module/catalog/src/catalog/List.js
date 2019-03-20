@@ -227,7 +227,11 @@ export default declare([List], {
   },
 
   getEmptyListWarning() {
-    return this.NLSBundle1.emptyListWarning;
+    if(this.includeCreateButton) {
+      return this.NLSBundle1.emptyListWarning;
+    }
+
+    return this.NLSBundle1.emptyListWithNoAccessWarning;
   },
 
   getTemplate() {
