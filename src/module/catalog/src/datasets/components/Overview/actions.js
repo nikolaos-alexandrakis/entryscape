@@ -80,10 +80,10 @@ export default (entry) => {
   /**
    * Set this dataset as public
    *
-   * @param {boolean} publishedState
+   * @param {boolean} currentPublishedState
    * @returns {undefined}
    */
-  const setPublishedState = (publishedState) => {
+  const setPublishedState = (currentPublishedState) => {
     const onSuccess = () => m.redraw();
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
@@ -92,7 +92,7 @@ export default (entry) => {
       const dialogs = registry.get('dialogs');
       registry.get('getGroupWithHomeContext')(entry.getContext()).then((groupEntry) => {
         if (groupEntry.canAdministerEntry()) {
-          if (publishedState) {
+          if (currentPublishedState) {
             const apiDistributionURIs = [];
             const esu = registry.get('entrystoreutil');
             const stmts = getDistributionStatements(entry);
@@ -132,7 +132,7 @@ export default (entry) => {
       });
     };
 
-    if (publishedState) {
+    if (currentPublishedState) {
       const es = registry.get('entrystore');
       const adminRights = registry.get('hasAdminRights');
       const userEntry = registry.get('userEntry');
@@ -156,9 +156,16 @@ export default (entry) => {
     toggleThisImplementation();
   };
 
-  const setPSIPublishedState = (publishedState) => {
-    console.log('For future use');
+  const setInternalPublishedState = (currentPublishedState) => {
+    if (currentPublishedState) {
+      entry.addD('http://entryscape.com/terms/psi', 'true', 'xsd:boolean')
+        .commitMetadata();
+    } else {
+      entry.getMetadata().findAndRemove(null, 'http://entryscape.com/terms/psi')
+        .commitMetadata();
+    }
   };
+
   /**
    *
    * Remove this dataset
@@ -393,7 +400,7 @@ export default (entry) => {
     openEditDialog,
     removeDataset,
     setPublishedState,
-    setPSIPublishedState,
+    setInternalPublishedState,
     navigateToCatalog,
     openRevisions,
     openComments,

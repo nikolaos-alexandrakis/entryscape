@@ -21,6 +21,7 @@ export default {
     includeShowcasesInDatasetMenu: true,
     includeIdeasInDatasetMenu: true,
     includeCandidates: true,
+    allowInternalDatasetPublish: false,
     checklist: [{
       name: 'noPrivacyIssues',
       shortLabel: {
