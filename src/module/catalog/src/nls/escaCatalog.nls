@@ -45,7 +45,7 @@
     "createEntryName": "catalog",
     "editEntry": "Edit",
     "emptyListWarning": "Catalogs you create will appear here",
-    "emptyListWithNoAccessWarning": "Catalogs will appear here. Contact an administrator on your team to either create one or give you access to an existing catalog",
+    "emptyListWithNoAccessWarning": "Catalogs will appear here. Contact an administrator to either create a catalog or to provide you with access to an existing one.",
     "reasonForRevisionMessage": "Datasets have been added and/or removed since the previous revision.",
     "noRevertSameGraphExcludeTitle": "There is nothing to revert. The latest revision is identical except for information that cannot be reverted easily (e.g. relations to datasets).",
     "revertExcludeMessage": "Datasets will neither be added nor removed.",
