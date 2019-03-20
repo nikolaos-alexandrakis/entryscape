@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
   }
- 
+
   li{
     cursor: pointer;
   }
@@ -39,15 +39,7 @@
     font-size: 20px;
   }
 }
-.spinner__wrapper{
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  .fa{
-    font-size: 48px;
-    color:#1C4CD1;
-  }
-}
+
 // HACK for the datepicker
 .dtp > .dtp-content > .dtp-date-view > header.dtp-header {
   background-color: #1C4CD1;

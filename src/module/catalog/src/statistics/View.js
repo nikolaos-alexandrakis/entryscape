@@ -11,6 +11,7 @@ import { i18n } from 'esi18n';
 import jquery from 'jquery';
 import BarChart from './components/BarChart';
 import SearchInput from './components/SearchInput';
+import Spinner from './components/Spinner';
 import './index.scss';
 import getDatasetByDistributionRURI from './utils/distribution';
 import getTabs from './utils/tabs';
@@ -38,6 +39,7 @@ export default declare(MithrilView, {
         custom: null, // custom.start, custom.end
       },
       activeTab: 'file',
+      loadingData: true,
     };
 
     const setState = createSetState(state);
@@ -111,8 +113,16 @@ export default declare(MithrilView, {
         activeTab: e.currentTarget.dataset.tab,
       });
 
+      // show spinner
+      setState({
+        loadingData: true,
+      });
+
       getListItems()
-        .then(items => setState({ list: { items, selected: items[0] ? items[0].uri : '' } }));
+        .then(items => setState({
+          list: { items, selected: items[0] ? items[0].uri : '' },
+          loadingData: false,
+        }));
 
       resetChart();
       resetSearchField();
@@ -134,9 +144,13 @@ export default declare(MithrilView, {
             items: timeRangeUtil.getTimeRanges(),
             selected: e.currentTarget.dataset.range,
           },
+          loadingData: true, // show spinner
         });
 
-        getListItems().then(items => setState({ list: { items, selected: state.list.selected } }));
+        getListItems().then(items => setState({
+          list: { items, selected: state.list.selected },
+          loadingData: false,
+        }));
       }
 
       resetChart();
@@ -181,7 +195,10 @@ export default declare(MithrilView, {
     return {
       oninit() {
         // update list item state
-        getListItems().then(items => setState({ list: { items, selected: items.length > 0 ? items[0].uri : null } }));
+        getListItems().then(items => setState({
+          list: { items, selected: items.length > 0 ? items[0].uri : null },
+          loadingData: false,
+        }));
       },
       oncreate() {
         // create date pickers
@@ -243,9 +260,12 @@ export default declare(MithrilView, {
                     <InlineList items={tabs} selected={state.activeTab} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
-                    <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch} />
-                    <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
-                                   selected={state.list.selected} onclick={onclickListItem}/>
+                    {state.loadingData ? <Spinner/> : (<div>
+                      <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/>
+                      <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
+                                     selected={state.list.selected} onclick={onclickListItem}/></div>)
+                    }
+
                   </div>
                 </div>
               </div>
@@ -256,9 +276,6 @@ export default declare(MithrilView, {
                 </div>
               </div>
             </section>
-            <div class="spinner__wrapper">
-              <i class="fa fa-spinner fa-pulse"></i>
-              </div>
           </div>
         );
       },
