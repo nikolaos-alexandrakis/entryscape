@@ -31,7 +31,6 @@ export default (vnode) => ({
             <p className="row__text">{item.subname}</p>
           </div>
           <div className="flex--sb row--right--wrapper">
-            <span className="row__text">{item.format}</span>
             <span className="row__text stat__count">{item.count}</span>
           </div>
         </div>))}
