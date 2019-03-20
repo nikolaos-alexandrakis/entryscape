@@ -64,6 +64,7 @@
 }
 
 .stats__row{
+    cursor: pointer;
    @include row--shadow;
     .row__title{
         font-weight: bold;
