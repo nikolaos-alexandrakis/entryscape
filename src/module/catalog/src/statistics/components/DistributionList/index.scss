@@ -66,6 +66,7 @@
 .stats__row{
     cursor: pointer;
    @include row--shadow;
+   border: 2px solid transparent;
     .row__title{
         font-weight: bold;
         word-break: break-word;
