@@ -1,8 +1,26 @@
 @import '~commons/theme';
+.distributionList{
+    width:100%;
+    position: relative;
+  /*   .input-group{
+        display: flex;
+    }
+    .form-group{
+        margin:0;
+        padding: 0;
+        margin-bottom:20px;
+    }
+
+    .searchButton{
+        padding:10px;
+        margin:0;
+    } */
+    
+}
 
 .stats__row__wrapper--file{
-    height: 390px;
-    overflow-y: scroll;
+    height: 300px;
+    overflow-y: auto;
 
 .stats-header{
     display: flex;
@@ -16,38 +34,8 @@
     }
   
 }
-.distributionList__tabs{
-    display: flex;
-    margin:40px 0 20px;
-    p{
-        margin-right: 10px;
-    }
-}
-.distributionList{
-    width:100%;
-    .input-group{
-        display: flex;
-    }
-    .form-group{
-        margin:0;
-        padding: 0;
-        margin-bottom:20px;
-    }
 
-    .searchButton{
-        padding:10px;
-        margin:0;
-    }
-    .no-data{
-        height: 350px;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        opacity: 0.7;
-    }
-}
+
 .flex--sb{
     display: flex;
     justify-content: space-between;
@@ -89,4 +77,21 @@
     }
 
 }
+}
+.no-data{
+    height: 350px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+.distributionList__tabs{
+    display: flex;
+    margin:40px 0 20px;
+    p{
+        margin-right: 10px;
+    }
 }
