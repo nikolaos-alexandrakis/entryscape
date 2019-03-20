@@ -52,6 +52,11 @@
    @include row--shadow;
     .row__title{
         font-weight: bold;
+        word-break: break-word;
+
+    }
+    .row__text{
+        word-break: break-word;
     }
     .stat__count{
         width: 12%;
