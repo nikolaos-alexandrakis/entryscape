@@ -8,6 +8,9 @@ $main-font:'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 $text-size: 14px;
 $title-size:20px;
 
+*{
+    box-sizing: border-box;
+}
 @mixin title--underlined {
     font-size: $title-size;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;

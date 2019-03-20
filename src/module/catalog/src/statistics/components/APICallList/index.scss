@@ -1,61 +1,74 @@
 @import '~commons/theme';
 
-.distributionList{
-    width:100%;
+.distributionList {
+    width: 100%;
     position: relative;
     min-height: 300px;
 }
-.stats__row__wrapper--API{
+
+.stats__row__wrapper--API {
     height: 300px;
     overflow-y: auto;
-.stats-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    font-weight: bold;
-    color:$main-colour;
-    .flex{
+
+    .stats-header {
         display: flex;
-    }
-  
-}
-.distributionList__tabs{
-    display: flex;
-    margin:40px 0 20px;
-    p{
-        margin-right: 10px;
-    }
-}
-
-.flex--sb{
-    display: flex;
-    justify-content: space-between;
-}
-.row--right--wrapper,.header--wrapper--right{
-    width: 10%;
-}
-.header--wrapper--right{
-    justify-content: space-between;
-    padding-right: 5px;
-
-}
-
-.stats__row--API {
-    cursor: pointer;
-   @include row--shadow;
-   &.selected{
-    border:2px solid $main-colour;
-}
-    .row__title{
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
         font-weight: bold;
-    }
-    .stat__count{
-       margin-left: 10px;
-    }
-    .header--wrapper--right{
-        justify-content: flex-end;
+        color: $main-colour;
+
+        .flex {
+            display: flex;
+        }
+
     }
 
-}
+    .distributionList__tabs {
+        display: flex;
+        margin: 40px 0 20px;
+
+        p {
+            margin-right: 10px;
+        }
+    }
+
+    .flex--sb {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .row--right--wrapper,
+    .header--wrapper--right {
+        width: 10%;
+    }
+
+    .header--wrapper--right {
+        justify-content: space-between;
+        padding-right: 5px;
+
+    }
+
+    .stats__row--API {
+        cursor: pointer;
+        @include row--shadow;
+        flex-wrap: nowrap;
+
+        &.selected {
+            border: 2px solid $main-colour;
+        }
+
+        .row__title {
+            font-weight: bold;
+        }
+
+        .stat__count {
+            margin-left: 10px;
+        }
+
+        .header--wrapper--right {
+            justify-content: flex-end;
+        }
+
+    }
 }

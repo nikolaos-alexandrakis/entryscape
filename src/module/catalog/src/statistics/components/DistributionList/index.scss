@@ -1,8 +1,9 @@
 @import '~commons/theme';
-.distributionList{
-    width:100%;
+
+.distributionList {
+    width: 100%;
     position: relative;
-  /*   .input-group{
+    /*   .input-group{
         display: flex;
     }
     .form-group{
@@ -15,70 +16,81 @@
         padding:10px;
         margin:0;
     } */
-    
+
 }
 
-.stats__row__wrapper--file{
+.stats__row__wrapper--file {
     height: 300px;
     overflow-y: auto;
 
-.stats-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    font-weight: bold;
-    color:$main-colour;
-    .flex{
+    .stats-header {
         display: flex;
-    }
-  
-}
-
-
-.flex--sb{
-    display: flex;
-    justify-content: space-between;
-}
-
-.row--right--wrapper,.header--wrapper--right{
-    width: 40%;
-}
-.header--wrapper--right{
-    justify-content: space-between;
-    .fa{
-        width: 25%;
-    }
-
-}
-
-.stats__row{
-    cursor: pointer;
-   @include row--shadow;
-   border: 2px solid transparent;
-    .row__title{
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
         font-weight: bold;
-        word-break: normal;
+        color: $main-colour;
+
+        .flex {
+            display: flex;
+        }
 
     }
-    .row__text{
-        word-break: normal;
-    }
-    .stat__count{
-        width: 25%;
-    }
 
-    &.selected{
-        border:2px solid $main-colour;
-    }
-    .row__title--wrapper{
+
+    .flex--sb {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
     }
 
+    .row--right--wrapper,
+    .header--wrapper--right {
+        width: 40%;
+    }
+
+    .header--wrapper--right {
+        justify-content: space-between;
+
+        .fa {
+            width: 25%;
+        }
+
+    }
+
+    .stats__row {
+        cursor: pointer;
+        @include row--shadow;
+        flex-wrap: nowrap;
+        border: 2px solid transparent;
+
+        .row__title {
+            font-weight: bold;
+            word-break: normal;
+
+        }
+
+        .row__text {
+            word-break: normal;
+        }
+
+        .stat__count {
+            width: 25%;
+        }
+
+        &.selected {
+            border: 2px solid $main-colour;
+        }
+
+        .row__title--wrapper {
+            display: flex;
+            flex-direction: column;
+            padding-right: 10px;
+        }
+
+    }
 }
-}
-.no-data{
+
+.no-data {
     height: 350px;
     padding: 10px;
     display: flex;
@@ -88,10 +100,11 @@
     opacity: 0.7;
 }
 
-.distributionList__tabs{
+.distributionList__tabs {
     display: flex;
-    margin:40px 0 20px;
-    p{
+    margin: 40px 0 20px;
+
+    p {
         margin-right: 10px;
     }
 }
