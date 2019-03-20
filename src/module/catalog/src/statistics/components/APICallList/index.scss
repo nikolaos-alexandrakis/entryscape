@@ -35,13 +35,16 @@
 
 }
 
-.stats__row{
+.stats__row--API {
    @include row--shadow;
     .row__title{
         font-weight: bold;
     }
     .stat__count{
-        width: 12%;
+       margin-left: 10px;
+    }
+    .row--right--wrapper{
+        width: 10%;
     }
 
 }

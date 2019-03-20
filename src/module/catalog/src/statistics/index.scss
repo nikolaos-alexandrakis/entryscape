@@ -14,10 +14,19 @@
   width: 50%;
   padding-right: 40px;
 
-
+/* .stats__row__wrapper--file{
   .fa {
     margin: 0 10px;
+    padding-right: 15px
   }
+} */
+.stats__row__wrapper--API{
+  .fa {
+    margin: 0 10px;
+    padding-right: 10px
+  }
+}
+  
 
   nav {
     display: flex;
