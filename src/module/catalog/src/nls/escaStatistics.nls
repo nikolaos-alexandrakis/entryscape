@@ -13,7 +13,7 @@
     "timeRangeThisYear": "This Year",
     "timeRangeLastYear": "Last Year",
     "timeRangeCustom": "Custom",
-    "timeRangeNoDataAvailable": "No data available data for the selected time range",
+    "timeRangeNoDataAvailable": "No data available for the selected time range",
     "tabItemFiles": "Files",
     "tabItemApiCalls": "Api Calls",
     "tabHeaderTitle": "Title",
