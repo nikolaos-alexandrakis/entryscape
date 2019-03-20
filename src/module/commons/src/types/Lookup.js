@@ -14,19 +14,19 @@ const contextHasETConfig = async context => context.getEntry().then((contextEntr
 
 const _secondary = async (primary, inContext) => {
   if (inContext) {
-    const secondaryList = await exports.secondaryInContext(entry.getContext());
+    const secondaryList = await Lookup.secondaryInContext(entry.getContext());
     return secondaryList.filter(m => m.refines() === primary.id());
   }
-  const secondaryAvailableList = await exports.availableSecondary();
+  const secondaryAvailableList = await Lookup.availableSecondary();
   return secondaryAvailableList.filter(m => m.refines() === primary.id());
 };
 
 const toURI = (name, base) => ((name.indexOf(base) === -1) ? base + name : name);
 
-const exports = {
+const Lookup = {
   init() {
     id2ET = {};
-    exports.import(config.entitytypes);
+    Lookup.import(config.entitytypes);
   },
   normalize(entitytypes) {
     const base = registry.get('entrystore').getResourceURI('entitytypes', '');
@@ -41,14 +41,14 @@ const exports = {
     });
   },
   import(types) {
-    exports.normalize(types);
+    Lookup.normalize(types);
     types.forEach((t) => {
       id2ET[t.id] = new EntityType(t);
     });
   },
 
   async getTemplate(entry, parentEntry) {
-    const et = await exports.inUse(entry, parentEntry);
+    const et = await Lookup.inUse(entry, parentEntry);
     return et.template();
   },
 
@@ -66,9 +66,9 @@ const exports = {
    */
   async inUse(entry, parentEntry) {
     if (parentEntry) {
-      const parentET = await exports.inUse(parentEntry);
+      const parentET = await Lookup.inUse(parentEntry);
       if (parentET) {
-        const use = exports.useWith(parentET, entry);
+        const use = Lookup.useWith(parentET, entry);
         if (use) {
           return use;
         }
@@ -77,12 +77,12 @@ const exports = {
     const graph = entry.getEntryInfo().getGraph();
     const etId = graph.findFirstValue(entry.getEntryInfo().getMetadataURI(), 'esterms:entityType');
     if (etId) {
-      const et = exports.get(etId);
+      const et = Lookup.get(etId);
       if (et) {
         return et;
       }
     }
-    return exports.primary(entry);
+    return Lookup.primary(entry);
   },
 
   /**
@@ -108,9 +108,9 @@ const exports = {
    */
   async options(entry, parentEntry) {
     if (parentEntry) {
-      const parentET = await exports.inUse(parentEntry);
+      const parentET = await Lookup.inUse(parentEntry);
       if (parentET) {
-        const primary = exports.useWith(parentET, entry);
+        const primary = Lookup.useWith(parentET, entry);
         if (primary) {
           return {
             origin: 'parent',
@@ -121,7 +121,7 @@ const exports = {
       }
     }
     const inContext = await contextHasETConfig(entry.getContext());
-    const primary = await exports.primary(entry);
+    const primary = await Lookup.primary(entry);
     return {
       origin: inContext ? 'context' : 'global',
       primary,
@@ -141,14 +141,14 @@ const exports = {
   async primary(entry) {
     const inContext = await contextHasETConfig(entry.getContext());
     if (inContext) {
-      const primaryList = await exports.primaryInContext(entry.getContext());
+      const primaryList = await Lookup.primaryInContext(entry.getContext());
       const et = primaryList.find(m => m.match(entry));
       if (et) {
         return et;
       }
       throw new Error(`No primary EntityType found among those specified in context for entry : ${entry.getURI()}`);
     }
-    const availablePrimarylist = await exports.availablePrimary();
+    const availablePrimarylist = await Lookup.availablePrimary();
     const et = availablePrimarylist.find(m => m.match(entry));
     if (et) {
       return et;
@@ -166,7 +166,7 @@ const exports = {
    */
   async secondary(entry) {
     const inContext = await contextHasETConfig(entry.getContext());
-    const primary = await exports.primary(entry);
+    const primary = await Lookup.primary(entry);
     return _secondary(primary, inContext);
   },
 
@@ -179,7 +179,7 @@ const exports = {
     const contextEntry = await context.getEntry();
     const graph = contextEntry.getEntryInfo();
     return graph.find(contextEntry.getResourceURI(), 'esterms:entityType')
-      .map(stmt => exports.get(stmt.getValue()));
+      .map(stmt => Lookup.get(stmt.getValue()));
   },
 
   /**
@@ -191,7 +191,7 @@ const exports = {
     const contextEntry = await context.getEntry();
     const graph = contextEntry.getEntryInfo().getGraph();
     return graph.find(contextEntry.getResourceURI(), 'esterms:secondaryEntityType')
-      .map(stmt => exports.get(stmt.getValue()));
+      .map(stmt => Lookup.get(stmt.getValue()));
   },
 
   /**
@@ -219,4 +219,4 @@ const exports = {
   },
 };
 
-export default exports;
+export default Lookup;
