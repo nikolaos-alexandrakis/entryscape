@@ -15,6 +15,7 @@ let chart; // @todo @valentino
  }
 const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
   axisX: {
+    offset:20,
     type: Chartist.FixedScaleAxis,
     divisor,
     labelInterpolationFnc(value) {
@@ -24,6 +25,7 @@ const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
   axisY:{
     type: Chartist.AutoScaleAxis,
     onlyInteger: true,
+    offset:10,
   },
 
 });
