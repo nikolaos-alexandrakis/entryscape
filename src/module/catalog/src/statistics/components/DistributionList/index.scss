@@ -1,9 +1,8 @@
 @import '~commons/theme';
 
-.stats__row__wrapper{
+.stats__row__wrapper--file{
     height: 390px;
-   
-}
+
 .stats-header{
     display: flex;
     justify-content: space-between;
@@ -54,6 +53,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 .row--right--wrapper,.header--wrapper--right{
     width: 40%;
 }
@@ -82,5 +82,10 @@
     &.selected{
         border:2px solid #1C4CD1;
     }
+    .row__title--wrapper{
+        display: flex;
+        flex-direction: column;
+    }
 
+}
 }
