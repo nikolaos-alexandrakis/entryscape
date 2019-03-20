@@ -1,18 +1,14 @@
 import './index.scss';
 
-export default (vnode) => ({
+export default () => ({
   view(vnode) {
-    /**
-     * @todo fix jsdoc
-     * @type {{items: []}}
-     */
     const { items, selected, onclick } = vnode.attrs;
     const selectedItem = items.find(item => item.id === selected);
     return (
       <div className="btn-group btn-group--chooser">
-        <a className="btn btn-default">{selectedItem.name}</a>
         <a className="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          <span className="caret"></span>
+          {selectedItem.name}
+          <span className="caret" style={{ marginLeft: '15px' }}></span>
         </a>
         <ul className="dropdown-menu">
           {items.map((item) => {
