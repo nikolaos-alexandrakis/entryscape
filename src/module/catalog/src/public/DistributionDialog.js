@@ -13,12 +13,11 @@ export default declare([RDFormsPresentDialog], {
     this.presenter = new Presenter({ compact: true }, this.presenter);
     this.apiInfo = new APIInfo({}, this.apiInfo);
   },
-  open(entry) {
+  open(entry, datasetEntry) {
     if (this.checkForAPI) {
       this.updateApiInfo(entry);
     }
-    this.show(entry.getResourceURI(), entry.getMetadata(),
-      registry.get('itemstore').getItem(config.catalog.distributionTemplateId));
+    this.showChildEntry(entry, datasetEntry);
   },
   updateApiInfo(entry) {
     this.apiInfo.hide();

@@ -51,7 +51,7 @@ const CreateDialog = declare(RDFormsEditDialog, {
     this._newDataset = nds;
     nds.getMetadata().add(
       nds.getResourceURI(), 'rdf:type', 'dcat:Dataset');
-    this.show(nds.getResourceURI(), nds.getMetadata(), this.list.getTemplate());
+    this.showEntry(nds);
   },
   doneAction(graph) {
     return this._newDataset.setMetadata(graph).commit().then((newEntry) => {
@@ -91,8 +91,8 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     }
     entry.setRefreshNeeded();
     entry.refresh().then(() => {
-      this.showEntry(
-        entry, this.list.getDistributionTemplate(), this.list.getTemplateLevel(entry));
+      this.showChildEntry(
+        entry, this.row.datasetRow.entry, this.list.getTemplateLevel(entry));
     });
   },
   doneAction(graph) {
@@ -314,11 +314,12 @@ export default declare([ETBaseList], {
   },
 
   getTemplate() {
-    if (!this.template) {
+    return null;
+/*    if (!this.template) {
       this.template = registry.get('itemstore').getItem(
         config.catalog.datasetTemplateId);
     }
-    return this.template;
+    return this.template; */
   },
 
   getDistributionTemplate() {
