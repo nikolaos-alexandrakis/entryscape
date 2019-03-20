@@ -4,6 +4,8 @@
     "statsViewTimeRange": "Time range",
     "statsViewDistributionStats": "Distribution statistics for selected time range",
     "statsSearchInputPlaceholder": "Search for resources...",
+    "timeRangeDatePickerStartDate": "Start Date",
+    "timeRangeDatePickerEndDate": "Start Date",
     "timeRangeToday": "Today",
     "timeRangeYesterday": "Yesterday",
     "timeRangeThisMonth": "This Month",
