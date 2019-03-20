@@ -19,9 +19,8 @@ export default (vnode) => ({
     return hasData ?
       (<div>
         <div className="stats-header">
-          <p className="distribution__head__title">Title</p>
+          <p className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</p>
           <div className="flex header--wrapper--right">
-            <p className="distribution__head__title">Format</p>
             <p className="distribution__head__title fa fa-retweet"></p>
           </div>
         </div>
