@@ -1,4 +1,9 @@
 @import '~commons/theme';
+
+.stats__row__wrapper{
+    height: 390px;
+   
+}
 .stats-header{
     display: flex;
     justify-content: space-between;
@@ -22,17 +27,27 @@
     width:100%;
     min-height: 300px;
     height: auto;
+    .input-group{
+        display: flex;
+    }
+    .form-group{
+        margin:0;
+        padding: 0;
+        margin-bottom:20px;
+    }
+
     .searchButton{
-        margin: 0;
+        padding:10px;
+        margin:0;
     }
     .no-data{
-        height: 150px;
+        height: 350px;
         padding: 10px;
-        background-color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         font-weight: bold;
+        opacity: 0.7;
     }
 }
 .flex--sb{
@@ -52,6 +67,11 @@
    @include row--shadow;
     .row__title{
         font-weight: bold;
+        word-break: break-word;
+
+    }
+    .row__text{
+        word-break: break-word;
     }
     .stat__count{
         width: 12%;

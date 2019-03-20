@@ -21,8 +21,8 @@ export default () => ({
         </div>
         {items.map(item => (<div tabIndex="0" className="stats__row flex--sb">
           <div className="row__title--wrapper">
-            <p className="row__title">{item.name}</p>
-            <p className="row__text">{item.subname}</p>
+            <span className="row__title">{item.name}</span>
+            <span className="row__text">{item.subname}</span>
           </div>
           <div className="flex--sb row--right--wrapper">
             <span className="row__text stat__count">{item.count}</span>
