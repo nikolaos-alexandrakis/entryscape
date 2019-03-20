@@ -13,20 +13,20 @@ export default () => ({
     const hasData = !!toRenderItems.length > 0;
 
     return hasData ?
-      (<div>
+      (<div class="stats__row__wrapper">
         <div className="stats-header">
-          <p className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</p>
+          <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</span>
           <div className="flex header--wrapper--right">
-            <p className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderFormat')}</p>
-            <p className="distribution__head__title fa fa-download"></p>
+            <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderFormat')}</span>
+            <span className="distribution__head__title fa fa-download"></span>
           </div>
         </div>
         {toRenderItems.map(item =>
           <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
                className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
-              <p className="row__title">{item.name}</p>
-              <p className="row__text">{item.subname}</p>
+              <span className="row__title">{item.name}</span>
+              <span className="row__text">{item.subname}</span>
             </div>
             <div className="flex--sb row--right--wrapper">
               <span className="row__text">{item.format}</span>

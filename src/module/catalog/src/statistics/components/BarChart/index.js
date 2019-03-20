@@ -10,6 +10,9 @@ let chart; // @todo @valentino
  *  nls
  */
 
+ let defaulOptions = {
+  onlyInteger: true,
+ }
 const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
   axisX: {
     type: Chartist.FixedScaleAxis,
@@ -18,6 +21,11 @@ const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
       return moment(value).format(xAxisDateFormat);
     },
   },
+  axisY:{
+    type: Chartist.AutoScaleAxis,
+    onlyInteger: true,
+  },
+
 });
 
 const guessAxisFormatFromData = (dataLength) => {
