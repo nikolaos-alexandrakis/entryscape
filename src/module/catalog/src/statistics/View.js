@@ -74,11 +74,11 @@ export default declare(MithrilView, {
     };
 
     const resetChart = () => {
-      setState({
-        chart: {
-          data: [],
-        },
-      });
+      if (state.list.selected) {
+        getChartData().then(data => setState({ chart: { data } }));
+      } else {
+        setState({ chart: { data: [] } });
+      }
     };
 
     const resetSearchField = () => {
@@ -86,7 +86,7 @@ export default declare(MithrilView, {
       jquery('#stats-search-input').val('');
     };
 
-    const getChartItems = async () => {
+    const getChartData = async () => {
       const { selected } = state.timeRanges;
       if (state.timeRanges.selected === 'custom') {
         return [];
@@ -120,12 +120,13 @@ export default declare(MithrilView, {
 
       getListItems()
         .then(items => setState({
-          list: { items, selected: items[0] ? items[0].uri : '' },
+          list: { items, selected: items[0] ? items[0].uri : null },
           loadingData: false,
-        }));
-
-      resetChart();
-      resetSearchField();
+        }))
+        .then(() => {
+          resetChart();
+          resetSearchField();
+        });
     };
 
     /**
@@ -147,10 +148,15 @@ export default declare(MithrilView, {
           loadingData: true, // show spinner
         });
 
-        getListItems().then(items => setState({
-          list: { items, selected: state.list.selected },
-          loadingData: false,
-        }));
+        getListItems()
+          .then(items => setState({
+            list: { items, selected: state.list.selected },
+            loadingData: false,
+          }))
+          .then(() => {
+            resetChart();
+            resetSearchField();
+          });
       }
 
       resetChart();
@@ -165,7 +171,7 @@ export default declare(MithrilView, {
         },
       });
 
-      getChartItems()
+      getChartData()
         .then(data => setState({ chart: { data } }));
     };
 
@@ -195,10 +201,15 @@ export default declare(MithrilView, {
     return {
       oninit() {
         // update list item state
-        getListItems().then(items => setState({
-          list: { items, selected: items.length > 0 ? items[0].uri : null },
-          loadingData: false,
-        }));
+        getListItems()
+          .then(items => setState({
+            list: { items, selected: items.length > 0 ? items[0].uri : null },
+            loadingData: false,
+          }))
+          .then(() => {
+            resetChart();
+            resetSearchField();
+          });
       },
       oncreate() {
         // create date pickers
