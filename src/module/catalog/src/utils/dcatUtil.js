@@ -96,7 +96,7 @@ const getDatatsetByDistributionURI = async (ruri, context) => {
  * @return {Promise<Map<any, any>>}
  */
 const getDistributionByFileResourceURI = async (ruri, context) => {
-  const entries = await requestSolrInChunks(ruri, context, 'dcat:Distribution', 'dcat:downloadURL');
+  const entries = await requestSolrInChunks(ruri, context, 'dcat:Distribution', 'dcat:accessURL');
   return entries;
 };
 
