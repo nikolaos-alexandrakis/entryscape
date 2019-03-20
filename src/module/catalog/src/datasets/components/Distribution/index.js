@@ -61,7 +61,7 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const { fileEntryURIs } = vnode.attrs;
+      const { fileEntryURIs, refreshDistributions } = vnode.attrs;
       const title = getSafeTitle(distribution);
       const format = getDistributionFormat(distribution);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(distribution));
@@ -86,6 +86,7 @@ export default (vnode) => {
                 distribution={distribution}
                 dataset={dataset}
                 fileEntryURIs={fileEntryURIs}
+                refreshDistributions={refreshDistributions}
               />
             </div>
           </div>

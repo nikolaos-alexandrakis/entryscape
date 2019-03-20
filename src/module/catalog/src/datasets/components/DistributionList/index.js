@@ -22,7 +22,6 @@ export default (initialVnode) => {
 
   const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
-
   // Get the distributions from the entry and store them in the state
   const listDistributions = (datasetEntry) => {
     const getDistributionStatements = entry => entry.getMetadata()
@@ -57,6 +56,7 @@ export default (initialVnode) => {
     }))
       .then(dists => setState({ distributions: dists }));
   };
+  const refreshDistributions = () => listDistributions(dataset);
 
   const openCreateDialog = () => {
     actions.openCreateDialog(listDistributions);
@@ -86,6 +86,7 @@ export default (initialVnode) => {
               distribution={distribution}
               fileEntryURIs={state.fileEntryURIs}
               dataset={dataset}
+              refreshDistributions={refreshDistributions}
             />
           )) }
 

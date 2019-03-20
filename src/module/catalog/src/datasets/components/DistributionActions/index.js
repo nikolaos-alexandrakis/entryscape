@@ -19,8 +19,13 @@ import bindActions from './actions';
  * @returns {undefined}
  */
 export default (vnode) => {
-  const { distribution, dataset, fileEntryURIs } = vnode.attrs;
+  const { distribution, dataset, fileEntryURIs, refreshDistributions = () => {} } = vnode.attrs;
   const actions = bindActions(distribution, dataset, fileEntryURIs);
+
+  const refreshAPI = () => actions.refreshAPI(refreshDistributions);
+  const activateAPI = () => actions.activateAPI(refreshDistributions);
+  const editDistribution = () => actions.editDistribution(refreshDistributions);
+  const removeDistribution = () => actions.remove(refreshDistributions);
 
   const renderActions = (entry) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
@@ -30,7 +35,7 @@ export default (vnode) => {
     actionButtons.push(
       <button
         class=" btn--distribution fa fa-fw fa-pencil"
-        onclick={actions.editDistribution}
+        onclick={editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
       </button>,
@@ -55,7 +60,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-link"
             title={escaDataset.apiActivateTitle}
-            onclick={actions.activateAPI}
+            onclick={activateAPI}
           >
             <span>{escaDataset.apiActivateTitle}</span>
           </button>,
@@ -115,7 +120,7 @@ export default (vnode) => {
         <button
           class="btn--distribution  fa fa-fw fa-retweet"
           title={escaDataset.reGenerateAPITitle}
-          onclick={actions.refreshAPI}
+          onclick={refreshAPI}
         >
           <span>{escaDataset.reGenerateAPI}</span>
         </button>,
@@ -149,7 +154,7 @@ export default (vnode) => {
       <button
         class=" btn--distribution fa fa-fw fa-remove"
         title={escaDataset.removeDistributionTitle}
-        onclick={actions.remove}
+        onclick={removeDistribution}
       >
         <span>{escaDataset.removeDistributionTitle}</span>
       </button>,
