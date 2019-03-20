@@ -249,6 +249,9 @@ export default declare(MithrilView, {
                 </div>
               </div>
             </section>
+            <div class="spinner__wrapper">
+              <i class="fa fa-spinner fa-pulse"></i>
+              </div>
           </div>
         );
       },
