@@ -5,12 +5,10 @@
     .distribution__row {
         position: relative;
         margin-top: 10px;
-        margin-left:10px;
         padding: 10px;
         min-height: 50px;
         background-color: white;
         display: flex;
-        flex-wrap: wrap;
         box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
 
         &:focus {
@@ -62,9 +60,11 @@
         font-size: $text-size;
         margin-right: 10px;
         align-self: center;
+        min-width: 60px;
     }
     .distribution__title{
         font-weight: bold;
+        word-break: normal;
     }
 
 @media (max-width:1024px){

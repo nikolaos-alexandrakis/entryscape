@@ -1,23 +1,20 @@
+import m from 'mithril';
+import config from 'config';
+import registry from 'commons/registry';
+import stamp from 'dojo/date/stamp';
+import { i18n } from 'esi18n';
+import { promiseUtil, utils } from 'store';
+import { clone, cloneDeep, merge, template } from 'lodash-es';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
 import Row from 'commons/components/common/grid/Row';
 import TaskProgress from 'commons/progresstask/components/TaskProgress';
 import ProgressDialog from 'commons/progresstask/ProgressDialog';
-import registry from 'commons/registry';
-import config from 'config';
-import declare from 'dojo/_base/declare';
-import stamp from 'dojo/date/stamp';
-import { i18n } from 'esi18n';
-import { clone, cloneDeep, merge, template } from 'lodash-es';
-import m from 'mithril';
-import { promiseUtil, utils } from 'store';
+import escaFilesNLS from 'catalog/nls/escaFiles.nls';
+import escaApiProgressNLS from 'catalog/nls/escaApiProgress.nls';
 import pipelineUtil from './pipelineUtil';
 import { getDistributionFileRURIs, getDistributionFilesInfo } from './utils/distributionUtil';
 import apiUtil from './utils/apiUtil';
-
-import escaFilesNLS from 'catalog/nls/escaFiles.nls';
-import escaApiProgressNLS from 'catalog/nls/escaApiProgress.nls';
-
 
 /**
  * TODO move from here
@@ -76,14 +73,14 @@ export default class {
    *    files to the distribution and no other changes (like replace/remove). Helps improve preformance
    *    of the API update.
    */
-  execute({ params = {}, filesURI = null }) {
+  execute({ params = {}, filesURI = null, onSuccess = () => {} }) {
     this.noOfFiles = 0;
     this.progressDialog = new ProgressDialog();
 
     // apply all params in `this` context
     /* eslint-disable-next-line */
     // for (param in params) {
-      // this[param] = params[param];
+    //   this[param] = params[param];
     // }
     this.mode = params.mode;
     this.distributionRow = params.distributionRow;
@@ -92,6 +89,7 @@ export default class {
     this.apiDistEntry = params.apiDistEntry;
     this.distributionEntry = params.distributionEntry;
     this.dataset = params.dataset;
+    this.onSuccess = onSuccess;
 
     this.escaApiProgress = i18n.getLocalization(escaApiProgressNLS);
     this.escaFiles = i18n.getLocalization(escaFilesNLS);
@@ -316,13 +314,7 @@ export default class {
 
     // update UI
     this.fileEntryURIs.push(this.distributionEntry.getResourceURI());
-    // this.distributionRow.clearDropdownMenu();
-    // this.distributionRow.renderDropdownMenu();
-    // this.datasetRow.showDistributionInList(apiDistributionEntry);
-
-    // TODO @scazan, resolve these
-    // this.datasetRow.clearDistributions();
-    // this.datasetRow.listDistributions();
+    this.onSuccess();
   }
 
   createDistributionForAPI(pipelineResultEntryURI) {
@@ -333,9 +325,15 @@ export default class {
     }
     const datasetEntry = this.dataset;
     const self = this;
-    return registry.getEntryStore().getEntry(pipelineResultEntryURI).then(prEntry =>
-      createAPIDistribution(prEntry, self.distributionEntry).then(distEntry =>
-        utils.addRelation(datasetEntry, registry.get('namespaces').expand('dcat:distribution'), distEntry)));
+    return registry.getEntryStore()
+      .getEntry(pipelineResultEntryURI)
+      .then(prEntry => createAPIDistribution(prEntry, self.distributionEntry)
+        .then(distEntry => utils.addRelation(
+          datasetEntry,
+          registry.get('namespaces').expand('dcat:distribution'),
+          distEntry,
+        )),
+      );
   }
 
   /**
@@ -509,4 +507,4 @@ export default class {
   done() {
     this.progressDialog.hide();
   }
-};
+}

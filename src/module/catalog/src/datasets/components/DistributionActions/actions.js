@@ -151,7 +151,7 @@ export default (distribution, dataset, fileEntryURIs) => {
    This deletes selected distribution and also deletes
    its relation to dataset
    */
-  const removeDistribution = (distributionEntry, datasetEntry) => {
+  const removeDistribution = (distributionEntry, datasetEntry, onSuccess = () => {}) => {
     const resURI = distributionEntry.getResourceURI();
     const entryStoreUtil = registry.get('entrystoreutil');
     const fileStmts = distributionEntry.getMetadata().find(distributionEntry.getResourceURI(), 'dcat:downloadURL');
@@ -165,18 +165,18 @@ export default (distribution, dataset, fileEntryURIs) => {
         distributionEntry.setRefreshNeeded();
         return Promise.all(fileURIs.map(
           fileURI => entryStoreUtil.getEntryByResourceURI(fileURI)
-            .then(fEntry => fEntry.del())),
-        );
+            .then(fEntry => fEntry.del()),
+        ));
       });
     })
-      .then(() => m.redraw());
+      .then(onSuccess);
   };
 
   /*
    * This deletes the selected API distribution. It also deletes relation to dataset,
    * corresponding API, pipelineResultEntry.
    */
-  const deactivateAPInRemoveDist = (distributionEntry, datasetEntry) => {
+  const deactivateAPInRemoveDist = (distributionEntry, datasetEntry, onSuccess) => {
     const resURI = distributionEntry.getResourceURI();
     const es = distributionEntry.getEntryStore();
     const contextId = distributionEntry.getContext().getId();
@@ -189,9 +189,7 @@ export default (distribution, dataset, fileEntryURIs) => {
         getEtlEntry(distributionEntry).then((etlEntry) => {
           const uri = `${es.getBaseURI() + contextId}/resource/${etlEntry.getId()}`;
           return es.getREST().del(`${uri}?proxy=true`)
-            .then(() => etlEntry.del().then(() => {
-              m.redraw();
-            }));
+            .then(() => etlEntry.del().then(onSuccess));
         });
       });
     });
@@ -218,10 +216,10 @@ export default (distribution, dataset, fileEntryURIs) => {
   // END UTILS
 
   // ACTIONS
-  const editDistribution = () => {
+  const editDistribution = (onDone) => {
     const editDialog = new EditDistributionDialog({}, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
-    editDialog.open({ row: { entry: distribution }, onDone: () => listDistributions(dataset) });
+    editDialog.open({ row: { entry: distribution }, onDone });
   };
 
   /**
@@ -240,7 +238,7 @@ export default (distribution, dataset, fileEntryURIs) => {
     });
   };
 
-  const activateAPI = () => {
+  const activateAPI = (onSuccess) => {
     const generateAPI = new GenerateAPI();
     generateAPI.execute({
       params: {
@@ -249,10 +247,11 @@ export default (distribution, dataset, fileEntryURIs) => {
         mode: 'new',
         fileEntryURIs,
       },
+      onSuccess,
     });
   };
 
-  const refreshAPI = () => {
+  const refreshAPI = (onSuccess) => {
     const apiDistributionEntry = distribution;
     const esUtil = registry.get('entrystoreutil');
     const sourceDistributionResURI = apiDistributionEntry
@@ -271,6 +270,7 @@ export default (distribution, dataset, fileEntryURIs) => {
           mode: 'refresh',
           fileEntryURIs,
         },
+        onSuccess,
       });
     });
   };
@@ -295,7 +295,7 @@ export default (distribution, dataset, fileEntryURIs) => {
     });
   };
 
-  const remove = () => {
+  const remove = (onSuccess = () => {}) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const dialogs = registry.get('dialogs');
     if (isFileDistributionWithOutAPI(distribution, fileEntryURIs, registry.get('entrystore'))) {
@@ -304,7 +304,7 @@ export default (distribution, dataset, fileEntryURIs) => {
           if (!confirm) {
             return;
           }
-          removeDistribution(distribution, dataset);
+          removeDistribution(distribution, dataset, onSuccess);
         });
     } else if (isAPIDistribution(distribution)) {
       dialogs.confirm(escaDataset.removeDistributionQuestion,
@@ -312,7 +312,7 @@ export default (distribution, dataset, fileEntryURIs) => {
           if (!confirm) {
             return;
           }
-          deactivateAPInRemoveDist(distribution, dataset);
+          deactivateAPInRemoveDist(distribution, dataset, onSuccess);
         });
     } else if (isAccessDistribution(distribution, registry.get('entrystore'))) {
       dialogs.confirm(escaDataset.removeDistributionQuestion,
@@ -320,7 +320,7 @@ export default (distribution, dataset, fileEntryURIs) => {
           if (!confirm) {
             return;
           }
-          removeDistribution(distribution, dataset);
+          removeDistribution(distribution, dataset, onSuccess);
         });
     } else {
       dialogs.acknowledge(escaDataset.removeFileDistWithAPI);

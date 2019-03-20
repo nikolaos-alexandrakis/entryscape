@@ -139,3 +139,6 @@ export const getDistributionTemplate = (templateId, dtemplate) => {
   }
   return dtemplate;
 };
+
+export const isPrivatelyPublished = entry => !entry.getMetadata()
+  .findFirstValue(null, 'http://entryscape.com/terms/psi');

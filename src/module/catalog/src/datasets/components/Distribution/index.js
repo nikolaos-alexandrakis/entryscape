@@ -61,7 +61,7 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const { fileEntryURIs } = vnode.attrs;
+      const { fileEntryURIs, refreshDistributions } = vnode.attrs;
       const title = getSafeTitle(distribution);
       const format = getDistributionFormat(distribution);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(distribution));
@@ -82,10 +82,12 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
+              <span class="fa fa-exclamation-triangle"></span>
               <DistributionActions
                 distribution={distribution}
                 dataset={dataset}
                 fileEntryURIs={fileEntryURIs}
+                refreshDistributions={refreshDistributions}
               />
             </div>
           </div>

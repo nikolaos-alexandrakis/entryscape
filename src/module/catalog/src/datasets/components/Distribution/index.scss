@@ -72,27 +72,9 @@
 
 }
 
-.distribution__fileRow{
-    width: 75%;
-    position: relative;
-    margin-top: 10px;
-    padding: 10px;
-    min-height: 50px;
-    background-color: white;
-    color: $main-colour;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
-    .distribution__format{
-        width: 50%;
+
+    .distribution__date + .fa{
+            align-self: center;
+            margin-right: 10px;
+            visibility:hidden;
     }
-    .flex--sb{
-        align-items: center;
-        .distributionFile__date{
-            margin-right: 5px;
-        }
-    }
-  
-}
