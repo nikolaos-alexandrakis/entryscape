@@ -61,11 +61,12 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const { fileEntryURIs, refreshDistributions } = vnode.attrs;
+      const { fileEntryURIs, refreshDistributions, hasDuplicateFileType } = vnode.attrs;
       const title = getSafeTitle(distribution);
       const format = getDistributionFormat(distribution);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(distribution));
       const description = getDescription(distribution);
+      const duplicateFileTypeClass = hasDuplicateFileType ? 'duplicateFileType' : '';
 
       const expandedClass = state.isExpanded ? 'expanded' : '';
       // const distributionArrowClass = state.isExpanded ? 'fa-angle-up' : 'fa-angle-down';
@@ -82,7 +83,7 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
-              <span class="fa fa-exclamation-triangle"></span>
+              <span class={`fa fa-exclamation-triangle ${duplicateFileTypeClass}`}></span>
               <DistributionActions
                 distribution={distribution}
                 dataset={dataset}
