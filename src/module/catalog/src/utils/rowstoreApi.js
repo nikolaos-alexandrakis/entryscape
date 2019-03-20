@@ -4,7 +4,7 @@
  * @return {string}
  */
 const getRowstoreAPIUUID = (entry) => {
-  const rowstoreURI = entry.getMetadata().findFirstValue(entry.getResourceURI(), 'dcat:accessURL');
+  const rowstoreURI = entry.getMetadata().findFirstValue(null, 'dcat:accessURL');
 
   // rowstoreURI looks like <base>/rowstore/dataset/<uuid>
   return rowstoreURI.split('/').pop();
