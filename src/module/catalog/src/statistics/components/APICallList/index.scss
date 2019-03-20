@@ -1,6 +1,8 @@
 @import '~commons/theme';
 
 .stats__row__wrapper--API{
+    height: 390px;
+    overflow-y: scroll;
 .stats-header{
     display: flex;
     justify-content: space-between;
@@ -21,8 +23,7 @@
     }
 }
 .distributionList{
-    width:600px;
-    height: auto;
+    width:100%;
 }
 .flex--sb{
     display: flex;

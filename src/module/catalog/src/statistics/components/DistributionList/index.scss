@@ -2,6 +2,7 @@
 
 .stats__row__wrapper--file{
     height: 390px;
+    overflow-y: scroll;
 
 .stats-header{
     display: flex;
@@ -24,8 +25,6 @@
 }
 .distributionList{
     width:100%;
-    min-height: 300px;
-    height: auto;
     .input-group{
         display: flex;
     }
