@@ -75,7 +75,7 @@ export default declare(MithrilView, {
     };
 
     const resetChart = () => {
-      if (state.list.selected) {
+      if (state.list.selected && state.timeRanges.selected !== 'custom') {
         getChartData().then(data => setState({ chart: { data } }));
       } else {
         setState({ chart: { data: [] } });
@@ -244,12 +244,16 @@ export default declare(MithrilView, {
               loadingData: true,
             });
 
-            // get statistics for custom time range and redraw
+            // get statistics for custom time range and
             getListItems()
               .then(items => setState({
-                list: { items, selected: state.list.selected },
+                list: { items, selected: null }, // don't preselect for custom time range to avoid chartist draw
                 loadingData: false,
-              }));
+              }))
+              .then(() => {
+                resetChart();
+                resetSearchField();
+              });
           });
           endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
           endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle',
