@@ -42,7 +42,7 @@ const extractProblem = function (err) {
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: template,
-  progressDelay: 400,
+  progressDelay: 2000,
   nlsBundles: [{ escoErrors }],
   codes: {
     GENERIC_PROBLEM,

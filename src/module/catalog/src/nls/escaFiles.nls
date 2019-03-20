@@ -30,7 +30,7 @@
     "activateAPI": "Activate",
     "deactivateAPI": "Deactivate",
     "refreshAPIState": "Check API status",
-    "activateAPINotAllowedFileToBig": "The file is larger than the allowed limit of ${size} bytes for API activation.",
+    "activateAPINotAllowedFileToBig": "The file is larger than the allowed limit of ${size} MB for API activation.",
     "activateAPINotAllowedDatasetNotPublic": "The parent dataset or catalog is not published. All APIs are by default publicly accessible and by activating this API the data for this distribution will become publicly accessible.<br><br>Do you want to continue with the activation of the API?",
     "onlyCSVSupported": "The file format is reported to be \"${format}\" and API activation is only supported for the \"text/csv\" format. You may proceed anyway if you know that the reported format is wrong and that the file does contain \"text/csv\".",
     "confirmAPIActivation": "Proceed to activate API",
