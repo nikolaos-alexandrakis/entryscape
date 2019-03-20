@@ -58,8 +58,12 @@ export default (initialVnode) => {
       .then(dists => setState({ distributions: dists }));
   };
 
+  const openCreateDialog = () => {
+    actions.openCreateDialog(listDistributions);
+  };
+
   return {
-    oninit: (vnode) => {
+    oninit: () => {
       listDistributions(dataset);
     },
     view() {
@@ -70,7 +74,7 @@ export default (initialVnode) => {
           <div class="header flex--sb">
             <h2 class="title">{escaDataset.distributionsTitle}</h2>
             <button class="btn btn-primary btn--add btn-fab btn-raised"
-              onclick={actions.openCreateDialog}
+              onclick={openCreateDialog}
               alt={escaDataset.addDistributionTitle}
             >
               +
