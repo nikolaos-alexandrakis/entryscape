@@ -52,8 +52,7 @@ export default (distribution, dataset, fileEntryURIs) => {
       }
       entry.setRefreshNeeded();
       entry.refresh().then(() => {
-        this.showEntry(
-          entry, getDistributionTemplate(config.catalog.distributionTemplateId), 'mandatory');
+        this.showChildEntry(entry, dataset, 'mandatory');
       });
     },
     doneAction(graph) {

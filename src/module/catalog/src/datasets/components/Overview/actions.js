@@ -161,8 +161,8 @@ export default (entry) => {
       entry.addD('http://entryscape.com/terms/psi', 'true', 'xsd:boolean')
         .commitMetadata();
     } else {
-      entry.getMetadata().findAndRemove(null, 'http://entryscape.com/terms/psi')
-        .commitMetadata();
+      entry.getMetadata().findAndRemove(null, 'http://entryscape.com/terms/psi');
+      entry.commitMetadata();
     }
   };
 

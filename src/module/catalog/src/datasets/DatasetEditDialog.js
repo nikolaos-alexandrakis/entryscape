@@ -10,7 +10,7 @@ export default declare([RDFormsEditDialog], {
   showEntry(entry, updateDataset) {
     this.entry = entry;
     this.updateDataset = updateDataset;
-    this.inherited('showEntry', arguments, [entry, this.getTemplate()]);
+    this.inherited('showEntry', arguments, [entry]);
   },
   getTemplate() {
     return registry.get('itemstore').getItem(
