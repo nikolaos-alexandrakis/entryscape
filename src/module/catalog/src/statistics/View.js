@@ -1,4 +1,5 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
 import InlineList from 'commons/components/bootstrap/InlineList';
 import registry from 'commons/registry';
@@ -94,8 +95,10 @@ export default declare(MithrilView, {
 
       const context = registry.getContext();
       const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected);
+
+      const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
       const chartData =
-        await statsAPI.getEntryStatistics(context.getId(), entry.getId(), timeRangeUtil.toAPIRequestPath(selected));
+        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
 
       delete chartData.count; // keep only chart relevant data
       return {
