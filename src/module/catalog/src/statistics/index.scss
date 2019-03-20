@@ -39,9 +39,11 @@
   }
 }
 
-
-.visualization__chart {
+.visualization__wrapper{
   width: 40%;
+}
+.visualization__chart {
+  width: 100%;
 }
 .stats__title{
   margin: 50px 0;
