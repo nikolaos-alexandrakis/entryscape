@@ -1,9 +1,9 @@
 @import '~commons/theme';
 
-.stats__row__wrapper{
+.stats__row__wrapper--file{
     height: 390px;
-   
-}
+    overflow-y: scroll;
+
 .stats-header{
     display: flex;
     justify-content: space-between;
@@ -25,8 +25,6 @@
 }
 .distributionList{
     width:100%;
-    min-height: 300px;
-    height: auto;
     .input-group{
         display: flex;
     }
@@ -54,12 +52,15 @@
     display: flex;
     justify-content: space-between;
 }
+
 .row--right--wrapper,.header--wrapper--right{
     width: 40%;
 }
 .header--wrapper--right{
     justify-content: space-between;
-    padding-right: 5px;
+    .fa{
+        width: 25%;
+    }
 
 }
 
@@ -82,5 +83,10 @@
     &.selected{
         border:2px solid #1C4CD1;
     }
+    .row__title--wrapper{
+        display: flex;
+        flex-direction: column;
+    }
 
+}
 }
