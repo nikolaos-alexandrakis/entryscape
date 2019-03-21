@@ -18,10 +18,10 @@ export default () => ({
     return hasData ?
       (<div class="stats__row__wrapper--file">
         <div className="stats-header">
-          <span className="distribution__head__title"></span>
+          <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
             <span className="distribution__head__title">{escaStatisticsNLS.abHeaderFormat}</span>
-            <span className="distribution__head__title fa fa-download"></span>
+            <span title= {escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fa fa-download"></span>
           </div>
         </div>
         {toRenderItems.map(item =>

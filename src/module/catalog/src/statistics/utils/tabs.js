@@ -20,7 +20,7 @@ export default () => {
     {
       id: 'api',
       label: escaStatisticsNLS.tabItemApiCalls,
-      icon: 'fa-repeat',
+      icon: 'fa-cogs,
       component: APICallList,
     },
   ];

@@ -57,6 +57,10 @@
         &.selected {
             border: 2px solid $main-colour;
         }
+        .row__title--wrapper{
+            display: flex;
+            flex-direction: column;
+        }
 
         .row__title {
             font-weight: bold;
