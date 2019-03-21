@@ -3,12 +3,12 @@ import { i18n } from 'esi18n';
 
 /**
  * @todo @valentino
- *  - localize
  *  - make map?
- * @return {string[]}
+ * @return {*[]}
  */
 const getTimeRanges = (custom = null) => {
-  let customName = i18n.localize(escaStatistics, 'timeRangeCustom');
+  const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
+  let customName = escaStatisticsNLS.timeRangeCustom;
   if (custom) {
     if (custom.startDate.year() === custom.endDate.year()) { // time range in same year
       customName = `${custom.startDate.format('MMM DD')} - ${custom.endDate.format('MMM DD')}`;
@@ -19,27 +19,27 @@ const getTimeRanges = (custom = null) => {
   return [
     {
       id: 'today',
-      name: i18n.localize(escaStatistics, 'timeRangeToday'),
+      name: escaStatisticsNLS.timeRangeToday,
     },
     {
       id: 'yesterday',
-      name: i18n.localize(escaStatistics, 'timeRangeYesterday'),
+      name: escaStatisticsNLS.timeRangeYesterday,
     },
     {
       id: 'this-month',
-      name: i18n.localize(escaStatistics, 'timeRangeThisMonth'),
+      name: escaStatisticsNLS.timeRangeThisMonth,
     },
     {
       id: 'last-month',
-      name: i18n.localize(escaStatistics, 'timeRangeLastMonth'),
+      name: escaStatisticsNLS.timeRangeLastMonth,
     },
     {
       id: 'this-year',
-      name: i18n.localize(escaStatistics, 'timeRangeThisYear'),
+      name: escaStatisticsNLS.timeRangeThisYear,
     },
     {
       id: 'last-year',
-      name: i18n.localize(escaStatistics, 'timeRangeLastYear'),
+      name: escaStatisticsNLS.timeRangeLastYear,
     },
     { // denotes li.divider
       id: '-',

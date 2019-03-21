@@ -201,6 +201,8 @@ export default declare(MithrilView, {
       }
     };
 
+    const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
+
     return {
       oninit() {
         // update list item state
@@ -256,13 +258,11 @@ export default declare(MithrilView, {
               });
           });
           endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
-          endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle',
-            i18n.localize(escaStatistics, 'timeRangeDatePickerEndDate'));
+          endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', escaStatisticsNLS.timeRangeDatePickerEndDate);
         });
         showDatePickers = async () => {
           startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
-          startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle',
-            i18n.localize(escaStatistics, 'timeRangeDatePickerStartDate'));
+          startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', escaStatisticsNLS.timeRangeDatePickerStartDate);
         };
       },
       view() {
@@ -271,12 +271,12 @@ export default declare(MithrilView, {
         return (
           <div>
             <div className="stats__title">
-              <h3>{i18n.localize(escaStatistics, 'statsViewHeader')}</h3>
+              <h3>{escaStatisticsNLS.statsViewHeader}</h3>
             </div>
             <section className="stats__wrapper">
               <div className="data__wrapper">
                 <div className="chooser__wrapper">
-                  <h4>{i18n.localize(escaStatistics, 'statsViewTimeRange')}</h4>
+                  <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
                   <BootstrapDropdown items={state.timeRanges.items} selected={state.timeRanges.selected}
                                      onclick={onclickTimeRange}/>
                 </div>
@@ -295,7 +295,7 @@ export default declare(MithrilView, {
                 </div>
               </div>
               <div className="visualization__wrapper">
-                <h4>{i18n.localize(escaStatistics, 'statsViewDistributionStats')}</h4>
+                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
                 <div className="visualization__chart">
                   <BarChart data={state.chart.data}/>
                 </div>
