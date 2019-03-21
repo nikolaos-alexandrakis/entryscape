@@ -61,6 +61,10 @@
 
         .row__text {
             word-break: normal;
+            .fa{
+                opacity: 0.4;
+                margin-right: 10px;
+            }
         }
 
         .stat__count {

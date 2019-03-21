@@ -8,3 +8,11 @@
     stroke-width: 20px;
 
   }
+
+  .ct-series-a .ct-area{
+    fill:$main-colour;
+  }
+  .ct-series-a .ct-line, .ct-series-a .ct-point{
+    stroke:$main-colour;
+
+  }

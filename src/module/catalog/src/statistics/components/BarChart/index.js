@@ -21,6 +21,8 @@ const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
     onlyInteger: true,
     offset: 10,
   },
+  low: 0,
+  showArea: true,
 });
 
 const guessAxisFormatFromData = (dataLength) => {
@@ -38,7 +40,7 @@ const guessAxisFormatFromData = (dataLength) => {
 
 export default () => ({
   oncreate(vnode) {
-    chart = new Chartist.Bar('.ct-chart', vnode.attrs.data, getChartOptions());
+    chart = new Chartist.Line('.ct-chart', vnode.attrs.data, getChartOptions());
   },
   view(vnode) {
     const { data } = vnode.attrs;
