@@ -66,7 +66,7 @@ const requestSolrInChunks = async (ruri, context, rdfType, property) => {
     let ruris = ruri;
     while (ruris.length > 0) {
       // get next chunk
-      ruris = ruris.slice(START_IDX, END_IDX);
+      ruris = ruri.slice(START_IDX, END_IDX);
 
       // make a solr request query
       promises.push(requestSolr(ruris, context, rdfType, property, entries));
