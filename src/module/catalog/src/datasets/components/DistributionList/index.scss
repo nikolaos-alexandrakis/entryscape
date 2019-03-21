@@ -49,10 +49,16 @@
         .title {
             @include title--underlined;
             margin-bottom: 0;
+            margin-right: 10px;
             padding-bottom: 5px;
             border-bottom: 0;
         }
 
+        .list-wrapper {
+          overflow-y: auto;
+          max-height: calc(70px * 8); /* The height of 8 distributions */
+          padding-bottom: 10px;
+        }
     }
 
     .distribution__date{

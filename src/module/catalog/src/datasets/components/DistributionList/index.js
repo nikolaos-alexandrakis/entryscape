@@ -112,20 +112,22 @@ export default (initialVnode) => {
             </button>
           </div>
 
-          { distributions.map((distribution, i) => {
-            const duplicateFileType = distributionFormats
-              .filter((format, k) => i !== k && format === distributionFormats[i]).length > 0;
+        <div class="list-wrapper">
+            { distributions.map((distribution, i) => {
+              const duplicateFileType = distributionFormats
+                .filter((format, k) => i !== k && format === distributionFormats[i]).length > 0;
 
-            return (
-              <Distribution
-                distribution={distribution}
-                fileEntryURIs={state.fileEntryURIs}
-                dataset={dataset}
-                refreshDistributions={refreshDistributions}
-                hasDuplicateFileType={duplicateFileType}
-              />
-            );
-          }) }
+              return (
+                <Distribution
+                  distribution={distribution}
+                  fileEntryURIs={state.fileEntryURIs}
+                  dataset={dataset}
+                  refreshDistributions={refreshDistributions}
+                  hasDuplicateFileType={duplicateFileType}
+                />
+              );
+            }) }
+      </div>
 
         </div>
       );

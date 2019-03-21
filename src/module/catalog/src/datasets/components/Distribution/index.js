@@ -83,7 +83,10 @@ export default (vnode) => {
             </div>
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
-              <span class={`fa fa-exclamation-triangle ${duplicateFileTypeClass}`}></span>
+              <span
+                class={`fa fa-exclamation-triangle ${duplicateFileTypeClass}`}
+                title={escaDataset.sameMimeTypeDistributions}
+              ></span>
               <DistributionActions
                 distribution={distribution}
                 dataset={dataset}
