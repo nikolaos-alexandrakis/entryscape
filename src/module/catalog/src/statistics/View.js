@@ -1,8 +1,6 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
-import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
-import InlineList from 'commons/components/bootstrap/InlineList';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
@@ -15,6 +13,8 @@ import BarChart from './components/BarChart';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
+import Tabs from './components/Tabs';
+import TimeRangeDropdown from './components/TimeRangeDropdown';
 import './index.scss';
 import getDatasetByDistributionRURI from './utils/distribution';
 import getTabs from './utils/tabs';
@@ -185,7 +185,12 @@ export default declare(MithrilView, {
       if (e.target.value) {
         const filterString = e.target.value;
         const filteredItems =
-          state.list.items.filter(item => !!(item.name.includes(filterString) || (item.subname && item.subname.includes(filterString))));
+          state.list.items.filter((item) => {
+            const { name, subname, filename } = item;
+            return !!(name.includes(filterString)
+              || (subname && subname.includes(filterString))
+              || (filename && filename.includes(filterString)));
+          });
 
         setState({
           list: {
@@ -300,12 +305,12 @@ export default declare(MithrilView, {
               <div className="data__wrapper">
                 <div className="chooser__wrapper">
                   <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
-                  <BootstrapDropdown items={state.timeRanges.items} selected={state.timeRanges.selected}
+                  <TimeRangeDropdown items={state.timeRanges.items} selected={state.timeRanges.selected}
                                      onclick={onclickTimeRange}/>
                 </div>
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
-                    <InlineList items={tabs} selected={state.activeTab} onclick={onclickTab}/>
+                    <Tabs items={tabs} selected={state.activeTab} onclick={onclickTab}/>
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
