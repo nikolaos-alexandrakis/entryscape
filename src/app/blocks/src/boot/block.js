@@ -25,6 +25,7 @@ import renderGraph from 'blocks/graphics/renderGraph';
 import preload from './preload';
 import error from './error';
 import renderFilter from '../search/renderFilter';
+import renderClick from '../event/renderClick';
 
 const Block = {};
 
@@ -51,6 +52,7 @@ const block2function = {
   chart: renderChart,
   graph: renderGraph,
   config: preload,
+  click: renderClick,
   viewMetadata: renderEntryMetadata, // deprecated, use view
   search: renderSearchList, // deprecated, use searchList
   preload, // deprecated, use config

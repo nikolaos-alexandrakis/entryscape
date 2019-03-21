@@ -84,6 +84,9 @@ export default (node, data) => {
           lblib.option({
             alwaysShowNavOnTouchDevices: true,
           });
+          registry.onChange('slider-lightbox-open', () => {
+            jquery('.slick-current .slider-img')[0].click();
+          });
         });
       };
 
