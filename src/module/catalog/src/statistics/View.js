@@ -324,12 +324,12 @@ export default declare(MithrilView, {
                   </div>
                 </div>
               </div>
-              <div className="visualization__wrapper">
-                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
-                <div className="visualization__chart">
-                  <BarChart data={state.chart.data}/>
-                </div>
-              </div>
+              {/*<div className="visualization__wrapper">*/}
+                {/*<h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>*/}
+                {/*<div className="visualization__chart">*/}
+                  {/*<BarChart data={state.chart.data}/>*/}
+                {/*</div>*/}
+              {/*</div>*/}
             </section>
           </div>
         );
