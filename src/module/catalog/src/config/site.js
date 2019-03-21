@@ -12,6 +12,7 @@ import ContactsList from 'catalog/contacts/List';
 import Search from 'catalog/search/Search';
 import DocumentsList from 'catalog/documents/List';
 import StatisticsView from 'catalog/statistics/View';
+import config from 'config';
 
 export default {
   modules: {
@@ -165,6 +166,7 @@ export default {
       route: '/catalog/:context/statistics',
       parent: 'catalog',
       module: 'catalog',
+      navbar: config.get('catalog.includeStatistics', false), // weather to show the statistics in the tabs or not
     },
   },
 };

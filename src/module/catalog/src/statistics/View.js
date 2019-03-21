@@ -286,9 +286,6 @@ export default declare(MithrilView, {
         };
       },
       view() {
-        // if (isCatalogPublic === null) {
-        //   return <div />;
-        // }
         if (isCatalogPublic === false) {
           return <Placeholder label={escaStatisticsNLS.statsNotPublishedCatalog}/>;
         }
