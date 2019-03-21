@@ -10,7 +10,6 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
-import BarChart from './components/BarChart';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
@@ -296,6 +295,8 @@ export default declare(MithrilView, {
 
         const tabs = getTabs();
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
+        const toRenderItems = state.list.filteredItems || state.list.items || [];
+        const hasData = !!toRenderItems.length > 0;
         return (
           <div>
             <div className="stats__title">
@@ -316,7 +317,7 @@ export default declare(MithrilView, {
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
-                      <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/>
+                      {hasData ? <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/> : null}
                       <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
                                      selected={state.list.selected} onclick={onclickListItem}/></div>)
                     }
@@ -325,10 +326,10 @@ export default declare(MithrilView, {
                 </div>
               </div>
               {/*<div className="visualization__wrapper">*/}
-                {/*<h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>*/}
-                {/*<div className="visualization__chart">*/}
-                  {/*<BarChart data={state.chart.data}/>*/}
-                {/*</div>*/}
+              {/*<h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>*/}
+              {/*<div className="visualization__chart">*/}
+              {/*<BarChart data={state.chart.data}/>*/}
+              {/*</div>*/}
               {/*</div>*/}
             </section>
           </div>
