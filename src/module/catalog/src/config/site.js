@@ -159,7 +159,7 @@ export default {
       module: 'catalog',
     },
     catalog__statistics: {
-      title: { en: 'Statistics', sv: 'Statistics', de: 'Statistics' },
+      title: { en: 'Statistics', sv: 'Statistik', de: 'Statistik' },
       class: StatisticsView,
       faClass: 'stat',
       route: '/catalog/:context/statistics',
