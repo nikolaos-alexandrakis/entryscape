@@ -20,7 +20,7 @@ export default () => ({
         <div className="stats-header">
           <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
-            <span className="distribution__head__title">{escaStatisticsNLS.abHeaderFormat}</span>
+            <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderFormat}</span>
             <span title= {escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fa fa-download"></span>
           </div>
         </div>
