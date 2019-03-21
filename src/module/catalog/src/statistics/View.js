@@ -1,4 +1,5 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import BootstrapDropdown from 'commons/components/bootstrap/Dropdown';
 import InlineList from 'commons/components/bootstrap/InlineList';
@@ -11,6 +12,7 @@ import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
 import BarChart from './components/BarChart';
+import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
 import './index.scss';
@@ -203,9 +205,16 @@ export default declare(MithrilView, {
     };
 
     const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
-
+    let isCatalogPublic = null;
     return {
       oninit() {
+        isCatalogPublished().then((isPublic) => {
+          isCatalogPublic = isPublic;
+        });
+
+        if (isCatalogPublic === false) {
+          return;
+        }
         // update list item state
         getListItems()
           .then(items => setState({
@@ -218,6 +227,10 @@ export default declare(MithrilView, {
           });
       },
       oncreate() {
+        if (isCatalogPublic === false) {
+          return;
+        }
+
         // create date pickers
         const startDatePicker = jquery('#custom-date-start').bootstrapMaterialDatePicker({
           weekStart: 0,
@@ -267,6 +280,13 @@ export default declare(MithrilView, {
         };
       },
       view() {
+        // if (isCatalogPublic === null) {
+        //   return <div />;
+        // }
+        if (isCatalogPublic === false) {
+          return <Placeholder label={escaStatisticsNLS.statsNotPublishedCatalog}/>;
+        }
+
         const tabs = getTabs();
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
         return (
@@ -275,6 +295,8 @@ export default declare(MithrilView, {
               <h3>{escaStatisticsNLS.statsViewHeader}</h3>
             </div>
             <section className="stats__wrapper">
+              <input type="text" id="custom-date-start" className="hidden"/>
+              <input type="text" id="custom-date-end" className="hidden"/>
               <div className="data__wrapper">
                 <div className="chooser__wrapper">
                   <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>

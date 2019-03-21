@@ -1,11 +1,12 @@
 {
   "root": {
     "statsViewHeader": "Here you can find some info about stats",
+    "statsNotPublishedCatalog": "The current catalog is not published. Statistics are available only for published catalogs.",
     "statsViewTimeRange": "Time range",
     "statsViewDistributionStats": "Distribution statistics for selected time range",
     "statsSearchInputPlaceholder": "Search for resources...",
     "timeRangeDatePickerStartDate": "Start Date",
-    "timeRangeDatePickerEndDate": "Start Date",
+    "timeRangeDatePickerEndDate": "End Date",
     "timeRangeToday": "Today",
     "timeRangeYesterday": "Yesterday",
     "timeRangeThisMonth": "This Month",

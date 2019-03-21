@@ -1602,7 +1602,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
 
 "bootstrap-material-datetimepicker@https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack":
   version "2.7.1"
-  resolved "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#fe7afcf8362b59c2c9aa5671dca78dd5b44b9e5f"
+  resolved "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#42bd01cb69cb698feb0f67b6c8100a05b8741928"
   dependencies:
     bootstrap "~3.3.4"
     bootstrap-material-design "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd"
