@@ -209,16 +209,19 @@
   min-height: 40px;
 }
 
-.WorkOfArt__wrapper .fa-search:before {
+.WorkOfArt_search {
+  text-align: right;
+  margin-right: 30px;
+}
+.WorkOfArt_search .fa-search:before {
+  position: absolute;
+  margin-top: -95px;
+  float: right;
   content: "\F002";
-  position: relative;
   z-index: 666;
   color: black;
   text-shadow: 3px 3px 16px white;
   font-size: 24px;
-  float: right;
-  margin-top: -82px;
-  margin-right: 10px;
 }
 
 .btn--white,

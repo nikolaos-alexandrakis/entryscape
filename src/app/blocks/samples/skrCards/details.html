@@ -23,10 +23,10 @@
 
 <main class="main--flex">
   <div class="WorkOfArt__wrapper">
-    <div data-entryscape="slider" data-entryscape-property="schema:image"
+    <div id="gurka" data-entryscape="slider" data-entryscape-property="schema:image"
          data-entryscape-caption="dc:rights"
          data-entryscape-fallback="https://images.pexels.com/photos/821652/pexels-photo-821652.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"></div>
-         <i class="fa fa-search"></i>     
+    <span data-entryscape="click" data-entryscape-signal="slider-lightbox-open" class="WorkOfArt_search"><i class="fa fa-search"></i></span>
     <div class="WorkOfArt__description" data-entryscape="text" data-entryscape-content="${dcterms:description}"></div>
     <div class="WorkOfArt__map">
       <p>Karta</p>
