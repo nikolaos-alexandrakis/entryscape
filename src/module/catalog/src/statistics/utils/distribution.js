@@ -1,4 +1,8 @@
-import { getDatatsetByDistributionURI, getDistributionByFileResourceURI } from 'catalog/utils/dcatUtil';
+import {
+  getDatatsetByDistributionURI,
+  getDistributionByFileResourceURI,
+  getFileEntriesByResourceURI,
+} from 'catalog/utils/dcatUtil';
 
 /**
  * Retrieves the inverse property paths of the file/apis to their respective distribution and datasets.
@@ -42,7 +46,9 @@ const getDatasetByDistributionRURI = async (distRURIs, context) => {
     fileOrAPIRURIs.forEach(fileOrAPIRURI => fileRURI2DatasetEntry.set(fileOrAPIRURI, entry));
   }
 
-  return [fileRURI2DistributionEntry, fileRURI2DatasetEntry];
+  const fileOrAPIEntries = await getFileEntriesByResourceURI(fileORAPIRURIs, context);
+
+  return [fileOrAPIEntries, fileRURI2DistributionEntry, fileRURI2DatasetEntry];
 };
 
 

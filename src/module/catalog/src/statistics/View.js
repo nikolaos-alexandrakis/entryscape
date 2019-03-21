@@ -59,12 +59,13 @@ export default declare(MithrilView, {
             await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRangeUtil.toAPIRequestPath(selected));
         }
 
-        const [distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
+        const [fileEntries, distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
         return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
           item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
           item.name = getEntryRenderName(datasetEntries.get(item.uri));
           item.subname = getEntryRenderName(distributionEntries.get(item.uri));
+          item.filename = fileEntries.has(item.uri) ? getEntryRenderName(fileEntries.get(item.uri)) : null;
 
           return item;
         });
