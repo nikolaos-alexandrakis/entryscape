@@ -11,9 +11,9 @@ export default () => ({
     return hasData ?
       (<div class="stats__row__wrapper--API">
         <div className="stats-header">
-          <p className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</p>
+          <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</span>
           <div className="flex header--wrapper--right">
-            <p className="distribution__head__title fa fa-retweet"></p>
+            <span title= {i18n.localize(escaStatistics, 'rowHeaderAPI')} className="distribution__head__title fa fa-cogs"></span>
           </div>
         </div>
         {toRenderItems.map(item => (

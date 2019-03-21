@@ -16,7 +16,7 @@ const tabs = [
   {
     id: 'api',
     label: i18n.localize(escaStatistics, 'tabItemApiCalls'),
-    icon: 'fa-repeat',
+    icon: 'fa-cogs',
     component: APICallList,
   },
 ];

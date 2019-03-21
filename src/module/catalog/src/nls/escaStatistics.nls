@@ -17,7 +17,9 @@
     "tabItemFiles": "Files",
     "tabItemApiCalls": "Api Calls",
     "tabHeaderTitle": "Title",
-    "tabHeaderFormat": "Format"
+    "tabHeaderFormat": "Format",
+    "rowHeaderFile": "Number of downloaded files",
+    "rowHeaderAPI": "Number of API calls"
   },
   "sv": true,
   "da": true,
