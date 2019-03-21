@@ -42,7 +42,7 @@ export default () => ({
               }
             </div>
             <div className="flex--sb row--right--wrapper">
-              <span className="row__text">{item.format}</span>
+              <span className="row__text label" data-format={item.format} title={item.format}>{item.abbrevFormat || item.format}</span>
               <span className="row__text stat__count">{item.count}</span>
             </div>
           </div>)}

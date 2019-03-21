@@ -4,6 +4,7 @@ import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
+import { getAbbreviatedMimeType } from 'commons/util/mimeTypesUtil';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
@@ -65,6 +66,7 @@ export default declare(MithrilView, {
         return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
           item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
+          item.abbrevFormat = getAbbreviatedMimeType(item.format);
           item.name = getEntryRenderName(datasetEntries.get(item.uri));
           item.subname = getEntryRenderName(distributionEntries.get(item.uri));
           item.filename = fileEntries.has(item.uri) ? getEntryRenderName(fileEntries.get(item.uri)) : null;
