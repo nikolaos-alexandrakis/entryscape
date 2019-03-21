@@ -71,7 +71,7 @@ const requestSolrInChunks = async (ruri, context, rdfType, property) => {
       promises.push(requestSolr(ruris, context, rdfType, property, entries));
 
       // update loop
-      START_IDX += END_IDX;
+      START_IDX += MAX_URIS_IN_OR_QUERY;
       END_IDX += MAX_URIS_IN_OR_QUERY;
       repeat -= 1;
     }
