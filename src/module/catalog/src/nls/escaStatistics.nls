@@ -1,7 +1,7 @@
 {
   "root": {
     "statsViewHeader": "Here you can find some info about stats",
-    "statsNotPublishedCatalog": "The current catalog is not published. Statistics are available only for published catalogs.",
+    "statsNotPublishedCatalog": "Statistics are only available for published catalogs",
     "statsViewTimeRange": "Time range",
     "statsViewDistributionStats": "Distribution statistics for selected time range",
     "statsSearchInputPlaceholder": "Search for resources...",
