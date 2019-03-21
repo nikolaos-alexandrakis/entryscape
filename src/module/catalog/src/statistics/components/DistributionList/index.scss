@@ -3,19 +3,9 @@
 .distributionList {
     width: 100%;
     position: relative;
- .input-group{
-        display: flex;
+    .input-group-btn{
+        vertical-align: baseline;
     }
-    .form-group{
-        margin:0;
-        padding: 0;
-        margin-bottom:20px;
-    }
-
-    .searchButton{
-        padding:10px;
-        margin:0;
-    } 
 
 }
 
