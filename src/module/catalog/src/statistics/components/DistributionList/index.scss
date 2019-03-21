@@ -140,11 +140,13 @@
     text-transform: uppercase;
 }
 .label[data-format="text/html"],
+.label[data-format="text/plain"],
 .label[data-format="application/pdf"] {
     background-color: #55a1ce
 }
 .label[data-format="application/json"],
-.label[data-format="application/xml"] {
+.label[data-format="application/xml"],
+.label[data-format="text/xml"] {
     background-color: #ef7100
 }
 .label[data-format="text/csv"] {
