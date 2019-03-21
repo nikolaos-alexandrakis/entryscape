@@ -62,11 +62,10 @@ const requestSolrInChunks = async (ruri, context, rdfType, property) => {
   let END_IDX = MAX_URIS_IN_OR_QUERY;
   const promises = [];
   if (Array.isArray(ruri)) {
-    /** @type Array */
-    let ruris = ruri;
-    while (ruris.length > 0) {
+    let repeat = Math.floor(ruri.length / MAX_URIS_IN_OR_QUERY) + 1;
+    while (repeat > 0) {
       // get next chunk
-      ruris = ruri.slice(START_IDX, END_IDX);
+      const ruris = ruri.slice(START_IDX, END_IDX);
 
       // make a solr request query
       promises.push(requestSolr(ruris, context, rdfType, property, entries));
@@ -74,6 +73,7 @@ const requestSolrInChunks = async (ruri, context, rdfType, property) => {
       // update loop
       START_IDX += END_IDX;
       END_IDX += MAX_URIS_IN_OR_QUERY;
+      repeat -= 1;
     }
   } else {
     promises.push(requestSolr([ruri], context, rdfType, property, entries));
