@@ -28,7 +28,7 @@ export default declare([ToggleRow], {
         this._updateLocaleStrings();
       }
     });
-    this.listDistributions();
+    // this.listDistributions();
   },
   /**
    * Set a class to the published icon if the entry is published

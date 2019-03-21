@@ -12,11 +12,6 @@ export default declare([RDFormsEditDialog], {
     this.updateDataset = updateDataset;
     this.inherited('showEntry', arguments, [entry]);
   },
-  getTemplate() {
-    return registry.get('itemstore').getItem(
-      config.catalog.datasetTemplateId);
-  },
-
   doneAction(graph) {
     this.entry.setMetadata(graph);
     const self = this;
