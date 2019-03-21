@@ -86,8 +86,12 @@ export default declare(MithrilView, {
       }
     };
 
+    const getSearchFieldValue = () => {
+      return jquery('#stats-search-input').val();
+    };
+
     const resetSearchField = () => {
-      // this is not done with jquery to avoid keeping a mithril state
+      // this is done with jquery to avoid keeping a mithril state
       jquery('#stats-search-input').val('');
     };
 
@@ -294,6 +298,7 @@ export default declare(MithrilView, {
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
         const toRenderItems = state.list.filteredItems || state.list.items || [];
         const hasData = !!toRenderItems.length > 0;
+        const shouldShowSearch = hasData || getSearchFieldValue();
         return (
           <div>
             <div className="stats__title">
@@ -314,7 +319,7 @@ export default declare(MithrilView, {
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
-                      {hasData ? <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/> : null}
+                      {shouldShowSearch ? <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/> : null}
                       <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
                                      selected={state.list.selected} onclick={onclickListItem}/></div>)
                     }
