@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 .esreStart__banner {
     margin-top: 2em;
 }
@@ -45,7 +47,7 @@
     position: relative;
     z-index: 2000;
     text-decoration: none;
-    color: #1c7cd1;
+    color: $main-colour-hover;
 }
 
 .esreStart__cardHeader {
