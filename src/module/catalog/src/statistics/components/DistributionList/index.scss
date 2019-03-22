@@ -1,0 +1,44 @@
+@import '~commons/theme';
+.stats-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-weight: bold;
+    color:$main-colour;
+    .flex{
+        display: flex;
+    }
+  
+}
+.distributionList__tabs{
+    display: flex;
+    margin:40px 0 20px;
+    p{
+        margin-right: 10px;
+    }
+}
+.distributionList{
+    width:600px;
+    height: auto;
+}
+.flex--sb{
+    display: flex;
+    justify-content: space-between;
+}
+.row--right--wrapper,.header--wrapper--right{
+    width: 20%;
+}
+.header--wrapper--right{
+    justify-content: space-between;
+    padding: 5px;
+
+}
+
+.stats__row{
+   @include row--shadow;
+    .row__title{
+        font-weight: bold;
+    }
+
+}

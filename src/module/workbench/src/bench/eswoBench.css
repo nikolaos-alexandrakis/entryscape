@@ -26,7 +26,10 @@
 .eswoBench__listItem.active a {
     font-weight: bold;
 }
-
+.eswoBench__listItem.active a .badge{
+    background-color:white;
+    color:#1C4CD1;
+}
 .eswoBench__listItem a:hover {
     color: #2e9aff;
 }
@@ -42,7 +45,7 @@
 .eswoBench .nav-pills > li.active > a,
 .eswoBench .nav-pills > li.active > a:focus,
 .eswoBench .nav-pills > li.active > a:hover {
-    background-color: #1c7cd1;
+    background-color: #1C4CD1;
     border-radius: 0;
 }
 

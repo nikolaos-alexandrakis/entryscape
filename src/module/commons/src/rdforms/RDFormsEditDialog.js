@@ -64,7 +64,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     if (this.explicitNLS && (this.title !== '' || this.title === null)) {
       this.updateLocaleStringsExplicit(this.title, this.doneLabel, this.doneTitle);
     } else {
-      this.updateLocaleStrings(escoRdforms, this.localizationParams);
+      this.updateLocaleStrings(this.NLSBundles.escoRdforms, this.localizationParams);
     }
     this.updateHeaderWidth();
   },

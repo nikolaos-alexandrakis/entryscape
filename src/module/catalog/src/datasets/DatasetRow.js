@@ -5,7 +5,6 @@ import htmlUtil from 'commons/util/htmlUtil';
 import config from 'config';
 import { i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
-import DistributionRow from './DistributionRow';
 import template from './DatasetRowTemplate.html';
 import './dataset.css';
 
@@ -21,29 +20,41 @@ export default declare([ToggleRow], {
     this.inherited('postCreate', arguments);
     this.entry.getContext().getEntry().then((contextEntry) => {
       this.catalogPublic = contextEntry.isPublic();
-      this.setToggled(contextEntry.isPublic(), this.entry.isPublic());
+      this.setToggled(this.entry.isPublic());
       this.renderCol4();
+
       if (this.nlsSpecificBundle) {
         this._updateLocaleStrings();
       }
     });
-    this.listDistributions();
+    // this.listDistributions();
+  },
+  /**
+   * Set a class to the published icon if the entry is published
+   *
+   * @params {boolean} isPublic Whether the entry is public or not
+   * @returns {undefined}
+   */
+  setToggled(isPublic) {
+    if (isPublic) {
+      this.publishedIcon.classList.add('active');
+    }
   },
   getCatalog() {
     return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', this.entry.getContext());
   },
   updateLocaleStrings() {
     this.inherited('updateLocaleStrings', arguments);
+
     this._updateLocaleStrings();
   },
   _updateLocaleStrings() {
-    if (!this.catalogPublic) {
-      this.protectedNode.setAttribute('title', this.nlsSpecificBundle.privateDisabledDatasetTitle);
+    if (this.entry.isPublic()) {
+      this.publishedIcon.title = this.nlsSpecificBundle[this.nlsPublicTitle];
     } else {
-      this.protectedNode.setAttribute('title', this.nlsSpecificBundle[this.nlsProtectedTitle]);
+      this.publishedIcon.title = this.nlsSpecificBundle[this.nlsProtectedTitle];
     }
-    this.removeBrokenDatasetRefs.innerHTML = this.nlsSpecificBundle.removeBrokenDatasetRefs;
-    this.removeBrokenDatasetRefsWarning.innerHTML = this.nlsSpecificBundle.removeBrokenDatasetRefsWarning;
+
     this.maybeUpdate();
   },
   getDistributionStatements() {
@@ -76,15 +87,6 @@ export default declare([ToggleRow], {
         return null;
       });
     })).then(this.showDistributionInList.bind(this));
-  },
-  showDistributionInList(dists) {
-    const distsArray = Array.isArray(dists) ? dists : [dists];
-    distsArray.forEach((distE) => {
-      if (distE != null) {
-        DistributionRow({ entry: distE, datasetRow: this, dctSource: this.fileEntryURIs, uri2Format: this.uri2Format },
-          htmlUtil.create('tbody', null, this.distributions));
-      }
-    });
   },
   removeBrokenReferences() {
     const store = registry.get('entrystore');
@@ -271,7 +273,7 @@ export default declare([ToggleRow], {
                     }));
                 }, () => {
                   this.distributions.innerHTML = '';
-                  this.listDistributions();
+                  // this.listDistributions();
                   dialogs.acknowledge(this.nlsSpecificBundle.failedToRemoveDatasetDistributions);
                 });
               });
@@ -344,6 +346,10 @@ export default declare([ToggleRow], {
       this.badgeNode.style.display = 'none';
     }
     this.maybeUpdate();
+  },
+
+  updateActions() {
+
   },
   maybeUpdate() {
     if (this.nlsSpecificBundle) {

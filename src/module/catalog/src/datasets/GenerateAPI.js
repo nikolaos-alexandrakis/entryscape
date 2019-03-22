@@ -1,16 +1,17 @@
+import m from 'mithril';
+import config from 'config';
+import registry from 'commons/registry';
+import stamp from 'dojo/date/stamp';
+import { i18n } from 'esi18n';
+import { promiseUtil, utils } from 'store';
+import { clone, cloneDeep, merge, template } from 'lodash-es';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
 import Row from 'commons/components/common/grid/Row';
 import TaskProgress from 'commons/progresstask/components/TaskProgress';
 import ProgressDialog from 'commons/progresstask/ProgressDialog';
-import registry from 'commons/registry';
-import config from 'config';
-import declare from 'dojo/_base/declare';
-import stamp from 'dojo/date/stamp';
-import { i18n } from 'esi18n';
-import { clone, cloneDeep, merge, template } from 'lodash-es';
-import m from 'mithril';
-import { promiseUtil } from 'store';
+import escaFilesNLS from 'catalog/nls/escaFiles.nls';
+import escaApiProgressNLS from 'catalog/nls/escaApiProgress.nls';
 import pipelineUtil from './pipelineUtil';
 import { getDistributionFileRURIs, getDistributionFilesInfo } from './utils/distributionUtil';
 import apiUtil from './utils/apiUtil';
@@ -21,6 +22,14 @@ import apiUtil from './utils/apiUtil';
  * @returns {*|Array}
  */
 const getObjectValues = x => Object.keys(x).reduce((y, z) => y.push(x[z]) && y, []);
+
+const createAPIDistribution = (etlEntry, parentDistEntry) => parentDistEntry.getContext().newNamedEntry()
+  .add('rdf:type', 'dcat:Distribution')
+  .add('dcat:accessURL', etlEntry.getResourceURI())
+  .add('dcterms:conformsTo', `${etlEntry.getResourceURI()}/swagger`)
+  .add('dcterms:source', parentDistEntry.getResourceURI())
+  .addL('dcterms:format', 'application/json')
+  .commit();
 
 /**
  * How the initial progress api should look like
@@ -46,7 +55,7 @@ const initialTasksState = {
   },
 };
 
-export default declare([], {
+export default class {
   /**
    * @param {{params: object, filesURI: array|null}}
    * params:
@@ -64,15 +73,26 @@ export default declare([], {
    *    files to the distribution and no other changes (like replace/remove). Helps improve preformance
    *    of the API update.
    */
-  execute({ params = {}, filesURI = null }) {
+  execute({ params = {}, filesURI = null, onSuccess = () => {} }) {
     this.noOfFiles = 0;
     this.progressDialog = new ProgressDialog();
 
     // apply all params in `this` context
     /* eslint-disable-next-line */
-    for (param in params) {
-      this[param] = params[param];
-    }
+    // for (param in params) {
+    //   this[param] = params[param];
+    // }
+    this.mode = params.mode;
+    this.distributionRow = params.distributionRow;
+    this.datasetRow = params.datasetRow;
+    this.fileEntryURIs = params.fileEntryURIs;
+    this.apiDistEntry = params.apiDistEntry;
+    this.distributionEntry = params.distributionEntry;
+    this.dataset = params.dataset;
+    this.onSuccess = onSuccess;
+
+    this.escaApiProgress = i18n.getLocalization(escaApiProgressNLS);
+    this.escaFiles = i18n.getLocalization(escaFilesNLS);
 
     // needed to choose the correct progress dialog message
     this.hasOnlyAddedFiles = Array.isArray(filesURI) && filesURI.length;
@@ -80,7 +100,8 @@ export default declare([], {
     this.validateFiles(filesURI)
       .then(this.generateAPI.bind(this))
       .then(this._showProgressDialog.bind(this));
-  },
+  }
+
   /**
    * @private
    */
@@ -95,7 +116,8 @@ export default declare([], {
     this.progressDialog.show();
 
     this.updateProgressDialogState(this.tasks);
-  },
+  }
+
   /**
    * Render the progress dialog
    * @param {Object} tasks The state to pass to TaskProgress
@@ -110,7 +132,8 @@ export default declare([], {
     if (updateFooter) {
       this.showFooterResult(errorMessage);
     }
-  },
+  }
+
   /**
    * Empty the progress dialog
    */
@@ -119,7 +142,8 @@ export default declare([], {
     m.render(modalBody, null);
 
     return modalBody;
-  },
+  }
+
   /**
    * Runs the activate/refresh API pipeline
    */
@@ -143,8 +167,8 @@ export default declare([], {
         .then(() => removeHandlers(handlersToIgnore));
     } else {
       // check if catalog/dataset are public
-      const isDatasetPublic = this.datasetEntry.isPublic();
-      const contextEntry = await this.datasetEntry.getContext().getEntry();
+      const isDatasetPublic = this.dataset.isPublic();
+      const contextEntry = await this.dataset.getContext().getEntry();
       const isCatalogPublic = contextEntry.isPublic();
 
       if (isCatalogPublic && isDatasetPublic) {
@@ -169,7 +193,8 @@ export default declare([], {
         });
       }
     }
-  },
+  }
+
   /**
    * validate that files can be converted to API
    *  - gathers the newly added files to be merged into the api OR all the files in the distribution (refresh all)
@@ -229,7 +254,8 @@ export default declare([], {
 
         return Promise.resolve();
       });
-  },
+  }
+
   /**
    * Update the state of the progress dialog and re-render
    *
@@ -240,7 +266,8 @@ export default declare([], {
   updateProgressDialogState(state = {}, hasError = false, errorMessage = '') {
     this.tasks = merge(this.tasks, state);
     this.updateProgressDialog(this.tasks, hasError, errorMessage);
-  },
+  }
+
   /**
    * For each of the files uris execute the pipeline sequentially
    *
@@ -272,7 +299,8 @@ export default declare([], {
           }, true, this.escaApiProgress.apiProgressError); // change with nls
           throw err;
         }));
-  },
+  }
+
   /**
    * @async
    * @param {store/Pipeline} pipelineResource
@@ -280,18 +308,34 @@ export default declare([], {
    */
   async _createDistribution(pipelineResource) {
     // create new distribution for the newly created API
-    await this.distributionRow.createDistributionForAPI(pipelineResource);
+    await this.createDistributionForAPI(pipelineResource);
     this.updateProgressDialogState({ fileprocess: { status: 'done' } });
     this.showFooterResult();
 
     // update UI
-    this.datasetRow.fileEntryURIs.push(this.distributionEntry.getResourceURI());
-    this.distributionRow.clearDropdownMenu();
-    this.distributionRow.renderDropdownMenu();
-    // this.datasetRow.showDistributionInList(apiDistributionEntry);
-    this.datasetRow.clearDistributions();
-    this.datasetRow.listDistributions();
-  },
+    this.fileEntryURIs.push(this.distributionEntry.getResourceURI());
+    this.onSuccess();
+  }
+
+  createDistributionForAPI(pipelineResultEntryURI) {
+    if (!pipelineResultEntryURI || !this.dataset) {
+      return new Promise((resolve, reject) =>
+        reject(!pipelineResultEntryURI
+          ? 'No API to create distribution for.' : 'No Dataset to create distribution in.'));
+    }
+    const datasetEntry = this.dataset;
+    const self = this;
+    return registry.getEntryStore()
+      .getEntry(pipelineResultEntryURI)
+      .then(prEntry => createAPIDistribution(prEntry, self.distributionEntry)
+        .then(distEntry => utils.addRelation(
+          datasetEntry,
+          registry.get('namespaces').expand('dcat:distribution'),
+          distEntry,
+        )),
+      );
+  }
+
   /**
    *
    * @returns {Promise<void>}
@@ -354,7 +398,7 @@ export default declare([], {
       const message = this.escaApiProgress.apiProgressError;
       this.updateProgressDialogState({ fileprocess: { status: 'failed' } }, true, message);
     }
-  },
+  }
 
   /**
    * Update distribution metadata
@@ -373,7 +417,8 @@ export default declare([], {
       distMetadata.add(distResourceURI, 'dcterms:conformsTo', swaggerURI);
     }
     return this.apiDistEntry.commitMetadata();
-  },
+  }
+
   /**
    * @returns {Promise<void>}
    */
@@ -432,7 +477,7 @@ export default declare([], {
       }, true, errMessage);
       throw Error(err);
     }
-  },
+  }
   showFooterResult(message = null) {
     const modalFooter = this.progressDialog.getModalFooter();
     const onclick = this.progressDialog.hide.bind(this.progressDialog);
@@ -458,8 +503,8 @@ export default declare([], {
           })],
       }],
     }));
-  },
+  }
   done() {
     this.progressDialog.hide();
-  },
-});
+  }
+}
