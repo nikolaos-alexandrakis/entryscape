@@ -182,7 +182,7 @@ const navUtils = {
   decodeHtml(html) {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
-    return txt.value;
+    return txt.value.replace('/&shy;/g', '');
   },
 };
 
