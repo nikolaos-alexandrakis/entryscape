@@ -204,7 +204,7 @@ export default (distribution, dataset, fileEntryURIs) => {
     const baseURI = es.getBaseURI();
 
     if (downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1) {
-      uri = `${downloadURI}?${resURI}`;
+      uri = downloadURI;
     } else {
       uri = accessURI;
     }
