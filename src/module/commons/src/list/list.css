@@ -30,6 +30,7 @@
 .entryList {
     overflow-y: visible;
     height: 100%;
+    padding-bottom: 40px;
 }
 
 .entryRow {
@@ -129,7 +130,6 @@
 }
 
 .entryList .entryControls button {
-/*     visibility: hidden; */
     padding: 10px 20px;
     margin: 10px
 }

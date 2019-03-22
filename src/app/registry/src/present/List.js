@@ -59,8 +59,13 @@ export default declare([BaseList, PublicView], {
    * @param row
    * @return {boolean}
    */
-  installActionOrNot() {
-    return true;
+  installActionOrNot(params, row) {
+    switch (params.name) {
+      case 'versions':
+        return row.entry.getEntryInfo().hasMetadataRevisions();
+      default:
+        return true;
+    }
   },
   /**
    *

@@ -4,7 +4,7 @@ export default (entry) => {
     Promise.all(
       entry
         .getMetadata()
-        .fild(entry.getResourceURI(), 'dcat:downloadURL')
+        .find(entry.getResourceURI(), 'dcat:downloadURL')
         .map(statement => entryStoreUtil.getEntryByResourceURI(statement.getValue())),
     ).then(fileEntries => setState({ fileEntries }));
   };

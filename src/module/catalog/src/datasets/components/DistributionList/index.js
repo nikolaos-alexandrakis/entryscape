@@ -20,10 +20,32 @@ export default (initialVnode) => {
   };
   const setState = createSetState(state);
 
-  const escaDataset = i18n.getLocalization(escaDatasetNLS);
+
+  const removeBrokenReferences = () => {
+    const entry = dataset;
+    const store = registry.get('entrystore');
+    const cache = store.getCache();
+    const md = entry.getMetadata();
+    const datasetResourceURI = dataset.getResourceURI();
+    const stmts = dataset.getMetadata().find(dataset.getResourceURI(), 'dcat:distribution');
+
+    stmts.forEach((stmt) => {
+      const ruri = stmt.getValue();
+      const euri = store.getEntryURI(store.getContextId(ruri), store.getEntryId(ruri));
+      if (cache.get(euri) == null) {
+        md.findAndRemove(datasetResourceURI, 'dcat:distribution',
+          { type: 'uri', value: ruri });
+      }
+    });
+
+    dataset.commitMetadata();
+  };
+
+  const refreshDistributions = () => listDistributions(dataset);
 
   // Get the distributions from the entry and store them in the state
   const listDistributions = (datasetEntry) => {
+    const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const getDistributionStatements = entry => entry.getMetadata()
       .find(entry.getResourceURI(), 'dcat:distribution');
     const entryStoreUtil = registry.get('entrystoreutil');
@@ -34,7 +56,7 @@ export default (initialVnode) => {
 
     return Promise.all(stmts.map((stmt) => {
       const resourceURI = stmt.getValue();
-      return entryStoreUtil.getEntryByResourceURI(resourceURI).then((distributionEntry) => {
+      return entryStoreUtil.getEntryByResourceURI(resourceURI, datasetEntry.getContext()).then((distributionEntry) => {
         const source = distributionEntry
           .getMetadata()
           .findFirstValue(distributionEntry.getResourceURI(), 'dcterms:source');
@@ -51,12 +73,18 @@ export default (initialVnode) => {
         setState({ fileEntryURIs }, true);
 
         return distributionEntry;
-      }, () => null,
-      );
+      });
     }))
-      .then(dists => setState({ distributions: dists }));
+      .then(dists => setState({ distributions: dists }))
+      .catch(() => {
+        registry.get('dialogs')
+          .acknowledge(escaDataset.removeBrokenDatasetRefsWarning, escaDataset.removeBrokenDatasetRefs)
+          .then(() => {
+            removeBrokenReferences();
+            listDistributions(datasetEntry);
+          });
+      });
   };
-  const refreshDistributions = () => listDistributions(dataset);
 
   const openCreateDialog = () => {
     actions.openCreateDialog(listDistributions);
@@ -67,7 +95,10 @@ export default (initialVnode) => {
       listDistributions(dataset);
     },
     view() {
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const distributions = state.distributions;
+      const distributionFormats = distributions.map(entry => entry.getMetadata()
+        .findFirstValue(entry.getResourceURI(), 'dcterms:format'));
 
       return (
         <div class="distributions">
@@ -81,14 +112,22 @@ export default (initialVnode) => {
             </button>
           </div>
 
-          { distributions.map(distribution => (
-            <Distribution
-              distribution={distribution}
-              fileEntryURIs={state.fileEntryURIs}
-              dataset={dataset}
-              refreshDistributions={refreshDistributions}
-            />
-          )) }
+        <div class="list-wrapper">
+            { distributions.map((distribution, i) => {
+              const duplicateFileType = distributionFormats
+                .filter((format, k) => i !== k && format === distributionFormats[i]).length > 0;
+
+              return (
+                <Distribution
+                  distribution={distribution}
+                  fileEntryURIs={state.fileEntryURIs}
+                  dataset={dataset}
+                  refreshDistributions={refreshDistributions}
+                  hasDuplicateFileType={duplicateFileType}
+                />
+              );
+            }) }
+      </div>
 
         </div>
       );

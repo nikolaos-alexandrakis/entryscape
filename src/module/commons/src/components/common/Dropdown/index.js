@@ -42,8 +42,10 @@ export default (vnode) => {
     const toggleButtonHeight = toggleButton.offsetHeight;
     const dropdownScreenPositionY = toggleButton.getBoundingClientRect().top;
 
+    const siteFooter = document.querySelector('.bottom_footer').clientHeight;
+
     const spaceAbove = dropdownScreenPositionY;
-    const spaceBelow = Math.abs(window.innerHeight - dropdownScreenPositionY);
+    const spaceBelow = Math.abs(window.innerHeight - dropdownScreenPositionY) - siteFooter;
     const elementHeight = toggleButtonHeight + dropdownHeight;
 
     if ((spaceBelow < elementHeight) && (spaceAbove > spaceBelow)) {

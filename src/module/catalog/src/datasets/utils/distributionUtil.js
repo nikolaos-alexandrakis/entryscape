@@ -133,12 +133,5 @@ export const isDownloadURLEmpty = (entry) => {
   return !((downloadURI !== '' && downloadURI != null));
 };
 
-export const getDistributionTemplate = (templateId, dtemplate) => {
-  if (!dtemplate) { // TODO @scazan don't forget to re-institute this!!!!
-    return registry.get('itemstore').getItem(templateId);
-  }
-  return dtemplate;
-};
-
 export const isPrivatelyPublished = entry => !entry.getMetadata()
   .findFirstValue(null, 'http://entryscape.com/terms/psi');

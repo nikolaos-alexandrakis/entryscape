@@ -20,13 +20,11 @@
         overflow-wrap: break-word;
     }
     .metadata--wrapper{
-        max-width: 70%;
-        padding-right: 40px;
-
+      width: 70%;
     }
 
     .metadata--basic{
-        margin-bottom: 15px;
+        margin-bottom: 40px;
         color: $text-colour;
         p {
             margin-bottom: 10px;
@@ -36,7 +34,7 @@
 
     .cards--wrapper {
         display: flex;
-        margin-top: 50px;
+        margin-top: 20px;
         flex-wrap: wrap;
         .escoOverview__statBox {
             cursor: pointer;
@@ -97,7 +95,7 @@
 
 
 
-.externalPublish{
+.externalPublish {
     margin:10px 0;
     min-width: 150px;
 }
@@ -145,9 +143,9 @@
     width: 70%;
 
     .header {
+        justify-content: normal;
         min-width: 150px;
         width: 28%;
-        border-bottom: 1.5px solid $accent-colour;
         align-items: center;
         margin-top: 20px;
         margin-bottom: 20px;

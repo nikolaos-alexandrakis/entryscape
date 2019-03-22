@@ -1,0 +1,13 @@
+.escoEntityChooser__form {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid lightgrey;
+}
+
+.escoEntityChooser__group {
+    margin-top: 10px;
+}
+
+.escoEntityChooser__label {
+    margin-right: 10px;
+}

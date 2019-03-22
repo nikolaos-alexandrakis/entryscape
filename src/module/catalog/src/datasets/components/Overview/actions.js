@@ -3,6 +3,7 @@ import registry from 'commons/registry';
 import config from 'config';
 import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
+import Lookup from 'commons/types/Lookup';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
@@ -12,7 +13,6 @@ import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
   isUploadedDistribution,
   isAPIDistribution,
-  getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escoCommentNLS from 'commons/nls/escoComment.nls';
@@ -36,8 +36,7 @@ const updateDistributionACL = (acl, entry) => {
 };
 
 export default (entry) => {
-  const openDialog = (DialogClass) => {
-    const dialog = new DialogClass({}, DOMUtil.create('div'));
+  const openDialog = (dialog) => {
     // @scazan Some glue here to communicate with RDForms without a "row"
     dialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
@@ -47,20 +46,20 @@ export default (entry) => {
     });
   };
 
+  const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
   /**
    * Open an Edit Side Dialog for this dataset
    *
    * @returns {undefined}
    */
   const openEditDialog = () => {
-    const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
     });
   };
 
   /**
-   * Set this dataset a unpublished/not public
+   * Set this dataset as unpublished/not public
    *
    * @param {store/Entry} groupEntry
    * @param {function} onSuccess A callback called after the state has been committed
@@ -161,8 +160,8 @@ export default (entry) => {
       entry.addD('http://entryscape.com/terms/psi', 'true', 'xsd:boolean')
         .commitMetadata();
     } else {
-      entry.getMetadata().findAndRemove(null, 'http://entryscape.com/terms/psi')
-        .commitMetadata();
+      entry.getMetadata().findAndRemove(null, 'http://entryscape.com/terms/psi');
+      entry.commitMetadata();
     }
   };
 
@@ -275,15 +274,14 @@ export default (entry) => {
       });
   };
 
+  const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
   /**
    *
    * Open the Revisions dialog for this dataset
    *
    * @returns {undefined}
    */
-  const openRevisions = () => {
-    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
-
+  const openRevisions = async () => {
     if (isUploadedDistribution(entry, registry.get('entrystore'))) {
       revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
     } else if (isAPIDistribution(entry)) {
@@ -295,13 +293,26 @@ export default (entry) => {
       .excludeProperties.map(property => registry.get('namespaces').expand(property));
 
     // @scazan Some glue here to communicate with RDForms without a "row"
+    const template = await Lookup.getTemplate(entry);
     revisionsDialog.open({
       row: { entry },
       onDone: () => m.redraw(),
-      template: getDistributionTemplate(config.catalog.distributionTemplateId),
+      template,
     });
   };
 
+  const escoComment = escoCommentNLS;
+  const escaDataset = escaDatasetNLS;
+  const commentsDialog = new CommentDialog({
+    nlsBundles: [{ escoComment, escaDataset }],
+    open(params) {
+      this.inherited('open', arguments);
+      const name = registry.get('rdfutils').getLabel(params.row.entry);
+      this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
+      this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
+      this.localeChange();
+    },
+  }, DOMUtil.create('div'));
   /**
    *
    * Open the Comments dialog for this dataset
@@ -309,19 +320,6 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openComments = (onUpdate) => {
-    const escoComment = escoCommentNLS;
-    const escaDataset = escaDatasetNLS;
-    const commentsDialog = new CommentDialog({
-      nlsBundles: [{ escoComment, escaDataset }],
-      open(params) {
-        this.inherited('open', arguments);
-        const name = registry.get('rdfutils').getLabel(params.row.entry);
-        this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
-        this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
-        this.localeChange();
-      },
-    }, DOMUtil.create('div'));
-    // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
@@ -336,31 +334,34 @@ export default (entry) => {
     });
   };
 
+  const showIdeasDialog = new ShowIdeasDialog({}, DOMUtil.create('div'));
   /**
    * Open the Ideas dialog for this dataset
    *
    * @returns {undefined}
    */
   const openIdeas = () => {
-    openDialog(ShowIdeasDialog);
+    openDialog(showIdeasDialog);
   };
 
+  const showShowcasesDialog = new ShowShowcasesDialog({}, DOMUtil.create('div'));
+  /**
+   * Open the showcases dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openShowcases = () => {
-    /**
-     * Open the showcases dialog for this dataset
-     *
-     * @returns {undefined}
-     */
-    openDialog(ShowShowcasesDialog);
+    openDialog(showShowcasesDialog);
   };
 
+  const downgradeDialog = new DowngradeDialog({}, DOMUtil.create('div'));
   /**
    * Open a "dialog" (which is just a modal) fr
    *
    * @returns {undefined}
    */
   const downgrade = () => {
-    openDialog(DowngradeDialog);
+    openDialog(downgradeDialog);
   };
 
   /**
@@ -374,12 +375,16 @@ export default (entry) => {
      * @type {string}
      */
     const dataset = entry.getId();
+    const site = registry.get('siteManager');
+    const state = site.getState();
+    const { context } = state[state.view];
+
     if (config.catalog && config.catalog.previewURLNewWindow) {
-      window.open(url, '_blank'); // @scazan TODO url is undefined but was, seemingly, also undefined in the original
+      const currentView = site.getUpcomingOrCurrentView();
+      const viewRoute = site.getViewRoute(currentView);
+      const url = site.getRoutePath(viewRoute, { context, dataset });
+      window.open(url, '_blank');
     } else {
-      const site = registry.get('siteManager');
-      const state = site.getState();
-      const { context } = state[state.view];
       site.render('catalog__datasets__preview', { context, dataset });
     }
   };

@@ -24,7 +24,7 @@ class _FormatRowMixin {
     this.col1Node.setAttribute('title', format);
   }
 
-      // Adapted from renderTitle in entryscape-commons/dataset/DistributionRow.js
+  // Adapted from renderTitle in entryscape-commons/dataset/DistributionRow.js
   getRenderName() {
     const md = this.entry.getMetadata();
     const subj = this.entry.getResourceURI();

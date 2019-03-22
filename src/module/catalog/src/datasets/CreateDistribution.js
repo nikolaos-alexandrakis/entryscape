@@ -85,14 +85,7 @@ export default declare([RDFormsEditDialog], {
     const nds = this._newEntry;
     nds.getMetadata().add(nds.getResourceURI(), ns.expand('rdf:type'), ns.expand('dcat:Distribution'));
     this.updateGenericCreateNLS();
-    this.show(nds.getResourceURI(), nds.getMetadata(), this.getDistributionTemplate());
-  },
-  getDistributionTemplate() {
-    if (!this.dtemplate) {
-      this.dtemplate = registry.get('itemstore').getItem(
-        config.catalog.distributionTemplateId);
-    }
-    return this.dtemplate;
+    this.showChildEntry(nds, this.datasetEntry);
   },
   getReport() {
     const report = validate.bindingReport(this.editor.binding);
