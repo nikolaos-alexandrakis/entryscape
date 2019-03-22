@@ -228,7 +228,6 @@ export default (vnode) => {
                   isEnabled={isPublishable}
                 ></Toggle>
               </div>
-              {/* This will be determined by configuration */}
               { config.catalog.allowInternalDatasetPublish &&
                 <div class="psiPublish flex--sb">
                   <div class="icon--wrapper">
