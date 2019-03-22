@@ -35,7 +35,7 @@
 
     .row--right--wrapper,
     .header--wrapper--right {
-        width: 40%;
+        width: 25%;
     }
 
     .header--wrapper--right {
@@ -84,6 +84,9 @@
 
             .label[data-format] {
                 text-transform: uppercase;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
             }
             .label[data-format="text/html"],
             .label[data-format="application/pdf"] {
