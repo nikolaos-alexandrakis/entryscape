@@ -24,7 +24,7 @@ export default () => ({
             <span title= {escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fa fa-download"></span>
           </div>
         </div>
-        {toRenderItems.map(item =>
+        { hasData ? toRenderItems.map(item =>
           <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
                className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
@@ -45,8 +45,10 @@ export default () => ({
               <span className="row__text label" data-format={item.format} title={item.format}>{item.abbrevFormat || item.format}</span>
               <span className="row__text stat__count">{item.count}</span>
             </div>
-          </div>)}
+          </div>) :
+            <div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
+        }
       </div>) :
-      (<div className="no-data">{escaStatisticsNLS.imeRangeNoDataAvailable}</div>);
+      (<div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>);
   },
 });

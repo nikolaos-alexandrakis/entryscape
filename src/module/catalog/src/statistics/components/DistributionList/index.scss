@@ -35,7 +35,7 @@
 
     .row--right--wrapper,
     .header--wrapper--right {
-        width: 40%;
+        width: 30%;
     }
 
     .header--wrapper--right {
@@ -43,6 +43,8 @@
 
         .fa {
             width: 25%;
+            text-align: right;
+            margin-right: 15px;
         }
 
     }
@@ -71,6 +73,8 @@
             width: 25%;
             font-size: 16px;
             font-weight: bold;
+            text-align: right;
+            margin-right: 15px;
         }
 
         &.selected {
@@ -81,33 +85,36 @@
             display: flex;
             flex-direction: column;
             padding-right: 10px;
-
-            .label[data-format] {
-                text-transform: uppercase;
-            }
-            .label[data-format="text/html"],
-            .label[data-format="application/pdf"] {
-                background-color: #55a1ce
-            }
-            .label[data-format="application/json"],
-            .label[data-format="application/xml"] {
-                background-color: #ef7100
-            }
-            .label[data-format="text/csv"] {
-                background-color: #2db55d
-            }
-            .label[data-format="application/vnd.ms-excel"],
-            .label[data-format="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"] {
-                background-color: #dfb100
-            }
-            .label[data-format=rdf],
-            .label[data-format*=rdf],
-            .label[data-format*=nquad],
-            .label[data-format*=ntriples],
-            .label[data-format*=turtle] {
-                background-color: #0b4498
-            }
-
+        }
+        .label[data-format] {
+            text-transform: uppercase;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            white-space: normal;
+            margin-right: 10px;
+        }
+        .label[data-format="text/html"],
+        .label[data-format="application/pdf"] {
+            background-color: #55a1ce
+        }
+        .label[data-format="application/json"],
+        .label[data-format="application/xml"] {
+            background-color: #ef7100
+        }
+        .label[data-format="text/csv"] {
+            background-color: #2db55d
+        }
+        .label[data-format="application/vnd.ms-excel"],
+        .label[data-format="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"] {
+            background-color: #dfb100
+        }
+        .label[data-format=rdf],
+        .label[data-format*=rdf],
+        .label[data-format*=nquad],
+        .label[data-format*=ntriples],
+        .label[data-format*=turtle] {
+            background-color: #0b4498
         }
 
     }
