@@ -50,7 +50,7 @@ const requestSolr = (resourceURIS, context, rdfType, property, entriesMap) => {
  * Split a potentially very long solr request to a shorter one so that apache doesn't return 414.
  * Current max limit is 20 resource uris in the request.
  *
- * @param ruri
+ * @param {String|String[]} ruri
  * @param context
  * @return {Promise<Map<any, any>>}
  */
@@ -84,6 +84,12 @@ const requestSolrInChunks = async (ruri, context, rdfType, property) => {
   return entries;
 };
 
+/**
+ *
+ * @param {String|String[]} ruri
+ * @param context
+ * @return {Promise<Map<any, any>>}
+ */
 const getDatatsetByDistributionURI = async (ruri, context) => {
   const entries = await requestSolrInChunks(ruri, context, 'dcat:Dataset', 'dcat:distribution');
   return entries;

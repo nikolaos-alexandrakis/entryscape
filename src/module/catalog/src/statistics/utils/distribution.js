@@ -6,7 +6,8 @@ import {
 
 /**
  * Retrieves the inverse property paths of the file/apis to their respective distribution and datasets.
- * Returns an array of two elements:
+ * Returns an array of three elements:
+ *  0: A map of type <fleOrApiResourceURI, fileOrAPIEntry>
  *  1: A map of type <fleOrApiResourceURI, parentDistributionEntry>
  *  2: A map of type <fleOrApiResourceURI, parentDatasetEntry>
  *
