@@ -1,4 +1,5 @@
 // NOTE! order of imports is important
+import './publicPath';
 import '@babel/polyfill';
 import 'jquery';
 import 'popper.js';
