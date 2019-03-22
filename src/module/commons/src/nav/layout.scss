@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 html {
     overflow-x: hidden;
 }
@@ -366,7 +368,7 @@ body {
 }
 
 .progress-bar-dark {
-    background-color: #34495E !important
+    background-color: $main-colour !important
 }
 
 .progress-bar-gray {
@@ -422,7 +424,7 @@ table.no-margin .progress {
 
 .dropdown-menu li a:focus,
 .dropdown-menu li a:hover {
-    color: #1c7cd1;
+    color: $main-colour-hover;
 }
 
 @media (max-width: 767px) {
@@ -463,7 +465,7 @@ table.no-margin .progress {
 }
 
 .nav.side-menu > li > a:hover {
-    color: #337ab7;
+    color: $main-colour-hover;
 }
 
 .nav.side-menu > li > a:hover,
@@ -486,7 +488,7 @@ table.no-margin .progress {
 }
 
 .nav-md ul.nav.child_menu li:before {
-    background: #425668;
+    background: $main-colour;
     bottom: auto;
     content: "";
     height: 8px;
@@ -500,7 +502,7 @@ table.no-margin .progress {
 }
 
 .nav-md ul.nav.child_menu li:after {
-    border-left: 1px solid #425668;
+    border-left: 1px solid $main-colour;
     bottom: 0;
     content: "";
     left: 27px;
@@ -535,7 +537,7 @@ table.no-margin .progress {
 
 .nav.side-menu > li.current-page,
 .nav.side-menu > li.active {
-    border-right: 5px solid #1c7cd1;
+    border-right: 5px solid $main-colour-hover;
 }
 
 .nav li.current-page {
@@ -603,7 +605,7 @@ table.no-margin .progress {
     position: relative;
     display: block;
     padding: 10px 15px;
-    color: #34495E;
+    color: $main-colour;
 }
 
 .nav > li > a:hover,

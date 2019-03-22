@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 .escaSearch {
     overflow: hidden;
     padding: 0px;
@@ -58,7 +60,7 @@
     background: white;
     padding: 10px;
     margin: 13px -4px 10px 0px;
-    border-right: 4px solid #1c7cd1;
+    border-right: 4px solid $main-colour;
     word-break: break-word;
 }
 

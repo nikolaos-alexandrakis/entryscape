@@ -9,7 +9,7 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import config from 'config';
 import DatasetSearch from './DatasetSearch';
 import template from './SearchTemplate.html';
-import './escaSearch.css';
+import './escaSearch.scss';
 
 
 export default declare([_WidgetBase, _TemplatedMixin], {

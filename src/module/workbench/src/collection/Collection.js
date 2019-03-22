@@ -11,7 +11,7 @@ import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import hash from 'dojo/hash';
-import './eswoCollection.css';
+import './eswoCollection.scss';
 import CollectionItemContainer from './components/CollectionItemContainer';
 import template from './CollectionTemplate.html';
 

@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 .spaProgress,
 .spaSideDialog {
     display: none;
@@ -170,10 +172,10 @@
 }
 .spaSideDialogFooter .btn.btn-primary {
     color: #fff !important;
-    background-color: #1c7cd1;
+    background-color: $main-colour;
 }
 .modal-dialog .progress .progress-bar.progress-bar-danger {
-  background-color: #1c7cd1 !important;
+  background-color: $main-colour !important;
 }
 .spaSideDialogFooter .btn.btn-primary.disabled {
     color: #fff !important;
@@ -181,7 +183,7 @@
 }
 .spaSideDialogFooter .btn.btn-success.disabled:focus{
     color: #fff !important;
-    background-color: rgba(28, 124, 209, 0.8);
+    background-color: $main-colour 0.8;
 }
 
 .spaSideDialogListFix ul > li {

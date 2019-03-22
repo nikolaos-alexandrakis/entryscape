@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 .eswoCollection {
     height: 100%;
 }
@@ -34,7 +36,7 @@
 }
 
 .eswoCollection__listItem a:hover {
-    color: #2e9aff;
+    color: $main-colour-hover;
 }
 
 .eswoCollection__listItem.active {

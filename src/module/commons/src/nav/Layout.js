@@ -17,8 +17,8 @@ import * as siteUtil from '../util/siteUtil';
 import Breadcrumb from './components/Breadcrumb';
 import Logo from './components/Logo';
 import Menu from './components/Menu';
-import './entryscape.css';
-import './layout.css';
+import './entryscape.scss';
+import './layout.scss';
 import template from './LayoutTemplate.html';
 import Signin from './Signin'; // In template
 import utils from './utils';
