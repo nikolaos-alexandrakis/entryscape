@@ -9,13 +9,13 @@ export default (node, data) => {
     const updateEmpty = () => {
       if (filter.isEmpty()) {
         switch (data.empty) {
-          case 'hidden':
+          case 'hide':
             node.parentElement.style.visibility = 'hidden';
             break;
-          case 'disabled':
+          case 'disable':
             node.parentElement.setAttribute('disabled', true);
             break;
-          case 'removed':
+          case 'remove':
             node.parentElement.style.display = 'none';
             break;
           default:
@@ -23,13 +23,13 @@ export default (node, data) => {
         }
       } else {
         switch (data.empty) {
-          case 'hidden':
+          case 'hide':
             node.parentElement.style.visibility = '';
             break;
-          case 'disabled':
+          case 'disable':
             node.parentElement.removeAttribute('disabled');
             break;
-          case 'removed':
+          case 'remove':
             node.parentElement.style.display = '';
             break;
           default:
