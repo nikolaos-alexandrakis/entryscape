@@ -6,15 +6,13 @@ import ViewMixin from './ViewMixin';
  * @todo make es6 class
  */
 export default declare(ViewMixin, {
-  constructor(params, domNode) {
-    // @todo @valentino pass the params to the mithril view
-    this.domNode = domNode;
-  },
   mainComponent: null,
   /**
+   * @todo @valentino check how and if viewDef.node should be utilized
    * this method is expected by spa/Site
    */
   show() {
-    m.mount(this.domNode, this.mainComponent);
+    // attach this component to the main viewsNode
+    m.mount(document.getElementById('viewsNode'), this.mainComponent);
   },
 });
