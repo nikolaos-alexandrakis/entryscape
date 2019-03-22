@@ -4,7 +4,7 @@ import { i18n } from 'esi18n';
 export default () => ({
   view(vnode) {
     const { onchange, onkeyup } = vnode.attrs;
-    return (<div className="input-group col-md-9">
+    return (<div className="input-group col-md-6">
       <input type="text" id="stats-search-input" className="form-control"
              placeholder={i18n.localize(escaStatistics, 'statsSearchInputPlaceholder')} onchange={onchange}
              onkeyup={onkeyup}/>
