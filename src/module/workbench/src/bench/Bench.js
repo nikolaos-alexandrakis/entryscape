@@ -13,7 +13,7 @@ import List from './List';
 import ListAndContentView from './ListAndContentView';
 import templateString from './BenchTemplate.html';
 import entitytypes from '../utils/entitytypes';
-import './eswoBench.css';
+import './eswoBench.scss';
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin], {
   bid: 'eswoBench',

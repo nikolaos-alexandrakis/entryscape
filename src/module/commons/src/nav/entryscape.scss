@@ -1,3 +1,6 @@
+@import '~commons/theme.scss';
+
+
 html {
     height: 100%;
 }
@@ -36,7 +39,7 @@ body {
     font-size: 24px;
     margin-right: 10px;
     margin-top: -3px;
-    color: #154862;
+    color: $main-colour;
 }
 
 .logo-text.icon-text img,
@@ -71,7 +74,7 @@ footer .logo-text {
     font-size: 16px;
     margin-right: 10px;
     margin-top: -3px;
-    color: #154862;
+    color: $main-colour;
 }
 
 footer .logo-text img {
@@ -81,7 +84,7 @@ footer .logo-text img {
 
 footer .logo-text span {
     font-size: 15px;
-    color: #154862;
+    color: $main-colour;
 }
 
 .entryscape-footer .btn-link {
@@ -331,7 +334,7 @@ div.modules a:hover {
 }
 
 .entryscapeViewList li.selected {
-    border-top: 5px solid #1C4CD1;
+    border-top: 5px solid $main-colour;
 }
 
 .entryscapeViewList li.selected a {
@@ -388,7 +391,7 @@ body.spaTwoMenu .spaControl.navbar-nav {
 
 .body a:hover,
 .body a:focus {
-    color: #165b98;
+    color: $main-colour;
 }
 
 .body .btn.btn-raised.btn-default,
@@ -409,14 +412,14 @@ body.spaTwoMenu .spaControl.navbar-nav {
 .body .input-group-btn .btn.btn-raised.btn-success,
 .body .btn-group-raised .btn.btn-success,
 .body .btn-group-raised .input-group-btn .btn.btn-success {
-    background-color: #165b98;
+    background-color: $main-colour;
     color: #fff;
 }
 
 .body .btn.btn-raised:not(.btn-link):hover.btn-success,
 .body .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-success:hover,
 .body .btn-group-raised .input-group-btn .btn.btn-success:hover {
-    background-color: rgba(28, 124, 209, 0.8);
+    background-color: $main-colour 0.8;
 }
 
 .body .pagination > li > a,

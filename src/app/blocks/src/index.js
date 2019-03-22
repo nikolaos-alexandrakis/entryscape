@@ -11,7 +11,7 @@ import 'bootstrap';
 import 'sizzle';
 import 'blocks/bootstrap.less';
 import 'font-awesome/css/font-awesome.min.css';
-import 'commons/list/list.css'; // escoList .panel
+import 'commons/list/list.scss'; // escoList .panel
 import 'commons/errors/errors.css';
 import 'commons/query/typeahead.css';
 import 'selectize/dist/css/selectize.bootstrap3.css';

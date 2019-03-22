@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 .escoList .panel {
     background-color: inherit;
     -webkit-box-shadow: none;
@@ -25,7 +27,7 @@
 }
 
 .badge {
-  background-color: #1C4CD1;
+  background-color: $main-colour;
 }
 .entryList {
     overflow-y: visible;
@@ -62,11 +64,11 @@
 
 .escoList div.entryList .entryRow__grid:hover button {
     font-weight: bold;
-    color: #1c7cd1;
+    color: $main-colour-hover;
 }
 .escoList div.entryList .entryRow__grid:focus button {
     font-weight: bold;
-    color: #1c7cd1;
+    color: $main-colour-hover;
 }
 
 .entryList .entryRow__grid:hover .entryControls button {
@@ -320,7 +322,7 @@
 
 .escoList div.entryList .entryRow:hover button {
     font-weight: bold;
-    color: #1c7cd1;
+    color: $main-colour-hover;
 }
 
 .entryList .visibilityControl.disabled i {
@@ -338,7 +340,7 @@
     cursor: pointer;
 }
 .entryList .entryRowCol1 .fa {
-    color:#1C4CD1;
+    color:$main-colour;
 }
 .entryList .visibilityControl .fa-toggle-on {
     color: #5cb85c;
@@ -362,7 +364,7 @@
 }
 
 .warningCol .popover {
-  background-color:  #1c7cd1 !important;
+  background-color:  $main-colour !important;
     z-index: 1040;
 }
 

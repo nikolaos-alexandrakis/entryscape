@@ -1,3 +1,5 @@
+@import '~commons/theme.scss';
+
 .datasets {
     position: relative;
 }
@@ -212,7 +214,7 @@ div.errorreport {
     border: 3px solid transparent;
 }
 .datasetRow__content:focus{
-    border:3px solid #1C4CD1;
+    border:3px solid $main-colour;
 }
 .dataset__icon{
     display: flex;
@@ -222,7 +224,7 @@ div.errorreport {
 }
 .dataset__icon .fa{
     font-size: 28px;
-    color:#1C4CD1;
+    color:$main-colour;
     opacity: 0.4;
 
 }
@@ -234,7 +236,7 @@ div.errorreport {
 }
 .dataset__state{
 font-size: 10px;
-color:#1C4CD1;
+color:$main-colour;
 }
 
 .dataset__icon--disabled{

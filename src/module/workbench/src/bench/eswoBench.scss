@@ -1,3 +1,6 @@
+@import '~commons/theme.scss';
+
+
 .eswoBench {
     height: 100%;
 }
@@ -28,7 +31,7 @@
 }
 .eswoBench__listItem.active a .badge{
     background-color:white;
-    color:#1C4CD1;
+    color:$main-colour;
 }
 .eswoBench__listItem a:hover {
     color: #2e9aff;
@@ -45,7 +48,7 @@
 .eswoBench .nav-pills > li.active > a,
 .eswoBench .nav-pills > li.active > a:focus,
 .eswoBench .nav-pills > li.active > a:hover {
-    background-color: #1C4CD1;
+    background-color: $main-colour;
     border-radius: 0;
 }
 

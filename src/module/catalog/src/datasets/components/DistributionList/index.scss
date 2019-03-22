@@ -35,11 +35,11 @@
             font-size: 18px;
             align-self: center;
             &:focus{
-                color: #3f51b5;
+                color: $main-colour;
             }
 
             &:hover {
-                color: rgba(28, 76, 209, 0.658);
+                color:$main-colour-hover;
             }
         }
     }

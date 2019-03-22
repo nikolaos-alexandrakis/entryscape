@@ -6,7 +6,7 @@ import config from 'config';
 import { i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import template from './DatasetRowTemplate.html';
-import './dataset.css';
+import './dataset.scss';
 
 /**
  * @module catalog/datasets/DatasetRow

@@ -18,7 +18,7 @@
     width: 100%;
     margin-bottom:15px;
     &:hover{
-        background-color:#00aa9a;
+        background-color:$main-colour-hover;
     }
 
     &:focus {
@@ -48,10 +48,10 @@
 }
 
 .btn.btn-raised.btn-primary,.btn.btn-fab.btn-primary{
-    background-color:#3f51b5; //primary colour on Bootstrap 4
+    background-color:$main-colour; //primary colour on Bootstrap 4
     &:hover{
-        color: #3f51b5;
-        background-color: hsla(0,0%,60%,.4) !important;
+        color: white;
+        background-color: $main-colour-hover !important;
     }
 }
 
