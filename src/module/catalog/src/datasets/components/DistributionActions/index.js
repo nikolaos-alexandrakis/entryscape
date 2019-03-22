@@ -24,8 +24,9 @@ export default (vnode) => {
 
   const refreshAPI = () => actions.refreshAPI(refreshDistributions);
   const activateAPI = () => actions.activateAPI(refreshDistributions);
-  const editDistribution = () => actions.editDistribution(refreshDistributions);
   const removeDistribution = () => actions.remove(refreshDistributions);
+  const editDistribution = () => actions.editDistribution(() => m.redraw());
+  const openReplaceFile = () => actions.openReplaceFile(() => m.redraw());
 
   const renderActions = (entry) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
@@ -78,7 +79,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-exchange"
             title={escaDataset.replaceFileTitle}
-            onclick={actions.openReplaceFile}
+            onclick={openReplaceFile}
           >
             <span>{escaDataset.replaceFile}</span>
           </button>,

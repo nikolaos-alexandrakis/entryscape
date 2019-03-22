@@ -256,7 +256,7 @@ export default (distribution, dataset, fileEntryURIs) => {
       .getMetadata()
       .findFirstValue(
         apiDistributionEntry.getResourceURI(),
-        registry.get('namespaces').expand('dcterms:source'),
+        'dcterms:source',
       );
     return esUtil.getEntryByResourceURI(sourceDistributionResURI).then((sourceDistributionEntry) => {
       const generateAPI = new GenerateAPI();
@@ -366,7 +366,7 @@ export default (distribution, dataset, fileEntryURIs) => {
    */
   const dom = DOMUtil.create('div');
   const replaceFileDialog = new FileReplaceDialog({}, dom);
-  const openReplaceFile = () => {
+  const openReplaceFile = (onDone) => {
     const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
@@ -374,7 +374,7 @@ export default (distribution, dataset, fileEntryURIs) => {
       replaceFileDialog.open({
         entry: fileEntry,
         distributionEntry: distribution,
-        distributionRow: { renderMetadata: () => {} }, // TODO: @scazan this is handled by m.render now
+        distributionRow: { renderMetadata: onDone }, // TODO: @scazan this is handled by m.render now
         row: {
           entry: fileEntry,
           domNode: dom,

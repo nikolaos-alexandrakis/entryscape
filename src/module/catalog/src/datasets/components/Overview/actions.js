@@ -59,7 +59,7 @@ export default (entry) => {
   };
 
   /**
-   * Set this dataset a unpublished/not public
+   * Set this dataset as unpublished/not public
    *
    * @param {store/Entry} groupEntry
    * @param {function} onSuccess A callback called after the state has been committed
@@ -376,12 +376,16 @@ export default (entry) => {
      * @type {string}
      */
     const dataset = entry.getId();
+    const site = registry.get('siteManager');
+    const state = site.getState();
+    const { context } = state[state.view];
+
     if (config.catalog && config.catalog.previewURLNewWindow) {
-      window.open(url, '_blank'); // @scazan TODO url is undefined but was, seemingly, also undefined in the original
+      const currentView = site.getUpcomingOrCurrentView();
+      const viewRoute = site.getViewRoute(currentView);
+      const url = site.getRoutePath(viewRoute, { context, dataset });
+      window.open(url, '_blank');
     } else {
-      const site = registry.get('siteManager');
-      const state = site.getState();
-      const { context } = state[state.view];
       site.render('catalog__datasets__preview', { context, dataset });
     }
   };
