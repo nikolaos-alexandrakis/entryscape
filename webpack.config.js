@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
 
   const APP = (argv && argv.app) || 'suite'; // needed for eslint to read the config
   const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
-  const PUBLIC_PATH = `${STATIC_URL}/${APP}/${VERSION}/`;
+  const PUBLIC_PATH = `/${APP}/${VERSION}/`;
   const showNLSWarnings = (argv && argv['nls-warnings']) || false;
 
   let config = {
@@ -38,7 +38,7 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: (argv && argv.localbuild ? '/dist/' : PUBLIC_PATH),
+      publicPath: (argv && argv.localbuild ? '/dist/' : PUBLIC_PATH), // a relative public path
       filename: 'app.js',
       chunkFilename: '[name].js',
       library: APP,
@@ -59,6 +59,7 @@ module.exports = (env, argv) => {
         jquery: 'jquery',
         // 'window.jquery': 'jquery',
         Popper: ['popper.js', 'default'],
+        m: 'mithril',
       }),
       new CopyWebpackPlugin([
         {
@@ -101,6 +102,7 @@ module.exports = (env, argv) => {
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-syntax-dynamic-import',
                 ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
+                ['@babel/plugin-transform-react-jsx', { 'pragma': 'm' }],
               ],
             },
           },
@@ -119,8 +121,8 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          test:/\.(s*)css$/,
+          use:['style-loader','css-loader', 'sass-loader']
         },
         {
           test: /\.less$/,
@@ -175,6 +177,7 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
+      mainFiles: ['index'],
       alias: {
         jquery: path.resolve(path.join(__dirname, 'node_modules', 'jquery')),
         commons: getAlias('commons'),
@@ -250,7 +253,7 @@ module.exports = (env, argv) => {
             template: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.hbs')),
             inject: false,
             identifier: VERSION,
-            source: `${PUBLIC_PATH}index.html`,
+            source: `${STATIC_URL}${PUBLIC_PATH}index.html`, // @todo @valentino
           }),
         ]
       });

@@ -64,7 +64,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     if (this.explicitNLS && (this.title !== '' || this.title === null)) {
       this.updateLocaleStringsExplicit(this.title, this.doneLabel, this.doneTitle);
     } else {
-      this.updateLocaleStrings(escoRdforms, this.localizationParams);
+      this.updateLocaleStrings(this.NLSBundles.escoRdforms, this.localizationParams);
     }
     this.updateHeaderWidth();
   },
@@ -133,6 +133,14 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
           givenLevel = 'mandatory';
         }
       }
+
+      // Disable any property in the levels that have no fields
+      Object.entries(profile).forEach((keyVal) => {
+        const [key, val] = keyVal;
+        if ((val <= 0) && (key !== 'itemCount')) {
+          this.levels.disableLevel(key);
+        }
+      });
     }
     this.editor.graph = null; // Just to avoid re-rendering old form when changing includelevel.
     this.levels.setIncludeLevel(givenLevel || 'mandatory');

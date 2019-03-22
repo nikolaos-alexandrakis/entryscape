@@ -1,0 +1,83 @@
+@import '~commons/theme.scss';
+
+
+
+    .distribution__row {
+        position: relative;
+        margin-top: 10px;
+        padding: 10px;
+        min-height: 50px;
+        background-color: white;
+        display: flex;
+        box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
+
+        &:focus {
+            box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
+
+        }
+
+        .distribution__format {
+            display: flex;
+            align-items: center;
+            color: $text-colour;
+            .file__format--short{
+                margin-right: 10px;
+            }
+
+            p {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .distribution__row {
+        .icons {
+            font-size: 18px;
+            align-self: center;
+            &:focus{
+                color: #3f51b5;
+            }
+
+            &:hover {
+                color: rgba(28, 76, 209, 0.658);
+            }
+        }
+    }
+
+    .distributions {
+
+        .title {
+            @include title--underlined;
+            margin-bottom: 0;
+            margin-right: 10px;
+            padding-bottom: 5px;
+            border-bottom: 0;
+        }
+
+        .list-wrapper {
+          /* overflow-y: auto; */
+          max-height: calc(70px * 8); /* The height of 8 distributions */
+          padding-bottom: 10px;
+        }
+    }
+
+    .distribution__date{
+        color:$text-colour;
+        font-size: $text-size;
+        margin-right: 10px;
+        align-self: center;
+        min-width: 60px;
+    }
+    .distribution__title{
+        font-weight: bold;
+        word-break: normal;
+    }
+
+@media (max-width:1024px){
+    .distribution__row{
+        .distribution__format{
+            margin-bottom: 15px;
+        }
+    }
+
+}

@@ -4,12 +4,15 @@ import Overview from 'catalog/overview/Overview';
 import FilesList from 'catalog/files/List';
 import CandidateList from 'catalog/candidates/CandidateList';
 import DatasetList from 'catalog/datasets/List';
+import DatasetOverview from 'catalog/datasets/Overview';
 import Public from 'catalog/public/Public';
 import ShowcasesList from 'catalog/showcases/List';
 import IdeasList from 'catalog/ideas/List';
 import ContactsList from 'catalog/contacts/List';
 import Search from 'catalog/search/Search';
 import DocumentsList from 'catalog/documents/List';
+import StatisticsView from 'catalog/statistics/View';
+import config from 'config';
 
 export default {
   modules: {
@@ -78,11 +81,20 @@ export default {
       parent: 'catalog',
       module: 'catalog',
     },
+    catalog__datasets__dataset: {
+      class: DatasetOverview,
+      faClass: 'cubes',
+      title: { en: 'Dataset', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
+      constructorParams: { createAndRemoveDistributions: true },
+      route: '/catalog/:context/datasets/:dataset/overview',
+      parent: 'catalog__datasets',
+      module: 'catalog',
+    },
     catalog__datasets__preview: {
       class: Public,
       title: { en: 'Datasets Preview', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
       route: '/catalog/:context/datasets/:dataset',
-      parent: 'catalog__datasets',
+      parent: 'catalog__datasets__dataset',
       module: 'catalog',
     },
     catalog__showcases: {
@@ -146,6 +158,15 @@ export default {
       route: '/catalog/:context/documents',
       parent: 'catalog',
       module: 'catalog',
+    },
+    catalog__statistics: {
+      title: { en: 'Statistics', sv: 'Statistik', de: 'Statistik' },
+      class: StatisticsView,
+      faClass: 'stat',
+      route: '/catalog/:context/statistics',
+      parent: 'catalog',
+      module: 'catalog',
+      navbar: config.get('catalog.includeStatistics', false), // weather to show the statistics in the tabs or not
     },
   },
 };

@@ -73,7 +73,10 @@ export default declare([RDFormsEditDialog], {
   },
   open(params) {
     this.row = params.row;
-    this.datasetEntry = params.row.entry;
+    if (params.onDone != null) {
+      this.onDone = params.onDone;
+    }
+    this.datasetEntry = this.row.entry;
     if (this.fileOrLink) {
       this.fileOrLink.show(config.catalog.excludeFileuploadDistribution !== true, true, false);
       this.editor.filterPredicates = { 'http://www.w3.org/ns/dcat#accessURL': true };
@@ -83,13 +86,6 @@ export default declare([RDFormsEditDialog], {
     nds.getMetadata().add(nds.getResourceURI(), ns.expand('rdf:type'), ns.expand('dcat:Distribution'));
     this.updateGenericCreateNLS();
     this.showChildEntry(nds, this.datasetEntry);
-  },
-  getDistributionTemplate() {
-    if (!this.dtemplate) {
-      this.dtemplate = registry.get('itemstore').getItem(
-        config.catalog.distributionTemplateId);
-    }
-    return this.dtemplate;
   },
   getReport() {
     const report = validate.bindingReport(this.editor.binding);
@@ -109,8 +105,9 @@ export default declare([RDFormsEditDialog], {
         this.datasetEntry.getMetadata()
           .add(this.datasetEntry.getResourceURI(), 'dcat:distribution', distributionEntry.getResourceURI());
         return this.datasetEntry.commitMetadata().then(() => {
-          this.row.clearDistributions();
-          this.row.listDistributions();
+          if (this.onDone != null) {
+            this.onDone();
+          }
           distributionEntry.setRefreshNeeded();
           return distributionEntry.refresh();
         });

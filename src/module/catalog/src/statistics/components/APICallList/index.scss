@@ -1,0 +1,97 @@
+@import '~commons/theme';
+
+.distributionList {
+    width: 100%;
+    position: relative;
+    min-height: 300px;
+}
+
+.stats__row__wrapper--API {
+    height: 600px;
+    overflow-y: auto;
+    padding-bottom: 20px;
+
+    .stats-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        font-weight: bold;
+        color: $main-colour;
+
+        .flex {
+            display: flex;
+        }
+
+    }
+
+    .distributionList__tabs {
+        display: flex;
+        margin: 40px 0 20px;
+
+        p {
+            margin-right: 10px;
+        }
+    }
+
+    .flex--sb {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .row--right--wrapper,
+    .header--wrapper--right {
+        width: 10%;
+        
+    }
+
+    .header--wrapper--right {
+        justify-content: space-between;
+        padding-right: 5px;
+        margin-right: 10px;
+        .fa{
+            text-align: right;
+            margin-right: 20px;
+
+        }
+    }
+
+    .stats__row--API {
+        cursor: pointer;
+        @include row--shadow;
+        flex-wrap: nowrap;
+
+        &.selected {
+            border: 2px solid $main-colour;
+        }
+        .row__title--wrapper{
+            display: flex;
+            flex-direction: column;
+            padding-right: 10px;
+            margin-left: 10px;
+        }
+
+        .row__title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .row__text {
+            word-break: normal;
+            margin: 5px 0;
+        }
+
+        .stat__count {
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        .header--wrapper--right {
+            justify-content: flex-end;
+        }
+
+    }
+}
