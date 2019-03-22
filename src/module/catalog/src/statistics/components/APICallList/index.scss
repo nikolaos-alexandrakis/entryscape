@@ -7,7 +7,7 @@
 }
 
 .stats__row__wrapper--API {
-    height: 300px;
+    height: 600px;
     overflow-y: auto;
     padding-bottom: 20px;
 
@@ -42,12 +42,18 @@
     .row--right--wrapper,
     .header--wrapper--right {
         width: 10%;
+        
     }
 
     .header--wrapper--right {
         justify-content: space-between;
         padding-right: 5px;
         margin-right: 10px;
+        .fa{
+            text-align: right;
+            margin-right: 20px;
+
+        }
     }
 
     .stats__row--API {
@@ -79,6 +85,8 @@
             margin-left: 10px;
             font-size: 16px;
             font-weight: bold;
+            text-align: right;
+            margin-right: 15px;
         }
 
         .header--wrapper--right {
