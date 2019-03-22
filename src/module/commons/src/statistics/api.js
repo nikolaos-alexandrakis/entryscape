@@ -13,14 +13,6 @@ if (!repoURL.endsWith('/')) {
 }
 const STATS_BASE_URL = `${repoURL}statistics/`;
 
-const getTopStatisticsStartAndEnd = (contextId, type = 'file') => {
-  const requestURL = `${STATS_BASE_URL}${contextId}/${`top/${type}/`}`;
-
-  return fetch(requestURL)
-    .then(r => r.json())
-    .then(data => ({ start: new Date(data.start), end: new Date(data.end) }));
-};
-
 /**
  *
  * @param filters
@@ -221,6 +213,5 @@ const getTopStatisticsAggregate = async (contextId, type = 'file', customRange =
 export default {
   getTopStatistics,
   getTopStatisticsAggregate,
-  getTopStatisticsStartAndEnd,
   getEntryStatistics,
 };
