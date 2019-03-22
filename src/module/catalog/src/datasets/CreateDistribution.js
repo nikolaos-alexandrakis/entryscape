@@ -87,13 +87,6 @@ export default declare([RDFormsEditDialog], {
     this.updateGenericCreateNLS();
     this.showChildEntry(nds, this.datasetEntry);
   },
-  getDistributionTemplate() {
-    if (!this.dtemplate) {
-      this.dtemplate = registry.get('itemstore').getItem(
-        config.catalog.distributionTemplateId);
-    }
-    return this.dtemplate;
-  },
   getReport() {
     const report = validate.bindingReport(this.editor.binding);
     if (this.fileOrLink && report.errors.length > 0) {

@@ -3,6 +3,7 @@ import registry from 'commons/registry';
 import config from 'config';
 import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
+import Lookup from 'commons/types/Lookup';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
@@ -12,7 +13,6 @@ import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
 import {
   isUploadedDistribution,
   isAPIDistribution,
-  getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escoCommentNLS from 'commons/nls/escoComment.nls';
@@ -297,7 +297,7 @@ export default (entry) => {
     revisionsDialog.open({
       row: { entry },
       onDone: () => m.redraw(),
-      template: getDistributionTemplate(config.catalog.distributionTemplateId),
+      template: Lookup.getTemplate(entry),
     });
   };
 

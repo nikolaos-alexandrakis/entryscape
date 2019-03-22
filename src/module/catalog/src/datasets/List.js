@@ -324,14 +324,6 @@ export default declare([ETBaseList], {
     return this.template; */
   },
 
-  getDistributionTemplate() {
-    if (!this.dtemplate) {
-      this.dtemplate = registry.get('itemstore').getItem(
-        config.catalog.distributionTemplateId);
-    }
-    return this.dtemplate;
-  },
-
   getSearchObject() {
     const context = registry.get('context');
     /** @type {store/EntryStore} */

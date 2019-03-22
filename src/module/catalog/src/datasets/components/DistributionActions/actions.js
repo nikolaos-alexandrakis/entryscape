@@ -5,6 +5,7 @@ import { i18n } from 'esi18n';
 import stamp from 'dojo/date/stamp';
 import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
+import Lookup from 'commons/types/Lookup';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
@@ -19,7 +20,6 @@ import {
   isFileDistributionWithOutAPI,
   isAPIDistribution,
   isAccessDistribution,
-  getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
@@ -289,7 +289,7 @@ export default (distribution, dataset, fileEntryURIs) => {
     revisionsDialog.open({
       row: { entry: distribution },
       onDone: () => m.redraw(),
-      template: getDistributionTemplate(config.catalog.distributionTemplateId),
+      template: Lookup.getTemplate(distribution, dataset),
     });
   };
 

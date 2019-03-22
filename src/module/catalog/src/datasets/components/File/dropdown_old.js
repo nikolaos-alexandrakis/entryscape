@@ -16,7 +16,6 @@ import {
   isAccessURLEmpty,
   isDownloadURLEmpty,
   isAccessDistribution,
-  getDistributionTemplate,
 } from 'catalog/datasets/utils/distributionUtil';
 import { createSetState } from 'commons/util/util';
 
