@@ -285,12 +285,12 @@ export default (distribution, dataset, fileEntryURIs) => {
   dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
 
   const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
-  const openRevisions = () => {
-    // @scazan Some glue here to communicate with RDForms without a "row"
+  const openRevisions = async () => {
+    const template = await Lookup.getTemplate(entry);
     revisionsDialog.open({
       row: { entry: distribution },
       onDone: () => m.redraw(),
-      template: Lookup.getTemplate(distribution, dataset),
+      template,
     });
   };
 

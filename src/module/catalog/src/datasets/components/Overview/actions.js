@@ -281,7 +281,7 @@ export default (entry) => {
    *
    * @returns {undefined}
    */
-  const openRevisions = () => {
+  const openRevisions = async () => {
     if (isUploadedDistribution(entry, registry.get('entrystore'))) {
       revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
     } else if (isAPIDistribution(entry)) {
@@ -293,10 +293,11 @@ export default (entry) => {
       .excludeProperties.map(property => registry.get('namespaces').expand(property));
 
     // @scazan Some glue here to communicate with RDForms without a "row"
+    const template = await Lookup.getTemplate(entry);
     revisionsDialog.open({
       row: { entry },
       onDone: () => m.redraw(),
-      template: Lookup.getTemplate(entry),
+      template,
     });
   };
 
