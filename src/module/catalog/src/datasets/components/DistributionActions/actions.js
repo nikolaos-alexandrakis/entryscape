@@ -273,18 +273,19 @@ export default (distribution, dataset, fileEntryURIs) => {
     });
   };
 
+  // @scazan Make some modifications to the class itself before instantiation. I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
   const dv = RevisionsDialog;
-  const openRevisions = () => {
-    if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
-      dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
-    } else if (isAPIDistribution(distribution)) {
-      dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
-    } else {
-      dv.excludeProperties = [];
-    }
-    dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
+  if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
+    dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
+  } else if (isAPIDistribution(distribution)) {
+    dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL', 'dcterms:source'];
+  } else {
+    dv.excludeProperties = [];
+  }
+  dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
 
-    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
+  const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
+  const openRevisions = () => {
     // @scazan Some glue here to communicate with RDForms without a "row"
     revisionsDialog.open({
       row: { entry: distribution },

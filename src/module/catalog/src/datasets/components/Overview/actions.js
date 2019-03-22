@@ -46,12 +46,12 @@ export default (entry) => {
     });
   };
 
+  const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
   /**
    * Open an Edit Side Dialog for this dataset
    *
    * @returns {undefined}
    */
-  const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
   const openEditDialog = () => {
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
@@ -274,6 +274,7 @@ export default (entry) => {
       });
   };
 
+  const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
   /**
    *
    * Open the Revisions dialog for this dataset
@@ -281,8 +282,6 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openRevisions = () => {
-    const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
-
     if (isUploadedDistribution(entry, registry.get('entrystore'))) {
       revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
     } else if (isAPIDistribution(entry)) {
@@ -301,6 +300,18 @@ export default (entry) => {
     });
   };
 
+  const escoComment = escoCommentNLS;
+  const escaDataset = escaDatasetNLS;
+  const commentsDialog = new CommentDialog({
+    nlsBundles: [{ escoComment, escaDataset }],
+    open(params) {
+      this.inherited('open', arguments);
+      const name = registry.get('rdfutils').getLabel(params.row.entry);
+      this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
+      this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
+      this.localeChange();
+    },
+  }, DOMUtil.create('div'));
   /**
    *
    * Open the Comments dialog for this dataset
@@ -308,19 +319,6 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openComments = (onUpdate) => {
-    const escoComment = escoCommentNLS;
-    const escaDataset = escaDatasetNLS;
-    const commentsDialog = new CommentDialog({
-      nlsBundles: [{ escoComment, escaDataset }],
-      open(params) {
-        this.inherited('open', arguments);
-        const name = registry.get('rdfutils').getLabel(params.row.entry);
-        this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
-        this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
-        this.localeChange();
-      },
-    }, DOMUtil.create('div'));
-    // @scazan Some glue here to communicate with RDForms without a "row"
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
@@ -335,12 +333,12 @@ export default (entry) => {
     });
   };
 
+  const showIdeasDialog = new ShowIdeasDialog({}, DOMUtil.create('div'));
   /**
    * Open the Ideas dialog for this dataset
    *
    * @returns {undefined}
    */
-  const showIdeasDialog = new ShowIdeasDialog({}, DOMUtil.create('div'));
   const openIdeas = () => {
     openDialog(showIdeasDialog);
   };
@@ -355,12 +353,12 @@ export default (entry) => {
     openDialog(showShowcasesDialog);
   };
 
+  const downgradeDialog = new DowngradeDialog({}, DOMUtil.create('div'));
   /**
    * Open a "dialog" (which is just a modal) fr
    *
    * @returns {undefined}
    */
-  const downgradeDialog = new DowngradeDialog({}, DOMUtil.create('div'));
   const downgrade = () => {
     openDialog(downgradeDialog);
   };
