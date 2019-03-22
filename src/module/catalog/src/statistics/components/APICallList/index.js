@@ -18,7 +18,7 @@ export default () => ({
         </div>
         {toRenderItems.map(item => (
           <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
-               className={`stats__row--API flex--sb ${item.uri === selected ? 'selected' : ''}`}>
+            className={`stats__row--API flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
               <span className="row__title">{item.name}</span>
               <span className="row__text">{item.subname}</span>

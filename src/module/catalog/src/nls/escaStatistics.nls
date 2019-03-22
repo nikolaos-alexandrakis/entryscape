@@ -20,7 +20,9 @@
     "tabHeaderTitle": "Title",
     "tabHeaderFormat": "Format",
     "rowHeaderFile": "Number of downloaded files",
-    "rowHeaderAPI": "Number of API calls"
+    "rowHeaderAPI": "Number of API calls",
+    "datasetPrefix":"Belongs to dataset: ",
+    "distributionPrefix":"Belongs to distribution: "
   },
   "sv": true,
   "da": true,

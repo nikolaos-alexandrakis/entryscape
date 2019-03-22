@@ -9,6 +9,7 @@
 .stats__row__wrapper--API {
     height: 300px;
     overflow-y: auto;
+    padding-bottom: 20px;
 
     .stats-header {
         display: flex;
@@ -46,7 +47,7 @@
     .header--wrapper--right {
         justify-content: space-between;
         padding-right: 5px;
-
+        margin-right: 10px;
     }
 
     .stats__row--API {
@@ -60,10 +61,18 @@
         .row__title--wrapper{
             display: flex;
             flex-direction: column;
+            padding-right: 10px;
+            margin-left: 10px;
         }
 
         .row__title {
+            font-size: 14px;
             font-weight: bold;
+            margin-top: 5px;
+        }
+        .row__text {
+            word-break: normal;
+            margin: 5px 0;
         }
 
         .stat__count {

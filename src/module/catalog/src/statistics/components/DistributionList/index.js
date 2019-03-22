@@ -26,27 +26,28 @@ export default () => ({
         </div>
         { hasData ? toRenderItems.map(item =>
           <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
-               className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
+            className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
-              <span className="row__title">{item.name}</span>
+            {item.filename ?
+                <span className="row__title">
+                  <i className="fa fa-file"/>
+                  <span>{item.filename}</span>
+                </span> :
+                null
+              }
+              <span className="row__text">{escaStatisticsNLS.datasetPrefix}{item.name}</span>
               {item.subname ?
-                <span className="row__text">{item.subname}</span> :
+                <span className="row__text">{escaStatisticsNLS.distributionPrefix}{item.subname}</span> :
                 null
               }
-              {item.filename ?
-                <span className="row__text">
-                    <i className="fa fa-file"/>
-                    <span>{item.filename}</span>
-                  </span> :
-                null
-              }
+            
             </div>
             <div className="flex--sb row--right--wrapper">
               <span className="row__text label" data-format={item.format} title={item.format}>{item.abbrevFormat || item.format}</span>
               <span className="row__text stat__count">{item.count}</span>
             </div>
           </div>) :
-            <div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
+          <div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
         }
       </div>) :
       (<div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>);
