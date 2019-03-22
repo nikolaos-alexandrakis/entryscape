@@ -5,7 +5,6 @@ import htmlUtil from 'commons/util/htmlUtil';
 import config from 'config';
 import { i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
-import DistributionRow from './DistributionRow';
 import template from './DatasetRowTemplate.html';
 import './dataset.css';
 
@@ -88,15 +87,6 @@ export default declare([ToggleRow], {
         return null;
       });
     })).then(this.showDistributionInList.bind(this));
-  },
-  showDistributionInList(dists) {
-    const distsArray = Array.isArray(dists) ? dists : [dists];
-    distsArray.forEach((distE) => {
-      if (distE != null) {
-        DistributionRow({ entry: distE, datasetRow: this, dctSource: this.fileEntryURIs, uri2Format: this.uri2Format },
-          htmlUtil.create('tbody', null, this.distributions));
-      }
-    });
   },
   removeBrokenReferences() {
     const store = registry.get('entrystore');
@@ -283,7 +273,7 @@ export default declare([ToggleRow], {
                     }));
                 }, () => {
                   this.distributions.innerHTML = '';
-                  this.listDistributions();
+                  // this.listDistributions();
                   dialogs.acknowledge(this.nlsSpecificBundle.failedToRemoveDatasetDistributions);
                 });
               });

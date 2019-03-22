@@ -33,6 +33,7 @@ export default (distribution, dataset, fileEntryURIs) => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       this.inherited(arguments);
 
+      this.onDone = params.onDone;
       const entry = params.row.entry;
       this.distributionEntry = entry;
       this.set('title', escaDataset.editDistributionHeader);
@@ -57,9 +58,7 @@ export default (distribution, dataset, fileEntryURIs) => {
     },
     doneAction(graph) {
       this.distributionEntry.setMetadata(graph);
-      return this.distributionEntry.commitMetadata().then(() => {
-        m.redraw();
-      });
+      return this.distributionEntry.commitMetadata().then(this.onDone);
     },
   });
 
@@ -215,8 +214,8 @@ export default (distribution, dataset, fileEntryURIs) => {
   // END UTILS
 
   // ACTIONS
+  const editDialog = new EditDistributionDialog({}, DOMUtil.create('div'));
   const editDistribution = (onDone) => {
-    const editDialog = new EditDistributionDialog({}, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     editDialog.open({ row: { entry: distribution }, onDone });
   };
@@ -230,8 +229,8 @@ export default (distribution, dataset, fileEntryURIs) => {
     openNewTab(distribution);
   };
 
+  const apiInfoDialog = new ApiInfoDialog({}, DOMUtil.create('div'));
   const openApiInfo = () => {
-    const apiInfoDialog = new ApiInfoDialog({}, DOMUtil.create('div'));
     getEtlEntry(distribution).then((etlEntry) => {
       apiInfoDialog.open({ etlEntry, apiDistributionEntry: distribution });
     });
@@ -274,8 +273,8 @@ export default (distribution, dataset, fileEntryURIs) => {
     });
   };
 
+  const dv = RevisionsDialog;
   const openRevisions = () => {
-    const dv = RevisionsDialog;
     if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
       dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
     } else if (isAPIDistribution(distribution)) {
@@ -326,9 +325,9 @@ export default (distribution, dataset, fileEntryURIs) => {
     }
   };
 
+  const addFileDialog = new AddFileDialog({}, DOMUtil.create('div'));
   const openAddFile = () => {
     const escaFilesList = i18n.getLocalization(escaFilesListNLS);
-    const addFileDialog = new AddFileDialog({}, DOMUtil.create('div'));
     addFileDialog.open({
       list: {
         entry: distribution,
@@ -349,9 +348,8 @@ export default (distribution, dataset, fileEntryURIs) => {
     });
   };
 
+  const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div'));
   const openManageFiles = () => {
-    const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div'));
-    // @scazan Some glue here to communicate with RDForms without a "row"
     manageFilesDialog.open({
       entry: distribution,
       row: { entry: distribution },
@@ -366,13 +364,13 @@ export default (distribution, dataset, fileEntryURIs) => {
    *
    * @returns {undefined}
    */
+  const dom = DOMUtil.create('div');
+  const replaceFileDialog = new FileReplaceDialog({}, dom);
   const openReplaceFile = () => {
     const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
     entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
-      const dom = DOMUtil.create('div');
-      const replaceFileDialog = new FileReplaceDialog({}, dom);
       replaceFileDialog.open({
         entry: fileEntry,
         distributionEntry: distribution,

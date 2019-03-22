@@ -34,8 +34,8 @@ export default declare([VersionsDialog], {
     return i18n.localize(escoVersionsNLS, this.list[nlsKey] || this[nlsKey]) || this.NLSBundle0[this[nlsKey]] || '';
   },
   getRevertExcludeMessage() {
-    const m = this.getNLSString('nlsRevertExcludeMessage');
-    return m != null ? `<br><br>${m}` : '';
+    const message = this.getNLSString('nlsRevertExcludeMessage');
+    return message != null ? `<br><br>${message}` : '';
   },
   getReasonForRevisionMessage() {
     return this.getNLSString('nlsReasonForRevisionMessage');

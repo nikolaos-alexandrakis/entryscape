@@ -55,7 +55,7 @@
         }
 
         .list-wrapper {
-          overflow-y: auto;
+          /* overflow-y: auto; */
           max-height: calc(70px * 8); /* The height of 8 distributions */
           padding-bottom: 10px;
         }

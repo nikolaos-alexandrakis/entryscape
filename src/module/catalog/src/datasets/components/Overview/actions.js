@@ -36,8 +36,7 @@ const updateDistributionACL = (acl, entry) => {
 };
 
 export default (entry) => {
-  const openDialog = (DialogClass) => {
-    const dialog = new DialogClass({}, DOMUtil.create('div'));
+  const openDialog = (dialog) => {
     // @scazan Some glue here to communicate with RDForms without a "row"
     dialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
@@ -52,8 +51,8 @@ export default (entry) => {
    *
    * @returns {undefined}
    */
+  const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
   const openEditDialog = () => {
-    const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
     });
@@ -341,17 +340,19 @@ export default (entry) => {
    *
    * @returns {undefined}
    */
+  const showIdeasDialog = new ShowIdeasDialog({}, DOMUtil.create('div'));
   const openIdeas = () => {
-    openDialog(ShowIdeasDialog);
+    openDialog(showIdeasDialog);
   };
 
+  const showShowcasesDialog = new ShowShowcasesDialog({}, DOMUtil.create('div'));
+  /**
+   * Open the showcases dialog for this dataset
+   *
+   * @returns {undefined}
+   */
   const openShowcases = () => {
-    /**
-     * Open the showcases dialog for this dataset
-     *
-     * @returns {undefined}
-     */
-    openDialog(ShowShowcasesDialog);
+    openDialog(showShowcasesDialog);
   };
 
   /**
@@ -359,8 +360,9 @@ export default (entry) => {
    *
    * @returns {undefined}
    */
+  const downgradeDialog = new DowngradeDialog({}, DOMUtil.create('div'));
   const downgrade = () => {
-    openDialog(DowngradeDialog);
+    openDialog(downgradeDialog);
   };
 
   /**
