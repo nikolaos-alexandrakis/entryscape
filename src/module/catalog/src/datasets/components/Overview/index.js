@@ -149,6 +149,7 @@ export default (vnode) => {
       const themes = getThemeLabels(entry);
       const isPublished = entry.isPublic();
       const isPrivatePublished = isPrivatelyPublished(entry);
+      const isRemoveable = !isPublished && !isPrivatePublished;
       const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
       const publishToggleTooltip = isPublished ? escaDataset.publicDatasetTitle : escaDataset.privateDatasetTitle;
       const catalogName = catalogEntry ? rdfutils.getLabel(catalogEntry) : null;
@@ -214,7 +215,13 @@ export default (vnode) => {
               </Button>
               <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
-              <Button class="btn-secondary" onclick={removeDataset}>{escaDataset.removeDatasetTitle}</Button>
+              <Button
+                class={`btn-secondary ${isRemoveable ? '' : 'disabled'}`}
+                title={!isRemoveable && escaDataset.cannotRemoveDatasetPublishedTitle}
+                onclick={isRemoveable && removeDataset}
+              >
+                {escaDataset.removeDatasetTitle}
+              </Button>
 
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">

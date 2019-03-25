@@ -9,6 +9,7 @@
     "editDatasetButton": "Save changes",
     "editDatasetTitle": "Edit dataset",
     "removeDatasetTitle": "Remove dataset",
+    "cannotRemoveDatasetPublishedTitle": "Cannot remove this dataset as it is currently published",
     "distributionsTitle": "Distributions",
     "createDistributionHeader": "Create distribution",
     "createDistributionButton": "Create distribution",
