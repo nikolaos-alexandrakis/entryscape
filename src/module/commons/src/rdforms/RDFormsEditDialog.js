@@ -31,6 +31,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
       DOMUtil.create('div', null, this.headerExtensionNode));
     this.levels = new LevelEditor({ externalEditor: true },
       DOMUtil.create('div', null, this.headerExtensionNode));
+    this.levels.domNode.classList.add('escoLevels');
     this.editor = new Editor({}, DOMUtil.create('div', null, this.containerNode));
     this.externalMetadata = new PresentExpandable({}, DOMUtil.create('div', null, this.containerNode, true));
     this.externalMetadata.style.display = 'none';

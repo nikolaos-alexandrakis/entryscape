@@ -1,7 +1,14 @@
 .escoEntityChooser__form {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1.5px solid lightgrey;
+    margin-bottom: -15px;
+}
+
+.escoLevels {
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.escoLevels.rdforms .cardinality {
+    width: auto;
 }
 
 .escoEntityChooser__group {
