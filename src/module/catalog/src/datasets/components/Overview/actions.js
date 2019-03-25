@@ -1,9 +1,12 @@
 import m from 'mithril';
 import registry from 'commons/registry';
 import config from 'config';
+import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import DOMUtil from 'commons/util/htmlUtil';
 import Lookup from 'commons/types/Lookup';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import { createEntry } from 'commons/util/storeUtil';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
@@ -46,6 +49,55 @@ export default (entry) => {
     });
   };
 
+  const CloneDialog = declare([ListDialogMixin], {
+    maxWidth: 800,
+    title: 'temporary',
+    open(params) {
+      const escaDataset = i18n.getLocalization(escaDatasetNLS);
+      const datasetEntry = entry;
+      const dialogs = registry.get('dialogs');
+      const confirmMessage = escaDataset.cloneDatasetQuestion;
+      dialogs.confirm(confirmMessage, null, null, (confirm) => {
+        if (!confirm) {
+          return;
+        }
+        const nds = createEntry(null, 'dcat:Dataset');
+        const nmd = datasetEntry.getMetadata().clone()
+          .replaceURI(datasetEntry.getResourceURI(), nds.getResourceURI());
+
+        return registry.get('getGroupWithHomeContext')(nds.getContext())
+          .then((groupEntry) => {
+            const ei = nds.getEntryInfo();
+            const acl = ei.getACL(true);
+            acl.admin.push(groupEntry.getId());
+            ei.setACL(acl);
+          })
+          .then(() => {
+            nds.setMetadata(nmd);
+            const title = nmd.findFirstValue(null, 'dcterms:title') || '';
+            nmd.findAndRemove(null, 'dcterms:title');
+            nmd.findAndRemove(null, 'dcat:distribution');
+            const copyString = escaDataset.cloneCopy;
+            nmd.addL(nds.getResourceURI(), 'dcterms:title', copyString + title);
+
+            return nds.commit().then(newEntry => registry.get('entrystoreutil')
+              .getEntryByType('dcat:Catalog', newEntry.getContext()).then((catalog) => {
+                catalog.getMetadata().add(catalog.getResourceURI(), 'dcat:dataset', newEntry.getResourceURI());
+                return catalog.commitMetadata().then(() => {
+                  newEntry.setRefreshNeeded();
+                  return newEntry.refresh();
+                });
+              }));
+          })
+          .then(navigateToCatalog);
+      });
+    },
+  });
+
+  const cloneDialog = new CloneDialog({ entry }, DOMUtil.create('div'));
+  const clone = () => {
+    cloneDialog.open();
+  };
   const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
   /**
    * Open an Edit Side Dialog for this dataset
@@ -412,6 +464,7 @@ export default (entry) => {
     openIdeas,
     openShowcases,
     openPreview,
+    clone,
     downgrade,
   };
 };
