@@ -56,7 +56,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       this.headerContainer.insertBefore(this.searchBlockInner, this.headerContainerInner);
     }
     if (this.searchVisibleFromStart && this.searchInList === true) {
-      this.expandButtonIcon.classList.toggle('fa-chevron-right');
+      this.expandButtonIcon.classList.toggle('fa-chevron-up');
       this.expandButtonIcon.classList.toggle('fa-chevron-down');
     }
     if (this.includeExpandButton && this.searchInList === true) {
@@ -140,7 +140,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       } else {
         jquery(this.searchBlock).slideUp(300);
       }
-      this.expandButtonIcon.classList.toggle('fa-chevron-right');
+      this.expandButtonIcon.classList.toggle('fa-chevron-up');
       this.expandButtonIcon.classList.toggle('fa-chevron-down');
     }.bind(this);
     if (this.rowClickDialog != null) {
