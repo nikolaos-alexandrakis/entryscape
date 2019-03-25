@@ -45,6 +45,15 @@ export default (vnode) => {
   };
 
   const togglePublish = () => {
+    const publishButton = vnode.dom.querySelector('.externalPublish .btn--publish');
+    // Temporarily toggle the button for fast UI response. This will immediately be overwritten on next vdom render
+    if (publishButton) {
+      if (entry.isPublic()) {
+        publishButton.classList.add('fa-rotate-180');
+      } else {
+        publishButton.classList.remove('fa-rotate-180');
+      }
+    }
     actions.setPublishedState(entry.isPublic());
   };
 
