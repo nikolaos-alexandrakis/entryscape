@@ -286,7 +286,7 @@ export default (distribution, dataset, fileEntryURIs) => {
 
   const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
   const openRevisions = async () => {
-    const template = await Lookup.getTemplate(entry);
+    const template = await Lookup.getTemplate(distribution);
     revisionsDialog.open({
       row: { entry: distribution },
       onDone: () => m.redraw(),
