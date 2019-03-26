@@ -102,7 +102,7 @@ export default declare(MithrilView, {
       }
 
       const context = registry.getContext();
-      const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected);
+      const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected); // @todo add catch
 
       const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
       const chartData =

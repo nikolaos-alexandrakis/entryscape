@@ -108,9 +108,13 @@ const getDistributionByFileResourceURI = async (ruri, context) => {
 
 const getFileEntriesByResourceURI = async (ruris, context) => {
   const fileEntries = new Map();
-  const entryPromises = ruris.map(ruri => registry.getEntryStoreUtil().getEntryByResourceURI(ruri, context));
+  const entryPromises = ruris.map(ruri => registry.getEntryStoreUtil().getEntryByResourceURI(ruri, context).catch(() => null));
   await Promise.all(entryPromises).then((entries) => {
-    ruris.forEach((ruri, idx) => fileEntries.set(ruri, entries[idx]));
+    ruris.forEach((ruri, idx) => {
+      if (entries[idx]) {
+        fileEntries.set(ruri, entries[idx]);
+      }
+    });
   });
   return fileEntries;
 };
