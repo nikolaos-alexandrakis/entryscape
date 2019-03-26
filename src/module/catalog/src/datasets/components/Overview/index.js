@@ -166,7 +166,7 @@ export default (vnode) => {
 
       return (
         <main class="overview__wrapper">
-          <Button class="btn-link btn-sm  btn-back" onclick={actions.navigateToCatalog}>
+          <Button class="btn-link btn-sm  btn-back" onclick={actions.navigateToDatasets}>
             <span class="fa fa-arrow-left"></span>
             {escaDataset.backTitle}
           </Button>

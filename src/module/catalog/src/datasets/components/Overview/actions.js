@@ -44,7 +44,8 @@ export default (entry) => {
     dialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
-      row: { entry },
+      row: { entry, list: {} },
+      list: {},
       onDone: () => m.redraw(),
     });
   };
@@ -89,7 +90,7 @@ export default (entry) => {
                 });
               }));
           })
-          .then(navigateToCatalog);
+          .then(navigateToDatasets);
       });
     },
   });
@@ -315,7 +316,7 @@ export default (entry) => {
                           return catalog.commitMetadata();
                         }))
                     // Redirect to upper catalog after deletion
-                      .then(navigateToCatalog);
+                      .then(navigateToDatasets);
                   }, () => {
                     dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
                   });
@@ -413,7 +414,13 @@ export default (entry) => {
    * @returns {undefined}
    */
   const downgrade = () => {
-    openDialog(downgradeDialog);
+    downgradeDialog.open({
+      nlsPublicTitle: 'publicDatasetTitle',
+      nlsProtectedTitle: 'privateDatasetTitle',
+      row: { entry, list: {} },
+      list: {},
+      onDone: navigateToCandidates
+    });
   };
 
   /**
@@ -446,12 +453,15 @@ export default (entry) => {
    *
    * @returns {undefined}
    */
-  const navigateToCatalog = () => {
+  const navigateToView = (viewPathKey) => {
     const site = registry.get('siteManager');
     const state = site.getState();
     const { context } = state[state.view];
-    site.render('catalog__datasets', { context });
+    site.render(viewPathKey, { context });
   };
+  const navigateToDatasets = () => navigateToView('catalog__datasets');
+  const navigateToCatalog = () => navigateToView('catalog__overview');
+  const navigateToCandidates = () => navigateToView('catalog__candidates');
 
   return {
     openEditDialog,
@@ -459,6 +469,7 @@ export default (entry) => {
     setPublishedState,
     setInternalPublishedState,
     navigateToCatalog,
+    navigateToDatasets,
     openRevisions,
     openComments,
     openIdeas,
