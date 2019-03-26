@@ -10,6 +10,7 @@ export default declare([NLSMixin], {
   },
   open(params) {
     this.row = params.row;
+    this.onDone = params.onDone;
     this.datasetEntry = params.row.entry;
     this.downgrade();
   },
@@ -37,9 +38,11 @@ export default declare([NLSMixin], {
               catalog.getMetadata().findAndRemove(catalog.getResourceURI(),
                 'dcat:dataset', self.datasetEntry.getResourceURI());
               return catalog.commitMetadata().then(() => {
-                self.row.list.getView().removeRow(self.row);
-                self.row.destroy();
-                return cDdataset.refresh();
+                self.row.list.getView && self.row.list.getView().removeRow(self.row);
+                self.row.destroy && self.row.destroy();
+                const returnValue = cDdataset.refresh();
+                this.onDone && this.onDone();
+                return returnValue;
               });
             }));
       });
