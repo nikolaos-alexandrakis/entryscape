@@ -188,13 +188,14 @@ export default declare(MithrilView, {
 
     const onchangeSearch = (e) => {
       if (e.target.value) {
-        const filterString = e.target.value;
+        const filterString = e.target.value.toLowerCase();
         const filteredItems =
           state.list.items.filter((item) => {
-            const { name, subname, filename } = item;
-            return !!(name.includes(filterString)
-              || (subname && subname.includes(filterString))
-              || (filename && filename.includes(filterString)));
+            let { name = '', subname = '', filename = '' } = item;
+            name = name.toLowerCase();
+            subname = subname.toLowerCase();
+            filename = filename.toLowerCase();
+            return !!(name.includes(filterString) || subname.includes(filterString) || filename.includes(filterString));
           });
 
         setState({
