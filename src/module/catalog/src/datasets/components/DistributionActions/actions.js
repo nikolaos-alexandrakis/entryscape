@@ -354,7 +354,7 @@ export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
     manageFilesDialog.open({
       entry: distribution,
       row: { entry: distribution },
-      fileEntryURIs,
+      fileEntryApiURIs: fileEntryURIs,
       datasetEntry: dataset,
       onDone: () => m.redraw(),
     });
