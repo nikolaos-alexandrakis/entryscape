@@ -19,7 +19,7 @@ export default declare([List, NLSMixin.Dijit], {
       name: 'expand',
       button: 'link',
       iconType: 'fa',
-      icon: 'chevron-right',
+      icon: 'chevron-down',
     });
     this.inherited(arguments);
   },
