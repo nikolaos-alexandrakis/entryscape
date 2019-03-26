@@ -21,14 +21,14 @@ export default () => ({
           <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
             <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderFormat}</span>
-            <span title={escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fa fa-download"></span>
+            <span title= {escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fa fa-download"></span>
           </div>
         </div>
-        {hasData ? toRenderItems.map(item => item ?
+        { hasData ? toRenderItems.map(item =>
           <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
-               className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
+            className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
-              {item.filename ?
+            {item.filename ?
                 <span className="row__title">
                   <i className="fa fa-file"/>
                   <span>{item.filename}</span>
@@ -40,14 +40,12 @@ export default () => ({
                 <span className="row__text">{escaStatisticsNLS.distributionPrefix}{item.subname}</span> :
                 null
               }
-
             </div>
             <div className="flex--sb row--right--wrapper">
-                <span className="row__text label" data-format={item.format}
-                      title={item.format}>{item.abbrevFormat || item.format}</span>
+              <span className="row__text label" data-format={item.format} title={item.format}>{item.abbrevFormat || item.format}</span>
               <span className="row__text stat__count">{item.count}</span>
             </div>
-          </div> : null) :
+          </div>) :
           <div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
         }
       </div>) :
