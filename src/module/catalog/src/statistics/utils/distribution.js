@@ -16,6 +16,9 @@ import {
  * @return {Promise<Map<string, store/Entry>[]>}
  */
 const getDatasetByDistributionRURI = async (distRURIs, context) => {
+  if (distRURIs.length === 0) { // don't make any solr requests if no stats data found
+    return [new Map(), new Map(), new Map()];
+  }
   const fileORAPIRURIs = distRURIs.map(dist => dist.uri); // @todo valentino change name
   /**
    * Get the actual distribution entries from the file/api resource URI
