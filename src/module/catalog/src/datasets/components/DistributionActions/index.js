@@ -1,5 +1,6 @@
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
 import Dropdown from 'commons/components/common/Dropdown';
 import {
   isUploadedDistribution,
@@ -20,13 +21,13 @@ import bindActions from './actions';
  */
 export default (vnode) => {
   const { distribution, dataset, fileEntryURIs, refreshDistributions = () => {} } = vnode.attrs;
-  const actions = bindActions(distribution, dataset, fileEntryURIs);
+  const actions = bindActions(distribution, dataset, fileEntryURIs, DOMUtil.preventBubbleWrapper);
 
-  const refreshAPI = () => actions.refreshAPI(refreshDistributions);
-  const activateAPI = () => actions.activateAPI(refreshDistributions);
-  const removeDistribution = () => actions.remove(refreshDistributions);
-  const editDistribution = () => actions.editDistribution(() => m.redraw());
-  const openReplaceFile = () => actions.openReplaceFile(() => m.redraw());
+  const refreshAPI = e => actions.refreshAPI(e, refreshDistributions);
+  const activateAPI = e => actions.activateAPI(e, refreshDistributions);
+  const removeDistribution = e => actions.remove(e, refreshDistributions);
+  const editDistribution = e => actions.editDistribution(e, () => m.redraw());
+  const openReplaceFile = e => actions.openReplaceFile(e, () => m.redraw());
 
   const renderActions = (entry) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);

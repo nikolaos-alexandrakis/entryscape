@@ -11,15 +11,17 @@ import {
 } from 'commons/util/metadata';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import DistributionActions from '../DistributionActions';
+import bindActions from '../DistributionActions/actions';
 import './index.scss';
 
 export default (vnode) => {
-  const { distribution, dataset } = vnode.attrs;
+  const { distribution, dataset, fileEntryURIs } = vnode.attrs;
   const state = {
     isExpanded: false,
     fileEntries: [],
   };
   const setState = createSetState(state);
+  const actions = bindActions(distribution, dataset, fileEntryURIs);
 
   // @scazan Phase II
   const expandDistribution = () => {
@@ -59,6 +61,10 @@ export default (vnode) => {
     return title;
   };
 
+  const editDistribution = (e) => {
+    actions.editDistribution(() => m.redraw());
+  };
+
   return {
     view(vnode) {
       const { fileEntryURIs, refreshDistributions, hasDuplicateFileType } = vnode.attrs;
@@ -73,7 +79,7 @@ export default (vnode) => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
 
       return (
-        <div>
+        <div onclick={editDistribution}>
           <div tabindex="0" class="distribution__row flex--sb">
             <div class="distribution__format">
               <p class="distribution__title">{title}</p>

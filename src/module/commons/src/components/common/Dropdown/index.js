@@ -22,7 +22,9 @@ export default (vnode) => {
     }
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (!state.isShowing) {
       document.addEventListener('click', handleOutsideClick, false);
     } else {

@@ -24,7 +24,7 @@ import {
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
 
-export default (distribution, dataset, fileEntryURIs) => {
+export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
   // STUBBED DIALOGS
   const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     maxWidth: 800,
@@ -386,7 +386,7 @@ export default (distribution, dataset, fileEntryURIs) => {
     });
   };
 
-  return {
+  const actions = {
     editDistribution,
     openResource,
     openApiInfo,
@@ -398,4 +398,11 @@ export default (distribution, dataset, fileEntryURIs) => {
     openManageFiles,
     openReplaceFile,
   };
+
+  if (wrapperFunction) {
+    Object.entries(actions)
+      .forEach((nameAction) => actions[nameAction[0]] = wrapperFunction(nameAction[1]));
+  }
+
+  return actions;
 };
