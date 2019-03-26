@@ -87,7 +87,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-file"
             title={escaDataset.addFileTitle}
-            onclick={actions.openAddFile}
+            onclick={actions.openManageFiles}
           >
             <span>{escaDataset.addFile}</span>
           </button>,
@@ -100,13 +100,6 @@ export default (vnode) => {
             onclick={actions.openManageFiles}
           >
             <span>{escaDataset.manageFiles}</span>
-          </button>,
-          <button
-            class="btn--distribution fa fa-fw fa-file"
-            title={escaDataset.addFileTitle}
-            onclick={actions.openAddFile}
-          >
-            <span>{escaDataset.addFile}</span>
           </button>,
         );
       }
