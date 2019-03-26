@@ -64,13 +64,17 @@ export default declare(MithrilView, {
         const [fileEntries, distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
         return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
-          item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
-          item.abbrevFormat = getAbbreviatedMimeType(item.format.trim()); // some formats have trailing spaces
-          item.name = getEntryRenderName(datasetEntries.get(item.uri));
-          item.subname = getEntryRenderName(distributionEntries.get(item.uri));
-          item.filename = fileEntries.has(item.uri) ? getEntryRenderName(fileEntries.get(item.uri)) : null;
+          if (distEntry) {
+            item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
+            item.abbrevFormat = getAbbreviatedMimeType(item.format.trim()); // some formats have trailing spaces
+            item.name = getEntryRenderName(datasetEntries.get(item.uri));
+            item.subname = getEntryRenderName(distributionEntries.get(item.uri));
+            item.filename = fileEntries.has(item.uri) ? getEntryRenderName(fileEntries.get(item.uri)) : null;
 
-          return item;
+            return item;
+          }
+
+          return null;
         });
       } catch (err) {
         // no statistics found
