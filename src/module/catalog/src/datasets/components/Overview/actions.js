@@ -1,24 +1,21 @@
-import m from 'mithril';
+import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
+import EditDialog from 'catalog/datasets/DatasetEditDialog';
+import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
+import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
+import { isAPIDistribution, isUploadedDistribution, } from 'catalog/datasets/utils/distributionUtil';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import CommentDialog from 'commons/comments/CommentDialog';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import escoCommentNLS from 'commons/nls/escoComment.nls';
 import registry from 'commons/registry';
+import Lookup from 'commons/types/Lookup';
+import DOMUtil from 'commons/util/htmlUtil';
+import { createEntry } from 'commons/util/storeUtil';
 import config from 'config';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
-import DOMUtil from 'commons/util/htmlUtil';
-import Lookup from 'commons/types/Lookup';
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import { createEntry } from 'commons/util/storeUtil';
-import EditDialog from 'catalog/datasets/DatasetEditDialog';
-import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
-import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
-import CommentDialog from 'commons/comments/CommentDialog';
-import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
-import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
-import {
-  isUploadedDistribution,
-  isAPIDistribution,
-} from 'catalog/datasets/utils/distributionUtil';
-import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import escoCommentNLS from 'commons/nls/escoComment.nls';
+import m from 'mithril';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -315,7 +312,7 @@ export default (entry) => {
                           });
                           return catalog.commitMetadata();
                         }))
-                    // Redirect to upper catalog after deletion
+                      // Redirect to upper catalog after deletion
                       .then(navigateToDatasets);
                   }, () => {
                     dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
@@ -419,7 +416,7 @@ export default (entry) => {
       nlsProtectedTitle: 'privateDatasetTitle',
       row: { entry, list: {} },
       list: {},
-      onDone: navigateToCandidates
+      onDone: navigateToCandidatesWithDelay,
     });
   };
 
@@ -461,7 +458,14 @@ export default (entry) => {
   };
   const navigateToDatasets = () => navigateToView('catalog__datasets');
   const navigateToCatalog = () => navigateToView('catalog__overview');
-  const navigateToCandidates = () => navigateToView('catalog__candidates');
+  const navigateToCandidatesWithDelay = () => { // In order to avoid a slow solr re-index
+    const async = registry.get('asynchandler');
+    async.openDialog(true);
+    setTimeout(() => {
+      async.closeDialog(true);
+      navigateToView('catalog__candidates');
+    }, 2000);
+  };
 
   return {
     openEditDialog,
