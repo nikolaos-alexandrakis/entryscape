@@ -119,6 +119,7 @@ export default (initialVnode) => {
 
               return (
                 <Distribution
+                  key={distribution.getId()}
                   distribution={distribution}
                   fileEntryURIs={state.fileEntryURIs}
                   dataset={dataset}

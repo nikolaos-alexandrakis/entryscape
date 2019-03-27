@@ -68,7 +68,8 @@ const htmlUtil = {
     return (e, args) => {
       e.preventDefault();
       e.stopPropagation();
-      onClick && onClick(args);
+      const argsArray = Array.isArray(args) ? args : [args];
+      onClick && onClick.apply(null, argsArray);
     }
   },
 };

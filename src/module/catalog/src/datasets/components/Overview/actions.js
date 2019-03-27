@@ -419,7 +419,10 @@ export default (entry) => {
       nlsProtectedTitle: 'privateDatasetTitle',
       row: { entry, list: {} },
       list: {},
-      onDone: navigateToCandidates
+      onDone: () => {
+        const asyncHandler = registry.get('asynchandler');
+        setTimeout(navigateToCandidates, 500);
+      }
     });
   };
 

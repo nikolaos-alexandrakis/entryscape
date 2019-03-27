@@ -2,10 +2,11 @@ import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
+import ViewMixin from 'commons/view/ViewMixin';
 import m from 'mithril';
 import OverviewComponent from 'catalog/datasets/components/Overview/';
 
-export default declare([_WidgetBase], {
+export default declare([ViewMixin, _WidgetBase], {
   buildRendering() {
     this.domNode = this.srcNodeRef || htmlUtil.create('div');
     this.viewNode = htmlUtil.create('div', null, this.domNode);
