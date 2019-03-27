@@ -106,8 +106,12 @@
   "showMoreTitle": "Mehr anzeigen",
   "themeTitle": "Thema",
   "editedTitle": "Bearbeitet von",
-  "psiDatasetTitle": "PSI",
+  "psiDatasetTitle": "Dieser Datensatz ist Teil des PSI (Public Sector Information) Verzeichnisses und kann von anderen Portalen geharvestet werden",
   "publishedTitle": "Veröffentlicht",
   "unpublishedTitle": "Nicht veröffentlicht",
-  "backTitle": "Zurück zur Datensatzliste"
+  "backTitle": "Zurück zur Datensatzliste",
+  "cannotRemoveDatasetPublishedTitle": "Dieser Datensatz ist derzeit veröffentlicht und kann daher nicht entfernt werden",
+  "psiDataset": "PSI",
+  "notPsiDataset": "Nicht PSI",
+  "notPsiDatasetTitle": "Dieser Datensatz ist nicht Teil des PSI (Public Sector Information) Verzeichnisses und wird nicht von anderen Portalen erfasst"
 }
