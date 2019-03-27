@@ -155,25 +155,30 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     }
   },
 
-  openDialog() {
+  openDialog(manual = false) {
+    this.manual = manual;
     this.dialogOpen = true;
     this.domNode.style.display = 'block';
     jquery(this.domNode).fadeTo(400, 1);
-    this.updateDialog();
+    if (!this.manual) {
+      this.updateDialog();
+    }
   },
 
   updateOrCloseDialog() {
-    let resolved = true;
-    for (let i = 0; i < this.promises.length; i++) {
-      const obj = this.promises[i];
-      if (obj.resolved !== true) {
-        resolved = false;
+    if (!this.manual) {
+      let resolved = true;
+      for (let i = 0; i < this.promises.length; i++) {
+        const obj = this.promises[i];
+        if (obj.resolved !== true) {
+          resolved = false;
+        }
       }
-    }
-    if (resolved) {
-      this.closeDialog();
-    } else {
-      this.updateDialog();
+      if (resolved) {
+        this.closeDialog();
+      } else {
+        this.updateDialog();
+      }
     }
   },
 
@@ -212,6 +217,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       clearTimeout(this.checkCountdownTimeout);
     }
     this.messages.style.display = '';
+    this.manual = false;
   },
 
   closeDialogSignedOut() {

@@ -315,7 +315,7 @@ export default (entry) => {
                           });
                           return catalog.commitMetadata();
                         }))
-                    // Redirect to upper catalog after deletion
+                      // Redirect to upper catalog after deletion
                       .then(navigateToDatasets);
                   }, () => {
                     dialogs.acknowledge(escaDataset.failedToRemoveDatasetDistributions);
@@ -419,10 +419,7 @@ export default (entry) => {
       nlsProtectedTitle: 'privateDatasetTitle',
       row: { entry, list: {} },
       list: {},
-      onDone: () => {
-        const asyncHandler = registry.get('asynchandler');
-        setTimeout(navigateToCandidates, 500);
-      }
+      onDone: navigateToCandidates,
     });
   };
 
@@ -456,15 +453,24 @@ export default (entry) => {
    *
    * @returns {undefined}
    */
-  const navigateToView = (viewPathKey) => {
+  const navigateToView = (viewPathKey, withDelay = false, delayMillis = 2000) => {
     const site = registry.get('siteManager');
     const state = site.getState();
     const { context } = state[state.view];
-    site.render(viewPathKey, { context });
+    if (withDelay) {
+      const async = registry.get('asynchandler');
+      async.openDialog(true);
+      setTimeout(() => { // In order to avoid a slow solr re-index
+        async.closeDialog(true);
+        site.render(viewPathKey, { context });
+      }, delayMillis);
+    } else {
+      site.render(viewPathKey, { context });
+    }
   };
-  const navigateToDatasets = () => navigateToView('catalog__datasets');
+  const navigateToDatasets = () => navigateToView('catalog__datasets', true);
   const navigateToCatalog = () => navigateToView('catalog__overview');
-  const navigateToCandidates = () => navigateToView('catalog__candidates');
+  const navigateToCandidates = () => navigateToView('catalog__candidates', true);
 
   return {
     openEditDialog,
