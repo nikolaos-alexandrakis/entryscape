@@ -24,7 +24,7 @@ import {
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
 
-export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
+export default (distribution, dataset, wrapperFunction) => {
   // STUBBED DIALOGS
   const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     maxWidth: 800,
@@ -236,7 +236,7 @@ export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
     });
   };
 
-  const activateAPI = (onSuccess) => {
+  const activateAPI = (onSuccess, fileEntryURIs) => {
     const generateAPI = new GenerateAPI();
     generateAPI.execute({
       params: {
@@ -249,7 +249,7 @@ export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
     });
   };
 
-  const refreshAPI = (onSuccess) => {
+  const refreshAPI = (onSuccess, fileEntryURIs) => {
     const apiDistributionEntry = distribution;
     const esUtil = registry.get('entrystoreutil');
     const sourceDistributionResURI = apiDistributionEntry
@@ -294,7 +294,7 @@ export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
     });
   };
 
-  const remove = (onSuccess = () => {}) => {
+  const remove = (onSuccess = () => {}, fileEntryURIs) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const dialogs = registry.get('dialogs');
     if (isFileDistributionWithOutAPI(distribution, fileEntryURIs, registry.get('entrystore'))) {
@@ -350,7 +350,7 @@ export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
   };
 
   const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div'));
-  const openManageFiles = () => {
+  const openManageFiles = (fileEntryURIs) => {
     manageFilesDialog.open({
       entry: distribution,
       row: { entry: distribution },
@@ -367,7 +367,7 @@ export default (distribution, dataset, fileEntryURIs, wrapperFunction) => {
    */
   const dom = DOMUtil.create('div');
   const replaceFileDialog = new FileReplaceDialog({}, dom);
-  const openReplaceFile = (onDone) => {
+  const openReplaceFile = (onDone, fileEntryURIs) => {
     const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));

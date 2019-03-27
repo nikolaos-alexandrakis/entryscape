@@ -15,13 +15,13 @@ import bindActions from '../DistributionActions/actions';
 import './index.scss';
 
 export default (vnode) => {
-  const { distribution, dataset, fileEntryURIs } = vnode.attrs;
+  const { distribution, dataset } = vnode.attrs;
   const state = {
     isExpanded: false,
     fileEntries: [],
   };
   const setState = createSetState(state);
-  const actions = bindActions(distribution, dataset, fileEntryURIs);
+  const actions = bindActions(distribution, dataset);
 
   // @scazan Phase II
   const expandDistribution = () => {
