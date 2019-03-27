@@ -133,5 +133,5 @@ export const isDownloadURLEmpty = (entry) => {
   return !((downloadURI !== '' && downloadURI != null));
 };
 
-export const isPrivatelyPublished = entry => !entry.getMetadata()
+export const isDatasetPSI = entry => !entry.getMetadata()
   .findFirstValue(null, 'http://entryscape.com/terms/psi');
