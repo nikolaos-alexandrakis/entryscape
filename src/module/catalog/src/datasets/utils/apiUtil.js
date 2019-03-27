@@ -106,7 +106,6 @@ const syncStatus = async (pipelineEntryURI) => {
   const data = await load(pipelineEntry);
   const newStatus = status(data);
   if (newStatus !== oldStatus(pipelineEntry)) {
-    console.log(newStatus);
     await update(pipelineEntry, data);
   }
   return newStatus;
