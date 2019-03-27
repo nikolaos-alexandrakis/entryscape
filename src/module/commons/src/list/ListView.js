@@ -520,18 +520,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     const Cls = this.rowClass;
     const row = new Cls({ list: this.list, entry }, node);
+    row.domNode.classList.add('entryListRow');
     if (newRow === true) {
-      const rowBackgroundColor = row.domNode.style.background;
-      jquery(row.domNode).css({ backgroundColor: 'yellow' });
-      jquery(row.domNode).animate(
-        {
-          backgroundColor: rowBackgroundColor,
-        },
-        2500,
-        () => {
-          row.domNode.style.background = '';
-        },
-      );
+      row.domNode.classList.add('newRow');
+      setTimeout(() => {
+        row.domNode.classList.remove('newRow');
+      }, 1500);
     }
     if (this.nlsGenericBundle) {
       row.updateLocaleStrings(this.nlsGenericBundle, this.nlsSpecificBundle);

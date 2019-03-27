@@ -88,7 +88,7 @@
 }
 
 .escoList .entryList .regular > div:nth-child(even) {
-    background-color: #ededed;
+//    background-color: #ededed;
 }
 
 .escoList .entryList > .cardList-body:nth-child(even):not(:hover) {
@@ -499,4 +499,13 @@
 .entryList .entryRow
 .dropdown-backdrop{
 background-color: transparent;
+}
+
+.escoList .entryList .entryListRow .listRowSurface {
+    transition: background-color 2.5s ease;
+    background-color: white;
+}
+
+.escoList .entryList .entryListRow.newRow .listRowSurface {
+    background-color: yellow;
 }
