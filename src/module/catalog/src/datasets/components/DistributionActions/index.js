@@ -20,19 +20,19 @@ import bindActions from './actions';
  * @returns {undefined}
  */
 export default (vnode) => {
-  const { distribution, dataset, fileEntryURIs, refreshDistributions = () => {} } = vnode.attrs;
-  const actions = bindActions(distribution, dataset, fileEntryURIs, DOMUtil.preventBubbleWrapper);
+  const { distribution, dataset, refreshDistributions = () => {} } = vnode.attrs;
+  const actions = bindActions(distribution, dataset, DOMUtil.preventBubbleWrapper);
 
-  const refreshAPI = e => actions.refreshAPI(e, refreshDistributions);
-  const activateAPI = e => actions.activateAPI(e, refreshDistributions);
-  const removeDistribution = e => actions.remove(e, refreshDistributions);
-  const editDistribution = e => actions.editDistribution(e, () => m.redraw());
-  const openReplaceFile = e => actions.openReplaceFile(e, () => m.redraw());
-
-  const renderActions = (entry) => {
+  const renderActions = (entry, fileEntryURIs) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const escoList = i18n.getLocalization(escoListNLS);
     const actionButtons = [];
+
+    const refreshAPI = e => actions.refreshAPI(e, [refreshDistributions, fileEntryURIs]);
+    const activateAPI = e => actions.activateAPI(e, [refreshDistributions, fileEntryURIs]);
+    const removeDistribution = e => actions.remove(e, [refreshDistributions, fileEntryURIs]);
+    const editDistribution = e => actions.editDistribution(e, [() => m.redraw(), fileEntryURIs]);
+    const openReplaceFile = e => actions.openReplaceFile(e, [() => m.redraw(), fileEntryURIs]);
 
     actionButtons.push(
       <button
@@ -159,11 +159,13 @@ export default (vnode) => {
   };
 
   return {
-    view() {
+    view(vnode) {
+      const { fileEntryURIs } = vnode.attrs;
+
       return (
         <div class=" icon--wrapper distribution--file">
           <Dropdown>
-            { renderActions(distribution) }
+            { renderActions(distribution, fileEntryURIs) }
           </Dropdown>
         </div>
       );

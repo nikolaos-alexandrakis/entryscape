@@ -32,6 +32,14 @@ body {
     overflow-x: hidden;
 }
 
+/* TODO: @scazan added for release, REVIEW as the tabs shouldn't be a problem in next release */
+@media (max-height: 580px) {
+  #viewsNode {
+    height: calc(100% - 69px); /* Takes into account that the tab menu wraps over into the next line */
+  }
+
+}
+
 .logo-text {
     text-transform: uppercase;
     font-weight: 500;

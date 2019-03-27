@@ -28,7 +28,7 @@ export default {
       class: CatalogList,
       title: { en: 'Catalogs', sv: 'Kataloger', da: 'Kataloger', de: 'Kataloge' },
       constructorParams: {
-        rowClickView: 'catalog__datasets', // refers to a view name
+        rowClickView: 'catalog__overview', // refers to a view name
       },
       faClass: 'archive',
       route: '/catalog',

@@ -108,7 +108,7 @@ export default (initialVnode) => {
               onclick={openCreateDialog}
               alt={escaDataset.addDistributionTitle}
             >
-              +
+              <span>+</span>
             </button>
           </div>
 
@@ -119,6 +119,7 @@ export default (initialVnode) => {
 
               return (
                 <Distribution
+                  key={distribution.getId()}
                   distribution={distribution}
                   fileEntryURIs={state.fileEntryURIs}
                   dataset={dataset}

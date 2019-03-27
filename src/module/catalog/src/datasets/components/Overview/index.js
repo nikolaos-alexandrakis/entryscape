@@ -48,13 +48,23 @@ export default (vnode) => {
     const publishButton = vnode.dom.querySelector('.externalPublish .btn--publish');
     // Temporarily toggle the button for fast UI response. This will immediately be overwritten on next vdom render
     if (publishButton) {
+      if (publishButton.classList.contains('disabled')) {
+        return false;
+      }
+
+      // Also, disable the button clicking until re-render (while waiting for XHR response)
+      publishButton.classList.add('disabled');
+
       if (entry.isPublic()) {
         publishButton.classList.add('fa-rotate-180');
       } else {
         publishButton.classList.remove('fa-rotate-180');
       }
     }
+
     actions.setPublishedState(entry.isPublic());
+
+    return true;
   };
 
   const toggleInternalPublish = () => {
