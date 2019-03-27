@@ -35,9 +35,9 @@ export default () => ({
                 </span> :
                 null
               }
-              <span className="row__text">{escaStatisticsNLS.datasetPrefix}{item.name}</span>
+              <span className="row__text">{escaStatisticsNLS.datasetPrefix} {item.name}</span>
               {item.subname ?
-                <span className="row__text">{escaStatisticsNLS.distributionPrefix}{item.subname}</span> :
+                <span className="row__text">{escaStatisticsNLS.distributionPrefix} {item.subname}</span> :
                 null
               }
             </div>
