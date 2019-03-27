@@ -25,13 +25,19 @@ export default {
           const collection = registry.get(collectionName);
           if (collection.list) {
             addFromCollection(collection);
-          } else {
+          } else if (collection.type === 'facet') {
             registry.onChangeOnce(collectionName, (col) => {
               if (col.list) {
                 addFromCollection(col);
               } else {
                 registry.onChangeOnce(collectionName, addFromCollection);
               }
+            });
+          } else {
+            values.forEach((item) => {
+              labels([item.value]).then((uri2label) => {
+                setValue({ label: uri2label[item.value], group, value: item.value });
+              });
             });
           }
         }
