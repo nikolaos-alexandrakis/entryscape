@@ -8,5 +8,5 @@ var js = function (url) {
 if (debug) {
   js('app.js');
 } else {
-  js('blocks/0.13/app.js');
+  js('blocks/0.14/app.js');
 }
