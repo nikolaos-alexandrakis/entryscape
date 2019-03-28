@@ -252,7 +252,7 @@ export default (vnode) => {
                   <p>{publishToggleString}</p>
                 </div>
                 <Toggle
-                  title={publishToggleTooltip}
+                  title={isPublishable ? publishToggleTooltip : escaDataset.privateDisabledDatasetTitle}
                   toggleState={isPublished}
                   onToggle={togglePublish}
                   isEnabled={isPublishable}
