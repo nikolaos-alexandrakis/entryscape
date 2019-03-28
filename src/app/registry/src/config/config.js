@@ -4,13 +4,13 @@ import catalogConfig from 'catalog/config/config';
 import merge from 'commons/merge';
 import workbenchConfig from 'workbench/config/config';
 
+const isDev = __entryscape_config.entryscape.static.version === 'latest';
 const STATIC = {
-  URL: 'https://static.cdn.entryscape.com/',
+  URL: `https://static.${!isDev ? 'cdn.' : ''}entryscape.com/`, // always with a trailing slash
   APP: 'registry',
   VERSION: 'latest',
 };
-
-const ASSETS_URL = `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+const ASSETS_URL = __entryscape_config.entryscape.localBuild ? '/dist/assets/' : `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
 const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
 
 export default merge(adminConfig, catalogConfig, workbenchConfig, {

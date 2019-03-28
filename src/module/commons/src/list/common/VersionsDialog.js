@@ -14,6 +14,7 @@ export default declare([VersionsDialog, ListDialogMixin], {
         this.excludeProperties = this.list.versionExcludeProperties;
       }
     }
+
     this.inherited(arguments);
   },
   open(params) {

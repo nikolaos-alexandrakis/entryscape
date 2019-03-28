@@ -1110,9 +1110,9 @@
       "id": "geodcat:dcterms:format-INSPIRE",
       "property": "dcterms:format",
       "label": {
-        "en": "INSPIRE format",
-        "sv": "Inspire format",
-        "de": "INSPIRE format"
+        "en": "Geographical mediatypes",
+        "sv": "Geografiska mediatyper",
+        "de": "Geografischer Medientyp"
       },
       "description": {
         "en": "This register contains the sub-types of the media type application used for spatial data sets in INSPIRE, in particular in INSPIRE download services. Whenever sub-types exist that are registered with IANA or are in the registration process these are used. For all other formats, no commonly used sub-type exists and INSPIRE has to - at least temporarily - define their own types. In accordance with the rules for media types in RFC 2046/RFC 4288, these start with x-. At this time, all entries in this register have the status 'valid'. Sub-types that are no longer recommended for use will be marked as 'deprecated', but will always be kept in this register as download services may still be using deprecated sub-types."
@@ -1265,7 +1265,7 @@
           }
         }
       ],
-      "deps": [
+      "styles": [
         "strictmatch"
       ]
     }

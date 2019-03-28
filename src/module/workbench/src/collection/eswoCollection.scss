@@ -1,0 +1,96 @@
+@import '~commons/theme.scss';
+
+.eswoCollection {
+    height: 100%;
+}
+
+.eswoCollection__list {
+    padding-left: 0px;
+}
+
+.eswoCollection__sideList {
+    padding: 15px 15px 0px 15px;
+    overflow-y: auto;
+    position: absolute;
+    top: 0px;
+    bottom: 42px;
+    left: 0px;
+    right: 0px;
+}
+
+.eswoCollection__entityName {
+    word-break: break-all;
+}
+
+.eswoCollection__listItem {
+    cursor: pointer;
+}
+
+.eswoCollection__listItem a {
+    color: #333;
+    font-size: 14px;
+}
+
+.eswoCollection__listItem.active a {
+    font-weight: bold;
+}
+
+.eswoCollection__listItem a:hover {
+    color: $main-colour-hover;
+}
+
+.eswoCollection__listItem.active {
+    cursor: default;
+}
+
+.eswoCollection__sideInput {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+}
+
+
+.eswoCollection .nav-pills > li.active > a,
+.eswoCollection .nav-pills > li.active > a:focus,
+.eswoCollection .nav-pills > li.active > a:hover {
+    background-color: #1c7cd1;
+    border-radius: 0;
+}
+
+.eswoCollection__sideInput input::-webkit-input-placeholder {
+    font-size: 14px;
+}
+
+.eswoCollection .escoList {
+    margin-top: 0;
+}
+
+.eswoCollection .eswoCollection__list {
+    padding: 0 10px;
+}
+
+.eswoCollection__sideInput > .row {
+    margin: 0 10px;
+}
+
+.eswoCollection__sideInput .form-group {
+    margin: 8px 0 0 0;
+}
+
+.sidebarMode .eswoCollection__multiple {
+    margin-left: 0px;
+}
+
+@media (min-width: 768px) {
+    .eswoCollection__multiple {
+        height: 100%;
+    }
+
+    .eswoCollection__list {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}

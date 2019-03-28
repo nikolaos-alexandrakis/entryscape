@@ -2,7 +2,7 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import DOMUtil from '../util/htmlUtil';
-import './dialog.css';
+import './dialog.scss';
 import template from './SideDialogTemplate.html';
 
 const mobileMaxWidth = 415;

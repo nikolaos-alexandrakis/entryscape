@@ -7,6 +7,8 @@ import { NLSMixin } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
 import PresentExpandable from './PresentExpandable';
+import Lookup from '../types/Lookup';
+import EntityChooser from './EntityChooser';
 
 export default declare([TitleDialog, NLSMixin.Dijit], {
   nlsHeaderTitle: 'metadataEditDialogHeader',
@@ -25,13 +27,23 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
   localizationParams: {},
 
   postCreate() {
+    this.etChooser = new EntityChooser({ onChange: this.updateEntityType.bind(this) },
+      DOMUtil.create('div', null, this.headerExtensionNode));
     this.levels = new LevelEditor({ externalEditor: true },
       DOMUtil.create('div', null, this.headerExtensionNode));
+    this.levels.domNode.classList.add('escoLevels');
     this.editor = new Editor({}, DOMUtil.create('div', null, this.containerNode));
     this.externalMetadata = new PresentExpandable({}, DOMUtil.create('div', null, this.containerNode, true));
     this.externalMetadata.style.display = 'none';
     this.levels.setExternalEditor(this.editor);
     this.inherited('postCreate', arguments);
+  },
+
+  updateEntityType() {
+    const tid = this.etChooser.getInUse().templateId();
+    const template = registry.get('itemstore').getItem(tid);
+    this.updateEditor(this.uri, this.graph, template, this.editor.includeLevel);
+    this.unlockFooterButton();
   },
 
   localeChange() {
@@ -53,7 +65,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     if (this.explicitNLS && (this.title !== '' || this.title === null)) {
       this.updateLocaleStringsExplicit(this.title, this.doneLabel, this.doneTitle);
     } else {
-      this.updateLocaleStrings(escoRdforms, this.localizationParams);
+      this.updateLocaleStrings(this.NLSBundles.escoRdforms, this.localizationParams);
     }
     this.updateHeaderWidth();
   },
@@ -63,10 +75,28 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     this.inherited(arguments);
   },
 
-  showEntry(entry, template, level) {
+  async showChildEntry(entry, parentEntry, level) {
     const uri = entry.getResourceURI();
-    this.updateExternalMetadata(entry, template);
-    this.show(uri, entry.getMetadata(), template, level);
+    const inUse = await Lookup.inUse(entry, parentEntry);
+    this.etChooser.update(entry, inUse);
+    const t = registry.get('itemstore').getItem(inUse.templateId());
+    this.updateExternalMetadata(entry, t);
+    this.show(uri, entry.getMetadata(), t, level);
+  },
+  async showEntry(entry, template, level) {
+    const uri = entry.getResourceURI();
+    if (template) {
+      this.etChooser.clear();
+      this.etChooser.hide();
+      this.updateExternalMetadata(entry, template);
+      this.show(uri, entry.getMetadata(), template, level);
+    } else {
+      const inUse = await Lookup.inUse(entry);
+      this.etChooser.update(entry, inUse);
+      const t = registry.get('itemstore').getItem(inUse.templateId());
+      this.updateExternalMetadata(entry, t);
+      this.show(uri, entry.getMetadata(), t, level);
+    }
   },
 
   updateEntry(entry, template, level) {
@@ -104,6 +134,14 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
           givenLevel = 'mandatory';
         }
       }
+
+      // Disable any property in the levels that have no fields
+      Object.entries(profile).forEach((keyVal) => {
+        const [key, val] = keyVal;
+        if ((val <= 0) && (key !== 'itemCount')) {
+          this.levels.disableLevel(key);
+        }
+      });
     }
     this.editor.graph = null; // Just to avoid re-rendering old form when changing includelevel.
     this.levels.setIncludeLevel(givenLevel || 'mandatory');
@@ -114,7 +152,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     };
   },
   conditionalHide() {
-    if (!this.graph.isChanged()) {
+    if (!this.graph.isChanged() && !this.etChooser.isModified()) {
       this.hide();
       return;
     }
@@ -183,6 +221,9 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     const formStatus = this.isFormOk();
     if (formStatus !== true) {
       return Promise.reject(formStatus);
+    }
+    if (this.etChooser.isModified()) {
+      return this.etChooser.save().then(() => this.doneAction(this.graph));
     }
     return this.doneAction(this.graph);
   },

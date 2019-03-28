@@ -9,7 +9,7 @@ import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import { createEntry } from 'commons/util/storeUtil';
 import template from './CreateDialogTemplate.html';
-import './catalog.css';
+import './catalog.scss';
 
 const createWithoutPublisher = config.catalog && config.catalog.createWithoutPublisher === true;
 

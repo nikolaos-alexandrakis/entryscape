@@ -24,7 +24,7 @@
     "emptyListWarning": "Concepts you create will appear here",
     "emptyTreeWarning": "Details of the concept you select will appear here",
     "reasonForRevisionMessage": "The concept's position in the hierarchy, which children it has or which collections it belongs to have changed since the previous revision.",
-    "noRevertSameGraphExcludeTitle": "There is nothing to revert. Latest revision is identical except for information that cannot be easily reverted (e.g. its place in the hierarchy, its subconcepts as well as its membership in collections).",
+    "noRevertSameGraphExcludeTitle": "There is nothing to revert. The latest revision is identical except for information that cannot be easily reverted (e.g. its place in the hierarchy, its subconcepts as well as its membership in collections).",
     "revertExcludeMessage": "The concept's position in the hierarchy, its children and its membership in collections will not be modified."
   },
   "sv": true,

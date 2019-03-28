@@ -9,9 +9,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 /** ********** INIT *********** */
-const VERSION = require('./package.json').version;
+  // Get the version from the package.json. If on a snapshot version then use the 'latest' version
+  // to keep consistency between local.js entryscape.version and generated publicPath of the webpack
+let VERSION = require('./package.json').version;
+VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
 
-const STATIC_URL = 'https://static.cdn.entryscape.com';
+const STATIC_URL = `https://static.${VERSION !== 'latest' ? 'cdn.' : ''}entryscape.com`;
 
 const getAlias = (name, type = 'module', noSource = false) =>
   path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
@@ -26,7 +29,7 @@ module.exports = (env, argv) => {
 
   const APP = (argv && argv.app) || 'suite'; // needed for eslint to read the config
   const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
-  const PUBLIC_PATH = `${STATIC_URL}/${APP}/${VERSION}/`;
+  const PUBLIC_PATH = `/${APP}/${VERSION}/`;
   const showNLSWarnings = (argv && argv['nls-warnings']) || false;
 
   let config = {
@@ -35,16 +38,17 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: PUBLIC_PATH,
+      // publicPath: (argv && argv.localbuild ? '/dist/' : PUBLIC_PATH), // @todo  we set this on the fly. Perhaps we will never use this. See src/app/suite/publicPath.js
       filename: 'app.js',
+      chunkFilename: '[name].js',
       library: APP,
     },
     context: APP_PATH,
     plugins: [
       new DojoWebpackPlugin({
-        loaderConfig: require('./config/dojoConfig'),
+        loaderConfig: require('./dojo/config'),
         locales: ['en'],
-        environment: { dojoRoot: '/' }, // used at run time for non-packed resources (e.g.
+        environment: { dojoRoot: `${STATIC_URL}/libs` }, // used at run time for non-packed resources (e.g.
         // blank.gif)
         buildEnvironment: { dojoRoot: '../../../node_modules' }, // used at build time
         noConsole: true,
@@ -55,6 +59,7 @@ module.exports = (env, argv) => {
         jquery: 'jquery',
         // 'window.jquery': 'jquery',
         Popper: ['popper.js', 'default'],
+        m: 'mithril',
       }),
       new CopyWebpackPlugin([
         {
@@ -97,6 +102,7 @@ module.exports = (env, argv) => {
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-syntax-dynamic-import',
                 ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
+                ['@babel/plugin-transform-react-jsx', { 'pragma': 'm' }],
               ],
             },
           },
@@ -115,8 +121,8 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          test:/\.(s*)css$/,
+          use:['style-loader','css-loader', 'sass-loader']
         },
         {
           test: /\.less$/,
@@ -171,6 +177,7 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
+      mainFiles: ['index'],
       alias: {
         jquery: path.resolve(path.join(__dirname, 'node_modules', 'jquery')),
         commons: getAlias('commons'),
@@ -203,7 +210,7 @@ module.exports = (env, argv) => {
         devServer: {
           hot: true,
           contentBase: APP_PATH,
-          historyApiFallback: APP === 'blocks' ? false : true,
+          historyApiFallback: APP !== 'blocks',
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
@@ -246,7 +253,7 @@ module.exports = (env, argv) => {
             template: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.hbs')),
             inject: false,
             identifier: VERSION,
-            source: `${PUBLIC_PATH}index.html`,
+            source: `${STATIC_URL}${PUBLIC_PATH}index.html`, // @todo @valentino
           }),
         ]
       });

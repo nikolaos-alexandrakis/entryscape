@@ -1,6 +1,7 @@
 .escoRDFEdit {
     position: relative;
     min-height: 200px;
+    height: 100%;
 }
 
 .escoRDFEdit .nav-tabs li a {
@@ -13,12 +14,14 @@
 
 .escoRDFEdit .tab-content {
     position: relative;
-    height: 500px;
+    /* height: 500px; */
+    height: calc(100% - 45px);;
 }
 
 .escoRDFEdit .tab-content textarea {
     width: 100%;
-    height: 450px;
+    /* height: 450px; */
+    height: 100%;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     overflow: auto;

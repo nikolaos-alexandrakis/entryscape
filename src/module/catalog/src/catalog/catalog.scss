@@ -1,0 +1,43 @@
+@import '~commons/theme.scss';
+
+.modal-body .inUseBy {
+    margin-left: 2em;
+}
+
+.downloadCatalog .form-control[readonly] {
+    cursor: text;
+    outline: none;
+    background-color: white;
+}
+
+.downloadCatalog .exportURLWrap {
+    padding-left: 1em;
+}
+
+.downloadCatalog .downloadButton,
+.downloadCatalog .selectFormat {
+    margin-left: 1em;
+}
+
+.downloadColumn {
+    margin-top: 20px;
+}
+
+.downloadColumn .downloadButton {
+    padding: 20px;
+    background-color: $main-colour !important;
+    color: #fff !important;
+}
+
+.downloadColumn .downloadButton:hover {
+    background-color: $main-colour-hover !important;
+}
+
+.downloadColumn .downloadButton:focus{
+    background-color: $main-colour-hover !important;
+    border: 1.5px solid orange; 
+}
+
+.downloadColumn .downloadButton:active{
+    background-color: $main-colour  !important;
+}

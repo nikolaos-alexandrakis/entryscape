@@ -90,7 +90,7 @@ export default declare([List, NLSMixin.Dijit], {
     if (this.includeCreateButton) {
       this.registerListAction({
         name: 'create',
-        button: 'success',
+        button: 'primary',
         icon: 'plus',
         iconType: 'fa',
         max: this.createLimit,

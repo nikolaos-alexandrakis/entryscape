@@ -3,6 +3,7 @@ import DistributionDialog from 'catalog/public/DistributionDialog';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
+import Lookup from 'commons/types/Lookup';
 import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
@@ -54,8 +55,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     }
   },
 
-  showDataset(entry) {
-    // registry.get('itemstore', (itemstore) => {
+  async showDataset(entry) {
     if (entry) {
       const path = registry.getSiteManager().getViewPath('catalog__datasets__preview', {
         dataset: entry.getId(),
@@ -64,10 +64,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this.directLink.href = path;
     }
 
-    const itemstore = registry.get('itemstore');
     this.entry = entry;
     const rdfutils = registry.get('rdfutils');
-    const datasetTemplate = itemstore.getItem(config.catalog.datasetTemplateId);
+    const datasetTemplate = await Lookup.getTemplate(entry);
     this.presenter.show({
       resource: entry.getResourceURI(),
       graph: entry.getMetadata(),
@@ -81,7 +80,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
 
     this.fetchDistributions(entry).then(this.showDistributions.bind(this));
     this.fetchResults(entry).then(this.showResults.bind(this));
-    // });
   },
 
   fetchCatalog(datasetEntry) {
@@ -138,7 +136,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
           ev.stopPropagation();
           this.distributionInfoDialog.set('title', label);
 
-          this.distributionInfoDialog.open(distE);
+          this.distributionInfoDialog.open(distE, this.entry);
         };
         tr.addEventListener('click', f.bind(this));
       }

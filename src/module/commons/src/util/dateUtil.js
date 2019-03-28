@@ -1,4 +1,4 @@
-import config from 'config';
+;import config from 'config';
 import { i18n } from 'esi18n';
 
 export default {
