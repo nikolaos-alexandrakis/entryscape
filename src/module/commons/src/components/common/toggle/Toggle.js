@@ -1,4 +1,3 @@
-import m from 'mithril';
 import './index.scss';
 
 export default () => ({

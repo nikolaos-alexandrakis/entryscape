@@ -21,7 +21,7 @@ import {
 import StatBoxInline from 'commons/overview/components/StatBoxInline';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
-import { isPrivatelyPublished } from '../../utils/distributionUtil';
+import { isDatasetPSI } from '../../utils/distributionUtil';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
 import Button from '../Button';
@@ -68,7 +68,7 @@ export default (vnode) => {
   };
 
   const toggleInternalPublish = () => {
-    actions.setInternalPublishedState(isPrivatelyPublished(entry));
+    actions.setInternalPublishedState(isDatasetPSI(entry));
   };
 
   let catalogEntry;
@@ -167,10 +167,13 @@ export default (vnode) => {
       const numRevisions = entryInfo.getMetadataRevisions().length;
       const themes = getThemeLabels(entry);
       const isPublished = entry.isPublic();
-      const isPrivatePublished = isPrivatelyPublished(entry);
+      const isDatasetMarkedAsPSI = isDatasetPSI(entry);
       const isRemoveable = !isPublished;
       const publishToggleString = isPublished ? escaDataset.publishedTitle : escaDataset.unpublishedTitle;
       const publishToggleTooltip = isPublished ? escaDataset.publicDatasetTitle : escaDataset.privateDatasetTitle;
+      const internalToggleString = isDatasetMarkedAsPSI ? escaDataset.psiDataset : escaDataset.notPsiDataset;
+      const internalToggleTooltip = isDatasetMarkedAsPSI ? escaDataset.psiDatasetTitle : escaDataset.notPsiDatasetTitle;
+
       const catalogName = catalogEntry ? rdfutils.getLabel(catalogEntry) : null;
       const contributorsNames = contributors ? contributors.map(contributor => rdfutils.getLabel(contributor)) : null;
 
@@ -259,11 +262,11 @@ export default (vnode) => {
                 <div class="psiPublish flex--sb">
                   <div class="icon--wrapper">
                     <span class="icons fa fa-eye"></span>
-                    <p>{escaDataset.psiDatasetTitle}</p>
+                    <p>{internalToggleString}</p>
                   </div>
                   <Toggle
-                    title={escaDataset.privateDatasetTitle}
-                    toggleState={isPrivatePublished}
+                    title={internalToggleTooltip}
+                    toggleState={isDatasetMarkedAsPSI}
                     onToggle={toggleInternalPublish}
                   ></Toggle>
                 </div>

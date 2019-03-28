@@ -106,8 +106,12 @@
   "showMoreTitle": "Visa mer",
   "themeTitle": "Tema",
   "editedTitle": "Redigerad av",
-  "psiDatasetTitle": "PSI",
+  "psiDatasetTitle": "Denna datamängd är en del av PSI (Public Sector Information) förteckningen och kan komma att skördas av andra portaler",
   "publishedTitle": "Publik",
   "unpublishedTitle": "Inte publik",
-  "backTitle": "Tillbaka till datamängdslistan"
+  "backTitle": "Tillbaka till datamängdslistan",
+  "cannotRemoveDatasetPublishedTitle": "Denna datamängd är för närvarande publicerad och kan därför inte tas bort",
+  "psiDataset": "PSI",
+  "notPsiDataset": "Icke-PSI",
+  "notPsiDatasetTitle": "Denna datamängd är inte del av PSI (Public Sector Information) förteckningen och kommer inte skördas av andra portaler"
 }
