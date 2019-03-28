@@ -32,8 +32,9 @@
     justify-content:space-between;
 }
 
-.esreSource .buttonRow .btn{
+.esreSource .buttonRow .btn {
     margin-top:0;
+    height: 36px;
 }
 .esreSource .rdfValidationMessage {
     vertical-align: middle;
