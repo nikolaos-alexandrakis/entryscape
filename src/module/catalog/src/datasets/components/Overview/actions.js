@@ -135,8 +135,7 @@ export default (entry) => {
    * @param {boolean} currentPublishedState
    * @returns {undefined}
    */
-  const setPublishedState = (currentPublishedState) => {
-    const onSuccess = () => m.redraw();
+  const setPublishedState = (currentPublishedState, onSuccess) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
     const toggleThisImplementation = () => {
       const ns = registry.get('namespaces');
@@ -177,7 +176,9 @@ export default (entry) => {
           ei.commit().then(onSuccess);
           updateDistributionACL({}, entry);
         } else {
-          registry.get('dialogs').acknowledge(escaDataset.datasetSharingNoAccess);
+          registry.get('dialogs')
+            .acknowledge(escaDataset.datasetSharingNoAccess)
+            .then(onSuccess);
         }
 
         return undefined;

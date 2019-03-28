@@ -35,6 +35,7 @@ export default (vnode) => {
 
   const state = {
     metadataHidden: true,
+    publishTemporarilyDisabled: false,
   };
   const setState = createSetState(state);
   const actions = bindActions(entry, vnode.dom);
@@ -48,21 +49,17 @@ export default (vnode) => {
     const publishButton = vnode.dom.querySelector('.externalPublish .btn--publish');
     // Temporarily toggle the button for fast UI response. This will immediately be overwritten on next vdom render
     if (publishButton) {
-      if (publishButton.classList.contains('disabled')) {
+      if (state.publishTemporarilyDisabled) {
         return false;
       }
 
       // Also, disable the button clicking until re-render (while waiting for XHR response)
-      publishButton.classList.add('disabled');
-
-      if (entry.isPublic()) {
-        publishButton.classList.add('fa-rotate-180');
-      } else {
-        publishButton.classList.remove('fa-rotate-180');
-      }
+      setState({ publishTemporarilyDisabled: true });
     }
 
-    actions.setPublishedState(entry.isPublic());
+    actions.setPublishedState(entry.isPublic(), () => {
+      setState({ publishTemporarilyDisabled: false });
+    });
 
     return true;
   };
@@ -255,7 +252,7 @@ export default (vnode) => {
                   title={isPublishable ? publishToggleTooltip : escaDataset.privateDisabledDatasetTitle}
                   toggleState={isPublished}
                   onToggle={togglePublish}
-                  isEnabled={isPublishable}
+                  isEnabled={!state.publishTemporarilyDisabled && isPublishable}
                 ></Toggle>
               </div>
               { config.catalog.allowInternalDatasetPublish &&
