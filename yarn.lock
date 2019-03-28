@@ -3151,9 +3151,9 @@ entities@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
 
-"entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#4.7.2":
-  version "4.7.2"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#7d25b0db9e023857c4acc2a8c28d709776f8e911"
+"entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#develop":
+  version "4.8.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#9b907d5ce4176ffa67298ecbe6657bea4219870c"
   dependencies:
     "@babel/core" "^7.2.2"
     babel-core "^6.26.3"
@@ -3162,7 +3162,7 @@ entities@^1.1.1:
     lodash "^4.17.10"
     lodash-es "^4.17.11"
     moment "^2.22.2"
-    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#2.2"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     superagent "^3.8.3"
     superagent-jsonp "^0.2.1"
     webpack "^4.29.0"
@@ -3219,9 +3219,9 @@ escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-"esi18n@https://bitbucket.org/metasolutions/esi18n.git#1.1":
-  version "1.1.0"
-  resolved "https://bitbucket.org/metasolutions/esi18n.git#17ee6f593755b28419cc0bed17f0643a26aec782"
+"esi18n@https://bitbucket.org/metasolutions/esi18n.git#develop":
+  version "1.2.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/esi18n.git#92648b2b6acf648934f9c7073d95c2069e17a293"
   dependencies:
     dojo "^1.14.1"
     lodash-es "^4.17.10"
@@ -7414,16 +7414,16 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#2.2":
-  version "2.2.0"
-  resolved "https://bitbucket.org/metasolutions/rdfjson.git#e67cdca52d900ac978ad3e1180dd51f87b2c40ea"
+"rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#develop":
+  version "2.3.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/rdfjson.git#37399998654b947f918150a4d4f5e88d64760bdf"
   dependencies:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
-"rdforms@https://bitbucket.org/metasolutions/rdforms.git#9.2":
-  version "9.2.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#c673af9f716bbcd48244258f3e6cd5af8629f539"
+"rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
+  version "9.3.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#f69e476fa6da07171e11bdb9d69543933b1fcdd0"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7437,7 +7437,7 @@ rc@^1.2.7:
     dijit "^1.13.0"
     dojo "^1.13.0"
     dojo-util "^1.13.0"
-    esi18n "https://bitbucket.org/metasolutions/esi18n.git#1.1"
+    esi18n "https://bitbucket.org/metasolutions/esi18n.git#develop"
     fuelux "^3.16.6"
     jquery "^3.3.1"
     jquery-mousewheel "^3.1.13"
@@ -7446,7 +7446,7 @@ rc@^1.2.7:
     nls-loader "https://bitbucket.org/metasolutions/nls-loader#master"
     node-fetch "^2.3.0"
     popper.js "^1.12.9"
-    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#2.2"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     select2 "^4.0.6-rc.1"
     selectize "^0.12.6"
     sizzle "^2.3.3"
