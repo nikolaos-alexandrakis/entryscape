@@ -27,7 +27,7 @@ export default {
             m(`a[aria-controls="collapse-${id}"][aria-expanded="true"][data-parent="#accordion"][data-toggle="collapse"][data-target="#collapse-${id}"][role="button"]`,
               [
                 m('i.pull-left.fa.fa-fw.fa-chevron-down'),
-                m('i.pull-left.fa.fa-fw.fa-chevron-up'),
+                m('i.pull-left.fa.fa-fw.fa-chevron-right'),
                 m('span', title),
                 m('span.panel__headerDate', date),
               ],
