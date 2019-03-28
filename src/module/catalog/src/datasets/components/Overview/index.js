@@ -240,7 +240,7 @@ export default (vnode) => {
               <Button class="btn-secondary" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
               <Button
                 class={`btn-secondary ${isRemoveable ? '' : 'disabled'}`}
-                title={!isRemoveable && escaDataset.cannotRemoveDatasetPublishedTitle}
+                title={isRemoveable ? '' : escaDataset.cannotRemoveDatasetPublishedTitle}
                 onclick={isRemoveable && removeDataset}
               >
                 {escaDataset.removeDatasetTitle}
