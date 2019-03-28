@@ -33,6 +33,7 @@ export default (vnode) => {
     const removeDistribution = e => actions.remove(e, [refreshDistributions, fileEntryURIs]);
     const editDistribution = e => actions.editDistribution(e, [() => m.redraw(), fileEntryURIs]);
     const openReplaceFile = e => actions.openReplaceFile(e, [() => m.redraw(), fileEntryURIs]);
+    const openManageFiles = e => actions.openManageFiles(e, [fileEntryURIs]);
 
     actionButtons.push(
       <button
@@ -87,7 +88,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-file"
             title={escaDataset.addFileTitle}
-            onclick={actions.openManageFiles}
+            onclick={openManageFiles}
           >
             <span>{escaDataset.addFile}</span>
           </button>,
@@ -97,7 +98,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-files-o"
             title={escaDataset.manageFilesTitle}
-            onclick={actions.openManageFiles}
+            onclick={openManageFiles}
           >
             <span>{escaDataset.manageFiles}</span>
           </button>,
