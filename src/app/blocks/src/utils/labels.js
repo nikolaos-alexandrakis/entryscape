@@ -1,4 +1,5 @@
 import registry from 'commons/registry';
+import { promiseUtil } from 'store';
 
 export default (values, valueType = 'uri') => {
   const rdfutils = registry.get('rdfutils');
@@ -39,11 +40,14 @@ export default (values, valueType = 'uri') => {
   if (toLoadArr.length === 0) {
     return new Promise(resolve => resolve(labels));
   }
-  return es.newSolrQuery()
-    .resource(toLoadArr)
-    .list()
-    .forEach((entry) => {
+
+  const chunked = [];
+  const chunkLimit = 30;
+  for (let i = 0; i < toLoadArr.length; i += chunkLimit) {
+    chunked.push(toLoadArr.slice(i, i + chunkLimit));
+  }
+  return promiseUtil.forEach(chunked, chunk => es.newSolrQuery()
+    .resource(chunk).forEach((entry) => {
       labels[entry.getResourceURI()] = rdfutils.getLabel(entry);
-    })
-    .then(() => labels);
+    })).then(() => labels);
 };
