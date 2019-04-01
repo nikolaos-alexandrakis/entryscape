@@ -34,7 +34,9 @@ export default declare([EntryRow], {
           if (!confirm) {
             return;
           }
-          this.entry.del().then(this.destroy.bind(this), () => dialogs.acknowledge('Failed to remove responsible'));
+          this.entry.del()
+            .then(this.destroy.bind(this), () => dialogs.acknowledge('Failed to remove responsible'))
+            .then(() => this.list.removeRow(this));
         });
       } else {
         const lbls = refs.map((ref, idx) => {
