@@ -215,7 +215,7 @@ body .lightbox {
     border-color: darkslategrey;
 }
 .selectize-dropdown *[data-selectable] {
-    padding: 0px 2px;
+    padding: 0px 12px;
     border: 1px solid white;
 }
 .selectize-dropdown *[data-selectable].active {
