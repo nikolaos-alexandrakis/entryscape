@@ -22,7 +22,7 @@ if (hash !== '') {
   for (const key in up) {
     if (up.hasOwnProperty(key)) {
       if (key.indexOf(prefix) === 0) {
-        urlParams[key.substr(prefix.length)] = decodeURIComponent(up[key]);
+        urlParams[key.substr(prefix.length)] = up[key];
       }
     }
   }
