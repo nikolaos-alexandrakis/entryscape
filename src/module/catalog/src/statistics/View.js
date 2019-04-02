@@ -117,7 +117,6 @@ export default declare(MithrilView, {
       return {
         series: [
           {
-            // name: state.activeTab,
             data: timeRangeUtil.normalizeChartData(selected, chartData),
           },
         ],
