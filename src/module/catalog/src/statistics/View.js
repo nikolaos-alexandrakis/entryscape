@@ -10,6 +10,7 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
+import BarChart from './components/BarChart';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
@@ -31,7 +32,6 @@ export default declare(MithrilView, {
       chart: {
         data: {
           series: [{
-            name: '',
             data: [{}],
           }],
         },
@@ -117,7 +117,7 @@ export default declare(MithrilView, {
       return {
         series: [
           {
-            name: 'whatever',
+            // name: state.activeTab,
             data: timeRangeUtil.normalizeChartData(selected, chartData),
           },
         ],
@@ -333,12 +333,12 @@ export default declare(MithrilView, {
                   </div>
                 </div>
               </div>
-              {/*<div className="visualization__wrapper">*/}
-              {/*<h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>*/}
-              {/*<div className="visualization__chart">*/}
-              {/*<BarChart data={state.chart.data}/>*/}
-              {/*</div>*/}
-              {/*</div>*/}
+              <div className="visualization__wrapper">
+                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
+                <div className="visualization__chart">
+                  <BarChart data={state.chart.data}/>
+                </div>
+              </div>
             </section>
           </div>
         );

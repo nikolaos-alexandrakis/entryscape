@@ -15,6 +15,7 @@
     "bootstrap-material-design": "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd",
     "chartist": "https://bitbucket.org/metasolutions/chartist-js.git#develop",
     "chartist-plugin-legend": "~0.6.2",
+    "chartist-plugin-tooltips": "^0.0.17",
     "dijit": "^1.14.2",
     "dojo": "^1.14.2",
     "entrystore-js": "https://bitbucket.org/metasolutions/entrystore.js.git#develop",

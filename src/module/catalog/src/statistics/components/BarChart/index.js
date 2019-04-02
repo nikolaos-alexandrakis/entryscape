@@ -1,7 +1,9 @@
-import escaStatistics from "catalog/nls/escaStatistics.nls";
+import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
-import { i18n } from "esi18n";
+import 'chartist-plugin-tooltips';
+import 'chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css';
+import { i18n } from 'esi18n';
 import moment from 'moment'; // @todo valentino
 import './index.scss';
 
@@ -23,8 +25,24 @@ const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
   },
   low: 0,
   showArea: true,
+  plugins: [
+    Chartist.plugins.tooltip({
+      appendToBody: true,
+      transformTooltipTextFnc: (value) => {
+        const [timestamp, downloadCount] = value.split(',');
+        const date = moment(parseInt(timestamp, 10));
+        return `${downloadCount} downloads on ${date.format('ll')}`;
+      },
+    }),
+  ],
 });
 
+/**
+ * Given a length guess what date format is appropriate to render.
+ *
+ * @param {number} dataLength
+ * @return {string}
+ */
 const guessAxisFormatFromData = (dataLength) => {
   let xAxisDateFormat = 'MMM D';
   if (dataLength < 13) {
@@ -57,7 +75,8 @@ export default () => ({
       chart.update(data, getChartOptions(guessedDateFormat, dataLength - 1));
     }
     return (<div>
-      <div className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
+      <div
+        className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
       <div className={`ct-chart ct-square ${noData ? 'hidden' : ''}`}/>
     </div>);
   },
