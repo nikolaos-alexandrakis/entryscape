@@ -1,23 +1,22 @@
 @import '~commons/theme.scss';
-.pagination{
-    .pagination__arrow{
-        button{
-            background-color: transparent;
-            border: 0;
-            font-size: $text-size;
-            text-align: center;
-            padding: 11px 16px;
-            margin:10px;
-            opacity: 0.7;
-            cursor: pointer;
-            &:hover{
-                background-color:lightgrey;
-                border-radius: 50%;
-                transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-            }
-        }
 
-       
-       
+.pagination {
+  .pagination__arrow {
+    button {
+      background-color: transparent;
+      border: 0;
+      font-size: $text-size;
+      text-align: center;
+      padding: 11px 16px;
+      margin: 10px;
+      opacity: 0.7;
+      cursor: pointer;
+
+      &:hover {
+        background-color: lightgrey;
+        border-radius: 50%;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      }
     }
+  }
 }
