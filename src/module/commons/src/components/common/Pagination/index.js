@@ -23,12 +23,12 @@ export default () => ({
     const onChangePageNext = onChangePage.bind(null, vnode.state, handleChangePage, currentPage + 1);
 
     return (<ul className="pagination">
-      <li>
+      <li class="pagination__arrow">
         <button disabled={!currentPage} className={!currentPage ? 'disabled' : ''} onclick={onChangePagePrevious}>
           <i className="fa fa-chevron-left"/></button>
       </li>
       <span>{fromCount}-{toCount} of {totalCount}</span>
-      <li>
+      <li class="pagination__arrow">
         <button disabled={toCount === totalCount} className={toCount === totalCount ? 'disabled' : ''}
                 onclick={onChangePageNext}><i
           className="fa fa-chevron-right"/></button>
