@@ -182,7 +182,7 @@ export default declare([BaseList], {
     this.registerRowAction({
       name: 'replace',
       button: 'default',
-      icon: 'exchange',
+      icon: 'exchange-alt',
       iconType: 'fa',
       nlsKey: 'replaceMenu',
       nlsKeyTitle: 'replaceMenuTitle',

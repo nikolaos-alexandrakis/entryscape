@@ -219,7 +219,7 @@ export default declare([ETBaseList], {
       this.registerRowAction({
         name: 'downgrade',
         button: 'default',
-        icon: 'level-down',
+        icon: 'level-down-alt',
         iconType: 'fa',
         nlsKey: 'downgrade',
         nlsKeyTitle: 'downgradeTitle',
@@ -242,7 +242,7 @@ export default declare([ETBaseList], {
       this.registerRowAction({
         name: 'showresults',
         button: 'default',
-        icon: 'diamond',
+        icon: 'gem',
         iconType: 'fa',
         nlsKey: 'showresults',
         nlsKeyTitle: 'showresultsTitle',
@@ -264,7 +264,7 @@ export default declare([ETBaseList], {
       this.registerRowAction({
         name: 'showideas',
         button: 'default',
-        icon: 'lightbulb-o',
+        icon: 'lightbulb',
         iconType: 'fa',
         nlsKey: 'showideas',
         nlsKeyTitle: 'showideasTitle',

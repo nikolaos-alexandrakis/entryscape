@@ -116,7 +116,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.dropdownMenu.addItem({
       name: 'edit',
       button: 'default',
-      icon: 'pencil',
+      icon: 'pencil-alt',
       iconType: 'fa',
       nlsKey: 'editDistributionTitle',
       nlsKeyTitle: 'editDistributionTitle',
@@ -234,7 +234,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       this.dropdownMenu.addItem({
         name: 'remove',
         button: 'default',
-        icon: 'remove',
+        icon: 'times',
         iconType: 'fa',
         nlsKey: 'removeDistributionTitle',
         nlsKeyTitle: 'removeDistributionTitle',

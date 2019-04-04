@@ -115,7 +115,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     if (this.inDialog && this.pipelineEntry.isPublic()) {
       const text = this.NLSBundle0.openSeparateReportWindow;
       const popover = this.NLSBundle0.openSeparateReportWindowTitle;
-      const icon = 'fa-external-link';
+      const icon = 'fa-external-link-alt';
       const sm = registry.getSiteManager();
       button = {
         element: 'a',

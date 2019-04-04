@@ -121,7 +121,7 @@ export default declare([ETBaseList], {
     this.registerRowAction({
       name: 'members',
       button: 'default',
-      icon: 'check-square-o',
+      icon: 'check-square',
       iconType: 'fa',
       nlsKey: 'manageMembers',
       nlsKeyTitle: 'manageMembersTitle',
@@ -131,7 +131,7 @@ export default declare([ETBaseList], {
       first: true,
       name: 'export',
       button: 'default',
-      icon: 'arrow-circle-o-down',
+      icon: 'arrow-circle-down',
       iconType: 'fa',
       nlsKey: 'collectionExportTitle',
     });

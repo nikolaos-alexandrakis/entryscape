@@ -8,7 +8,7 @@ export default {
   },
   delete: {
     name: 'delete', // 'remove' is a reserved action name
-    icon: 'remove',
+    icon: 'times',
     button: 'default',
     first: false,
     iconType: 'fa',
