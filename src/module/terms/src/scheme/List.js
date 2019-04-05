@@ -9,6 +9,7 @@ import esteTerminologyexport from 'terms/nls/esteTerminologyexport.nls';
 import escoList from 'commons/nls/escoList.nls';
 import esteScheme from 'terms/nls/esteScheme.nls';
 import declare from 'dojo/_base/declare';
+import typeIndex from 'commons/create/typeIndex';
 import CreateTerminologyDialog from './CreateTerminologyDialog';
 
 const ns = registry.get('namespaces');
@@ -99,7 +100,8 @@ export default declare([List], {
 
   getTemplate() {
     if (!this.template) {
-      this.template = registry.get('itemstore').getItem('skosmos:conceptScheme');
+      const conf = typeIndex.getConfByName('conceptscheme');
+      this.template = registry.get('itemstore').getItem(conf.template);
     }
     return this.template;
   },
