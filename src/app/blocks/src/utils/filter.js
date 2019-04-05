@@ -128,7 +128,7 @@ const filterObj = {
       });
       const filterDef = filterIdx[key];
       if (filterDef && filterDef.appendWildcard) {
-        vals = vals.map(v => `${v}*`);
+        vals = vals.concat(vals.map(v => `${v}*`));
       }
       switch (key) {
         case 'tags':

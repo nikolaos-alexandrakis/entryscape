@@ -1,11 +1,11 @@
 import DOMUtil from 'commons/util/htmlUtil';
-import params from 'blocks/boot/params';
 import registry from 'commons/registry';
 import filter from 'blocks/utils/filter';
 import jquery from 'jquery';
 import 'selectize';
 import { Entry } from 'store';
 import { template } from 'lodash-es';
+import { facetSearchQuery } from 'blocks/utils/query';
 import utils from './utils';
 
 const rdfutils = registry.get('rdfutils');
@@ -34,10 +34,6 @@ export default function (node, data) {
   if (typeof data.width !== 'undefined') {
     node.style.width = data.width;
   }
-  let urlParams = {};
-  params.onInit((up) => {
-    urlParams = up;
-  });
 
   const input = DOMUtil.create('input', { type: 'text', placeholder: data.placeholder });
   node.appendChild(input);
@@ -55,6 +51,7 @@ export default function (node, data) {
     }
   };
 
+  // eslint-disable-next-line no-template-curly-in-string
   const fst = template(data.freeTextTemplate || 'Search for "${term}"');
   data.openOnFocus = data.openOnFocus !== false;
   const settings = {
@@ -96,39 +93,25 @@ export default function (node, data) {
 
   const collectionName = `blocks_collection_${data.collection}`;
   settings.load = (query, cb) => {
-    const callback = data.openOnFocus ? cb : (results) => {
+    const callback = data.openOnFocus || query.length > 0 ? cb : (results) => {
       selectize.isInputHidden = true;
       cb(results);
       selectize.isInputHidden = false;
     };
     const collection = registry.get(collectionName);
     if (collection.type === 'search') {
-      const es = registry.get('entrystore');
-      const qo = es.newSolrQuery().publicRead();
-      const context = (data.context === true ? urlParams.context : data.context)
-          || collection.context;
-      if (context) {
-        qo.context(context);
-      }
-      if (collection.rdftype) {
-        qo.rdfType(collection.rdftype);
-      }
-      const term = query.length ? query : '*';
-      if (collection.searchproperty) {
-        qo.literalProperty(collection.searchproperty, [term, `${term}*`]);
-      } else {
-        qo.title(term);
-      }
-
-      qo.limit(10).list().getEntries().then((arr) => {
-        callback(arr.map(entry => ({
-          value: entry.getResourceURI(),
-          label: rdfutils.getLabel(entry),
-          group: data.collection,
-        })));
-      }, () => {
-        callback();
-      });
+      facetSearchQuery(query, data, collection)
+        .limit(data.limit || collection.limit || 10)
+        .getEntries()
+        .then((arr) => {
+          callback(arr.map(entry => ({
+            value: entry.getResourceURI(),
+            label: rdfutils.getLabel(entry),
+            group: data.collection,
+          })));
+        }, () => {
+          callback();
+        });
     } else if (collection.list && collection.list.length > 0) {
       if (collection.list[0] instanceof Entry) {
         callback(collection.list.map(entry => ({
@@ -140,8 +123,7 @@ export default function (node, data) {
         callback(collection.list);
       }
     } else if (collection.type === 'facet') {
-      const collectionList = registry.get(collectionName).list; // Why? we already have the collection...
-      callback(collectionList);
+      callback(collection.list);
     }
   };
   // Initialize after load function is added
@@ -152,7 +134,7 @@ export default function (node, data) {
     const newOption = value !== '' ? selectize.options[value] : undefined;
     if (newOption && !newOption.group) {
       newOption.group = data.collection;
-      newOption.value = `${value}*`;
+      newOption.value = value;
     }
     filter.replace(selectedOption, newOption);
     if (!newOption) {

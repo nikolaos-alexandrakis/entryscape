@@ -1,5 +1,11 @@
 import registry from 'commons/registry';
+import params from 'blocks/boot/params';
 import { mapValues } from 'lodash-es';
+
+let urlParams = {};
+params.onInit((up) => {
+  urlParams = up;
+});
 
 export const termsConstraint = (qo, term) => {
   if (term != null && term.length > 0) {
@@ -31,3 +37,30 @@ export const termsConstraint = (qo, term) => {
   }
 };
 
+export const facetSearchQuery = (term, data, collection) => {
+  const es = registry.get('entrystore');
+  const qo = es.newSolrQuery().publicRead();
+
+  const context = collection.context || (data.context === true ? urlParams.context : data.context);
+  if (context) {
+    qo.context(context);
+  }
+  if (collection.rdftype) {
+    qo.rdfType(collection.rdftype);
+  }
+  if (collection.searchproperty) {
+    if (!term.length) {
+      qo.literalProperty(collection.searchproperty, '*');
+    } else {
+      qo.literalProperty(collection.searchproperty, [term, `${term}*`], undefined,
+        collection.searchIndextype, collection.related);
+    }
+  } else if (!term.length) {
+    qo.title('*');
+  } else if (term.length < 3) {
+    qo.title(`${term}*`);
+  } else {
+    qo.title(term);
+  }
+  return qo;
+};

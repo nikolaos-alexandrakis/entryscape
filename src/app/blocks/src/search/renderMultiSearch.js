@@ -5,6 +5,7 @@ import jquery from 'jquery';
 import filter from 'blocks/utils/filter';
 import params from 'blocks/boot/params';
 import registry from 'commons/registry';
+import { facetSearchQuery } from 'blocks/utils/query';
 import utils from './utils';
 
 const rdfutils = registry.get('rdfutils');
@@ -164,7 +165,7 @@ export default function (node, data) {
   node.appendChild(input);
   const loads = collections.map(def => (query) => {
     if (def.type === 'search') {
-      const es = registry.get('entrystore');
+      /* const es = registry.get('entrystore');
       const qo = es.newSolrQuery().publicRead();
       const contextId = def.context || (data.context === true ? urlParams.context : data.context);
       if (contextId) {
@@ -178,15 +179,17 @@ export default function (node, data) {
         qo.literalProperty(def.searchproperty, term);
       } else {
         qo.title(term);
-      }
-
-      return qo.limit(6).list().getEntries().then(arr => arr.map(entry => ({
-        value: entry.getResourceURI(),
-        eid: entry.getId(),
-        cid: entry.getContext().getId(),
-        label: rdfutils.getLabel(entry),
-        group: def.name,
-      })));
+      } */
+      return facetSearchQuery(query, data, def)
+        .limit(6)
+        .getEntries()
+        .then(arr => arr.map(entry => ({
+          value: entry.getResourceURI(),
+          eid: entry.getId(),
+          cid: entry.getContext().getId(),
+          label: rdfutils.getLabel(entry),
+          group: def.name,
+        })));
     }
     return new Promise((resolve) => {
       registry.get(`blocks_collection_${def.name}`);
@@ -212,7 +215,7 @@ export default function (node, data) {
         });
         pos += 1;
       }
-      if (data.openOnFocus) {
+      if (data.openOnFocus || query.length > 0) {
         callback(results);
       } else {
         // Set input as hidden to avoid trigger of dropdown on initial load
@@ -245,7 +248,7 @@ export default function (node, data) {
     selectize.items.slice(0).forEach((value) => {
       const item = selectize.options[value];
       const filt = filters[item.group || 'term'] || [];
-      if (!filt.find(fival => fival.value === item.value)) {
+      if (!filt.find(fival => (fival.value === item.value && fival.group === item.group))) {
         delete localItems[item.value];
         selectize.removeItem(item.value, true);
       }
