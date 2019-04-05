@@ -28,7 +28,7 @@ window.__entryscape_config = {
     ['schema:streetAddress', 'schema:addressLocality', 'schema:addressRegion'],
     'schema:birthDate',
     'schema:caption',
-    'schema:contentURL',
+    'schema:contentUrl',
     'schema:deathDate',
     'skos:altLabel',
     'skos:prefLabel',
@@ -66,6 +66,7 @@ window.__entryscape_config = {
       name: 'title',
       label: 'Titel',
       property: 'dcterms:title',
+      appendWildcard: true,
       searchIndextype: 'text',
       nodetype: 'literal',
       includeAsFacet: false,
@@ -76,6 +77,7 @@ window.__entryscape_config = {
       label: 'Huvudkategori',
       property: 'http://schema.org/artform',
       nodetype: 'literal',
+      searchIndextype: 'string',
       limit: 5,
       includeAsFacet: true,
     },
@@ -93,6 +95,15 @@ window.__entryscape_config = {
       name: 'projectType',
       label: 'Projekttyp',
       property: 'https://opendata.statenskonstrad.se/terms/projectType',
+      nodetype: 'literal',
+      limit: 5,
+      includeAsFacet: true,
+    },
+    {
+      type: 'facet',
+      name: 'decade',
+      label: 'Decennium',
+      property: 'https://opendata.statenskonstrad.se/terms/createdDecade',
       nodetype: 'literal',
       limit: 5,
       includeAsFacet: true,
@@ -138,7 +149,10 @@ window.__entryscape_config = {
       name: 'artist',
       label: 'Konstnär',
       rdftype: 'https://opendata.statenskonstrad.se/terms/Artist',
+      searchproperty: 'http://xmlns.com/foaf/0.1/name',
+      searchIndextype: 'text',
       property: 'dcterms:creator',
+      limit: 100,
       context: '12',
     },
 /*    {
@@ -238,10 +252,10 @@ window.__entryscape_config = {
           '<div class="cardList-title__art">{{text}}</div>' +
           '<div class="cardList-title__date">{{text content="${dcterms:created}"}}</div></div>' +
           '<div class="info-card-header">' +
-          '<div class="cardList-title__text">{{text  relation="dcterms:creator"}}</div>' +
-          '<div class="cardList-title__text category">{{text  content="${schema:artform}"}}</div></div>' +
-          '<div class="info-card-header"><div class="cardList-title__text category">{{text content="${skr:site}"}}</div>' +
-          '<div class="cardList-title__text category">{{text  relation="schema:address" content="${schema:addressLocality}"}}</div></div>',
+          '<div class="cardList-title__text WorkOfArt_creator">{{text  relation="dcterms:creator"}}</div>' +
+          '<div class="cardList-title__text category WorkOfArt_artform">{{text  content="${schema:artform}"}}</div></div>' +
+          '<div class="info-card-header"><div class="cardList-title__text category WorkOfArt_site">{{text content="${skr:site}"}}</div>' +
+          '<div class="cardList-title__text category WorkOfArt_address">{{text  relation="schema:address" content="${schema:addressLocality}"}}</div></div>',
         listplaceholder: '<h3>No matching results</h3>',
       },
     },
