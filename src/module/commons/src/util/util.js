@@ -12,10 +12,7 @@ export const isUri = stringToCheck => isUrl(stringToCheck);
  * @returns {function}
  */
 export const createSetState = state => (props, avoidRedraw = false) => {
-  Object.entries(props).forEach((keyVal) => { // @todo @valentino perhaps this needs to be a deep merge
-    state[keyVal[0]] = keyVal[1];
-  });
-
+  Object.assign(state, props);
   if (!avoidRedraw) {
     m.redraw();
   }
