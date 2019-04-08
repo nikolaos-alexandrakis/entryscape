@@ -133,14 +133,14 @@ export default declare([BaseList], {
     this.registerRowAction({
       name: 'makepremium',
       button: 'default',
-      icon: 'level-up',
+      icon: 'level-up-alt',
       iconType: 'fa',
       nlsKey: 'addToPremiumGroup',
     });
     this.registerRowAction({
       name: 'unmakepremium',
       button: 'default',
-      icon: 'level-down',
+      icon: 'level-down-alt',
       iconType: 'fa',
       nlsKey: 'removeFromPremiumGroup',
     });

@@ -89,9 +89,9 @@ export default declare([EntryRow], {
 
   renderCol1() {
     if (this.entry.isUser()) {
-      this.col1Node.innerHTML = '<i class="fa fa-user fa-lg"></i>';
+      this.col1Node.innerHTML = '<i class="fas fa-user fa-lg"></i>';
     } else {
-      this.col1Node.innerHTML = '<i class="fa fa-users fa-lg"></i>';
+      this.col1Node.innerHTML = '<i class="fas fa-users fa-lg"></i>';
     }
   },
 

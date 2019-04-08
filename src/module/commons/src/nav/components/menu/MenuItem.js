@@ -14,9 +14,9 @@ export default {
     return m('li', attrs,
       [
         m('a', Object.assign({ href }, selected ? { class: 'selected' } : {}), [
-          m(`i.fa.fa-${icon}`),
+          m(`i.fas.fa-${icon}`),
           m('span.menu-title', label),
-          isExternalLink(href) ? m('span.fa.fa-external-link') : null,
+          isExternalLink(href) ? m('span.fas.fa-external-link-alt') : null,
         ]),
       ],
     );

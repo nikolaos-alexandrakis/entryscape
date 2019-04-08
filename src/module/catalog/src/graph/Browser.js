@@ -21,7 +21,7 @@ export default declare([Browser], {
     catalog: {
       shape: 'icon',
       icon: {
-        face: 'FontAwesome',
+        face: 'Font Awesome\ 5 Free',
         code: '\uf187', // \uf0c0
         size: 50,
         // color: '#57169a'
@@ -30,7 +30,7 @@ export default declare([Browser], {
     dataset: {
       shape: 'icon',
       icon: {
-        face: 'FontAwesome',
+        face: 'Font Awesome\ 5 Free',
         code: '\uf1b3',
         size: 45,
         // color: '#aa00ff'
@@ -39,7 +39,7 @@ export default declare([Browser], {
     distribution: {
       shape: 'icon',
       icon: {
-        face: 'FontAwesome',
+        face: 'Font Awesome\ 5 Free',
         code: '\uf15b',
         size: 50,
         // color: '#aa00ff'
@@ -48,7 +48,7 @@ export default declare([Browser], {
     person: {
       shape: 'icon',
       icon: {
-        face: 'FontAwesome',
+        face: 'Font Awesome\ 5 Free',
         code: '\uf0c0',
         size: 50,
         // color: '#aa00ff'
@@ -57,7 +57,7 @@ export default declare([Browser], {
     contact: {
       shape: 'icon',
       icon: {
-        face: 'FontAwesome',
+        face: 'Font Awesome\ 5 Free',
         code: '\uf095',
         size: 50,
         // color: '#aa00ff'

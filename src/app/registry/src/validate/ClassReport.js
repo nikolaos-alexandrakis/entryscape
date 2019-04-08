@@ -19,9 +19,9 @@ const InstanceReport = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   postCreate() {
     this.inherited('postCreate', arguments);
     const messages = this.NLSBundle0;
-    const errorSeverityHTML = '<i class="fa fa-exclamation-triangle"></i>';
-    const warningSeverityHTML = '<i class="fa fa-exclamation-circle"></i>';
-    const deprecatedSeverityHTML = '<i class="fa fa-question-circle"></i>';
+    const errorSeverityHTML = '<i class="fas fa-exclamation-triangle"></i>';
+    const warningSeverityHTML = '<i class="fas fa-exclamation-circle"></i>';
+    const deprecatedSeverityHTML = '<i class="fas fa-question-circle"></i>';
     this.report.errors.forEach((err) => {
       const row = htmlUtil.create('tr', null, this.domNode);
       htmlUtil.create('td', {
@@ -93,20 +93,20 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     if (nrErr > 0) {
       htmlUtil.create('span', {
         title: i18n.renderNLSTemplate(this.NLSLocalized0.errorTitle, nrErr),
-        innerHTML: `${nrErr}<i class="fa fa-exclamation-triangle"></i>`,
+        innerHTML: `${nrErr}<i class="fas fa-exclamation-triangle"></i>`,
       }, this.problems);
     }
     if (nrWarn > 0) {
       htmlUtil.create('span', {
         title: i18n.renderNLSTemplate(this.NLSBundle0.warningTitle, nrWarn),
-        innerHTML: `${nrWarn}<i class="fa fa-exclamation-circle"></i>`,
+        innerHTML: `${nrWarn}<i class="fas fa-exclamation-circle"></i>`,
       }, this.problems);
     }
 
     if (nrDep > 0) {
       htmlUtil.create('span', {
         title: i18n.renderNLSTemplate(this.NLSLocalized0.deprecatedTitle, nrDep),
-        innerHTML: `${nrDep}<i class="fa fa-question-circle"></i>`,
+        innerHTML: `${nrDep}<i class="fas fa-question-circle"></i>`,
       }, this.problems);
     }
 

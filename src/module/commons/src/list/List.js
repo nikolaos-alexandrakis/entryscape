@@ -75,7 +75,7 @@ export default declare([_WidgetBase, ViewMixin], {
       this.registerListAction({
         name: 'refresh',
         button: 'default',
-        icon: 'refresh',
+        icon: 'sync',
         nlsKey: 'refreshButtonLabel',
         nlsKeyTitle: 'refreshTitle',
         noMenu: true,

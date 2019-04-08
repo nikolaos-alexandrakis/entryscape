@@ -169,7 +169,7 @@ export default declare([List], {
       first: true,
       name: 'export',
       button: 'default',
-      icon: 'arrow-circle-o-down',
+      icon: 'arrow-circle-down',
       iconType: 'fa',
       nlsKey: 'catalogExport',
       nlsKeyTitle: 'catalogExportTitle',

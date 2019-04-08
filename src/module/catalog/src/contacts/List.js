@@ -137,7 +137,7 @@ export default declare([ETBaseList], {
         name: 'editCP',
         button: 'default',
         iconType: 'fa',
-        icon: 'pencil',
+        icon: 'pencil-alt',
         nlsKey: 'editCPLabel',
         nlsKeyTitle: 'editCPTitle',
       });
@@ -161,7 +161,7 @@ export default declare([ETBaseList], {
         name: 'editPublisher',
         button: 'default',
         iconType: 'fa',
-        icon: 'pencil',
+        icon: 'pencil-alt',
         nlsKey: 'editPublisherLabel',
         nlsKeyTitle: 'editPublisherTitle',
       });

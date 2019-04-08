@@ -58,7 +58,7 @@ body {
     margin-top: 8px
 }
 
-.main_menu span.fa {
+.main_menu span.fas {
 /*     float: right; */
     text-align: center;
     margin-top: 5px;
@@ -68,7 +68,7 @@ body {
 }
 
 
-.active a span.fa {
+.active a span.fas {
     text-align: right !important;
     margin-right: 4px
 }
@@ -165,7 +165,7 @@ body {
         width: calc(100% - 60px);
         margin: 0;
     }
-    .main_menu span.fa{
+    .main_menu span.fas{
         display: none;
     }
     .nav-md .container.body .left_col,
@@ -658,12 +658,12 @@ table.no-margin .progress {
     border-radius: 4px
 }
 
-.fontawesome-icon-list .fa-hover a:hover .fa {
+.fontawesome-icon-list .fa-hover a:hover .fas {
     font-size: 28px;
     vertical-align: -6px
 }
 
-.fontawesome-icon-list .fa-hover a .fa {
+.fontawesome-icon-list .fa-hover a .fas {
     width: 32px;
     font-size: 16px;
     display: inline-block;
@@ -671,13 +671,11 @@ table.no-margin .progress {
     margin-right: 10px
 }
 
-.main_menu .fa {
+.main_menu .fas {
     width: 26px;
     opacity: .99;
     display: inline-block;
-    font-family: FontAwesome;
     font-style: normal;
-    font-weight: normal;
     font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale

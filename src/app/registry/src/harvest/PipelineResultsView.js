@@ -115,7 +115,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     if (this.inDialog && this.pipelineEntry.isPublic()) {
       const text = this.NLSBundle0.openSeparateReportWindow;
       const popover = this.NLSBundle0.openSeparateReportWindowTitle;
-      const icon = 'fa-external-link';
+      const icon = 'fa-external-link-alt';
       const sm = registry.getSiteManager();
       button = {
         element: 'a',
@@ -141,7 +141,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       ],
     }),
     contactText ? m('div', { class: `alert alert-info ${this.bid}__info` }, [
-      m('i', { class: `fa fa-info-circle fa-2x ${this.bid}__infoIcon` }),
+      m('i', { class: `fas fa-info-circle fa-2x ${this.bid}__infoIcon` }),
       m('span', {}, contactText),
     ]) : null,
     ]);

@@ -131,7 +131,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const tdButtons = htmlUtil.create('td', null, tr);
         const divWrapper = htmlUtil.create('div', { class: 'min-height-row' }, tdButtons);
         htmlUtil.create('span', { class: 'badge' }, divWrapper);
-        htmlUtil.create('span', { class: 'fa fa-info-circle' }, divWrapper);
+        htmlUtil.create('span', { class: 'fas fa-info-circle' }, divWrapper);
         const f = (ev) => {
           ev.stopPropagation();
           this.distributionInfoDialog.set('title', label);
@@ -162,7 +162,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         htmlUtil.create('td', { innerHTML: label }, tr);
         const tdButtons = htmlUtil.create('td', null, tr);
         const infoButton = htmlUtil.create('button', { class: 'btn btn-sm btn-default' }, tdButtons);
-        htmlUtil.create('span', { class: 'fa fa-info-circle' }, infoButton);
+        htmlUtil.create('span', { class: 'fas fa-info-circle' }, infoButton);
         const f = (ev) => {
           ev.stopPropagation();
           this.infoDialog.title = label;

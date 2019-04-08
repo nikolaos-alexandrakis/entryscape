@@ -61,7 +61,7 @@ export default declare([List, NLSMixin.Dijit], {
         name: 'edit',
         button: 'default',
         iconType: 'fa',
-        icon: 'pencil',
+        icon: 'pencil-alt',
         nlsKey: this.nlsEditEntryLabel,
         nlsKeyTitle: this.nlsEditEntryTitle,
       });
@@ -81,7 +81,7 @@ export default declare([List, NLSMixin.Dijit], {
         name: 'remove',
         button: 'danger',
         iconType: 'fa',
-        icon: 'remove',
+        icon: 'times',
         nlsKey: this.nlsRemoveEntryLabel,
         nlsKeyTitle: this.nlsRemoveEntryTitle,
       });

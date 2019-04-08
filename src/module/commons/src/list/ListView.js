@@ -277,7 +277,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     DOMUtil.addClass(el, `pull-right btn btn-raised btn-${params.button}`);
 
     const span = DOMUtil.create('span', { 'aria-hidden': true }, el);
-    DOMUtil.addClass(span, `fa fa-${params.icon}`);
+    DOMUtil.addClass(span, `fas fa-${params.icon}`);
 
     const label = DOMUtil.create('span', null, el);
     label.classList.add('escoList__buttonLabel');

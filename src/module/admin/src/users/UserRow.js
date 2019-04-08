@@ -158,6 +158,6 @@ export default declare([EntryRow], {
   },
   getDisabledUserHtml() {
     return `<i style="margin-left:10px"  rel="tooltip" title="${this.nlsSpecificBundle.userStatusDisabled}" 
-            class="fa fa-user-times"></i>`;
+            class="fas fa-user-times"></i>`;
   },
 });
