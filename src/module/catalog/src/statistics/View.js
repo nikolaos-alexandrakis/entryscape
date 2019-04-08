@@ -11,6 +11,7 @@ import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
 import BarChart from './components/BarChart';
+import Pagination from 'commons/components/common/Pagination';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
@@ -28,6 +29,7 @@ export default declare(MithrilView, {
         items: [],
         selected: null,
         filteredItems: null,
+        page: 0,
       },
       chart: {
         data: {
@@ -47,7 +49,7 @@ export default declare(MithrilView, {
 
     const setState = createSetState(state);
 
-    const getListItems = async () => {
+    const getListItems = async (page = 0) => {
       const context = registry.getContext();
       try {
         const { custom, selected } = state.timeRanges;
@@ -219,6 +221,18 @@ export default declare(MithrilView, {
       }
     };
 
+    const paginationPageChange = (newPage) => {
+      const pageSize = 5;
+      const filteredItems = state.list.items.slice(newPage, newPage * pageSize);
+      setState({
+        list: {
+          selected: state.list.selected,
+          items: state.list.items,
+          filteredItems,
+        },
+      });
+    };
+
     const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
     let isCatalogPublic = null;
     return {
@@ -331,11 +345,12 @@ export default declare(MithrilView, {
 
                   </div>
                 </div>
+                <Pagination currentPage={state.list.page} totalCount={state.list.items.length} handleChangePage={paginationPageChange}/>
               </div>
               <div className="visualization__wrapper">
                 <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
                 <div className="visualization__chart">
-                  <BarChart data={state.chart.data}/>
+                  <BarChart data={state.chart.data} />
                 </div>
               </div>
             </section>
