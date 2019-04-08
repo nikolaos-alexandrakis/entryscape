@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import isUrl from 'is-url';
+import { merge } from 'lodash-es';
 import m from 'mithril';
 
 export const isUri = stringToCheck => isUrl(stringToCheck);
@@ -12,7 +13,7 @@ export const isUri = stringToCheck => isUrl(stringToCheck);
  * @returns {function}
  */
 export const createSetState = state => (props, avoidRedraw = false) => {
-  Object.assign(state, props);
+  merge(state, props);
   if (!avoidRedraw) {
     m.redraw();
   }
