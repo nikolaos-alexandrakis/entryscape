@@ -50,11 +50,11 @@
     display: none;
 }
 
-.classReport .panel-title .collapsed .fa-chevron-right {
+.classReport .panel-title .collapsed .fa-chevron-up {
     display: inline;
 }
 
-.classReport .panel-title .fa-chevron-right {
+.classReport .panel-title .fa-chevron-up {
     display: none;
 }
 div.errorreport{
