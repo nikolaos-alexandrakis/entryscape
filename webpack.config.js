@@ -48,6 +48,7 @@ module.exports = (env, argv) => {
         buildEnvironment: { dojoRoot: '../../../node_modules' }, // used at build time
         noConsole: true,
       }),
+      new DojoWebpackPlugin.ScopedRequirePlugin(),
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
