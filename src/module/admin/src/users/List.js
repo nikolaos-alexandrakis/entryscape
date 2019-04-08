@@ -145,7 +145,7 @@ export default declare([BaseList], {
       nlsKey: 'removeFromPremiumGroup',
     });
     this.registerDialog('makepremium', MakePremium);
-    this.registerDialog('disable', UnMakePremium);
+    this.registerDialog('unmakepremium', UnMakePremium);
 
     this.inherited('postCreate', arguments);
     this.registerDialog('create', CreateDialog);

@@ -161,12 +161,16 @@ const ext = {
           }
           throw Error('Damn');
         }).then(onSuccess, () => {
-          obj.label = `Could not load name for geoname ID: ${value.substr(24, value.length - 25)}`;
+          obj.label = { en: obj.value };
           obj.mismatch = true; // TODO replace with something else
           onSuccess();
         });
       },
     };
+    if (registry.get('authorizedUser') == null) {
+      delete obj.load;
+      obj.label = { en: obj.value };
+    }
     return obj;
   },
   show(binding, onSelect) {

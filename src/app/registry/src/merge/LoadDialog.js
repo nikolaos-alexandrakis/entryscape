@@ -1,6 +1,7 @@
 import EntryType from 'commons/create/EntryType';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
+import { readFileAsText } from 'commons/util/fileUtil';
 import htmlUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
 import { isEmpty } from 'lodash-es';
@@ -28,20 +29,22 @@ export default declare([TitleDialog], {
     this.updateLocaleStringsExplicit(b.loadTitle, b.loadButton, b.loadButtonTitle);
   },
   footerButtonAction() {
-    const cb = this.callback;
     const val = this.entryType.getValue();
-    const f = (data) => {
+    const f = (evt, reader) => {
+      const data = reader.result;
       const report = converters.detect(data);
       if (!report.error) {
-        cb(report.graph, val);
+        this.callback(report.graph, val);
       } else {
         throw report.error;
       }
     };
 
     if (this.entryType.isFile()) {
-      const inp = this.entryType.getFileInputElement();
-      return registry.get('entrystore').echoFile(inp, 'text').then(f);
+      const inputElement = this.entryType.getFileInputElement();
+      /** @type File */
+      const file = inputElement.files.item(0);
+      return readFileAsText(file, f);
     }
     return registry.get('entrystore').loadViaProxy(val, 'application/rdf+xml').then(f);
   },

@@ -50,5 +50,6 @@
   "apiExistsToUnpublishCatalog": "Dieser Katalog enthält APIs die auch dann noch zugänglich sein werden, wenn Sie die Teilungseinstellungen dieses Katalogs ändern.<br>Möchten Sie dennoch fortfahren?",
   "catalogNamePlaceholder": "Geben Sie einen Namen für den Katalog ein",
   "catalogDescPlaceholder": "Geben Sie eine Beschreibung für den Katalog ein",
-  "agentNamePlaceholder": "Geben Sie einen Namen für den Herausgeber ein"
+  "agentNamePlaceholder": "Geben Sie einen Namen für den Herausgeber ein",
+  "emptyListWithNoAccessWarning": "Kataloge werden hier angezeigt. Wenden Sie sich an einen Administrator um einen Katalog zu erstellen oder um Zugriff auf einen vorhandenen Katalog zu erhalten."
 }

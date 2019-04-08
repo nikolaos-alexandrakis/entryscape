@@ -1,0 +1,30 @@
+{
+  "root": {
+    "statsViewHeader": "Statistics for publicly downloadable files and APIs",
+    "statsNotPublishedCatalog": "Statistics are only available for published catalogs",
+    "statsViewTimeRange": "Time range",
+    "statsViewDistributionStats": "Distribution statistics for selected time range",
+    "statsSearchInputPlaceholder": "Search for resources...",
+    "timeRangeDatePickerStartDate": "Start date",
+    "timeRangeDatePickerEndDate": "End date",
+    "timeRangeToday": "Today",
+    "timeRangeYesterday": "Yesterday",
+    "timeRangeThisMonth": "This month",
+    "timeRangeLastMonth": "Last month",
+    "timeRangeThisYear": "This year",
+    "timeRangeLastYear": "Last year",
+    "timeRangeCustom": "Custom",
+    "timeRangeNoDataAvailable": "No data available for the selected time range",
+    "tabItemFiles": "Files",
+    "tabItemApiCalls": "API calls",
+    "tabHeaderTitle": "Title",
+    "tabHeaderFormat": "Format",
+    "rowHeaderFile": "Number of file downloads",
+    "rowHeaderAPI": "Number of API calls",
+    "datasetPrefix": "Belongs to dataset:",
+    "distributionPrefix": "Belongs to distribution:"
+  },
+  "sv": true,
+  "da": true,
+  "de": true
+}

@@ -1,0 +1,177 @@
+@import '~commons/theme';
+
+.distributionList {
+    width: 100%;
+    position: relative;
+    .input-group-btn{
+        vertical-align: baseline;
+    }
+
+}
+
+.stats__row__wrapper--file {
+    height: 600px;
+    overflow-y: auto;
+    padding-bottom: 20px;
+
+    .stats-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        font-weight: bold;
+        color: $main-colour;
+
+        .flex {
+            display: flex;
+        }
+
+    }
+
+
+    .flex--sb {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .row--right--wrapper,
+    .header--wrapper--right {
+        width: 15%;
+    }
+
+    .header--wrapper--right {
+        justify-content: space-between;
+
+        .fa {
+            width: 15%;
+            text-align: right;
+            margin-right: 20px;
+        }
+
+    }
+
+    .stats__row {
+        cursor: pointer;
+        @include row--shadow;
+        flex-wrap: nowrap;
+        border: 2px solid transparent;
+
+        .row__title--wrapper {
+            display: flex;
+            flex-direction: column;
+            padding-right: 10px;
+        }
+
+        .row__title {
+            font-size: 13px;
+            font-weight: bold;
+            word-break: normal;
+            .fa{
+                opacity: 0.4;
+                margin-right: 10px;
+            }
+
+        }
+
+        .row__text {
+            word-break: normal;
+           
+        }
+
+        .stat__count {
+            width: 25%;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        &.selected {
+            border: 2px solid $main-colour;
+        }
+
+  
+        .label[data-format] {
+            text-transform: uppercase;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            white-space: normal;
+            margin-right: 10px;
+        }
+        .label[data-format="text/html"],
+        .label[data-format="application/pdf"] {
+            background-color: #55a1ce
+        }
+        .label[data-format="application/json"],
+        .label[data-format="application/xml"] {
+            background-color: #ef7100
+        }
+        .label[data-format="text/csv"] {
+            background-color: #2db55d
+        }
+        .label[data-format="application/vnd.ms-excel"],
+        .label[data-format="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"] {
+            background-color: #dfb100
+        }
+        .label[data-format=rdf],
+        .label[data-format*=rdf],
+        .label[data-format*=nquad],
+        .label[data-format*=ntriples],
+        .label[data-format*=turtle] {
+            background-color: #0b4498
+        }
+
+    }
+}
+
+.no-data, .no-searchData {
+    height: 350px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+.distributionList__tabs {
+    display: flex;
+    margin: 40px 0 0px;
+    & > .col-md-12{
+        padding-left: 5px;
+    }
+
+    p {
+        margin-right: 10px;
+    }
+}
+
+
+.label[data-format] {
+    text-transform: uppercase;
+}
+.label[data-format="text/html"],
+.label[data-format="text/plain"],
+.label[data-format="application/pdf"] {
+    background-color: #55a1ce
+}
+.label[data-format="application/json"],
+.label[data-format="application/xml"],
+.label[data-format="text/xml"] {
+    background-color: #ef7100
+}
+.label[data-format="text/csv"] {
+    background-color: #2db55d
+}
+.label[data-format="application/vnd.ms-excel"],
+.label[data-format="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"] {
+    background-color: #dfb100
+}
+.label[data-format=rdf],
+.label[data-format*=rdf],
+.label[data-format*=nquad],
+.label[data-format*=ntriples],
+.label[data-format*=turtle] {
+    background-color: #0b4498
+}

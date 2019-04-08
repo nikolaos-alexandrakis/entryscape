@@ -7,7 +7,7 @@
 .sidebar,
 .conceptmain {
     position: relative;
-    height: 100%;
+    height: calc(100% - 40px); /* height - footer */
     padding-left: 1em;
     padding-right: 1em;
     padding-top: 1em;
@@ -86,7 +86,6 @@
 .conceptsControlls.addTerm input::-webkit-input-placeholder {
     font-size: 12px;
 }
-
 
 .leaveAlternatives button {
     float: right;

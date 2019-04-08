@@ -21,7 +21,7 @@
     "collectionExportTitle": "Download terminology",
     "emptyListWarning": "Terminologies you create will appear here",
     "reasonForRevisionMessage": "Concepts have been added and/or removed on the first level of the terminology since the previous revision.",
-    "noRevertSameGraphExcludeTitle": "There is nothing to revert. Latest revision is identical except for information that cannot be easily reverted (e.g. which concepts that are positioned on the first level).",
+    "noRevertSameGraphExcludeTitle": "There is nothing to revert. The latest revision is identical except for information that cannot be easily reverted (e.g. which concepts that are positioned on the first level).",
     "revertExcludeMessage": "Concepts will neither be added nor removed from the first level.",
     "headerInfo": ""
   },

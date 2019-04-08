@@ -50,5 +50,6 @@
   "apiExistsToUnpublishCatalog": "Denna katalog innehåller API:er som kommer att vara tillgängliga även om du avpublicerar katalogen.<br>Vill du avpublicera katalogen ändå?",
   "catalogNamePlaceholder": "Ange ett namn för katalogen",
   "catalogDescPlaceholder": "Ange en beskrivning för katalogen",
-  "agentNamePlaceholder": "Ange ett namn för organisationen"
+  "agentNamePlaceholder": "Ange ett namn för organisationen",
+  "emptyListWithNoAccessWarning": "Kataloger kommer att visas här. Kontakta en administratör för att antingen skapa en katalog eller för att ge dig tillgång till en befintlig."
 }
