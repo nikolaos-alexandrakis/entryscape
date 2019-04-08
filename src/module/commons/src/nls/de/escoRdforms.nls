@@ -69,5 +69,6 @@
   "longitudeLabelShort": "Längengrad",
   "longitudePlaceholder": "Ein Wert zwischen -180 und 180.",
   "edit_upgrade": "Geben Sie zusätzliche Informationen für diese Webadresse ein",
-  "address_label": "Adresse"
+  "address_label": "Adresse",
+  "entityChooserLabel": "Profil auswählen:"
 }

@@ -69,5 +69,6 @@
   "longitudeLabelShort": "Longitud",
   "longitudePlaceholder": "Ett värde mellan −180 and 180.",
   "edit_upgrade": "Ange ytterligare information för webbadressen",
-  "address_label": "Adress"
+  "address_label": "Adress",
+  "entityChooserLabel": "Välj profil:"
 }

@@ -14,7 +14,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 let VERSION = require('./package.json').version;
 VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
 
-const STATIC_URL = 'https://static.entryscape.com';
+const STATIC_URL = `https://static.${VERSION !== 'latest' ? 'cdn.' : ''}entryscape.com`;
 
 const getAlias = (name, type = 'module', noSource = false) =>
   path.resolve(path.join(__dirname, 'src', type, name, !noSource ? 'src' : ''));
@@ -29,6 +29,7 @@ module.exports = (env, argv) => {
 
   const APP = (argv && argv.app) || 'suite'; // needed for eslint to read the config
   const APP_PATH = path.resolve(path.join(__dirname, 'src', 'app', APP));
+  const PUBLIC_PATH = `/${APP}/${VERSION}/`;
   const showNLSWarnings = (argv && argv['nls-warnings']) || false;
 
   let config = {
@@ -37,7 +38,7 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      publicPath: (argv && argv.localbuild ? '/dist/' : `${STATIC_URL}/${APP}/${VERSION}/`),
+      // publicPath: (argv && argv.localbuild ? '/dist/' : PUBLIC_PATH), // @todo  we set this on the fly. Perhaps we will never use this. See src/app/suite/publicPath.js
       filename: 'app.js',
       chunkFilename: '[name].js',
       library: APP,
@@ -58,6 +59,7 @@ module.exports = (env, argv) => {
         jquery: 'jquery',
         // 'window.jquery': 'jquery',
         Popper: ['popper.js', 'default'],
+        m: 'mithril',
       }),
       new CopyWebpackPlugin([
         {
@@ -70,10 +72,6 @@ module.exports = (env, argv) => {
           from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'assets')),
           to: 'assets', // dist/assets
         },
-        Object.assign({}, (APP !== 'blocks' ? {
-          from: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.html')),
-          to: 'index.html', // dist/index.html
-        } : { from: 'README.md', to: '' })), // TODO the README was added as a temp solution for blocks
       ]),
       new CleanWebpackPlugin([
         path.join(__dirname, 'src', 'app', APP, 'dist'),
@@ -104,6 +102,7 @@ module.exports = (env, argv) => {
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-syntax-dynamic-import',
                 ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
+                ['@babel/plugin-transform-react-jsx', { 'pragma': 'm' }],
               ],
             },
           },
@@ -122,8 +121,8 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          test:/\.(s*)css$/,
+          use:['style-loader','css-loader', 'sass-loader']
         },
         {
           test: /\.less$/,
@@ -152,7 +151,13 @@ module.exports = (env, argv) => {
         },
         {
           test: /.+flag-icon-css.+\.svg$/,
-          loader: 'svg-url-loader'
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[folder][name].[ext]',
+              outputPath: 'flags/',
+            },
+          }],
         },
         {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -165,9 +170,14 @@ module.exports = (env, argv) => {
             },
           }],
         },
+        {
+          test: /\.hbs$/,
+          loader: 'handlebars-loader',
+        }
       ],
     },
     resolve: {
+      mainFiles: ['index'],
       alias: {
         jquery: path.resolve(path.join(__dirname, 'node_modules', 'jquery')),
         commons: getAlias('commons'),
@@ -237,6 +247,15 @@ module.exports = (env, argv) => {
         optimization: {
           minimizer: [new UglifyJsPlugin()],
         },
+        plugins: [
+          new HtmlWebpackPlugin({  // Also generate a test.html
+            filename: 'index.html',
+            template: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.hbs')),
+            inject: false,
+            identifier: VERSION,
+            source: `${STATIC_URL}${PUBLIC_PATH}index.html`, // @todo @valentino
+          }),
+        ]
       });
     }
   }

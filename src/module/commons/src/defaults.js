@@ -32,6 +32,7 @@ import { getFallbackBundleUrls } from './util/bundleUtil';
 import configUtil from './util/configUtil';
 import { fixEoG } from './util/entryUtil';
 import DOMUtil from './util/htmlUtil';
+import Lookup from './types/Lookup';
 
 const jsonp = require('superagent-jsonp');
 
@@ -93,6 +94,7 @@ const init = {
   },
   entitytypes() {
     config.entitytypes = configUtil.objToArray(config.entitytypes);
+    Lookup.init();
   },
   contexttypes() {
     config.contexttypes = configUtil.objToArray(config.contexttypes);

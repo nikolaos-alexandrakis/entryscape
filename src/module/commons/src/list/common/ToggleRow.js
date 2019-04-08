@@ -33,8 +33,8 @@ export default declare([EntryRow], {
 
   updateLocaleStrings(generic, specific) {
     this.inherited('updateLocaleStrings', arguments);
-    this.publicNode.setAttribute('title', specific[this.nlsPublicTitle]);
-    this.protectedNode.setAttribute('title', specific[this.nlsProtectedTitle]);
+    this.publicNode && this.publicNode.setAttribute('title', specific[this.nlsPublicTitle]);
+    this.protectedNode && this.protectedNode.setAttribute('title', specific[this.nlsProtectedTitle]);
   },
 
   toggle(ev) {
