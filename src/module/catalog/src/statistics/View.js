@@ -6,7 +6,7 @@ import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { getAbbreviatedMimeType } from 'commons/util/mimeTypesUtil';
-import { createSetState } from 'commons/util/util';
+import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
@@ -40,7 +40,7 @@ export default declare(MithrilView, {
       },
       timeRanges: {
         selected: 'this-month',
-        items: timeRangeUtil.getTimeRanges(),
+        items: timeRangeUtil.getTimeRanges(), // @todo maybe this shouldn't be in state
         custom: null, // custom.start, custom.end
       },
       activeTab: 'file',
@@ -49,7 +49,7 @@ export default declare(MithrilView, {
 
     const setState = createSetState(state);
 
-    const getListItems = async (page = 0) => {
+    const getListItems = async () => {
       const context = registry.getContext();
       try {
         const { custom, selected } = state.timeRanges;
@@ -69,7 +69,7 @@ export default declare(MithrilView, {
         itemStats = itemStats.filter(item =>
           fileEntries.has(item.uri) && distributionEntries.has(item.uri) && datasetEntries.has(item.uri));
 
-        return itemStats.map((item) => {
+        const tempItems = itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
           item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
           item.abbrevFormat = getAbbreviatedMimeType(item.format.trim()); // some formats have trailing spaces
@@ -79,6 +79,8 @@ export default declare(MithrilView, {
 
           return item;
         });
+
+        return [...tempItems, ...tempItems, ...tempItems, ...tempItems, ...tempItems];
       } catch (err) {
         // no statistics found
         return [];
@@ -94,9 +96,9 @@ export default declare(MithrilView, {
     };
 
     const getSearchFieldValue = () => {
+      console.log(jquery('#stats-search-input').val());
       return jquery('#stats-search-input').val();
-    };
-
+    }
     const resetSearchField = () => {
       // this is done with jquery to avoid keeping a mithril state
       jquery('#stats-search-input').val('');
@@ -126,12 +128,12 @@ export default declare(MithrilView, {
     };
 
     const onclickTab = (e) => {
+      if (state.activeTab === e.currentTarget.dataset.tab) {
+        return;
+      }
+
       setState({
         activeTab: e.currentTarget.dataset.tab,
-      });
-
-      // show spinner
-      setState({
         loadingData: true,
       });
 
@@ -141,6 +143,7 @@ export default declare(MithrilView, {
           loadingData: false,
         }))
         .then(() => {
+          paginateList(0);
           resetChart();
           resetSearchField();
         });
@@ -167,10 +170,11 @@ export default declare(MithrilView, {
 
         getListItems()
           .then(items => setState({
-            list: { items, selected: state.list.selected },
+            list: { items },
             loadingData: false,
           }))
           .then(() => {
+            paginateList(0);
             resetChart();
             resetSearchField();
           });
@@ -183,7 +187,6 @@ export default declare(MithrilView, {
     const onclickListItem = (e) => {
       setState({
         list: {
-          items: state.list.items,
           selected: e.currentTarget.dataset.uri,
         },
       });
@@ -192,6 +195,10 @@ export default declare(MithrilView, {
         .then(data => setState({ chart: { data } }));
     };
 
+    /**
+     * @todo refactor
+     * @param e
+     */
     const onchangeSearch = (e) => {
       if (e.target.value) {
         const filterString = e.target.value.toLowerCase();
@@ -204,31 +211,26 @@ export default declare(MithrilView, {
             return !!(name.includes(filterString) || subname.includes(filterString) || filename.includes(filterString));
           });
 
-        setState({
-          list: {
-            selected: state.list.selected,
-            items: state.list.items,
-            filteredItems,
-          },
-        });
+        paginateList(0, filteredItems);
       } else {
-        setState({
-          list: {
-            selected: state.list.selected,
-            items: state.list.items,
-          },
-        });
+        // the search input was cleared
+        paginateList(0);
       }
     };
 
-    const paginationPageChange = (newPage) => {
-      const pageSize = 5;
-      const filteredItems = state.list.items.slice(newPage, newPage * pageSize);
+    const paginateList = (newPage, list = null) => {
+      const itemIdxStart = newPage === 0 ? newPage : newPage * LIST_PAGE_SIZE_SMALL;
+      const listToPaginate = list || state.list.items;
+      const itemTotalCount = listToPaginate.length;
+      const itemIdxEnd = Math.min(itemTotalCount,
+        newPage === 0 ? LIST_PAGE_SIZE_SMALL : (newPage + 1) * LIST_PAGE_SIZE_SMALL);
+
+      const filteredItems = listToPaginate.slice(itemIdxStart, itemIdxEnd);
+
       setState({
         list: {
-          selected: state.list.selected,
-          items: state.list.items,
           filteredItems,
+          page: newPage,
         },
       });
     };
@@ -247,10 +249,14 @@ export default declare(MithrilView, {
         // update list item state
         getListItems()
           .then(items => setState({
-            list: { items, selected: items.length > 0 ? items[0].uri : null },
+            list: {
+              items,
+              selected: items.length > 0 ? items[0].uri : null,
+            },
             loadingData: false,
           }))
           .then(() => {
+            paginateList(0);
             resetChart();
             resetSearchField();
           });
@@ -296,6 +302,7 @@ export default declare(MithrilView, {
                 loadingData: false,
               }))
               .then(() => {
+                paginateList(0);
                 resetChart();
                 resetSearchField();
               });
@@ -318,6 +325,7 @@ export default declare(MithrilView, {
         const toRenderItems = state.list.filteredItems || state.list.items || [];
         const hasData = !!toRenderItems.length > 0;
         const shouldShowSearch = hasData || getSearchFieldValue();
+        const paginationTotalCount = getSearchFieldValue() ? state.list.filteredItems.length : state.list.items.length;
         return (
           <div>
             <div className="stats__title">
@@ -329,8 +337,10 @@ export default declare(MithrilView, {
               <div className="data__wrapper">
                 <div className="chooser__wrapper">
                   <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
-                  <TimeRangeDropdown items={state.timeRanges.items} selected={state.timeRanges.selected}
-                                     onclick={onclickTimeRange}/>
+                  <TimeRangeDropdown
+                    items={state.timeRanges.items}
+                    selected={state.timeRanges.selected}
+                    onclick={onclickTimeRange}/>
                 </div>
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
@@ -339,14 +349,20 @@ export default declare(MithrilView, {
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
                       {shouldShowSearch ? <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/> : null}
-                      <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
-                                     selected={state.list.selected} onclick={onclickListItem}/></div>)
+                      <ListComponent
+                        items={state.list.items}
+                        filteredItems={state.list.filteredItems}
+                        selected={state.list.selected}
+                        onclick={onclickListItem}/></div>)
                     }
 
                   </div>
                 </div>
-                <Pagination currentPage={state.list.page} totalCount={state.list.items.length}
-                            handleChangePage={paginationPageChange}/>
+                <Pagination
+                  currentPage={state.list.page}
+                  totalCount={paginationTotalCount}
+                  pageSize={LIST_PAGE_SIZE_SMALL}
+                  handleChangePage={paginateList}/>
               </div>
               <div className="visualization__wrapper">
                 <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>

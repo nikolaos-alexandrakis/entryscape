@@ -1,8 +1,7 @@
 import escoPagination from 'commons/nls/escoPagination.nls';
+import { LIST_PAGE_SIZE_MEDIUM } from 'commons/util/util';
 import { i18n } from 'esi18n';
 import './index.scss';
-
-const PAGE_SIZE = 20;
 
 /**
  * Get the new page clicked and call the callback
@@ -37,7 +36,7 @@ export default () => ({
     this.onChangePage = onChangePage.bind(null, handleChangePage);
   },
   view(vnode) {
-    const { currentPage = 0, pageSize = PAGE_SIZE, totalCount } = vnode.attrs;
+    const { currentPage = 0, pageSize = LIST_PAGE_SIZE_MEDIUM, totalCount } = vnode.attrs;
 
     // calculate "<from> - <to> of <total>"
     const { fromCount, toCount } = getPageRange(currentPage, pageSize, totalCount);
@@ -45,15 +44,17 @@ export default () => ({
       i18n.localize(escoPagination, 'paginationText', { fromCount, toCount, totalCount });
 
     return (<ul className="pagination">
-      <li class="pagination__arrow">
+      <li className="pagination__arrow">
         <button
-          disabled={!currentPage} className={!currentPage ? 'disabled' : ''}
+          disabled={!currentPage}
+          className={!currentPage ? 'disabled' : ''}
           onclick={this.onChangePage}
           data-page={currentPage - 1}>
-          <i className="fa fa-chevron-left"/></button>
+          <i className="fa fa-chevron-left"/>
+        </button>
       </li>
       <span>{paginationText}</span>
-      <li class="pagination__arrow">
+      <li className="pagination__arrow">
         <button
           disabled={toCount === totalCount}
           className={toCount === totalCount ? 'disabled' : ''}
