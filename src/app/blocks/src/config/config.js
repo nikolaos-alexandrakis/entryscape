@@ -7,6 +7,8 @@ import { namespaces } from 'rdfjson';
 import { queryToObject } from 'commons/util/browserUtil';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
+import kernel from 'dojo/_base/kernel';
+
 
 const econfig = merge(window.__entryscape_plugin_config || {}, window.__entryscape_config || {});
 econfig.blocks = econfig.blocks || window.__entryscape_blocks;
@@ -214,6 +216,6 @@ if (bestlang) {
   i18n.setLocale(config.locale.fallback);
 }
 // TODO @scazan ask @matthias about this
-// kernel._scopeName = 'dojo1';
-// kernel.dijit._scopeName = 'dijit1';
+kernel._scopeName = 'dojo_es';
+kernel.dijit._scopeName = 'dijit_es';
 export default config;
