@@ -37,7 +37,7 @@
     "md5": "^2.2.1",
     "mithril": "^1.1.6",
     "popper.js": "^1.12.9",
-    "pubsub-js": "^1.7.0",
+    "pubsub-js": "https://bitbucket.org/metasolutions/pubsubjs.git",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#blocks",
     "selectize": "^0.12.6",
