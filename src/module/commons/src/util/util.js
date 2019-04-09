@@ -5,6 +5,24 @@ import m from 'mithril';
 
 export const isUri = stringToCheck => isUrl(stringToCheck);
 
+/* eslint-disable */
+/**
+ * Customizer functions to avoid merging arrays in objects, rather we should replace them
+ *
+ * @see https://lodash.com/docs/4.17.11#mergeWith
+ * @param objValue
+ * @param srcValue
+ * @return {undefined|Array}
+ */
+const replaceArraysCustomizer = (objValue, srcValue) => {
+  if (Array.isArray(objValue)) {
+    return srcValue;
+  }
+
+  // returns undefined otherwise which is a trigger for the mergeWith to apply a default merge
+};
+/* eslint-enable */
+
 /**
  * Customizer functions to avoid merging arrays in objects, rather we should replace them
  *
