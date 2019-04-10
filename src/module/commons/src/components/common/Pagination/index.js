@@ -4,7 +4,6 @@ import { i18n } from 'esi18n';
 import './index.scss';
 import PaginationArrow from './PaginationArrow';
 
-
 /**
  * Get the new page clicked and call the callback
  *
