@@ -44,7 +44,7 @@ export default () => ({
     const paginationText =
       i18n.localize(escoPagination, 'paginationText', { fromCount, toCount, totalCount });
 
-    const totalPages = Math.ceil(totalCount / pageSize);
+    const lastPage = Math.ceil(totalCount / pageSize) - 1; // pages are 0-indexed
 
     return (<ul className="pagination">
       <PaginationArrow
@@ -73,7 +73,7 @@ export default () => ({
         disabled={toCount === totalCount}
         className={toCount === totalCount ? 'disabled' : ''}
         onclick={this.onChangePage}
-        page={totalPages}
+        page={lastPage}
         icon="fa-angle-double-right"
       />
     </ul>);
