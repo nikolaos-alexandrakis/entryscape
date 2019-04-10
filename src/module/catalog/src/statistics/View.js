@@ -262,7 +262,6 @@ export default declare(MithrilView, {
           });
       },
       oncreate() {
-        /*
         if (isCatalogPublic === false) {
           return;
         }
@@ -315,7 +314,6 @@ export default declare(MithrilView, {
           startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
           startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', escaStatisticsNLS.timeRangeDatePickerStartDate);
         };
-         */
       },
       view() {
         if (isCatalogPublic === false) {
