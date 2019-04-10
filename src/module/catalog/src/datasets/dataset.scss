@@ -222,13 +222,13 @@ div.errorreport {
     justify-content: center;
     align-items: center;
 }
-.dataset__icon .fa{
+.dataset__icon .fas{
     font-size: 28px;
     color:$main-colour;
     opacity: 0.4;
 
 }
-.dataset__icon .fa.active{
+.dataset__icon .fas.active{
     font-size: 28px;
     color: #00aa9a;
     opacity: 1;
