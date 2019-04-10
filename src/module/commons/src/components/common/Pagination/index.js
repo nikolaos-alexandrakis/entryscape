@@ -63,8 +63,8 @@ export default () => ({
       />
       <span>{paginationText}</span>
       <PaginationArrow
-        disabled={!currentPage}
-        className={!currentPage ? 'disabled' : ''}
+        disabled={toCount === totalCount}
+        className={toCount === totalCount ? 'disabled' : ''}
         onclick={this.onChangePage}
         data-page={currentPage + 1}
         icon="fa-angle-right"
