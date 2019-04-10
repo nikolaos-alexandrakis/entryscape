@@ -27,8 +27,8 @@ export default declare(MithrilView, {
     const state = {
       list: {
         items: [],
-        selected: null,
         filteredItems: null,
+        selected: null,
         page: 0,
       },
       chart: {
@@ -41,7 +41,7 @@ export default declare(MithrilView, {
       timeRanges: {
         selected: 'this-month',
         items: timeRangeUtil.getTimeRanges(), // @todo maybe this shouldn't be in state
-        custom: null, // custom.start, custom.end
+        // custom: null, // custom.start, custom.end
       },
       activeTab: 'file',
       loadingData: true,
@@ -137,7 +137,9 @@ export default declare(MithrilView, {
 
       getListItems()
         .then(items => setState({
-          list: { items, selected: items[0] ? items[0].uri : null },
+          list: {
+            items,
+            selected: items[0] ? items[0].uri : null },
           loadingData: false,
         }))
         .then(() => {
@@ -260,6 +262,7 @@ export default declare(MithrilView, {
           });
       },
       oncreate() {
+        /*
         if (isCatalogPublic === false) {
           return;
         }
@@ -312,6 +315,7 @@ export default declare(MithrilView, {
           startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
           startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', escaStatisticsNLS.timeRangeDatePickerStartDate);
         };
+         */
       },
       view() {
         if (isCatalogPublic === false) {
