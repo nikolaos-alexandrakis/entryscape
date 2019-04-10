@@ -25,6 +25,9 @@
     margin:10px;
     font-weight: normal;
 }
+.escoOverview__statCount{
+    margin-left: 10px;
+}
 .escoOverview__statLabel{
     font-size: 28px;
     color:$main-colour;
@@ -32,7 +35,7 @@
     cursor: pointer;
 }
 .escoOverview__statBox {
-    min-width: 200px;
+    min-width: 230px;
     max-width: 250px;
     min-height: 200px;
     background-color: white;
