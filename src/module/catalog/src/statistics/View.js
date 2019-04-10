@@ -69,7 +69,7 @@ export default declare(MithrilView, {
         itemStats = itemStats.filter(item =>
           fileEntries.has(item.uri) && distributionEntries.has(item.uri) && datasetEntries.has(item.uri));
 
-        const tempItems = itemStats.map((item) => {
+        return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
           item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
           item.abbrevFormat = getAbbreviatedMimeType(item.format.trim()); // some formats have trailing spaces
@@ -79,8 +79,6 @@ export default declare(MithrilView, {
 
           return item;
         });
-
-        return [...tempItems, ...tempItems, ...tempItems, ...tempItems, ...tempItems];
       } catch (err) {
         // no statistics found
         return [];
