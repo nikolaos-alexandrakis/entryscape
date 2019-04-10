@@ -51,14 +51,14 @@ export default () => ({
         disabled={!currentPage}
         className={!currentPage ? 'disabled' : ''}
         onClick={this.onChangePage}
-        data-page={0}
+        page={0}
         icon="fa-angle-double-left"
       />
       <PaginationArrow
         disabled={!currentPage}
         className={!currentPage ? 'disabled' : ''}
         onclick={this.onChangePage}
-        data-page={currentPage - 1}
+        page={currentPage - 1}
         icon="fa-angle-left"
       />
       <span>{paginationText}</span>
@@ -66,14 +66,14 @@ export default () => ({
         disabled={toCount === totalCount}
         className={toCount === totalCount ? 'disabled' : ''}
         onclick={this.onChangePage}
-        data-page={currentPage + 1}
+        page={currentPage + 1}
         icon="fa-angle-right"
       />
       <PaginationArrow
         disabled={toCount === totalCount}
         className={toCount === totalCount ? 'disabled' : ''}
         onclick={this.onChangePage}
-        data-page={totalPages}
+        page={totalPages}
         icon="fa-angle-double-right"
       />
     </ul>);
