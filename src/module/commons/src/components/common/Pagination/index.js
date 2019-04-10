@@ -45,6 +45,7 @@ export default () => ({
       i18n.localize(escoPagination, 'paginationText', { fromCount, toCount, totalCount });
 
     return (<ul className="pagination">
+
       <li class="pagination__arrow">
         <button
           disabled={!currentPage} className={!currentPage ? 'disabled' : ''}
@@ -59,7 +60,24 @@ export default () => ({
           className={toCount === totalCount ? 'disabled' : ''}
           onclick={this.onChangePage}
           data-page={currentPage + 1}>
-          <i className="fa fa-chevron-right"/>
+          <i className="fas fa-angle-double-left"/>
+        </button>
+      </li>
+      <li class="pagination__arrow">
+        <button
+          disabled={!currentPage} className={!currentPage ? 'disabled' : ''}
+          onclick={this.onChangePage}
+          data-page={currentPage - 1}>
+          <i className="fa fa-angle-left"/></button>
+      </li>
+      <span>{paginationText}</span>
+      <li class="pagination__arrow">
+        <button
+          disabled={toCount === totalCount}
+          className={toCount === totalCount ? 'disabled' : ''}
+          onclick={this.onChangePage}
+          data-page={currentPage + 1}>
+          <i className="fas fa-angle-double-right"/>
         </button>
       </li>
     </ul>);
