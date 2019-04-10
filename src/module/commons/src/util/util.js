@@ -1,9 +1,27 @@
 /* eslint-disable import/prefer-default-export */
 import isUrl from 'is-url';
-import { merge } from 'lodash-es';
+import { mergeWith } from 'lodash-es';
 import m from 'mithril';
 
 export const isUri = stringToCheck => isUrl(stringToCheck);
+
+/* eslint-disable */
+/**
+ * Customizer functions to avoid merging arrays in objects, rather we should replace them
+ *
+ * @see https://lodash.com/docs/4.17.11#mergeWith
+ * @param objValue
+ * @param srcValue
+ * @return {undefined|Array}
+ */
+const replaceArraysCustomizer = (objValue, srcValue) => {
+  if (Array.isArray(objValue)) {
+    return srcValue;
+  }
+
+  // returns undefined otherwise which is a trigger for the mergeWith to apply a default merge
+};
+/* eslint-enable */
 
 /**
  * Returns a function for setting a closed "state" object
@@ -13,7 +31,7 @@ export const isUri = stringToCheck => isUrl(stringToCheck);
  * @returns {function}
  */
 export const createSetState = state => (props, avoidRedraw = false) => {
-  merge(state, props);
+  mergeWith(state, props, replaceArraysCustomizer);
   if (!avoidRedraw) {
     m.redraw();
   }
