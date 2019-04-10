@@ -58,3 +58,7 @@ export const isExternalLink = (url) => {
  * @return {number}
  */
 export const convertBytesToMBytes = bytes => Number(parseFloat(bytes / 1048576).toFixed(2)); // convert bytes to Mb
+
+export const LIST_PAGE_SIZE_SMALL = 5;
+export const LIST_PAGE_SIZE_MEDIUM = 20;
+export const LIST_PAGE_SIZE_LARGE = 50;

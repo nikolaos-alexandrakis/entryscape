@@ -1,8 +1,8 @@
 import escoPagination from 'commons/nls/escoPagination.nls';
+import { LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import { i18n } from 'esi18n';
 import './index.scss';
-
-const PAGE_SIZE = 20;
+import PaginationArrow from './PaginationArrow';
 
 /**
  * Get the new page clicked and call the callback
@@ -37,49 +37,45 @@ export default () => ({
     this.onChangePage = onChangePage.bind(null, handleChangePage);
   },
   view(vnode) {
-    const { currentPage = 0, pageSize = PAGE_SIZE, totalCount } = vnode.attrs;
+    const { currentPage = 0, pageSize = LIST_PAGE_SIZE_SMALL, totalCount } = vnode.attrs;
 
     // calculate "<from> - <to> of <total>"
     const { fromCount, toCount } = getPageRange(currentPage, pageSize, totalCount);
     const paginationText =
       i18n.localize(escoPagination, 'paginationText', { fromCount, toCount, totalCount });
 
-    return (<ul className="pagination">
+    const totalPages = Math.ceil(totalCount / pageSize);
 
-      <li class="pagination__arrow">
-        <button
-          disabled={!currentPage} className={!currentPage ? 'disabled' : ''}
-          onclick={this.onChangePage}
-          data-page={currentPage - 1}>
-          <i className="fa fa-chevron-left"/></button>
-      </li>
+    return (<ul className="pagination">
+      <PaginationArrow
+        disabled={!currentPage}
+        className={!currentPage ? 'disabled' : ''}
+        onClick={this.onChangePage}
+        data-page={0}
+        icon="fa-angle-double-left"
+      />
+      <PaginationArrow
+        disabled={!currentPage}
+        className={!currentPage ? 'disabled' : ''}
+        onclick={this.onChangePage}
+        data-page={currentPage - 1}
+        icon="fa-angle-left"
+      />
       <span>{paginationText}</span>
-      <li class="pagination__arrow">
-        <button
-          disabled={toCount === totalCount}
-          className={toCount === totalCount ? 'disabled' : ''}
-          onclick={this.onChangePage}
-          data-page={currentPage + 1}>
-          <i className="fas fa-angle-double-left"/>
-        </button>
-      </li>
-      <li class="pagination__arrow">
-        <button
-          disabled={!currentPage} className={!currentPage ? 'disabled' : ''}
-          onclick={this.onChangePage}
-          data-page={currentPage - 1}>
-          <i className="fa fa-angle-left"/></button>
-      </li>
-      <span>{paginationText}</span>
-      <li class="pagination__arrow">
-        <button
-          disabled={toCount === totalCount}
-          className={toCount === totalCount ? 'disabled' : ''}
-          onclick={this.onChangePage}
-          data-page={currentPage + 1}>
-          <i className="fas fa-angle-double-right"/>
-        </button>
-      </li>
+      <PaginationArrow
+        disabled={!currentPage}
+        className={!currentPage ? 'disabled' : ''}
+        onclick={this.onChangePage}
+        data-page={currentPage + 1}
+        icon="fa-angle-right"
+      />
+      <PaginationArrow
+        disabled={toCount === totalCount}
+        className={toCount === totalCount ? 'disabled' : ''}
+        onclick={this.onChangePage}
+        data-page={totalPages}
+        icon="fa-angle-double-right"
+      />
     </ul>);
   },
 });
