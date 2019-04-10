@@ -6,7 +6,7 @@ export default () => ({
       <button
         disabled={disabled}
         className={disabled ? 'disabled' : ''}
-        onClick={onclick}
+        onclick={onclick}
         data-page={page}>
         <i className={`fas ${icon}`}/>
       </button>
