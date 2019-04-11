@@ -50,7 +50,7 @@ export default () => ({
       <PaginationArrow
         disabled={!currentPage}
         className={!currentPage ? 'disabled' : ''}
-        onClick={this.onChangePage}
+        onclick={this.onChangePage}
         page={0}
         icon="fa-angle-double-left"
       />
