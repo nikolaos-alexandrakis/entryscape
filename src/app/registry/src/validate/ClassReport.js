@@ -77,7 +77,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: ClassReportTemplate,
   postCreate() {
     this.inherited('postCreate', arguments);
-    jquery(this.panel).collapse('hide');
+    jquery(this.card).collapse('hide');
     this.headingNode.innerHTML = i18n.renderNLSTemplate(this.NLSLocalized0.instancesHeader, {
       nr: this.reports.length,
       class: registry.get('namespaces').shorten(this.rdftype),

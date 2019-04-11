@@ -119,9 +119,9 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.taskCheckBoxes = [];
     this.configuredTasks.forEach((configuredTask) => {
       const divPanel = DOMUtil.create('div', null, this.__checkboxNode);
-      DOMUtil.addClass(divPanel, 'panel panel-default escoProgress__task');
-      const heading = DOMUtil.create('div', null, divPanel);
-      DOMUtil.addClass(heading, 'checkbox panel-heading escoProgress__taskHeading');
+      DOMUtil.addClass(divPanel, 'card escoProgress__task');
+      const heading = DOMUtil.create('div', null, card);
+      DOMUtil.addClass(heading, 'checkbox card-heading escoProgress__taskHeading');
 
       const label = DOMUtil.create('label', null, heading);
       const input = DOMUtil.create('input', { type: 'checkbox' }, label);
@@ -131,7 +131,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
 
       if (configuredTask.description) {
         const newDiv = DOMUtil.create('div', null, divPanel);
-        DOMUtil.addClass(newDiv, 'panel-body escoProgress__taskDescription');
+        DOMUtil.addClass(newDiv, 'card-body escoProgress__taskDescription');
         newDiv.innerHTML = configuredTask.description;
       }
       if (configuredTask.mandatory) {

@@ -1,7 +1,7 @@
 import m from 'mithril';
 import './escoPanelComponent.css';
 
-const bemBlock = 'panel';
+const bemBlock = 'card';
 const bemElement = `${bemBlock}__item`;
 
 /**
@@ -16,26 +16,26 @@ export default {
    * ['class1, 'class2', ...]
    */
   view(vnode) {
-    const { type, id, title, date, body } = vnode.attrs.panel;
-    const panelType = type ? `panel-${type}` : '';
+    const { type, id, title, date, body } = vnode.attrs.card;
+    const panelType = type ? `card-${type}` : '';
 
-    return m(`.panel.${panelType}`, { key: id, class: bemElement },
+    return m(`.card.${cardType}`, { key: id, class: bemElement },
       [
-        m(`.panel-heading[id="heading-${id}"][role="tab"]`,
-          m('h4.panel-title',
+        m(`.card-heading[id="heading-${id}"][role="tab"]`,
+          m('h4.card-title',
             // eslint-disable-next-line max-len
             m(`a[aria-controls="collapse-${id}"][aria-expanded="true"][data-parent="#accordion"][data-toggle="collapse"][data-target="#collapse-${id}"][role="button"]`,
               [
                 m('i.pull-left.fas.fa-fw.fa-chevron-down'),
                 m('i.pull-left.fas.fa-fw.fa-chevron-right'),
                 m('span', title),
-                m('span.panel__headerDate', date),
+                m('span.card__headerDate', date),
               ],
             ),
           ),
         ),
-        m(`.panel-collapse.collapse.in[aria-labelledby="headingOne"][id="collapse-${id}"][role="tabpanel"]`,
-          m('.panel-body', body),
+        m(`.card-collapse.collapse.in[aria-labelledby="headingOne"][id="collapse-${id}"][role="tabcard"]`,
+          m('.card-body', body),
         ),
       ],
     );

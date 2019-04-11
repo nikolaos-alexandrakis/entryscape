@@ -20,7 +20,7 @@
     background-color: lightblue !important;
 }
 
-.datasets > .panel > .panel-heading {
+.datasets > .card > .card-heading {
     font-size: 22px;
 }
 
@@ -88,7 +88,7 @@ margin-right:2.5px !important;
     border-top-width: 0px;
 }
 
-.datasets .panel .alert {
+.datasets .card .alert {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
 }

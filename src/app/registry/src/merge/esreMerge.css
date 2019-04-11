@@ -24,7 +24,7 @@
 
 
 
-.esreMerge .panel.panel-default .panel-heading{
+.esreMerge .card .card-heading{
     display: flex;
     align-items: center;
     justify-content: space-between;

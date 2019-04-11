@@ -17,7 +17,7 @@ const PanelGroup = {
   view(vnode) {
     const { panels, title, subtitle, hx = 'h3', classNames = [], button } = vnode.attrs;
 
-    return m('.panel-group', {
+    return m('.card-group', {
       class: classNames.join(),
       role: 'tablist',
       'aria-multiselectable': true,

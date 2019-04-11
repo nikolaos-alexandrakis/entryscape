@@ -3,9 +3,9 @@
         <header><span class="navbar-brand sidebarTitle"
                       data-dojo-attach-point="titleNode"></span></header>
         <div>
-            <div class="panel panel-default">
-                <div class="panel-heading" data-dojo-attach-point="nls">datasetConnectLabel</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-heading" data-dojo-attach-point="nls">datasetConnectLabel</div>
+                <div class="card-body">
                     <div data-dojo-attach-point="noConnectedDatasetBlock" style="display: none">
                         <label data-dojo-attach-point="nls">datasetConnected</label> <span data-dojo-attach-point="nls" class="text-warning">noDatasetConnected</span><br>
                         <button class="btn btn-sm btn-default"
@@ -18,9 +18,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" data-dojo-attach-point="nls">apiBlockLabel</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-heading" data-dojo-attach-point="nls">apiBlockLabel</div>
+                <div class="card-body">
                     <div data-dojo-attach-point="apiConnectedBlock">
                         <label data-dojo-attach-point="nls">apiStatusLabel</label> <span data-dojo-attach-point="apiStatus"></span><br>
                         <button class="btn btn-sm btn-default" data-dojo-attach-point="apiRefreshButton" data-dojo-attach-event="click:refreshAPIStatus"><span data-dojo-attach-point="nls">refreshAPIState</span></button>
