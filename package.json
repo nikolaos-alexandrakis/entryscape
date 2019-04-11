@@ -72,6 +72,7 @@
     "eslint-import-resolver-webpack": "^0.10.1",
     "eslint-plugin-babel": "^5.2.1",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-requirejs": "^3.1.1",
     "file-loader": "^1.1.11",
     "handlebars-loader": "^1.7.1",
