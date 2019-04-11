@@ -13,7 +13,7 @@ export default () => ({
         <div className="stats-header">
           <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</span>
           <div className="flex header--wrapper--right">
-            <span title= {i18n.localize(escaStatistics, 'rowHeaderAPI')} className="distribution__head__title fa fa-cogs"></span>
+            <span title= {i18n.localize(escaStatistics, 'rowHeaderAPI')} className="distribution__head__title fas fa-cogs"></span>
           </div>
         </div>
         {toRenderItems.map(item => (

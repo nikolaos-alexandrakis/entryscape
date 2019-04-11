@@ -15,7 +15,7 @@
   }
 
   .data__wrapper {
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     .pagination{
@@ -49,7 +49,8 @@
 }
 
 .visualization__wrapper {
-  width: 40%;
+  width: 60%;
+  padding-left: 20px;
 }
 
 .visualization__chart {
