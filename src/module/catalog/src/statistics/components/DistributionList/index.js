@@ -32,17 +32,17 @@ export default () => ({
           <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
             <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderFormat}</span>
-            <span title={escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fa fa-download"></span>
+            <span title={escaStatisticsNLS.rowHeaderFile} className="distribution__head__title fas fa-download"></span>
           </div>
         </div>
         {hasData ? toRenderItems.map(item =>
-            <div key={item.uri + Math.random()} onclick={this.callback} tabIndex="0" data-uri={item.uri}
+            <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
                  data-name={item.filename || item.name || item.subname}
                  className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
               <div className="row__title--wrapper">
                 {item.filename ?
                   <span className="row__title">
-                  <i className="fa fa-file"/>
+                  <i className="fas fa-file"/>
                   <span>{item.filename}</span>
                 </span> :
                   null

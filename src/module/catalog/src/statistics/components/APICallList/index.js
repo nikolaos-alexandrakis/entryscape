@@ -26,7 +26,7 @@ export default () => ({
           <div className="flex header--wrapper--right">
             <span
               title={i18n.localize(escaStatistics, 'rowHeaderAPI')}
-              className="distribution__head__title fa fa-cogs">
+              className="distribution__head__title fa fas-cogs">
             </span>
           </div>
         </div>
