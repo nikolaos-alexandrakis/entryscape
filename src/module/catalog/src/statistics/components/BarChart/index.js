@@ -1,30 +1,47 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import Chartist from 'chartist';
+import Chart from 'chart.js';
+// import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 import 'chartist-plugin-tooltips';
 import 'chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css';
 import { i18n } from 'esi18n';
-import moment from 'moment'; // @todo valentino
+// import moment from 'moment'; // @todo valentino
 import './index.scss';
 
 let chart; // @todo @valentino
 
-const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
+const getChartOptions = (xAxisDateFormat = 'MMM D') => ({
+  showLine: false,
   axisX: {
     offset: 20,
     type: Chartist.FixedScaleAxis,
-    divisor,
+    divisor: 5,
+    ticks: [
+      new Date(2019, 0),
+      new Date(2019, 1),
+      new Date(2019, 2),
+      new Date(2019, 3),
+      new Date(2019, 4),
+      new Date(2019, 5),
+      new Date(2019, 6),
+      new Date(2019, 7),
+      new Date(2019, 8),
+      new Date(2019, 9),
+      new Date(2019, 10),
+      new Date(2019, 11),
+    ],
     labelInterpolationFnc(value) {
+      console.log(value);
       return moment(value).format(xAxisDateFormat);
+      // return moment(value);
     },
   },
   axisY: {
     type: Chartist.AutoScaleAxis,
     onlyInteger: true,
-    offset: 10,
+    // offset: 10,
   },
-  low: 0,
-  showArea: true,
+  // low: 0,
   plugins: [
     Chartist.plugins.tooltip({
       appendToBody: true,
@@ -46,38 +63,50 @@ const getChartOptions = (xAxisDateFormat = 'MMM D', divisor = 31) => ({
 const guessAxisFormatFromData = (dataLength) => {
   let xAxisDateFormat = 'MMM D';
   if (dataLength < 13) {
-    xAxisDateFormat = 'MMM';
+    xAxisDateFormat = 'month';
   } else if (dataLength < 25) {
-    xAxisDateFormat = 'H';
+    xAxisDateFormat = 'hour';
   } else if (dataLength < 32) {
-    xAxisDateFormat = 'D';
+    xAxisDateFormat = 'day';
   }
 
   return xAxisDateFormat;
 };
 
 export default () => ({
-  oncreate(vnode) {
-    chart = new Chartist.Line('.ct-chart', vnode.attrs.data, getChartOptions());
+  oncreate() {
+    // chart = new Chartist.Bar('.ct-chart', vnode.attrs.data, getChartOptions());
+    const ctx = document.getElementById('myChart');
+    chart = new Chart(ctx, {
+      type: 'line',
+      options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              unit: 'month',
+            },
+          }],
+        },
+      },
+    });
   },
   view(vnode) {
-    const { data } = vnode.attrs;
+    const { data, name: label } = vnode.attrs;
     let noData = true;
     if (chart && data) {
-      let guessedDateFormat;
-      let dataLength = 1;
-      if (data.series && data.series.length > 0) {
-        dataLength = data.series[0].data.length;
-        guessedDateFormat = guessAxisFormatFromData(dataLength);
-        noData = false;
-      }
+      noData = false;
+      const timeUnit = guessAxisFormatFromData(data.length);
+
       // update chart data and xAxis if needed
-      chart.update(data, getChartOptions(guessedDateFormat, dataLength - 1));
+      chart.data = { datasets: [{ data, label }] };
+      chart.options.scales.xAxes[0].time.unit = timeUnit;
+      chart.update();
     }
     return (<div>
       <div
         className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
-      <div className={`ct-chart ct-square ${noData ? 'hidden' : ''}`}/>
+      <canvas id="myChart" width="400" height="400"></canvas>
     </div>);
   },
 });

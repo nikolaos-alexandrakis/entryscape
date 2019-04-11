@@ -2,9 +2,20 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { i18n } from 'esi18n';
 import './index.scss';
 
+/**
+ * Call the parent callback with the dataset attributes
+ *
+ * @param {function} callback
+ * @param {Event} e
+ */
+const onclickListItem = (callback, e) => callback({ ...e.currentTarget.dataset });
+
 export default () => ({
+  oninit(vnode) {
+    this.callback = onclickListItem.bind(null, vnode.attrs.onclick);
+  },
   view(vnode) {
-    const { items, filteredItems, selected, onclick } = vnode.attrs;
+    const { items, filteredItems, selected } = vnode.attrs;
     const toRenderItems = filteredItems || items;
     const hasData = !!toRenderItems.length > 0;
 
@@ -13,11 +24,19 @@ export default () => ({
         <div className="stats-header">
           <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</span>
           <div className="flex header--wrapper--right">
-            <span title= {i18n.localize(escaStatistics, 'rowHeaderAPI')} className="distribution__head__title fa fa-cogs"></span>
+            <span
+              title={i18n.localize(escaStatistics, 'rowHeaderAPI')}
+              className="distribution__head__title fa fa-cogs">
+            </span>
           </div>
         </div>
         {toRenderItems.map(item => (
-          <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
+          <div
+            key={item.uri}
+            onclick={onclick}
+            tabIndex="0"
+            data-uri={item.uri}
+            data-name={item.name || item.subname}
             className={`stats__row--API flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
               <span className="row__title">{item.name}</span>
