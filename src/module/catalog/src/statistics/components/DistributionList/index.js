@@ -36,7 +36,7 @@ export default () => ({
           </div>
         </div>
         {hasData ? toRenderItems.map(item =>
-            <div key={item.uri} onclick={onclick} tabIndex="0" data-uri={item.uri}
+            <div key={item.uri} onclick={this.callback} tabIndex="0" data-uri={item.uri}
                  data-name={item.filename || item.name || item.subname}
                  className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
               <div className="row__title--wrapper">

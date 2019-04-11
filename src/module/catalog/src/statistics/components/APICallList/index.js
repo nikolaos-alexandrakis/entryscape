@@ -33,7 +33,7 @@ export default () => ({
         {toRenderItems.map(item => (
           <div
             key={item.uri}
-            onclick={onclick}
+            onclick={this.callback}
             tabIndex="0"
             data-uri={item.uri}
             data-name={item.name || item.subname}
