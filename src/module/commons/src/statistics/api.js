@@ -180,6 +180,8 @@ const getAggregateFilters = (timeRange) => {
  * not reliable. E.g a distribution might be in one result set but be missing from another
  * because it's not in the top 100
  *
+ * This was used for custom time range statistics
+ *
  * @param contextId
  * @param type
  * @param customRange

@@ -154,36 +154,25 @@ export default declare(MithrilView, {
         });
     };
 
-    /**
-     * Will be initialized on creation of component.
-     * Can be called to show the start/end date pickers
-     * @type {Function}
-     */
-    let showDatePickers;
-
     const onclickTimeRange = (e) => {
-      if (e.currentTarget.dataset.range === 'custom') {
-        showDatePickers();
-      } else {
-        setState({
-          timeRanges: {
-            items: timeRangeUtil.getTimeRanges(),
-            selected: e.currentTarget.dataset.range,
-          },
-          loadingData: true, // show spinner
-        });
+      setState({
+        timeRanges: {
+          items: timeRangeUtil.getTimeRanges(),
+          selected: e.currentTarget.dataset.range,
+        },
+        loadingData: true, // show spinner
+      });
 
-        getListItems()
-          .then(items => setState({
-            list: { items },
-            loadingData: false,
-          }))
-          .then(() => {
-            paginateList(0);
-            resetChart();
-            resetSearchField();
-          });
-      }
+      getListItems()
+        .then(items => setState({
+          list: { items },
+          loadingData: false,
+        }))
+        .then(() => {
+          paginateList(0);
+          resetChart();
+          resetSearchField();
+        });
 
       resetChart();
       resetSearchField();
@@ -271,8 +260,6 @@ export default declare(MithrilView, {
               <h3>{escaStatisticsNLS.statsViewHeader}</h3>
             </div>
             <section className="stats__wrapper">
-              <input type="text" id="custom-date-start" className="hidden"/>
-              <input type="text" id="custom-date-end" className="hidden"/>
               <div className="data__wrapper">
                 <div className="chooser__wrapper">
                   <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>

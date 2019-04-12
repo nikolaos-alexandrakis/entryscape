@@ -15,7 +15,7 @@ let chart; // @todo @valentino
  * @return {string}
  */
 const guessAxisFormatFromData = (dataLength) => {
-  let xAxisDateFormat = 'MMM D';
+  let xAxisDateFormat = 'day';
   if (dataLength < 13) {
     xAxisDateFormat = 'month';
   } else if (dataLength < 25) {

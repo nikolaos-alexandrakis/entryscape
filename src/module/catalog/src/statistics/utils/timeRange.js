@@ -2,11 +2,10 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { i18n } from 'esi18n';
 
 /**
- * @todo @valentino remove custom
- *  - make map?
+ * @todo make map?
  * @return {*[]}
  */
-const getTimeRanges = (custom = null) => {
+const getTimeRanges = () => {
   const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
   return [
     {
