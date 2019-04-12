@@ -10,7 +10,6 @@
 }
 
 .stats__row__wrapper--file {
-    height: 600px;
     overflow-y: auto;
     padding-bottom: 20px;
 
@@ -126,7 +125,7 @@
 }
 
 .no-data, .no-searchData {
-    height: 350px;
+    height: 600px;
     padding: 10px;
     display: flex;
     justify-content: center;

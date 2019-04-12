@@ -32,8 +32,9 @@ export default () => ({
     // chart = new Chartist.Bar('.ct-chart', vnode.attrs.data, getChartOptions());
     const ctx = document.getElementById('myChart');
     chart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       options: {
+        maintainAspectRatio: false,
         scales: {
           xAxes: [{
             type: 'time',
@@ -53,11 +54,11 @@ export default () => ({
       const timeUnit = guessAxisFormatFromData(data.length);
 
       // update chart data and xAxis if needed
-      chart.data = { datasets: [{ data, label, borderColor: '#165b98', backgroundColor: 'rgba(22, 91, 152,0.2)', borderWidth: 3 }] };
+      chart.data = {labels:[], datasets: [{ data, label, borderColor: '#165b98', backgroundColor: 'rgba(22, 91, 152,0.2)', borderWidth: 3 }] };
       chart.options.scales.xAxes[0].time.unit = timeUnit;
       chart.update();
     }
-    return (<div>
+    return (<div class="chart-container">
       <div
         className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
       <canvas id="myChart" width="400" height="400"></canvas>

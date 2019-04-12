@@ -51,11 +51,15 @@
 .visualization__wrapper {
   width: 60%;
   padding-left: 20px;
-}
 
 .visualization__chart {
-  width: 100%;
+  width: 100%;}
+  .chart-container{
+    height: 700px;
+  }
+
 }
+
 
 .stats__title {
   margin: 50px 0;
