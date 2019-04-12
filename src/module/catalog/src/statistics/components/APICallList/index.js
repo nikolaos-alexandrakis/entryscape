@@ -12,7 +12,13 @@ const onclickListItem = (callback, e) => callback({ ...e.currentTarget.dataset }
 
 export default () => ({
   oninit(vnode) {
-    this.callback = onclickListItem.bind(null, vnode.attrs.onclick);
+    this.handleListItemClick = onclickListItem.bind(null, vnode.attrs.onclick);
+  },
+  onbeforeupdate(vnode, old) {
+    // make sure not to stop data flow, if new onclick is passed then update the callback
+    if (vnode.attrs.onclick !== old.attrs.onclick) {
+      this.handleListItemClick = onclickListItem.bind(null, vnode.attrs.onclick);
+    }
   },
   view(vnode) {
     const { items, filteredItems, selected } = vnode.attrs;
@@ -33,7 +39,7 @@ export default () => ({
         {toRenderItems.map(item => (
           <div
             key={item.uri}
-            onclick={this.callback}
+            onclick={this.handleListItemClick}
             tabIndex="0"
             data-uri={item.uri}
             data-name={item.name || item.subname}

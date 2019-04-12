@@ -126,13 +126,13 @@ export default declare(MithrilView, {
       jquery('#stats-search-input').val('');
     };
 
-    const onclickTab = (e) => {
-      if (state.activeTab === e.currentTarget.dataset.tab) {
+    const onchangeTab = (tab) => {
+      if (state.activeTab === tab) {
         return;
       }
 
       setState({
-        activeTab: e.currentTarget.dataset.tab,
+        activeTab: tab,
         loadingData: true,
       });
 
@@ -154,11 +154,11 @@ export default declare(MithrilView, {
         });
     };
 
-    const onclickTimeRange = (e) => {
+    const onclickTimeRange = (range) => {
       setState({
         timeRanges: {
           items: timeRangeUtil.getTimeRanges(),
-          selected: e.currentTarget.dataset.range,
+          selected: range,
         },
         loadingData: true, // show spinner
       });
@@ -191,11 +191,11 @@ export default declare(MithrilView, {
 
     /**
      * @todo refactor
-     * @param e
+     * @param {string} value
      */
-    const onchangeSearch = (e) => {
-      if (e.target.value) {
-        const filterString = e.target.value.toLowerCase();
+    const onchangeSearch = (value) => {
+      if (value) {
+        const filterString = value.toLowerCase();
         const filteredItems =
           state.list.items.filter((item) => {
             let { name = '', subname = '', filename = '' } = item;
@@ -266,15 +266,15 @@ export default declare(MithrilView, {
                   <TimeRangeDropdown
                     items={timeRangesItems}
                     selected={state.timeRanges.selected}
-                    onclick={onclickTimeRange}/>
+                    onclickTimeRange={onclickTimeRange}/>
                 </div>
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
-                    <Tabs items={tabs} selected={state.activeTab} onclick={onclickTab}/>
+                    <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab} />
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
-                      {shouldShowSearch ? <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/> : null}
+                      {shouldShowSearch ? <SearchInput onchangeSearch={onchangeSearch} /> : null}
                       <ListComponent
                         items={state.list.items}
                         filteredItems={state.list.filteredItems}
