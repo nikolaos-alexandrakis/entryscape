@@ -53,7 +53,7 @@ export default () => ({
       const timeUnit = guessAxisFormatFromData(data.length);
 
       // update chart data and xAxis if needed
-      chart.data = { datasets: [{ data, label }] };
+      chart.data = { datasets: [{ data, label, borderColor: '#165b98', backgroundColor: 'rgba(22, 91, 152,0.2)', borderWidth: 3 }] };
       chart.options.scales.xAxes[0].time.unit = timeUnit;
       chart.update();
     }
