@@ -270,11 +270,11 @@ export default declare(MithrilView, {
                 </div>
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
-                    <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab} />
+                    <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab}/>
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
-                      {shouldShowSearch ? <SearchInput onchangeSearch={onchangeSearch} /> : null}
+                      {shouldShowSearch ? <SearchInput onchangeSearch={onchangeSearch}/> : null}
                       <ListComponent
                         items={state.list.items}
                         filteredItems={state.list.filteredItems}
@@ -292,7 +292,9 @@ export default declare(MithrilView, {
               <div className="visualization__wrapper">
                 <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
                 <div className="visualization__chart">
-                  <BarChart data={state.chart.data} name={state.list.selected.name}/>
+                  <BarChart
+                    data={state.chart.data}
+                    name={state.list.selected.name} />
                 </div>
               </div>
             </section>
