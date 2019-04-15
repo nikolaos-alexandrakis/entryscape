@@ -7,8 +7,6 @@ import { i18n } from 'esi18n';
 import moment from 'moment';
 import './index.scss';
 
-let chart; // @todo @valentino
-
 /**
  * Given a length guess what date format is appropriate to render.
  *
@@ -28,81 +26,87 @@ const guessAxisFormatFromData = (dataLength) => {
   return xAxisDateFormat;
 };
 
-export default () => ({
-  oncreate() {
-    const ctx = document.getElementById('myChart');
-    chart = new Chart(ctx, {
-      type: 'bar',
-      label: 'test',
-      options: {
-        maintainAspectRatio: false,
-        tooltips: {
-          callbacks: {
-            title(item) {
-              return moment(item[0].label).format('MMM Do, YYYY');
+export default () => {
+  let chart;
+
+  return {
+    oncreate(vnode) {
+      const { elementId } = vnode.attrs;
+      const ctx = document.getElementById(elementId);
+      chart = new Chart(ctx, {
+        type: 'bar',
+        label: 'test',
+        options: {
+          maintainAspectRatio: false,
+          tooltips: {
+            callbacks: {
+              title(item) {
+                return moment(item[0].label).format('MMM Do, YYYY');
+              },
             },
           },
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                unit: 'month',
+              },
+            }],
+          },
         },
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              unit: 'month',
-            },
-          }],
-        },
-      },
-    });
-  },
-  onbeforeupdate(vnode) {
-    if (vnode.attrs.data) {
-      const type = guessAxisFormatFromData(vnode.attrs.data.length);
-      if (vnode.state && vnode.state.type !== type) {
-        vnode.state.type = type;
+      });
+    },
+    onbeforeupdate(vnode) {
+      if (vnode.attrs.data) {
+        const type = guessAxisFormatFromData(vnode.attrs.data.length);
+        if (vnode.state && vnode.state.type !== type) {
+          vnode.state.type = type;
 
-        let titleCallback;
-        switch (type) {
-          case 'hour':
-            titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
-            break;
-          case 'day':
-            titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
-            break;
-          case 'month':
-            titleCallback = items => moment(items[0].label).format('MMMM YYYY');
-            break;
-          default:
+          let titleCallback;
+          switch (type) {
+            case 'hour':
+              titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
+              break;
+            case 'day':
+              titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
+              break;
+            case 'month':
+              titleCallback = items => moment(items[0].label).format('MMMM YYYY');
+              break;
+            default:
+          }
+          chart.options.tooltips.callbacks.title = titleCallback;
         }
-        chart.options.tooltips.callbacks.title = titleCallback;
       }
-    }
+    },
+    view(vnode) {
+      const { data, elementId, name: label, chartDimensions = {} } = vnode.attrs;
+      const { width = 400, height = 400 } = chartDimensions;
 
-  },
-  view(vnode) {
-    const { data, name: label } = vnode.attrs;
-    let noData = true;
-    if (chart && data) {
-      noData = false;
-      const timeUnit = guessAxisFormatFromData(data.length);
+      let noData = true;
+      if (chart && data) {
+        noData = false;
+        const timeUnit = guessAxisFormatFromData(data.length);
 
-      // update chart data and xAxis if needed
-      chart.data = {
-        labels: [],
-        datasets: [{
-          data,
-          label,
-          borderColor: '#165b98',
-          backgroundColor: 'rgba(22, 91, 152,0.2)',
-          borderWidth: 3,
-        }],
-      };
-      chart.options.scales.xAxes[0].time.unit = timeUnit;
-      chart.update();
-    }
-    return (<div class="chart-container">
-      <div
-        className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
-      <canvas id="myChart" width="200" height="200"></canvas>
-    </div>);
-  },
-});
+        // update chart data and xAxis if needed
+        chart.data = {
+          labels: [],
+          datasets: [{
+            data,
+            label,
+            borderColor: '#165b98',
+            backgroundColor: 'rgba(22, 91, 152,0.2)',
+            borderWidth: 3,
+          }],
+        };
+        chart.options.scales.xAxes[0].time.unit = timeUnit;
+        chart.update();
+      }
+      return (<div className="chart-container">
+        <div
+          className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
+        <canvas id={elementId} width={width} height={height}/>
+      </div>);
+    },
+  };
+};
