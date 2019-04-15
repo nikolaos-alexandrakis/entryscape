@@ -82,13 +82,13 @@
     left: 0px;
     right: 0px;
 }
-.geonamesChooser .childGeonames .panel {
+.geonamesChooser .childGeonames .card {
     margin-bottom: 0px;
     height: 100%;
     position: relative;
 }
 
-.geonamesChooser .childGeonames .panel .list-group {
+.geonamesChooser .childGeonames .card .list-group {
     position: absolute;
     top: 41px;
     bottom: 0px;
