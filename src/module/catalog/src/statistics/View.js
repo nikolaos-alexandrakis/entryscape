@@ -49,29 +49,25 @@ export default declare(MithrilView, {
     const getChartData = async () => {
       const { selected } = state.timeRanges;
       const context = registry.getContext();
-      const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected.uri); // @todo add catch
+      try {
+        const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected.uri); // @todo add catch
+        const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
+        const chartData =
+          await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
 
-      const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
-      const chartData =
-        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
-
-      delete chartData.count; // keep only chart relevant data
-      return timeRangeUtil.normalizeChartData(selected, chartData);
+        delete chartData.count; // keep only chart relevant data
+        return timeRangeUtil.normalizeChartData(selected, chartData);
+      } catch (err) {
+        return [];
+      }
     };
 
     const getListItems = async () => {
       const context = registry.getContext();
       try {
-        const { custom, selected } = state.timeRanges;
-
-        let itemStats;
-        if (state.timeRanges.selected === 'custom') {
-          itemStats =
-            await statsAPI.getTopStatisticsAggregate(context.getId(), state.activeTab, custom);
-        } else {
-          itemStats =
-            await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRangeUtil.toAPIRequestPath(selected));
-        }
+        const { selected } = state.timeRanges;
+        let itemStats =
+          await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRangeUtil.toAPIRequestPath(selected));
 
         const [fileEntries, distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
 
@@ -93,6 +89,18 @@ export default declare(MithrilView, {
         // no statistics found
         return [];
       }
+    };
+
+    const getFirstItemFileName = (items) => {
+      const itemURI = items[0] ? items[0].uri : '';
+      const selectedItem = items.find(item => item.uri === itemURI);
+
+      let filename = '';
+      if (selectedItem && 'filename' in selectedItem) {
+        filename = selectedItem.filename;
+      }
+
+      return [items, filename];
     };
 
     const paginateList = (newPage, list = null) => {
@@ -137,16 +145,19 @@ export default declare(MithrilView, {
       });
 
       getListItems()
-        .then(items => setState({
-          list: {
-            items,
-            selected: {
-              uri: items[0] ? items[0].uri : null,
-              name: '',
+        .then(getFirstItemFileName)
+        .then(([items, filename]) => {
+          setState({
+            list: {
+              items,
+              selected: {
+                uri: items[0] ? items[0].uri : null,
+                name: filename,
+              },
             },
-          },
-          loadingData: false,
-        }))
+            loadingData: false,
+          });
+        })
         .then(() => {
           paginateList(0);
           resetChart();
@@ -164,8 +175,15 @@ export default declare(MithrilView, {
       });
 
       getListItems()
-        .then(items => setState({
-          list: { items },
+        .then(getFirstItemFileName)
+        .then(([items, filename]) => setState({
+          list: {
+            items,
+            selected: {
+              uri: items[0] ? items[0].uri : null,
+              name: filename,
+            },
+          },
           loadingData: false,
         }))
         .then(() => {
@@ -190,7 +208,6 @@ export default declare(MithrilView, {
     };
 
     /**
-     * @todo refactor
      * @param {string} value
      */
     const onchangeSearch = (value) => {
@@ -226,12 +243,13 @@ export default declare(MithrilView, {
         }
         // update list item state
         getListItems()
-          .then(items => setState({
+          .then(getFirstItemFileName)
+          .then(([items, filename]) => setState({
             list: {
               items,
               selected: {
-                uri: items.length > 0 ? items[0].uri : null,
-                name: '',
+                uri: items[0] ? items[0].uri : null,
+                name: filename,
               },
             },
             loadingData: false,
@@ -295,7 +313,7 @@ export default declare(MithrilView, {
                   <BarChart
                     data={state.chart.data}
                     elementId={'catalog-statistics-chart'}
-                    name={state.list.selected.name} />
+                    name={state.list.selected.name}/>
                 </div>
               </div>
             </section>

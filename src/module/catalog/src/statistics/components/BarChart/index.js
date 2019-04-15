@@ -15,7 +15,7 @@ import './index.scss';
  */
 const guessAxisFormatFromData = (dataLength) => {
   let xAxisDateFormat = 'day';
-  if (dataLength < 13) {
+  if (dataLength > 10 && dataLength < 13) {
     xAxisDateFormat = 'month';
   } else if (dataLength < 25) {
     xAxisDateFormat = 'hour';
