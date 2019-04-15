@@ -34,7 +34,7 @@ body {
 
 /* TODO: @scazan added for release, REVIEW as the tabs shouldn't be a problem in next release */
 @media (max-height: 600px) {
-  .entryscapeViewList.list-inline li {
+  .entryscapeViewList.list-inline .list-inline-item {
     margin-right: 10px;
   }
   .entryscapeViewList.list-inline a {

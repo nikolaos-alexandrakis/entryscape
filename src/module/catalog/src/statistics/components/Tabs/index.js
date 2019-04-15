@@ -7,13 +7,17 @@ export default () => ({
      * @type {{items: []}}
      */
     const { items, onclick, selected } = vnode.attrs;
-    const tabs = items.map(item => (
-      <li key={item.id} onclick={onclick} className={item.id === selected ? 'selected' : ''} data-tab={item.id}>
-        <a className="spaExplicitLink">
-          <i className={`fa ${item.icon}`}/>
-          <span>{item.label}</span>
-        </a>
-      </li>));
+    const tabs = items.map(item =>{
+      const selectedClass = item.id === selected ? 'selected' : '';
+      return (
+        <li key={item.id} onclick={onclick} className={`${selectedClass} list-inline-item`} data-tab={item.id}>
+          <a className="spaExplicitLink">
+            <i className={`fa ${item.icon}`}/>
+            <span>{item.label}</span>
+          </a>
+        </li>
+      );
+    });
 
     return (
       <div className="col-md-12">
