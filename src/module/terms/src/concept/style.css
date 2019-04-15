@@ -97,7 +97,7 @@
 .conceptsControlls .input-group-btn > button{
     padding: 10px;
 }
-.conceptsControlls label.control-label{
+.conceptsControlls label.col-form-label{
     margin-top:5px;
 }
 .conceptsControlls .input-group .form-control{
