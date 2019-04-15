@@ -95,7 +95,7 @@ export default declare([List], {
   },
 
   getEmptyListWarning() {
-    return this.NLSBundle1.emptyListWarning;
+    return this.NLSLocalized1.emptyListWarning;
   },
 
   getTemplate() {

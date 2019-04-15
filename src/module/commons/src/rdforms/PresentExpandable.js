@@ -28,8 +28,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     const popoverOptions = uiUtil.getPopoverOptions();
-    popoverOptions.title = this.NLSBundle1.popoverHelpTitle;
-    popoverOptions.content = this.NLSBundle1.popoverHelpContent;
+    popoverOptions.title = this.NLSLocalized1.popoverHelpTitle;
+    popoverOptions.content = this.NLSLocalized1.popoverHelpContent;
     jquery(this.__help).popover(popoverOptions);
   },
   show(uri, graph, tmpl) {

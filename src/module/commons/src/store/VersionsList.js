@@ -24,7 +24,7 @@ export default declare([List, NLSMixin.Dijit], {
     this.inherited(arguments);
   },
   localeChange() {
-    this.updateLocaleStrings(this.NLSLocalized0, this.NLSBundle1);
+    this.updateLocaleStrings(this.NLSLocalized0, this.NLSLocalized1);
   },
   getTemplate() {
     return this.template;

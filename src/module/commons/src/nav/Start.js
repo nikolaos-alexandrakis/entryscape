@@ -39,7 +39,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     if (this.signInNode) {
-      this.signInNode.innerHTML = this.NLSBundle1.signInFromBanner;
+      this.signInNode.innerHTML = this.NLSLocalized1.signInFromBanner;
     }
     this.show();
   },
@@ -96,9 +96,9 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
         this.signInNode.classList.add('btn-success');
         this.signInNode.classList.add('pull-right');
 
-        if (this.NLSBundle1) {
+        if (this.NLSLocalized1) {
           this.signInNode.innerHTML =
-            this.NLSBundle1.signInFromBanner;
+            this.NLSLocalized1.signInFromBanner;
         }
         this.signInNode.onclick = () => {
           const spa = registry.getSiteManager();

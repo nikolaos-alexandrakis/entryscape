@@ -309,7 +309,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     return this.getModuleStr('title', module);
   },
   getModuleStr(prop, module = null) {
-    return module ? utils.getModuleProp(module, this.NLSBundle1, prop) : '';
+    return module ? utils.getModuleProp(module, this.NLSLocalized1, prop) : '';
   },
   localeChange() {
     if (this._firstLoad === true) {

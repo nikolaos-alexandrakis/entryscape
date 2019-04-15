@@ -55,7 +55,7 @@ export default declare([ReplaceDialog], {
             this.distributionRow.renderMetadata();
             if (this.isFileDistributionWithAPI()) {
               const dialogs = registry.get('dialogs');
-              const confirmMessage = this.NLSBundle1.refreshAPI;
+              const confirmMessage = this.NLSLocalized1.refreshAPI;
               return dialogs.confirm(confirmMessage, null, null, (confirm) => {
                 if (!confirm) {
                   this.dialog.hide();
