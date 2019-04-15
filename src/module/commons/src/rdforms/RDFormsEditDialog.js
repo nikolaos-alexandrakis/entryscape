@@ -47,7 +47,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     renderingContext.setMessages(bundle);
     this.levels.localize(bundle);
     this.discardWarning = bundle.discardMetadataChangesWarning;

@@ -131,11 +131,11 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
     let tooltip;
     const pt = card.productName;
 
-    const label = utils.getModuleProp(card, this.NLSBundle0, 'title');
+    const label = utils.getModuleProp(card, this.NLSLocalized0, 'title');
     if (label) {
       tooltip = `EntryScape ${pt}`;
     } else {
-      tooltip = utils.getModuleProp(card, this.NLSBundle0, 'tooltip');
+      tooltip = utils.getModuleProp(card, this.NLSLocalized0, 'tooltip');
     }
 
     return { label, tooltip };

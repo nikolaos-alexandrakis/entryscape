@@ -50,8 +50,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     }
   },
   localeChange() {
-    // domAttr.set(this.noContextOwners, 'innerHTML', this.NLSBundle0.noContextOwners);
-    this.noContextOwners.innerHTML = this.NLSBundle0.noContextOwners;
+    // domAttr.set(this.noContextOwners, 'innerHTML', this.NLSLocalized0.noContextOwners);
+    this.noContextOwners.innerHTML = this.NLSLocalized0.noContextOwners;
   },
   showContextEntry(contextEntry) {
     this.contextAclList.setACLFromEntry(contextEntry);

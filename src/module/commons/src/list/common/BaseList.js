@@ -128,12 +128,12 @@ export default declare([List, NLSMixin.Dijit], {
     }
   },
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
+    this.updateLocaleStrings(this.NLSLocalized0, this.NLSBundle1);
   },
   getName() {
     if (this.NLSBundle1) {
       return this.NLSBundle1.createEntryName ? this.NLSBundle1.createEntryName
-        : this.NLSBundle0.createEntryName;
+        : this.NLSLocalized0.createEntryName;
     }
 
     return '';

@@ -48,8 +48,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       this._reject = reject;
 
       const f = function () {
-        this.confirmLabelNode.innerHTML = confirmLabel || this.NLSBundle0.confirm;
-        this.rejectLabelNode.innerHTML = rejectLabel || this.NLSBundle0.reject;
+        this.confirmLabelNode.innerHTML = confirmLabel || this.NLSLocalized0.confirm;
+        this.rejectLabelNode.innerHTML = rejectLabel || this.NLSLocalized0.reject;
         this.confirmMessage.innerHTML = message;
         jquery(this.domNode).modal('show');
         this._showing = true;

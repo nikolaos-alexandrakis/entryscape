@@ -57,10 +57,10 @@ export default declare([TitleDialog.ContentNLS], {
   },
 
   getRevertTitle() {
-    return this.NLSBundle0.revertTitle;
+    return this.NLSLocalized0.revertTitle;
   },
   getCurrentRevisionRevertTitle() {
-    return this.NLSBundle0.currentRevisionRevertTitle;
+    return this.NLSLocalized0.currentRevisionRevertTitle;
   },
 
   getRevertExcludeMessage() {
@@ -73,7 +73,7 @@ export default declare([TitleDialog.ContentNLS], {
     return '';
   },
   getNoRevertSameGraphTitle() {
-    return this.NLSBundle0.noRevertSameGraphTitle;
+    return this.NLSLocalized0.noRevertSameGraphTitle;
   },
   hasExcludeDiff(graph1, graph2) {
     let diff = false;

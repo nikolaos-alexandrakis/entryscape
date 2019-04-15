@@ -222,7 +222,7 @@ export default declare([List, NLSMixin.Dijit], {
     return null;
   },
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
+    this.updateLocaleStrings(this.NLSLocalized0, this.NLSBundle1);
   },
 
   showStopSign() {

@@ -47,7 +47,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     if (registry.getSiteConfig().nationalIdNumber) {
       signupInfo.custom_nationalid = nationalNumber;
     }
-    const b = this.NLSBundle0;
+    const b = this.NLSLocalized0;
     return es.getREST()
       .post(`${es.getBaseURI()}auth/signup`, JSON.stringify(signupInfo)).then(() => registry.get('dialogs').acknowledge(b.signupConfirmationMessage), (err) => {
         if (err.response.status === 417) {
@@ -119,11 +119,11 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     } else if (config.theme && config.theme.localTheme && config.theme.localHTML) {
       assetsPath = 'theme/';
     }
-    registry.get('dialogs').acknowledgeText(`${assetsPath}privacy`, this.NLSBundle0.aboutPrivacyHeader);
+    registry.get('dialogs').acknowledgeText(`${assetsPath}privacy`, this.NLSLocalized0.aboutPrivacyHeader);
   },
   validateFirstName() {
     if (this.suFirstname.value.length === 1) {
-      this.setStatus(this.firstnameStatus, this.NLSBundle0.signupToShortName);
+      this.setStatus(this.firstnameStatus, this.NLSLocalized0.signupToShortName);
     } else {
       this.setStatus(this.firstnameStatus);
     }
@@ -131,7 +131,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
   validateEmail() {
     if (this.suUsername.value.length > 0 &&
       (typeof (this.suUsername.checkValidity) === 'function') && !this.suUsername.checkValidity()) {
-      this.setStatus(this.emailStatus, this.NLSBundle0.signupInvalidEmail);
+      this.setStatus(this.emailStatus, this.NLSLocalized0.signupInvalidEmail);
     } else {
       this.setStatus(this.emailStatus);
     }
@@ -143,7 +143,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
       if (typeof registry.getSiteConfig().nationalIdNumber === 'string'
         && signinUtils[registry.getSiteConfig().nationalIdNumber]) {
         if (!signinUtils[registry.getSiteConfig().nationalIdNumber](nationalNumber)) {
-          mesg = this.NLSBundle0.nationalNumberError;
+          mesg = this.NLSLocalized0.nationalNumberError;
           this.setStatus(this.nationalNumberStatus, mesg);
           return false;
         }

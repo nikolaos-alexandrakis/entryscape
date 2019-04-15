@@ -17,7 +17,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   nlsFormatSelect: 'exportFormatSelect',
 
   localeChange() {
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     this.exportText.innerHTML = bundle[this.nlsExportText];
     this.downloadButton.innerHTML = bundle[this.nlsDownloadButton];
     this.exportFormatSelect.innerHTML = bundle[this.nlsFormatSelect];

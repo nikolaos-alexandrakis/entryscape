@@ -318,7 +318,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       if (!(has('chrome') >= 57 || has('ff') > 60 || has('ie') >= 11
         || has('trident') || has('edge') || has('safari') >= 8)) {
         registry.get('dialogs')
-          .acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);
+          .acknowledge(this.NLSLocalized0.unSupportedBrowser, this.NLSLocalized0.continueUnsupportedBrowser);
       }
     }
 

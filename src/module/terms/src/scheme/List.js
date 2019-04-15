@@ -21,7 +21,7 @@ const ExportDialog = declare([Export], {
   profile: 'conceptscheme',
   open(params) {
     const name = registry.get('rdfutils').getLabel(params.row.entry);
-    this.title = i18n.renderNLSTemplate(this.NLSBundle0.exportHeaderLabel, { name });
+    this.title = i18n.renderNLSTemplate(this.NLSLocalized0.exportHeaderLabel, { name });
     this.localeChange();
     this.inherited(arguments);
   },
