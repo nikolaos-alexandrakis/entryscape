@@ -103,6 +103,27 @@ export default declare(MithrilView, {
       return [items, filename];
     };
 
+    /**
+     * @param items
+     * @param filename
+     * @param isLoadingData
+     * @return {Object}
+     */
+    const updateStateOfList = ([items, filename], isLoadingData = false) => setState({
+      list: {
+        items,
+        selected: {
+          uri: items[0] ? items[0].uri : null,
+          name: filename,
+        },
+      },
+      loadingData: isLoadingData,
+    });
+
+    /**
+     * @param newPage
+     * @param list
+     */
     const paginateList = (newPage, list = null) => {
       const itemIdxStart = newPage === 0 ? newPage : newPage * LIST_PAGE_SIZE_SMALL;
       const listToPaginate = list || state.list.items;
@@ -134,6 +155,20 @@ export default declare(MithrilView, {
       jquery('#stats-search-input').val('');
     };
 
+    /**
+     * Get the list, transform as needed, paginate and show the data in chart
+     */
+    const getListItemsAndRender = () => {
+      getListItems()
+        .then(getFirstItemFileName)
+        .then(updateStateOfList)
+        .then(() => {
+          paginateList(0);
+          resetChart();
+          resetSearchField();
+        });
+    };
+
     const onchangeTab = (tab) => {
       if (state.activeTab === tab) {
         return;
@@ -144,25 +179,7 @@ export default declare(MithrilView, {
         loadingData: true,
       });
 
-      getListItems()
-        .then(getFirstItemFileName)
-        .then(([items, filename]) => {
-          setState({
-            list: {
-              items,
-              selected: {
-                uri: items[0] ? items[0].uri : null,
-                name: filename,
-              },
-            },
-            loadingData: false,
-          });
-        })
-        .then(() => {
-          paginateList(0);
-          resetChart();
-          resetSearchField();
-        });
+      getListItemsAndRender();
     };
 
     const onclickTimeRange = (range) => {
@@ -174,26 +191,7 @@ export default declare(MithrilView, {
         loadingData: true, // show spinner
       });
 
-      getListItems()
-        .then(getFirstItemFileName)
-        .then(([items, filename]) => setState({
-          list: {
-            items,
-            selected: {
-              uri: items[0] ? items[0].uri : null,
-              name: filename,
-            },
-          },
-          loadingData: false,
-        }))
-        .then(() => {
-          paginateList(0);
-          resetChart();
-          resetSearchField();
-        });
-
-      resetChart();
-      resetSearchField();
+      getListItemsAndRender();
     };
 
     const onclickListItem = (selected) => {
@@ -242,23 +240,7 @@ export default declare(MithrilView, {
           return;
         }
         // update list item state
-        getListItems()
-          .then(getFirstItemFileName)
-          .then(([items, filename]) => setState({
-            list: {
-              items,
-              selected: {
-                uri: items[0] ? items[0].uri : null,
-                name: filename,
-              },
-            },
-            loadingData: false,
-          }))
-          .then(() => {
-            paginateList(0);
-            resetChart();
-            resetSearchField();
-          });
+        getListItemsAndRender();
       },
       view() {
         if (isCatalogPublic === false) {
