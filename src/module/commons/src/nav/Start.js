@@ -149,7 +149,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
   },
 
   getText(card) {
-    return utils.getModuleProp(card, this.NLSBundles.escoModules, 'text', true);
+    return utils.getModuleProp(card, this.NLSLocalized.escoModules, 'text', true);
   },
   setText(textNode, card) {
     const text = this.getText(card);

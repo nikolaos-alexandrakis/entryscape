@@ -41,7 +41,7 @@ export default declare([RDFormsEditDialog, ListDialogMixin], {
     this.row.entry.setMetadata(graph);
     const self = this;
     const async = registry.get('asynchandler');
-    const b = this.NLSBundles.rdforms;
+    const b = this.NLSLocalized.rdforms;
     async.addIgnore('commitMetadata', async.codes.GENERIC_PROBLEM, true);
     return this.row.entry.commitMetadata()
       .then(

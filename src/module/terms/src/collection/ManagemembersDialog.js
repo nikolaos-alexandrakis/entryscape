@@ -20,7 +20,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundles.esteCollection);
+    this.updateLocaleStrings(this.NLSLocalized.esteCollection);
   },
   open(params) {
     this.row = params.row;

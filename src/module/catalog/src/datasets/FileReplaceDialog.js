@@ -70,8 +70,8 @@ export default declare([ReplaceDialog], {
                       distributionEntry: this.distributionEntry,
                       datasetEntry: this.datasetEntry,
                       mode: 'refresh',
-                      escaApiProgress: this.NLSBundles.escaApiProgress,
-                      escaFiles: this.NLSBundles.escaFiles,
+                      escaApiProgress: this.NLSLocalized.escaApiProgress,
+                      escaFiles: this.NLSLocalized.escaFiles,
                     },
                   });
                 });

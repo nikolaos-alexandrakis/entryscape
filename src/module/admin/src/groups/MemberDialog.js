@@ -123,7 +123,7 @@ const MemberDialog = declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.memberList.typeahead.setDisabled(!entry.canWriteResource());
     this.showNonMemberInfoMsg(!entry.canWriteResource());
     this.memberList.render();
-    this.nonMemberInfoMsg.innerHTML = this.NLSBundles.esadGroup.nonMemberInfoMsg;
+    this.nonMemberInfoMsg.innerHTML = this.NLSLocalized.esadGroup.nonMemberInfoMsg;
     this.updateLocaleStrings(this.NLSLocalized0, {
       group: registry.get('rdfutils').getLabel(entry) || entry.getId(),
     });

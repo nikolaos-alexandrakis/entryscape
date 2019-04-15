@@ -36,7 +36,7 @@ export default declare([NLSMixin], {
   },
   upgrade() {
     const dialogs = registry.get('dialogs');
-    const bundle = this.NLSBundles.escaUpgrade;
+    const bundle = this.NLSLocalized.escaUpgrade;
     if (!bundle) {
       return;
     }

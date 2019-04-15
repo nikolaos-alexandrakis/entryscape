@@ -238,7 +238,7 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
     const report = validate.bindingReport(this.editor.binding);
     if (report.errors.length > 0) {
       this.editor.report(report);
-      return this.NLSBundles.escoRdforms.missingMandatoryFields;
+      return this.NLSLocalized.escoRdforms.missingMandatoryFields;
     }
     if (!this._graph.isChanged()) {
       return undefined;

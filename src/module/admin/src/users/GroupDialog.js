@@ -24,7 +24,7 @@ const RemoveDialog = declare([], {
     const dialogs = registry.get('dialogs');
     const grpEntryInfo = group.getEntryInfo();
     if (grpEntryInfo.getACL().admin.indexOf(user.getResourceURI()) !== -1) {
-      dialogs.confirm(this.list.NLSBundles.esadGroup.removeGrpWithMgr,
+      dialogs.confirm(this.list.NLSLocalized.esadGroup.removeGrpWithMgr,
         null, null, (confirm) => {
           if (!confirm) {
             return;
