@@ -16,20 +16,13 @@ export default (vnode) => {
     vnode.dom.classList.remove('dropup');
   };
 
-  const handleOutsideClick = (e) => {
-    if (!vnode.dom.contains(e.target)) {
-      hideFileDropdown();
-    }
+  const handleOutsideClick = () => {
+    hideFileDropdown();
   };
 
   const toggleDropdown = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!state.isShowing) {
-      document.addEventListener('click', handleOutsideClick, false);
-    } else {
-      document.removeEventListener('click', handleOutsideClick, false);
-    }
 
     setState({
       isShowing: !state.isShowing,
@@ -62,7 +55,7 @@ export default (vnode) => {
 
       return (
         <div>
-          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown}></button>
+          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown} onblur={handleOutsideClick}></button>
           <div class={`row__dropdownMenu ${showingDropdownClass}`}>
             { children }
           </div>
