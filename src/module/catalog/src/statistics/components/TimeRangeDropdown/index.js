@@ -13,7 +13,7 @@ export default () => ({
         <ul className="dropdown-menu">
           {items.map((item) => {
             if (item.id === '-') {
-              return <li className="divider"/>;
+              return <li className="dropdown-divider"/>;
             }
             return <li className={selected === item.id ? 'active' : ''} data-range={item.id} onclick={onclick}>
               <a>{item.name}</a>
