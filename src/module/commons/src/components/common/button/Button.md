@@ -22,7 +22,7 @@ vnode.attrs
 {
   element: 'button',
   type: message ? 'default' : 'primary',
-  classNames: ['pull-right'],
+  classNames: ['float-right'],
   text: message ? 'Cancel' : 'Done', // nls
   onclick: this.progressDialog.hide.bind(this.progressDialog),
 }
@@ -30,5 +30,5 @@ vnode.attrs
 
 ## Outputs
 ```
-<button class="btn btn-primary pull-right"><span>Done</span></button>
+<button class="btn btn-primary float-right"><span>Done</span></button>
 ```

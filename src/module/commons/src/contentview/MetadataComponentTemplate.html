@@ -2,7 +2,7 @@
     <div class="card-body" data-dojo-attach-point="__presenter">
     </div>
     <div class="card-body" data-dojo-attach-point="__editorNode" style="display: none; ">
-        <span class="alert alert-danger pull-right" style="display: none"
+        <span class="alert alert-danger float-right" style="display: none"
               data-dojo-attach-point="errorMessageAlert" role="alert">
                 <span data-dojo-attach-point="errorMessage"></span>
                 <button type="button" class="close" aria-label="Close"
@@ -21,14 +21,14 @@
             <span data-dojo-attach-point="nls,__deleteButtonLabelNode">deleteLinkedEntry
             </span>
         </button>
-        <button type="button" class="btn btn-primary  pull-right ${bid}__button"
+        <button type="button" class="btn btn-primary  float-right ${bid}__button"
                 data-dojo-attach-event="onClick: edit"
                 style="display:none"
                 data-dojo-attach-point="__editButtonNode">
             <i class="fas fa-pencil" aria-hidden="true"></i>
             <span data-dojo-attach-point="nls,__editButtonLabelNode">editLinkedEntry</span>
         </button>
-        <button type="button" class="btn btn-primary  pull-right ${bid}__button"
+        <button type="button" class="btn btn-primary  float-right ${bid}__button"
                 data-dojo-attach-event="onClick: save"
                 style="display:none"
                 data-dojo-attach-point="__saveButtonNode">

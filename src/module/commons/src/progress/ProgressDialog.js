@@ -136,7 +136,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       }
       if (configuredTask.mandatory) {
         const mandatoryIndicator = DOMUtil.create('i', null, heading);
-        DOMUtil.addClass(mandatoryIndicator, 'pull-right fas fa-exclamation-circle escoProgress__mandatorytask');
+        DOMUtil.addClass(mandatoryIndicator, 'float-right fas fa-exclamation-circle escoProgress__mandatorytask');
         this.taskCheckBoxes.push({
           taskEl: input,
           taskNameEl: task,

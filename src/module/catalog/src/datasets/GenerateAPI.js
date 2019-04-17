@@ -489,7 +489,7 @@ export default class {
           m(Button, {
             element: 'button',
             type: message ? 'default' : 'primary',
-            classNames: ['pull-right', 'col-md-2'],
+            classNames: ['float-right', 'col-md-2'],
             text: message ?
               this.escaApiProgress.nlsProgressCancel : this.escaApiProgress.nlsProgressDone,
             onclick,
@@ -497,7 +497,7 @@ export default class {
           m(Alert, {
             element: 'span',
             type: message ? 'danger' : 'success',
-            classNames: ['pull-left', 'col-md-8'],
+            classNames: ['float-left', 'col-md-8'],
             text: message || this.escaApiProgress.nlsProgressSuccess,
             children: null,
           })],

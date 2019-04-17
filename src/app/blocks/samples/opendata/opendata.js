@@ -91,7 +91,7 @@ window.__entryscape_config = {
       listplaceholder: '<div class="alert alert-info" role="alert">Denna datamängd har inga dataresurser' +
         ' angivna</div>',
       listhead: '<h4>Dataresurser</h4>',
-      rowhead: '<div class="esbRowHead"><a href="{{prop "dcat:accessURL"}}" class="pull-right btn btn-sm btn-primary"' +
+      rowhead: '<div class="esbRowHead"><a href="{{prop "dcat:accessURL"}}" class="float-right btn btn-sm btn-primary"' +
         ' role="button"' +
         ' target="_blank">' +
         '<i class="fas fa-external-link-square-alt" aria-hidden="true"></i>&nbsp;Webbsida</a>' +
@@ -170,7 +170,7 @@ window.__entryscape_config = {
       dependencyproperties: 'dcterms:source',
       listplaceholder: '<h4>Inga idÃ©er Ã¤nnu</h4>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-      '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>AnvÃ¤nder: </span><strong>{{link' +
+      '<span class="float-right" style="margin:10px 10px 0px 0px"><span>AnvÃ¤nder: </span><strong>{{link' +
       ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
       '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
@@ -200,7 +200,7 @@ window.__entryscape_config = {
       limit: '10',
       dependencyproperties: 'dcterms:source',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-        '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>AnvÃ¤nder: </span><strong>{{link' +
+        '<span class="float-right" style="margin:10px 10px 0px 0px"><span>AnvÃ¤nder: </span><strong>{{link' +
         ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
         '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +

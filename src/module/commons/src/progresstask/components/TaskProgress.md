@@ -98,7 +98,7 @@ In a boostrap modal and when all tasks have successfully completed:
   </div>
   <div data-dojo-attach-point="_modalFooter">
     <div class="row spaSideDialogFooter">
-      <div class="col-md-12"><button class="btn btn-primary pull-right"><span>Done</span></button><span class="alert alert-success pull-right" role="alert"><span>Your teminology was successfully imported.</span></span></div>
+      <div class="col-md-12"><button class="btn btn-primary float-right"><span>Done</span></button><span class="alert alert-success float-right" role="alert"><span>Your teminology was successfully imported.</span></span></div>
     </div>
   </div>
 </div>

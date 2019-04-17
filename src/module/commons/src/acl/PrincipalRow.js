@@ -113,7 +113,7 @@ export default declare([EntryRow], {
       const list = this.list;
       const entryId = this.entry.getId();
       const wrapperNode = document.createElement('span');
-      wrapperNode.classList.add('dropdown', 'pull-right');
+      wrapperNode.classList.add('dropdown', 'float-right');
       this.col3Node.appendChild(wrapperNode);
 
       let currentRight = list.getRight(entryId);

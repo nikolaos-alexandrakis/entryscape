@@ -7,7 +7,7 @@
             <textarea class="form-control ${bid}__commentInput" disabled data-dojo-attach-point="__commentInput"
                       rows="4"></textarea>
             <div data-dojo-attach-point="__commentEditButtons" style="display: none" class="${bid}__commentEditButtons">
-                <button type="button" class="btn btn-primary pull-right"
+                <button type="button" class="btn btn-primary float-right"
                         data-dojo-attach-point="__commentEditSave" data-dojo-attach-event="onclick:editSave">
                     <span data-dojo-attach-point="nls">commentEditSave</span></button>
                 <button type="button" class="btn btn-secondary float-right"
@@ -20,21 +20,21 @@
     <div class="${bid}__commentFooter card-footer">
         <span data-dojo-attach-point="__userInfo"></span>
         <span data-dojo-attach-point="__dateInfo"></span>
-        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton"
+        <button type="button" class="btn-link float-right ${bid}__commentFooterButton"
                 data-dojo-attach-event="onclick:deleteComment">
             <i class="fas fa-trash-alt fa-lg"></i><span class="${bid}__commentFooterButtonIcon"
                                                      data-dojo-attach-point="nls">deleteComment</span></button>
-        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton"
+        <button type="button" class="btn-link float-right ${bid}__commentFooterButton"
                 data-dojo-attach-point="__editComment" disabled data-dojo-attach-event="onclick:editComment">
             <i class="fas fa-pencil" aria-hidden="true"></i><span class="${bid}__commentFooterButtonIcon"
                                                                  data-dojo-attach-point="nls">editComment</span>
         </button>
-        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton" data-dojo-attach-point="nls"
+        <button type="button" class="btn-link float-right ${bid}__commentFooterButton" data-dojo-attach-point="nls"
                 data-dojo-attach-event="onclick:replyComment">
             <i class="fas fa-reply" aria-hidden="true"></i><span class="${bid}__commentFooterButtonIcon"
                                                                 data-dojo-attach-point="nls">replyComment</span>
         </button>
-        <button type="button" class="btn-link pull-right ${bid}__commentFooterButton"
+        <button type="button" class="btn-link float-right ${bid}__commentFooterButton"
                 data-dojo-attach-event="onclick:toggleReplies">
             <i class="fas fa-caret-right" data-dojo-attach-point="__replyIcon" aria-hidden="true"></i><span
                 class="${bid}__commentFooterButtonIcon" data-dojo-attach-point="nls,__replies">reply</span></button>
@@ -49,7 +49,7 @@
                    data-dojo-attach-point="nls">comment</label>
             <textarea class="form-control ${bid}__reply" data-dojo-attach-point="nls,commentNode" rows="4"
                       id="${id}-comment" placeholder="replyPlaceholder"></textarea>
-            <button type="button" class="btn btn-primary pull-right ${bid}__commentReplyPost"
+            <button type="button" class="btn btn-primary float-right ${bid}__commentReplyPost"
                     data-dojo-attach-point="nls,postReplyButton" data-dojo-attach-event="onclick:postReply">
                 <span data-dojo-attach-point="nls">postReply</span>
             </button>
