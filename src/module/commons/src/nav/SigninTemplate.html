@@ -15,19 +15,19 @@
     </div>
     <div class="well ${bid}__internal">
         <form onsubmit="return false;" class="${bid}__signin" data-dojo-attach-point="signinForm">
-            <div class="form-group">
+            <div class="form-group row">
                 <label data-dojo-attach-point="nls" for="${id}-loginUsername">username</label>
                 <input id="${id}-loginUsername" type="text" autofocus class="form-control"
                        data-dojo-attach-point="nls,username" placeholder="usernamePlaceholder"
                        required>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="${id}-loginPassword" data-dojo-attach-point="nls">password</label>
                 <input id="${id}-loginPassword" type="password" class="form-control"
                        data-dojo-attach-point="nls,password" placeholder="passwordPlaceholder"
                        pattern=".{8,}" title="passwordTitle" required>
             </div>
-            <div class="form-group" style="display: none"
+            <div class="form-group row" style="display: none"
                  data-dojo-attach-point="signinStatusWrapper">
                 <div class="alert alert-danger" role="alert"
                      data-dojo-attach-point="signinStatus"></div>

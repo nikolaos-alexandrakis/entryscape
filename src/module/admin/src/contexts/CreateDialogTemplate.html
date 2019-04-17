@@ -1,10 +1,10 @@
 <form data-dojo-attach-point="newGroupForm" onsubmit="return false;">
-    <div class="form-group" data-dojo-attach-point="contextNameNode" style="display:none">
+    <div class="form-group row" data-dojo-attach-point="contextNameNode" style="display:none">
         <label for="${id}-contextname" data-dojo-attach-point="nls">createContextname</label>
         <input id="${id}-contextname" type="text" class="form-control" data-dojo-attach-point="nls,contextnameInput" placeholder="setContextnamePlaceholder"/>
     </div>
     <p class="alert alert-danger" style="display: none" data-dojo-attach-point="contextnameError"></p>
-    <div class="form-group">
+    <div class="form-group row">
         <label for="${id}-fullname" data-dojo-attach-point="nls">createFullname</label>
         <input id="${id}-fullname" type="text" class="form-control" data-dojo-attach-point="nls,fullnameInput" placeholder="createFullnamePlaceholder"/>
     </div>

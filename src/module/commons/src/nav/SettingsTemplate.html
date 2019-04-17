@@ -1,25 +1,25 @@
 <div>
     <form data-dojo-attach-point="settingsForm" onsubmit="return false;">
-        <div class="form-group">
+        <div class="form-group row">
             <label for="${id}-username" data-dojo-attach-point="nls" class="col-form-label">username</label>
             <input id="${id}-username" type="email" class="form-control"
                    data-dojo-attach-point="nls,settingsUsername"
                    placeholder="usernamePlaceholder" readonly disabled>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label for="${id}-firstname" data-dojo-attach-point="nls" class="col-form-label">firstname</label>
             <input id="${id}-firstname" type="text" class="form-control"
                    data-dojo-attach-point="nls,settingsFirstname" pattern=".+"
                    placeholder="firstnamePlaceholder" required>
             <p role="alert" class="help-block " data-dojo-attach-point="nls">firstNameMissing</p>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label for="${id}-lastname" data-dojo-attach-point="nls" class="col-form-label">lastname</label>
             <input id="${id}-lastname" type="text" class="form-control"
                    data-dojo-attach-point="nls,settingsLastname" pattern=".+"
                    placeholder="lastnamePlaceholder" required>
         </div>
-        <div class="form-group" data-dojo-attach-point="nationalNumberNode"
+        <div class="form-group row" data-dojo-attach-point="nationalNumberNode"
              style="display: none">
             <label for="${id}-nationalNumber" class="col-form-label"
                    data-dojo-attach-point="nls">nationalNumber</label>
@@ -27,7 +27,7 @@
                    data-dojo-attach-point="nls,settingNationalNumber"
                    placeholder="nationalNumberPlaceholder" disabled>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label for="${id}-language" class="col-form-label" data-dojo-attach-point="nls">
                 language</label>
             <select id="${id}-language" data-dojo-attach-point="settingsLanguage"
@@ -35,7 +35,7 @@
             </select>
         </div>
         <div data-dojo-attach-point="passwordFormNode"></div>
-        <div class="form-group">
+        <div class="form-group row">
             <span data-dojo-attach-point="settingsFormStatus"></span>
         </div>
     </form>
