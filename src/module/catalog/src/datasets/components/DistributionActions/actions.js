@@ -12,6 +12,7 @@ import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
 import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
+import StatisticsDialog from 'catalog/datasets/StatisticsDialog';
 import GenerateAPI from 'catalog/datasets/GenerateAPI';
 import EntryType from 'commons/create/EntryType';
 import typeIndex from 'commons/create/typeIndex';
@@ -360,6 +361,15 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
+  const showStatisticsDialog = new StatisticsDialog();
+  const openStatistics = () => {
+    showStatisticsDialog.open({
+      entry: distribution,
+      datasetEntry: dataset,
+      onDone: () => m.redraw(),
+    });
+  };
+
   /**
    * Open the replace file dialog
    *
@@ -396,6 +406,7 @@ export default (distribution, dataset, wrapperFunction) => {
     remove,
     openAddFile,
     openManageFiles,
+    openStatistics,
     openReplaceFile,
   };
 

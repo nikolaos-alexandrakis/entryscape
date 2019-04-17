@@ -34,6 +34,7 @@ export default (vnode) => {
     const editDistribution = e => actions.editDistribution(e, [() => m.redraw(), fileEntryURIs]);
     const openReplaceFile = e => actions.openReplaceFile(e, [() => m.redraw(), fileEntryURIs]);
     const openManageFiles = e => actions.openManageFiles(e, [fileEntryURIs]);
+    const openStatistics = e => actions.openStatistics(e, [fileEntryURIs]);
 
     actionButtons.push(
       <button
@@ -104,6 +105,15 @@ export default (vnode) => {
           </button>,
         );
       }
+      actionButtons.push(
+        <button
+          className="btn--distribution fa fa-fw fa-chart-area"
+          title={escaDataset.seeStatisticsTitle}
+          onclick={openStatistics}
+        >
+          <span>{escaDataset.seeStatistics}</span>
+        </button>,
+      );
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
       actionButtons.push([
         <button

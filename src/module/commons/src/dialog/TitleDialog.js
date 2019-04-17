@@ -195,6 +195,12 @@ TitleDialog.Content = declare([_WidgetBase, _TemplatedMixin], {
   },
 });
 
+TitleDialog.ContentComponent = declare([TitleDialog.Content], {
+  show(component) {
+    m.mount(this.dialog.containerNode, component);
+  },
+});
+
 TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
   nlsHeaderTitle: '',
   nlsFooterButtonLabel: '',

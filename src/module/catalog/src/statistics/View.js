@@ -185,7 +185,6 @@ export default declare(MithrilView, {
     const onclickTimeRange = (range) => {
       setState({
         timeRanges: {
-          items: timeRangeUtil.getTimeRanges(),
           selected: range,
         },
         loadingData: true, // show spinner

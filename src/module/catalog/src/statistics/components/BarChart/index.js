@@ -29,6 +29,31 @@ const guessAxisFormatFromData = (dataLength) => {
 export default () => {
   let chart;
 
+  const updateXAxis = (vnode) => {
+    const { data } = vnode.attrs;
+    if (data) {
+      const type = guessAxisFormatFromData(data.length);
+      if (vnode.state && vnode.state.type !== type) {
+        vnode.state.type = type;
+
+        let titleCallback;
+        switch (type) {
+          case 'hour':
+            titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
+            break;
+          case 'day':
+            titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
+            break;
+          case 'month':
+            titleCallback = items => moment(items[0].label).format('MMMM YYYY');
+            break;
+          default:
+        }
+        chart.options.tooltips.callbacks.title = titleCallback;
+      }
+    }
+  };
+
   return {
     oncreate(vnode) {
       const { elementId } = vnode.attrs;
@@ -55,30 +80,12 @@ export default () => {
           },
         },
       });
-    },
-    onbeforeupdate(vnode) {
-      if (vnode.attrs.data) {
-        const type = guessAxisFormatFromData(vnode.attrs.data.length);
-        if (vnode.state && vnode.state.type !== type) {
-          vnode.state.type = type;
 
-          let titleCallback;
-          switch (type) {
-            case 'hour':
-              titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
-              break;
-            case 'day':
-              titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
-              break;
-            case 'month':
-              titleCallback = items => moment(items[0].label).format('MMMM YYYY');
-              break;
-            default:
-          }
-          chart.options.tooltips.callbacks.title = titleCallback;
-        }
-      }
+      updateXAxis(vnode);
     },
+
+    onbeforeupdate: updateXAxis,
+
     view(vnode) {
       const { data, elementId, name: label, chartDimensions = {} } = vnode.attrs;
       const { width = 400, height = 400 } = chartDimensions;
