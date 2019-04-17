@@ -6,7 +6,7 @@ export default () => ({
     const selectedItem = items.find(item => item.id === selected);
     return (
       <div className="btn-group btn-group--chooser">
-        <a className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <a className="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
           {selectedItem.name}
           <span className="caret" style={{ marginLeft: '15px' }}></span>
         </a>

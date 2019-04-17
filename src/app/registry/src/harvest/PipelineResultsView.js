@@ -125,7 +125,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         externalLink: true,
         icon,
         popover,
-        classNames: ['btn-default'],
+        classNames: ['btn-secondary'],
       };
     }
 

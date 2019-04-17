@@ -1,10 +1,10 @@
 <div class='${bid} rdformsEditor'>
     <div class="btn-group ${bid}__optionBlock" data-toggle="buttons">
-        <label for="${id}-linkOption" class="btn btn-default" data-dojo-attach-point="__linkOptionLabel"
+        <label for="${id}-linkOption" class="btn btn-secondary" data-dojo-attach-point="__linkOptionLabel"
                data-dojo-attach-event="click:linkOption"><span data-dojo-attach-point="nls,__linkOptionLabelNLS">linkLabel</span>
             <input type="radio" name="entryType"  id="${id}-linkOption" checked autocomplete="off" />
         </label>
-        <label for="${id}-fileOption" class="btn btn-default" data-dojo-attach-point="__fileOptionLabel"
+        <label for="${id}-fileOption" class="btn btn-secondary" data-dojo-attach-point="__fileOptionLabel"
                data-dojo-attach-event="click:fileOption"><span data-dojo-attach-point="nls,__fileOptionLabelNLS">fileLabel</span>
             <input type="radio" name="entryType" id="${id}-fileOption" autocomplete="off"/>
         </label>
@@ -23,7 +23,7 @@
                            disabled data-dojo-attach-point="nls,__filePathInput" placeholder="filePathInput_placeholder">
                 </div>
                 <span class="input-group-btn ${bid}__fileUploadButton">
-                    <span class="btn btn-default btn-file"
+                    <span class="btn btn-secondary btn-file"
                           data-dojo-attach-point="__fileInputWrapper"><span
                             data-dojo-attach-point="nls">browseFile</span>
                     </span>

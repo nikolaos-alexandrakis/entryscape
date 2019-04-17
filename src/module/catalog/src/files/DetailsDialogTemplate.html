@@ -8,13 +8,13 @@
                 <div class="card-body">
                     <div data-dojo-attach-point="noConnectedDatasetBlock" style="display: none">
                         <label data-dojo-attach-point="nls">datasetConnected</label> <span data-dojo-attach-point="nls" class="text-warning">noDatasetConnected</span><br>
-                        <button class="btn btn-sm btn-default"
+                        <button class="btn btn-sm btn-secondary"
                                 data-dojo-attach-event="click:openConnectToSeletedDatasetDialog"><span data-dojo-attach-point="nls">connectToExistingDataset</span></button>
-                        <button class="btn btn-sm btn-default" data-dojo-attach-event="click:createNewDataset"><span data-dojo-attach-point="nls">connectToNewDataset</span></button>
+                        <button class="btn btn-sm btn-secondary" data-dojo-attach-event="click:createNewDataset"><span data-dojo-attach-point="nls">connectToNewDataset</span></button>
                     </div>
                     <div data-dojo-attach-point="connectedDatasetBlock" style="display: none">
                         <label data-dojo-attach-point="nls">datasetConnected</label> <span data-dojo-attach-point="connectedDatasetLabel" class="text-primary"></span><br>
-                        <button class="btn btn-sm btn-default" data-dojo-attach-event="click:disconnectDataset"><span data-dojo-attach-point="nls">disconnectDataset</span></button>
+                        <button class="btn btn-sm btn-secondary" data-dojo-attach-event="click:disconnectDataset"><span data-dojo-attach-point="nls">disconnectDataset</span></button>
                     </div>
                 </div>
             </div>
@@ -23,9 +23,9 @@
                 <div class="card-body">
                     <div data-dojo-attach-point="apiConnectedBlock">
                         <label data-dojo-attach-point="nls">apiStatusLabel</label> <span data-dojo-attach-point="apiStatus"></span><br>
-                        <button class="btn btn-sm btn-default" data-dojo-attach-point="apiRefreshButton" data-dojo-attach-event="click:refreshAPIStatus"><span data-dojo-attach-point="nls">refreshAPIState</span></button>
-                        <button class="btn btn-sm btn-default" data-dojo-attach-point="apiDeactivateButton" data-dojo-attach-event="click:deactivateAPI"><span data-dojo-attach-point="nls">deactivateAPI</span></button>
-                        <button class="btn btn-sm btn-default" data-dojo-attach-point="apiActivateButton" data-dojo-attach-event="click:activateAPI"><span data-dojo-attach-point="nls">activateAPI</span></button>
+                        <button class="btn btn-sm btn-secondary" data-dojo-attach-point="apiRefreshButton" data-dojo-attach-event="click:refreshAPIStatus"><span data-dojo-attach-point="nls">refreshAPIState</span></button>
+                        <button class="btn btn-sm btn-secondary" data-dojo-attach-point="apiDeactivateButton" data-dojo-attach-event="click:deactivateAPI"><span data-dojo-attach-point="nls">deactivateAPI</span></button>
+                        <button class="btn btn-sm btn-secondary" data-dojo-attach-point="apiActivateButton" data-dojo-attach-event="click:activateAPI"><span data-dojo-attach-point="nls">activateAPI</span></button>
                         <div data-dojo-attach-point="APIInfo"></div>
                     </div>
                 </div>

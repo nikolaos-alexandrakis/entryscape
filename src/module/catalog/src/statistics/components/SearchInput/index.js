@@ -9,7 +9,7 @@ export default () => ({
              placeholder={i18n.localize(escaStatistics, 'statsSearchInputPlaceholder')} onchange={onchange}
              onkeyup={onkeyup}/>
       <span className="input-group-btn">
-        <button className="btn btn-default searchButton" type="button" title="" aria-label="Search">
+        <button className="btn btn-secondary searchButton" type="button" title="" aria-label="Search">
           <span className="screenreader__span"></span>
           <span className="fa fa-search" aria-hidden="true"/>
         </button>

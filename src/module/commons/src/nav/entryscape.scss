@@ -405,17 +405,17 @@ body.spaTwoMenu .spaControl.navbar-nav {
     color: $main-colour;
 }
 
-.body .btn.btn-raised.btn-default,
-.body .input-group-btn .btn.btn-raised.btn-default,
-.body .btn-group-raised .btn.btn-default,
-.body .btn-group-raised .input-group-btn .btn.btn-default {
+.body .btn.btn-raised.btn-secondary,
+.body .input-group-btn .btn.btn-raised.btn-secondary,
+.body .btn-group-raised .btn.btn-secondary,
+.body .btn-group-raised .input-group-btn .btn.btn-secondary {
     background-color: #333;
     color: #fff;
 }
 
-.body .btn.btn-raised:not(.btn-link):hover.btn-default:hover,
-.body .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-default:hover,
-.body .btn-group-raised .input-group-btn .btn.btn-default:hover {
+.body .btn.btn-raised:not(.btn-link):hover.btn-secondary:hover,
+.body .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-secondary:hover,
+.body .btn-group-raised .input-group-btn .btn.btn-secondary:hover {
     background-color: rgba(51, 51, 51, 0.8);
 }
 

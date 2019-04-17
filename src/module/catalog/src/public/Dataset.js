@@ -161,7 +161,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const tr = htmlUtil.create('tr', null, this.results);
         htmlUtil.create('td', { innerHTML: label }, tr);
         const tdButtons = htmlUtil.create('td', null, tr);
-        const infoButton = htmlUtil.create('button', { class: 'btn btn-sm btn-default' }, tdButtons);
+        const infoButton = htmlUtil.create('button', { class: 'btn btn-sm btn-secondary' }, tdButtons);
         htmlUtil.create('span', { class: 'fas fa-info-circle' }, infoButton);
         const f = (ev) => {
           ev.stopPropagation();

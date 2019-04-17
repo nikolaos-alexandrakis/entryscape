@@ -96,7 +96,7 @@ window.__entryscape_config = {
         ' target="_blank">' +
         '<i class="fas fa-external-link-square-alt" aria-hidden="true"></i>&nbsp;Webbsida</a>' +
         '{{#ifprop "dcat:downloadURL"}}' +
-        '<a href="{{prop "dcat:downloadURL"}}" class="pull-right btn btn-sm btn-default" role="button" target="_blank">' +
+        '<a href="{{prop "dcat:downloadURL"}}" class="float-right btn btn-sm btn-secondary" role="button" target="_blank">' +
         '<i class="fas fa-download" aria-hidden="true"></i>&nbsp;Ladda ned</a>' +
         '{{/ifprop}}' +
         '<span class="label formatLabel label-success md5_{{prop "dcterms:format" render="md5"}}" ' +
