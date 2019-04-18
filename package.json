@@ -24,6 +24,7 @@
     "font-awesome": "4.7",
     "fuelux": "3.16.6",
     "handlebars": "^4.0.12",
+    "ifdef-loader": "^2.1.1",
     "image-webpack-loader": "^4.4.0",
     "is-url": "^1.2.4",
     "jquery": "^3.3.1",
