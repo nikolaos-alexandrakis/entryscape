@@ -7,13 +7,13 @@ const Task = {
     let className;
     switch (task.status) {
       case 'progress':
-        className = '.progress-bar.progress-bar-warning.progress-bar-striped';
+        className = '.progress-bar.bg-warning.progress-bar-striped';
         break;
       case 'done':
-        className = '.progress-bar.progress-bar-success';
+        className = '.progress-bar.bg-success';
         break;
       case 'failed':
-        className = '.progress-bar.progress-bar-danger.progress-bar-striped';
+        className = '.progress-bar.bg-danger.progress-bar-striped';
         break;
       default:
         className = '.progress.text-center';

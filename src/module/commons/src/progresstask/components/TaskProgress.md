@@ -52,9 +52,9 @@ In a boostrap modal and when all tasks have successfully completed:
     <div>
       <div>
         <div class="progress">
-          <div class="progress-bar progress-bar-success" style="width: 33%;"><span>Upload File</span></div>
-          <div class="progress-bar progress-bar-success" style="width: 33%;"><span>Analyse Scheme</span></div>
-          <div class="progress-bar progress-bar-success" style="width: 34%;"><span>Import Concepts</span></div>
+          <div class="progress-bar bg-success" style="width: 33%;"><span>Upload File</span></div>
+          <div class="progress-bar bg-success" style="width: 33%;"><span>Analyse Scheme</span></div>
+          <div class="progress-bar bg-success" style="width: 34%;"><span>Import Concepts</span></div>
         </div>
       </div>
       <div>

@@ -104,7 +104,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.taskWidth = 100 / this.configuredTasks.length;
     this.configuredTasks.forEach((configuredTask) => {
       const div = DOMUtil.create('div', null, self.__progressNode);
-      DOMUtil.addClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
+      DOMUtil.addClass(div, 'progress-bar bg-warning escoProgress__taskIndicator escoProgress__progressBar');
       div.setAttribute('width', `${self.taskWidth}%`);
       div.innerHTML = configuredTask.shortLabel;
       self.tasks.push({
@@ -172,11 +172,11 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       const div = task.taskEl;
       /* eslint-disable max-len */
       if (this.noOfCompletedMandatoryTasks === this.manadatoryTasks.length) {
-        DOMUtil.removeClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
-        DOMUtil.addClass(div, 'progress-bar progress-bar-success escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.removeClass(div, 'progress-bar bg-warning escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.addClass(div, 'progress-bar bg-success escoProgress__taskIndicator escoProgress__progressBar');
       } else {
-        DOMUtil.removeClass(div, 'progress-bar progress-bar-success escoProgress__taskIndicator escoProgress__progressBar');
-        DOMUtil.addClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.removeClass(div, 'progress-bar bg-success escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.addClass(div, 'progress-bar bg-warning escoProgress__taskIndicator escoProgress__progressBar');
       }
       /* eslint-enable max-len */
     });
