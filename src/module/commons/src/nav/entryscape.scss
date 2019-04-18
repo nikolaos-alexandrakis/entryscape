@@ -117,37 +117,37 @@ footer .logo-text span {
     text-transform: none;
 }
 
-.navbar-default {
+.navbar-light {
     background-color: white;
     border-color: transparent;
 }
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus,
-.navbar-default .navbar-brand:active,
-.navbar-default .navbar-brand.active {
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-brand:focus,
+.navbar-light .navbar-brand:active,
+.navbar-light .navbar-brand.active {
     color: #18adfe;
 }
 
-.navbar-default .navbar-collapse {
+.navbar-light .navbar-collapse {
     border-color: rgba(255, 255, 255, 0.02);
 }
 
-.navbar-default .navbar-toggle {
+.navbar-light .navbar-toggle {
     background-color: #4bbffe;
     border-color: #4bbffe;
 }
 
-.navbar-default .navbar-toggle .icon-bar {
+.navbar-light .navbar-toggle .icon-bar {
     background-color: white;
 }
 
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
+.navbar-light .navbar-toggle:hover,
+.navbar-light .navbar-toggle:focus {
     background-color: #4bbffe;
 }
 
-.navbar-default .nav li a {
+.navbar-light .nav li a {
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 400;
@@ -155,25 +155,25 @@ footer .logo-text span {
     color: #777777;
 }
 
-.navbar-default .nav li a:hover,
-.navbar-default .nav li a:focus {
+.navbar-light .nav li a:hover,
+.navbar-light .nav li a:focus {
     color: #0193e2;
     outline: none;
 }
 
-.navbar-default .navbar-nav > .active > a {
+.navbar-light .navbar-nav > .active > a {
     color: black;
     background-color: #e1e1e1 !important;
 }
 
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
+.navbar-light .navbar-nav > .active > a:hover,
+.navbar-light .navbar-nav > .active > a:focus {
     color: white;
     background-color: #18adfe;
 }
 
 @media (min-width: 768px) {
-    .navbar-default {
+    .navbar-light {
         background-color: white;
         opacity: 1;
         padding: 0px 0px;
@@ -184,14 +184,14 @@ footer .logo-text span {
         box-shadow: 0px 1px 2px -1px #999999;
     }
 
-    .navbar-default .navbar-brand {
+    .navbar-light .navbar-brand {
         font-size: 1.5em;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
 
-    .navbar-default .navbar-nav > .active > a {
+    .navbar-light .navbar-nav > .active > a {
         border-radius: 3px;
     }
 }
@@ -280,7 +280,7 @@ div.modules a:hover {
     height: 100%;
 }
 
-.navbar-default .nav li a:hover {
+.navbar-light .nav li a:hover {
     color: black !important;
     cursor: pointer;
 }
