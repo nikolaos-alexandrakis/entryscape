@@ -3,6 +3,14 @@ import PubSub from 'pubsub-js';
 import registry from 'commons/registry';
 import { queryToObject, objectToQuery } from 'commons/util/browserUtil';
 
+if (!config.urlParams.entry && !config.urlParams.context) {
+  const es = registry.getEntryStore();
+  if (window.location.href.indexOf(es.getBaseURI()) === 0) {
+    config.urlParams.entry = es.getEntryId(window.location.href);
+    config.urlParams.context = es.getContextId(window.location.href);
+  }
+}
+
 registry.set('urlParams', config.urlParams);
 const prefix = config.hashParamsPrefix || 'esc_';
 const _getFragment = function (params, alwaysFragment) {

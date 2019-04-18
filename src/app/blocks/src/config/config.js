@@ -29,7 +29,14 @@ if (hash !== '') {
     }
   }
 }
-let entrystore = econfig.entrystore_base || econfig.entrystore;
+let entrystore = econfig.entrystore_base;
+if (!entrystore) {
+  if (typeof econfig.entrystore === 'string') {
+    entrystore = econfig.entrystore;
+  } else if (typeof econfig.entrystore === 'object' && econfig.entrystore.repository) {
+    entrystore = econfig.entrystore.repository;
+  }
+}
 let entitytypes = {};
 let bundles = [];
 let labelProperties;
@@ -42,7 +49,7 @@ const fixStuff = function (obj) {
     labelProperties = obj.labelProperties;
   }
 
-  if (obj.entrystore != null) {
+  if (typeof obj.entrystore === 'string') {
     entrystore = obj.entrystore;
   }
   if (obj.entry != null) {
@@ -82,6 +89,10 @@ nodes = nodes.map((node) => {
   if (!inmap.entryscape && inmap.entryscapeBlock) {
     inmap.entryscape = true;
   }
+  if (!inmap.entryscape && node.type === 'text/x-entryscape-handlebar') {
+    inmap.entryscape = true;
+  }
+
   if (typeof inmap.entryscape === 'object') {
     // As json in one param
     outmap = inmap.entryscape;

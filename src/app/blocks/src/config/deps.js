@@ -80,7 +80,6 @@ require.config({
     'templates/dcat-ap/dcat-ap',
     'templates/entryscape/esc',
     'entryscape-commons/rdforms/EntryChooser',
-    'entryscape-commons/rdforms/linkBehaviourDialog',
     'i18n!rdforms/view/nls/rdforms',
     'i18n!nls/escoRdforms',
     'i18n!nls/escoDialogs',

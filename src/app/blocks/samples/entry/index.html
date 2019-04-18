@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Blocks</title>
+    <style>
+        .es_Box {
+            border: 1px solid lightgrey;
+            padding: 10px;
+            min-width: 300px;
+            max-width: 800px;
+            margin-bottom: 10px;
+            /* display: inline-block; */
+        }
+    </style>
+</head>
+<body>
+<div data-entryscape="config" data-entryscape-link-behaviour="dialog"></div>
+<h1 data-entryscape="text"></h1>
+<div class="es_Box">
+    <script type="text/x-entryscape-handlebar">
+      <img style="width: auto;height: 24px; background: transparent; border: 0px; margin-right: 10px;"
+          src="https://static.entryscape.com/assets/rdf.svg"/>Ladda ner RDF:
+      <a href="{{metadataURI}}?format=text/turtle" rel="noopener">Turtle</a>,
+      <a href="{{metadataURI}}?format=application/RDF+xml" rel="noopener">RDF/XML</a>,
+      <a href="{{metadataURI}}?format=application/ld+json" rel="noopener">JSON-LD</a>,
+      <a href="{{metadataURI}}?format=application/json" rel="noopener">RDF/JSON</a>
+    </script>
+</div>
+<div class="es_Box">
+    <div data-entryscape="view"
+         data-entryscape-entrystore="https://demo.entryscape.com/store"
+         data-entryscape-context="93"
+         data-entryscape-entry="33"></div>
+    <script src="../opendata/opendata.js"></script>
+    <!--script src="https://demo.entryscape.com/theme/local.js"></script-->
+    <script src="../init.js"></script>
+</div>
+</body>
+</html>

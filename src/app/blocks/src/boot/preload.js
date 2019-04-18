@@ -41,6 +41,10 @@ export default function (node, data, items) {
     registry.set('itemstore_choices', val2choice);
   }
 
+  if (data.linkBehaviour) {
+    registry.set('linkBehaviour', data.linkBehaviour);
+  }
+
   if (data.query) {
     registry.set('blocks_query', data.query);
   }
