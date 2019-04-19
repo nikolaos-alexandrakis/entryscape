@@ -18,6 +18,7 @@ const getAlias = (name, type = 'module', noSource = false) =>
 const locales = ['de', 'sv', 'nb']; // TODO: @scazan Sachsen supports nb but no other. Ask @matthias
 const momentLocaleRegExp = RegExp(locales.reduce((accum, locale, i) => (i === 0 ? `${accum}${locale}` : `${accum}|${locale}`), ''));
 
+
 /** ********** CONFIGURATION *********** */
 module.exports = (env, argv) => {
   if (argv && !argv.app) {
@@ -82,19 +83,27 @@ module.exports = (env, argv) => {
         {
           test: /\.js$/,
           exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: [
-                'lodash',
-                '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-proposal-class-properties',
-                '@babel/plugin-syntax-dynamic-import',
-                ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
-              ],
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
+                plugins: [
+                  'lodash',
+                  '@babel/plugin-proposal-object-rest-spread',
+                  '@babel/plugin-proposal-class-properties',
+                  '@babel/plugin-syntax-dynamic-import',
+                  ['@babel/plugin-transform-modules-commonjs', { strictMode: false }],
+                ],
+              },
             },
-          },
+            {
+              loader: 'ifdef-loader',
+              options: {
+                BLOCKS: (APP == 'blocks'),
+              },
+            },
+          ],
         },
         {
           test: /\.nls$/,
