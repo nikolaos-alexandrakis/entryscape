@@ -45,8 +45,14 @@ const fixStuff = function (obj) {
   if (obj.namespaces) {
     namespaces.add(obj.namespaces);
   }
+  if (obj.rdf && obj.rdf.namespaces) {
+    namespaces.add(obj.rdf.namespaces);
+  }
   if (obj.labelProperties) {
     labelProperties = obj.labelProperties;
+  }
+  if (obj.rdf && obj.rdf.labelProperties) {
+    labelProperties = obj.rdf.labelProperties;
   }
 
   if (typeof obj.entrystore === 'string') {
@@ -64,6 +70,9 @@ const fixStuff = function (obj) {
     } else if (Array.isArray(obj.bundles)) {
       bundles = obj.bundles;
     }
+  }
+  if (obj.itemstore && obj.itemstore.bundles != null) {
+    bundles = obj.itemstore.bundles;
   }
   if (obj.entitytypes != null) {
     entitytypes = obj.entitytypes;
