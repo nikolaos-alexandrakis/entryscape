@@ -26,6 +26,20 @@ const guessAxisFormatFromData = (dataLength) => {
   return xAxisDateFormat;
 };
 
+
+const COLOR_OPTIONS = [
+  {
+    borderColor: '#165b98',
+    backgroundColor: 'rgba(22, 91, 152,0.2)',
+    borderWidth: 3,
+  },
+  {
+    borderColor: '#165b98',
+    backgroundColor: 'rgba(22, 91, 152,0.2)',
+    borderWidth: 3,
+  },
+];
+
 export default () => {
   let chart;
 
@@ -87,7 +101,7 @@ export default () => {
     onbeforeupdate: updateXAxis,
 
     view(vnode) {
-      const { data, elementId, name: label, chartDimensions = {} } = vnode.attrs;
+      const { data, elementId, chartDimensions = {} } = vnode.attrs;
       const { width = 400, height = 400 } = chartDimensions;
 
       let noData = true;
@@ -98,16 +112,20 @@ export default () => {
         // update chart data and xAxis if needed
         chart.data = {
           labels: [],
-          datasets: [{
-            data,
-            label,
-            borderColor: '#165b98',
-            backgroundColor: 'rgba(22, 91, 152,0.2)',
-            borderWidth: 3,
-          }],
+          ...data,
         };
-        chart.options.scales.xAxes[0].time.unit = timeUnit;
-        chart.update();
+
+        if (chart.data.datasets) {
+          // update chart colors and axes and re-render
+          chart.data.datasets.forEach((dataset, idx) => {
+            console.log(COLOR_OPTIONS[idx]);
+            Object.assign(chart.data.datasets[idx], { ...COLOR_OPTIONS[idx] }); // shallow
+            console.log(chart.data.datasets[idx]);
+          });
+          chart.options.scales.xAxes[0].time.unit = timeUnit;
+
+          chart.update();
+        }
       }
       return (<div className="chart-container">
         <div

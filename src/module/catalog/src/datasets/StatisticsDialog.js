@@ -9,12 +9,27 @@ import statsAPI from 'commons/statistics/api';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 
-const getChartData = async (entry, context, timeRange) => {
-  const entryId = isAPIDistribution(entry) ? entry.getId() : getRowstoreAPIUUID(entry); // @todo @valentino check if this works with aliasses
-  let data = await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
-  delete data.count;
-  data = timeRangeUtil.normalizeChartData(timeRange, data);
-  return data;
+const getChartData = async (entries, context, timeRange) => {
+  const chartData = { datasets: [] };
+  const labels = [];
+  const entryStatisticsPromises = entries.map((entry) => {
+    const label = entry.getMetadata().findFirstValue(null, 'dcterms:title');
+    labels.push(label);
+    const entryId = isAPIDistribution(entry) ? entry.getId() : getRowstoreAPIUUID(entry); // @todo @valentino check if this works with aliasses
+    return statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
+  });
+
+  await Promise.all(entryStatisticsPromises).then((allEntriesStatsData) => {
+    allEntriesStatsData.forEach((statsData, idx) => {
+      delete statsData.count;
+      const data = timeRangeUtil.normalizeChartData(timeRange, statsData);
+      console.log(data);
+      const label = labels[idx];
+      chartData.datasets.push({ data, label });
+    });
+  });
+
+  return chartData;
 };
 
 let component = null;
@@ -22,14 +37,12 @@ const timeRangesItems = timeRangeUtil.getTimeRanges();
 
 const state = {
   data: [],
-  timeRanges: {
-    selected: 'this-month',
-  },
+  timeRangeSelected: 'this-month',
 };
 
 const setState = createSetState(state);
 
-const getControllerComponent = (entry, elementId, name) => {
+const getControllerComponent = (entries, elementId, name) => {
   if (component) {
     return component;
   }
@@ -42,7 +55,8 @@ const getControllerComponent = (entry, elementId, name) => {
       loadingData: true, // show spinner
     });
 
-    getChartData(entry, registry.getContext(), state.timeRanges.selected).then(data => setState({ data }));
+
+    getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
   };
 
 
@@ -50,7 +64,7 @@ const getControllerComponent = (entry, elementId, name) => {
     elementId,
     name,
     oninit() {
-      getChartData(entry, registry.getContext()).then(data => setState({ data }));
+      getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
     },
     view() {
       console.log(state.data);
@@ -59,7 +73,7 @@ const getControllerComponent = (entry, elementId, name) => {
           <h4>Time Range</h4>
           <TimeRangeDropdown
             items={timeRangesItems}
-            selected={state.timeRanges.selected}
+            selected={state.timeRangeSelected}
             onclickTimeRange={onclickTimeRange}/>
         </div>
         <Chart data={state.data} elementId={this.elementId} name={this.name}/>
@@ -80,7 +94,7 @@ export default declare([TitleDialog.ContentComponent], {
     const elementId = 'distribution-dialog-statistics';
     const name = 'test';
     this.dialog.show();
-    const controllerComponent = getControllerComponent(params.entry, elementId, name);
+    const controllerComponent = getControllerComponent(params.entries, elementId, name);
     this.show(controllerComponent);
   },
 });

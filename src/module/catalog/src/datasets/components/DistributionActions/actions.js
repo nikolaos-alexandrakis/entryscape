@@ -1,29 +1,28 @@
-import m from 'mithril';
-import config from 'config';
-import registry from 'commons/registry';
-import { i18n } from 'esi18n';
-import stamp from 'dojo/date/stamp';
-import declare from 'dojo/_base/declare';
-import DOMUtil from 'commons/util/htmlUtil';
-import Lookup from 'commons/types/Lookup';
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
-import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
-import StatisticsDialog from 'catalog/datasets/StatisticsDialog';
 import GenerateAPI from 'catalog/datasets/GenerateAPI';
-import EntryType from 'commons/create/EntryType';
-import typeIndex from 'commons/create/typeIndex';
+import ManageFilesDialog from 'catalog/datasets/ManageFiles';
+import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import StatisticsDialog from 'catalog/datasets/StatisticsDialog';
 import {
-  isUploadedDistribution,
-  isFileDistributionWithOutAPI,
-  isAPIDistribution,
   isAccessDistribution,
+  isAPIDistribution,
+  isFileDistributionWithOutAPI,
+  isUploadedDistribution,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
+import EntryType from 'commons/create/EntryType';
+import typeIndex from 'commons/create/typeIndex';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import registry from 'commons/registry';
+import Lookup from 'commons/types/Lookup';
+import DOMUtil from 'commons/util/htmlUtil';
+import declare from 'dojo/_base/declare';
+import stamp from 'dojo/date/stamp';
+import { i18n } from 'esi18n';
+import m from 'mithril';
 
 export default (distribution, dataset, wrapperFunction) => {
   // STUBBED DIALOGS
@@ -194,8 +193,7 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  const openNewTab = (distributionEntry) => {
-    const resURI = distributionEntry.getResourceURI();
+  const getUploadedFileDownloadUrl = (distributionEntry) => {
     const md = distributionEntry.getMetadata();
     const subj = distributionEntry.getResourceURI();
     const accessURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:accessURL'));
@@ -210,6 +208,32 @@ export default (distribution, dataset, wrapperFunction) => {
       uri = accessURI;
     }
 
+    return uri;
+  };
+
+  /**
+   *
+   * @param distributionEntry
+   * @return {Promise<store/Entry[]>}
+   */
+  const getDistributionFileEntries = (distributionEntry) => {
+    const md = distributionEntry.getMetadata();
+    const distRURI = distributionEntry.getResourceURI();
+    const fileStmts = md.find(distRURI, 'dcat:downloadURL');
+    const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
+
+    const esUtil = registry.getEntryStoreUtil();
+
+    // fetch all entries asynchronously
+    return Promise.all(fileURIs.map(esUtil.getEntryByResourceURI.bind(esUtil)));
+  };
+
+  /**
+   *
+   * @param {store/Entry} distributionEntry
+   */
+  const openNewTab = (distributionEntry) => {
+    const uri = getUploadedFileDownloadUrl(distributionEntry);
     window.open(uri, '_blank');
   };
   // END UTILS
@@ -362,10 +386,10 @@ export default (distribution, dataset, wrapperFunction) => {
   };
 
   const showStatisticsDialog = new StatisticsDialog();
-  const openStatistics = () => {
+  const openStatistics = async () => {
+    const fileEntries = await getDistributionFileEntries(distribution);
     showStatisticsDialog.open({
-      entry: distribution,
-      datasetEntry: dataset,
+      entries: fileEntries,
       onDone: () => m.redraw(),
     });
   };

@@ -49,14 +49,21 @@ export default declare(MithrilView, {
     const getChartData = async () => {
       const { selected } = state.timeRanges;
       const context = registry.getContext();
+      const chartData = {
+        datasets: [],
+      };
       try {
         const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected.uri); // @todo add catch
         const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
-        const chartData =
+        let data =
           await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
 
-        delete chartData.count; // keep only chart relevant data
-        return timeRangeUtil.normalizeChartData(selected, chartData);
+        delete data.count; // keep only chart relevant data
+        data = timeRangeUtil.normalizeChartData(selected, chartData);
+
+        chartData.datasets.push({ data, label });
+
+        return chartData;
       } catch (err) {
         return [];
       }
