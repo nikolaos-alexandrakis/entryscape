@@ -106,7 +106,7 @@ export default () => {
       const { width = 400, height = 400 } = chartDimensions;
 
       let noData = true;
-      if (chart && data) {
+      if (chart && data && data.datasets && data.datasets.length > 0) {
         noData = false;
         const numberOfDataPoints = data.datasets[0].data.length;
         const timeUnit = guessAxisFormatFromData(numberOfDataPoints);

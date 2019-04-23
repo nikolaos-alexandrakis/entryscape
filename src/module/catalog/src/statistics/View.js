@@ -46,25 +46,25 @@ export default declare(MithrilView, {
 
     const setState = createSetState(state);
 
-    const getChartData = async () => {
-      const { selected } = state.timeRanges;
+    const getChartData = async (selectedEntryInfo, entryType, timeRange) => {
+      const { uri, name: label } = selectedEntryInfo;
       const context = registry.getContext();
       const chartData = {
         datasets: [],
       };
       try {
-        const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected.uri); // @todo add catch
-        const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
+        const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(uri); // @todo add catch
+        const entryId = entryType === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
         let data =
-          await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
+          await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
 
         delete data.count; // keep only chart relevant data
-        data = timeRangeUtil.normalizeChartData(selected, chartData);
+        data = timeRangeUtil.normalizeChartData(timeRange, data);
 
         chartData.datasets.push({ data, label });
-
         return chartData;
       } catch (err) {
+        console.log(`Could not fetch statistics for ${uri}`, err);
         return [];
       }
     };
@@ -94,6 +94,7 @@ export default declare(MithrilView, {
         });
       } catch (err) {
         // no statistics found
+        console.log(err);
         return [];
       }
     };
@@ -149,8 +150,9 @@ export default declare(MithrilView, {
     };
 
     const resetChart = () => {
-      if (state.list.selected.uri && state.timeRanges.selected !== 'custom') {
-        getChartData().then(data => setState({ chart: { data } }));
+      const { list, timeRanges, activeTab: entryType } = state;
+      if (list.selected.uri && timeRanges.selected !== 'custom') {
+        getChartData(list.selected, entryType, timeRanges.selected).then(data => setState({ chart: { data } }));
       } else {
         setState({ chart: { data: [] } });
       }
@@ -207,7 +209,8 @@ export default declare(MithrilView, {
         },
       });
 
-      getChartData()
+      const { timeRanges, activeTab: entryType } = state;
+      getChartData(selected, entryType, timeRanges.selected)
         .then(data => setState({ chart: { data } }));
     };
 
