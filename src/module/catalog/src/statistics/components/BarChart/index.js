@@ -92,6 +92,12 @@ export default () => {
                 unit: 'month',
               },
             }],
+            yAxes: [{
+              ticks: {
+                min: 0,
+                precision: 0,
+              },
+            }],
           },
         },
       });
