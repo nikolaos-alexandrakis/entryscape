@@ -40,7 +40,7 @@
     "popper.js": "^1.12.9",
     "pubsub-js": "https://bitbucket.org/metasolutions/pubsubjs.git",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#blocks",
+    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "selectize": "^0.12.6",
     "sizzle": "^2.3.3",
     "slick-carousel": "^1.8.1",
