@@ -1,13 +1,17 @@
+import esadUser from "admin/nls/esadUser.nls";
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
+import escaStatistics from "catalog/nls/escaStatistics.nls";
 import Chart from 'catalog/statistics/components/BarChart';
 import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import TitleDialog from 'commons/dialog/TitleDialog';
+import escoVersions from "commons/nls/escoVersions.nls";
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
+import { i18n } from "esi18n";
 
 const getChartData = async (entries, context, timeRange) => {
   const chartData = { datasets: [] };
@@ -63,10 +67,10 @@ const getControllerComponent = (entries, elementId, name) => {
       getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
     },
     view() {
-      console.log(state.data);
+      const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
       return <section>
         <div className="chooser__wrapper">
-          <h4>Time Range</h4>
+          <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
           <TimeRangeDropdown
             items={timeRangesItems}
             selected={state.timeRangeSelected}
@@ -81,12 +85,16 @@ const getControllerComponent = (entries, elementId, name) => {
 };
 
 export default declare([TitleDialog.ContentComponent], {
+  nlsBundles: [{ escaStatistics }],
+  nlsHeaderTitle: 'statsDialogTitle',
+  nlsFooterButtonLabel: 'statsDialogFooter',
   postCreate() {
+    this.inherited(arguments);
     this.dialog.footerButtonAction = () => {
       component = null;
     };
   },
-  async open(params) {
+  open(params) {
     const elementId = 'distribution-dialog-statistics';
     const name = 'test';
     this.dialog.show();

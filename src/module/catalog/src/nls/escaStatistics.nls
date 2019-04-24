@@ -22,7 +22,10 @@
     "rowHeaderFile": "Number of file downloads",
     "rowHeaderAPI": "Number of API calls",
     "datasetPrefix": "Belongs to dataset:",
-    "distributionPrefix": "Belongs to distribution:"
+    "distributionPrefix": "Belongs to distribution:",
+    "statsDialogTimeRange": "Time Range",
+    "statsDialogTitle": "Distribution statistics",
+    "statsDialogFooter": "Close"
   },
   "sv": true,
   "da": true,
