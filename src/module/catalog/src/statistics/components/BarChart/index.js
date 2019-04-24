@@ -45,8 +45,9 @@ export default () => {
 
   const updateXAxis = (vnode) => {
     const { data } = vnode.attrs;
-    if (data) {
-      const type = guessAxisFormatFromData(data.length);
+    if (data && data.datasets && data.datasets.length > 0) {
+      const numberOfDataPoints = data.datasets[0].data.length;
+      const type = guessAxisFormatFromData(numberOfDataPoints);
       if (vnode.state && vnode.state.type !== type) {
         vnode.state.type = type;
 
@@ -105,9 +106,10 @@ export default () => {
       const { width = 400, height = 400 } = chartDimensions;
 
       let noData = true;
-      if (chart && data) {
+      if (chart && data && data.datasets && data.datasets.length > 0) {
         noData = false;
-        const timeUnit = guessAxisFormatFromData(data.length);
+        const numberOfDataPoints = data.datasets[0].data.length;
+        const timeUnit = guessAxisFormatFromData(numberOfDataPoints);
 
         // update chart data and xAxis if needed
         chart.data = {
@@ -118,9 +120,7 @@ export default () => {
         if (chart.data.datasets) {
           // update chart colors and axes and re-render
           chart.data.datasets.forEach((dataset, idx) => {
-            console.log(COLOR_OPTIONS[idx]);
             Object.assign(chart.data.datasets[idx], { ...COLOR_OPTIONS[idx] }); // shallow
-            console.log(chart.data.datasets[idx]);
           });
           chart.options.scales.xAxes[0].time.unit = timeUnit;
 

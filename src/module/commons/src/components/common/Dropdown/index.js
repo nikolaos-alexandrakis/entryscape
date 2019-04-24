@@ -13,6 +13,7 @@ export default (vnode) => {
     setState({
       isShowing: false,
     });
+
     vnode.dom.classList.remove('dropup');
   };
 

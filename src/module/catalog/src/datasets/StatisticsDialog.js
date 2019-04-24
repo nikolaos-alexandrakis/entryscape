@@ -49,12 +49,8 @@ const getControllerComponent = (entries, elementId, name) => {
 
   const onclickTimeRange = (range) => {
     setState({
-      timeRanges: {
-        selected: range,
-      },
-      loadingData: true, // show spinner
+      timeRangeSelected: range,
     });
-
 
     getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
   };
