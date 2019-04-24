@@ -130,7 +130,11 @@ export default () => {
       return (<div className="chart-container">
         <div
           className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
-        <canvas id={elementId} width={width} height={height}/>
+        <canvas
+          className={` ${noData ? 'hidden' : ''}`}
+          id={elementId}
+          width={width}
+          height={height}/>
       </div>);
     },
   };
