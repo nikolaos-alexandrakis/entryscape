@@ -79,9 +79,9 @@
             Object.assign(__entryscape_config, __entryscape_config_dev); // TODO @valentino not supported in IE11
         }
 
-        var useLocalBuild = queryParamsMap.localbuild || queryParamsMap.debug;
+        var useLocalBuild = __entryscape_config.entryscape.localBuild;
         var app = __entryscape_config.entryscape.static.app;
-        var path = queryParamsMap.localbuild || queryParamsMap.debug ? '/dist' : __entryscape_config.entryscape.static.url;
+        var path = useLocalBuild ? '/dist' : __entryscape_config.entryscape.static.url;
         var version = useLocalBuild ? '' : (__entryscape_config.entryscape.static.version || 'latest');
 
         /**
