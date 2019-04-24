@@ -1,17 +1,15 @@
-import esadUser from "admin/nls/esadUser.nls";
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
-import escaStatistics from "catalog/nls/escaStatistics.nls";
+import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import Chart from 'catalog/statistics/components/BarChart';
 import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import escoVersions from "commons/nls/escoVersions.nls";
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
-import { i18n } from "esi18n";
+import { i18n } from 'esi18n';
 
 const getChartData = async (entries, context, timeRange) => {
   const chartData = { datasets: [] };
@@ -27,7 +25,6 @@ const getChartData = async (entries, context, timeRange) => {
     allEntriesStatsData.forEach((statsData, idx) => {
       delete statsData.count;
       const data = timeRangeUtil.normalizeChartData(timeRange, statsData);
-      console.log(data);
       const label = labels[idx];
       chartData.datasets.push({ data, label });
     });
