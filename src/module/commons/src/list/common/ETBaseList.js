@@ -23,6 +23,6 @@ export default declare([BaseList], {
   },
 
   getEmptyListWarning() {
-    return this.NLSBundle1[this.emptyListWarningNLS];
+    return this.NLSLocalized1[this.emptyListWarningNLS];
   },
 });

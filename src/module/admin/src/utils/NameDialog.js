@@ -28,7 +28,7 @@ export default declare([TitleDialog.Content, NLSMixin.Dijit], {
   nameUpdateMessage(state, oldname, newname) {
     let message;
     let cls;
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     switch (state) {
       case 'hide':
         this.nameMessage.display = 'none';
@@ -108,7 +108,7 @@ export default declare([TitleDialog.Content, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    this.dialog.updateLocaleStrings(this.NLSBundle0);
+    this.dialog.updateLocaleStrings(this.NLSLocalized0);
   },
 
   open(params) {

@@ -44,7 +44,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
         if (data.length > 0) {
           this.newNameIsOk = false;
           this.usernameError.style.display = '';
-          this.usernameError.innerHTML = this.NLSBundles.esadUser.usernameTaken;
+          this.usernameError.innerHTML = this.NLSLocalized.esadUser.usernameTaken;
           this.dialog.lockFooterButton();
         } else {
           throw Error('No matching user.');

@@ -67,10 +67,10 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.allInited = Promise.all([tp]);
   },
   show() {
-    // TODO @scazan: verify with Matthias this.NLSBundles
+    // TODO @scazan: verify with Matthias this.NLSLocalized
     this.allInited.then(() => {
       if (registry.get('userInfo').id === '_guest' && doWarn) {
-        const registrySourceBundle = this.NLSBundles.esreSource;
+        const registrySourceBundle = this.NLSLocalized.esreSource;
         registry.get('dialogs')
           .acknowledge(registrySourceBundle.signinRequirement, registrySourceBundle.signinRequirementOk);
         doWarn = false;
@@ -105,13 +105,13 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const validateReport =
       validate.graphReport(rdfReport.graph, this.type2template, this.mandatoryTypes);
     regroup(validateReport.resources, 'type');
-    const validationResult = i18n.renderNLSTemplate(this.NLSBundles.esreSource.validationMessage, {
+    const validationResult = i18n.renderNLSTemplate(this.NLSLocalized.esreSource.validationMessage, {
       errors: validateReport.errors,
       warnings: validateReport.warnings,
     });
     if (validateReport.mandatoryError) {
       this.updateMessage(
-        `${this.NLSBundles.esreSource.mandatoryMissing}<ul><li>${validateReport.mandatoryError.join('</li><li>')}</li></ul>`, validationResult);
+        `${this.NLSLocalized.esreSource.mandatoryMissing}<ul><li>${validateReport.mandatoryError.join('</li><li>')}</li></ul>`, validationResult);
     } else {
       this.updateMessage(null, validationResult);
     }
@@ -146,10 +146,10 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   _upload() {
     if (registry.get('userInfo').id === '_guest') {
-      const b = this.NLSBundles.esreSource;
+      const b = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(b.signinRequirement, b.signinRequirementOk);
     } else {
-      this.loadDialog.show(this.showRDF.bind(this), this.NLSBundles.esreLoadDialog);
+      this.loadDialog.show(this.showRDF.bind(this), this.NLSLocalized.esreLoadDialog);
     }
   },
 });

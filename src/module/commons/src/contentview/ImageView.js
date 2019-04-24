@@ -19,7 +19,7 @@ export default declare([ContentView], {
 
     this.__imgContent.onabort = () => {
       this.__spinner.style.display = 'none';
-      this.__messageText.innerHTML = this.NLSBundle0.imageCannotBeLoaded;
+      this.__messageText.innerHTML = this.NLSLocalized0.imageCannotBeLoaded;
       this.__message.classList.remove('alert-info');
       this.__message.classList.add('alert-danger');
     };
@@ -41,11 +41,11 @@ export default declare([ContentView], {
         this.__spinner.style.display = '';
         this.__message.style.display = '';
         this.__message.classList.add('alert-info');
-        this.__messageText.innerHTML = this.NLSBundle0.loadingImage;
+        this.__messageText.innerHTML = this.NLSLocalized0.loadingImage;
         this.__imgContent.src = imageURI;
       } else {
         this.__message.style.display = '';
-        this.__messageText.innerHTML = this.NLSBundle0.noImageProvided;
+        this.__messageText.innerHTML = this.NLSLocalized0.noImageProvided;
         this.__message.classList.remove('alert-info');
         this.__message.classList.add('alert-warning');
       }

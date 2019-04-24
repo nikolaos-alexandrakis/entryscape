@@ -212,7 +212,7 @@ export default declare([ETBaseList], {
     }
     this.inherited(arguments);
     if (this.sharedControlLabel) {
-      this.sharedControlLabel.innerHTML = this.NLSBundle1.showFromAllContexts;
+      this.sharedControlLabel.innerHTML = this.NLSLocalized1.showFromAllContexts;
     }
   },
 

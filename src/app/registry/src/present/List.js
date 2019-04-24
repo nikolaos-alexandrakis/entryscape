@@ -29,19 +29,19 @@ export default declare([BaseList, PublicView], {
     const listnode = this.getView().domNode;
     this.headerNode = htmlUtil.create('h3', {
       style: { 'margin-bottom': '20px' },
-      innerHTML: this.NLSBundles.esreSource.exploreHeader,
+      innerHTML: this.NLSLocalized.esreSource.exploreHeader,
     }, listnode, true);
   },
   localeChange() {
     this.inherited(arguments);
     if (this.headerNode) {
-      this.headerNode.innerHTML = this.NLSBundles.esreSource.exploreHeader;
+      this.headerNode.innerHTML = this.NLSLocalized.esreSource.exploreHeader;
     }
   },
   show() {
     const graph = registry.get('clipboardGraph');
     if (graph == null || graph.isEmpty()) {
-      const bundle = this.NLSBundles.esreSource;
+      const bundle = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(bundle.noRDF, bundle.noRDFProceed).then(() => {
         registry.get('siteManager').render('toolkit__rdf__source');
       });

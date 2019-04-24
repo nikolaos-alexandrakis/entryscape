@@ -22,7 +22,7 @@ export default declare([VersionsDialog, ListDialogMixin], {
     this.show(params.row.entry, params.template || this.list.getTemplate(params.row.entry));
   },
   getNLSString(nlsKey) {
-    return this.list.nlsSpecificBundle[this.list[nlsKey] || this[nlsKey]] || this.NLSBundle0[this[nlsKey]] || '';
+    return this.list.nlsSpecificBundle[this.list[nlsKey] || this[nlsKey]] || this.NLSLocalized0[this[nlsKey]] || '';
   },
   getRevertExcludeMessage() {
     const m = this.getNLSString('nlsRevertExcludeMessage');

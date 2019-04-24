@@ -34,7 +34,7 @@ export default declare([ListDialogMixin, NLSMixin.Dijit], {
         type: 'button',
         class: 'label label-primary',
         style: 'font-size: 12px',
-        innerHTML: registry.get('localize')(params.list.NLSBundle1.addedMembersLabel), // use
+        innerHTML: registry.get('localize')(params.list.NLSLocalized1.addedMembersLabel), // use
         // nls from parent list
       }, params.row.buttonsNode);
     });

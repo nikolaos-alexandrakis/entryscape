@@ -260,9 +260,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
       .find(this.datasetEntry.getResourceURI(), ns.expand('dcat:distribution'));
     if (stmts.length === 0) {
       dialogs.confirm(
-        this.NLSBundles.escaFiles.removeOrphanedDataset,
-        this.NLSBundles.escaFiles.confirmRemoveOrphanedDataset,
-        this.NLSBundles.escaFiles.rejectRemoveOrphanedDataset,
+        this.NLSLocalized.escaFiles.removeOrphanedDataset,
+        this.NLSLocalized.escaFiles.confirmRemoveOrphanedDataset,
+        this.NLSLocalized.escaFiles.rejectRemoveOrphanedDataset,
         this.removeConnectedDataset.bind(this));
     } else {
       this.detectDataset();
@@ -297,14 +297,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
     this.APIInfo.hide();
     if (etls.length === 0) {
       this.apiActivateButton.style.display = '';
-      this.apiStatus.innerHTML = this.NLSBundles.escaFiles.apiNotConnected;
+      this.apiStatus.innerHTML = this.NLSLocalized.escaFiles.apiNotConnected;
     } else {
       es.getEntry(etls[0])
         .then(this.getAPIStatus.bind(this))
         .then((status) => {
           this.apiDeactivateButton.style.display = '';
           const statusMessageKey = `apiStatus_${status}`;
-          this.apiStatus.innerHTML = this.NLSBundles.escaFiles[statusMessageKey];
+          this.apiStatus.innerHTML = this.NLSLocalized.escaFiles[statusMessageKey];
           switch (status) {
             case 'error':
               this.apiStatus.style.color = 'red';
@@ -364,8 +364,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, L
     const format = this.entry.getEntryInfo().getFormat();
     if (format !== 'text/csv') {
       const dialogs = registry.get('dialogs');
-      dialogs.confirm(template(this.NLSBundles.escaFiles.onlyCSVSupported)({ format: format || '-' }),
-        this.NLSBundles.escaFiles.confirmAPIActivation, this.NLSBundles.escaFiles.abortAPIActivation).then(f);
+      dialogs.confirm(template(this.NLSLocalized.escaFiles.onlyCSVSupported)({ format: format || '-' }),
+        this.NLSLocalized.escaFiles.confirmAPIActivation, this.NLSLocalized.escaFiles.abortAPIActivation).then(f);
     } else {
       f();
     }

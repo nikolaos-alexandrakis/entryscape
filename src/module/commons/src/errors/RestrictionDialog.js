@@ -17,7 +17,7 @@ export default declare([AcknowledgeTextDialog, NLSMixin.Dijit], {
   },
   show(path, titleParam) {
     if (!titleParam) {
-      title = this.NLSBundle0.restrictionHeader;
+      title = this.NLSLocalized0.restrictionHeader;
     }
 
     this.inherited('show', [path, title]);

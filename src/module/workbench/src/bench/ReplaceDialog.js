@@ -38,20 +38,20 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   localeChange() {
     if (this.isFile) {
       this.__currentBlock.style.display = 'none';
-      this.dialog.titleNode.innerHTML = this.NLSBundle0.replaceFileHeader;
-      this.dialog.footerButtonLabelNode.innerHTML = this.NLSBundle0.replaceFileFooterButton;
+      this.dialog.titleNode.innerHTML = this.NLSLocalized0.replaceFileHeader;
+      this.dialog.footerButtonLabelNode.innerHTML = this.NLSLocalized0.replaceFileFooterButton;
     } else {
       this.__currentBlock.style.display = '';
-      this.__currentLabel.innerHTML = this.NLSBundle0.currentLink;
-      this.dialog.titleNode.innerHTML = this.NLSBundle0.replaceLinkHeader;
-      this.dialog.footerButtonLabelNode.innerHTML = this.NLSBundle0.replaceLinkFooterButton;
+      this.__currentLabel.innerHTML = this.NLSLocalized0.currentLink;
+      this.dialog.titleNode.innerHTML = this.NLSLocalized0.replaceLinkHeader;
+      this.dialog.footerButtonLabelNode.innerHTML = this.NLSLocalized0.replaceLinkFooterButton;
     }
   },
   localeChange_fileOrLink() {
     if (this.isFile) {
-      this.fileOrLink.__fileLabel.innerHTML = this.NLSBundle0.newFile;
+      this.fileOrLink.__fileLabel.innerHTML = this.NLSLocalized0.newFile;
     } else {
-      this.fileOrLink.__linkLabel.innerHTML = this.NLSBundle0.newLink;
+      this.fileOrLink.__linkLabel.innerHTML = this.NLSLocalized0.newLink;
     }
   },
 

@@ -39,7 +39,7 @@ export default (vnode) => {
     actionButtons.push(
       <button
         class=" btn--distribution fa fa-fw fa-pencil"
-        onmousedown={editDistribution}
+        onclick={editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
       </button>,
@@ -50,7 +50,7 @@ export default (vnode) => {
         <button
           class=" btn--distribution fa fa-fw fa-bookmark"
           title={escoList.versionsTitle}
-          onmousedown={actions.openRevisions}
+          onclick={actions.openRevisions}
         >
           <span>{escoList.versionsLabel}</span>
         </button>,
@@ -64,7 +64,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-link"
             title={escaDataset.apiActivateTitle}
-            onmousedown={activateAPI}
+            onclick={activateAPI}
           >
             <span>{escaDataset.apiActivateTitle}</span>
           </button>,
@@ -75,21 +75,21 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-download"
             title={escaDataset.downloadButtonTitle}
-            onmousedown={actions.openResource}
+            onclick={actions.openResource}
           >
             <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
           <button
             class="btn--distribution fa fa-fw fa-exchange"
             title={escaDataset.replaceFileTitle}
-            onmousedown={openReplaceFile}
+            onclick={openReplaceFile}
           >
             <span>{escaDataset.replaceFile}</span>
           </button>,
           <button
             class="btn--distribution fa fa-fw fa-file"
             title={escaDataset.addFileTitle}
-            onmousedown={openManageFiles}
+            onclick={openManageFiles}
           >
             <span>{escaDataset.addFile}</span>
           </button>,
@@ -99,7 +99,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-files-o"
             title={escaDataset.manageFilesTitle}
-            onmousedown={openManageFiles}
+            onclick={openManageFiles}
           >
             <span>{escaDataset.manageFiles}</span>
           </button>,
@@ -119,14 +119,14 @@ export default (vnode) => {
         <button
           class="btn--distribution fa fa-fw fa-info-circle"
           title={escaDataset.apiDistributionTitle}
-          onmousedown={actions.openApiInfo}
+          onclick={actions.openApiInfo}
         >
           <span>{escaDataset.apiDistributionTitle}</span>
         </button>,
         <button
           class="btn--distribution  fa fa-fw fa-retweet"
           title={escaDataset.reGenerateAPITitle}
-          onmousedown={refreshAPI}
+          onclick={refreshAPI}
         >
           <span>{escaDataset.reGenerateAPI}</span>
         </button>,
@@ -137,7 +137,7 @@ export default (vnode) => {
           <button
             class="btn--distribution fa fa-fw fa-info-circle"
             title={escaDataset.accessURLButtonTitle}
-            onmousedown={actions.openResource}
+            onclick={actions.openResource}
           >
             <span>{escaDataset.accessURLButtonTitle}</span>
           </button>,
@@ -148,7 +148,7 @@ export default (vnode) => {
           <button
             class="btn--distribution  fa fa-fw fa-download"
             title={escaDataset.downloadButtonTitle}
-            onmousedown={actions.openResource}
+            onclick={actions.openResource}
           >
             <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
@@ -160,7 +160,7 @@ export default (vnode) => {
       <button
         class=" btn--distribution fa fa-fw fa-remove"
         title={escaDataset.removeDistributionTitle}
-        onmousedown={removeDistribution}
+        onclick={removeDistribution}
       >
         <span>{escaDataset.removeDistributionTitle}</span>
       </button>,
