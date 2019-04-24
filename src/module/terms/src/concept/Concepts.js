@@ -35,7 +35,7 @@ EntryChooser.registerDefaults();
 const ConceptPlaceholder = declare([Placeholder], {
   missingImageClass: 'cube',
   getText() {
-    return this.concepts.NLSBundle0.emptyTreeWarning;
+    return this.concepts.NLSLocalized0.emptyTreeWarning;
   },
 });
 
@@ -48,7 +48,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     this._editor.domNode.classList.add('conceptEditor');
     this._conceptTree = new Tree({}, this._conceptTree);
     this._conceptTree.disallowedSiblingMove = () => {
-      const message = this.NLSBundle0.cannotReorderTerm;
+      const message = this.NLSLocalized0.cannotReorderTerm;
       registry.get('dialogs').acknowledge(message);
     };
     this._selectNodeListener = this.selectNodeListener.bind(this);
@@ -75,7 +75,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
 
         this._conceptTree.getTreeModel().isMoveAllowed =
           (child, from, to) => utils.isUnModified([child, from, to]).then(null, () => {
-            const b = this.NLSBundle0;
+            const b = this.NLSLocalized0;
             return registry.get('dialogs').confirm(b.concurrentConflictMessage, b.concurrentConflictOk).then(() => {
               this.show(viewParams);
               return false;
@@ -187,9 +187,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     if (this.currentSelectedEntry != null && this.currentMetadata.isChanged()) {
       return registry.get('dialogs')
         .confirm(
-          this.NLSBundle0.conceptChangedMessage,
-          this.NLSBundle0.continueAbandonChanges,
-          this.NLSBundle0.continueEditing)
+          this.NLSLocalized0.conceptChangedMessage,
+          this.NLSLocalized0.continueAbandonChanges,
+          this.NLSLocalized0.continueEditing)
         .then(null, () => {
           const tree = this._conceptTree.getTree();
           const model = this._conceptTree.getTreeModel();
@@ -251,10 +251,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       skosUtil.hasChildrenOrRelationsConcepts(this.currentSelectedEntry);
 
     if (hasChildrenOrRelatedConcepts) {
-      registry.get('dialogs').acknowledge(this.NLSBundle0.cannotRemoveTermTree);
+      registry.get('dialogs').acknowledge(this.NLSLocalized0.cannotRemoveTermTree);
     } else {
       const label = registry.get('rdfutils').getLabel(this.currentSelectedEntry) || this.currentSelectedEntry.getId();
-      const message = i18n.renderNLSTemplate(this.NLSBundle0.confirmRemoveTerm, label);
+      const message = i18n.renderNLSTemplate(this.NLSLocalized0.confirmRemoveTerm, label);
       registry.get('dialogs').confirm(message).then(() => {
         this._conceptTree.deleteNode().then(() => {
           // for each SKOS mappings delete those mappings
@@ -304,9 +304,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       node.setAttribute('disabled', 'disabled');
     }
     if (state === 2) { // Processing state
-      node.innerHTML = this.NLSBundle0[`${action}ProcessingButton`];
+      node.innerHTML = this.NLSLocalized0[`${action}ProcessingButton`];
     } else {
-      node.innerHTML = this.NLSBundle0[`${action}Button`];
+      node.innerHTML = this.NLSLocalized0[`${action}Button`];
     }
   },
   /**
@@ -316,8 +316,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
    */
   _toggleTreeError() {
     if (!this._conceptTree.getTreeModel().isModelConsistent) {
-      const message = this.NLSBundle0.treeInconsistentMessage;
-      const prompt = this.NLSBundle0.treeInconsistentPromptLabel;
+      const message = this.NLSLocalized0.treeInconsistentMessage;
+      const prompt = this.NLSLocalized0.treeInconsistentPromptLabel;
       registry.get('dialogs').acknowledge(message, prompt).then(() => {
         this._fixTree();
       });
@@ -330,13 +330,13 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       skosRepair.fix(context).then(() => {
         // tree model is consistent
         this._conceptTree.getTreeModel().setModelConsistency(true, true);
-        const message = this.NLSBundle0.treeFixSuccessMessage;
+        const message = this.NLSLocalized0.treeFixSuccessMessage;
         registry.get('dialogs').acknowledge(message).then(() => {
           this.show(this.currentParams);
         });
       }, () => {
         // TODO any other action?
-        const message = this.NLSBundle0.treeFixErrorMessage;
+        const message = this.NLSLocalized0.treeFixErrorMessage;
         registry.get('dialogs').acknowledge(message);
       }));
   },

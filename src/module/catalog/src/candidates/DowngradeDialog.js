@@ -16,7 +16,7 @@ export default declare([NLSMixin], {
   },
   downgrade() {
     const self = this;
-    const bundle = this.NLSBundles.escaDowngrade;
+    const bundle = this.NLSLocalized.escaDowngrade;
     // check whether published or not
     const dialogs = registry.get('dialogs');
     if (this.datasetEntry.isPublic()) {

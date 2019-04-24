@@ -119,7 +119,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     } else {
       if (this.configuredEntitytypes.length === 0) {
         // show error message
-        this.dialog.showErrorMessage(this.NLSBundle0.errorMessage);
+        this.dialog.showErrorMessage(this.NLSLocalized0.errorMessage);
         this.dialog.lockFooterButton();
         return;
       }

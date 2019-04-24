@@ -39,7 +39,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     if (this.signInNode) {
-      this.signInNode.innerHTML = this.NLSBundle1.signInFromBanner;
+      this.signInNode.innerHTML = this.NLSLocalized1.signInFromBanner;
     }
     this.show();
   },
@@ -96,9 +96,9 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
         this.signInNode.classList.add('btn-success');
         this.signInNode.classList.add('pull-right');
 
-        if (this.NLSBundle1) {
+        if (this.NLSLocalized1) {
           this.signInNode.innerHTML =
-            this.NLSBundle1.signInFromBanner;
+            this.NLSLocalized1.signInFromBanner;
         }
         this.signInNode.onclick = () => {
           const spa = registry.getSiteManager();
@@ -131,11 +131,11 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
     let tooltip;
     const pt = card.productName;
 
-    const label = utils.getModuleProp(card, this.NLSBundle0, 'title');
+    const label = utils.getModuleProp(card, this.NLSLocalized0, 'title');
     if (label) {
       tooltip = `EntryScape ${pt}`;
     } else {
-      tooltip = utils.getModuleProp(card, this.NLSBundle0, 'tooltip');
+      tooltip = utils.getModuleProp(card, this.NLSLocalized0, 'tooltip');
     }
 
     return { label, tooltip };
@@ -149,7 +149,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
   },
 
   getText(card) {
-    return utils.getModuleProp(card, this.NLSBundles.escoModules, 'text', true);
+    return utils.getModuleProp(card, this.NLSLocalized.escoModules, 'text', true);
   },
   setText(textNode, card) {
     const text = this.getText(card);

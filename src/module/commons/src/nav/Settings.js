@@ -99,7 +99,7 @@ export default declare([TitleDialog.ContentNLS, NLSMixin.Dijit], {
     }
   },
   footerButtonAction() {
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     this.settingsFormStatus.innerHTML = '';
 
     let firstName = this.settingsFirstname.value.trim();

@@ -31,7 +31,7 @@ export default declare([VersionsDialog], {
     );
   },
   getNLSString(nlsKey) {
-    return i18n.localize(escoVersionsNLS, this.list[nlsKey] || this[nlsKey]) || this.NLSBundle0[this[nlsKey]] || '';
+    return i18n.localize(escoVersionsNLS, this.list[nlsKey] || this[nlsKey]) || this.NLSLocalized0[this[nlsKey]] || '';
   },
   getRevertExcludeMessage() {
     const message = this.getNLSString('nlsRevertExcludeMessage');

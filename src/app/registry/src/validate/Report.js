@@ -49,7 +49,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       // Placeholder value, just to separate from initial check for empty string
       maxWidth: 800,
     }, this._validateDialogNode);
-    this._validateDialog.closeLabel = this.NLSBundles.esreReport.closeValidationDialog;
+    this._validateDialog.closeLabel = this.NLSLocalized.esreReport.closeValidationDialog;
     this._validateDialog.validator.includeLevel = 'recommended';
     const tp = registry.onInit('itemstore').then((itemstore) => {
       const t2t = config.registry.type2template;
@@ -64,7 +64,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   show() {
     this._graph = registry.get('clipboardGraph');
     if (this._graph == null || this._graph.isEmpty()) {
-      const bundle = this.NLSBundles.esreSource;
+      const bundle = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(bundle.noRDF, bundle.noRDFProceed).then(() => {
         registry.get('siteManager').render('toolkit__rdf__source');
       });

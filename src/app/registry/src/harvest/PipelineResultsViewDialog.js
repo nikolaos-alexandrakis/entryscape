@@ -19,7 +19,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     // this.inherited('localeChange', esrePipelineResultListDialog);
-    this.updateLocaleStrings(this.NLSBundles.esrePipelineResultListDialog);
+    this.updateLocaleStrings(this.NLSLocalized.esrePipelineResultListDialog);
   },
   open(params) {
     this.inherited(arguments);

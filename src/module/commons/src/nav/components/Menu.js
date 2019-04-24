@@ -73,7 +73,7 @@ export default declare([NLSMixin.Dijit], {
   },
   view() {
     this.updateSelectedItem();
-    const items = getModulesData(this.NLSBundle0);
+    const items = getModulesData(this.NLSLocalized0);
     const { selectedItem, onclick } = menuState;
     return m('div', m(MenuList, { items, selectedItem, onclick }));
   },

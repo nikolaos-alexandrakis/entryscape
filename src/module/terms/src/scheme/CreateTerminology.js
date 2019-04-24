@@ -61,7 +61,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
     const store = registry.get('entrystore');
     if (name === '') {
       // TODO remove this nls string as it will never happen (checkValidInfo method above)
-      return this.NLSBundle0.insufficientInfoToCreateScheme;
+      return this.NLSLocalized0.insufficientInfoToCreateScheme;
     }
     let context;
     return store.createGroupAndContext()

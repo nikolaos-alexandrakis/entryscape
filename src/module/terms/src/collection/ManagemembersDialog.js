@@ -20,7 +20,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundles.esteCollection);
+    this.updateLocaleStrings(this.NLSLocalized.esteCollection);
   },
   open(params) {
     this.row = params.row;
@@ -63,7 +63,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     if (co === 0) {
       this.hide();
     } else {
-      const b = this.NLSBundle0;
+      const b = this.NLSLocalized0;
       registry.get('dialogs').confirm(
         i18n.renderNLSTemplate(b.manageMemberAbortOrNot, co), b.discardMemberChanges, b.continueMemberChanges)
         .then((discard) => {
@@ -116,7 +116,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
         }
         return Promise.all();
       }, () => {
-        const b = self.NLSBundle0;
+        const b = self.NLSLocalized0;
         return registry.get('dialogs').acknowledge(b.concurrentConflictMessage,
           b.concurrentConflictOk).then(() => {
           self.showCollection();

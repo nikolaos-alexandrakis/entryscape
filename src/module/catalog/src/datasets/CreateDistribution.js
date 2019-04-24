@@ -15,9 +15,9 @@ const DistributionEntryType = declare([EntryType], {
   nlsBundles: [{ escoEntryType }, { escaDataset }],
   localeChange() {
     this.inherited(arguments);
-    this.__fileOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.fileUploadDistribution;
-    this.__linkOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.accessURIDistribution;
-    this.__linkLabel.innerHTML = this.NLSBundles.escaDataset.accessURIDistribution;
+    this.__fileOptionLabelNLS.innerHTML = this.NLSLocalized.escaDataset.fileUploadDistribution;
+    this.__linkOptionLabelNLS.innerHTML = this.NLSLocalized.escaDataset.accessURIDistribution;
+    this.__linkLabel.innerHTML = this.NLSLocalized.escaDataset.accessURIDistribution;
   },
   fileOption(ev) {
     if (config.catalog && config.catalog.disallowFileuploadDistributionDialog) {
@@ -67,8 +67,8 @@ export default declare([RDFormsEditDialog], {
     this.editor.render();
   },
   updateGenericCreateNLS() {
-    this.title = this.NLSBundles.escaDataset[this.nlsHeaderTitle];
-    this.doneLabel = this.NLSBundles.escaDataset[this.nlsFooterButtonLabel];
+    this.title = this.NLSLocalized.escaDataset[this.nlsHeaderTitle];
+    this.doneLabel = this.NLSLocalized.escaDataset[this.nlsFooterButtonLabel];
     this.updateTitleAndButton();
   },
   open(params) {
@@ -112,7 +112,7 @@ export default declare([RDFormsEditDialog], {
           return distributionEntry.refresh();
         });
       }, () => {
-        throw this.NLSBundles.escaDataset.createDistributionErrorMessage;
+        throw this.NLSLocalized.escaDataset.createDistributionErrorMessage;
       });
     const distResourceURI = pDistributionEntry.getResourceURI();
     if (this.fileOrLink) {

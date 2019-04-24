@@ -72,7 +72,7 @@ const GeonamesChooser = declare([_WidgetBase, _TemplatedMixin,
     this.lat.innerHTML = geoObj.lat;
     this.lng.innerHTML = geoObj.lng;
     this.subdivision.innerHTML =
-      i18n.renderNLSTemplate(this.NLSBundle0.geoNameSubdivision, { 1: geoObj.name });
+      i18n.renderNLSTemplate(this.NLSLocalized0.geoNameSubdivision, { 1: geoObj.name });
   },
 
   focusOn(geonameId) {

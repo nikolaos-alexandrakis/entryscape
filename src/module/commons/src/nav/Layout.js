@@ -309,7 +309,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     return this.getModuleStr('title', module);
   },
   getModuleStr(prop, module = null) {
-    return module ? utils.getModuleProp(module, this.NLSBundle1, prop) : '';
+    return module ? utils.getModuleProp(module, this.NLSLocalized1, prop) : '';
   },
   localeChange() {
     if (this._firstLoad === true) {
@@ -318,7 +318,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       if (!(has('chrome') >= 57 || has('ff') > 60 || has('ie') >= 11
         || has('trident') || has('edge') || has('safari') >= 8)) {
         registry.get('dialogs')
-          .acknowledge(this.NLSBundle0.unSupportedBrowser, this.NLSBundle0.continueUnsupportedBrowser);
+          .acknowledge(this.NLSLocalized0.unSupportedBrowser, this.NLSLocalized0.continueUnsupportedBrowser);
       }
     }
 

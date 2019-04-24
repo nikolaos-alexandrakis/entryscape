@@ -36,7 +36,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.userEntry.getResource().then(resourceEntry =>
       resourceEntry.setPassword(Password.password)
         .then(null, () => {
-          throw this.NLSBundles.esadUser.setPasswordError;
+          throw this.NLSLocalized.esadUser.setPasswordError;
         }));
   },
 });

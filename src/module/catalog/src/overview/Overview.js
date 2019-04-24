@@ -62,7 +62,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this.data.description = registry.get('localize')(rdfutils.getDescription(catalogEntry));
       this.data.title = registry.get('localize')(rdfutils.getLabel(catalogEntry));
 
-      const b = this.NLSBundle0;
+      const b = this.NLSLocalized0;
 
       // box list
       this.data.bList = [];

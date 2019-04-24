@@ -362,8 +362,8 @@ export default (entry) => {
     open(params) {
       this.inherited('open', arguments);
       const name = registry.get('rdfutils').getLabel(params.row.entry);
-      this.title = i18n.renderNLSTemplate(this.NLSBundles.escaDataset.commentHeader, { name });
-      this.footerButtonLabel = this.NLSBundles.escaDataset.commentFooterButton;
+      this.title = i18n.renderNLSTemplate(this.NLSLocalized.escaDataset.commentHeader, { name });
+      this.footerButtonLabel = this.NLSLocalized.escaDataset.commentFooterButton;
       this.localeChange();
     },
   }, DOMUtil.create('div'));
