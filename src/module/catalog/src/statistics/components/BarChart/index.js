@@ -75,7 +75,6 @@ export default () => {
       const ctx = document.getElementById(elementId);
       chart = new Chart(ctx, {
         type: 'bar',
-        label: 'test',
         options: {
           maintainAspectRatio: false,
           tooltips: {
@@ -112,7 +111,9 @@ export default () => {
       const { width = 400, height = 400 } = chartDimensions;
 
       let noData = true;
-      if (chart && data && data.datasets && data.datasets.length > 0) {
+      if (chart && data
+        && data.datasets && data.datasets.length > 0
+        && data.datasets[0].data.length > 0) { // @todo refactor
         noData = false;
         const numberOfDataPoints = data.datasets[0].data.length;
         const timeUnit = guessAxisFormatFromData(numberOfDataPoints);
@@ -123,16 +124,19 @@ export default () => {
           ...data,
         };
 
+        // update chart colors and axes and re-render
         if (chart.data.datasets) {
-          // update chart colors and axes and re-render
+          const colorOptionsCount = COLOR_OPTIONS.length;
           chart.data.datasets.forEach((dataset, idx) => {
-            Object.assign(chart.data.datasets[idx], { ...COLOR_OPTIONS[idx] }); // shallow
+            const colorIdx = idx % colorOptionsCount; // repeat colors
+            Object.assign(chart.data.datasets[idx], { ...COLOR_OPTIONS[colorIdx] }); // shallow is fine
           });
           chart.options.scales.xAxes[0].time.unit = timeUnit;
 
           chart.update();
         }
       }
+
       return (<div className="chart-container">
         <div
           className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
@@ -140,7 +144,8 @@ export default () => {
           className={` ${noData ? 'hidden' : ''}`}
           id={elementId}
           width={width}
-          height={height}/>
+          height={height}
+          aria-label="Statistics chart" role="img"/>
       </div>);
     },
   };

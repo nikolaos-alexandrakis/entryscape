@@ -43,7 +43,7 @@ const state = {
 
 const setState = createSetState(state);
 
-const getControllerComponent = (entries, elementId, name) => {
+const getControllerComponent = (entries, elementId) => {
   if (component) {
     return component;
   }
@@ -53,15 +53,16 @@ const getControllerComponent = (entries, elementId, name) => {
       timeRangeSelected: range,
     });
 
-    getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
+    getChartData(entries, registry.getContext(), state.timeRangeSelected)
+      .then(data => setState({ data }));
   };
 
 
   component = {
     elementId,
-    name,
     oninit() {
-      getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
+      getChartData(entries, registry.getContext(), state.timeRangeSelected)
+        .then(data => setState({ data }));
     },
     view() {
       const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
@@ -73,7 +74,7 @@ const getControllerComponent = (entries, elementId, name) => {
             selected={state.timeRangeSelected}
             onclickTimeRange={onclickTimeRange}/>
         </div>
-        <Chart data={state.data} elementId={this.elementId} name={this.name}/>
+        <Chart data={state.data} elementId={this.elementId}/>
       </section>;
     },
   };
@@ -93,9 +94,8 @@ export default declare([TitleDialog.ContentComponent], {
   },
   open(params) {
     const elementId = 'distribution-dialog-statistics';
-    const name = 'test';
     this.dialog.show();
-    const controllerComponent = getControllerComponent(params.entries, elementId, name);
+    const controllerComponent = getControllerComponent(params.entries, elementId);
     this.show(controllerComponent);
   },
 });
