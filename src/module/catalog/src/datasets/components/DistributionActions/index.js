@@ -1,17 +1,17 @@
-import { i18n } from 'esi18n';
-import registry from 'commons/registry';
-import DOMUtil from 'commons/util/htmlUtil';
-import Dropdown from 'commons/components/common/Dropdown';
 import {
-  isUploadedDistribution,
+  isAccessURLEmpty,
+  isAPIDistribution,
+  isDownloadURLEmpty,
   isFileDistributionWithOutAPI,
   isSingleFileDistribution,
-  isAPIDistribution,
-  isAccessURLEmpty,
-  isDownloadURLEmpty,
+  isUploadedDistribution,
 } from 'catalog/datasets/utils/distributionUtil';
-import escoListNLS from 'commons/nls/escoList.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import Dropdown from 'commons/components/common/Dropdown';
+import escoListNLS from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
+import { i18n } from 'esi18n';
 import bindActions from './actions';
 
 /**
@@ -19,8 +19,8 @@ import bindActions from './actions';
  *
  * @returns {undefined}
  */
-export default (vnode) => {
-  const { distribution, dataset, refreshDistributions = () => {} } = vnode.attrs;
+export default (initialVnode) => {
+  const { distribution, dataset, refreshDistributions = () => {} } = initialVnode.attrs;
   const actions = bindActions(distribution, dataset, DOMUtil.preventBubbleWrapper);
 
   const renderActions = (entry, fileEntryURIs) => {
@@ -36,9 +36,17 @@ export default (vnode) => {
     const openManageFiles = e => actions.openManageFiles(e, [fileEntryURIs]);
     const openStatistics = e => actions.openStatistics(e, [fileEntryURIs]);
 
+    const statisticsVnode = (<button
+      className="btn--distribution fa fa-fw fa-chart-area"
+      title={escaDataset.seeStatisticsTitle}
+      onclick={openStatistics}
+    >
+      <span>{escaDataset.seeStatistics}</span>
+    </button>);
+
     actionButtons.push(
       <button
-        class=" btn--distribution fa fa-fw fa-pencil"
+        className="btn--distribution fa fa-fw fa-pencil"
         onclick={editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
@@ -48,7 +56,7 @@ export default (vnode) => {
     if (distribution.getEntryInfo().hasMetadataRevisions()) {
       actionButtons.push(
         <button
-          class=" btn--distribution fa fa-fw fa-bookmark"
+          className=" btn--distribution fa fa-fw fa-bookmark"
           title={escoList.versionsTitle}
           onclick={actions.openRevisions}
         >
@@ -62,7 +70,7 @@ export default (vnode) => {
       if (isFileDistributionWithOutAPI(entry, fileEntryURIs, registry.get('entrystore'))) {
         actionButtons.push(
           <button
-            class="btn--distribution fa fa-fw fa-link"
+            className="btn--distribution fa fa-fw fa-link"
             title={escaDataset.apiActivateTitle}
             onclick={activateAPI}
           >
@@ -73,21 +81,21 @@ export default (vnode) => {
       if (isSingleFileDistribution(entry)) {
         actionButtons.push([
           <button
-            class="btn--distribution fa fa-fw fa-download"
+            className="btn--distribution fa fa-fw fa-download"
             title={escaDataset.downloadButtonTitle}
             onclick={actions.openResource}
           >
             <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
           <button
-            class="btn--distribution fa fa-fw fa-exchange"
+            className="btn--distribution fa fa-fw fa-exchange"
             title={escaDataset.replaceFileTitle}
             onclick={openReplaceFile}
           >
             <span>{escaDataset.replaceFile}</span>
           </button>,
           <button
-            class="btn--distribution fa fa-fw fa-file"
+            className="btn--distribution fa fa-fw fa-file"
             title={escaDataset.addFileTitle}
             onclick={openManageFiles}
           >
@@ -97,7 +105,7 @@ export default (vnode) => {
       } else {
         actionButtons.push(
           <button
-            class="btn--distribution fa fa-fw fa-files-o"
+            className="btn--distribution fa fa-fw fa-files-o"
             title={escaDataset.manageFilesTitle}
             onclick={openManageFiles}
           >
@@ -105,37 +113,30 @@ export default (vnode) => {
           </button>,
         );
       }
-      actionButtons.push(
-        <button
-          className="btn--distribution fa fa-fw fa-chart-area"
-          title={escaDataset.seeStatisticsTitle}
-          onclick={openStatistics}
-        >
-          <span>{escaDataset.seeStatistics}</span>
-        </button>,
-      );
+      actionButtons.push(statisticsVnode);
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
       actionButtons.push([
         <button
-          class="btn--distribution fa fa-fw fa-info-circle"
+          className="btn--distribution fa fa-fw fa-info-circle"
           title={escaDataset.apiDistributionTitle}
           onclick={actions.openApiInfo}
         >
           <span>{escaDataset.apiDistributionTitle}</span>
         </button>,
         <button
-          class="btn--distribution  fa fa-fw fa-retweet"
+          className="btn--distribution fa fa-fw fa-retweet"
           title={escaDataset.reGenerateAPITitle}
           onclick={refreshAPI}
         >
           <span>{escaDataset.reGenerateAPI}</span>
         </button>,
+        statisticsVnode,
       ]);
     } else {
       if (!isAccessURLEmpty(entry)) {
         actionButtons.push(
           <button
-            class="btn--distribution fa fa-fw fa-info-circle"
+            className="btn--distribution fa fa-fw fa-info-circle"
             title={escaDataset.accessURLButtonTitle}
             onclick={actions.openResource}
           >
@@ -146,7 +147,7 @@ export default (vnode) => {
       if (!isDownloadURLEmpty(entry)) {
         actionButtons.push(
           <button
-            class="btn--distribution  fa fa-fw fa-download"
+            className="btn--distribution  fa fa-fw fa-download"
             title={escaDataset.downloadButtonTitle}
             onclick={actions.openResource}
           >
@@ -158,7 +159,7 @@ export default (vnode) => {
 
     actionButtons.push(
       <button
-        class=" btn--distribution fa fa-fw fa-remove"
+        className=" btn--distribution fa fa-fw fa-remove"
         title={escaDataset.removeDistributionTitle}
         onclick={removeDistribution}
       >
@@ -174,9 +175,9 @@ export default (vnode) => {
       const { fileEntryURIs } = vnode.attrs;
 
       return (
-        <div class=" icon--wrapper distribution--file">
+        <div className=" icon--wrapper distribution--file">
           <Dropdown>
-            { renderActions(distribution, fileEntryURIs) }
+            {renderActions(distribution, fileEntryURIs)}
           </Dropdown>
         </div>
       );
