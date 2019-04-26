@@ -67,6 +67,10 @@ const getControllerComponent = (entries, elementId) => {
     view() {
       const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
       return <section>
+        <div>
+          <h4>Combined Statistics</h4>
+          <p>Here you can see a combined view of different user actions through time</p>
+        </div>
         <div className="chooser__wrapper">
           <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
           <TimeRangeDropdown
