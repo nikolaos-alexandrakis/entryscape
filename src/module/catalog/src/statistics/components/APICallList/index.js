@@ -24,19 +24,20 @@ export default () => ({
     const { items, filteredItems, selected } = vnode.attrs;
     const toRenderItems = filteredItems || items;
     const hasData = !!toRenderItems.length > 0;
+    const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
 
     return hasData ?
-      (<div class="stats__row__wrapper--API">
+      (<div className="stats__row__wrapper--API">
         <div className="stats-header">
-          <span className="distribution__head__title">{i18n.localize(escaStatistics, 'tabHeaderTitle')}</span>
+          <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
             <span
-              title={i18n.localize(escaStatistics, 'rowHeaderAPI')}
+              title={escaStatisticsNLS.rowHeaderAPI}
               className="distribution__head__title fas fa-cogs">
             </span>
           </div>
         </div>
-        {toRenderItems.map(item => (
+        {hasData ? toRenderItems.map(item => (
           <div
             key={item.uri}
             onclick={this.handleListItemClick}
@@ -50,9 +51,11 @@ export default () => ({
             <div className="flex--sb row--right--wrapper">
               <span className="row__text stat__count">{item.count}</span>
             </div>
-          </div>))}
+          </div>)) :
+          (<div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>)
+        }
       </div>) :
-      (<div className="no-data">{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>);
+      (<div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>);
   },
 });
 

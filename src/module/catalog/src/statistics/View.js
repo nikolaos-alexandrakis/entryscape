@@ -82,7 +82,7 @@ export default declare(MithrilView, {
         itemStats = itemStats.filter(item =>
           fileEntries.has(item.uri) && distributionEntries.has(item.uri) && datasetEntries.has(item.uri));
 
-       const temp = itemStats.map((item) => {
+        return itemStats.map((item) => {
           const distEntry = distributionEntries.get(item.uri);
           item.format = distEntry.getMetadata().findFirstValue(distEntry.getResourceURI(), 'dcterms:format');
           item.abbrevFormat = getAbbreviatedMimeType(item.format.trim()); // some formats have trailing spaces
@@ -92,7 +92,6 @@ export default declare(MithrilView, {
 
           return item;
         });
-        return [...temp,...temp,...temp]
       } catch (err) {
         // no statistics found
         console.log(err);
@@ -270,14 +269,14 @@ export default declare(MithrilView, {
               <h3>{escaStatisticsNLS.statsViewHeader}</h3>
             </div>
             <section className="stats__wrapper">
-            <div className="chooser__wrapper">
-                  <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
-                  <TimeRangeDropdown
-                    items={timeRangesItems}
-                    selected={state.timeRanges.selected}
-                    onclickTimeRange={onclickTimeRange}/>
-                </div>
-            <div className="visualization__wrapper">
+              <div className="chooser__wrapper">
+                <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
+                <TimeRangeDropdown
+                  items={timeRangesItems}
+                  selected={state.timeRanges.selected}
+                  onclickTimeRange={onclickTimeRange}/>
+              </div>
+              <div className="visualization__wrapper">
                 <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
                 <div className="visualization__chart">
                   <BarChart
@@ -287,7 +286,7 @@ export default declare(MithrilView, {
                 </div>
               </div>
               <div className="data__wrapper">
-        
+
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
                     <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab}/>

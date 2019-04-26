@@ -27,7 +27,7 @@ export default () => ({
     const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
 
     return hasData ?
-      (<div class="stats__row__wrapper--file">
+      <div class="stats__row__wrapper--file">
         <div className="stats-header">
           <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
@@ -51,7 +51,6 @@ export default () => ({
                     : null
                 }
                 <span className="row__text">{escaStatisticsNLS.datasetPrefix} {item.name}</span>
-                {item.subname ?
               </div>
               <div className="flex--sb row--right--wrapper">
                 <span
@@ -61,9 +60,9 @@ export default () => ({
                 <span className="row__text stat__count">{item.count}</span>
               </div>
             </div>)) :
-          <div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
+          <div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
         }
-      </div>) :
-      (<div className="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>);
+      </div> :
+      <div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>;
   },
 });

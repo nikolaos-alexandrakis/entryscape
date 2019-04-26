@@ -1,13 +1,23 @@
-import registry from 'commons/registry';
-import dateUtil from 'commons/util/dateUtil';
-import Overview from 'commons/overview/components/Overview';
-import m from 'mithril';
-import { NLSMixin } from 'esi18n';
 import escaOverview from 'catalog/nls/escaOverview.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import Chart from 'catalog/statistics/components/BarChart';
+import Overview from 'commons/overview/components/Overview';
+import registry from 'commons/registry';
+import statsAPI from 'commons/statistics/api';
+import dateUtil from 'commons/util/dateUtil';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import m from 'mithril';
+
+
+const getCatalogStatistics = async (timeRangeDay) => {
+  const context = registry.getContext();
+  const itemStats = await statsAPI.getTopStatistics(context.getId(), 'all', timeRangeDay);
+
+  return itemStats;
+};
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   templateString: '<div class="catalogOverview escoList"></div>',
@@ -89,7 +99,37 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         },
       ];
 
-      m.render(document.querySelector('.catalogOverview.escoList'), m(Overview, { data: this.data }));
+      (async () => {
+        const today = new Date();
+        const statsPromises = [];
+        for (let i = 0; i <= 7; i++) {
+          const date = new Date();
+          date.setDate(today.getDate() - i);
+
+          const timeRange = {
+            year: date.getFullYear(),
+            month: date.getMonth() + 1, // month is zero indexed
+            day: date.getDate(),
+          };
+
+          console.log(timeRange);
+
+          statsPromises.push(getCatalogStatistics(timeRange));
+          // const uris = stats.map(stat => stat.uri);
+          // console.log(stats);
+        }
+
+        const wholeStats = await Promise.all(statsPromises);
+        console.log(wholeStats);
+      })();
+
+      m.render(document.querySelector('.catalogOverview.escoList'),
+        <div>
+          <Overview data={this.data}/>
+          <hr/>
+          <Chart data={[]} elementId={'catalog-statistics-overview'}/>
+        </div>,
+      );
     });
   },
 });
