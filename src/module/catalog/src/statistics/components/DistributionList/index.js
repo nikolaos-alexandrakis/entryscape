@@ -52,7 +52,6 @@ export default () => ({
                 }
                 <span className="row__text">{escaStatisticsNLS.datasetPrefix} {item.name}</span>
                 {item.subname ?
-                  <span className="row__text">{escaStatisticsNLS.distributionPrefix} {item.subname}</span> : null}
               </div>
               <div className="flex--sb row--right--wrapper">
                 <span

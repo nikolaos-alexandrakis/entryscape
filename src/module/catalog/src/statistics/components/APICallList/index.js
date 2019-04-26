@@ -46,7 +46,6 @@ export default () => ({
             className={`stats__row--API flex--sb ${item.uri === selected ? 'selected' : ''}`}>
             <div className="row__title--wrapper">
               <span className="row__title">{item.name}</span>
-              <span className="row__text">{item.subname}</span>
             </div>
             <div className="flex--sb row--right--wrapper">
               <span className="row__text stat__count">{item.count}</span>
