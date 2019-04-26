@@ -13,7 +13,7 @@ export default () => ({
   view(vnode) {
     const handleSearchUpdate = () => handleSearchValueChange(vnode.attrs.onchangeSearch);
     const placeholder = i18n.localize(escaStatistics, 'statsSearchInputPlaceholder');
-    return (<div className="input-group col-md-6">
+    return (<div className="input-group col-md-8">
       <input
         id="stats-search-input"
         type="text"

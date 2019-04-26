@@ -62,7 +62,11 @@ export default (vnode) => {
   };
 
   const editDistribution = (e) => {
-    actions.editDistribution(() => m.redraw());
+    const target = e.target;
+    const isDropdownClick = vnode.dom.querySelector('.ESDropdown').contains(target);
+    if (!isDropdownClick) {
+      actions.editDistribution(() => m.redraw());
+    }
   };
 
   return {

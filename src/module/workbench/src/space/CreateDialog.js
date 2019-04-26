@@ -41,7 +41,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const desc = this.workspaceDesc.value;
     const store = registry.get('entrystore');
     if (name === '' || desc === '') {
-      return this.NLSBundles.eswoSpaces.insufficientInfoToCreateWorkspace;
+      return this.NLSLocalized.eswoSpaces.insufficientInfoToCreateWorkspace;
     }
     let context;
     let centry;

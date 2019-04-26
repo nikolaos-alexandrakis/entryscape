@@ -47,7 +47,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     renderingContext.setMessages(bundle);
     this.levels.localize(bundle);
     this.discardWarning = bundle.discardMetadataChangesWarning;
@@ -65,7 +65,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
     if (this.explicitNLS && (this.title !== '' || this.title === null)) {
       this.updateLocaleStringsExplicit(this.title, this.doneLabel, this.doneTitle);
     } else {
-      this.updateLocaleStrings(this.NLSBundles.escoRdforms, this.localizationParams);
+      this.updateLocaleStrings(this.NLSLocalized.escoRdforms, this.localizationParams);
     }
     this.updateHeaderWidth();
   },

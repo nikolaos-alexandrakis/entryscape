@@ -195,12 +195,6 @@ TitleDialog.Content = declare([_WidgetBase, _TemplatedMixin], {
   },
 });
 
-TitleDialog.ContentComponent = declare([TitleDialog.Content], {
-  show(component) {
-    m.mount(this.dialog.containerNode, component);
-  },
-});
-
 TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
   nlsHeaderTitle: '',
   nlsFooterButtonLabel: '',
@@ -216,7 +210,7 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
    */
   localeChange() {
     if (this.title === '') {
-      const bundle0 = this.NLSBundle0;
+      const bundle0 = this.NLSLocalized0;
       this.dialog.updateLocaleStrings(bundle0); //
     } else {
       // @scazan THis is a "mock" sort of bundle so it needs to conform
@@ -227,6 +221,12 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
       mesg[this.nlsFooterButtonTitle] = this.footerButtonTitle;
       this.dialog.updateLocaleStrings(mesg);
     }
+  },
+});
+
+TitleDialog.ContentComponent = declare([TitleDialog.ContentNLS], {
+  show(component) {
+    m.mount(this.dialog.containerNode, component);
   },
 });
 

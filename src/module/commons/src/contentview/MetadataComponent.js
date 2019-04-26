@@ -50,7 +50,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    const bundle = this.NLSBundle1;
+    const bundle = this.NLSLocalized1;
     this.discardWarning = bundle.discardMetadataChangesWarning;
     this.discardOption = bundle.discardMetadataChanges;
     this.keepOption = bundle.keepMetadataChanges;

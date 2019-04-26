@@ -225,7 +225,7 @@ export default (distribution, dataset, wrapperFunction) => {
     const esUtil = registry.getEntryStoreUtil();
 
     // fetch all entries asynchronously
-    return Promise.all(fileURIs.map(esUtil.getEntryByResourceURI.bind(esUtil)));
+    return Promise.all(fileURIs.map((fileURI => esUtil.getEntryByResourceURI(fileURI, registry.getContext()))));
   };
 
   /**

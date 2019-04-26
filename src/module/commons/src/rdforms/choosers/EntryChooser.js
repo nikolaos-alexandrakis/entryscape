@@ -94,7 +94,7 @@ const EntryChooserList = declare([BaseList], {
   getEmptyListWarning() {
     if (this.binding != null) {
       const createLabel = this.binding.getItem().getLabel();
-      return i18n.renderNLSTemplate(this.NLSBundle1.errorMessage, { 1: createLabel });
+      return i18n.renderNLSTemplate(this.NLSLocalized1.errorMessage, { 1: createLabel });
     }
 
     return '';
@@ -155,8 +155,8 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
     if (this.binding != null) {
       const createLabel = this.binding.getItem().getLabel();
       this.dialog.updateLocaleStringsExplicit(
-        i18n.renderNLSTemplate(this.NLSBundle1.searchForHeader, { 1: createLabel }),
-        i18n.renderNLSTemplate(this.NLSBundle1.createEntryType, { 1: createLabel }));
+        i18n.renderNLSTemplate(this.NLSLocalized1.searchForHeader, { 1: createLabel }),
+        i18n.renderNLSTemplate(this.NLSLocalized1.createEntryType, { 1: createLabel }));
     }
   },
   searchOption() {
@@ -238,7 +238,7 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
     const report = validate.bindingReport(this.editor.binding);
     if (report.errors.length > 0) {
       this.editor.report(report);
-      return this.NLSBundles.escoRdforms.missingMandatoryFields;
+      return this.NLSLocalized.escoRdforms.missingMandatoryFields;
     }
     if (!this._graph.isChanged()) {
       return undefined;

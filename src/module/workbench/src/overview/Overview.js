@@ -54,7 +54,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       const modificationDateFormats = dateUtil.getMultipleDateFormats(modificationDate);
       const creationDateFormats = dateUtil.getMultipleDateFormats(creationDate);
 
-      const b = this.NLSBundle0;
+      const b = this.NLSLocalized0;
 
       // basic info
       this.data.description = registry.get('localize')(rdfutils.getDescription(projectEntry));

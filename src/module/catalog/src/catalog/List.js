@@ -228,10 +228,10 @@ export default declare([List], {
 
   getEmptyListWarning() {
     if(this.includeCreateButton) {
-      return this.NLSBundle1.emptyListWarning;
+      return this.NLSLocalized1.emptyListWarning;
     }
 
-    return this.NLSBundle1.emptyListWithNoAccessWarning;
+    return this.NLSLocalized1.emptyListWithNoAccessWarning;
   },
 
   getTemplate() {

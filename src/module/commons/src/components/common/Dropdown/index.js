@@ -10,26 +10,25 @@ export default (vnode) => {
   const setState = createSetState(state);
 
   const hideFileDropdown = () => {
-    setState({
-      isShowing: false,
-    });
+    if (state.isShowing) {
+      setState({
+        isShowing: false,
+      });
+    }
 
     vnode.dom.classList.remove('dropup');
   };
 
-  const handleOutsideClick = () => {
-    hideFileDropdown();
-  };
 
   const toggleDropdown = (e) => {
     e.preventDefault();
-    e.stopPropagation();
 
-    setState({
+    // Push the change to the end of the event loop so the window click event
+    // will be able to test isShowing correctly
+    setTimeout(() => setState({
       isShowing: !state.isShowing,
-    });
+    }), 0);
   };
-
 
   const setDropdownOrientation = () => {
     const dropdownElement = vnode.dom.querySelector('.row__dropdownMenu');
@@ -50,13 +49,21 @@ export default (vnode) => {
   };
 
   return {
+    oninit() {
+      window.addEventListener('click', hideFileDropdown);
+    },
+
+    onremove() {
+      window.removeEventListener('click', hideFileDropdown);
+    },
+
     view(vnode) {
       const { children } = vnode;
       const showingDropdownClass = state.isShowing ? 'ESshow' : '';
 
       return (
-        <div>
-          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown} onblur={handleOutsideClick}></button>
+        <div className='ESDropdown'>
+          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown} ></button>
           <div class={`row__dropdownMenu ${showingDropdownClass}`}>
             { children }
           </div>

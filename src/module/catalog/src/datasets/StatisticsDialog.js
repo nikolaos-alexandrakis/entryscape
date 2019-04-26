@@ -1,4 +1,5 @@
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
+import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import Chart from 'catalog/statistics/components/BarChart';
 import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
@@ -8,6 +9,7 @@ import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 
 const getChartData = async (entries, context, timeRange) => {
   const chartData = { datasets: [] };
@@ -23,7 +25,6 @@ const getChartData = async (entries, context, timeRange) => {
     allEntriesStatsData.forEach((statsData, idx) => {
       delete statsData.count;
       const data = timeRangeUtil.normalizeChartData(timeRange, statsData);
-      console.log(data);
       const label = labels[idx];
       chartData.datasets.push({ data, label });
     });
@@ -42,7 +43,7 @@ const state = {
 
 const setState = createSetState(state);
 
-const getControllerComponent = (entries, elementId, name) => {
+const getControllerComponent = (entries, elementId) => {
   if (component) {
     return component;
   }
@@ -52,27 +53,28 @@ const getControllerComponent = (entries, elementId, name) => {
       timeRangeSelected: range,
     });
 
-    getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
+    getChartData(entries, registry.getContext(), state.timeRangeSelected)
+      .then(data => setState({ data }));
   };
 
 
   component = {
     elementId,
-    name,
     oninit() {
-      getChartData(entries, registry.getContext(), state.timeRangeSelected).then(data => setState({ data }));
+      getChartData(entries, registry.getContext(), state.timeRangeSelected)
+        .then(data => setState({ data }));
     },
     view() {
-      console.log(state.data);
+      const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
       return <section>
         <div className="chooser__wrapper">
-          <h4>Time Range</h4>
+          <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
           <TimeRangeDropdown
             items={timeRangesItems}
             selected={state.timeRangeSelected}
             onclickTimeRange={onclickTimeRange}/>
         </div>
-        <Chart data={state.data} elementId={this.elementId} name={this.name}/>
+        <Chart data={state.data} elementId={this.elementId}/>
       </section>;
     },
   };
@@ -81,16 +83,19 @@ const getControllerComponent = (entries, elementId, name) => {
 };
 
 export default declare([TitleDialog.ContentComponent], {
+  nlsBundles: [{ escaStatistics }],
+  nlsHeaderTitle: 'statsDialogTitle',
+  nlsFooterButtonLabel: 'statsDialogFooter',
   postCreate() {
+    this.inherited(arguments);
     this.dialog.footerButtonAction = () => {
       component = null;
     };
   },
-  async open(params) {
+  open(params) {
     const elementId = 'distribution-dialog-statistics';
-    const name = 'test';
     this.dialog.show();
-    const controllerComponent = getControllerComponent(params.entries, elementId, name);
+    const controllerComponent = getControllerComponent(params.entries, elementId);
     this.show(controllerComponent);
   },
 });
