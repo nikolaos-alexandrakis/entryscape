@@ -3,6 +3,7 @@
 .stats__wrapper {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
   h4 {
@@ -15,8 +16,8 @@
   }
 
   .data__wrapper {
-    width: 40%;
-    display: flex;
+/*     width: 40%;
+ */    display: flex;
     flex-direction: column;
     .pagination{
       align-self: center;
@@ -49,13 +50,13 @@
 }
 
 .visualization__wrapper {
-  width: 60%;
-  padding-left: 20px;
+/*   width: 60%;
+ */  padding-left: 20px;
 
 .visualization__chart {
   width: 100%;}
   .chart-container{
-    height: 720px;
+    height: 300px;
   }
 
 }

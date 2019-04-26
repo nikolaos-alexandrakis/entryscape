@@ -270,14 +270,24 @@ export default declare(MithrilView, {
               <h3>{escaStatisticsNLS.statsViewHeader}</h3>
             </div>
             <section className="stats__wrapper">
-              <div className="data__wrapper">
-                <div className="chooser__wrapper">
+            <div className="chooser__wrapper">
                   <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
                   <TimeRangeDropdown
                     items={timeRangesItems}
                     selected={state.timeRanges.selected}
                     onclickTimeRange={onclickTimeRange}/>
                 </div>
+            <div className="visualization__wrapper">
+                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
+                <div className="visualization__chart">
+                  <BarChart
+                    data={state.chart.data}
+                    elementId={'catalog-statistics-chart'}
+                    name={state.list.selected.name}/>
+                </div>
+              </div>
+              <div className="data__wrapper">
+        
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
                     <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab}/>
@@ -299,15 +309,7 @@ export default declare(MithrilView, {
                   pageSize={LIST_PAGE_SIZE_SMALL}
                   handleChangePage={paginateList}/>
               </div>
-              <div className="visualization__wrapper">
-                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
-                <div className="visualization__chart">
-                  <BarChart
-                    data={state.chart.data}
-                    elementId={'catalog-statistics-chart'}
-                    name={state.list.selected.name}/>
-                </div>
-              </div>
+
             </section>
           </div>
         );
