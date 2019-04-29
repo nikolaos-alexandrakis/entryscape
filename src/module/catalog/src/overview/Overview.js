@@ -5,7 +5,7 @@ import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import dateUtil from 'commons/util/dateUtil';
 import { createSetState } from 'commons/util/util';
-import MithrilView from "commons/view/MithrilView";
+import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import './escaOverview.scss';
@@ -22,7 +22,7 @@ const getChartData = async () => {
   const chartData = { datasets: [] };
   const today = new Date();
   const timeRanges = [];
-  for (let i = 0; i <= 7; i++) {
+  for (let i = 0; i < 7; i++) {
     const date = new Date();
     date.setDate(today.getDate() - i);
     timeRanges.push({
