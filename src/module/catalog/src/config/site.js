@@ -10,6 +10,7 @@ import ShowcasesList from 'catalog/showcases/List';
 import IdeasList from 'catalog/ideas/List';
 import ContactsList from 'catalog/contacts/List';
 import Search from 'catalog/search/Search';
+import VisualizationSandbox from 'catalog/visualisation/components/sandbox';
 import DocumentsList from 'catalog/documents/List';
 import StatisticsView from 'catalog/statistics/View';
 import config from 'config';
@@ -141,6 +142,13 @@ export default {
       title: { en: 'Search', sv: 'Sök', de: 'Suche' },
       route: '/search',
       module: 'search',
+      navbar: false,
+    },
+    catalog__visualize: {
+      class: VisualizationSandbox,
+      title: { en: 'Visualize', sv: 'Visualize', de: 'Visualize' },
+      route: '/visualize',
+      module: 'visualize',
       navbar: false,
     },
     catalog__dataset__search: {
