@@ -8,6 +8,8 @@ import { createSetState } from 'commons/util/util';
 import MithrilView from "commons/view/MithrilView";
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
+import './escaOverview.scss';
+
 
 const getCatalogStatistics = async (timeRangeDay) => {
   const context = registry.getContext();
@@ -140,12 +142,17 @@ export default declare(MithrilView, {
         getChartData().then(chartData => setState({ chartData }));
       },
       view() {
-        return <div>
+        return <div class="esca__Overview__wrapper">
           <Overview data={state.data}/>
-          <hr/>
-          <div className="col-md-8">
-            <Chart data={state.chartData} elementId={'catalog-statistics-overview'}/>
-          </div>
+          <div class="charts__column">
+          <h4>Aggregated stats from the last 7 days</h4>
+            <div class="chart__wrapper">
+              <Chart data={state.chartData} elementId={'catalog-statistics-overview'}/>
+            </div>
+            <div class="chart__wrapper">
+              <Chart data={state.chartData} elementId={'catalog-statistics-overview'}/>
+            </div>
+          </div>   
         </div>;
       },
     };
