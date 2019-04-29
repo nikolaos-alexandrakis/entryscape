@@ -276,12 +276,10 @@ const init = {
   },
   nlsOverride() {
     // If there are NLS overrides, register them early.
-    if (config.locale.NLSOverridePath) {
-      i18n.setOverridesPath(config.locale.NLSOverridePath);
-    } else if (typeof config.locale.NLSOverride === 'object') {
-      Object.keys(config.locale.NLSOverride).forEach((key) => {
-        i18n.addOverride(key, config.locale.NLSOverride[key]);
-      });
+    // if (config.locale.NLSOverridePath) {
+    // } else
+    if (typeof config.locale.NLSOverrides === 'object') {
+      i18n.setOverrides(config.locale.NLSOverrides);
     }
   },
   locale() {
