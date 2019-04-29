@@ -31,17 +31,18 @@
 
 .escoOverview__statCount {
     margin-left: 10px;
+    font-weight: bold;
 }
 
 .escoOverview__statLabel {
     font-size: 18px;
-    color: $main-colour;
+    color: $text-colour;
     text-align: start;
     cursor: pointer;
 }
 
 .escoOverview__statBox {
-    min-width: 130px;
+    min-width: 150px;
     max-width: 150px;
     min-height: 100px;
     background-color: white;
@@ -82,11 +83,11 @@
 }
 
 .catalog__status__label {
-    color: $main-colour;
+    color: $text-colour;
     font-weight: bolder;
     margin-right: 10px;
 }
 
 .catalog__status__value {
-    color: $main-colour;
+    color: $text-colour;
 }
