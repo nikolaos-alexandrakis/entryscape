@@ -17,9 +17,9 @@ const guessAxisFormatFromData = (dataLength) => {
   let xAxisDateFormat = 'day';
   if (dataLength > 10 && dataLength < 13) {
     xAxisDateFormat = 'month';
-  } else if (dataLength < 25) {
+  } else if (dataLength > 13 && dataLength < 25) {
     xAxisDateFormat = 'hour';
-  } else if (dataLength < 32) {
+  } else if (dataLength > 25 && dataLength < 32) {
     xAxisDateFormat = 'day';
   }
 
