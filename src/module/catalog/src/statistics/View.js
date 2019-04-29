@@ -302,13 +302,12 @@ export default declare(MithrilView, {
                     }
                   </div>
                 </div>
-                <Pagination
+                {hasData ? <Pagination
                   currentPage={state.list.page}
                   totalCount={paginationTotalCount}
                   pageSize={LIST_PAGE_SIZE_SMALL}
-                  handleChangePage={paginateList}/>
+                  handleChangePage={paginateList}/> : null}
               </div>
-
             </section>
           </div>
         );
