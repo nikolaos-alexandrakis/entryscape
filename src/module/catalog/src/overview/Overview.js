@@ -145,7 +145,7 @@ export default declare(MithrilView, {
         return <div class="esca__Overview__wrapper">
           <Overview data={state.data}/>
           <div class="charts__column">
-          <h4>Aggregated stats from the last 7 days</h4>
+            <h4>Aggregated stats from the last 7 days</h4>
             <div class="chart__wrapper">
               <Chart data={state.chartData} elementId={'catalog-statistics-overview'}/>
             </div>
