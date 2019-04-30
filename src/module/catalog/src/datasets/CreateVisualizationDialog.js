@@ -10,20 +10,23 @@ const getControllerComponent = (datasetEntry) => {
     view() {
       return <section class="viz__editDialog">
         <section class="viz__intro">
-          <h4>Here you can choose the type of data visualization you want to use and in which axis is rendered</h4>
+          <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
         </section>
-        <section class="useFile__wrapper">
-          <h5>You are using this file:</h5>
-          <div class="dropdown">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <section class="userFile">
+        <h4>Choose a distribution</h4>
+          <div class="useFile__wrapper">
+            <h5>You are using this file:</h5>
+            <div class="dropdown">
+              <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Name of distribution file
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-              <li class="dropdown-header">Choose a distribution</li>
-              <li><a href="#">Name of default file</a></li>
-              <li><a href="#">Another distribution</a></li>
-            </ul>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <li class="dropdown-header">Choose a distribution</li>
+                <li><a href="#">Name of default file</a></li>
+                <li><a href="#">Another distribution</a></li>
+              </ul>
+            </div>
           </div>
         </section>
         <section class="graphType__wrapper">

@@ -1,4 +1,8 @@
+@import '~commons/theme.scss';
 .viz__editDialog{
+    h4{
+        @include title--underlined;
+    }
     .useFile__wrapper{
         display: flex;
         align-items: center;
