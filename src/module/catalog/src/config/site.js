@@ -10,7 +10,7 @@ import ShowcasesList from 'catalog/showcases/List';
 import IdeasList from 'catalog/ideas/List';
 import ContactsList from 'catalog/contacts/List';
 import Search from 'catalog/search/Search';
-import VisualizationSandbox from 'catalog/visualisation/components/sandbox';
+import VisualizationSandbox from 'catalog/visualization/views/sandbox';
 import DocumentsList from 'catalog/documents/List';
 import StatisticsView from 'catalog/statistics/View';
 import config from 'config';
