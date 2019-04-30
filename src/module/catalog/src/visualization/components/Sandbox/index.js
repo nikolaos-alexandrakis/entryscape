@@ -16,7 +16,7 @@ export default (vnode) => {
           hej!
 
           <Map
-            editable={false}
+            value={"POINT(30 10)"}
           />
         </div>
       );
