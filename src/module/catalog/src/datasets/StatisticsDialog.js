@@ -1,6 +1,6 @@
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import Chart from 'catalog/statistics/components/BarChart';
+import Chart from 'catalog/statistics/components/BarChartTime';
 import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';

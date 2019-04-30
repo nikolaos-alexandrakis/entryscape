@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { createSetState } from 'commons/util/util';
 import Map from 'commons/rdforms/choosers/components/Map';
-import BarChart from 'catalog/statistics/components/BarChart';
+import BarChartTime from 'catalog/statistics/components/BarChartTime';
 import './index.scss';
 
 export default (vnode) => {
@@ -14,12 +14,15 @@ export default (vnode) => {
     view(vnode) {
       return (
         <div className='visualizations__sandbox'>
-          hej!
+          hej wheres the map !
 
           <Map
-            value={'POINT(30 10)'}
+            value={[
+              'POINT(30 10)',
+              'POINT(31 10)',
+            ]}
           />
-          <BarChart
+        {/*<BarChartTime
             data={{
               series: [{
                 name: '',
@@ -27,6 +30,7 @@ export default (vnode) => {
               }],
             }}
           />
+          */}
         </div>
       );
     },
