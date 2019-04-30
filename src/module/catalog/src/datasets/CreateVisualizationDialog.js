@@ -83,9 +83,8 @@ const getControllerComponent = (datasetEntry) => {
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li class="dropdown-header">Choose a distribution</li>
-                <li><a href="#">Name of default file</a></li>
-                <li><a href="#">Another distribution</a></li>
+                <li key="default-chooser" class="dropdown-header">Choose a distribution</li>
+                {state.files.map(file => <li>{file.datasetName} - {file.fileName}</li>)}
               </ul>
             </div>
           </div>
