@@ -10,10 +10,10 @@ const getControllerComponent = (datasetEntry) => {
     view() {
       return <section class="viz__editDialog">
         <section class="viz__intro">
-          <p>Here you can choose the type of data visualization you want to use and in which axis is rendered</p>
+          <h4>Here you can choose the type of data visualization you want to use and in which axis is rendered</h4>
         </section>
         <section class="useFile__wrapper">
-          <h4>You are using this file:</h4>
+          <h5>You are using this file:</h5>
           <div class="dropdown">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Name of distribution file
@@ -26,17 +26,22 @@ const getControllerComponent = (datasetEntry) => {
           </div>
         </section>
         <section class="graphType__wrapper">
-          <h4>Choose a type of visualization</h4>
+          <h5>Choose a type of visualization</h5>
           <p>Consider that not all data work fine with all representations</p>
           <div class="graphType__card__wrapper">
             <div class="graphType__card">
-              <p class="__title">Bar chart</p>
-            </div>
-            <div class="graphType__card">
               <p class="__title">Map</p>
             </div>
+            <div class="graphType__card">
+              <p class="__title">Pie Chart</p>
+            </div>
+            <div class="graphType__card">
+              <p class="__title">Bar Chart</p>
+            </div>
+            <div class="graphType__card">
+              <p class="__title">Line Chart</p>
+            </div>
           </div>
-          
         </section>
       </section>;
     },
