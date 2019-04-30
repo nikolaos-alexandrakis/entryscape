@@ -84,10 +84,9 @@ export const isSingleFileDistribution = (entry) => {
 };
 
 export const isAPIDistribution = (entry) => {
-  const ns = registry.get('namespaces');
   const md = entry.getMetadata();
   const subj = entry.getResourceURI();
-  const source = md.findFirstValue(subj, ns.expand('dcterms:source'));
+  const source = md.findFirstValue(subj, 'dcterms:source');
   return !!((source !== '' && source != null));
 };
 
