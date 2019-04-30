@@ -1,5 +1,6 @@
 import m from 'mithril';
 import { createSetState } from 'commons/util/util';
+import Map from 'commons/rdforms/choosers/components/Map';
 import './index.scss';
 
 export default (vnode) => {
@@ -13,6 +14,10 @@ export default (vnode) => {
       return (
         <div className='visualizations__sandbox'>
           hej!
+
+          <Map
+            editable={false}
+          />
         </div>
       );
     },
