@@ -280,6 +280,10 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
+            <div class="chart--wrapper">
+              <button class="btn btn-secondary fas fa-times"></button>
+              <div class="Chart"></div>
+            </div>
 
           </div>
         </main>
