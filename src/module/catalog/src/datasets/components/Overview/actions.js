@@ -449,7 +449,6 @@ export default (entry) => {
 
   const addVisualizationDialog = new CreateVisualizationDialog();
   const openCreateVisualization = async () => {
-    console.log(entry);
     // const fileEntries = await getDistributionFileEntries(distribution);
     addVisualizationDialog.open({
       entry,
