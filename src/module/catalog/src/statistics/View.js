@@ -11,7 +11,7 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
-import BarChart from './components/BarChart';
+import BarChart from './components/BarChartTime';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';

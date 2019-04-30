@@ -1,5 +1,5 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
-import Chart from 'catalog/statistics/components/BarChart';
+import Chart from 'catalog/statistics/components/BarChartTime';
 import Overview from 'commons/overview/components/Overview';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';

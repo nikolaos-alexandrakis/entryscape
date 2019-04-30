@@ -110,7 +110,9 @@ const Map = () => {
 
   const MapNode = {
     view() {
-      return m('.escoMap', {});
+      return (
+        <div class="escoMap"></div>
+      );
     },
     oncreate(vnode) {
       // Attributes interface
@@ -128,7 +130,11 @@ const Map = () => {
         const map = getConstructedMap(vnode.dom);
         setState({ map }, true);
 
-        populateMapWithValue(map, value);
+        if (Array.isArray(value)) {
+          value.forEach(coord => populateMapWithValue(map, coord));
+        } else {
+          populateMapWithValue(map, value);
+        }
 
         if (editable) {
           this.bindMapEvents(map);
