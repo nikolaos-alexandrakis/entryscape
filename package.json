@@ -37,6 +37,7 @@
     "md5": "^2.2.1",
     "mithril": "^1.1.6",
     "moment": "^2.22.2",
+    "papaparse": "^4.6.3",
     "popper.js": "^1.12.9",
     "pubsub-js": "^1.7.0",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
