@@ -44,10 +44,10 @@ const getControllerComponent = (datasetEntry) => {
             </div>
           </div>
         </section>
-        <section class="axisOptions__wrapper">
-        <div class="operations">
-          <h4>Choose a type of operation</h4>
-          <p>You can select for example all the rows with the same date</p>
+        <section class="axisOperation__wrapper">
+          <div class="operations">
+            <h4>Choose a type of operation</h4>
+            <p>You can select for example all the rows with the same date</p>
             <div class="dropdown__wrapper">
               <div class="dropdown">
                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -75,41 +75,43 @@ const getControllerComponent = (datasetEntry) => {
           </div>
           <div class="axisOptions">
             <h4>Axes to use</h4>
-            <div class="axisX__wrapper">
-              <h5>X:</h5>
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <div class="axisOptions__wrapper">
+              <div class="axisX__wrapper">
+                <h5>X:</h5>
+                <div class="dropdown">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Column name
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <li class="dropdown-header">Choose a column label</li>
+                    <li><a href="#">Name of default file</a></li>
+                    <li><a href="#">Another distribution</a></li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="axisY__wrapper">
-              <h5>Y:</h5>
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <div class="axisY__wrapper">
+                <h5>Y:</h5>
+                <div class="dropdown">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Column name
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <li class="dropdown-header">Choose a column label</li>
+                    <li><a href="#">Name of default file</a></li>
+                    <li><a href="#">Another distribution</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </section>
         <section class="vizPreview__wrapper">
-        <h4>Preview of dataset visualization</h4>
-        <div>
-          <img src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'></img>
-        </div>
+          <h4>Preview of dataset visualization</h4>
+          <div>
+            <img src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'></img>
+          </div>
 
         </section>
       </section>;

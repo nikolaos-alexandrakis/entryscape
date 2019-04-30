@@ -21,6 +21,13 @@
                 cursor: pointer;
             }
         }
-   
-
+   .axisOptions__wrapper{
+       display: flex;
+       .axisX__wrapper, .axisY__wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+   }
+        
 }
