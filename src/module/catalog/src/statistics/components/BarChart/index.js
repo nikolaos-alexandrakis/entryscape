@@ -1,8 +1,5 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import Chart from 'chart.js';
-import 'chartist-plugin-legend';
-import 'chartist-plugin-tooltips';
-import 'chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css';
 import { i18n } from 'esi18n';
 import moment from 'moment';
 import './index.scss';

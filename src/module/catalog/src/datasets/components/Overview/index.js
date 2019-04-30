@@ -235,6 +235,7 @@ export default (vnode) => {
               <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class="btn-secondary" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
+              <Button class="btn-secondary" onclick={actions.openCreateVisualization}>Create Visualization</Button>
               <Button
                 class={`btn-secondary ${isRemoveable ? '' : 'disabled'}`}
                 title={isRemoveable ? '' : escaDataset.cannotRemoveDatasetPublishedTitle}
