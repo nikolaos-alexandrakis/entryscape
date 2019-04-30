@@ -19,7 +19,7 @@ const Map = () => {
   const assetsPath = configUtil.getAssetsPath();
 
   let updateGeoCoordinates;
-  let unfocusInputs;
+  let unfocusInputs = () => {};
 
   const getPolygonFromLatLngs = points => leaflet.polygon(points);
 
@@ -120,7 +120,7 @@ const Map = () => {
       } = vnode.attrs;
 
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
-      unfocusInputs = vnode.attrs.unfocusInputs;
+      unfocusInputs = vnode.attrs.unfocusInputs ? vnode.attrs.unfocusInputs : unfocusInputs;
 
       import(/* webpackChunkName: "leaflet-css" */ 'leaflet/dist/leaflet.css');
       import('leaflet' /* webpackChunkName: "leaflet" */).then((leafletImport) => {
