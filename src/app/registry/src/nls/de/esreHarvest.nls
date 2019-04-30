@@ -15,7 +15,7 @@
   "creationDateTitle": "Harvestingjob erstellt am ${date}",
   "confirmRemovePipeline": "Soll diese Harvestingquelle mitsamt ihren Daten entfernt werden?",
   "ownLabel": "Eigene Organisation",
-  "cPUsernameLabel": "Benutzername",
+  "cPUsernameLabel": "Benutzername des Organisationsadministrators",
   "cPUsernamePlaceholder": "Der Benutzername muss eine gültige E-Mail-Adresse sein; es wird ein neuer Benutzer erstellt falls er noch nicht existiert",
   "cpNotValidUsername": "Der Benutzername darf nicht leer gelassen werden",
   "changeOrganization": "Ändern der Organisationsform",
