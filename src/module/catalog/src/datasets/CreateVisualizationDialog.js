@@ -2,9 +2,9 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
-import TypeSelector from 'catalog/visualization/components/DistributionSelector';
+import DistributionSelector from 'catalog/visualization/components/DistributionSelector';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
-import DistributionSelector from 'catalog/visualization/components/TypeSelector';
+import TypeSelector from 'catalog/visualization/components/TypeSelector';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
