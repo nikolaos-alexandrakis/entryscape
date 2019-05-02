@@ -2,8 +2,8 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
-import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
+import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
@@ -82,61 +82,60 @@ const getControllerComponent = (datasetEntry, files) => {
     view() {
       const hasData = state.distributionFile && csvData;
       return (<section class="viz__editDialog">
-        <section class="viz__intro">
-        </section>
-        <section class="useFile">
-          <h4>Distribution</h4>
-          <div class="useFile__wrapper">
-            <h5>You are using this file:</h5>
-            <div class="form-group">
-              <select class="form-control" onchange={onChangeSelectedFile}>
-                {state.files.map((file, idx) => <option value={idx}
-                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</option>)}
-              </select>
-            </div>
-          </div>
+          <section class="viz__intro">
           </section>
-        <section class="graphType__wrapper">
+          <section class="useFile">
+            <h4>Distribution</h4>
+            <div class="useFile__wrapper">
+              <h5>You are using this file:</h5>
+              <div class="form-group">
+                <select className="form-control" onchange={onChangeSelectedFile}>
+                  {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
+                </select>
+              </div>
+            </div>
+          </section>
+          <section class="graphType__wrapper">
             <h4>Type of visualization</h4>
             <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
             <TypeSelector
               type={state.chartType}
             />
-        </section>
+          </section>
 
           <section class="axisOperation__wrapper">
-          <div class="axisOptions">
-            <h4>Axes to use</h4>
-            <p>Select which data you want to show on each axis.</p>
-            <p>On axis X you can select an operator to create more complicated visualizations.</p>
-            <div class="axisOptions__wrapper">
-              <div class="axisX__wrapper">
-                <h5>X:</h5>
-                <div class="form-group">
-                  <select class="form-control">
-                    <option>Name of default distribution</option>
-                    <option>Name of other distribution</option>
-                  </select>
+            <div class="axisOptions">
+              <h4>Axes to use</h4>
+              <p>Select which data you want to show on each axis.</p>
+              <p>On axis X you can select an operator to create more complicated visualizations.</p>
+              <div class="axisOptions__wrapper">
+                <div class="axisX__wrapper">
+                  <h5>X:</h5>
+                  <div class="form-group">
+                    <select class="form-control">
+                      <option>Name of default distribution</option>
+                      <option>Name of other distribution</option>
+                    </select>
+                  </div>
+                  <div class="form-group operations__wrapper">
+                    <select class="form-control">
+                      <option>SUM</option>
+                      <option>COUNT</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="form-group operations__wrapper">
-                  <select class="form-control">
-                    <option>SUM</option>
-                    <option>COUNT</option>
-                  </select>
-                </div>
-              </div>
-              <div class="axisY__wrapper">
-                <h5>Y:</h5>
-                <div class="form-group">
-                  <select class="form-control">
-                    <option>Name of default distribution</option>
-                    <option>Name of other distribution</option>
-                  </select>
+                <div class="axisY__wrapper">
+                  <h5>Y:</h5>
+                  <div class="form-group">
+                    <select class="form-control">
+                      <option>Name of default distribution</option>
+                      <option>Name of other distribution</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
           <section class="vizPreview__wrapper">
             <h4>Preview of dataset visualization</h4>
