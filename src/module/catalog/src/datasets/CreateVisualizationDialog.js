@@ -14,9 +14,55 @@ import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
+let csvDataDetectedTypes;
 const updateCSVData = (data) => {
   csvData = data;
   m.redraw();
+  detectTypes();
+};
+
+const CSV_COLUMN_TYPE = {
+  NONE: 'none',
+  NUMBER: 'number',
+  DATE: 'date',
+  GEO_LAT: 'geo-latitude',
+  GEO_LONG: 'geo-longitude',
+  TEXT: 'text',
+};
+
+const detectTypes = () => {
+  const columns = csvData.meta.fields;
+
+  // pre-liminary check of common names, latitude/longitude
+  csvDataDetectedTypes = columns.map((column) => {
+    const normalizedColumnName = column.toLowerCase();
+    if (normalizedColumnName.includes('latitude')) {
+      return CSV_COLUMN_TYPE.GEO_LAT;
+    }
+    if (normalizedColumnName.includes('longitude')) {
+      return CSV_COLUMN_TYPE.GEO_LONG;
+    }
+    if (normalizedColumnName.includes('date')) {
+      return CSV_COLUMN_TYPE.DATE;
+    }
+
+    return null;
+  });
+
+
+  const rowsToCheckCount = Math.min(3, csvData.data.length);
+  for (let i = 0; i < rowsToCheckCount; i++) {
+    const dataRow = csvData.data[i];
+
+    Object.keys(dataRow).forEach((dataPoint, idx) => {
+      const dataValue = dataRow[dataPoint];
+      if (!csvDataDetectedTypes[idx]) {
+        if (!isNaN(Number(dataValue))) { // it's a number
+          csvDataDetectedTypes[idx] = CSV_COLUMN_TYPE.NUMBER;
+        }
+      }
+    });
+  }
 };
 
 // potentially put to the distributionHelper
@@ -68,6 +114,7 @@ const state = {
 const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
+  const onTypeChange = (type) => setState({ chartType: type });
   const onChangeSelectedFile = (evt) => {
     const fileURI = evt.target.value;
     if (!state.distributionFile || (state.distributionFile.uri !== fileURI)) {
@@ -111,6 +158,7 @@ const getControllerComponent = (datasetEntry, files) => {
           <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
           <TypeSelector
             type={state.chartType}
+            onSelect={onTypeChange}
           />
         </section>
 
@@ -119,8 +167,12 @@ const getControllerComponent = (datasetEntry, files) => {
             <h4>Axes to use</h4>
             <p>Select which data you want to show on each axis.</p>
             <p>On axis X you can select an operator to create more complicated visualizations.</p>
-            <AxisSelector></AxisSelector>
-         
+            <AxisSelector
+              x={state.xAxisField}
+              y={state.yAxisField}
+              operation={state.operation}
+              data={csvData}
+            />
           </div>
         </section>
 
