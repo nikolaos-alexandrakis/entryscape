@@ -10,11 +10,6 @@ import declare from 'dojo/_base/declare';
 import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
-let files = [];
-const updateCSVFiles = (csvFiles) => {
-  files = csvFiles;
-};
-
 let csvData;
 const updateCSVData = (data) => {
   csvData = data;
@@ -66,7 +61,7 @@ const state = {
   yAxisField: null,
 };
 
-const getControllerComponent = (datasetEntry) => {
+const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
   const onChangeSelectedFile = (evt) => {
@@ -82,9 +77,6 @@ const getControllerComponent = (datasetEntry) => {
 
 
   return {
-    oninit() {
-      getCSVFiles(datasetEntry).then(updateCSVFiles);
-    },
     view() {
       const selectedFile = files[state.selectedFileIdx];
       const hasData = selectedFile && csvData;
@@ -193,13 +185,16 @@ export default declare([TitleDialog.ContentComponent], {
   nlsBundles: [{ escaVisualization }],
   nlsHeaderTitle: 'vizDialogTitle',
   nlsFooterButtonLabel: 'vizDialogFooter',
-  open(params) {
+  async open(params) {
     const { entry: datasetEntry } = params;
     this.entry = datasetEntry;
 
-    this.dialog.show();
-    this.controllerComponent = getControllerComponent(datasetEntry);
+
+    const files = await getCSVFiles(datasetEntry);
+    this.controllerComponent = getControllerComponent(datasetEntry, files);
+
     this.show(this.controllerComponent);
+    this.dialog.show();
   },
   footerButtonAction() {
     createVisualizationConfigurationEntry(this.entry, distURI, state);
