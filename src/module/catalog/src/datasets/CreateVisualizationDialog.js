@@ -82,9 +82,9 @@ const getControllerComponent = (datasetEntry, files) => {
       const hasData = selectedFile && csvData;
 
       return (<section class="viz__editDialog">
-          <section class="viz__intro">
-          </section>
-          <section class="userFile">
+        <section class="viz__intro">
+        </section>
+        <section class="useFile">
             <h4>Distribution</h4>
             <div class="useFile__wrapper">
               <h5>You are using this file:</h5>
@@ -119,53 +119,41 @@ const getControllerComponent = (datasetEntry, files) => {
               </div>
             </div>
           </section>
+
           <section class="axisOperation__wrapper">
-            <div class="axisOptions">
-              <h4>Axes to use</h4>
-              <p>Select which data you want to show on each axis.</p>
-              <p>On axis X you can select an operator to create more complicated visualizations.</p>
-              <div class="axisOptions__wrapper">
-                <div class="axisX__wrapper">
-                  <h5>X:</h5>
-                  <div class="form-group">
-                    <select class="form-control">
-                      <option>SUM</option>
-                      <option>COUNT</option>
-                    </select>
-                  </div>
-                  <div class="form-group operations__wrapper">
-                    <select class="form-control">
-                      <option>SUM</option>
-                      <option>COUNT</option>
-                    </select>
-                  </div>
+          <div class="axisOptions">
+            <h4>Axes to use</h4>
+            <p>Select which data you want to show on each axis.</p>
+            <p>On axis X you can select an operator to create more complicated visualizations.</p>
+            <div class="axisOptions__wrapper">
+              <div class="axisX__wrapper">
+                <h5>X:</h5>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
+                </div>
+                <div class="form-group operations__wrapper">
+                  <select class="form-control">
+                    <option>SUM</option>
+                    <option>COUNT</option>
+                  </select>
                 </div>
               </div>
-              <div class="axisOptions">
-                <h4>Axes to use</h4>
-                <div class="axisOptions__wrapper">
-                  <div class="axisX__wrapper">
-                    <h5>X:</h5>
-                    <div class="form-group">
-                      <select class="form-control">
-                        <option>Name of default distribution</option>
-                        <option>Name of other distribution</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="axisY__wrapper">
-                    <h5>Y:</h5>
-                    <div class="form-group">
-                      <select class="form-control">
-                        <option>Name of default distribution</option>
-                        <option>Name of other distribution</option>
-                      </select>
-                    </div>
-                  </div>
+              <div class="axisY__wrapper">
+                <h5>Y:</h5>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
+
           <section class="vizPreview__wrapper">
             <h4>Preview of dataset visualization</h4>
 
