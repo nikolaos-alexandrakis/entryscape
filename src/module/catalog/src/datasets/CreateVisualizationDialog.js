@@ -113,7 +113,7 @@ const getControllerComponent = (datasetEntry) => {
         <section class="axisOperation__wrapper">
           <div class="operations">
             <h4>Operation</h4>
-            <p>Choose a type of operation like Sum or Count to make more complicated visualization</p>
+            <p>Choose a type of operation like Sum or Count.</p>
             <div class="dropdown__wrapper">
               <div class="form-group">
                 <select class="form-control">
