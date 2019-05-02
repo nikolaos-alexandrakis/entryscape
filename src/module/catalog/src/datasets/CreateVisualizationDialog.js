@@ -68,7 +68,12 @@ const state = {
 const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
-  const onTypeChange = (type) => setState({ chartType: type });
+  const onTypeChange = type => setState({ chartType: type });
+  const onAxisUpdate = fields => setState({
+    xAxisField: fields.x,
+    yAxisField: fields.y,
+    operation: fields.operation,
+  });
   const onChangeSelectedFile = (evt) => {
     const fileURI = evt.target.value;
     if (!state.distributionFile || (state.distributionFile.uri !== fileURI)) {
@@ -126,6 +131,7 @@ const getControllerComponent = (datasetEntry, files) => {
               y={state.yAxisField}
               operation={state.operation}
               data={csvData}
+              onSelect={onAxisUpdate}
             />
           </div>
         </section>
@@ -135,6 +141,9 @@ const getControllerComponent = (datasetEntry, files) => {
 
           <VisualizationChart
             type={state.chartType}
+            xAxisField={state.xAxisField}
+            yAxisField={state.xAxisField}
+            operation={state.operation}
             data={csvData}
           />
         </section>
