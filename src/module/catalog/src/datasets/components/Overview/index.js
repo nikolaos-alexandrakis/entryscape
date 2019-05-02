@@ -286,7 +286,7 @@ export default (vnode) => {
               <div class="chart__actions">
                 <h5>Name of visualization</h5>
                 <div>
-                  <button class="btn btn-secondary fas fa-edit"></button>
+                  <button class="btn btn-secondary fas fa-edit" onclick={actions.openCreateVisualization}></button>
                   <button class="btn btn-secondary fas fa-times"></button>
                 </div>
 
