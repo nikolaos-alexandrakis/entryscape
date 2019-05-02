@@ -138,6 +138,11 @@ const getControllerComponent = (datasetEntry, files) => {
     setState({ chartType: type });
     findSensibleXndY(type);
   };
+  const onAxisUpdate = fields => setState({
+    xAxisField: fields.x,
+    yAxisField: fields.y,
+    operation: fields.operation,
+  });
 
   const onChangeSelectedFile = (evt) => {
     const fileURI = evt.target.value;
@@ -201,6 +206,7 @@ const getControllerComponent = (datasetEntry, files) => {
               y={state.yAxisField}
               operation={state.operation}
               data={csvData}
+              onSelect={onAxisUpdate}
             />
           </div>
         </section>
@@ -210,6 +216,9 @@ const getControllerComponent = (datasetEntry, files) => {
 
           <VisualizationChart
             type={state.chartType}
+            xAxisField={state.xAxisField}
+            yAxisField={state.xAxisField}
+            operation={state.operation}
             data={csvData}
           />
         </section>
