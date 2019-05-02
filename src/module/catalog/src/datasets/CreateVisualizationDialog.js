@@ -14,9 +14,55 @@ import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
+let csvDataDetectedTypes;
 const updateCSVData = (data) => {
   csvData = data;
   m.redraw();
+  detectTypes();
+};
+
+const CSV_COLUMN_TYPE = {
+  NONE: 'none',
+  NUMBER: 'number',
+  DATE: 'date',
+  GEO_LAT: 'geo-latitude',
+  GEO_LONG: 'geo-longitude',
+  TEXT: 'text',
+};
+
+const detectTypes = () => {
+  const columns = csvData.meta.fields;
+
+  // pre-liminary check of common names, latitude/longitude
+  csvDataDetectedTypes = columns.map((column) => {
+    const normalizedColumnName = column.toLowerCase();
+    if (normalizedColumnName.includes('latitude')) {
+      return CSV_COLUMN_TYPE.GEO_LAT;
+    }
+    if (normalizedColumnName.includes('longitude')) {
+      return CSV_COLUMN_TYPE.GEO_LONG;
+    }
+    if (normalizedColumnName.includes('date')) {
+      return CSV_COLUMN_TYPE.DATE;
+    }
+
+    return null;
+  });
+
+
+  const rowsToCheckCount = Math.min(3, csvData.data.length);
+  for (let i = 0; i < rowsToCheckCount; i++) {
+    const dataRow = csvData.data[i];
+
+    Object.keys(dataRow).forEach((dataPoint, idx) => {
+      const dataValue = dataRow[dataPoint];
+      if (!csvDataDetectedTypes[idx]) {
+        if (!isNaN(Number(dataValue))) { // it's a number
+          csvDataDetectedTypes[idx] = CSV_COLUMN_TYPE.NUMBER;
+        }
+      }
+    });
+  }
 };
 
 // potentially put to the distributionHelper
