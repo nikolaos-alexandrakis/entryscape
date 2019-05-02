@@ -18,9 +18,7 @@ export default (vnode) => {
         />
       ),
       bar: (
-        <img
-          src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'>
-        </img>
+        <BarChartTime/>
       ),
     }));
 

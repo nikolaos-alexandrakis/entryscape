@@ -58,9 +58,12 @@ const getCSVFiles = async (datasetEntry) => {
 
 const state = {
   files: [],
+  distributionFile: null,
   chartType: 'map',
+  operation: 'none',
+  xAxisField: null,
+  yAxisField: null,
 };
-
 const getControllerComponent = (datasetEntry) => {
   const setState = createSetState(state);
 
@@ -89,79 +92,86 @@ const getControllerComponent = (datasetEntry) => {
       const selectedFile = state.files[state.selectedFileIdx];
       const hasData = selectedFile && csvData;
 
-      return (
-        <section class="viz__editDialog">
+      return (<section class="viz__editDialog">
           <section class="viz__intro">
-            <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
           </section>
           <section class="userFile">
-            <h4>Choose a distribution</h4>
+            <h4>Distribution</h4>
             <div class="useFile__wrapper">
               <h5>You are using this file:</h5>
               <div class="form-group">
-                <select class="form-control" onchange={onChangeSelectedFile}>
+                <select className="form-control" onChange={onChangeSelectedFile}>
                   {state.files.map((file, idx) => <option value={idx}
-                                                          onclick={onChangeSelectedFile.bind(null, idx)}>{file.distributionName} - {file.fileName}</option>)}
+                                                          onClick={onChangeSelectedFile.bind(null, idx)}>{file.distributionName} - {file.fileName}</option>)}
                 </select>
-              </div>
-              <div class="useFile__btn__wrapper">
-                <button type="button" class="btn btn-primary btn-raised btn-sm" id="load"
-                        data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding new distribution">Change
-                  distribution
-                </button>
               </div>
             </div>
           </section>
           <section class="graphType__wrapper">
-            <h4>Choose a type of visualization</h4>
-            <p>Consider that not all data work fine with all representations</p>
+            <h4>Type of visualization</h4>
+            <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
             <div class="graphType__card__wrapper">
-              <div class="graphType__card">
-                <p class="__title">Map</p>
-              </div>
-              <div class="graphType__card">
-                <p class="__title">Pie Chart</p>
-              </div>
-              <div class="graphType__card">
-                <p class="__title">Bar Chart</p>
-              </div>
-              <div class="graphType__card">
-                <p class="__title">Line Chart</p>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary btn-raised active">
+                  <input type="radio" name="options" id="option1" autocomplete="off"
+                         checked={state.chartType === 'map'}
+                  ></input>Map
+                </label>
+                <label class="btn btn-secondary btn-raised">
+                  <input type="radio" name="options" id="option2" autocomplete="off"
+                         checked={state.chartType === 'bar'}
+                  ></input>Bar Chart
+                </label>
+                <label class="btn btn-secondary btn-raised">
+                  <input type="radio" name="options" id="option3" autocomplete="off"
+                         checked={state.chartType === 'line'}
+                  ></input>Line Chart
+                </label>
               </div>
             </div>
           </section>
           <section class="axisOperation__wrapper">
-            <div class="operations">
-              <h4>Choose a type of operation</h4>
-              <p>You can select for example all the rows with the same date</p>
-              <div class="dropdown__wrapper">
-                <div class="form-group">
-                  <select class="form-control">
-                    <option>SUM</option>
-                    <option>COUNT</option>
-                  </select>
-                </div>
-              </div>
-            </div>
             <div class="axisOptions">
               <h4>Axes to use</h4>
+              <p>Select which data you want to show on each axis.</p>
+              <p>On axis X you can select an operator to create more complicated visualizations.</p>
               <div class="axisOptions__wrapper">
                 <div class="axisX__wrapper">
                   <h5>X:</h5>
                   <div class="form-group">
                     <select class="form-control">
-                      <option>Name of default distribution</option>
-                      <option>Name of other distribution</option>
+                      <option>SUM</option>
+                      <option>COUNT</option>
+                    </select>
+                  </div>
+                  <div class="form-group operations__wrapper">
+                    <select class="form-control">
+                      <option>SUM</option>
+                      <option>COUNT</option>
                     </select>
                   </div>
                 </div>
-                <div class="axisY__wrapper">
-                  <h5>Y:</h5>
-                  <div class="form-group">
-                    <select class="form-control">
-                      <option>Name of default distribution</option>
-                      <option>Name of other distribution</option>
-                    </select>
+              </div>
+              <div class="axisOptions">
+                <h4>Axes to use</h4>
+                <div class="axisOptions__wrapper">
+                  <div class="axisX__wrapper">
+                    <h5>X:</h5>
+                    <div class="form-group">
+                      <select class="form-control">
+                        <option>Name of default distribution</option>
+                        <option>Name of other distribution</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="axisY__wrapper">
+                    <h5>Y:</h5>
+                    <div class="form-group">
+                      <select class="form-control">
+                        <option>Name of default distribution</option>
+                        <option>Name of other distribution</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
