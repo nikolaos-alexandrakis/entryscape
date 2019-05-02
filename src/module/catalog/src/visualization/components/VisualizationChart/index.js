@@ -4,12 +4,10 @@ import BarChartTime from 'catalog/statistics/components/BarChartTime';
 import './index.scss';
 
 export default (vnode) => {
-  const processGeoData = data => {
-    console.log(data);
-    return [
-            'POINT(30 10)',
-            'POINT(31 10)',
-          ];
+  const processGeoData = (data, xField, yField) => {
+    const parsedGeoData = data ? data.data.map(row => row[xField] ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
+
+    return parsedGeoData;
   };
 
   const renderChart = (chartOptions) => {

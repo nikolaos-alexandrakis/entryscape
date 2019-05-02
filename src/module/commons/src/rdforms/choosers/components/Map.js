@@ -129,11 +129,12 @@ const Map = () => {
         leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
         setState({ map }, true);
-
-        if (Array.isArray(value)) {
-          value.forEach(coord => populateMapWithValue(map, coord));
-        } else {
-          populateMapWithValue(map, value);
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach(coord => populateMapWithValue(map, coord));
+          } else {
+            populateMapWithValue(map, value);
+          }
         }
 
         if (editable) {
