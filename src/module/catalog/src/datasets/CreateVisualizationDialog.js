@@ -4,6 +4,7 @@ import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/vi
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
@@ -118,30 +119,8 @@ const getControllerComponent = (datasetEntry, files) => {
             <h4>Axes to use</h4>
             <p>Select which data you want to show on each axis.</p>
             <p>On axis X you can select an operator to create more complicated visualizations.</p>
-            <div class="axisOptions__wrapper">
-              <div class="axisX__wrapper">
-                <h5>X:</h5>
-                <div class="form-group">
-                  <select class="form-control">
-                    {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
-                  </select>
-                </div>
-                <div class="form-group operations__wrapper">
-                  <select class="form-control">
-                    <option>SUM</option>
-                    <option>COUNT</option>
-                  </select>
-                </div>
-              </div>
-              <div class="axisY__wrapper">
-                <h5>Y:</h5>
-                <div class="form-group">
-                  <select class="form-control">
-                    {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
-                  </select>
-                </div>
-              </div>
-            </div>
+            <AxisSelector></AxisSelector>
+         
           </div>
         </section>
 
