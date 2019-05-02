@@ -108,17 +108,11 @@ const getControllerComponent = (datasetEntry) => {
           <h4>Choose a distribution</h4>
           <div class="useFile__wrapper">
             <h5>You are using this file:</h5>
-            <div class="dropdown">
-              <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Name of distribution file
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li key="default-chooser" class="dropdown-header">Choose a distribution</li>
-                {state.files.map((file, idx) => <li
-                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</li>)}
-              </ul>
+            <div class="form-group">
+              <select class="form-control">
+                <option>{state.files.map((file, idx) => <li
+                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</li>)}</option>
+              </select>
             </div>
           </div>
         </section>
@@ -179,9 +173,7 @@ const getControllerComponent = (datasetEntry) => {
         </section>
         <section class="vizPreview__wrapper">
           <h4>Preview of dataset visualization</h4>
-
-        {renderChart(state.chartType)}
-
+          {renderChart(state.chartType)}
         </section>
       </section>
       );
