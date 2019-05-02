@@ -5,14 +5,15 @@
         @include title--underlined;
         max-width: 60%;
     }
- 
+
 
     .useFile__wrapper {
-        .form-group{
-            margin:0;
+        .form-group {
+            margin: 0;
             max-width: 60%;
         }
-        .useFile__btn__wrapper{
+
+        .useFile__btn__wrapper {
             display: flex;
             justify-content: flex-end;
         }
@@ -43,15 +44,32 @@
         display: flex;
     }
 
-    .axisOptions__wrapper {
-        display: flex;
+    .axisOperation__wrapper,
+    .graphType__wrapper,
+    .userFile,
+    .vizPreview__wrapper {
+        margin-top: 20px;
+    }
 
-        .axisX__wrapper,
-        .axisY__wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    .axisOperation__wrapper {
+        display: flex;
+        .operations{
+            max-width: 250px;
+        }
+
+        .axisOptions {
+            min-width: 250px;
+        }
+
+        .axisOptions__wrapper {
+
+            .axisX__wrapper,
+            .axisY__wrapper {
+                display: flex;
+                align-items: center;
+            }
         }
     }
+
 
 }

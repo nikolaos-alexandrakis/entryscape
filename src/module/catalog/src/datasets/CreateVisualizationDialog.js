@@ -82,7 +82,7 @@ const getControllerComponent = (datasetEntry) => {
           <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
         </section>
         <section class="userFile">
-          <h4>Choose a distribution</h4>
+          <h4>Distribution</h4>
           <div class="useFile__wrapper">
             <h5>You are using this file:</h5>
             <div class="form-group">
@@ -94,8 +94,8 @@ const getControllerComponent = (datasetEntry) => {
           </div>
         </section>
         <section class="graphType__wrapper">
-          <h4>Choose a type of visualization</h4>
-          <p>Consider that not all data work fine with all representations</p>
+          <h4>Type of visualization</h4>
+          <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
           <div class="graphType__card__wrapper">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-secondary btn-raised active">
@@ -112,8 +112,8 @@ const getControllerComponent = (datasetEntry) => {
         </section>
         <section class="axisOperation__wrapper">
           <div class="operations">
-            <h4>Choose a type of operation</h4>
-            <p>You can select for example all the rows with the same date</p>
+            <h4>Operation</h4>
+            <p>Choose a type of operation like Sum or Count to make more complicated visualization</p>
             <div class="dropdown__wrapper">
               <div class="form-group">
                 <select class="form-control">
@@ -125,6 +125,7 @@ const getControllerComponent = (datasetEntry) => {
           </div>
           <div class="axisOptions">
             <h4>Axes to use</h4>
+            <p>Select which data you want to show on each axis</p>
             <div class="axisOptions__wrapper">
               <div class="axisX__wrapper">
                 <h5>X:</h5>
