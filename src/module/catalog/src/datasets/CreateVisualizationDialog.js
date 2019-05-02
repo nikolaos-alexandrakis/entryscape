@@ -177,6 +177,7 @@ const getControllerComponent = (datasetEntry, files) => {
               y={state.yAxisField}
               operation={state.operation}
               data={csvData}
+              type={state.chartType}
               onSelect={onAxisUpdate}
             />
           </div>
