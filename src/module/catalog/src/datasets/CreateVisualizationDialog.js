@@ -53,8 +53,8 @@ const getControllerComponent = (datasetEntry) => {
 
   const setState = createSetState(state);
 
-  const onChangeSelectedFile = (fileIdx) => {
-    console.log(fileIdx);
+  const onChangeSelectedFile = (evt) => {
+    const fileIdx = evt.target.value;
     if (state.selectedFileIdx !== fileIdx) {
       setState({
         selectedFileIdx: fileIdx,
@@ -86,9 +86,9 @@ const getControllerComponent = (datasetEntry) => {
           <div class="useFile__wrapper">
             <h5>You are using this file:</h5>
             <div class="form-group">
-              <select class="form-control">
-                <option>{state.files.map((file, idx) => <li
-                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</li>)}</option>
+              <select class="form-control" onchange={onChangeSelectedFile}>
+                {state.files.map((file, idx) => <option value={idx}
+                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</option>)}
               </select>
             </div>
             <div class="useFile__btn__wrapper">
@@ -175,5 +175,7 @@ export default declare([TitleDialog.ContentComponent], {
     this.dialog.show();
     const controllerComponent = getControllerComponent(datasetEntry);
     this.show(controllerComponent);
+  },
+  footerButtonAction(params) {
   },
 });
