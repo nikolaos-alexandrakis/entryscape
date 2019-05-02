@@ -84,7 +84,7 @@ const getControllerComponent = (datasetEntry) => {
       return (<section class="viz__editDialog">
         <section class="viz__intro">
         </section>
-        <section class="userFile">
+        <section class="useFile">
           <h4>Distribution</h4>
           <div class="useFile__wrapper">
             <h5>You are using this file:</h5>

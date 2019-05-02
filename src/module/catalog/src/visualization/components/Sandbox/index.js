@@ -16,10 +16,12 @@ export default (vnode) => {
         <div className='visualizations__sandbox'>
           <h3>Visualization Sandbox</h3>
           <div class="viz__wrapper">
-          <section class="vizOptions__wrapper"></section>
-          <section class="vizGraph__wrapper">
-            <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
-          </section>
+            <section class="vizOptions__wrapper"></section>
+            <section class="vizGraph__wrapper">
+              <div>
+                <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
+              </div>
+            </section>
 
           </div>
 
@@ -29,7 +31,7 @@ export default (vnode) => {
               'POINT(31 10)',
             ]}
           />
-        {/*<BarChartTime
+          {/* <BarChartTime
             data={{
               series: [{
                 name: '',
