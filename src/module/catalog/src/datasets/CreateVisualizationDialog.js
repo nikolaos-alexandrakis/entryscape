@@ -2,6 +2,7 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
+import GeoMap from 'commons/rdforms/choosers/components/Map';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
@@ -52,16 +53,45 @@ const getControllerComponent = (datasetEntry) => {
       fileName,
       headers: data.meta.fields,
     });
+
     setState({ files });
+  };
+
+  const renderChart = (chartType) => {
+    const chartMap = new Map(Object.entries({
+      map: (
+        <GeoMap
+          value={[
+            'POINT(30 10)',
+            'POINT(31 10)',
+          ]}
+        />
+      ),
+      bar: (
+        <img
+          src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'>
+        </img>
+      ),
+    }));
+
+    return (
+      <div class="map">
+        {chartMap.get(chartType)}
+      </div>
+    );
   };
 
   return {
     oninit() {
-      setState({ files: [] });
+      setState({
+        files: [],
+        chartType: 'map', // Can be map, pie, bar, line
+      });
       getCSVFiles(datasetEntry, updateCSVData); // promise callbacked
     },
     view() {
-      return (<section class="viz__editDialog">
+      return (
+        <section class="viz__editDialog">
         <section class="viz__intro">
           <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
         </section>
@@ -144,13 +174,12 @@ const getControllerComponent = (datasetEntry) => {
         </section>
         <section class="vizPreview__wrapper">
           <h4>Preview of dataset visualization</h4>
-          <div>
-            <img
-              src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'></img>
-          </div>
+
+        {renderChart(state.chartType)}
 
         </section>
-      </section>);
+      </section>
+      );
     },
   };
 };

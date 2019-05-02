@@ -158,7 +158,11 @@ const Map = () => {
 
       if (state.map) {
         clearMapLayers(state.map);
-        populateMapWithValue(state.map, value);
+        if (Array.isArray(value)) {
+          value.forEach(coord => populateMapWithValue(state.map, coord));
+        } else {
+          populateMapWithValue(state.map, value);
+        }
       }
     },
 
