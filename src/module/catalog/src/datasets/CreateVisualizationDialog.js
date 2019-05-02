@@ -9,76 +9,78 @@ import declare from 'dojo/_base/declare';
 import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
-const parseCSVFile = (info, callback) => {
-  const complete = data => callback({ info, data });
-  Papa.parse(info.uri, {
+let csvData;
+const updateCSVData = (data) => {
+  csvData = data;
+};
+
+const parseCSVFile = (uri, callback) => {
+  Papa.parse(uri, {
     download: true,
     header: true,
-    complete,
+    complete: callback,
   });
 };
 
-const getCSVFiles = async (datasetEntry, callback) => {
+const getCSVFiles = async (datasetEntry) => {
   const distEntries = await getUploadedDistributionEntries(datasetEntry, ['text/csv']);
   const csvFilePromises = distEntries.map(getDistributionFileEntries);
+  const datasetName = getEntryRenderName(datasetEntry);
 
+  // get distribution names if exists
+  const files = [];
   for await (const csvFileEntries of csvFilePromises) { // eslint-disable-line
     csvFileEntries.forEach((csvFileEntry) => {
-      const csvFileRURI = csvFileEntry.getResourceURI();
+      const uri = csvFileEntry.getResourceURI();
       const fileName = getEntryRenderName(csvFileEntry);
-      console.log(fileName);
-      parseCSVFile({
-        uri: csvFileRURI,
-        datasetName: 'dataset 1',
+
+      files.push({
+        uri,
+        datasetName,
         fileName,
-      }, callback);
+      });
     });
   }
+
+  return files;
 };
 
 const getControllerComponent = (datasetEntry) => {
   const state = {
     files: [],
+    chartType: 'map',
   };
 
   const setState = createSetState(state);
 
-  const updateCSVData = ({ info, data }) => {
-    const { uri, datasetName, fileName } = info;
-    const files = state.files;
+  const onChangeSelectedFile = (fileIdx) => {
+    console.log(fileIdx);
+    if (state.selectedFileIdx !== fileIdx) {
+      setState({
+        selectedFileIdx: fileIdx,
+      });
 
-    files.push({
-      uri,
-      datasetName,
-      fileName,
-      headers: data.meta.fields,
-    });
-
-    setState({ files });
+      parseCSVFile(state.files[fileIdx].uri, updateCSVData); // should have a spinner loading
+    }
   };
 
 
   return {
     oninit() {
-      setState({
-        files: [],
-        chartType: 'map', // Can be map, pie, bar, line
+      getCSVFiles(datasetEntry).then((files) => {
+        setState({
+          files,
+        });
       });
-      getCSVFiles(datasetEntry, updateCSVData); // promise callbacked
     },
     view() {
-      return (
-        <section class="viz__editDialog">
+      const selectedFile = state.files[state.selectedFileIdx];
+      const hasData = selectedFile && csvData;
+
+      return (<section class="viz__editDialog">
         <section class="viz__intro">
           <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
         </section>
-        <ul>
-          {state.files.map(file => <li>
-            <span>Dataset name : {file.datasetName}</span>
-            <span>File name : {file.fileName}</span>
-            <span>Headers : {file.headers.join()}</span>
-          </li>)}
-        </ul>
         <section class="userFile">
           <h4>Choose a distribution</h4>
           <div class="useFile__wrapper">
@@ -91,7 +93,8 @@ const getControllerComponent = (datasetEntry) => {
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li key="default-chooser" class="dropdown-header">Choose a distribution</li>
-                {state.files.map(file => <li>{file.datasetName} - {file.fileName}</li>)}
+                {state.files.map((file, idx) => <li
+                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</li>)}
               </ul>
             </div>
           </div>
@@ -119,29 +122,11 @@ const getControllerComponent = (datasetEntry) => {
             <h4>Choose a type of operation</h4>
             <p>You can select for example all the rows with the same date</p>
             <div class="dropdown__wrapper">
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Sum
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
-              </div>
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Column
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
+              <div class="form-group">
+                <select class="form-control">
+                  <option>SUM</option>
+                  <option>COUNT</option>
+                </select>
               </div>
             </div>
           </div>
@@ -150,32 +135,20 @@ const getControllerComponent = (datasetEntry) => {
             <div class="axisOptions__wrapper">
               <div class="axisX__wrapper">
                 <h5>X:</h5>
-                <div class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Column name
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-header">Choose a column label</li>
-                    <li><a href="#">Name of default file</a></li>
-                    <li><a href="#">Another distribution</a></li>
-                  </ul>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
               <div class="axisY__wrapper">
                 <h5>Y:</h5>
-                <div class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Column name
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-header">Choose a column label</li>
-                    <li><a href="#">Name of default file</a></li>
-                    <li><a href="#">Another distribution</a></li>
-                  </ul>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
             </div>
