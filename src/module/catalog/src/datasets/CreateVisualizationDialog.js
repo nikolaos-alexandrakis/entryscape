@@ -58,7 +58,7 @@ const parseCSVFile = (uri, callback) => {
 
 const state = {
   distributionFile: null,
-  chartType: 'bar',
+  chartType: 'map',
   operation: 'none',
   xAxisField: null,
   yAxisField: null,
