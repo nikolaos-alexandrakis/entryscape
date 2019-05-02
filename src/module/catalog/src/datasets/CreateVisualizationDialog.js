@@ -3,6 +3,7 @@ import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionU
 import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import TypeSelector from 'catalog/visualization/components/TypeSelector';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
@@ -81,42 +82,27 @@ const getControllerComponent = (datasetEntry, files) => {
     view() {
       const hasData = state.distributionFile && csvData;
       return (<section class="viz__editDialog">
-          <section class="viz__intro">
-          </section>
-          <section class="useFile">
-            <h4>Distribution</h4>
-            <div class="useFile__wrapper">
-              <h5>You are using this file:</h5>
-              <div class="form-group">
-                <select className="form-control" onchange={onChangeSelectedFile}>
-                  {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
-                </select>
-              </div>
+        <section class="viz__intro">
+        </section>
+        <section class="useFile">
+          <h4>Distribution</h4>
+          <div class="useFile__wrapper">
+            <h5>You are using this file:</h5>
+            <div class="form-group">
+              <select class="form-control" onchange={onChangeSelectedFile}>
+                {state.files.map((file, idx) => <option value={idx}
+                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</option>)}
+              </select>
             </div>
+          </div>
           </section>
-          <section class="graphType__wrapper">
+        <section class="graphType__wrapper">
             <h4>Type of visualization</h4>
             <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
-            <div class="graphType__card__wrapper">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary btn-raised active">
-                  <input type="radio" name="options" id="option1" autocomplete="off"
-                         checked={state.chartType === 'map'}
-                  ></input>Map
-                </label>
-                <label class="btn btn-secondary btn-raised">
-                  <input type="radio" name="options" id="option2" autocomplete="off"
-                         checked={state.chartType === 'bar'}
-                  ></input>Bar Chart
-                </label>
-                <label class="btn btn-secondary btn-raised">
-                  <input type="radio" name="options" id="option3" autocomplete="off"
-                         checked={state.chartType === 'line'}
-                  ></input>Line Chart
-                </label>
-              </div>
-            </div>
-          </section>
+            <TypeSelector
+              type={state.chartType}
+            />
+        </section>
 
           <section class="axisOperation__wrapper">
           <div class="axisOptions">
