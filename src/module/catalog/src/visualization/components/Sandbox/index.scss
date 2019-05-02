@@ -1,4 +1,13 @@
 @import '~commons/theme.scss';
 
 .visualizations__sandbox {
+    .viz__wrapper{
+        display:flex;
+        .vizOptions__wrapper{
+            height: 600px;
+            background:white;
+            padding: 20px;
+            min-width: 300px;
+        }
+    }
 }
