@@ -81,6 +81,14 @@ const getControllerComponent = (datasetEntry, files) => {
 
 
   return {
+    oncreate() {
+      const distributionFile = files[0]; // default selected
+
+      parseCSVFile(distributionFile.uri, updateCSVData); // should have a spinner loading
+      setState({
+        distributionFile,
+      });
+    },
     view() {
       const hasData = state.distributionFile && csvData;
       return (<section class="viz__editDialog">
