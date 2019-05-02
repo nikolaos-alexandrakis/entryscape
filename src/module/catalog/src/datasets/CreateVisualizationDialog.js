@@ -79,7 +79,6 @@ const getControllerComponent = (datasetEntry) => {
 
       return (<section class="viz__editDialog">
         <section class="viz__intro">
-          <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
         </section>
         <section class="userFile">
           <h4>Distribution</h4>
@@ -97,7 +96,7 @@ const getControllerComponent = (datasetEntry) => {
           <h4>Type of visualization</h4>
           <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
           <div class="graphType__card__wrapper">
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-secondary btn-raised active">
                 <input type="radio" name="options" id="option1" autocomplete="off" checked></input>Map
               </label>
@@ -111,21 +110,10 @@ const getControllerComponent = (datasetEntry) => {
           </div>
         </section>
         <section class="axisOperation__wrapper">
-          <div class="operations">
-            <h4>Operation</h4>
-            <p>Choose a type of operation like Sum or Count.</p>
-            <div class="dropdown__wrapper">
-              <div class="form-group">
-                <select class="form-control">
-                  <option>SUM</option>
-                  <option>COUNT</option>
-                </select>
-              </div>
-            </div>
-          </div>
           <div class="axisOptions">
             <h4>Axes to use</h4>
-            <p>Select which data you want to show on each axis</p>
+            <p>Select which data you want to show on each axis.</p>
+            <p>On axis X you can select an operator to create more complicated visualizations.</p>
             <div class="axisOptions__wrapper">
               <div class="axisX__wrapper">
                 <h5>X:</h5>
@@ -133,6 +121,12 @@ const getControllerComponent = (datasetEntry) => {
                   <select class="form-control">
                     <option>Name of default distribution</option>
                     <option>Name of other distribution</option>
+                  </select>
+                </div>
+                <div class="form-group operations__wrapper">
+                  <select class="form-control">
+                    <option>SUM</option>
+                    <option>COUNT</option>
                   </select>
                 </div>
               </div>
