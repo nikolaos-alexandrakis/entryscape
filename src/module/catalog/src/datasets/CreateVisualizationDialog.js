@@ -9,11 +9,13 @@ import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 import Papa from 'papaparse';
+import m from 'mithril';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
 const updateCSVData = (data) => {
   csvData = data;
+  m.redraw();
 };
 
 // potentially put to the distributionHelper
@@ -113,8 +115,7 @@ const getControllerComponent = (datasetEntry, files) => {
                   <h5>X:</h5>
                   <div class="form-group">
                     <select class="form-control">
-                      <option>Name of default distribution</option>
-                      <option>Name of other distribution</option>
+                      {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
                     </select>
                   </div>
                   <div class="form-group operations__wrapper">
@@ -128,8 +129,7 @@ const getControllerComponent = (datasetEntry, files) => {
                   <h5>Y:</h5>
                   <div class="form-group">
                     <select class="form-control">
-                      <option>Name of default distribution</option>
-                      <option>Name of other distribution</option>
+                      {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
                     </select>
                   </div>
                 </div>
@@ -168,6 +168,8 @@ export default declare([TitleDialog.ContentComponent], {
   },
   footerButtonAction() {
     const { distributionFile } = state;
-    createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state);
+    return createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state)
+      .then(console.log)
+      .catch(console.log);
   },
 });
