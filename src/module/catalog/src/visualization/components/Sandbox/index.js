@@ -14,7 +14,14 @@ export default (vnode) => {
     view(vnode) {
       return (
         <div className='visualizations__sandbox'>
-          hej wheres the map !
+          <h3>Visualization Sandbox</h3>
+          <div class="viz__wrapper">
+          <section class="vizOptions__wrapper"></section>
+          <section class="vizGraph__wrapper">
+            <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
+          </section>
+
+          </div>
 
           <Map
             value={[
