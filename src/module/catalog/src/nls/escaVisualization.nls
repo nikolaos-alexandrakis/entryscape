@@ -1,7 +1,7 @@
 {
   "root": {
     "vizDialogTitle": "Create dataset visualization",
-    "vizDialogFooter": "Close"
+    "vizDialogFooter": "Save"
   },
   "sv": true,
   "da": true,

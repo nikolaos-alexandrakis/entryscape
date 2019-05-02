@@ -76,16 +76,14 @@ const getControllerComponent = (datasetEntry) => {
           <h4>Choose a distribution</h4>
           <div class="useFile__wrapper">
             <h5>You are using this file:</h5>
-            <div class="dropdown">
-              <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Name of distribution file
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li key="default-chooser" class="dropdown-header">Choose a distribution</li>
-                {state.files.map(file => <li>{file.datasetName} - {file.fileName}</li>)}
-              </ul>
+            <div class="form-group">
+              <select class="form-control">
+                <option>Name of default distribution</option>
+                <option>Name of other distribution</option>
+              </select>
+            </div>
+            <div class="useFile__btn__wrapper">
+              <button type="button" class="btn btn-primary btn-raised btn-sm" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding new file">Change file</button>
             </div>
           </div>
         </section>
@@ -112,29 +110,11 @@ const getControllerComponent = (datasetEntry) => {
             <h4>Choose a type of operation</h4>
             <p>You can select for example all the rows with the same date</p>
             <div class="dropdown__wrapper">
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Sum
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
-              </div>
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Column
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
+              <div class="form-group">
+                <select class="form-control">
+                  <option>SUM</option>
+                  <option>COUNT</option>
+                </select>
               </div>
             </div>
           </div>
@@ -143,32 +123,20 @@ const getControllerComponent = (datasetEntry) => {
             <div class="axisOptions__wrapper">
               <div class="axisX__wrapper">
                 <h5>X:</h5>
-                <div class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Column name
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-header">Choose a column label</li>
-                    <li><a href="#">Name of default file</a></li>
-                    <li><a href="#">Another distribution</a></li>
-                  </ul>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
               <div class="axisY__wrapper">
                 <h5>Y:</h5>
-                <div class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Column name
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-header">Choose a column label</li>
-                    <li><a href="#">Name of default file</a></li>
-                    <li><a href="#">Another distribution</a></li>
-                  </ul>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
             </div>
