@@ -8,31 +8,40 @@ import declare from 'dojo/_base/declare';
 import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
-const parseCSVFile = (info, callback) => {
-  const complete = data => callback({ info, data });
-  Papa.parse(info.uri, {
+let csvData;
+const updateCSVData = (data) => {
+  csvData = data;
+};
+
+const parseCSVFile = (uri, callback) => {
+  Papa.parse(uri, {
     download: true,
     header: true,
-    complete,
+    complete: callback,
   });
 };
 
-const getCSVFiles = async (datasetEntry, callback) => {
+const getCSVFiles = async (datasetEntry) => {
   const distEntries = await getUploadedDistributionEntries(datasetEntry, ['text/csv']);
   const csvFilePromises = distEntries.map(getDistributionFileEntries);
+  const datasetName = getEntryRenderName(datasetEntry);
 
+  // get distribution names if exists
+  const files = [];
   for await (const csvFileEntries of csvFilePromises) { // eslint-disable-line
     csvFileEntries.forEach((csvFileEntry) => {
-      const csvFileRURI = csvFileEntry.getResourceURI();
+      const uri = csvFileEntry.getResourceURI();
       const fileName = getEntryRenderName(csvFileEntry);
-      console.log(fileName);
-      parseCSVFile({
-        uri: csvFileRURI,
-        datasetName: 'dataset 1',
+
+      files.push({
+        uri,
+        datasetName,
         fileName,
-      }, callback);
+      });
     });
   }
+
+  return files;
 };
 
 const getControllerComponent = (datasetEntry) => {
@@ -42,36 +51,33 @@ const getControllerComponent = (datasetEntry) => {
 
   const setState = createSetState(state);
 
-  const updateCSVData = ({ info, data }) => {
-    const { uri, datasetName, fileName } = info;
-    const files = state.files;
+  const onChangeSelectedFile = (fileIdx) => {
+    console.log(fileIdx);
+    if (state.selectedFileIdx !== fileIdx) {
+      setState({
+        selectedFileIdx: fileIdx,
+      });
 
-    files.push({
-      uri,
-      datasetName,
-      fileName,
-      headers: data.meta.fields,
-    });
-    setState({ files });
+      parseCSVFile(state.files[fileIdx].uri, updateCSVData); // should have a spinner loading
+    }
   };
 
   return {
     oninit() {
-      setState({ files: [] });
-      getCSVFiles(datasetEntry, updateCSVData); // promise callbacked
+      getCSVFiles(datasetEntry).then((files) => {
+        setState({
+          files,
+        });
+      });
     },
     view() {
+      const selectedFile = state.files[state.selectedFileIdx];
+      const hasData = selectedFile && csvData;
+
       return (<section class="viz__editDialog">
         <section class="viz__intro">
           <h3>Here you can choose the type of data visualization you want to use and in which axis is rendered</h3>
         </section>
-        <ul>
-          {state.files.map(file => <li>
-            <span>Dataset name : {file.datasetName}</span>
-            <span>File name : {file.fileName}</span>
-            <span>Headers : {file.headers.join()}</span>
-          </li>)}
-        </ul>
         <section class="userFile">
           <h4>Choose a distribution</h4>
           <div class="useFile__wrapper">
@@ -84,7 +90,8 @@ const getControllerComponent = (datasetEntry) => {
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li key="default-chooser" class="dropdown-header">Choose a distribution</li>
-                {state.files.map(file => <li>{file.datasetName} - {file.fileName}</li>)}
+                {state.files.map((file, idx) => <li
+                  onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</li>)}
               </ul>
             </div>
           </div>
