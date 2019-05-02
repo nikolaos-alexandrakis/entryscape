@@ -1,8 +1,10 @@
 import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUtil';
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
+import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
-import TitleDialog from 'commons/dialog/TitleDialog';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import TypeSelector from 'catalog/visualization/components/TypeSelector';
+import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
@@ -14,6 +16,36 @@ const updateCSVData = (data) => {
   csvData = data;
 };
 
+// potentially put to the distributionHelper
+const getCSVFiles = async (datasetEntry) => {
+  const distEntries = await getUploadedDistributionEntries(datasetEntry, ['text/csv']);
+  const csvFiles = [];
+  const filesPromises = [];
+  distEntries.forEach((distEntry) => {
+    // get the file entries
+    const fileEntriesPromise = getDistributionFileEntries(distEntry)
+      .then((entries) => {
+        entries.forEach((csvFileEntry) => {
+          const uri = csvFileEntry.getResourceURI();
+          const fileName = getEntryRenderName(csvFileEntry);
+          const distributionName = getEntryRenderName(distEntry);
+
+          csvFiles.push({
+            uri,
+            distributionName,
+            fileName,
+            distributionRURI: distEntry.getResourceURI(), // needed to link the distribution with the viz
+          });
+        });
+      });
+
+    filesPromises.push(fileEntriesPromise);
+  });
+
+  await Promise.all(filesPromises);
+  return csvFiles;
+};
+
 const parseCSVFile = (uri, callback) => {
   Papa.parse(uri, {
     download: true,
@@ -22,39 +54,15 @@ const parseCSVFile = (uri, callback) => {
   });
 };
 
-const getCSVFiles = async (datasetEntry) => {
-  const distEntries = await getUploadedDistributionEntries(datasetEntry, ['text/csv']);
-  const csvFilePromises = distEntries.map(getDistributionFileEntries);
-  const datasetName = getEntryRenderName(datasetEntry);
-
-  // get distribution names if exists
-  const files = [];
-  for await (const csvFileEntries of csvFilePromises) { // eslint-disable-line
-    csvFileEntries.forEach((csvFileEntry) => {
-      const uri = csvFileEntry.getResourceURI();
-      const fileName = getEntryRenderName(csvFileEntry);
-
-      files.push({
-        uri,
-        datasetName,
-        fileName,
-      });
-    });
-  }
-
-  return files;
+const state = {
+  distributionFile: null,
+  chartType: 'map',
+  operation: 'none',
+  xAxisField: null,
+  yAxisField: null,
 };
 
-const getControllerComponent = (datasetEntry) => {
-  const state = {
-    files: [],
-    distributionFile: null,
-    chartType: 'map',
-    operation: 'none',
-    xAxisField: null,
-    yAxisField: null,
-  };
-
+const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
   const onChangeSelectedFile = (evt) => {
@@ -64,21 +72,14 @@ const getControllerComponent = (datasetEntry) => {
         selectedFileIdx: fileIdx,
       });
 
-      parseCSVFile(state.files[fileIdx].uri, updateCSVData); // should have a spinner loading
+      parseCSVFile(files[fileIdx].uri, updateCSVData); // should have a spinner loading
     }
   };
 
 
   return {
-    oninit() {
-      getCSVFiles(datasetEntry).then((files) => {
-        setState({
-          files,
-        });
-      });
-    },
     view() {
-      const selectedFile = state.files[state.selectedFileIdx];
+      const selectedFile = files[state.selectedFileIdx];
       const hasData = selectedFile && csvData;
 
       return (<section class="viz__editDialog">
@@ -95,31 +96,16 @@ const getControllerComponent = (datasetEntry) => {
               </select>
             </div>
           </div>
-        </section>
+          </section>
         <section class="graphType__wrapper">
-          <h4>Type of visualization</h4>
-          <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
-          <div class="graphType__card__wrapper">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-secondary btn-raised active">
-                <input type="radio" name="options" id="option1" autocomplete="off" 
-                  checked={state.chartType === 'map'}
-                ></input>Map
-              </label>
-              <label class="btn btn-secondary btn-raised">
-                <input type="radio" name="options" id="option2" autocomplete="off"
-                  checked={state.chartType === 'bar'}
-                ></input>Bar Chart
-              </label>
-              <label class="btn btn-secondary btn-raised">
-                <input type="radio" name="options" id="option3" autocomplete="off"
-                  checked={state.chartType === 'line'}
-                ></input>Line Chart
-              </label>
-            </div>
-          </div>
+            <h4>Type of visualization</h4>
+            <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
+            <TypeSelector
+              type={state.chartType}
+            />
         </section>
-        <section class="axisOperation__wrapper">
+
+          <section class="axisOperation__wrapper">
           <div class="axisOptions">
             <h4>Axes to use</h4>
             <p>Select which data you want to show on each axis.</p>
@@ -152,16 +138,17 @@ const getControllerComponent = (datasetEntry) => {
             </div>
           </div>
         </section>
-        <section class="vizPreview__wrapper">
-          <h4>Preview of dataset visualization</h4>
 
-          <VisualizationChart
-            type={state.chartType}
-            data={csvData}
-          />
+          <section class="vizPreview__wrapper">
+            <h4>Preview of dataset visualization</h4>
 
+            <VisualizationChart
+              type={state.chartType}
+              data={csvData}
+            />
+
+          </section>
         </section>
-      </section>
       );
     },
   };
@@ -171,12 +158,18 @@ export default declare([TitleDialog.ContentComponent], {
   nlsBundles: [{ escaVisualization }],
   nlsHeaderTitle: 'vizDialogTitle',
   nlsFooterButtonLabel: 'vizDialogFooter',
-  open(params) {
+  async open(params) {
     const { entry: datasetEntry } = params;
+    this.entry = datasetEntry;
+
+
+    const files = await getCSVFiles(datasetEntry);
+    this.controllerComponent = getControllerComponent(datasetEntry, files);
+
+    this.show(this.controllerComponent);
     this.dialog.show();
-    const controllerComponent = getControllerComponent(datasetEntry);
-    this.show(controllerComponent);
   },
-  footerButtonAction(params) {
+  footerButtonAction() {
+    createVisualizationConfigurationEntry(this.entry, distURI, state);
   },
 });
