@@ -8,7 +8,7 @@ import { createEntry } from 'commons/util/storeUtil';
  * @return {Promise<void>}
  */
 const createVisualizationConfigurationEntry = async (datasetEntry, distributionRURI, configuration) => {
-  const { chartType, x, y, op } = configuration;
+  const { chartType, xAxisField, yAxisField, operation } = configuration;
   const context = datasetEntry.getContext();
   const newEntryPrototype = await createEntry(context, 'store:Visualization');
   const newEntryRURI = newEntryPrototype.getResourceURI();
@@ -18,9 +18,9 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
   // metadata.add(newEntryRURI, 'rdf:type', 'schema:ImageObject');
   metadata.add(newEntryRURI, 'dcterms:source', distributionRURI);
   metadata.add(newEntryRURI, 'store:style', chartType);
-  metadata.add(newEntryRURI, 'store:x', x);
-  metadata.add(newEntryRURI, 'store:y', y);
-  metadata.add(newEntryRURI, 'store:op', op);
+  metadata.add(newEntryRURI, 'store:x', xAxisField);
+  metadata.add(newEntryRURI, 'store:y', yAxisField);
+  metadata.add(newEntryRURI, 'store:op', operation);
 
   try {
     await newEntryPrototype.commit();

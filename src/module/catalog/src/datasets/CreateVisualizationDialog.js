@@ -65,33 +65,31 @@ const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
   const onChangeSelectedFile = (evt) => {
-    const fileIdx = evt.target.value;
-    if (state.selectedFileIdx !== fileIdx) {
+    const fileURI = evt.target.value;
+    if (!state.distributionFile || (state.distributionFile.uri !== fileURI)) {
+      const distributionFile = files.find(file => file.uri === fileURI);
       setState({
-        selectedFileIdx: fileIdx,
+        distributionFile,
       });
 
-      parseCSVFile(files[fileIdx].uri, updateCSVData); // should have a spinner loading
+      parseCSVFile(distributionFile.uri, updateCSVData); // should have a spinner loading
     }
   };
 
 
   return {
     view() {
-      const selectedFile = files[state.selectedFileIdx];
-      const hasData = selectedFile && csvData;
-
+      const hasData = state.distributionFile && csvData;
       return (<section class="viz__editDialog">
-        <section class="viz__intro">
-        </section>
-        <section class="useFile">
+          <section class="viz__intro">
+          </section>
+          <section class="useFile">
             <h4>Distribution</h4>
             <div class="useFile__wrapper">
               <h5>You are using this file:</h5>
               <div class="form-group">
-                <select className="form-control" onChange={onChangeSelectedFile}>
-                  {files.map((file, idx) => <option value={idx}
-                                                          onClick={onChangeSelectedFile.bind(null, idx)}>{file.distributionName} - {file.fileName}</option>)}
+                <select className="form-control" onchange={onChangeSelectedFile}>
+                  {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
                 </select>
               </div>
             </div>
@@ -177,7 +175,6 @@ export default declare([TitleDialog.ContentComponent], {
     const { entry: datasetEntry } = params;
     this.entry = datasetEntry;
 
-
     const files = await getCSVFiles(datasetEntry);
     this.controllerComponent = getControllerComponent(datasetEntry, files);
 
@@ -185,6 +182,7 @@ export default declare([TitleDialog.ContentComponent], {
     this.dialog.show();
   },
   footerButtonAction() {
-    createVisualizationConfigurationEntry(this.entry, distURI, state);
+    const { distributionFile } = state;
+    createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state);
   },
 });
