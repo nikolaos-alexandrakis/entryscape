@@ -2,6 +2,7 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
+import GeoMap from 'commons/rdforms/choosers/components/Map';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
@@ -47,6 +48,7 @@ const getCSVFiles = async (datasetEntry) => {
 const getControllerComponent = (datasetEntry) => {
   const state = {
     files: [],
+    chartType: 'map',
   };
 
   const setState = createSetState(state);
@@ -60,6 +62,30 @@ const getControllerComponent = (datasetEntry) => {
 
       parseCSVFile(state.files[fileIdx].uri, updateCSVData); // should have a spinner loading
     }
+  };
+
+  const renderChart = (chartType) => {
+    const chartMap = new Map(Object.entries({
+      map: (
+        <GeoMap
+          value={[
+            'POINT(30 10)',
+            'POINT(31 10)',
+          ]}
+        />
+      ),
+      bar: (
+        <img
+          src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'>
+        </img>
+      ),
+    }));
+
+    return (
+      <div class="map">
+        {chartMap.get(chartType)}
+      </div>
+    );
   };
 
   return {
@@ -119,29 +145,11 @@ const getControllerComponent = (datasetEntry) => {
             <h4>Choose a type of operation</h4>
             <p>You can select for example all the rows with the same date</p>
             <div class="dropdown__wrapper">
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Sum
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
-              </div>
-              <div class="dropdown">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Column
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-header">Choose a column label</li>
-                  <li><a href="#">Name of default file</a></li>
-                  <li><a href="#">Another distribution</a></li>
-                </ul>
+              <div class="form-group">
+                <select class="form-control">
+                  <option>SUM</option>
+                  <option>COUNT</option>
+                </select>
               </div>
             </div>
           </div>
@@ -150,32 +158,20 @@ const getControllerComponent = (datasetEntry) => {
             <div class="axisOptions__wrapper">
               <div class="axisX__wrapper">
                 <h5>X:</h5>
-                <div class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Column name
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-header">Choose a column label</li>
-                    <li><a href="#">Name of default file</a></li>
-                    <li><a href="#">Another distribution</a></li>
-                  </ul>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
               <div class="axisY__wrapper">
                 <h5>Y:</h5>
-                <div class="dropdown">
-                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Column name
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-header">Choose a column label</li>
-                    <li><a href="#">Name of default file</a></li>
-                    <li><a href="#">Another distribution</a></li>
-                  </ul>
+                <div class="form-group">
+                  <select class="form-control">
+                    <option>Name of default distribution</option>
+                    <option>Name of other distribution</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -183,13 +179,12 @@ const getControllerComponent = (datasetEntry) => {
         </section>
         <section class="vizPreview__wrapper">
           <h4>Preview of dataset visualization</h4>
-          <div>
-            <img
-              src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'></img>
-          </div>
+
+        {renderChart(state.chartType)}
 
         </section>
-      </section>);
+      </section>
+      );
     },
   };
 };
