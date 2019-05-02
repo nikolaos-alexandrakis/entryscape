@@ -2,8 +2,9 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
+import TypeSelector from 'catalog/visualization/components/DistributionSelector';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
-import TypeSelector from 'catalog/visualization/components/TypeSelector';
+import DistributionSelector from 'catalog/visualization/components/TypeSelector';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
@@ -180,14 +181,9 @@ const getControllerComponent = (datasetEntry, files) => {
         </section>
         <section class="useFile">
           <h4>Distribution</h4>
-          <div class="useFile__wrapper">
-            <h5>You are using this file:</h5>
-            <div class="form-group">
-              <select className="form-control" onchange={onChangeSelectedFile}>
-                {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
-              </select>
-            </div>
-          </div>
+          <DistributionSelector
+          files={[]}
+          />
         </section>
         <section class="graphType__wrapper">
           <h4>Type of visualization</h4>
@@ -208,6 +204,7 @@ const getControllerComponent = (datasetEntry, files) => {
               y={state.yAxisField}
               operation={state.operation}
               data={csvData}
+              type={state.chartType}
               onSelect={onAxisUpdate}
             />
           </div>
