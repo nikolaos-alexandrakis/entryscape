@@ -92,17 +92,17 @@ const getControllerComponent = (datasetEntry, files) => {
     view() {
       const hasData = state.distributionFile && csvData;
       return (<section class="viz__editDialog">
-          <section class="viz__intro">
-          </section>
-          <section class="useFile">
-            <h4>Distribution</h4>
-            <div class="useFile__wrapper">
-              <h5>You are using this file:</h5>
-              <div class="form-group">
-                <select className="form-control" onchange={onChangeSelectedFile}>
-                  {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
-                </select>
-              </div>
+        <section class="viz__intro">
+        </section>
+        <section class="useFile">
+          <h4>Distribution</h4>
+          <div class="useFile__wrapper">
+            <h5>You are using this file:</h5>
+            <div class="form-group">
+              <select className="form-control" onchange={onChangeSelectedFile}>
+                {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
+              </select>
+            </div>
             </div>
           </section>
           <section class="graphType__wrapper">
@@ -143,18 +143,18 @@ const getControllerComponent = (datasetEntry, files) => {
                 </div>
               </div>
             </div>
-          </section>
-
-          <section class="vizPreview__wrapper">
-            <h4>Preview of dataset visualization</h4>
-
-            <VisualizationChart
-              type={state.chartType}
-              data={csvData}
-            />
-
-          </section>
+          </div>
         </section>
+
+        <section class="vizPreview__wrapper">
+          <h4>Preview of dataset visualization</h4>
+
+          <VisualizationChart
+            type={state.chartType}
+            data={csvData}
+          />
+        </section>
+      </section>
       );
     },
   };
