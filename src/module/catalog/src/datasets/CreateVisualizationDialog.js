@@ -91,6 +91,9 @@ const getControllerComponent = (datasetEntry) => {
                   onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</option>)}
               </select>
             </div>
+            <div class="useFile__btn__wrapper">
+              <button type="button" class="btn btn-primary btn-raised btn-sm" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding new distribution">Change distribution</button>
+            </div>
           </div>
         </section>
         <section class="graphType__wrapper">
@@ -153,6 +156,7 @@ const getControllerComponent = (datasetEntry) => {
 
           <VisualizationChart
             type={state.chartType}
+            data={csvData}
           />
 
         </section>
