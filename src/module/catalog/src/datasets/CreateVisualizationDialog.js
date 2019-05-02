@@ -10,6 +10,7 @@ import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 import m from 'mithril';
+import moment from 'moment';
 import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
@@ -53,11 +54,12 @@ const detectTypes = () => {
   const rowsToCheckCount = Math.min(3, csvData.data.length);
   for (let i = 0; i < rowsToCheckCount; i++) {
     const dataRow = csvData.data[i];
-
     Object.keys(dataRow).forEach((dataPoint, idx) => {
       const dataValue = dataRow[dataPoint];
       if (!csvDataDetectedTypes[idx]) {
-        if (!isNaN(Number(dataValue))) { // it's a number
+        if (moment(dataValue).isValid()) {
+          csvDataDetectedTypes[idx] = CSV_COLUMN_TYPE.DATE;
+        } else if (!isNaN(Number(dataValue))) { // it's a number
           csvDataDetectedTypes[idx] = CSV_COLUMN_TYPE.NUMBER;
         }
       }
