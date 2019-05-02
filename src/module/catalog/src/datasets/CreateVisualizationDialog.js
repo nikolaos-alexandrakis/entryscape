@@ -9,11 +9,13 @@ import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 import Papa from 'papaparse';
+import m from 'mithril';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
 const updateCSVData = (data) => {
   csvData = data;
+  m.redraw();
 };
 
 // potentially put to the distributionHelper
@@ -56,7 +58,7 @@ const parseCSVFile = (uri, callback) => {
 
 const state = {
   distributionFile: null,
-  chartType: 'map',
+  chartType: 'bar',
   operation: 'none',
   xAxisField: null,
   yAxisField: null,
@@ -93,44 +95,43 @@ const getControllerComponent = (datasetEntry, files) => {
                 {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
               </select>
             </div>
-          </div>
-        </section>
-        <section class="graphType__wrapper">
-          <h4>Type of visualization</h4>
-          <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
-          <TypeSelector
-            type={state.chartType}
-          />
-        </section>
+            </div>
+          </section>
+          <section class="graphType__wrapper">
+            <h4>Type of visualization</h4>
+            <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
+            <TypeSelector
+              type={state.chartType}
+            />
+          </section>
 
-        <section class="axisOperation__wrapper">
-          <div class="axisOptions">
-            <h4>Axes to use</h4>
-            <p>Select which data you want to show on each axis.</p>
-            <p>On axis X you can select an operator to create more complicated visualizations.</p>
-            <div class="axisOptions__wrapper">
-              <div class="axisX__wrapper">
-                <h5>X:</h5>
-                <div class="form-group">
-                  <select class="form-control">
-                    <option>Name of default distribution</option>
-                    <option>Name of other distribution</option>
-                  </select>
+          <section class="axisOperation__wrapper">
+            <div class="axisOptions">
+              <h4>Axes to use</h4>
+              <p>Select which data you want to show on each axis.</p>
+              <p>On axis X you can select an operator to create more complicated visualizations.</p>
+              <div class="axisOptions__wrapper">
+                <div class="axisX__wrapper">
+                  <h5>X:</h5>
+                  <div class="form-group">
+                    <select class="form-control">
+                      {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
+                    </select>
+                  </div>
+                  <div class="form-group operations__wrapper">
+                    <select class="form-control">
+                      <option>SUM</option>
+                      <option>COUNT</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="form-group operations__wrapper">
-                  <select class="form-control">
-                    <option>SUM</option>
-                    <option>COUNT</option>
-                  </select>
-                </div>
-              </div>
-              <div class="axisY__wrapper">
-                <h5>Y:</h5>
-                <div class="form-group">
-                  <select class="form-control">
-                    <option>Name of default distribution</option>
-                    <option>Name of other distribution</option>
-                  </select>
+                <div class="axisY__wrapper">
+                  <h5>Y:</h5>
+                  <div class="form-group">
+                    <select class="form-control">
+                      {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -167,6 +168,8 @@ export default declare([TitleDialog.ContentComponent], {
   },
   footerButtonAction() {
     const { distributionFile } = state;
-    createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state);
+    return createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state)
+      .then(console.log)
+      .catch(console.log);
   },
 });
