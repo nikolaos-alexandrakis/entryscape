@@ -103,18 +103,18 @@ const getControllerComponent = (datasetEntry) => {
           <div class="graphType__card__wrapper">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-secondary btn-raised active">
-                <input type="radio" name="options" id="option1" autocomplete="off" 
-                  checked={state.chartType === 'map'}
+                <input type="radio" name="chartType" autocomplete="off" value="map"
+                  checked={true}
                 ></input>Map
               </label>
               <label class="btn btn-secondary btn-raised">
-                <input type="radio" name="options" id="option2" autocomplete="off"
-                  checked={state.chartType === 'bar'}
+                <input type="radio" name="chartType" autocomplete="off" value={true}
+                  checked={state.chartType == 'map' ? 'checked'}
                 ></input>Bar Chart
               </label>
               <label class="btn btn-secondary btn-raised">
-                <input type="radio" name="options" id="option3" autocomplete="off"
-                  checked={state.chartType === 'line'}
+                <input type="radio" name="chartType" autocomplete="off" value="line"
+                  checked={state.chartType == 'line'}
                 ></input>Line Chart
               </label>
             </div>
