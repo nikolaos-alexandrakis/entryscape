@@ -180,7 +180,7 @@ const getControllerComponent = (datasetEntry, files) => {
         <section class="useFile">
           <h4>Distribution</h4>
           <DistributionSelector
-          files={[]}
+            files={files}
           />
         </section>
         <section class="graphType__wrapper">

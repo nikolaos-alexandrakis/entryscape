@@ -5,6 +5,7 @@ import './index.scss';
 
 export default (vnode) => {
   const processGeoData = data => {
+    console.log(data);
     return [
             'POINT(30 10)',
             'POINT(31 10)',
