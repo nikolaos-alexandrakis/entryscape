@@ -6,7 +6,9 @@
         max-width: 60%;
     }
 
-
+    .viz__intro{
+        margin-left: 10px;
+    }
     .useFile__wrapper {
         .form-group {
             margin: 0;
@@ -48,7 +50,8 @@
     .graphType__wrapper,
     .userFile,
     .vizPreview__wrapper {
-        margin-top: 20px;
+        margin-top: 40px;
+        margin-left: 10px;
     }
 
     .axisOperation__wrapper {
