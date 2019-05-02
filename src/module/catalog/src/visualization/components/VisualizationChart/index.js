@@ -4,13 +4,31 @@ import BarChartTime from 'catalog/statistics/components/BarChartTime';
 import './index.scss';
 
 export default (vnode) => {
-  const processGeoData = data => ([
+  const processGeoData = data => {
+    return [
             'POINT(30 10)',
             'POINT(31 10)',
-          ]);
+          ];
+  };
 
-  const renderChart = (chartType, data) => {
-    const processedData = processGeoData(data);
+  const renderChart = (chartOptions) => {
+    const {
+      type,
+      xAxisField,
+      yAxisField,
+      operation,
+      data,
+    } = chartOptions;
+
+    let processedData;
+    switch(type) {
+      case 'map':
+        processedData = processGeoData(data, xAxisField, yAxisField);
+        break;
+      default:
+        processedData = {};
+    }
+
     const chartMap = new Map(Object.entries({
       map: (
         <GeoMap
@@ -22,16 +40,15 @@ export default (vnode) => {
       ),
     }));
 
-    return chartMap.get(chartType);
+    return chartMap.get(type);
   };
 
   return {
     view(vnode) {
-      const { type, data } = vnode.attrs;
 
       return (
         <div>
-          {renderChart(type, data)}
+          {renderChart(vnode.attrs)}
         </div>
       );
     },

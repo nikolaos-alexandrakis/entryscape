@@ -25,7 +25,7 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const { x, y, operation, data } = vnode.attrs;
+      const { x, y, operation, data, type } = vnode.attrs;
       selected.x = x;
       selected.y = y;
       selected.operation = operation;
@@ -42,15 +42,17 @@ export default (vnode) => {
                 {data ? data.meta.fields.map(field => <option value={field}>{field}</option>) : null}
               </select>
             </div>
-            <div class="form-group operations__wrapper">
-              <select class="form-control"
-                onchange={updateOperation}
-              >
-                <option value="none">none</option>
-                <option value="sum">SUM</option>
-                <option value="count">COUNT</option>
-              </select>
-            </div>
+            {type !== 'map' && (
+                <div class="form-group operations__wrapper">
+                  <select class="form-control"
+                    onchange={updateOperation}
+                  >
+                    <option value="none">none</option>
+                    <option value="sum">SUM</option>
+                    <option value="count">COUNT</option>
+                  </select>
+                </div>
+            )}
           </div>
           <div class="axisY__wrapper">
             <h5>Y:</h5>
