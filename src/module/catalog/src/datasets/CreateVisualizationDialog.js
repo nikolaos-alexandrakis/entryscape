@@ -91,26 +91,22 @@ const getControllerComponent = (datasetEntry) => {
                   onclick={onChangeSelectedFile.bind(null, idx)}>{file.datasetName} - {file.fileName}</li>)}</option>
               </select>
             </div>
-            <div class="useFile__btn__wrapper">
-              <button type="button" class="btn btn-primary btn-raised btn-sm" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding new distribution">Change distribution</button>
-            </div>
           </div>
         </section>
         <section class="graphType__wrapper">
           <h4>Choose a type of visualization</h4>
           <p>Consider that not all data work fine with all representations</p>
           <div class="graphType__card__wrapper">
-            <div class="graphType__card">
-              <p class="__title">Map</p>
-            </div>
-            <div class="graphType__card">
-              <p class="__title">Pie Chart</p>
-            </div>
-            <div class="graphType__card">
-              <p class="__title">Bar Chart</p>
-            </div>
-            <div class="graphType__card">
-              <p class="__title">Line Chart</p>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-secondary btn-raised active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked></input>Map
+              </label>
+              <label class="btn btn-secondary btn-raised">
+                <input type="radio" name="options" id="option2" autocomplete="off"></input>Bar Chart
+              </label>
+              <label class="btn btn-secondary btn-raised">
+                <input type="radio" name="options" id="option3" autocomplete="off"></input>Line Chart
+              </label>
             </div>
           </div>
         </section>
