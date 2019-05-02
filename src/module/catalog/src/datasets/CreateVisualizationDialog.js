@@ -3,6 +3,7 @@ import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionU
 import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import TypeSelector from 'catalog/visualization/components/TypeSelector';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
@@ -104,29 +105,13 @@ const getControllerComponent = (datasetEntry) => {
               </div>
             </div>
           </section>
-          <section class="graphType__wrapper">
+        <section class="graphType__wrapper">
             <h4>Type of visualization</h4>
             <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
-            <div class="graphType__card__wrapper">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary btn-raised active">
-                  <input type="radio" name="options" id="option1" autocomplete="off"
-                         checked={state.chartType === 'map'}
-                  ></input>Map
-                </label>
-                <label class="btn btn-secondary btn-raised">
-                  <input type="radio" name="options" id="option2" autocomplete="off"
-                         checked={state.chartType === 'bar'}
-                  ></input>Bar Chart
-                </label>
-                <label class="btn btn-secondary btn-raised">
-                  <input type="radio" name="options" id="option3" autocomplete="off"
-                         checked={state.chartType === 'line'}
-                  ></input>Line Chart
-                </label>
-              </div>
-            </div>
-          </section>
+            <TypeSelector
+              type={state.chartType}
+            />
+        </section>
 
           <section class="axisOperation__wrapper">
           <div class="axisOptions">
