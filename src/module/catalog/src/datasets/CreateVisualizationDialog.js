@@ -143,7 +143,6 @@ const getControllerComponent = (datasetEntry, files) => {
                 </div>
               </div>
             </div>
-          </div>
         </section>
 
         <section class="vizPreview__wrapper">
