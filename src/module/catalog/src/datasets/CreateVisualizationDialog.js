@@ -156,6 +156,7 @@ const getControllerComponent = (datasetEntry) => {
 
           <VisualizationChart
             type={state.chartType}
+            data={csvData}
           />
 
         </section>
