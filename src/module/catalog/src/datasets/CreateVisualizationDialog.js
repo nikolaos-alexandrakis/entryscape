@@ -2,7 +2,7 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
-import GeoMap from 'commons/rdforms/choosers/components/Map';
+import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
@@ -64,29 +64,6 @@ const getControllerComponent = (datasetEntry) => {
     }
   };
 
-  const renderChart = (chartType) => {
-    const chartMap = new Map(Object.entries({
-      map: (
-        <GeoMap
-          value={[
-            'POINT(30 10)',
-            'POINT(31 10)',
-          ]}
-        />
-      ),
-      bar: (
-        <img
-          src='https://i0.wp.com/m.signalvnoise.com/wp-content/uploads/2016/11/1Eq40iwcboRFBMF37oAaM7Q.png?zoom=1.25&resize=637%2C411&ssl=1'>
-        </img>
-      ),
-    }));
-
-    return (
-      <div class="map">
-        {chartMap.get(chartType)}
-      </div>
-    );
-  };
 
   return {
     oninit() {
@@ -173,7 +150,11 @@ const getControllerComponent = (datasetEntry) => {
         </section>
         <section class="vizPreview__wrapper">
           <h4>Preview of dataset visualization</h4>
-          {renderChart(state.chartType)}
+
+          <VisualizationChart
+            type={state.chartType}
+          />
+
         </section>
       </section>
       );
