@@ -10,24 +10,20 @@ import declare from 'dojo/_base/declare';
 import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
+let files = [];
+const updateCSVFiles = (csvFiles) => {
+  files = csvFiles;
+};
+
 let csvData;
 const updateCSVData = (data) => {
   csvData = data;
 };
 
-const parseCSVFile = (uri, callback) => {
-  Papa.parse(uri, {
-    download: true,
-    header: true,
-    complete: callback,
-  });
-};
-
+// potentially put to the distributionHelper
 const getCSVFiles = async (datasetEntry) => {
   const distEntries = await getUploadedDistributionEntries(datasetEntry, ['text/csv']);
-  // const distEntriesNames = [];
-  // const csvFilePromises = [];
-  const files = [];
+  const csvFiles = [];
   const filesPromises = [];
   distEntries.forEach((distEntry) => {
     // get the file entries
@@ -38,7 +34,7 @@ const getCSVFiles = async (datasetEntry) => {
           const fileName = getEntryRenderName(csvFileEntry);
           const distributionName = getEntryRenderName(distEntry);
 
-          files.push({
+          csvFiles.push({
             uri,
             distributionName,
             fileName,
@@ -50,20 +46,26 @@ const getCSVFiles = async (datasetEntry) => {
     filesPromises.push(fileEntriesPromise);
   });
 
-  const a = await Promise.all(filesPromises);
-  console.log(a);
-  console.log(files);
-  return files;
+  await Promise.all(filesPromises);
+  return csvFiles;
+};
+
+const parseCSVFile = (uri, callback) => {
+  Papa.parse(uri, {
+    download: true,
+    header: true,
+    complete: callback,
+  });
 };
 
 const state = {
-  files: [],
   distributionFile: null,
   chartType: 'map',
   operation: 'none',
   xAxisField: null,
   yAxisField: null,
 };
+
 const getControllerComponent = (datasetEntry) => {
   const setState = createSetState(state);
 
@@ -74,22 +76,17 @@ const getControllerComponent = (datasetEntry) => {
         selectedFileIdx: fileIdx,
       });
 
-      parseCSVFile(state.files[fileIdx].uri, updateCSVData); // should have a spinner loading
+      parseCSVFile(files[fileIdx].uri, updateCSVData); // should have a spinner loading
     }
   };
 
 
   return {
     oninit() {
-      getCSVFiles(datasetEntry).then((files) => {
-        setState({
-          files,
-        });
-      });
+      getCSVFiles(datasetEntry).then(updateCSVFiles);
     },
-    view(vnode) {
-      this.state = state; // needed to get access from the dialog component
-      const selectedFile = state.files[state.selectedFileIdx];
+    view() {
+      const selectedFile = files[state.selectedFileIdx];
       const hasData = selectedFile && csvData;
 
       return (<section class="viz__editDialog">
@@ -101,7 +98,7 @@ const getControllerComponent = (datasetEntry) => {
               <h5>You are using this file:</h5>
               <div class="form-group">
                 <select className="form-control" onChange={onChangeSelectedFile}>
-                  {state.files.map((file, idx) => <option value={idx}
+                  {files.map((file, idx) => <option value={idx}
                                                           onClick={onChangeSelectedFile.bind(null, idx)}>{file.distributionName} - {file.fileName}</option>)}
                 </select>
               </div>
