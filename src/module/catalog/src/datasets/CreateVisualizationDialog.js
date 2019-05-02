@@ -8,8 +8,8 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
-import Papa from 'papaparse';
 import m from 'mithril';
+import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
@@ -91,7 +91,7 @@ const getControllerComponent = (datasetEntry, files) => {
     },
     view() {
       const hasData = state.distributionFile && csvData;
-      return (<section class="viz__editDialog">
+      return <section class="viz__editDialog">
         <section class="viz__intro">
         </section>
         <section class="useFile">
@@ -103,46 +103,46 @@ const getControllerComponent = (datasetEntry, files) => {
                 {files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
               </select>
             </div>
-            </div>
-          </section>
-          <section class="graphType__wrapper">
-            <h4>Type of visualization</h4>
-            <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
-            <TypeSelector
-              type={state.chartType}
-            />
-          </section>
+          </div>
+        </section>
+        <section class="graphType__wrapper">
+          <h4>Type of visualization</h4>
+          <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
+          <TypeSelector
+            type={state.chartType}
+          />
+        </section>
 
-          <section class="axisOperation__wrapper">
-            <div class="axisOptions">
-              <h4>Axes to use</h4>
-              <p>Select which data you want to show on each axis.</p>
-              <p>On axis X you can select an operator to create more complicated visualizations.</p>
-              <div class="axisOptions__wrapper">
-                <div class="axisX__wrapper">
-                  <h5>X:</h5>
-                  <div class="form-group">
-                    <select class="form-control">
-                      {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
-                    </select>
-                  </div>
-                  <div class="form-group operations__wrapper">
-                    <select class="form-control">
-                      <option>SUM</option>
-                      <option>COUNT</option>
-                    </select>
-                  </div>
+        <section class="axisOperation__wrapper">
+          <div class="axisOptions">
+            <h4>Axes to use</h4>
+            <p>Select which data you want to show on each axis.</p>
+            <p>On axis X you can select an operator to create more complicated visualizations.</p>
+            <div class="axisOptions__wrapper">
+              <div class="axisX__wrapper">
+                <h5>X:</h5>
+                <div class="form-group">
+                  <select class="form-control">
+                    {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
+                  </select>
                 </div>
-                <div class="axisY__wrapper">
-                  <h5>Y:</h5>
-                  <div class="form-group">
-                    <select class="form-control">
-                      {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
-                    </select>
-                  </div>
+                <div class="form-group operations__wrapper">
+                  <select class="form-control">
+                    <option>SUM</option>
+                    <option>COUNT</option>
+                  </select>
+                </div>
+              </div>
+              <div class="axisY__wrapper">
+                <h5>Y:</h5>
+                <div class="form-group">
+                  <select class="form-control">
+                    {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
+                  </select>
                 </div>
               </div>
             </div>
+          </div>
         </section>
 
         <section class="vizPreview__wrapper">
@@ -153,8 +153,7 @@ const getControllerComponent = (datasetEntry, files) => {
             data={csvData}
           />
         </section>
-      </section>
-      );
+      </section>;
     },
   };
 };
