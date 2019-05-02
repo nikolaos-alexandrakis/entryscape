@@ -2,9 +2,9 @@ import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUt
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
+import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
-import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
@@ -95,11 +95,13 @@ const getCSVFiles = async (datasetEntry) => {
   return csvFiles;
 };
 
-const parseCSVFile = (uri, callback) => {
-  Papa.parse(uri, {
-    download: true,
-    header: true,
-    complete: callback,
+const parseCSVFile = (uri) => {
+  return new Promise((resolve, reject) => {
+    Papa.parse(uri, {
+      download: true,
+      header: true,
+      complete: resolve,
+    });
   });
 };
 
@@ -114,7 +116,29 @@ const state = {
 const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
-  const onTypeChange = (type) => setState({ chartType: type });
+  const findSensibleXndY = (type) => {
+    const selectedType = type || state.chartType;
+    if (selectedType === 'map') {
+      const latIdx = csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
+      let longIdx = -1;
+      if (latIdx !== -1) {
+        longIdx = csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
+
+        if (latIdx && longIdx !== -1) {
+          setState({
+            xAxisField: csvData.meta.fields[latIdx],
+            yAxisField: csvData.meta.fields[longIdx],
+          });
+        }
+      }
+    }
+  };
+
+  const onTypeChange = (type) => {
+    setState({ chartType: type });
+    findSensibleXndY(type);
+  };
+
   const onChangeSelectedFile = (evt) => {
     const fileURI = evt.target.value;
     if (!state.distributionFile || (state.distributionFile.uri !== fileURI)) {
@@ -123,7 +147,9 @@ const getControllerComponent = (datasetEntry, files) => {
         distributionFile,
       });
 
-      parseCSVFile(distributionFile.uri, updateCSVData); // should have a spinner loading
+      parseCSVFile(distributionFile.uri)
+        .then(updateCSVData)
+        .then(findSensibleXndY); // should have a spinner loading
     }
   };
 
@@ -132,7 +158,10 @@ const getControllerComponent = (datasetEntry, files) => {
     oncreate() {
       const distributionFile = files[0]; // default selected
 
-      parseCSVFile(distributionFile.uri, updateCSVData); // should have a spinner loading
+      parseCSVFile(distributionFile.uri)
+        .then(updateCSVData)
+        .then(findSensibleXndY); // should have a spinner loading
+
       setState({
         distributionFile,
       });
