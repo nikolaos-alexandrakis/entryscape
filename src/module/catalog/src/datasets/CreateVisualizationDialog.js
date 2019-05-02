@@ -68,6 +68,7 @@ const state = {
 const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
+  const onTypeChange = (type) => setState({ chartType: type });
   const onChangeSelectedFile = (evt) => {
     const fileURI = evt.target.value;
     if (!state.distributionFile || (state.distributionFile.uri !== fileURI)) {
@@ -111,6 +112,7 @@ const getControllerComponent = (datasetEntry, files) => {
           <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
           <TypeSelector
             type={state.chartType}
+            onSelect={onTypeChange}
           />
         </section>
 
@@ -119,8 +121,7 @@ const getControllerComponent = (datasetEntry, files) => {
             <h4>Axes to use</h4>
             <p>Select which data you want to show on each axis.</p>
             <p>On axis X you can select an operator to create more complicated visualizations.</p>
-            <AxisSelector></AxisSelector>
-         
+            <AxisSelector />
           </div>
         </section>
 
