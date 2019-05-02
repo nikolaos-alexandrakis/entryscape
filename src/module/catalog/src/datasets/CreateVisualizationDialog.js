@@ -8,8 +8,8 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
-import Papa from 'papaparse';
 import m from 'mithril';
+import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
@@ -91,7 +91,7 @@ const getControllerComponent = (datasetEntry, files) => {
     },
     view() {
       const hasData = state.distributionFile && csvData;
-      return (<section class="viz__editDialog">
+      return <section class="viz__editDialog">
         <section class="viz__intro">
         </section>
         <section class="useFile">
@@ -153,8 +153,7 @@ const getControllerComponent = (datasetEntry, files) => {
             data={csvData}
           />
         </section>
-      </section>
-      );
+      </section>;
     },
   };
 };
