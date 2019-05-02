@@ -48,7 +48,11 @@ const getCSVFiles = async (datasetEntry) => {
 const getControllerComponent = (datasetEntry) => {
   const state = {
     files: [],
+    distributionFile: null,
     chartType: 'map',
+    operation: 'none',
+    xAxisField: null,
+    yAxisField: null,
   };
 
   const setState = createSetState(state);
@@ -99,13 +103,19 @@ const getControllerComponent = (datasetEntry) => {
           <div class="graphType__card__wrapper">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-secondary btn-raised active">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked></input>Map
+                <input type="radio" name="options" id="option1" autocomplete="off" 
+                  checked={state.chartType === 'map'}
+                ></input>Map
               </label>
               <label class="btn btn-secondary btn-raised">
-                <input type="radio" name="options" id="option2" autocomplete="off"></input>Bar Chart
+                <input type="radio" name="options" id="option2" autocomplete="off"
+                  checked={state.chartType === 'bar'}
+                ></input>Bar Chart
               </label>
               <label class="btn btn-secondary btn-raised">
-                <input type="radio" name="options" id="option3" autocomplete="off"></input>Line Chart
+                <input type="radio" name="options" id="option3" autocomplete="off"
+                  checked={state.chartType === 'line'}
+                ></input>Line Chart
               </label>
             </div>
           </div>
