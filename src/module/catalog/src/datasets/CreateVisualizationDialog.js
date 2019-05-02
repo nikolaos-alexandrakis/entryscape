@@ -121,7 +121,12 @@ const getControllerComponent = (datasetEntry, files) => {
             <h4>Axes to use</h4>
             <p>Select which data you want to show on each axis.</p>
             <p>On axis X you can select an operator to create more complicated visualizations.</p>
-            <AxisSelector />
+            <AxisSelector
+              x={state.xAxisField}
+              y={state.yAxisField}
+              operation={state.operation}
+              data={csvData}
+            />
           </div>
         </section>
 

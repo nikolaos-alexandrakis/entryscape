@@ -4,7 +4,7 @@ import './index.scss';
 export default (vnode) => {
   return {
     view(vnode) {
-      const { hasData } = vnode.attrs;
+      const { x, y, operation, data } = vnode.attrs;
 
       return (
         <div class="axisOptions__wrapper">
@@ -12,7 +12,7 @@ export default (vnode) => {
             <h5>X:</h5>
             <div class="form-group">
               <select class="form-control">
-                {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
+                {data ? data.meta.fields.map(field => <option value={field}>{field}</option>) : null}
               </select>
             </div>
             <div class="form-group operations__wrapper">
@@ -26,7 +26,7 @@ export default (vnode) => {
             <h5>Y:</h5>
             <div class="form-group">
               <select class="form-control">
-                {hasData ? csvData.meta.fields.map(field => <option value={field}>{field}</option>) : null}
+                {data ? data.meta.fields.map(field => <option value={field}>{field}</option>) : null}
               </select>
             </div>
           </div>
