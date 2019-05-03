@@ -48,12 +48,12 @@ export default () => {
 
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
-      console.log(csvData);
       return <div className="chart--wrapper">
         {header}
         <div className="Chart">
           <div className="no-data">{escaVisualization.vizNoData}</div>
           {csvData ? <VisualizationChart
+            name={name}
             type={chartType}
             xAxisField={xAxisField}
             yAxisField={yAxisField}

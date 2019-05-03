@@ -190,6 +190,7 @@ const getCSVFiles = async (datasetEntry) => {
 
 const state = {
   distributionFile: null,
+  name: '',
   chartType: 'map',
   operation: null,
   xAxisField: null,
@@ -302,6 +303,12 @@ const getControllerComponent = (datasetEntry, files) => {
     }
   };
 
+  const updateVisualizationName = (evt) => {
+    setState({
+      name: evt.target.value,
+    });
+  };
+
 
   return {
     oncreate() {
@@ -329,6 +336,11 @@ const getControllerComponent = (datasetEntry, files) => {
             files={files}
             onChangeSelectedFile={onChangeSelectedFile}
           />
+
+          <h5>{escaVisualization.vizDialogDistributionUse}</h5>
+          <div className="form-group">
+            <input className="form-control" id="visualization-name" placeholder="Visualization name" oninput={updateVisualizationName} value={state.name} />
+          </div>
         </section>
         <section class="graphType__wrapper">
           <h4>Type of visualization</h4>
