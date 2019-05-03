@@ -51,7 +51,6 @@ const COLOR_OPTIONS = [
   },
 ];
 
-let canvasContext;
 export default () => {
   const state = {
     type: null,
@@ -85,9 +84,11 @@ export default () => {
   };
 
   return {
-    oncreate(vnode) {
-      const { elementId } = vnode.attrs;
-      const ctx = document.getElementById("CHART");
+    oninit() {
+      this.elementId = `CHART${parseInt(Math.random()*10000, 10)}`;
+    },
+    oncreate() {
+      const ctx = document.getElementById(this.elementId);
 
       chart = new Chart(ctx, {
         type: 'bar',
@@ -102,7 +103,7 @@ export default () => {
     // onbeforeupdate: updateXAxis,
 
     view(vnode) {
-      const { data, elementId, chartDimensions = {} } = vnode.attrs;
+      const { data, chartDimensions = {} } = vnode.attrs;
       const { width = 400, height = 400 } = chartDimensions;
 
       let noData = true;
@@ -140,7 +141,7 @@ export default () => {
           </div>
           <canvas
             className={` ${noData ? '' : ''}`}
-            id="CHART"
+            id={this.elementId}
             config={this.setCanvasRef}
             width={width}
             height={height}
