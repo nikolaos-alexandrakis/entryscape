@@ -1,3 +1,5 @@
+import './index.scss';
+
 export default () => ({
   view(vnode) {
     const { onclick } = vnode.attrs;
