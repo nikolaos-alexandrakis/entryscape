@@ -459,8 +459,9 @@ export default (entry) => {
   const removeVisualization = async (visualizationEntry) => {
     const datasetRURI = entry.getResourceURI();
     const vizRURI = visualizationEntry.getResourceURI();
-    entry.getMetadata().remove(datasetRURI, 'schema:diagram', vizRURI);
-    entry.commitMetadata();
+    entry.getMetadata().findAndRemove(datasetRURI, 'schema:diagram', vizRURI);
+    await entry.commitMetadata();
+    await visualizationEntry.del();
   };
 
   /**
