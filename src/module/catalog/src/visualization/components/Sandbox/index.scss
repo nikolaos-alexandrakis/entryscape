@@ -68,8 +68,10 @@
             }
             .vizTypes__wrapper{
                 .graphType__card__wrapper{
-                    display: flex;
-                    flex-wrap: wrap;
+                    .btn-group{
+                        display:flex;
+                        flex-direction: column;
+                    }
                     .btn{
                         margin: 5px;
                     }
