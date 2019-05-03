@@ -20,32 +20,40 @@ export default (vnode) => {
           <h3>Visualization Sandbox</h3>
           <div class="viz__wrapper">
           
-            <section class="vizOptions__wrapper">
-              <div class="datasets__wrapper">
-                <h4>Datasets</h4>
-                <p>Choose one or more datasets to visualize</p>
-                <select class="form-control">
-                  <option>Dataset 1</option>
-                </select>
-                <select class="form-control"><option>Dataset 2</option></select>
-                <div class="btn__wrapper">
-                  <button class="btn btn-sm btn-raised btn-primary">Combine</button>
+            <div class="vizOptions__wrapper">
+              <section class="datasets__wrapper">
+                <header>
+                  <h4>Datasets</h4>
+                  <button alt="Add dataset" class="btn btn-primary btn--add btn-fab btn-raised"><span class="fa fa-plus"></span></button>
+                </header>
+                <p>Add one or more datasets to visualize</p>
+                <div class="datasetSelector">
+                  <select class="form-control">
+                    <option>Dataset 1</option>
+                  </select>
+                  <button class="btn btn-secondary fas fa-times"></button>
                 </div>
-              </div>
+                
+              </section>
 
-              <div class="vizTypes__wrapper">
-                <h4>Type of Visualization</h4>
+              <section class="vizTypes__wrapper">
+                <header>
+                  <h4>Type of Visualization</h4>
+                </header>
                 <TypeSelector
                   type={state.chartType}
                 />
-              </div>
+              </section>
 
-              <div class="axesOperations__wrapper">
-                <h4>Axes to use</h4>
-                <p>Select a column per axis</p>
+              <section class="axesOperations__wrapper">
+                <header>
+                  <h4>Axes to use</h4>
+                  <p>Select a column per axis</p>
+                </header>
+
                 <AxisSelector></AxisSelector>
-              </div>
-            </section>
+              </section>
+            </div>
 
             <section class="vizGraph__wrapper">
               <div>

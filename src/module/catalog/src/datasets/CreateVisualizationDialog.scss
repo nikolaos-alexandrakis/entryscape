@@ -4,6 +4,8 @@
     h4 {
         @include title--underlined;
         max-width: 80%;
+        border-bottom: 0;
+        font-weight: bold;
     }
 
     .viz__intro{

@@ -4,18 +4,66 @@
     .viz__wrapper{
         display:flex;
         h4{
+            color:$main-colour;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin:0px 15px 5px 0px;
         }
         .vizOptions__wrapper{
             height: 600px;
             background:white;
             padding: 15px;
             min-width: 300px;
+            section{
+                margin-top: 20px;
+            }
+            
             .datasets__wrapper{
+                
+                header{
+                    display: flex;
+                    align-items: center;
+                    margin-bottom:15px;
+                    .btn{
+                        display: flex;
+                        justify-content: center;
+                        .fa-plus{
+                            font-size: 14px;
+                            position: relative;
+                            right: 0.8px;
+                            vertical-align: top
+                        }
+
+                    }
+                   
+                }
                 .btn__wrapper{
                     display: flex;
                     justify-content: flex-end;
+                }
+                .datasetSelector{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 20px 0;
+                    .form-group{
+                        margin:0;
+                        .form-control{
+                            margin:0;
+                            min-width: 200px;
+                        }
+                    }
+                    .btn{
+                        padding: 10px 15px;
+                        margin: 0;
+                        height: 40px;
+                        
+                    }
+                    .fa-times{
+                        color:lightgray;
+                        &:hover{
+                            color:red;
+                        }
+                    }
                 }
             }
             .vizTypes__wrapper{
