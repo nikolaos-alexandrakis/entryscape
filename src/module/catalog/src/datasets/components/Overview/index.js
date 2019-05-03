@@ -1,32 +1,32 @@
-import m from 'mithril';
-import { createSetState } from 'commons/util/util';
-import registry from 'commons/registry';
-import config from 'config';
-import { i18n } from 'esi18n';
-import dateUtil from 'commons/util/dateUtil';
-import comments from 'commons/comments/comments';
-import escaPublicNLS from 'catalog/nls/escaPublic.nls';
-import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import escoListNLS from 'commons/nls/escoList.nls';
-import {
-  getTitle,
-  getDescription,
-  getModifiedDate,
-  getThemeLabels,
-  getParentCatalogEntry,
-  getContributors,
-  getIdeas,
-  getShowcases,
-} from 'commons/util/metadata';
-import StatBoxInline from 'commons/overview/components/StatBoxInline';
-import Toggle from 'commons/components/common/toggle/Toggle';
-import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import VisualizationPreview from 'catalog/datasets/components/VisualizationPreview';
 import VisualizationPreviewActions from 'catalog/datasets/components/VisualizationPreviewActions';
+import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escaPublicNLS from 'catalog/nls/escaPublic.nls';
+import comments from 'commons/comments/comments';
+import Toggle from 'commons/components/common/toggle/Toggle';
+import escoListNLS from 'commons/nls/escoList.nls';
+import StatBoxInline from 'commons/overview/components/StatBoxInline';
+import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
+import registry from 'commons/registry';
+import dateUtil from 'commons/util/dateUtil';
+import {
+  getContributors,
+  getDescription,
+  getIdeas,
+  getModifiedDate,
+  getParentCatalogEntry,
+  getShowcases,
+  getThemeLabels,
+  getTitle,
+} from 'commons/util/metadata';
+import { createSetState } from 'commons/util/util';
+import config from 'config';
+import { i18n } from 'esi18n';
+import m from 'mithril';
 import { isDatasetPSI } from '../../utils/distributionUtil';
+import Button from '../Button';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
-import Button from '../Button';
 import bindActions from './actions';
 import './index.scss';
 
@@ -200,23 +200,23 @@ export default (vnode) => {
           <div class="flex--sb">
             <div class="metadata--wrapper">
               <div class="intro--wrapper">
-                <h2 class="title">{ title }</h2>
-                <p class="description">{ description }</p>
+                <h2 class="title">{title}</h2>
+                <p class="description">{description}</p>
               </div>
               <div class="metadata--basic">
-                { catalogName && (
+                {catalogName && (
                   <p><span class="metadata__label">
                     {escaPublic.datasetBelongsToCatalog}: </span> {catalogName}
                   </p>
                 )}
-                { themes.length > 0 && (
+                {themes.length > 0 && (
                   <p>
                     <span class="metadata__label">{escaDataset.themeTitle}: </span>{themes.join(', ')}
                   </p>
                 )}
 
                 <p><span class="metadata__label">{escaDataset.lastUpdateLabel}: </span> {lastUpdatedDate.short}</p>
-                { contributorsNames && (
+                {contributorsNames && (
                   <p>
                     <span class="metadata__label">{escaDataset.editedTitle}: </span>
                     {contributorsNames.join(', ')}
@@ -246,7 +246,7 @@ export default (vnode) => {
 
             <div class="btn__wrapper">
               <Button class="btn--edit btn-primary"
-                onclick={actions.openEditDialog}>
+                      onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
               <Button class="btn-secondary" onclick={actions.openCreateVisualization}>Create Visualization</Button>
@@ -273,18 +273,18 @@ export default (vnode) => {
                   isEnabled={!state.publishTemporarilyDisabled && isPublishable}
                 ></Toggle>
               </div>
-              { config.catalog.allowInternalDatasetPublish &&
-                <div class="psiPublish flex--sb">
-                  <div class="icon--wrapper">
-                    <span class="icons fa fa-eye"></span>
-                    <p>{internalToggleString}</p>
-                  </div>
-                  <Toggle
-                    title={internalToggleTooltip}
-                    toggleState={isDatasetMarkedAsPSI}
-                    onToggle={toggleInternalPublish}
-                  ></Toggle>
+              {config.catalog.allowInternalDatasetPublish &&
+              <div class="psiPublish flex--sb">
+                <div class="icon--wrapper">
+                  <span class="icons fa fa-eye"></span>
+                  <p>{internalToggleString}</p>
                 </div>
+                <Toggle
+                  title={internalToggleTooltip}
+                  toggleState={isDatasetMarkedAsPSI}
+                  onToggle={toggleInternalPublish}
+                ></Toggle>
+              </div>
               }
             </div>
           </div>
@@ -302,7 +302,12 @@ export default (vnode) => {
               .map(configurationEntry =>
                 <VisualizationPreview
                   configurationEntry={configurationEntry}
-                  header={<VisualizationPreviewActions onclick={actions.openCreateVisualization}/>}
+                  header={<VisualizationPreviewActions
+                    datasetEntry={entry}
+                    configurationEntry={configurationEntry}
+                    onclickEdit={actions.openCreateVisualization}
+                    onclickRemove={actions.removeVisualization}/>
+                  }
                 />)
             }
           </div>
