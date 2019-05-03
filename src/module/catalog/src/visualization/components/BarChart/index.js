@@ -109,9 +109,6 @@ export default () => {
       if (chart && data
       ) { // @todo refactor
         noData = false;
-        const numberOfDataPoints = data[0].yData.length;
-        // const timeUnit = guessAxisFormatFromData(numberOfDataPoints);
-
         // update chart data and xAxis if needed
         chart.data = {
           labels: data[0].xLabels,

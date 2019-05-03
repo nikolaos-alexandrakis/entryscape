@@ -1,26 +1,45 @@
-import m from 'mithril';
+import { uniq } from 'lodash-es';
 import GeoMap from 'commons/rdforms/choosers/components/Map';
 import BarChart from 'catalog/visualization/components/BarChart';
 import './index.scss';
 
+const processSum = (dataset, xField, yField) => {
+  const sumFields = uniq(dataset.data.map(row => row[xField]));
+};
+const processCount = (dataset, xField, yField) => {
+  const fieldMap = new Map();
+  dataset.data.forEach(row => fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + 1));
+  const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
+
+  return {
+    xLabels: countedFields[0],
+    yData: countedFields[1],
+  };
+};
+
 export default (vnode) => {
-  const processGeoData = (data, xField, yField) => {
+  const processGeoData = (data, xField, yField, operation) => {
     const parsedGeoData = data ? data.data.map(row => row[xField] ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
 
     return parsedGeoData;
   };
 
-  const processXYData = (datasets, xField, yField) => {
+  const processXYData = (datasets, xField, yField, operation) => {
+    if (operation === 'sum') {
+      // Needs to support multiple datasets
+      processSum(datasets, xField, yField);
+    }
+    if (operation === 'count') {
+      // Needs to support multiple datasets
+      return [processCount(datasets, xField)];
+    }
     if (Array.isArray(dataset)) {
-      return datasets.map( dataset => processXYDataset(dataset, xField, yField) );
+      return datasets.map(dataset => processXYDataset(dataset, xField, yField));
     }
-    else {
-      return [processXYDataset(datasets, xField, yField)];
-    }
+    return [processXYDataset(datasets, xField, yField)];
   };
 
   const processXYDataset = (data, xField, yField) => {
-    // const labels = [xField, yField];
     const transpose = matrix => Object.keys(matrix[0])
       .map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
 
@@ -46,10 +65,10 @@ export default (vnode) => {
     let processedData;
     switch(type) {
       case 'map':
-        processedData = processGeoData(data, xAxisField, yAxisField);
+        processedData = processGeoData(data, xAxisField, yAxisField, operation);
         break;
       case 'bar':
-        processedData = processXYData(data, xAxisField, yAxisField);
+        processedData = processXYData(data, xAxisField, yAxisField, operation);
         break;
       default:
         processedData = {};
