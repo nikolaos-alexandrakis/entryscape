@@ -75,6 +75,11 @@
     }
 }
 
+.entryscape .entryList,
+.entryscape .escoList {
+    padding-bottom: 0px;
+}
+
 /* Error code style */
 .entryscape-boot-error {
     color: red;

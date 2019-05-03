@@ -22,6 +22,7 @@ import renderSlider from 'blocks/image/renderSlider';
 import renderMap from 'blocks/graphics/renderMap';
 import renderChart from 'blocks/graphics/renderChart';
 import renderGraph from 'blocks/graphics/renderGraph';
+import renderVisualization from "blocks/graphics/renderVisualization";
 import preload from './preload';
 import error from './error';
 import renderFilter from '../search/renderFilter';
@@ -51,6 +52,7 @@ const block2function = {
   map: renderMap,
   chart: renderChart,
   graph: renderGraph,
+  visualization: renderVisualization,
   config: preload,
   click: renderClick,
   viewMetadata: renderEntryMetadata, // deprecated, use view

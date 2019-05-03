@@ -111,6 +111,15 @@ window.__entryscape_config = {
         ' given</span>"}}</span></div>',
     },
     {
+      block: 'visualizationList',
+      extends: 'list',
+      relation: 'dcat:distribution',
+      listbody: '<div class="formats">{{body}}</div>',
+      listplaceholder: '<div class="alert alert-info" role="alert">Denna datamängd har inga visualiseringar.</div>',
+      listhead: '<h4>Visualiseringar</h4>',
+      rowhead: '{{visualization}}',
+    },
+    {
       block: 'datasetView',
       extends: 'template',
       htemplate: '<h3>{{text}}</h3>' +
@@ -119,6 +128,7 @@ window.__entryscape_config = {
         '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
         '{{/ifprop}}' +
         '{{#distributionList}}{{/distributionList}}' +
+        '{{#visualizationList}}{{/visualizationList}}' +
         '<h4>Ytterligare information</h4>\n' +
         '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
         'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n',
