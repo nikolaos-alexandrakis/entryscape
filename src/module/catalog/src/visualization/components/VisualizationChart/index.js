@@ -1,6 +1,6 @@
 import m from 'mithril';
 import GeoMap from 'commons/rdforms/choosers/components/Map';
-import BarChartTime from 'catalog/statistics/components/BarChartTime';
+import BarChart from 'catalog/visualization/components/BarChart';
 import './index.scss';
 
 export default (vnode) => {
@@ -8,6 +8,25 @@ export default (vnode) => {
     const parsedGeoData = data ? data.data.map(row => row[xField] ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
 
     return parsedGeoData;
+  };
+
+  const processXYDataset = (dataset, xField, yField) => {
+
+  };
+
+  const processXYData = (data, xField, yField) => {
+    // const labels = [xField, yField];
+    const transpose = matrix => Object.keys(matrix[0])
+      .map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
+
+    const [xLabels, yData] = transpose(
+      data.data.map(row => ([row[xField], row[yField]]))
+    );
+
+    return {
+      xLabels,
+      yData,
+    };
   };
 
   const renderChart = (chartOptions) => {
@@ -24,6 +43,9 @@ export default (vnode) => {
       case 'map':
         processedData = processGeoData(data, xAxisField, yAxisField);
         break;
+      case 'bar':
+        processedData = processXYData(data, xAxisField, yAxisField);
+        break;
       default:
         processedData = {};
     }
@@ -35,7 +57,9 @@ export default (vnode) => {
         />
       ),
       bar: (
-        <BarChartTime/>
+        <BarChart
+          data={data}
+        />
       ),
     }));
 
