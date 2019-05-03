@@ -111,7 +111,7 @@ const parseCSVFile = (uri) => {
 const state = {
   distributionFile: null,
   chartType: 'map',
-  operation: 'none',
+  operation: null,
   xAxisField: null,
   yAxisField: null,
 };
@@ -129,8 +129,8 @@ const getControllerComponent = (datasetEntry, files) => {
 
         if (latIdx && longIdx !== -1) {
           setState({
-            xAxisField: csvData.meta.fields[latIdx],
-            yAxisField: csvData.meta.fields[longIdx],
+            xAxisField: csvData.meta.fields[longIdx],
+            yAxisField: csvData.meta.fields[latIdx],
           });
         }
       }
@@ -183,6 +183,7 @@ const getControllerComponent = (datasetEntry, files) => {
           <h4>Distribution</h4>
           <DistributionSelector
             files={files}
+            onChangeSelectedFile={onChangeSelectedFile}
           />
         </section>
         <section class="graphType__wrapper">
