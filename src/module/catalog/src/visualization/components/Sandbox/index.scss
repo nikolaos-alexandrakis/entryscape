@@ -86,11 +86,33 @@
                     .form-group{
                         margin:0;
                         padding: 0;
+                        .form-control{
+                            margin-left:5px;
+                        }
                     }
+
                 }
             }
         }
-        .vizGraph_wrapper{
+        .vizGraph__wrapper{
+            height: 580px;
+            width:100%;
+            .no-data {
+                background-color: $green;
+                height: 580px;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                color:white;
+                font-size:18px;
+                opacity: 0.7;
+            }
+            .chart-container{
+                height: 580px;
+                background-color:lightpink;
+            }
             img{
                 width: 100%;
             }

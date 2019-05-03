@@ -7,6 +7,7 @@ import dateUtil from 'commons/util/dateUtil';
 import comments from 'commons/comments/comments';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
+import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import escoListNLS from 'commons/nls/escoList.nls';
 import {
   getTitle,
@@ -157,6 +158,7 @@ export default (vnode) => {
     view: () => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
+      const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
       const escoList = i18n.getLocalization(escoListNLS);
 
       const title = getTitle(entry);
@@ -292,6 +294,7 @@ export default (vnode) => {
 
               </div>
               <div class="Chart">
+                <div class="no-data">{escaVisualization.vizNoData}</div>
                 <VisualizationChart
                   type={state.chartType}
                   xAxisField={state.xAxisField}

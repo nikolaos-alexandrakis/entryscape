@@ -15,7 +15,8 @@
     "vizSandboxHelpAxes":"<b>Axes</b> will show the columns in your data. Some operations don't need both axes and if one axis is disabled that data may be unnecessary or not be correct.",
     "vizGraphMap":"Map",
     "vizGraphBar":"Bar Chart",
-    "vizGraphLine":"Line Chart"
+    "vizGraphLine":"Line Chart",
+    "vizNoData":"Oops! something went wrong. We can't create your visualization"
     
   },
   "sv": true,

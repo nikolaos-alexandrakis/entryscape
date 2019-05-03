@@ -63,14 +63,21 @@ export default (vnode) => {
 
             <section class="vizGraph__wrapper">
               <div>
-                <VisualizationChart></VisualizationChart>
-                <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
-              </div>
+                <VisualizationChart
+                  type={state.chartType}
+                  xAxisField={state.xAxisField}
+                  yAxisField={state.yAxisField}
+                  operation={state.operation}
+                  data={null}/>
+                <div class="no-data">{escaVisualization.vizNoData}</div>
+                {/*                 <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
+ */}              </div>
             </section>
 
           </div>
           <section class="vizNotes__wrapper">
             <div class="vizNotes__errors">
+              <p></p>
 
             </div>
             <div class="vizNotes__help">
