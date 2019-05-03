@@ -23,6 +23,14 @@ export default (vnode) => {
             <section class="vizOptions__wrapper">
               <div class="datasets__wrapper">
                 <h4>Datasets</h4>
+                <p>Choose one or more datasets to visualize</p>
+                <select class="form-control">
+                  <option>Dataset 1</option>
+                </select>
+                <select class="form-control"><option>Dataset 2</option></select>
+                <div class="btn__wrapper">
+                  <button class="btn btn-sm btn-raised btn-primary">Combine</button>
+                </div>
               </div>
 
               <div class="vizTypes__wrapper">
@@ -34,6 +42,7 @@ export default (vnode) => {
 
               <div class="axesOperations__wrapper">
                 <h4>Axes to use</h4>
+                <p>Select a column per axis</p>
                 <AxisSelector></AxisSelector>
               </div>
             </section>
