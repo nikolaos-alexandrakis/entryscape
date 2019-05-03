@@ -51,6 +51,7 @@ const COLOR_OPTIONS = [
   },
 ];
 
+let canvasContext;
 export default () => {
   const state = {
     type: null,
@@ -86,20 +87,20 @@ export default () => {
   return {
     oncreate(vnode) {
       const { elementId } = vnode.attrs;
-      const ctx = document.getElementById(elementId);
+      const ctx = document.getElementById("CHART");
       // const ctx = vnode.dom.getElementById(elementId);
 
       chart = new Chart(ctx, {
         type: 'bar',
         options: {
           maintainAspectRatio: false,
-          // tooltips: {
-            // callbacks: {
-              // // title(item) {
-                // // return moment(item[0].label).format('MMM Do, YYYY');
-              // // },
-            // },
-          // },
+          tooltips: {
+            callbacks: {
+              title(item) {
+                return item[0].label;
+              },
+            },
+          },
           scales: {
             yAxes: [{
               ticks: {
@@ -122,24 +123,18 @@ export default () => {
 
       let noData = true;
       if (chart && data
-        && data.datasets && data.datasets.length > 0
-        && data.datasets[0].data.length > 0
       ) { // @todo refactor
         noData = false;
-        const numberOfDataPoints = data.datasets[0].data.length;
-        const timeUnit = guessAxisFormatFromData(numberOfDataPoints);
+        const numberOfDataPoints = data[0].yData.length;
+        // const timeUnit = guessAxisFormatFromData(numberOfDataPoints);
 
         // update chart data and xAxis if needed
         chart.data = {
           labels: [],
-          data: {
-            datasets: [
-              {
-                data: data.datasets.data,
-                label: data.datasets.label,
-              },
-            ],
-          },
+          datasets: data.map(dataset => ({
+            labels: dataset.xLabels,
+            data: dataset.yData,
+          })),
           // ...data,
         };
 
@@ -150,7 +145,7 @@ export default () => {
             const colorIdx = idx % colorOptionsCount; // repeat colors
             Object.assign(chart.data.datasets[idx], { ...COLOR_OPTIONS[colorIdx] }); // shallow is fine
           });
-          chart.options.scales.xAxes[0].time.unit = timeUnit;
+          // chart.options.scales.xAxes[0].time.unit = timeUnit;
 
           chart.update();
         }
@@ -165,7 +160,8 @@ export default () => {
           </div>
           <canvas
             className={` ${noData ? '' : ''}`}
-            id={elementId}
+            id="CHART"
+            config={this.setCanvasRef}
             width={width}
             height={height}
             aria-label="Visualization chart" role="img"
