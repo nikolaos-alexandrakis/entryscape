@@ -21,6 +21,8 @@ export default {
     includeShowcasesInDatasetMenu: true,
     includeIdeasInDatasetMenu: true,
     includeCandidates: true,
+    includeStatistics: false,
+    allowInternalDatasetPublish: false,
     checklist: [{
       name: 'noPrivacyIssues',
       shortLabel: {
@@ -309,7 +311,7 @@ export default {
       includeFile: true,
       includeLink: true,
       inlineCreation: true,
-      faClass: 'lightbulb-o',
+      faClass: 'file',
     },
   },
   contexttypes: {

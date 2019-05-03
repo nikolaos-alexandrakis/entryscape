@@ -1,0 +1,306 @@
+@import '~commons/theme.scss';
+
+.datasets {
+    position: relative;
+}
+
+.datasets .newlyCreated {
+    background-color: white;
+}
+
+.datasets .newlyCreated > div > div:first-child {
+    background-color: yellow;
+}
+
+.datasets .selectedRow {
+    background-color: white;
+}
+
+.datasets .selectedRow > div:first-child {
+    background-color: lightblue !important;
+}
+
+.datasets > .panel > .panel-heading {
+    font-size: 22px;
+}
+
+.commentCol {
+    width: 38px;
+}
+
+.warningCol {
+    padding: 4px;
+}
+
+.distributionsTd {
+    padding: 0px
+}
+
+
+.datasetModificationDate {
+    justify-content: center;
+}
+.distributionModificationDate{
+margin-right:2.5px !important;
+}
+
+.entryList .div > entryRow__grid div > div.entryControls.datasetControls {
+    width: 148px;
+}
+
+.distributionControls.entryControls {
+    white-space: nowrap;
+    text-align: right;
+}
+
+.distributionControls > * {
+    text-align: left;
+}
+
+
+
+.distributionControls .esco-dropdown .btn {
+    padding: 10px 12px;
+}
+
+.datasets div > entryRow__grid div.distributions div {
+    border-top-width: 0px;
+}
+
+.datasets .distributions > div {
+    margin: 0px;
+    padding: 0px;
+}
+
+.datasets .distributions div {
+    margin: 0px;
+    background-color: inherit;
+}
+
+.datasets .distributionTitle {
+    /* padding-left: 15px; */
+    padding-left: 81px !important;
+    /* margin-bottom: 15px !important; */
+    word-break: break-all;
+}
+
+.datasets .table > tbody + tbody {
+    border-top-width: 0px;
+}
+
+.datasets .panel .alert {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+.datasets  .alert button {
+    position: relative;
+    top: -2px;
+    right: -21px;
+}
+ .datasets .distributionFormat {
+    font-size: x-small;
+    color: #333;
+    margin-top: -2px;
+    display: none;
+ }
+
+ .datasets .distributionUrl{
+    font-size: x-small;
+    color: #333;
+    padding-left: 13px;
+ }
+
+
+.datasets .distributionTitle.withFormat {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.datasets .distributionTitle.withFormat .distributionFormat {
+    display: block;
+}
+
+.datasets .vmiddle {
+    vertical-align: middle;
+}
+
+/* .datasets .distributions div entryRow__gridirst-child div {
+    border-top-width: 0px;
+} */
+
+.distributions .table > tbody > tr > td:last-child {
+    padding-right: 0px;
+}
+
+.createDistribution .fileupload {
+    padding-top: 8px;
+}
+
+.createDistribution footer .alert {
+    margin: 0px 2em 0px 1em;
+    padding: 6px 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+div.errorreport {
+    margin-left: 25px;
+    border-left-width: 2px;
+    border-left-style: dotted;
+    border-left-color: white;
+    padding-left: 12px;
+}
+
+.createDistribution .fileupload span.rdformsLabel {
+    max-width: 10em;
+    margin-left: 8px;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    zoom: 1;
+    vertical-align: middle;
+    color: black;
+    font-weight: normal;
+}
+
+.apiinfo {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.apiinfo table {
+    margin-top: 20px;
+}
+
+
+.entryRow .flex-wrapper:first-child{
+    justify-content: flex-start;
+}
+.entryRow .flex-wrapper .distributionModificationDate{
+   margin-left: 22px;
+}
+
+
+.datasetRow{
+    min-height: 50px;
+    justify-content: initial;
+    margin-bottom: 10px;
+    display: flex;
+}
+.datasetRow__icons{
+    background-color: white;
+    padding: 10px;
+    margin-right: 10px;
+    width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
+
+}
+.datasetRow__content {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
+    border: 3px solid transparent;
+}
+.datasetRow__content:focus{
+    border:3px solid $main-colour;
+}
+.dataset__icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dataset__icon .fas{
+    font-size: 28px;
+    color:$main-colour;
+    opacity: 0.4;
+
+}
+.dataset__icon .fas.active{
+    font-size: 28px;
+    color: #00aa9a;
+    opacity: 1;
+
+}
+.dataset__state{
+font-size: 10px;
+color:$main-colour;
+}
+
+.dataset__icon--disabled{
+    opacity: 0.3;
+}
+
+.datasetRow__content .entryName{
+    width: 600px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    color: #333;
+}
+.datasetRow__content .datasetRow__content__statusInfo {
+    margin: 15px;
+    align-items: center;
+}
+
+.datasetRow__content .datasetModificationDate{
+    color: #333;
+    align-self: center;
+    width: 150px;
+    margin-left:10px;
+}
+
+@media (max-width: 820px) {
+
+    .datasetRow__content .entryName{
+        width:100%;
+    }
+    .datasets .distributionTitle {
+      padding-left: 15px !important;
+     /*  margin-bottom: 15px !important;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      -ms-grid-column-start: 1;
+      -ms-grid-column-end: 3; */
+    }
+}
+
+@media (max-width: 600px) {
+  .commentCol {
+      display: none !important;
+  }
+  .entryList .entryRowCol3{
+    display: none;
+  }
+  .datasets .distributionTitle.withFormat .distributionFormat{
+    display: none;
+  }
+  .distributionControls.entryControls{
+    -ms-grid-column-start: 5;
+    grid-column-start: 5;
+  }
+ /*  .entryRow__grid{
+    -ms-grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .entryRow__grid .entryName{
+    margin-top: 10px;
+    margin-left: 15px;
+  } */
+}

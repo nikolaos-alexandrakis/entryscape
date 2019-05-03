@@ -13,7 +13,6 @@ import ReplaceDialog from 'workbench/bench/ReplaceDialog';
 
 const ns = registry.get('namespaces'); // TODO perhaps remove closer to where it's actually needed
 
-
 const FileReplaceDialog = declare(ReplaceDialog, {
   footerButtonAction() {
     this.distributionEntry = this.list.entry;
@@ -182,7 +181,7 @@ export default declare([BaseList], {
     this.registerRowAction({
       name: 'replace',
       button: 'default',
-      icon: 'exchange',
+      icon: 'exchange-alt',
       iconType: 'fa',
       nlsKey: 'replaceMenu',
       nlsKeyTitle: 'replaceMenuTitle',

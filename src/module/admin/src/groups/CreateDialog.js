@@ -51,7 +51,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
           if (data.length > 0) {
             this.newGroupnameIsOk = false;
             this.groupnameError.style.display = '';
-            this.groupnameError.innerHTML = this.NLSBundles.esadGroup.groupnameTaken;
+            this.groupnameError.innerHTML = this.NLSLocalized.esadGroup.groupnameTaken;
             // domClass.add(this.createGroupButton, "disabled");
             this.dialog.lockFooterButton();
           } else {

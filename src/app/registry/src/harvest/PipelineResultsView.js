@@ -85,13 +85,13 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const data = {};
     const pipelineResource = await this.pipelineEntry.getResource();
     if (this.isPSIOrg) {
-      data[this.NLSBundle0.orgId] = this.pipelineEntry.getMetadata()
-        .findFirstValue(null, 'dcterms:identifier') || this.NLSBundle0.notFound;
-      data[this.NLSBundle0.psiPage] = pipelineResource.getTransformProperty('check', 'source')
-        || this.NLSBundle0.notFound;
+      data[this.NLSLocalized0.orgId] = this.pipelineEntry.getMetadata()
+        .findFirstValue(null, 'dcterms:identifier') || this.NLSLocalized0.notFound;
+      data[this.NLSLocalized0.psiPage] = pipelineResource.getTransformProperty('check', 'source')
+        || this.NLSLocalized0.notFound;
     }
-    data[this.NLSBundle0.dcatAPI] = pipelineResource.getTransformProperty('fetch', 'source')
-      || this.NLSBundle0.notFound;
+    data[this.NLSLocalized0.dcatAPI] = pipelineResource.getTransformProperty('fetch', 'source')
+      || this.NLSLocalized0.notFound;
 
     // userName
     const mdEntry = this.pipelineEntry.getMetadata();
@@ -103,7 +103,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       { type: 'literal', value: 'psi' },
     ).length > 0;
     if (psiTag && name) {
-      data[this.NLSBundle0.userId] = name.substr(7);
+      data[this.NLSLocalized0.userId] = name.substr(7);
       // TODO
       // domStyle.set(this.__footer, 'display', 'block');
     }
@@ -113,9 +113,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     await this.pipelineEntry.getContext().getEntry();
 
     if (this.inDialog && this.pipelineEntry.isPublic()) {
-      const text = this.NLSBundle0.openSeparateReportWindow;
-      const popover = this.NLSBundle0.openSeparateReportWindowTitle;
-      const icon = 'fa-external-link';
+      const text = this.NLSLocalized0.openSeparateReportWindow;
+      const popover = this.NLSLocalized0.openSeparateReportWindowTitle;
+      const icon = 'fa-external-link-alt';
       const sm = registry.getSiteManager();
       button = {
         element: 'a',
@@ -141,7 +141,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       ],
     }),
     contactText ? m('div', { class: `alert alert-info ${this.bid}__info` }, [
-      m('i', { class: `fa fa-info-circle fa-2x ${this.bid}__infoIcon` }),
+      m('i', { class: `fas fa-info-circle fa-2x ${this.bid}__infoIcon` }),
       m('span', {}, contactText),
     ]) : null,
     ]);
@@ -184,8 +184,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const title = i18n.renderNLSTemplate(this.NLSLocalized0.harvestingLatestX, pipeResults.length);
     let button = {};
     if (this.pipelineEntry && this.pipelineEntry.canWriteResource()) {
-      const text = this.NLSBundle0.pRcreateButtonLabel;
-      const popover = this.NLSBundle0.pRcreatePopoverTitle;
+      const text = this.NLSLocalized0.pRcreateButtonLabel;
+      const popover = this.NLSLocalized0.pRcreatePopoverTitle;
       let onclick = this.execute.bind(this);
       let disabled = onlyLockButton;
       if (this.jobEntries.length > 0) {

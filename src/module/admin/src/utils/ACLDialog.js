@@ -30,13 +30,13 @@ export default declare([TitleDialog.Content, ListDialogMixin, _WidgetsInTemplate
   },
 
   localeChange() {
-    if (this.NLSBundle0 && this.row != null) {
+    if (this.NLSLocalized0 && this.row != null) {
       const res = this.row.getRenderName();// fix for [object Promise]
       if (typeof res === 'string') {
-        this.dialog.updateLocaleStrings(this.NLSBundle0,
+        this.dialog.updateLocaleStrings(this.NLSLocalized0,
           { name: res });
       } else if (typeof res === 'object' && typeof res.then === 'function') {
-        res.then(name => this.dialog.updateLocaleStrings(this.NLSBundle0, { name }));
+        res.then(name => this.dialog.updateLocaleStrings(this.NLSLocalized0, { name }));
       }
     }
   },

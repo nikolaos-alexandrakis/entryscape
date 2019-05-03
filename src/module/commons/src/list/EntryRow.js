@@ -142,7 +142,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     let cls;
     if (params.iconType === 'fa') {
-      cls = `fa fa-fw fa-${params.icon}`;
+      cls = `fas fa-fw fa-${params.icon}`;
     } else { // Default is glyphicons
       cls = `glyphicon glyphicon-${params.icon}`;
     }

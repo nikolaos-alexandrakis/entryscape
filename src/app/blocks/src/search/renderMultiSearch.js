@@ -142,9 +142,7 @@ export default function (node, data) {
           innerHTML: escape(data.label),
         }));
 
-        const faRemoveIconEl = DOMUtil.create('i', {
-          class: 'fa fa-remove',
-        });
+        const faRemoveIconEl = DOMUtil.create('i', { class: 'fas fa-times' });
         faRemoveIconEl.onclick = () => {
           selectize.removeItem(data.value);
         };

@@ -19,7 +19,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
   },
   localeChange() {
     if (this.title === '') {
-      this.dialog.updateLocaleStrings(this.NLSBundle0);
+      this.dialog.updateLocaleStrings(this.NLSLocalized0);
     } else {
       const mesg = {};
       mesg[this.nlsHeaderTitle] = this.title;

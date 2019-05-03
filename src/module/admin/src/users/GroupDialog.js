@@ -24,7 +24,7 @@ const RemoveDialog = declare([], {
     const dialogs = registry.get('dialogs');
     const grpEntryInfo = group.getEntryInfo();
     if (grpEntryInfo.getACL().admin.indexOf(user.getResourceURI()) !== -1) {
-      dialogs.confirm(this.list.NLSBundles.esadGroup.removeGrpWithMgr,
+      dialogs.confirm(this.list.NLSLocalized.esadGroup.removeGrpWithMgr,
         null, null, (confirm) => {
           if (!confirm) {
             return;
@@ -122,7 +122,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
     this.entry = params.row.entry;
     this.groupList.entry = params.row.entry;
     this.groupList.render();
-    this.updateLocaleStrings(this.NLSBundle0, {
+    this.updateLocaleStrings(this.NLSLocalized0, {
       user: registry.get('rdfutils').getLabel(this.entry) || this.entry.getId(),
     });
     this.show();

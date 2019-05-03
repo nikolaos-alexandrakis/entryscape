@@ -39,7 +39,7 @@ const ResultsList = declare([BaseList], {
   },
 
   getEmptyListWarning() {
-    return this.NLSBundle1.emptyListWarning;
+    return this.NLSLocalized1.emptyListWarning;
   },
   getSearchObject() {
     const context = registry.get('context');

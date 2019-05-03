@@ -1,5 +1,5 @@
 var debug = document.location.search.indexOf('debug') > 0;
-var path = debug ? '../../' : 'https://static.entryscape.com/';
+var path = debug ? '../../' : 'https://static.cdn.entryscape.com/';
 
 var js = function (url) {
   document.write('<script src="' + path + url + '"/><\/script>');

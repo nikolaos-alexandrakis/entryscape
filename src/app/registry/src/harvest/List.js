@@ -54,12 +54,12 @@ export default declare([GCEList], {
     this.render();
   },
   getEmptyListWarning() {
-    return this.NLSBundle1.emptyListWarning;
+    return this.NLSLocalized1.emptyListWarning;
   },
   getNlsForCButton() {
     return {
-      nlsKey: this.NLSBundle1.cOHeader,
-      nlsKeyTitle: this.NLSBundle1.cOHeader,
+      nlsKey: this.NLSLocalized1.cOHeader,
+      nlsKeyTitle: this.NLSLocalized1.cOHeader,
     };
   },
   /**

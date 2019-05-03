@@ -19,12 +19,12 @@ export default declare([List, NLSMixin.Dijit], {
       name: 'expand',
       button: 'link',
       iconType: 'fa',
-      icon: 'chevron-right',
+      icon: 'chevron-down',
     });
     this.inherited(arguments);
   },
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
+    this.updateLocaleStrings(this.NLSLocalized0, this.NLSLocalized1);
   },
   getTemplate() {
     return this.template;

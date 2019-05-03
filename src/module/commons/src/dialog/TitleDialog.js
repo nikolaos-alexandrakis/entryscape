@@ -168,7 +168,7 @@ const TitleDialog = declare([SideDialog], {
           }
         }
         this.unlockFooterButton();
-      });
+      }).catch(console.log);
     } else if (res === true || typeof res === 'undefined') {
       this.hide();
     } else {
@@ -210,7 +210,7 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
    */
   localeChange() {
     if (this.title === '') {
-      const bundle0 = this.NLSBundle0;
+      const bundle0 = this.NLSLocalized0;
       this.dialog.updateLocaleStrings(bundle0); //
     } else {
       // @scazan THis is a "mock" sort of bundle so it needs to conform

@@ -70,7 +70,8 @@
     "mandatoryMarkExplanation": "Indicates a mandatory field",
     "mandatoryMark": "*",
     "recommendedMark": "(Recommended)",
-    "optionalMark": "(Optional)"
+    "optionalMark": "(Optional)",
+    "entityChooserLabel": "Choose profile:"
   },
   "sv": true,
   "da": true,

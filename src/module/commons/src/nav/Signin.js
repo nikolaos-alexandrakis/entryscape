@@ -66,10 +66,10 @@ const SigninMixin = declare([PublicView], {
   },
   footerButtonAction() {
     if (!this.isFormValid(this.signinForm)) {
-      return this.NLSBundle0.signinUnauthorized;
+      return this.NLSLocalized0.signinUnauthorized;
     }
     const esUser = this.username.value;
-    const esPassword = window.encodeURI(this.password.value);
+    const esPassword = this.password.value;
     const auth = registry.get('entrystore').getAuth();
     const async = registry.get('asynchandler');
     async.addIgnore('login', async.codes.UNAUTHORIZED, true);
@@ -79,11 +79,11 @@ const SigninMixin = declare([PublicView], {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          throw Error(this.NLSBundle0.signinUnauthorized);
+          throw Error(this.NLSLocalized0.signinUnauthorized);
         } else if (err.response.status === 403) {
           throw Error(i18n.localize(esadUser, 'userStatusDisabled'));
         } else {
-          throw Error(this.NLSBundle0.signinError);
+          throw Error(this.NLSLocalized0.signinError);
         }
       });
   },

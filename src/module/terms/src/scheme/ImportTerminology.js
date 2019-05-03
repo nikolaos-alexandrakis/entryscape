@@ -5,13 +5,14 @@ import EntryType from 'commons/create/EntryType';
 import ProgressDialog from 'commons/progresstask/ProgressDialog';
 import { updateProgressDialog } from 'commons/progresstask/util';
 import registry from 'commons/registry';
+import { readFileAsText } from 'commons/util/fileUtil';
 import htmlUtil from 'commons/util/htmlUtil';
 import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import { i18n, NLSMixin } from 'esi18n';
-import { cloneDeep, template as renderTemplate } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 import m from 'mithril';
 import { converters, Graph, utils } from 'rdfjson';
 import { promiseUtil } from 'store';
@@ -177,6 +178,8 @@ const importConceptScheme = (paramsArgs) => {
   });
 };
 
+const asyncHandler = registry.get('asynchandler');
+
 const importConcepts = (params) => {
   const context = params.csEntry.getContext();
   const stmts = params.graph.find(null, 'rdf:type', 'skos:Concept');
@@ -186,11 +189,15 @@ const importConcepts = (params) => {
   let importedConcepts = 0;
 
   // ignore spinning wheels for various actions
-  const async = registry.get('asynchandler');
-  async.addIgnore('createEntry', true, true);
-  async.addIgnore('getEntry', true, true);
-  async.addIgnore('refresh', true, true);
-  async.addIgnore('commitEntryInfo', true, true);
+  const ignoredHandlers = [
+    'createEntry',
+    'getEntry',
+    'refresh',
+    'commitEntryInfo',
+  ];
+
+  ignoredHandlers.forEach(handler => asyncHandler.addIgnore.bind(asyncHandler)(handler, true, false));
+  const removeIgnoreHandlers = () => ignoredHandlers.forEach(asyncHandler.removeIgnore.bind(asyncHandler));
 
   return promiseUtil.forEach(stmts, (stmt) => {
     const uri = stmt.getSubject();
@@ -208,7 +215,9 @@ const importConcepts = (params) => {
       importDialog.tasks.import.message = importDialog.getConceptsImportedMessage(importedConcepts, totalConcepts);
       updateProgressDialog(importDialog.progressDialog, importDialog.tasks);
     });
-  }).then(() => params);
+  })
+    .then(removeIgnoreHandlers)
+    .then(() => params);
 };
 
 const initialTasksState = {
@@ -272,7 +281,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     this.inherited(arguments);
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     if (bundle) {
       this.tasks = cloneDeep(initialTasksState);
       this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
@@ -311,43 +320,21 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   fileUpload() {
     this.tasks.upload.status = 'progress';
     updateProgressDialog(this.progressDialog, this.tasks);
-    const asyncHandler = registry.get('asynchandler');
+
     asyncHandler.addIgnore('echoFile', true, true);
-    return registry.get('entrystore').echoFile(this.fileOrLink.getFileInputElement(), 'text')
+    /** @type HTMLInputElement */
+    const inputElement = this.fileOrLink.getFileInputElement();
+    /** @type File */
+    const file = inputElement.files.item(0);
+    return readFileAsText(file)
       .then((data) => {
         // update the UI
         this.tasks.upload.status = 'done';
         updateProgressDialog(this.progressDialog, this.tasks);
         return data;
       }, (err) => {
-        const keys = Object.keys(err);
-        if (keys.indexOf('status') !== -1) {
-          const store = registry.get('entrystore');
-
-          /**
-           * Max entity size reached so update the error task and throw error
-           * // TODO @valentino hard-coded value, explained below
-           * @param [echoMaxEntitySize=10485760] 10MB
-           * @throws
-           */
-          const showMaxFileError = ({ echoMaxEntitySize = 10485760 }) => {
-            const b = this.NLSBundles.esteImport;
-            const message = renderTemplate(b.fileTooBigToUpload)({
-              size: echoMaxEntitySize,
-            });
-            this.errorTask = 'upload';
-            throw Error(message);
-          };
-
-          return store.getStatus()
-            .then(showMaxFileError)
-            // TODO @valentino this is a temporary fix. Remove in the next available opportunity
-            // Essentially this hard-codes the 'echoMaxEntitySize' which can be read only by admins with current
-            // EntryStore API implementation
-            .catch(showMaxFileError);
-        }
         this.errorTask = 'upload';
-        throw Error(err.message);
+        throw Error(err.message || err);
       });
   },
   /**
@@ -355,10 +342,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    */
   linkUpload() {
     const url = this.fileOrLink.getValue();
-    const async = registry.get('asynchandler');
-    async.addIgnore('loadViaProxy', true, true);
-    async.addIgnore('loadViaProxy', async.codes.GENERIC_PROBLEM, true);
-    async.addIgnore('loadViaProxy', async.codes.UNAUTHORIZED, true);
+    asyncHandler.addIgnore('loadViaProxy', true, true);
+    asyncHandler.addIgnore('loadViaProxy', asyncHandler.codes.GENERIC_PROBLEM, true);
+    asyncHandler.addIgnore('loadViaProxy', asyncHandler.codes.UNAUTHORIZED, true);
     return registry.get('entrystore').loadViaProxy(url, 'application/rdf+xml')
       .then((data) => {
         // update the UI
@@ -368,7 +354,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
         return data;
       }, (err) => {
-        const bundle = this.NLSBundles.esteImport;
+        const bundle = this.NLSLocalized.esteImport;
         let message;
         if (err.response.status === 504) {
           message = bundle.noResponseFromLink;
@@ -380,7 +366,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       });
   },
   _clear() {
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     if (bundle) {
       this.tasks = cloneDeep(initialTasksState);
       this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
@@ -447,7 +433,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    * @return {String}
    */
   getConceptSchemeURI(graph) {
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     const stmts = graph.find(null, 'rdf:type', 'skos:ConceptScheme');
     if (stmts.length !== 1) {
       throw Error(bundle.noConceptSchemeInSKOS);
@@ -461,7 +447,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    * @return graph
    */
   convertDataToGraph(data) {
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     const report = converters.detect(data);
     const graph = report.graph;
     if (graph) {
@@ -482,7 +468,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   showFooterResult(message = null) {
     const modalFooter = this.progressDialog.getModalFooter();
     const onclick = this.progressDialog.hide.bind(this.progressDialog);
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
 
     m.render(modalFooter, m(Row, {
       classNames: ['spaSideDialogFooter'],
@@ -537,7 +523,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     });
   },
   getConceptsImportedMessage(importedConcepts, totalConcepts) {
-    return i18n.renderNLSTemplate(this.NLSBundles.esteImport.nlsNumberOfConceptsImported, {
+    return i18n.renderNLSTemplate(this.NLSLocalized.esteImport.nlsNumberOfConceptsImported, {
       importedConcepts,
       totalConcepts,
     });

@@ -33,7 +33,7 @@ export default declare([TitleDialog.ContentNLS], {
     this.inherited(arguments);
     let rt = this.list.benchTypeConf.rdfType;
     rt = Array.isArray(rt) ? rt[0] : rt;
-    const info = i18n.renderNLSTemplate(this.NLSBundles.eswoImportDialog.importInformation, {
+    const info = i18n.renderNLSTemplate(this.NLSLocalized.eswoImportDialog.importInformation, {
       entityType: this.list.getName(),
       rdfType: rt,
     });

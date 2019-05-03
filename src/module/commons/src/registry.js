@@ -16,9 +16,19 @@ const getSiteConfig = () => exports.get('siteConfig');
  */
 const getEntryStore = () => exports.get('entrystore');
 /**
+ *
+ * @return {store/EntryStoreUtil}
+ */
+const getEntryStoreUtil = () => exports.get('entrystoreutil');
+/**
  * @returns {store/Entry}
  */
 const getEntry = () => exports.get('entry');
+/**
+ *
+ * @return {store/Context}
+ */
+const getContext = () => exports.get('context');
 
 // App generic registry methods.
 const exports = {
@@ -75,7 +85,9 @@ const exports = {
   getSiteManager,
   getSiteConfig,
   getEntryStore,
+  getEntryStoreUtil,
   getEntry,
+  getContext,
 };
 
 export default exports;

@@ -55,7 +55,7 @@ export default declare([ReplaceDialog], {
             this.distributionRow.renderMetadata();
             if (this.isFileDistributionWithAPI()) {
               const dialogs = registry.get('dialogs');
-              const confirmMessage = this.NLSBundle1.refreshAPI;
+              const confirmMessage = this.NLSLocalized1.refreshAPI;
               return dialogs.confirm(confirmMessage, null, null, (confirm) => {
                 if (!confirm) {
                   this.dialog.hide();
@@ -70,8 +70,8 @@ export default declare([ReplaceDialog], {
                       distributionEntry: this.distributionEntry,
                       datasetEntry: this.datasetEntry,
                       mode: 'refresh',
-                      escaApiProgress: this.NLSBundles.escaApiProgress,
-                      escaFiles: this.NLSBundles.escaFiles,
+                      escaApiProgress: this.NLSLocalized.escaApiProgress,
+                      escaFiles: this.NLSLocalized.escaFiles,
                     },
                   });
                 });

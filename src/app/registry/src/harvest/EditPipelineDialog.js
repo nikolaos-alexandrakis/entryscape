@@ -94,7 +94,7 @@ export default declare([CreatePipelineDialog], {
       const isAdmin = Boolean(registry.get('isAdmin'));
       const inAdminGroup = Boolean(registry.get('inAdminGroup'));
       this.formComponent.setFormData({
-        bundle: this.NLSBundle0,
+        bundle: this.NLSLocalized0,
         isOwnOrg: isAdmin ? false : !values.username,
         isOwnOrgEnabled: inAdminGroup,
         isPSIOrg: Boolean(values.psi),
@@ -118,7 +118,7 @@ export default declare([CreatePipelineDialog], {
   async footerButtonAction() {
     const context = this.entry.getContext();
     const contextEntry = await context.getEntry();
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     const data = this.getFormData();
 
     try {

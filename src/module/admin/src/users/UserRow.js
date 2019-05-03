@@ -2,7 +2,7 @@ import registry from 'commons/registry';
 import { terms, types } from 'store';
 import EntryRow from 'commons/list/EntryRow';
 import ConfirmDialog from 'commons/dialog/ConfirmDialog';
-import { template } from 'lodash-es';
+import { template, escape } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 
 export default declare([EntryRow], {
@@ -58,7 +58,7 @@ export default declare([EntryRow], {
     }
 
     const isUserDisabled = this.getIsUserDisabled();
-    return `${username}  -  ${name}${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
+    return `${escape(username)}  -  ${escape(name)}${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
   },
   action_remove() {
     const entry = this.entry;
@@ -158,6 +158,6 @@ export default declare([EntryRow], {
   },
   getDisabledUserHtml() {
     return `<i style="margin-left:10px"  rel="tooltip" title="${this.nlsSpecificBundle.userStatusDisabled}" 
-            class="fa fa-user-times"></i>`;
+            class="fas fa-user-times"></i>`;
   },
 });

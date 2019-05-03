@@ -27,7 +27,7 @@ const load = pipelineEntry => registry.getEntryStore()
  * @param {store/Entry} pipelineEntry
  * @return {String}
  */
-const oldStatus = pipelineEntry => pipelineEntry.getMetadata()
+const oldStatus = pipelineEntry => pipelineEntry.getCachedExternalMetadata()
   .findFirstValue(pipelineEntry.getResourceURI(), 'store:pipelineResultStatus');
 
 /**
@@ -131,7 +131,7 @@ const checkStatusOnRepeat = async (pipelineEntryURI, repeat = 30, delayMillis = 
     default:
       // retry checking the API after 'delayMillis'
       if (repeat > 0) {
-        await promiseUtil.delay(delayMillis);
+        await promiseUtil.delay(delayMillis + ((31 - repeat) * 30));
         return checkStatusOnRepeat(pipelineEntryURI, repeat - 1);
       }
       throw Error('API returned an error status');

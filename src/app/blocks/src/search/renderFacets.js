@@ -97,7 +97,7 @@ class FacetBlock {
     if (selected) {
       const button = DOMUtil.create('button', { class: 'btn btn-small btn-link' });
       li.appendChild(button);
-      button.appendChild(DOMUtil.create('i', { class: 'fa fa-remove' }));
+      button.appendChild(DOMUtil.create('i', { class: 'fas fa-times' }));
 
       button.onclick = function (e) {
         e.stopPropagation();

@@ -8,8 +8,11 @@ import { bundleLoader, ItemStore, renderingContext, utils } from 'rdforms';
 import initSite from 'spa/init';
 import { EntryStore, EntryStoreUtil } from 'store';
 import superagent from 'superagent';
-import apBundle from 'templates/dcat-ap/dcat-ap';
-import apPropsBundle from 'templates/dcat-ap/dcat-ap_props';
+import dcatBundle from 'templates/dcat-ap/dcat-ap';
+import geoDcatBundle from 'templates/dcat-ap/geodcat-ap';
+import geoDcatVocabsBundle from 'templates/dcat-ap/geodcat-ap_vocabs';
+import geoDcatPropsBundle from 'templates/dcat-ap/geodcat-ap_props';
+import dcatPropsBundle from 'templates/dcat-ap/dcat-ap_props';
 import dctermsBundle from 'templates/dcterms/dcterms';
 import escBundle from 'templates/entryscape/esc';
 import foafBundle from 'templates/foaf/foaf';
@@ -28,8 +31,9 @@ import registry from './registry';
 import { getFallbackBundleUrls } from './util/bundleUtil';
 import configUtil from './util/configUtil';
 import { fixEoG } from './util/entryUtil';
-
 import DOMUtil from './util/htmlUtil';
+import Lookup from './types/Lookup';
+
 const jsonp = require('superagent-jsonp');
 
 /**
@@ -90,6 +94,7 @@ const init = {
   },
   entitytypes() {
     config.entitytypes = configUtil.objToArray(config.entitytypes);
+    Lookup.init();
   },
   contexttypes() {
     config.contexttypes = configUtil.objToArray(config.contexttypes);
@@ -153,8 +158,11 @@ const init = {
           bundles.push(foafBundle);
           bundles.push(vcardBundle);
           bundles.push(odrsBundle);
-          bundles.push(apPropsBundle);
-          bundles.push(apBundle);
+          bundles.push(dcatPropsBundle);
+          bundles.push(dcatBundle);
+          bundles.push(geoDcatVocabsBundle);
+          bundles.push(geoDcatPropsBundle);
+          bundles.push(geoDcatBundle);
           bundles.push(escBundle);
         }
         if (config.itemstore.bundles) {

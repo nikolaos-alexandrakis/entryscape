@@ -70,7 +70,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   show() {
     const graph = registry.get('clipboardGraph');
     if (graph == null || graph.isEmpty()) {
-      const bundle = this.NLSBundles.esreSource;
+      const bundle = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(bundle.noRDF, bundle.noRDFProceed).then(() => {
         registry.get('siteManager').render('toolkit__rdf__source');
       });

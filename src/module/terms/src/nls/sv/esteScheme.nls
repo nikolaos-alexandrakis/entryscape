@@ -20,6 +20,6 @@
   "collectionExportTitle": "Ladda ner terminologi",
   "emptyListWarning": "Terminologier som du skapar kommer att visas här",
   "reasonForRevisionMessage": "Begrepp har lagts till eller tagits bort från första nivån av terminologin sedan närmast föregående version.",
-  "noRevertSameGraphExcludeTitle": "Det finns inget att återställa. Senaste versionen är identisk förutom sådan information som inte enkelt kan återställas (t.ex. mängden begrepp på första nivån).",
+  "noRevertSameGraphExcludeTitle": "Det finns inget att återställa. Den senaste versionen är identisk förutom sådan information som inte enkelt kan återställas (t.ex. mängden begrepp på första nivån).",
   "revertExcludeMessage": "Begrepp kommer varken läggas till eller tas bort från första nivån."
 }
