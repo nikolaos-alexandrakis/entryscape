@@ -10,11 +10,16 @@ export default (vnode) => {
     return parsedGeoData;
   };
 
-  const processXYDataset = (dataset, xField, yField) => {
-
+  const processXYData = (datasets, xField, yField) => {
+    if (Array.isArray(dataset)) {
+      return datasets.map( dataset => processXYDataset(dataset, xField, yField) );
+    }
+    else {
+      return [processXYDataset(datasets, xField, yField)];
+    }
   };
 
-  const processXYData = (data, xField, yField) => {
+  const processXYDataset = (data, xField, yField) => {
     // const labels = [xField, yField];
     const transpose = matrix => Object.keys(matrix[0])
       .map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
@@ -58,7 +63,7 @@ export default (vnode) => {
       ),
       bar: (
         <BarChart
-          data={data}
+          data={processedData}
         />
       ),
     }));
