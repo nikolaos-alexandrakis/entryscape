@@ -1,11 +1,9 @@
-import m from 'mithril';
 import './index.scss';
 
-export default (vnode) => {
-
+export default () => {
   return {
     view(vnode) {
-      const {onChangeSelectedFile, files } = vnode.attrs;
+      const { onChangeSelectedFile, files } = vnode.attrs;
 
       return (
         <div class="useFile__wrapper">
