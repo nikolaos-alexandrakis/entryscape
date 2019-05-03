@@ -298,7 +298,13 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
-            {visualizationEntryConfigurations.map(configurationEntry => <VisualizationPreview configurationEntry={configurationEntry} header={<VisualizationPreviewActions onclick={actions.openCreateVisualization}/>} />)}
+            {visualizationEntryConfigurations
+              .map(configurationEntry =>
+                <VisualizationPreview
+                  configurationEntry={configurationEntry}
+                  header={<VisualizationPreviewActions onclick={actions.openCreateVisualization}/>}
+                />)
+            }
           </div>
         </main>
       );
