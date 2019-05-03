@@ -82,7 +82,6 @@ export default () => {
     },
     onupdate(vnode) {
       const { type = 'bar' } = vnode.attrs;
-      console.log(type, chart.config.type);
       if (chart && type !== chart.config.type) {
         chart.destroy();
         chart = getNewChart(document.getElementById(this.elementId), type);
