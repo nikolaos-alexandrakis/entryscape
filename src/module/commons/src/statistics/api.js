@@ -6,12 +6,12 @@ import config from 'config';
  */
 
 // @todo @valentino delete
-// const STATS_BASE_URL = 'https://stats.infra.entryscape.com/v.dev.entryscape.com/' || `${config.get('entrystore.repository')}/statistics`;
+const STATS_BASE_URL = 'https://stats.infra.entryscape.com/v.dev.entryscape.com/' || `${config.get('entrystore.repository')}/statistics`;
 let repoURL = config.get('entrystore.repository');
 if (!repoURL.endsWith('/')) {
   repoURL = `${repoURL}/`; // @todo @valentino make a generic functionality like path.join
 }
-const STATS_BASE_URL = `${repoURL}statistics/`;
+// const STATS_BASE_URL = `${repoURL}statistics/`;
 
 /**
  *
@@ -175,6 +175,12 @@ const getAggregateFilters = (timeRange) => {
 };
 
 /**
+ *
+ * @deprecated The API infrastructure has a result limit of 100 which makes aggregation of results inherently
+ * not reliable. E.g a distribution might be in one result set but be missing from another
+ * because it's not in the top 100
+ *
+ * This was used for custom time range statistics
  *
  * @param contextId
  * @param type

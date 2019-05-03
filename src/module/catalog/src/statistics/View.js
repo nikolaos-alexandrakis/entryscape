@@ -1,15 +1,17 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
+import Pagination from 'commons/components/common/Pagination';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { getAbbreviatedMimeType } from 'commons/util/mimeTypesUtil';
-import { createSetState } from 'commons/util/util';
+import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import jquery from 'jquery';
+import BarChart from './components/BarChartTime';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
@@ -25,21 +27,18 @@ export default declare(MithrilView, {
     const state = {
       list: {
         items: [],
-        selected: null,
         filteredItems: null,
+        selected: {
+          uri: '',
+          name: '',
+        },
+        page: 0,
       },
       chart: {
-        data: {
-          series: [{
-            name: '',
-            data: [{}],
-          }],
-        },
+        data: [{}],
       },
       timeRanges: {
         selected: 'this-month',
-        items: timeRangeUtil.getTimeRanges(),
-        custom: null, // custom.start, custom.end
       },
       activeTab: 'file',
       loadingData: true,
@@ -47,19 +46,35 @@ export default declare(MithrilView, {
 
     const setState = createSetState(state);
 
+    const getChartData = async (selectedEntryInfo, entryType, timeRange) => {
+      const { uri, name: label } = selectedEntryInfo;
+      const context = registry.getContext();
+      const chartData = {
+        datasets: [],
+      };
+      try {
+        const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(uri); // @todo add catch
+        const entryId = entryType === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
+        let data =
+          await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
+
+        delete data.count; // keep only chart relevant data
+        data = timeRangeUtil.normalizeChartData(timeRange, data);
+
+        chartData.datasets.push({ data, label });
+        return chartData;
+      } catch (err) {
+        console.log(`Could not fetch statistics for ${uri}`, err);
+        return [];
+      }
+    };
+
     const getListItems = async () => {
       const context = registry.getContext();
       try {
-        const { custom, selected } = state.timeRanges;
-
-        let itemStats;
-        if (state.timeRanges.selected === 'custom') {
-          itemStats =
-            await statsAPI.getTopStatisticsAggregate(context.getId(), state.activeTab, custom);
-        } else {
-          itemStats =
-            await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRangeUtil.toAPIRequestPath(selected));
-        }
+        const { selected } = state.timeRanges;
+        let itemStats =
+          await statsAPI.getTopStatistics(context.getId(), state.activeTab, timeRangeUtil.toAPIRequestPath(selected));
 
         const [fileEntries, distributionEntries, datasetEntries] = await getDatasetByDistributionRURI(itemStats);
 
@@ -79,121 +94,132 @@ export default declare(MithrilView, {
         });
       } catch (err) {
         // no statistics found
+        console.log(err);
         return [];
       }
     };
 
+    const getFirstItemFileName = (items) => {
+      const itemURI = items[0] ? items[0].uri : '';
+      const selectedItem = items.find(item => item.uri === itemURI);
+
+      let filename = '';
+      if (selectedItem && 'filename' in selectedItem) {
+        filename = selectedItem.filename;
+      }
+
+      return [items, filename];
+    };
+
+    /**
+     * @param items
+     * @param filename
+     * @param isLoadingData
+     * @return {Object}
+     */
+    const updateStateOfList = ([items, filename], isLoadingData = false) => setState({
+      list: {
+        items,
+        selected: {
+          uri: items[0] ? items[0].uri : null,
+          name: filename,
+        },
+      },
+      loadingData: isLoadingData,
+    });
+
+    /**
+     * @param newPage
+     * @param list
+     */
+    const paginateList = (newPage, list = null) => {
+      const itemIdxStart = newPage === 0 ? newPage : newPage * LIST_PAGE_SIZE_SMALL;
+      const listToPaginate = list || state.list.items;
+      const itemTotalCount = listToPaginate.length;
+      const itemIdxEnd = Math.min(itemTotalCount,
+        newPage === 0 ? LIST_PAGE_SIZE_SMALL : (newPage + 1) * LIST_PAGE_SIZE_SMALL);
+
+      const filteredItems = listToPaginate.slice(itemIdxStart, itemIdxEnd);
+
+      setState({
+        list: {
+          filteredItems,
+          page: newPage,
+        },
+      });
+    };
+
     const resetChart = () => {
-      if (state.list.selected && state.timeRanges.selected !== 'custom') {
-        getChartData().then(data => setState({ chart: { data } }));
+      const { list, timeRanges, activeTab: entryType } = state;
+      if (list.selected.uri && timeRanges.selected !== 'custom') {
+        getChartData(list.selected, entryType, timeRanges.selected).then(data => setState({ chart: { data } }));
       } else {
         setState({ chart: { data: [] } });
       }
     };
 
-    const getSearchFieldValue = () => {
-      return jquery('#stats-search-input').val();
-    };
-
+    const getSearchFieldValue = () => jquery('#stats-search-input').val();
     const resetSearchField = () => {
       // this is done with jquery to avoid keeping a mithril state
       jquery('#stats-search-input').val('');
     };
 
-    const getChartData = async () => {
-      const { selected } = state.timeRanges;
-      if (state.timeRanges.selected === 'custom') {
-        return [];
-      }
-
-      const context = registry.getContext();
-      const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(state.list.selected); // @todo add catch
-
-      const entryId = state.activeTab === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
-      const chartData =
-        await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(selected));
-
-      delete chartData.count; // keep only chart relevant data
-      return {
-        series: [
-          {
-            name: 'whatever',
-            data: timeRangeUtil.normalizeChartData(selected, chartData),
-          },
-        ],
-      };
-    };
-
-    const onclickTab = (e) => {
-      setState({
-        activeTab: e.currentTarget.dataset.tab,
-      });
-
-      // show spinner
-      setState({
-        loadingData: true,
-      });
-
+    /**
+     * Get the list, transform as needed, paginate and show the data in chart
+     */
+    const getListItemsAndRender = () => {
       getListItems()
-        .then(items => setState({
-          list: { items, selected: items[0] ? items[0].uri : null },
-          loadingData: false,
-        }))
+        .then(getFirstItemFileName)
+        .then(updateStateOfList)
         .then(() => {
+          paginateList(0);
           resetChart();
           resetSearchField();
         });
     };
 
-    /**
-     * Will be initialized on creation of component.
-     * Can be called to show the start/end date pickers
-     * @type {Function}
-     */
-    let showDatePickers;
-
-    const onclickTimeRange = (e) => {
-      if (e.currentTarget.dataset.range === 'custom') {
-        showDatePickers();
-      } else {
-        setState({
-          timeRanges: {
-            items: timeRangeUtil.getTimeRanges(),
-            selected: e.currentTarget.dataset.range,
-          },
-          loadingData: true, // show spinner
-        });
-
-        getListItems()
-          .then(items => setState({
-            list: { items, selected: state.list.selected },
-            loadingData: false,
-          }))
-          .then(() => {
-            resetChart();
-            resetSearchField();
-          });
+    const onchangeTab = (tab) => {
+      if (state.activeTab === tab) {
+        return;
       }
 
-      resetChart();
-      resetSearchField();
+      setState({
+        activeTab: tab,
+        loadingData: true,
+      });
+
+      getListItemsAndRender();
     };
 
-    const onclickListItem = (e) => {
+    const onclickTimeRange = (range) => {
+      setState({
+        timeRanges: {
+          selected: range,
+        },
+        loadingData: true, // show spinner
+      });
+
+      getListItemsAndRender();
+    };
+
+    const onclickListItem = (selected) => {
       setState({
         list: {
-          items: state.list.items,
-          selected: e.currentTarget.dataset.uri,
+          selected,
         },
       });
 
-      getChartData()
+      const { timeRanges, activeTab: entryType } = state;
+      getChartData(selected, entryType, timeRanges.selected)
         .then(data => setState({ chart: { data } }));
     };
 
-    const onchangeSearch = (e) => {
-      if (e.target.value) {
-        const filterString = e.target.value.toLowerCase();
+    /**
+     * @param {string} value
+     */
+    const onchangeSearch = (value) => {
+      if (value) {
+        const filterString = value.toLowerCase();
         const filteredItems =
           state.list.items.filter((item) => {
             let { name = '', subname = '', filename = '' } = item;
@@ -203,22 +229,13 @@ export default declare(MithrilView, {
             return !!(name.includes(filterString) || subname.includes(filterString) || filename.includes(filterString));
           });
 
-        setState({
-          list: {
-            selected: state.list.selected,
-            items: state.list.items,
-            filteredItems,
-          },
-        });
+        paginateList(0, filteredItems);
       } else {
-        setState({
-          list: {
-            selected: state.list.selected,
-            items: state.list.items,
-          },
-        });
+        // the search input was cleared
+        paginateList(0);
       }
     };
+
 
     const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
     let isCatalogPublic = null;
@@ -232,113 +249,65 @@ export default declare(MithrilView, {
           return;
         }
         // update list item state
-        getListItems()
-          .then(items => setState({
-            list: { items, selected: items.length > 0 ? items[0].uri : null },
-            loadingData: false,
-          }))
-          .then(() => {
-            resetChart();
-            resetSearchField();
-          });
-      },
-      oncreate() {
-        if (isCatalogPublic === false) {
-          return;
-        }
-
-        // create date pickers
-        const startDatePicker = jquery('#custom-date-start').bootstrapMaterialDatePicker({
-          weekStart: 0,
-          time: false,
-        });
-
-        const endDatePicker = jquery('#custom-date-end').bootstrapMaterialDatePicker({
-          weekStart: 0,
-          time: false,
-        });
-
-        // @todo startDatePicker.bootstrapMaterialDatePicker('setMinDate', getTopStatisticsStartAndEnd)
-        startDatePicker.bootstrapMaterialDatePicker('setMaxDate', new Date());
-        startDatePicker.on('change', (evt, startDate) => {
-          endDatePicker.bootstrapMaterialDatePicker('setMinDate', startDate);
-          endDatePicker.bootstrapMaterialDatePicker('setMaxDate', new Date());
-          endDatePicker.one('change', (ev, endDate) => {
-            const timeRangeItems = timeRangeUtil.getTimeRanges({ startDate, endDate });
-
-            // update the state but don't redraw yet
-            setState({
-              timeRanges: {
-                items: timeRangeItems,
-                selected: 'custom',
-                custom: { start: startDate, end: endDate },
-              },
-              loadingData: true,
-            });
-
-            // get statistics for custom time range and
-            getListItems()
-              .then(items => setState({
-                list: { items, selected: null }, // don't preselect for custom time range to avoid chartist draw
-                loadingData: false,
-              }))
-              .then(() => {
-                resetChart();
-                resetSearchField();
-              });
-          });
-          endDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
-          endDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', escaStatisticsNLS.timeRangeDatePickerEndDate);
-        });
-        showDatePickers = async () => {
-          startDatePicker.bootstrapMaterialDatePicker('_fireCalendar');
-          startDatePicker.bootstrapMaterialDatePicker('showHeaderTitle', escaStatisticsNLS.timeRangeDatePickerStartDate);
-        };
+        getListItemsAndRender();
       },
       view() {
         if (isCatalogPublic === false) {
           return <Placeholder label={escaStatisticsNLS.statsNotPublishedCatalog}/>;
         }
 
+        const timeRangesItems = timeRangeUtil.getTimeRanges();
         const tabs = getTabs();
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
         const toRenderItems = state.list.filteredItems || state.list.items || [];
         const hasData = !!toRenderItems.length > 0;
         const shouldShowSearch = hasData || getSearchFieldValue();
+        const paginationTotalCount = getSearchFieldValue() ? state.list.filteredItems.length : state.list.items.length;
         return (
           <div>
             <div className="stats__title">
               <h3>{escaStatisticsNLS.statsViewHeader}</h3>
             </div>
             <section className="stats__wrapper">
-              <input type="text" id="custom-date-start" className="hidden"/>
-              <input type="text" id="custom-date-end" className="hidden"/>
-              <div className="data__wrapper">
-                <div className="chooser__wrapper">
-                  <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
-                  <TimeRangeDropdown items={state.timeRanges.items} selected={state.timeRanges.selected}
-                                     onclick={onclickTimeRange}/>
+              <div className="chooser__wrapper">
+                <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
+                <TimeRangeDropdown
+                  items={timeRangesItems}
+                  selected={state.timeRanges.selected}
+                  onclickTimeRange={onclickTimeRange}/>
+              </div>
+              <div className="visualization__wrapper">
+                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
+                <div className="visualization__chart">
+                  <BarChart
+                    data={state.chart.data}
+                    elementId={'catalog-statistics-chart'}
+                    name={state.list.selected.name}/>
                 </div>
+              </div>
+              <div className="data__wrapper">
+
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
-                    <Tabs items={tabs} selected={state.activeTab} onclick={onclickTab}/>
+                    <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab}/>
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
-                      {shouldShowSearch ? <SearchInput onchange={onchangeSearch} onkeyup={onchangeSearch}/> : null}
-                      <ListComponent items={state.list.items} filteredItems={state.list.filteredItems}
-                                     selected={state.list.selected} onclick={onclickListItem}/></div>)
+                      {shouldShowSearch ? <SearchInput onchangeSearch={onchangeSearch}/> : null}
+                      <ListComponent
+                        items={state.list.items}
+                        filteredItems={state.list.filteredItems}
+                        selected={state.list.selected.uri}
+                        onclick={onclickListItem}/></div>)
                     }
-
                   </div>
                 </div>
+                {hasData ? <Pagination
+                  currentPage={state.list.page}
+                  totalCount={paginationTotalCount}
+                  pageSize={LIST_PAGE_SIZE_SMALL}
+                  handleChangePage={paginateList}/> : null}
               </div>
-              {/*<div className="visualization__wrapper">*/}
-              {/*<h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>*/}
-              {/*<div className="visualization__chart">*/}
-              {/*<BarChart data={state.chart.data}/>*/}
-              {/*</div>*/}
-              {/*</div>*/}
             </section>
           </div>
         );

@@ -21,6 +21,7 @@ import {
 import StatBoxInline from 'commons/overview/components/StatBoxInline';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
+import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
 import { isDatasetPSI } from '../../utils/distributionUtil';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
@@ -232,6 +233,7 @@ export default (vnode) => {
                 onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
+              <Button class="btn-secondary" onclick={actions.openCreateVisualization}>Create Visualization</Button>
               <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class="btn-secondary" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
@@ -280,6 +282,24 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
+            <div class="chart--wrapper">
+              <div class="chart__actions">
+                <h5>Name of visualization</h5>
+                <div>
+                  <button class="btn btn-secondary fas fa-edit" onclick={actions.openCreateVisualization}></button>
+                  <button class="btn btn-secondary fas fa-times"></button>
+                </div>
+
+              </div>
+              <div class="Chart">
+                <VisualizationChart
+                  type={state.chartType}
+                  xAxisField={state.xAxisField}
+                  yAxisField={state.xAxisField}
+                  operation={state.operation}
+                  data={null}
+                /></div>
+            </div>
 
           </div>
         </main>

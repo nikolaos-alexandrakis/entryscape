@@ -55,6 +55,13 @@ export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, te
       startView: 'catalog__search',
       public: true,
     },
+    visualize: {
+      title: { en: 'Visualize' },
+      productName: 'Visualize',
+      faClass: 'chart-bar',
+      startView: 'catalog__visualize',
+      public: true,
+    },
     documentation: {
       title: { en: 'Documentation', sv: 'Dokumentation', de: 'Dokumentation' },
       productName: 'Documentation',
@@ -63,5 +70,5 @@ export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, te
       public: false,
     },
   },
-  moduleList: ['catalog', 'terms', 'workbench', 'search', 'admin', 'documentation'],
+  moduleList: ['catalog', 'terms', 'workbench', 'search', 'visualize', 'admin', 'documentation'],
 }, __entryscape_config.site || {});

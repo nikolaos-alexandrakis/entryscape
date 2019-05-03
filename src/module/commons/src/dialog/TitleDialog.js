@@ -224,4 +224,10 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
   },
 });
 
+TitleDialog.ContentComponent = declare([TitleDialog.ContentNLS], {
+  show(component) {
+    m.mount(this.dialog.containerNode, component);
+  },
+});
+
 export default TitleDialog;

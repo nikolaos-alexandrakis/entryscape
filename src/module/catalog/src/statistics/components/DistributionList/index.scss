@@ -10,7 +10,6 @@
 }
 
 .stats__row__wrapper--file {
-    height: 600px;
     overflow-y: auto;
     padding-bottom: 20px;
 
@@ -36,16 +35,17 @@
 
     .row--right--wrapper,
     .header--wrapper--right {
-        width: 15%;
+        width: 25%;
     }
 
     .header--wrapper--right {
         justify-content: space-between;
 
         .fas {
-            width: 15%;
+            width: 20%;
             text-align: right;
             margin-right: 20px;
+            margin-left: 5px;
         }
 
     }
@@ -126,7 +126,7 @@
 }
 
 .no-data, .no-searchData {
-    height: 350px;
+    height: 600px;
     padding: 10px;
     display: flex;
     justify-content: center;

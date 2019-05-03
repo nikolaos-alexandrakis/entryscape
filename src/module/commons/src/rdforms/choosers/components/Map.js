@@ -19,7 +19,7 @@ const Map = () => {
   const assetsPath = configUtil.getAssetsPath();
 
   let updateGeoCoordinates;
-  let unfocusInputs;
+  let unfocusInputs = () => {};
 
   const getPolygonFromLatLngs = points => leaflet.polygon(points);
 
@@ -110,7 +110,9 @@ const Map = () => {
 
   const MapNode = {
     view() {
-      return m('.escoMap', {});
+      return (
+        <div class="escoMap"></div>
+      );
     },
     oncreate(vnode) {
       // Attributes interface
@@ -120,15 +122,20 @@ const Map = () => {
       } = vnode.attrs;
 
       updateGeoCoordinates = vnode.attrs.updateGeoCoordinates;
-      unfocusInputs = vnode.attrs.unfocusInputs;
+      unfocusInputs = vnode.attrs.unfocusInputs ? vnode.attrs.unfocusInputs : unfocusInputs;
 
       import(/* webpackChunkName: "leaflet-css" */ 'leaflet/dist/leaflet.css');
       import('leaflet' /* webpackChunkName: "leaflet" */).then((leafletImport) => {
         leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
         setState({ map }, true);
-
-        populateMapWithValue(map, value);
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach(coord => populateMapWithValue(map, coord));
+          } else {
+            populateMapWithValue(map, value);
+          }
+        }
 
         if (editable) {
           this.bindMapEvents(map);
@@ -152,7 +159,11 @@ const Map = () => {
 
       if (state.map) {
         clearMapLayers(state.map);
-        populateMapWithValue(state.map, value);
+        if (Array.isArray(value)) {
+          value.forEach(coord => populateMapWithValue(state.map, coord));
+        } else {
+          populateMapWithValue(state.map, value);
+        }
       }
     },
 

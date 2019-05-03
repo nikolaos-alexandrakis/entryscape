@@ -1,0 +1,15 @@
+@import '~commons/theme.scss';
+
+.graphType__card__wrapper{
+    .btn.graphCard{
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        margin-right:10px;
+        .fas{
+            color: $main-colour;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+    }
+}
