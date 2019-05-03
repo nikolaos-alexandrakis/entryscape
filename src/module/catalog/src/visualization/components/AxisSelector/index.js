@@ -53,17 +53,19 @@ export default (initialVnode) => {
                 </div>
             )}
           </div>
-          <div class="axisY__wrapper">
-            <h5>Y:</h5>
-            <div class="form-group">
-              <select class="form-control"
-                value={y}
-                onchange={updateY}
-              >
-                {fields ? fields.map(field => <option disabled={field === selected.x} value={field}>{field}</option>) : null}
-              </select>
+          {operation !== 'count' && (
+            <div class="axisY__wrapper">
+              <h5>Y:</h5>
+              <div class="form-group">
+                <select class="form-control"
+                  value={y}
+                  onchange={updateY}
+                >
+                  {fields ? fields.map(field => <option disabled={field === selected.x} value={field}>{field}</option>) : null}
+                </select>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       );
     },
