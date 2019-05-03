@@ -1,0 +1,19 @@
+.chart__actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+    h5{
+        font-weight: bold;
+        margin-left: 15px;
+
+    }
+}
+.btn{
+    align-self: flex-end;
+    padding: 10px 15px;
+}
+.fa-times{
+    color:red;
+}

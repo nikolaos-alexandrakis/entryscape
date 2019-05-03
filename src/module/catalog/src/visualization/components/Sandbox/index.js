@@ -70,6 +70,9 @@ export default (vnode) => {
                   operation={state.operation}
                   data={null}/>
                 <div class="no-data">{escaVisualization.vizNoData}</div>
+                <div class="vizPlaceholder">
+{/*                   <GraphPlaceholderAnimation/>
+ */}                </div>
                 {/*                 <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
  */}              </div>
             </section>
@@ -86,22 +89,6 @@ export default (vnode) => {
               <p>{escaVisualization.vizSandboxHelpAxes}</p>
             </div>
           </section>
-
-          <Map
-            value={[
-              'POINT(30 10)',
-              'POINT(31 10)',
-            ]}
-          />
-          {/* <BarChartTime
-            data={{
-              series: [{
-                name: '',
-                data: [{}],
-              }],
-            }}
-          />
-          */}
         </div>
       );
     },

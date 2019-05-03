@@ -62,7 +62,7 @@ const operationURIToType = (uri) => {
  * @return {Promise<void>}
  */
 const createVisualizationConfigurationEntry = async (datasetEntry, distributionRURI, configuration) => {
-  const { chartType, xAxisField, yAxisField, operation } = configuration;
+  const { chartType, xAxisField, yAxisField, operation, name } = configuration;
   const context = datasetEntry.getContext();
   const newEntryPrototype = await createEntry(context, 'store:Visualization');
   const newEntryRURI = newEntryPrototype.getResourceURI();
@@ -71,7 +71,7 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
   // link visualization => distribution
   // metadata.add(newEntryRURI, 'rdf:type', 'schema:ImageObject');
   metadata.add(newEntryRURI, 'dcterms:source', distributionRURI);
-
+  metadata.addL(newEntryRURI, 'dcterms:title', name);
   const chartTypeURI = chartTypeToURI(chartType);
   metadata.add(newEntryRURI, 'store:style', chartTypeURI);
   metadata.addL(newEntryRURI, 'store:x', xAxisField);
@@ -86,7 +86,6 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
   newEntryPrototype.setMetadata(metadata);
   try {
     const vizEntry = await newEntryPrototype.commit();
-    console.log(vizEntry);
     // link dataset => visualization
     const md = datasetEntry.getMetadata();
     md.add(datasetEntry.getResourceURI(), 'schema:diagram', vizEntry.getResourceURI()); // todo
@@ -98,6 +97,7 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
 };
 
 const parseCSVFile = (uri) => {
+  console.log(uri);
   return new Promise((resolve) => {
     Papa.parse(uri, {
       download: true,

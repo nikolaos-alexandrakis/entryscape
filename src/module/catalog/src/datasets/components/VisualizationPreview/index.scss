@@ -1,0 +1,15 @@
+@import '~commons/theme.scss';
+.Chart{
+    height: 300px;
+    .no-data {
+        display: none;
+        background-color: $green;
+        color:white;
+        height: 300px;
+        font-size:18px;
+        padding:25px;
+    }
+    .chart-container{
+        height: 300px;
+    }
+}

@@ -21,7 +21,6 @@ export default (vnode) => {
       const { type } = vnode.attrs;
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
-
       return (
         <div class="graphType__card__wrapper">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -41,7 +40,7 @@ export default (vnode) => {
             </label>
             <label class="btn btn-secondary btn-raised graphCard">
               <input type="radio" name="graphType"
-                onchange={selectLine} checked="checked" data-blah="heya"
+                onchange={selectLine}
               ></input>
                  <span class="fas fa-chart-line"></span>
                  {escaVisualization.vizGraphLine}

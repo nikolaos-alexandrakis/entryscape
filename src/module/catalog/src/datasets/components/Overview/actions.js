@@ -456,6 +456,14 @@ export default (entry) => {
     });
   };
 
+  const removeVisualization = async (visualizationEntry) => {
+    const datasetRURI = entry.getResourceURI();
+    const vizRURI = visualizationEntry.getResourceURI();
+    entry.getMetadata().findAndRemove(datasetRURI, 'schema:diagram', vizRURI);
+    await entry.commitMetadata();
+    await visualizationEntry.del();
+  };
+
   /**
    * Navigate to the parent Catalog of this dataset
    *
@@ -493,6 +501,7 @@ export default (entry) => {
     openShowcases,
     openPreview,
     openCreateVisualization,
+    removeVisualization,
     clone,
     downgrade,
   };
