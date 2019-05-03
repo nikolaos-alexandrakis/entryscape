@@ -1,4 +1,6 @@
 import m from 'mithril';
+import { i18n } from 'esi18n';
+import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import './index.scss';
 
 export default (vnode) => {
@@ -17,6 +19,8 @@ export default (vnode) => {
   return {
     view(vnode) {
       const { type } = vnode.attrs;
+      const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
+
 
       return (
         <div class="graphType__card__wrapper">
@@ -26,22 +30,21 @@ export default (vnode) => {
                 onchange={selectMap}
               ></input>
               <span class="fas fa-map-marked"></span>
-               Map
+               {escaVisualization.vizGraphMap}
             </label>
             <label class="btn btn-secondary btn-raised graphCard">
               <input type="radio" name="graphType"
                 onchange={selectBar}
               ></input>
               <span class="fas fa-chart-bar"></span>
-                Bar Chart
+              {escaVisualization.vizGraphBar}
             </label>
             <label class="btn btn-secondary btn-raised graphCard">
               <input type="radio" name="graphType"
                 onchange={selectLine} checked="checked" data-blah="heya"
               ></input>
                  <span class="fas fa-chart-line"></span>
-
-                Line Chart
+                 {escaVisualization.vizGraphLine}
             </label>
           </div>
         </div>

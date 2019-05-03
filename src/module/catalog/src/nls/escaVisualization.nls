@@ -1,7 +1,22 @@
 {
   "root": {
     "vizDialogTitle": "Create dataset visualization",
-    "vizDialogFooter": "Save"
+    "vizDialogFooter": "Save",
+    "vizDialogDistributionTitle":"Distributions",
+    "vizDialogDistributionUse":"You are using this file:",
+    "vizDialogTypeTitle":"Type of visualization",
+    "vizDialogAxesTitle":"Axes to use",
+    "vizSandboxTitle":"Visualization Sandbox",
+    "vizSandboxDatasetTitle": "Datasets",
+    "vizSandboxTypeTitle":"Type of Visualization",
+    "vizSandboxAxesTitle":"Axes to use",
+    "vizSandboxHelpDataset":"Use the add <b>dataset + </b>button to have more than one dataset on your visualization.",
+    "vizSandboxHelpType":"Each card represents and different kind of <b>visualization</b>. Keep in mind not all data works great with all kinds!.",
+    "vizSandboxHelpAxes":"<b>Axes</b> will show the columns in your data. Some operations don't need both axes and if one axis is disabled that data may be unnecessary or not be correct.",
+    "vizGraphMap":"Map",
+    "vizGraphBar":"Bar Chart",
+    "vizGraphLine":"Line Chart"
+    
   },
   "sv": true,
   "da": true,
