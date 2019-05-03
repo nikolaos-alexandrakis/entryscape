@@ -4,11 +4,11 @@ import BarChart from 'catalog/visualization/components/BarChart';
 import './index.scss';
 
 const processSum = (dataset, xField, yField) => {
-  const sumFields = uniq(dataset.data.map(row => row[xField]));
-};
-const processCount = (dataset, xField, yField) => {
-  const fieldMap = new Map();
-  dataset.data.forEach(row => fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + 1));
+  const fields = uniq(dataset.data.map(row => row[xField]));
+  const fieldMap = new Map(fields.map(field => ([field, null])));
+
+  dataset.data.forEach(row =>
+    fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(fieldMap.get(row[yField]))));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
   return {
@@ -17,8 +17,20 @@ const processCount = (dataset, xField, yField) => {
   };
 };
 
-export default (vnode) => {
-  const processGeoData = (data, xField, yField, operation) => {
+const processCount = (dataset, xField, yField) => {
+  const fieldMap = new Map();
+  dataset.data.forEach(row =>
+    fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + 1));
+  const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
+
+  return {
+    xLabels: countedFields[0],
+    yData: countedFields[1],
+  };
+};
+
+export default () => {
+  const processGeoData = (data, xField, yField) => {
     const parsedGeoData = data ? data.data.map(row => row[xField] ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
 
     return parsedGeoData;
@@ -44,7 +56,7 @@ export default (vnode) => {
       .map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
 
     const [xLabels, yData] = transpose(
-      data.data.map(row => ([row[xField], row[yField]]))
+      data.data.map(row => ([row[xField], row[yField]])),
     );
 
     return {
