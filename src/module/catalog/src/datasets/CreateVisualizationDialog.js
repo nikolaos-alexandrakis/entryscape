@@ -217,7 +217,7 @@ const getControllerComponent = (datasetEntry, files) => {
           <VisualizationChart
             type={state.chartType}
             xAxisField={state.xAxisField}
-            yAxisField={state.xAxisField}
+            yAxisField={state.yAxisField}
             operation={state.operation}
             data={csvData}
           />
