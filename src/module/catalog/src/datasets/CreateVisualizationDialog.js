@@ -129,8 +129,8 @@ const getControllerComponent = (datasetEntry, files) => {
 
         if (latIdx && longIdx !== -1) {
           setState({
-            xAxisField: csvData.meta.fields[latIdx],
-            yAxisField: csvData.meta.fields[longIdx],
+            xAxisField: csvData.meta.fields[longIdx],
+            yAxisField: csvData.meta.fields[latIdx],
           });
         }
       }
