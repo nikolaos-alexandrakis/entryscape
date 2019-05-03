@@ -1,6 +1,6 @@
 import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUtil';
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
-import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
+import { createVisualizationConfigurationEntry, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import DistributionSelector from 'catalog/visualization/components/DistributionSelector';
@@ -12,15 +12,14 @@ import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 import m from 'mithril';
 import moment from 'moment';
-import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
 let csvDataDetectedTypes;
 const updateCSVData = (data) => {
   csvData = data;
-  m.redraw();
   detectTypes();
+  m.redraw();
 };
 
 const CSV_COLUMN_TYPE = {
@@ -30,7 +29,7 @@ const CSV_COLUMN_TYPE = {
   GEO_LAT: 'geo-latitude',
   GEO_LONG: 'geo-longitude',
   TEXT: 'text',
-  DISCRETE: 'discrete'
+  DISCRETE: 'discrete',
 };
 
 const CSV_ROWS_TO_SNIFF = 20;
@@ -77,7 +76,7 @@ const isPotentiallyDiscrete = (array, totalValues) => {
   const discreteValues = new Set(array).size;
   let threshold = DISCREET_THRESHOLD;
   if (totalValues < threshold) {
-    threshold = array.length - 1; // at least one value is repeated twice
+    threshold = totalValues - 1; // at least one value is repeated twice
   }
   return discreteValues > 0 && (discreteValues < threshold); // @todo very random: discrete value means no more than 20
 };
@@ -189,16 +188,6 @@ const getCSVFiles = async (datasetEntry) => {
   return csvFiles;
 };
 
-const parseCSVFile = (uri) => {
-  return new Promise((resolve, reject) => {
-    Papa.parse(uri, {
-      download: true,
-      header: true,
-      complete: resolve,
-    });
-  });
-};
-
 const state = {
   distributionFile: null,
   chartType: 'map',
@@ -210,27 +199,88 @@ const state = {
 const getControllerComponent = (datasetEntry, files) => {
   const setState = createSetState(state);
 
-  const findSensibleXndY = (type) => {
-    const selectedType = type || state.chartType;
-    if (selectedType === 'map') {
-      const latIdx = csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
-      let longIdx = -1;
-      if (latIdx !== -1) {
-        longIdx = csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
+  const getSensibleHeadersForChartType = (type) => {
+    if (csvData) {
+      const selectedType = type || state.chartType;
+      const headers = csvData.meta.fields;
 
-        if (latIdx && longIdx !== -1) {
+      return headers.filter((header, idx) => {
+        switch (selectedType) {
+          case 'map':
+            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.GEO_LAT ||
+              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.GEO_LONG) {
+              return true;
+            }
+            break;
+          case 'bar':
+            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DISCRETE ||
+              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER ||
+              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DATE) {
+              return true;
+            }
+            break;
+          case 'line':
+            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER ||
+              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DATE) {
+              return true;
+            }
+            break;
+          default:
+            break;
+        }
+        return false;
+      });
+    }
+
+    return [];
+  };
+
+  const setSensibleDefaults = (type) => {
+    const selectedType = type || state.chartType;
+    const sensibleHeaders = getSensibleHeadersForChartType();
+
+    switch (selectedType) {
+      case 'map':
+        const latIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
+        let longIdx = -1;
+        if (latIdx !== -1) {
+          longIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
+
+          if (latIdx && longIdx !== -1) {
+            setState({
+              xAxisField: sensibleHeaders[longIdx],
+              yAxisField: sensibleHeaders[latIdx],
+            });
+          }
+        }
+        break;
+      case 'bar':
+        // 1. time series
+        // 2. discrete value with operation
+        // 3.
+        const timeIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DATE);
+        const numberIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.NUMBER);
+        const discreteIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DISCRETE);
+        if (timeIdx > -1 && numberIdx > -1) {
           setState({
-            xAxisField: csvData.meta.fields[longIdx],
-            yAxisField: csvData.meta.fields[latIdx],
+            xAxisField: sensibleHeaders[timeIdx],
+            yAxisField: sensibleHeaders[numberIdx],
+          });
+        } else if (discreteIdx > -1 && numberIdx > -1) {
+          setState({
+            xAxisField: sensibleHeaders[discreteIdx],
+            yAxisField: sensibleHeaders[numberIdx],
+            operation: 'sum',
           });
         }
-      }
+
+        break;
     }
   };
 
   const onTypeChange = (type) => {
     setState({ chartType: type });
-    findSensibleXndY(type);
+    setSensibleDefaults(type);
   };
   const onAxisUpdate = fields => setState({
     xAxisField: fields.x,
@@ -248,7 +298,7 @@ const getControllerComponent = (datasetEntry, files) => {
 
       parseCSVFile(distributionFile.uri)
         .then(updateCSVData)
-        .then(findSensibleXndY); // should have a spinner loading
+        .then(setSensibleDefaults); // should have a spinner loading
     }
   };
 
@@ -259,7 +309,7 @@ const getControllerComponent = (datasetEntry, files) => {
 
       parseCSVFile(distributionFile.uri)
         .then(updateCSVData)
-        .then(findSensibleXndY); // should have a spinner loading
+        .then(setSensibleDefaults); // should have a spinner loading
 
       setState({
         distributionFile,
@@ -267,9 +317,12 @@ const getControllerComponent = (datasetEntry, files) => {
     },
     view() {
       const hasData = state.distributionFile && csvData;
+      let fields = [];
+      if (hasData) {
+        fields = getSensibleHeadersForChartType();
+      }
+
       return <section class="viz__editDialog">
-        <section class="viz__intro">
-        </section>
         <section class="useFile">
           <h4>Distribution</h4>
           <DistributionSelector
@@ -279,7 +332,6 @@ const getControllerComponent = (datasetEntry, files) => {
         </section>
         <section class="graphType__wrapper">
           <h4>Type of visualization</h4>
-          <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
           <TypeSelector
             type={state.chartType}
             onSelect={onTypeChange}
@@ -289,13 +341,11 @@ const getControllerComponent = (datasetEntry, files) => {
         <section class="axisOperation__wrapper">
           <div class="axisOptions">
             <h4>Axes to use</h4>
-            <p>Select which data you want to show on each axis.</p>
-            <p>On axis X you can select an operator to create more complicated visualizations.</p>
             <AxisSelector
               x={state.xAxisField}
               y={state.yAxisField}
               operation={state.operation}
-              data={csvData}
+              fields={fields}
               type={state.chartType}
               onSelect={onAxisUpdate}
             />

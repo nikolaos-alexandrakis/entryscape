@@ -88,27 +88,11 @@ export default () => {
     oncreate(vnode) {
       const { elementId } = vnode.attrs;
       const ctx = document.getElementById("CHART");
-      // const ctx = vnode.dom.getElementById(elementId);
 
       chart = new Chart(ctx, {
         type: 'bar',
         options: {
           maintainAspectRatio: false,
-          tooltips: {
-            callbacks: {
-              title(item) {
-                return item[0].label;
-              },
-            },
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                min: 0,
-                precision: 0,
-              },
-            }],
-          },
         },
       });
 
@@ -130,12 +114,11 @@ export default () => {
 
         // update chart data and xAxis if needed
         chart.data = {
-          labels: [],
+          labels: data[0].xLabels,
           datasets: data.map(dataset => ({
             labels: dataset.xLabels,
             data: dataset.yData,
           })),
-          // ...data,
         };
 
         // update chart colors and axes and re-render
