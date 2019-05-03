@@ -42,13 +42,12 @@ export default () => {
         {header}
         <div className="Chart">
           <div className="no-data">{escaVisualization.vizNoData}</div>
-          <VisualizationChart
+          {csvData ? <VisualizationChart
             type={chartType}
             xAxisField={xAxisField}
             yAxisField={yAxisField}
             operation={operation}
-            data={csvData}
-          />
+            data={csvData}/> : null}
         </div>
       </div>;
     },

@@ -86,7 +86,6 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
   newEntryPrototype.setMetadata(metadata);
   try {
     const vizEntry = await newEntryPrototype.commit();
-    console.log(vizEntry);
     // link dataset => visualization
     const md = datasetEntry.getMetadata();
     md.add(datasetEntry.getResourceURI(), 'schema:diagram', vizEntry.getResourceURI()); // todo
@@ -98,6 +97,7 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
 };
 
 const parseCSVFile = (uri) => {
+  console.log(uri);
   return new Promise((resolve) => {
     Papa.parse(uri, {
       download: true,
