@@ -8,9 +8,10 @@
         font-weight: bold;
     }
 
-    .viz__intro{
+    .viz__intro {
         margin-left: 10px;
     }
+
     .useFile__wrapper {
         .form-group {
             margin: 0;
@@ -26,7 +27,7 @@
 
     .graphType__card__wrapper {
         display: flex;
-        margin-top:20px;
+        margin-top: 20px;
     }
 
     .dropdown__wrapper {
@@ -40,15 +41,17 @@
         margin-top: 40px;
         margin-left: 10px;
     }
-   
+
 
     .axisOperation__wrapper {
         display: flex;
-        .form-group{
+
+        .form-group {
             padding: 0;
-            margin:0;
-            .form-control{
-                margin:10px;
+            margin: 0;
+
+            .form-control {
+                margin: 10px;
             }
         }
 
@@ -58,12 +61,17 @@
             .axisY__wrapper {
                 display: flex;
                 align-items: center;
-                .operations__wrapper{
+
+                .operations__wrapper {
                     margin-left: 20px;
                 }
             }
         }
     }
-
+    .vizPreview__wrapper{
+        .chart-container{
+            height: 500px;
+        }
+    }
 
 }
