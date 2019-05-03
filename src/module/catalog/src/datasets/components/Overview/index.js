@@ -22,6 +22,7 @@ import StatBoxInline from 'commons/overview/components/StatBoxInline';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import VisualizationPreview from 'catalog/datasets/components/VisualizationPreview';
+import VisualizationPreviewActions from 'catalog/datasets/components/VisualizationPreviewActions';
 import { isDatasetPSI } from '../../utils/distributionUtil';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
@@ -297,7 +298,7 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
-            {visualizationEntryConfigurations.map(configurationEntry => <VisualizationPreview configurationEntry={configurationEntry} header={actions.openCreateVisualization} />)}
+            {visualizationEntryConfigurations.map(configurationEntry => <VisualizationPreview configurationEntry={configurationEntry} header={<VisualizationPreviewActions onclick={actions.openCreateVisualization}/>} />)}
           </div>
         </main>
       );
