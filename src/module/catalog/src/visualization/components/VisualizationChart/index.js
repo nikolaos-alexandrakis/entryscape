@@ -8,7 +8,7 @@ const processSum = (dataset, xField, yField) => {
   const fieldMap = new Map(fields.map(field => ([field, null])));
 
   dataset.data.forEach(row =>
-    fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(fieldMap.get(row[yField]))));
+    fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(row[yField])));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
   return {
@@ -39,7 +39,7 @@ export default () => {
   const processXYData = (datasets, xField, yField, operation) => {
     if (operation === 'sum') {
       // Needs to support multiple datasets
-      processSum(datasets, xField, yField);
+      return [processSum(datasets, xField, yField)];
     }
     if (operation === 'count') {
       // Needs to support multiple datasets
