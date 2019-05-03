@@ -50,7 +50,9 @@
             color:red;
         }
         .Chart{
-            min-height: 200px;
+            .chart-container{
+                height: 300px;
+            }
         }
     }
 

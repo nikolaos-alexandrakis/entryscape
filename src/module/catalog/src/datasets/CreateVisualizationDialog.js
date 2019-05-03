@@ -312,8 +312,6 @@ const getControllerComponent = (datasetEntry, files) => {
       }
 
       return <section class="viz__editDialog">
-        <section class="viz__intro">
-        </section>
         <section class="useFile">
           <h4>Distribution</h4>
           <DistributionSelector
@@ -323,7 +321,6 @@ const getControllerComponent = (datasetEntry, files) => {
         </section>
         <section class="graphType__wrapper">
           <h4>Type of visualization</h4>
-          <p> Choose a type of visualization.Consider that not all data work fine with all representations</p>
           <TypeSelector
             type={state.chartType}
             onSelect={onTypeChange}
@@ -333,8 +330,6 @@ const getControllerComponent = (datasetEntry, files) => {
         <section class="axisOperation__wrapper">
           <div class="axisOptions">
             <h4>Axes to use</h4>
-            <p>Select which data you want to show on each axis.</p>
-            <p>On axis X you can select an operator to create more complicated visualizations.</p>
             <AxisSelector
               x={state.xAxisField}
               y={state.yAxisField}
