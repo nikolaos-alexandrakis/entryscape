@@ -1,7 +1,6 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import Chart from 'chart.js';
 import { i18n } from 'esi18n';
-import moment from 'moment';
 import './index.scss';
 
 /**
@@ -51,64 +50,50 @@ const COLOR_OPTIONS = [
   },
 ];
 
-export default () => {
-  const state = {
-    type: null,
-  };
-  let chart;
-
-  const updateXAxis = (vnode) => {
-    const { data } = vnode.attrs;
-    if (data && data.datasets && data.datasets.length > 0) {
-      const numberOfDataPoints = data.datasets[0].data.length;
-      const type = guessAxisFormatFromData(numberOfDataPoints);
-      if (state.type !== type) {
-        state.type = type;
-
-        let titleCallback;
-        switch (type) {
-          case 'hour':
-            titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
-            break;
-          case 'day':
-            titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
-            break;
-          case 'month':
-            titleCallback = items => moment(items[0].label).format('MMMM YYYY');
-            break;
-          default:
-        }
-        chart.options.tooltips.callbacks.title = titleCallback;
+const getNewChart = (ctx, type) => {
+  return new Chart(ctx, {
+    type,
+    options: {
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+            }
+          }]
+        },
       }
-    }
-  };
+    },
+  });
+};
+
+export default () => {
+  let chart;
 
   return {
     oninit() {
-      this.elementId = `CHART${parseInt(Math.random()*10000, 10)}`;
+      this.elementId = `CHART${parseInt(Math.random() * 10000, 10)}`;
     },
-    oncreate() {
-      const ctx = document.getElementById(this.elementId);
-
-      chart = new Chart(ctx, {
-        type: 'bar',
-        options: {
-          maintainAspectRatio: false,
-        },
-      });
-
-      // updateXAxis(vnode);
+    oncreate(vnode) {
+      const { type = 'bar' } = vnode.attrs;
+      chart = getNewChart(document.getElementById(this.elementId), type);
     },
-
-    // onbeforeupdate: updateXAxis,
-
+    onupdate(vnode) {
+      const { type = 'bar' } = vnode.attrs;
+      console.log(type, chart.config.type);
+      if (chart && type !== chart.config.type) {
+        chart.destroy();
+        chart = getNewChart(document.getElementById(this.elementId), type);
+      }
+    },
     view(vnode) {
       const { data, chartDimensions = {} } = vnode.attrs;
       const { width = 400, height = 400 } = chartDimensions;
 
       let noData = true;
-      if (chart && data
-      ) { // @todo refactor
+      if (chart && data) {
         noData = false;
         // update chart data and xAxis if needed
         chart.data = {

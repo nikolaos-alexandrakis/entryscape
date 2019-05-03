@@ -80,6 +80,7 @@ export default () => {
         processedData = processGeoData(data, xAxisField, yAxisField, operation);
         break;
       case 'bar':
+      case 'line':
         processedData = processXYData(data, xAxisField, yAxisField, operation);
         break;
       default:
@@ -95,6 +96,13 @@ export default () => {
       bar: (
         <BarChart
           data={processedData}
+          type="bar"
+        />
+      ),
+      line: (
+        <BarChart
+          data={processedData}
+          type="line"
         />
       ),
     }));

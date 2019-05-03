@@ -255,6 +255,7 @@ const getControllerComponent = (datasetEntry, files) => {
         }
         break;
       case 'bar':
+      case 'line':
         // 1. time series
         // 2. discrete value with operation
         // 3.
