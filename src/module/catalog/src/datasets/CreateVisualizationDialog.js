@@ -1,6 +1,6 @@
 import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUtil';
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
-import { createVisualizationConfigurationEntry } from 'catalog/datasets/utils/visualizationUtil';
+import { createVisualizationConfigurationEntry, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import DistributionSelector from 'catalog/visualization/components/DistributionSelector';
@@ -12,7 +12,6 @@ import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 import m from 'mithril';
 import moment from 'moment';
-import Papa from 'papaparse';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
@@ -189,16 +188,6 @@ const getCSVFiles = async (datasetEntry) => {
   return csvFiles;
 };
 
-const parseCSVFile = (uri) => {
-  return new Promise((resolve) => {
-    Papa.parse(uri, {
-      download: true,
-      header: true,
-      complete: resolve,
-    });
-  });
-};
-
 const state = {
   distributionFile: null,
   chartType: 'map',
@@ -230,6 +219,12 @@ const getControllerComponent = (datasetEntry, files) => {
               return true;
             }
             break;
+          case 'line':
+            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER ||
+              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DATE) {
+              return true;
+            }
+            break;
           default:
             break;
         }
@@ -242,18 +237,19 @@ const getControllerComponent = (datasetEntry, files) => {
 
   const setSensibleDefaults = (type) => {
     const selectedType = type || state.chartType;
+    const sensibleHeaders = getSensibleHeadersForChartType();
 
     switch (selectedType) {
       case 'map':
-        const latIdx = csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
+        const latIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
         let longIdx = -1;
         if (latIdx !== -1) {
-          longIdx = csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
+          longIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
 
           if (latIdx && longIdx !== -1) {
             setState({
-              xAxisField: csvData.meta.fields[longIdx],
-              yAxisField: csvData.meta.fields[latIdx],
+              xAxisField: sensibleHeaders[longIdx],
+              yAxisField: sensibleHeaders[latIdx],
             });
           }
         }
@@ -262,7 +258,22 @@ const getControllerComponent = (datasetEntry, files) => {
         // 1. time series
         // 2. discrete value with operation
         // 3.
-        csvDataDetectedTypes.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
+        const timeIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DATE);
+        const numberIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.NUMBER);
+        const discreteIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DISCRETE);
+        if (timeIdx > -1 && numberIdx > -1) {
+          setState({
+            xAxisField: sensibleHeaders[timeIdx],
+            yAxisField: sensibleHeaders[numberIdx],
+          });
+        } else if (discreteIdx > -1 && numberIdx > -1) {
+          setState({
+            xAxisField: sensibleHeaders[discreteIdx],
+            yAxisField: sensibleHeaders[numberIdx],
+            operation: 'sum',
+          });
+        }
+
         break;
     }
   };

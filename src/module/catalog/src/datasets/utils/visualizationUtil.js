@@ -1,4 +1,6 @@
 import { createEntry } from 'commons/util/storeUtil';
+import Papa from 'papaparse';
+import { namespaces as ns } from 'rdfjson';
 
 const chartTypeToURI = (type) => {
   switch (type) {
@@ -15,6 +17,21 @@ const chartTypeToURI = (type) => {
   }
 };
 
+const chartURIToType = (uri) => {
+  switch (uri) {
+    case ns.expand('store:MapChart'):
+      return 'map';
+    case ns.expand('store:BarChart'):
+      return 'bar';
+    case ns.expand('store:LineChart'):
+      return 'line';
+    case ns.expand('store:ScatterChart'):
+      return 'scatter';
+    default:
+      return 'bar';
+  }
+};
+
 const operationTypeToURI = (type) => {
   switch (type) {
     case 'sum':
@@ -23,6 +40,17 @@ const operationTypeToURI = (type) => {
       return 'store:OperationCount';
     default:
       return 'store:OperationSum';
+  }
+};
+
+const operationURIToType = (uri) => {
+  switch (uri) {
+    case ns.expand('store:OperationSum'):
+      return 'sum';
+    case ns.expand('store:OperationCount'):
+      return 'count';
+    default:
+      return 'sum';
   }
 };
 
@@ -69,6 +97,20 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
   }
 };
 
+const parseCSVFile = (uri) => {
+  return new Promise((resolve) => {
+    Papa.parse(uri, {
+      download: true,
+      header: true,
+      complete: resolve,
+    });
+  });
+};
+
 export {
   createVisualizationConfigurationEntry,
+  chartTypeToURI,
+  chartURIToType,
+  operationURIToType,
+  parseCSVFile,
 };

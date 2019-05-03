@@ -7,7 +7,6 @@ import dateUtil from 'commons/util/dateUtil';
 import comments from 'commons/comments/comments';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import escoListNLS from 'commons/nls/escoList.nls';
 import {
   getTitle,
@@ -22,7 +21,7 @@ import {
 import StatBoxInline from 'commons/overview/components/StatBoxInline';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
-import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import VisualizationPreview from 'catalog/datasets/components/VisualizationPreview';
 import { isDatasetPSI } from '../../utils/distributionUtil';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
@@ -145,6 +144,20 @@ export default (vnode) => {
       });
   };
 
+  let visualizationEntryConfigurations = [];
+  const getVisualizations = async () => {
+    const metadata = entry.getMetadata();
+    const stmts = metadata.find(entry.getResourceURI(), 'schema:diagram');
+
+    const loadEntriesPromises = [];
+    stmts.forEach((stmt) => {
+      const entryURI = stmt.getValue();
+      loadEntriesPromises.push(registry.getEntryStoreUtil().getEntryByResourceURI(entryURI));
+    });
+
+    visualizationEntryConfigurations = await Promise.all(loadEntriesPromises);
+  };
+
   return {
     oninit() {
       // Cache the entry context
@@ -154,11 +167,11 @@ export default (vnode) => {
       refreshComments();
       setIdeas();
       setShowcases();
+      getVisualizations();
     },
     view: () => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
-      const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
       const escoList = i18n.getLocalization(escoListNLS);
 
       const title = getTitle(entry);
@@ -284,26 +297,7 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
-            <div class="chart--wrapper">
-              <div class="chart__actions">
-                <h5>Name of visualization</h5>
-                <div>
-                  <button class="btn btn-secondary fas fa-edit" onclick={actions.openCreateVisualization}></button>
-                  <button class="btn btn-secondary fas fa-times"></button>
-                </div>
-
-              </div>
-              <div class="Chart">
-                <div class="no-data">{escaVisualization.vizNoData}</div>
-                <VisualizationChart
-                  type={state.chartType}
-                  xAxisField={state.xAxisField}
-                  yAxisField={state.xAxisField}
-                  operation={state.operation}
-                  data={null}
-                /></div>
-            </div>
-
+            {visualizationEntryConfigurations.map(configurationEntry => <VisualizationPreview configurationEntry={configurationEntry} header={actions.openCreateVisualization} />)}
           </div>
         </main>
       );
