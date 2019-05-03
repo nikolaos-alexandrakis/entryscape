@@ -1,8 +1,10 @@
+import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import { chartURIToType, operationURIToType, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
-import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
-import { i18n } from "esi18n";
-import m from 'mithril';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
+import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import { i18n } from 'esi18n';
+import registry from 'commons/registry';
+import m from 'mithril';
 
 import './index.scss';
 
@@ -13,6 +15,7 @@ export default () => {
     m.redraw();
   };
 
+  const getDefaultCSVFileEntry = fileEntries => fileEntries[0].getResourceURI();
 
   return {
     oninit(vnode) {
@@ -21,8 +24,15 @@ export default () => {
       const md = configurationEntry.getMetadata();
 
       const distributionRURI = md.findFirstValue(ruri, 'dcterms:source');
-
-      parseCSVFile(distributionRURI).then(updateCSVData);
+      registry.getEntryStoreUtil()
+        .getEntryByResourceURI(distributionRURI)
+        .then(getDistributionFileEntries)
+        .then(getDefaultCSVFileEntry)
+        .then(parseCSVFile)
+        .then(updateCSVData)
+        .catch((err) => {
+          console.log('could not get CSV file');
+        });
     },
     view(vnode) {
       const { configurationEntry, header } = vnode.attrs;
@@ -33,11 +43,12 @@ export default () => {
       const chartType = chartURIToType(chartTypeURI);
       const xAxisField = md.findFirstValue(ruri, 'store:x');
       const yAxisField = md.findFirstValue(ruri, 'store:y');
-      const oeprationURI = md.findFirstValue(ruri, 'store:operation');
-      const operation = operationURIToType(oeprationURI);
+      const operationURI = md.findFirstValue(ruri, 'store:operation');
+      const operation = operationURIToType(operationURI);
 
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
+      console.log(csvData);
       return <div className="chart--wrapper">
         {header}
         <div className="Chart">
