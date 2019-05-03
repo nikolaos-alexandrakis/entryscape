@@ -113,7 +113,7 @@ window.__entryscape_config = {
     {
       block: 'visualizationList',
       extends: 'list',
-      relation: 'dcat:distribution',
+      relation: 'schema:diagram',
       listbody: '<div class="formats">{{body}}</div>',
       listplaceholder: '<div class="alert alert-info" role="alert">Denna datamängd har inga visualiseringar.</div>',
       listhead: '<h4>Visualiseringar</h4>',
