@@ -39,7 +39,7 @@
     "mithril": "^1.1.6",
     "moment": "^2.22.2",
     "popper.js": "^1.12.9",
-    "pubsub-js": "https://bitbucket.org/metasolutions/pubsubjs.git",
+    "pubsub-js": "^1.7.0",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#develop",
     "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#develop",
     "selectize": "^0.12.6",
