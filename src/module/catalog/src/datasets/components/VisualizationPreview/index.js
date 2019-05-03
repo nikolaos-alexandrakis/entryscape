@@ -1,6 +1,8 @@
 import { chartURIToType, operationURIToType, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
+import { i18n } from "esi18n";
 import m from 'mithril';
+import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 
 import './index.scss';
 
@@ -34,9 +36,12 @@ export default () => {
       const oeprationURI = md.findFirstValue(ruri, 'store:operation');
       const operation = operationURIToType(oeprationURI);
 
+      const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
+
       return <div className="chart--wrapper">
         {header}
         <div className="Chart">
+          <div className="no-data">{escaVisualization.vizNoData}</div>
           <VisualizationChart
             type={chartType}
             xAxisField={xAxisField}
