@@ -51,6 +51,7 @@ const COLOR_OPTIONS = [
   },
 ];
 
+let canvasContext;
 export default () => {
   const state = {
     type: null,
@@ -84,13 +85,9 @@ export default () => {
   };
 
   return {
-    setCanvasRef(element) {
-      this.ctx = element;
-    },
     oncreate(vnode) {
       const { elementId } = vnode.attrs;
-      // const ctx = document.getElementById("CHART");
-      const ctx = this.ctx;
+      const ctx = document.getElementById("CHART");
       // const ctx = vnode.dom.getElementById(elementId);
 
       chart = new Chart(ctx, {
@@ -164,7 +161,7 @@ export default () => {
           <canvas
             className={` ${noData ? '' : ''}`}
             id="CHART"
-            config={setCanvasRef}
+            config={this.setCanvasRef}
             width={width}
             height={height}
             aria-label="Visualization chart" role="img"
