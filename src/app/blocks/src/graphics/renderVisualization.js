@@ -4,7 +4,7 @@ import VisualizationPreview from 'catalog/datasets/components/VisualizationPrevi
 
 export default (node, data) => {
   getEntry(data, (entry) => {
-    m.render(node, m(VisualizationPreview, { configurationEntry: entry }));
+    m.mount(node, { view: () => m(VisualizationPreview, { configurationEntry: entry }) });
 //  node.innerHTML = entry.getId();
   });
 };
