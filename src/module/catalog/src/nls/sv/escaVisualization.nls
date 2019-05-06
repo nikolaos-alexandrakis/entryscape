@@ -17,5 +17,6 @@
   "vizGraphBar": "Stapeldiagram",
   "vizGraphLine": "Linjediagram",
   "vizNoData": "Visualiseringen kunde inte skapas på grund av ett fel",
+  "vizNotReady": "Här syns en visualisering när parametrar för minst en datamängd angetts",
   "createViz": "Skapa visualisering"
 }
