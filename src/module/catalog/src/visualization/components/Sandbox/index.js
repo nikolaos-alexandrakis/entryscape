@@ -154,11 +154,13 @@ export default () => {
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
       const data = state.datasets.map(dataset => {
+        const datasetEntry = dataset.datasetEntry;
         return {
           xField: dataset.xAxisField,
           yField: dataset.yAxisField,
           operation: dataset.operation,
           csv: csvData.get(dataset.csvURI),
+          label: datasetEntry ? `${getEntryRenderName(datasetEntry)} - ${dataset.xAxisField}` : '',
         };
       });
       console.log(data);
