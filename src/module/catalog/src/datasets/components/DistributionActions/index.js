@@ -88,7 +88,7 @@ export default (initialVnode) => {
             <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
           <button
-            className="btn--distribution fas fa-fw fa-exchange"
+            className="btn--distribution fas fa-fw fa-exchange-alt"
             title={escaDataset.replaceFileTitle}
             onclick={openReplaceFile}
           >

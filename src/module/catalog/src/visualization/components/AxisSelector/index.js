@@ -46,8 +46,8 @@ export default (initialVnode) => {
                     onchange={updateOperation}
                   >
                     <option value="none">none</option>
-                    <option value="sum">SUM</option>
                     <option value="count">COUNT</option>
+                    <option value="sum">SUM</option>
                   </select>
                 </div>
             )}

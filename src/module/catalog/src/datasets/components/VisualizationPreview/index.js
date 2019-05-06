@@ -39,6 +39,7 @@ export default () => {
       const ruri = configurationEntry.getResourceURI();
       const md = configurationEntry.getMetadata();
 
+      const name = md.findFirstValue(ruri, 'dcterms:style');
       const chartTypeURI = md.findFirstValue(ruri, 'store:style');
       const chartType = chartURIToType(chartTypeURI);
       const xAxisField = md.findFirstValue(ruri, 'store:x');

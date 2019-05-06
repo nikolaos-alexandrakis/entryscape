@@ -50,13 +50,13 @@ const COLOR_OPTIONS = [
   },
 ];
 
-const getNewChart = (ctx, type) => {
+const getNewChart = (ctx, type, displayLegend) => {
   return new Chart(ctx, {
     type,
     options: {
       maintainAspectRatio: false,
       legend: {
-        display: true,
+        display: displayLegend,
       },
       scales: {
         yAxes: [{
@@ -77,8 +77,8 @@ export default () => {
       this.elementId = `CHART${parseInt(Math.random() * 10000, 10)}`;
     },
     oncreate(vnode) {
-      const { type = 'bar' } = vnode.attrs;
-      chart = getNewChart(document.getElementById(this.elementId), type);
+      const { type = 'bar', displayLegend = true } = vnode.attrs;
+      chart = getNewChart(document.getElementById(this.elementId), type, displayLegend);
       m.redraw();
     },
     onupdate(vnode) {
