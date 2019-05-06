@@ -77,8 +77,8 @@ export default () => {
                 </div>
                  
                   <div class="dataset__metadata">
-                    <label>is using distribution:<span>*Name of distribution*</span></label> 
-                    <label>is using file:<span>*Name of file*</span></label> 
+                    <label>{escaVisualization.vizSandboxDatasetDistribution}:<span>*Name of distribution*</span></label> 
+                    <label>{escaVisualization.vizSandboxDatasetFile}:<span>*Name of file*</span></label> 
                   </div>
                 </div>
 
