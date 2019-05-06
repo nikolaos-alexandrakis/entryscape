@@ -24,6 +24,7 @@ import renderChart from 'blocks/graphics/renderChart';
 import renderGraph from 'blocks/graphics/renderGraph';
 import renderVisualization from 'blocks/graphics/renderVisualization';
 import renderTable from 'blocks/graphics/renderTable';
+import renderSandbox from 'blocks/graphics/renderSandbox';
 import preload from './preload';
 import error from './error';
 import renderFilter from '../search/renderFilter';
@@ -56,6 +57,7 @@ const block2function = {
   graph: renderGraph,
   visualization: renderVisualization,
   table: renderTable,
+  sandbox: renderSandbox,
   config: preload,
   click: renderClick,
   event: renderEvent,

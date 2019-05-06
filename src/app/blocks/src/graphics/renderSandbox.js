@@ -5,7 +5,7 @@ import config from 'blocks/config/config';
 
 export default (node, data) => {
   params.onInit((urlParams) => {
-    const context = data.context || urlParams.context || config.econfig.context;
+    const context = `${data.context || urlParams.context || config.econfig.context}`;
     m.mount(node, { view: () => m(Sandbox, context ? { context } : {}) });
   });
 };
