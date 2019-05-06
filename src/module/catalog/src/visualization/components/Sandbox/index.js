@@ -202,7 +202,7 @@ export default () => {
                         {datasetEntries.map(dataset => <option
                           value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
                       </select>
-                      <button className="btn btn-secondary" onclick={onremoveEntry.bind(null, idx)}><i class="fas fa-times"></i><</button>
+                      <button className="btn btn-secondary" onclick={onremoveEntry.bind(null, idx)}><i class="fas fa-times" /></button>
                     </div>
                     <div class="dataset__metadata">
                       <a href={datasetSelect.csvURI}
