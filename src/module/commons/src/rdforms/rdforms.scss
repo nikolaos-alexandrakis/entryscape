@@ -1,4 +1,7 @@
+@import '~commons/theme.scss';
+
 /* -- RDForms -- */
+
 .rdformsPresenter.compact .rdformsField {
     margin-left: 0px;
     padding-left: 0px;
@@ -202,4 +205,11 @@
 
 .escoSkosChooser__viewer .escoSkosChooser__treeView {
     margin-top: 20px;
+}
+
+/* Check for duplicate elsewhere */
+
+.selectize-control.single .selectize-input:after, .selectize-control.multi .selectize-input:after, .selectize-control.single .selectize-input.input-active:after, .selectize-control.multi .selectize-input.input-active:after{
+    font-weight: 900 !important;
+    font-family: 'Font Awesome\ 5 Free';
 }
