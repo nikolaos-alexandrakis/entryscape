@@ -66,12 +66,24 @@ const Map = () => {
     return map;
   };
 
-  const addMarkerToMap = (map, latLng) => {
-    const markerIcon = leaflet.icon({
+  const addMarkerToMap = (map, latLng, layer) => {
+    const greenIcon = leaflet.icon({
       iconUrl: `${assetsPath}components/spatial/markerGreen.svg`,
       iconAnchor: [12, 25],
     });
+    const blueIcon = leaflet.icon({
+      iconUrl: `${assetsPath}components/spatial/markerBlue.svg`,
+      iconAnchor: [12, 25],
+    });
 
+    let markerIcon;
+
+    if(layer === 0) {
+      markerIcon = greenIcon;
+    }
+    else {
+      markerIcon = greenIcon;
+    }
     const geoLocationMarker = leaflet.marker(latLng, {
       icon: markerIcon,
     });
@@ -90,7 +102,7 @@ const Map = () => {
     unfocusInputs();
   };
 
-  const populateMapWithValue = (map, value) => {
+  const populateMapWithValue = (map, value, layer) => {
     const wkt = utils.fromWKT(value);
 
     if (wkt !== undefined) {
@@ -101,7 +113,7 @@ const Map = () => {
         geoLocationPolygon.addTo(map);
         map.fitBounds(geoLocationPolygon.getBounds());
       } else if (wkt.type === 'point') {
-        addMarkerToMap(map, wkt);
+        addMarkerToMap(map, wkt, layer);
       }
     }
   };
@@ -138,7 +150,7 @@ const Map = () => {
         if (value) {
           if (Array.isArray(value)) {
             if (Array.isArray(value[0])) {
-              value.forEach(datasetValues => datasetValues.forEach(coord => populateMapWithValue(map, coord)));
+              value.forEach((datasetValues, i) => datasetValues.forEach(coord => populateMapWithValue(map, coord, i)));
             } else {
               value.forEach(coord => populateMapWithValue(map, coord));
             }
