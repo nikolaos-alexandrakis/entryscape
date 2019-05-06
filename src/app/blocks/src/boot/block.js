@@ -22,11 +22,13 @@ import renderSlider from 'blocks/image/renderSlider';
 import renderMap from 'blocks/graphics/renderMap';
 import renderChart from 'blocks/graphics/renderChart';
 import renderGraph from 'blocks/graphics/renderGraph';
-import renderVisualization from "blocks/graphics/renderVisualization";
+import renderVisualization from 'blocks/graphics/renderVisualization';
+import renderTable from 'blocks/graphics/renderTable';
 import preload from './preload';
 import error from './error';
 import renderFilter from '../search/renderFilter';
 import renderClick from '../event/renderClick';
+import renderEvent from '../event/renderEvent';
 
 const Block = {};
 
@@ -53,8 +55,10 @@ const block2function = {
   chart: renderChart,
   graph: renderGraph,
   visualization: renderVisualization,
+  table: renderTable,
   config: preload,
   click: renderClick,
+  event: renderEvent,
   viewMetadata: renderEntryMetadata, // deprecated, use view
   search: renderSearchList, // deprecated, use searchList
   preload, // deprecated, use config

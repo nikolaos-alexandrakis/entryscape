@@ -17,6 +17,8 @@ import 'commons/query/typeahead.css';
 import 'selectize/dist/css/selectize.bootstrap3.css';
 import 'chartist/dist/chartist.min.css';
 import 'blocks/style.css';
+import 'bootstrap-table';
+import 'bootstrap-table/dist/bootstrap-table.min.css';
 
 import initDefaults from './defaults';
 

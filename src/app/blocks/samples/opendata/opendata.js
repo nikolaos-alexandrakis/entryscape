@@ -108,7 +108,8 @@ window.__entryscape_config = {
         '<span class="label formatLabel label-success md5_{{prop "dcterms:format" render="md5"}}" ' +
         'title="{{prop "dcterms:format"}}">{{prop "dcterms:format" render="label"}}</span>' +
         '<span class="resourceLabel">{{text fallback="<span class=\\\'distributionNoName\\\'>Ingen titel' +
-        ' given</span>"}}</span></div>',
+        ' given</span>"}}</span></div>' +
+        '{{#ifprop "dcterms:format" literal="text/csv"}}{{event signal="format"}}{{/ifprop}}',
     },
     {
       block: 'visualizationList',
@@ -131,7 +132,8 @@ window.__entryscape_config = {
         '{{#visualizationList}}{{/visualizationList}}' +
         '<h4>Ytterligare information</h4>\n' +
         '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
-        'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n',
+        'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n' +
+        '{{#table on="format" label="<h4>Tabellvisning av rådata</h4>" prop="dcat:downloadURL"}}{{/table}}',
     },
     {
       block: 'datasetViewAll',

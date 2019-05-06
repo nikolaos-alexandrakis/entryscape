@@ -76,6 +76,15 @@ body .lightbox {
     height: 34px;
 }
 
+.entryscape .entryList .entryName .leaflet-control-container a {
+    margin: 0px;
+    padding: 0px;
+}
+
+.entryscape .entryList .entryName a {
+    margin-left: 0px;
+}
+
 /*--- Chartist make long names on x-axis break rather than overwrite each other --- */
 
 .ct-chart-bar .ct-label.ct-horizontal.ct-end {
