@@ -115,7 +115,7 @@
     "build:suite:nls": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite --nls-warnings=true",
     "build:registry": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry",
     "build:registry:nls": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry --nls-warnings=true",
-    "build:blocks": "webpack --config webpack.config.js --mode=production --display=errors-only --app=blocks",
+    "build:blocks": "webpack --config webpack.config.js --mode=development --display=errors-only --app=blocks",
     "dev:suite": "webpack-dev-server --watch --mode=development --config webpack.config.js --app=suite",
     "dev:registry": "webpack-dev-server --mode=development --config webpack.config.js --app=registry",
     "dev:blocks": "webpack-dev-server --mode=development --config webpack.config.js --app=blocks",

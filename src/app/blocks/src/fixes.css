@@ -60,6 +60,22 @@ body .lightbox {
     border-width: 0px;
 }
 
+.entryscape .panel-heading {
+    border-bottom-width: 0px;
+}
+
+.entryscape .entryName .label {
+    line-height: 2em;
+}
+
+.entryscape .escoList__headerContainer {
+    padding-left: 0px;
+}
+
+.entryscape .escoList__headerContainer .searchBlockInner input {
+    height: 34px;
+}
+
 /*--- Chartist make long names on x-axis break rather than overwrite each other --- */
 
 .ct-chart-bar .ct-label.ct-horizontal.ct-end {

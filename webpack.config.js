@@ -14,6 +14,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 let VERSION = require('./package.json').version;
 VERSION = VERSION.endsWith('-SNAPSHOT') ? 'latest' : VERSION;
 
+const STATIC_URL_BLOCKS = `https://static.entryscape.com`;
 const STATIC_URL = `https://static.${VERSION !== 'latest' ? 'cdn.' : ''}entryscape.com`;
 
 const getAlias = (name, type = 'module', noSource = false) =>
@@ -39,7 +40,6 @@ module.exports = (env, argv) => {
     entry: 'src/index.js',
     output: {
       path: path.join(__dirname, 'src', 'app', APP, 'dist'),
-      // publicPath: (argv && argv.localbuild ? '/dist/' : PUBLIC_PATH), // @todo  we set this on the fly. Perhaps we will never use this. See src/app/suite/publicPath.js
       filename: 'app.js',
       chunkFilename: '[name].js',
       library: APP,
@@ -209,6 +209,10 @@ module.exports = (env, argv) => {
     },
   };
 
+  if (APP === 'BLOCKS') {
+    config.output.publicPath = (argv && argv.localbuild ? '/dist/' : `${STATIC_URL_BLOCKS}${PUBLIC_PATH}`); // @todo invent a better option that allows runtime detection from the app.js
+  }
+
   if (argv && argv.mode) {
     if (argv.mode === 'development') {
       config = merge(config, {
@@ -243,29 +247,29 @@ module.exports = (env, argv) => {
         ],
       });
 
-      if (APP !== 'blocks') {
-        config.plugins.push(
-          new HtmlWebpackPlugin({
-            template: path.join(
-              getAlias(APP, 'app', true), 'index.dev.html'),
-          })
-        );
-      }
     } else if (argv.mode === 'production') {
-      config = merge(config, {
-        optimization: {
-          minimizer: [new UglifyJsPlugin()],
-        },
-        plugins: [
-          new HtmlWebpackPlugin({  // Also generate a test.html
-            filename: 'index.html',
-            template: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.hbs')),
-            inject: false,
-            identifier: VERSION,
-            source: `${STATIC_URL}${PUBLIC_PATH}index.html`, // @todo @valentino
-          }),
-        ]
-      });
+      if (APP !== 'blocks') {
+        config = merge(config, {
+          optimization: {
+            minimizer: [new UglifyJsPlugin()],
+          },
+          plugins: [
+            new HtmlWebpackPlugin({  // Also generate a test.html
+              filename: 'index.html',
+              template: path.resolve(path.join(__dirname, 'src', 'app', APP, 'index.hbs')),
+              inject: false,
+              identifier: VERSION,
+              source: `${STATIC_URL}${PUBLIC_PATH}index.html`, // @todo @valentino
+            }),
+          ]
+        });
+      } else {
+        config = merge(config, {
+          optimization: {
+            minimizer: [new UglifyJsPlugin()],
+          }
+        });
+      }
     }
   }
 
