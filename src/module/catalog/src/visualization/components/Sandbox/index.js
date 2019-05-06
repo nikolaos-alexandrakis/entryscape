@@ -37,7 +37,7 @@ const loadDatasetsAndDistributions = async (context) => {
   const query =  es.newSolrQuery()
     .rdfType('dcat:Distribution')
     .literalProperty('dcterms:format', 'text/csv');
-    
+
   if (context) {
     query.context(context);
   }
@@ -228,7 +228,7 @@ export default () => {
               <div>
                 {data.every(dataset => dataset.xField) ? <VisualizationChart
                   type={state.chartType}
-                  data={data}/> : <div className="no-data">{escaVisualization.vizNoData}</div>
+                  data={data}/> : <div className="no-data">{escaVisualization.vizNotReady}</div>
                 }
               </div>
             </section>
