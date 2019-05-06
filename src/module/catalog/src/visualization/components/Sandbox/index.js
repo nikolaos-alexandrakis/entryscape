@@ -69,10 +69,17 @@ export default () => {
                     class="fa fa-plus"></span></button>
                 </header>
                 <div class="datasetSelector">
-                  <select class="form-control" onchange={updateEntry}>
+                <div>
+                <select class="form-control" onchange={updateEntry}>
                     {datasetEntries.map(dataset => <option value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
                   </select>
                   <button class="btn btn-secondary fas fa-times"></button>
+                </div>
+                 
+                  <div class="dataset__metadata">
+                    <label>is using distribution:<span>*Name of distribution*</span></label> 
+                    <label>is using file:<span>*Name of file*</span></label> 
+                  </div>
                 </div>
 
               </section>
@@ -91,9 +98,13 @@ export default () => {
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
 
-                <div>
-                <label>Dataset *datasetName*</label>
-                <AxisSelector></AxisSelector>
+                <div class="axesDataset__wrapper">
+                  <label>Dataset *datasetName*</label>
+                  <AxisSelector></AxisSelector>
+                </div>
+                <div class="axesDataset__wrapper">
+                  <label>Dataset *datasetName*</label>
+                  <AxisSelector></AxisSelector>
                 </div>
               </section>
             </div>
@@ -107,11 +118,8 @@ export default () => {
                   operation={state.operation}
                   data={null}/>
                 <div class="no-data">{escaVisualization.vizNoData}</div>
-                <div class="vizPlaceholder">
-                  {/*                   <GraphPlaceholderAnimation/>
- */}                </div>
-                {/*                 <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
- */}              </div>
+                
+             </div>
             </section>
 
           </div>
