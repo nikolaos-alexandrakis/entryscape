@@ -157,7 +157,7 @@ export default () => {
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
                 {state.datasets.map(dataset => <div>
-                  {dataset.datasetEntry ? <label>{escaVisualization.vizSandbozDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
+                  {dataset.datasetEntry ? <label>{escaVisualization.vizSandboxDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
                   <AxisSelector></AxisSelector>
                 </div>)
                 }
