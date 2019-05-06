@@ -248,7 +248,6 @@ module.exports = (env, argv) => {
       });
 
     } else if (argv.mode === 'production') {
-      console.log("jihaaaa "+config.output.publicPath);
       if (APP !== 'blocks') {
         config = merge(config, {
           optimization: {
