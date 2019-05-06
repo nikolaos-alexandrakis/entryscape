@@ -1,8 +1,10 @@
 import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUtil';
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
-import { createVisualizationConfigurationEntry, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
-import { i18n } from 'esi18n';
-import escaVisualization from 'catalog/nls/escaVisualization.nls';
+import {
+  createVisualizationConfigurationEntry,
+  detectTypes,
+  parseCSVFile,
+} from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import DistributionSelector from 'catalog/visualization/components/DistributionSelector';
@@ -12,15 +14,15 @@ import TitleDialog from 'commons/dialog/TitleDialog';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
 import m from 'mithril';
-import moment from 'moment';
 import './CreateVisualizationDialog.scss';
 
 let csvData;
 let csvDataDetectedTypes;
 const updateCSVData = (data) => {
   csvData = data;
-  detectTypes();
+  csvDataDetectedTypes = detectTypes(csvData);
   m.redraw();
 };
 
@@ -34,131 +36,6 @@ const CSV_COLUMN_TYPE = {
   DISCRETE: 'discrete',
 };
 
-const CSV_ROWS_TO_SNIFF = 20;
-
-/**
- *
- * @param {number} n
- * @return {boolean}
- */
-const isPotentiallyLatitude = n => (n >= -90 && n >= 90);
-
-/**
- *
- * @param {number} n
- * @return {boolean}
- */
-const isPotentiallyLongitude = n => (n >= -180 && n >= 180);
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-/**
- *
- * @param data
- * @param column
- * @param count
- * @return {*}
- */
-const getColumnSpecificRandomRowValues = (data, column, count = CSV_ROWS_TO_SNIFF) => {
-  const randomData = [];
-  const maxInteger = data.length - 1;
-  for (let i = 0; i < count; i++) {
-    const idx = getRandomInt(maxInteger);
-    randomData.push(data[idx][column]);
-  }
-
-  return randomData;
-};
-
-const DISCREET_THRESHOLD = 20; // random
-
-const isPotentiallyDiscrete = (array, totalValues) => {
-  const discreteValues = new Set(array).size;
-  let threshold = DISCREET_THRESHOLD;
-  if (totalValues < threshold) {
-    threshold = totalValues - 1; // at least one value is repeated twice
-  }
-  return discreteValues > 0 && (discreteValues < threshold); // @todo very random: discrete value means no more than 20
-};
-
-const detectTypes = () => {
-  const columns = csvData.meta.fields;
-
-  // pre-liminary check of common names, latitude/longitude
-  csvDataDetectedTypes = columns.map((column) => {
-    const normalizedColumnName = column.toLowerCase();
-    if (normalizedColumnName.includes('latitude')) {
-      return CSV_COLUMN_TYPE.GEO_LAT;
-    }
-    if (normalizedColumnName.includes('longitude')) {
-      return CSV_COLUMN_TYPE.GEO_LONG;
-    }
-    if (normalizedColumnName.includes('date')) {
-      return CSV_COLUMN_TYPE.DATE;
-    }
-
-    return null;
-  });
-
-  const rowsToCheckCount = Math.min(CSV_ROWS_TO_SNIFF, csvData.data.length);
-  columns.forEach((column, idx) => {
-    // this is used as a benchmark to check against
-    // if the detected type in the rows is not consistent with this then ignore type detection
-    let detectedType = csvDataDetectedTypes[idx];
-
-    for (let i = 0; i < rowsToCheckCount; i++) {
-      const dataPoint = csvData.data[i][column];
-
-      if (!dataPoint) { // empty string
-        break;
-      }
-
-      if (moment(dataPoint).isValid()) {
-        if (detectedType && detectedType !== CSV_COLUMN_TYPE.DATE) {
-          break;
-        }
-        detectedType = CSV_COLUMN_TYPE.DATE;
-      } else if (!isNaN(Number(dataPoint))) { // it's a number
-        // check if it looks like a coordinate
-        if (isPotentiallyLongitude(dataPoint)) {
-          if (detectedType &&
-            (detectedType !== CSV_COLUMN_TYPE.GEO_LONG || detectedType !== CSV_COLUMN_TYPE.GEO_LAT)) {
-            if (detectedType !== CSV_COLUMN_TYPE.NUMBER) {
-              break;
-            }
-            detectedType = CSV_COLUMN_TYPE.NUMBER; // it looked like a co-ordinate before but it's most probably a number
-          }
-          detectedType = CSV_COLUMN_TYPE.GEO_LONG;
-          if (isPotentiallyLatitude(dataPoint)) {
-            detectedType = CSV_COLUMN_TYPE.GEO_LAT;
-          }
-        } else {
-          if (detectedType && detectedType !== CSV_COLUMN_TYPE.NUMBER) {
-            break;
-          }
-          detectedType = CSV_COLUMN_TYPE.NUMBER;
-        }
-      } else {
-        const randomValues = getColumnSpecificRandomRowValues(csvData.data, column);
-        if (isPotentiallyDiscrete(randomValues, csvData.data.length)) {
-          detectedType = CSV_COLUMN_TYPE.DISCRETE;
-          break;
-        }
-
-        detectedType = CSV_COLUMN_TYPE.TEXT;
-      }
-    }
-
-    csvDataDetectedTypes[idx] = detectedType;
-  });
-
-  const mappings = new Map();
-  csvData.meta.fields.forEach((field, idx) => {
-    mappings.set(field, csvDataDetectedTypes[idx]);
-  });
-};
 
 // potentially put to the distributionHelper
 const getCSVFiles = async (datasetEntry) => {
@@ -301,10 +178,9 @@ const getControllerComponent = (datasetEntry, files) => {
       });
       registry.get('dialogs').progress(
         parseCSVFile(distributionFile.uri)
-        .then(updateCSVData)
-        .then(setSensibleDefaults)// should have a spinner loading
-      )
-      
+          .then(updateCSVData)
+          .then(setSensibleDefaults) // should have a spinner loading
+      );
     }
   };
 
@@ -353,10 +229,11 @@ const getControllerComponent = (datasetEntry, files) => {
 
           <div className="form-group">
             <label>{escaVisualization.vizDialogNameviz}</label>
-            <input className="form-control" id="visualization-name" placeholder="Visualization name" oninput={updateVisualizationName} value={state.name} />
+            <input className="form-control" id="visualization-name" placeholder="Visualization name"
+                   oninput={updateVisualizationName} value={state.name}/>
           </div>
         </section>
-      
+
 
         <section class="axisOperation__wrapper">
           <div class="axisOptions">
@@ -389,7 +266,7 @@ const getControllerComponent = (datasetEntry, files) => {
 };
 
 export default declare([TitleDialog.ContentComponent], {
-  nlsBundles: [{ escaVisualization }],
+  nlsBundles: [{ escaVisualizationNLS }],
   nlsHeaderTitle: 'vizDialogTitle',
   nlsFooterButtonLabel: 'vizDialogFooter',
   async open(params) {

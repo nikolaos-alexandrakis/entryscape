@@ -3,6 +3,32 @@ import GeoMap from 'commons/rdforms/choosers/components/Map';
 import BarChart from 'catalog/visualization/components/BarChart';
 import './index.scss';
 
+  const cleanFalseRows = ({xLabels, yData}) => {
+    if (
+      (
+        (xLabels[xLabels.size-1] == null)
+        || (xLabels[xLabels.size-1] == '')
+      )
+      && (
+        (yData[yData.size-1] !== 0)
+        && (
+          (yData[yData.size-1] == null)
+          || (yData[yData.size-1] == '')
+        )
+      )
+    ){
+      xLabels.pop();
+      yData.pop();
+    }
+
+    const xLabelsClean = xLabels.map(label => ((label == null) || (label == '')) ? 'No Label' : label);
+
+    return {
+      xLabels: xLabelsClean,
+      yData,
+    };
+  };
+
 const processSum = (dataset, xField, yField) => {
   const fields = uniq(dataset.data.map(row => row[xField]));
   const fieldMap = new Map(fields.map(field => ([field, null])));
@@ -11,10 +37,10 @@ const processSum = (dataset, xField, yField) => {
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(row[yField])));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
-  return {
+  return cleanFalseRows({
     xLabels: countedFields[0],
     yData: countedFields[1],
-  };
+  });
 };
 
 const processCount = (dataset, xField, yField) => {
@@ -23,13 +49,14 @@ const processCount = (dataset, xField, yField) => {
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + 1));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
-  return {
+  return cleanFalseRows({
     xLabels: countedFields[0],
     yData: countedFields[1],
-  };
+  });
 };
 
 export default () => {
+
   const processGeoData = (data, xField, yField) => {
     const parsedGeoData = data ? data.data.map(row => row[xField] ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
 
@@ -55,14 +82,15 @@ export default () => {
     const transpose = matrix => Object.keys(matrix[0])
       .map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
 
+    // 
     const [xLabels, yData] = transpose(
       data.data.map(row => ([row[xField], row[yField]])),
     );
 
-    return {
+    return cleanFalseRows({
       xLabels,
       yData,
-    };
+    });
   };
 
   const renderChart = (chartOptions) => {

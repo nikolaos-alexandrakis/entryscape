@@ -1,3 +1,7 @@
+import {
+  detectTypes,
+  parseCSVFile,
+} from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
@@ -11,6 +15,17 @@ import './index.scss';
 let datasetEntries = [];
 let distributionEntries = [];
 let distributionWithCsvFilesRURI = [];
+
+const csvData = new Map();
+const csvDetectedTypes = new Map(); // map of maps
+const updateCsvData = (csvUri, data) => {
+  csvData.set(csvUri, data);
+  const detectedTypes = detectTypes(data);
+  csvDetectedTypes.set(csvUri, detectedTypes);
+  console.log(csvDetectedTypes);
+  m.redraw();
+};
+
 const loadDatasetsAndDistributions = async () => {
   const es = registry.getEntryStore();
 
@@ -43,6 +58,7 @@ const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata
 
 export default () => {
   const state = {
+    chartType: '',
     datasets: [{
       datasetEntry: null,
       distributionEntry: null,
@@ -61,8 +77,6 @@ export default () => {
     const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
     const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
 
-    console.log(csvURI);
-
     return { datasetEntry, distributionEntry, csvURI };
   };
 
@@ -75,6 +89,16 @@ export default () => {
     setState({
       datasets,
     });
+
+    if (!csvData.has(data.csvURI)) {
+      parseCSVFile(data.csvURI)
+        .then(csvParsedData => updateCsvData(data.csvURI, csvParsedData));
+    }
+  };
+
+  const onTypeChange = (type) => {
+    setState({ chartType: type });
+    // setSensibleDefaults(type);
   };
 
   const onchangeEntry = (selectedIdx, e) => {
@@ -132,16 +156,14 @@ export default () => {
                   const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
                   return <div className="datasetSelector">
                     <div>
-                    <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
-                      {datasetEntries.map(dataset => <option
+                      <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
+                        {datasetEntries.map(dataset => <option
                           value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
-                    </select>
-                    <button className="btn btn-secondary fas fa-times"></button>
-                  </div>
-
-
+                      </select>
+                      <button className="btn btn-secondary fas fa-times"></button>
+                    </div>
                     <div class="dataset__metadata">
-                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
+                      <label>{distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
                       <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
                     </div>
                   </div>;
@@ -150,14 +172,12 @@ export default () => {
 
               </section>
 
-             
-
               <section class="axesOperations__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
                 {state.datasets.map(dataset => <div>
-                  {dataset.datasetEntry ? <label>{escaVisualization.vizSandbozDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
+                  {dataset.datasetEntry ? <label>{escaVisualization.vizSandboxDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
                   <AxisSelector></AxisSelector>
                 </div>)
                 }
@@ -179,7 +199,6 @@ export default () => {
             </section>
 
           </div>
-
         </div>
       );
     },
