@@ -10,6 +10,7 @@ import './index.scss';
 
 let datasetEntries = [];
 let distributionEntries = [];
+let distributionWithCsvFilesRURI = [];
 const loadDatasetsAndDistributions = async () => {
   const es = registry.getEntryStore();
 
@@ -19,7 +20,7 @@ const loadDatasetsAndDistributions = async () => {
     .literalProperty('dcterms:format', 'text/csv')
     .getEntries(0); // @todo gets only first page
 
-  const distributionWithCsvFilesRURI = distributionEntries.map(distEntry => distEntry.getResourceURI());
+  distributionWithCsvFilesRURI = distributionEntries.map(distEntry => distEntry.getResourceURI());
 
   datasetEntries = await es.newSolrQuery()
     .rdfType('dcat:Dataset')
@@ -30,31 +31,73 @@ const loadDatasetsAndDistributions = async () => {
   return [datasetEntries, distributionEntries];
 };
 
+const getFirstCSVDistributionFromDataset = (dataset) => {
+  const stmts = dataset.getMetadata().find(dataset.getResourceURI(), 'dcat:distribution');
+  const distributionEntryStmt = stmts.find(stmt => distributionWithCsvFilesRURI.some(ruri => ruri === stmt.getValue()));
+  const distRURI = distributionEntryStmt.getValue();
+  return distributionEntries.find(distEntry => distEntry.getResourceURI() === distRURI);
+};
+
+const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata()
+  .findFirstValue(distribution.getResourceURI(), 'dcat:downloadURL');
+
 export default () => {
   const state = {
-    entry: null,
+    datasets: [{
+      // datasetEntry: null,
+      // distributionEntry: null,
+      // csvURI: null,
+    }],
   };
   const setState = createSetState(state);
 
-  const updateEntry = (e) => {
-    const entryRURI = e.target.value;
-    const entry = datasetEntries.find(datasetEntry => datasetEntry.getResourceURI() === entryRURI);
+  const addDataset = () => {
+    const datasets = state.datasets;
+    datasets.push({
+      datasetEntry: null,
+      distributionEntry: null,
+      csvURI: null,
+    });
+
     setState({
-      entry,
+      datasets,
+    });
+  };
+
+  const updateEntries = (selectedIdx, e) => {
+    const entryRURI = e.target.value;
+    const datasetEntry = datasetEntries.find(entry => entry.getResourceURI() === entryRURI);
+    const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
+    const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
+
+    const datasets = state.datasets;
+    datasets[selectedIdx] = {
+      datasetEntry,
+      distributionEntry,
+      csvURI,
+    };
+
+    setState({
+      datasets,
     });
   };
 
   return {
     oninit() {
       loadDatasetsAndDistributions().then(() => {
-        const entry = datasetEntries.length > 0 ? datasetEntries[0] : null;
+        const datasetEntry = datasetEntries.length > 0 ? datasetEntries[0] : null;
+        const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
+        const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
         setState({
-          entry,
+          datasetEntry,
+          distributionEntry,
+          csvURI,
         });
       });
     },
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
+
 
       return (
         <div className='visualizations__sandbox'>
@@ -66,21 +109,27 @@ export default () => {
                 <header>
                   <h4>{escaVisualization.vizSandboxDatasetTitle}</h4>
                   <button alt="Add dataset" class="btn btn-primary btn--add btn-fab btn-raised"><span
-                    class="fa fa-plus"></span></button>
+                    class="fa fa-plus" onclick={addDataset}></span></button>
                 </header>
-                <div class="datasetSelector">
-                <div>
-                <select class="form-control" onchange={updateEntry}>
-                    {datasetEntries.map(dataset => <option value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
-                  </select>
-                  <button class="btn btn-secondary fas fa-times"></button>
-                </div>
-                 
-                  <div class="dataset__metadata">
-                    <label>{escaVisualization.vizSandboxDatasetDistribution}:<span>*Name of distribution*</span></label> 
-                    <label>{escaVisualization.vizSandboxDatasetFile}:<span>*Name of file*</span></label> 
+                {state.datasets.map((datasetSelect, idx) => {
+                  const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
+                  return <div className="datasetSelector">
+                  <div>
+                   <select className="form-control" onchange={updateEntries.bind(null, idx)}>
+                      {datasetEntries.map(dataset => <option
+                          value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
+                    </select>
+                    <button className="btn btn-secondary fas fa-times"></button>
                   </div>
-                </div>
+                    
+
+                    <div class="dataset__metadata">
+                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
+                      <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
+                    </div>
+                  </div>;
+                })}
+
 
               </section>
 
@@ -118,8 +167,8 @@ export default () => {
                   operation={state.operation}
                   data={null}/>
                 <div class="no-data">{escaVisualization.vizNoData}</div>
-                
-             </div>
+
+              </div>
             </section>
 
           </div>
@@ -138,4 +187,5 @@ export default () => {
       );
     },
   };
-};
+}
+;

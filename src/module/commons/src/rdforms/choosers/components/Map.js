@@ -78,9 +78,18 @@ const Map = () => {
 
     geoLocationMarker.addTo(map);
 
-    const latLngBounds = leaflet.latLngBounds([geoLocationMarker.getLatLng()]);
+    const allMarkers = [];
+    map.eachLayer(layer => { 
+      if(layer instanceof leaflet.Marker) { 
+        allMarkers.push(layer);
+      }
+    });
+
+    const latLngBounds = leaflet.latLngBounds(allMarkers.map(marker => marker.getLatLng()));
     map.fitBounds(latLngBounds);
-    map.zoomOut(3); // Zooming out by one level for usability
+    if(latLngBounds.length <= 1) {
+      map.zoomOut(3); // Zooming out by one level for usability
+    }
     unfocusInputs();
   };
 
