@@ -24,22 +24,31 @@ export default (vnode) => {
       return (
         <div class="graphType__card__wrapper">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary btn-raised graphCard active">
-              <input type="radio" name="graphType"
+            <label class={`btn btn-secondary btn-raised graphCard ${type == 'map' && 'active'}`}>
+              <input
+                type="radio"
+                name="graphType"
+                value="map"
                 onchange={selectMap}
               ></input>
               <span class="fas fa-map-marked"></span>
                {escaVisualization.vizGraphMap}
             </label>
-            <label class="btn btn-secondary btn-raised graphCard">
-              <input type="radio" name="graphType"
+            <label class={`btn btn-secondary btn-raised graphCard ${type == 'bar' && 'active'}`}>
+              <input
+                type="radio"
+                name="graphType"
+                value="bar"
                 onchange={selectBar}
               ></input>
               <span class="fas fa-chart-bar"></span>
               {escaVisualization.vizGraphBar}
             </label>
-            <label class="btn btn-secondary btn-raised graphCard">
-              <input type="radio" name="graphType"
+            <label class={`btn btn-secondary btn-raised graphCard ${type == 'line' && 'active'}`}>
+              <input
+                type="radio"
+                name="graphType"
+                value="line"
                 onchange={selectLine}
               ></input>
                  <span class="fas fa-chart-line"></span>
