@@ -30,10 +30,10 @@ import './index.scss';
   };
 
 const processSum = (dataset, xField, yField) => {
-  const fields = uniq(dataset.data.map(row => row[xField]));
+  const csvData = dataset.data || dataset.csv.data;
+  const fields = uniq(csvData.map(row => row[xField]));
   const fieldMap = new Map(fields.map(field => ([field, null])));
 
-  const csvData = dataset.data || dataset.csv.data;
   csvData.forEach(row =>
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(row[yField])));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
