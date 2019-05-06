@@ -1,10 +1,9 @@
-import m from 'mithril';
 import { i18n } from 'esi18n';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import './index.scss';
 
-export default (vnode) => {
-  const { onSelect } = vnode.attrs;
+export default (initialVnode) => {
+  const { onSelect } = initialVnode.attrs;
 
   const selectMap = () => {
     onSelect('map');

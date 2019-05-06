@@ -1,3 +1,4 @@
+import { detectTypes, parseCSVFile, } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
@@ -11,6 +12,24 @@ import './index.scss';
 let datasetEntries = [];
 let distributionEntries = [];
 let distributionWithCsvFilesRURI = [];
+
+const csvData = new Map();
+const csvDetectedTypes = new Map(); // map of maps
+const updateCsvData = (csvUri, data) => {
+  csvData.set(csvUri, data);
+  const detectedTypes = detectTypes(data);
+  csvDetectedTypes.set(csvUri, detectedTypes);
+  m.redraw();
+};
+
+const getCsvDataFields = (datasetRURI) => {
+  if (datasetRURI && csvData.has(datasetRURI)) {
+    return csvData.get(datasetRURI).meta.fields;
+  }
+
+  return [];
+};
+
 const loadDatasetsAndDistributions = async () => {
   const es = registry.getEntryStore();
 
@@ -43,61 +62,79 @@ const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata
 
 export default () => {
   const state = {
+    chartType: 'bar',
     datasets: [{
-      // datasetEntry: null,
-      // distributionEntry: null,
-      // csvURI: null,
+      datasetEntry: null,
+      distributionEntry: null,
+      csvURI: null,
     }],
   };
   const setState = createSetState(state);
+
+  const getDefaultDatasetURI = () => {
+    const datasetEntry = datasetEntries.length > 0 ? datasetEntries[0] : null; // just select the first
+    return datasetEntry.getResourceURI();
+  };
+
+  const getDatasetInfo = (entryRURI) => {
+    const datasetEntry = datasetEntries.find(entry => entry.getResourceURI() === entryRURI);
+    const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
+    const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
+
+    return { datasetEntry, distributionEntry, csvURI };
+  };
+
+  const updateEntry = (selectedIdx, entryRURI) => {
+    const data = getDatasetInfo(entryRURI);
+
+    const datasets = state.datasets;
+    datasets[selectedIdx] = data;
+
+    setState({
+      datasets,
+    });
+
+    if (!csvData.has(data.csvURI)) {
+      parseCSVFile(data.csvURI)
+        .then(csvParsedData => updateCsvData(data.csvURI, csvParsedData));
+    }
+  };
+
+  const onTypeChange = (type) => {
+    setState({ chartType: type });
+    // setSensibleDefaults(type);
+  };
+
+  const onchangeEntry = (selectedIdx, e) => {
+    const entryRURI = e.target.value;
+    updateEntry(selectedIdx, entryRURI);
+  };
 
   const addDataset = () => {
     const datasets = state.datasets;
     datasets.push({
       datasetEntry: null,
       distributionEntry: null,
-      csvURI: null,
+      csvURI: '',
     });
 
     setState({
       datasets,
     });
-  };
-
-  const updateEntries = (selectedIdx, e) => {
-    const entryRURI = e.target.value;
-    const datasetEntry = datasetEntries.find(entry => entry.getResourceURI() === entryRURI);
-    const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
-    const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
-
-    const datasets = state.datasets;
-    datasets[selectedIdx] = {
-      datasetEntry,
-      distributionEntry,
-      csvURI,
-    };
-
-    setState({
-      datasets,
-    });
+    const defaultDatasetURI = getDefaultDatasetURI();
+    updateEntry(datasets.length - 1, defaultDatasetURI); // just selects a default for the new
   };
 
   return {
     oninit() {
-      loadDatasetsAndDistributions().then(() => {
-        const datasetEntry = datasetEntries.length > 0 ? datasetEntries[0] : null;
-        const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
-        const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
-        setState({
-          datasetEntry,
-          distributionEntry,
-          csvURI,
+      loadDatasetsAndDistributions()
+        .then(() => {
+          const defaultDatasetURI = getDefaultDatasetURI();
+          updateEntry(0, defaultDatasetURI);
         });
-      });
     },
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
-
 
       return (
         <div className='visualizations__sandbox'>
@@ -105,6 +142,15 @@ export default () => {
           <div class="viz__wrapper">
 
             <div class="vizOptions__wrapper">
+              <section class="vizTypes__wrapper">
+                <header>
+                  <h4>{escaVisualization.vizSandboxTypeTitle}</h4>
+                </header>
+                <TypeSelector
+                  type={state.chartType}
+                  onSelect={onTypeChange}
+                />
+              </section>
               <section class="datasets__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxDatasetTitle}</h4>
@@ -114,18 +160,15 @@ export default () => {
                 {state.datasets.map((datasetSelect, idx) => {
                   const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
                   return <div className="datasetSelector">
-                  <div>
-                   <select className="form-control" onchange={updateEntries.bind(null, idx)}>
-                      {datasetEntries.map(dataset => <option
+                    <div>
+                      <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
+                        {datasetEntries.map(dataset => <option
                           value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
-                    </select>
-                    <button className="btn btn-secondary fas fa-times"></button>
-                  </div>
-                    
-
+                      </select>
+                      <button className="btn btn-secondary fas fa-times"></button>
+                    </div>
                     <div class="dataset__metadata">
-                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
-                      <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
+                      <a href={datasetSelect.csvURI} target='_blank'>{distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : 'CSV'}</a>
                     </div>
                   </div>;
                 })}
@@ -133,56 +176,43 @@ export default () => {
 
               </section>
 
-              <section class="vizTypes__wrapper">
-                <header>
-                  <h4>{escaVisualization.vizSandboxTypeTitle}</h4>
-                </header>
-                <TypeSelector
-                  type={state.chartType}
-                />
-              </section>
-
               <section class="axesOperations__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
-
-                <div class="axesDataset__wrapper">
-                  <label>Dataset *datasetName*</label>
-                  <AxisSelector></AxisSelector>
-                </div>
-                <div class="axesDataset__wrapper">
-                  <label>Dataset *datasetName*</label>
-                  <AxisSelector></AxisSelector>
-                </div>
+                {state.datasets.map((dataset) => {
+                  return <div>
+                    {dataset.datasetEntry ?
+                      <label>{escaVisualization.vizSandboxDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
+                    <AxisSelector
+                      x={state.xAxisField}
+                      y={state.yAxisField}
+                      operation={state.operation}
+                      fields={getCsvDataFields(dataset.csvURI)}
+                      type={state.chartType}
+                      // onSelect={onAxisUpdate}
+                    />
+                  </div>;
+                })}
               </section>
             </div>
 
             <section class="vizGraph__wrapper">
               <div>
-                <VisualizationChart
-                  type={state.chartType}
-                  xAxisField={state.xAxisField}
-                  yAxisField={state.yAxisField}
-                  operation={state.operation}
-                  data={null}/>
-                <div class="no-data">{escaVisualization.vizNoData}</div>
+                {Array.from(csvData).length > 0 ?
+                  <VisualizationChart
+                    type={state.chartType}
+                    xAxisField={state.xAxisField}
+                    yAxisField={state.yAxisField}
+                    operation={state.operation}
+                    data={Array.from(csvData)[0]}/> : null
+                }
 
+                <div class="no-data">{escaVisualization.vizNoData}</div>
               </div>
             </section>
 
           </div>
-          <section class="vizNotes__wrapper">
-            <div class="vizNotes__errors">
-              <p></p>
-
-            </div>
-            <div class="vizNotes__help">
-              <p>{escaVisualization.vizSandboxHelpDataset}</p>
-              <p>{escaVisualization.vizSandboxHelpType}</p>
-              <p>{escaVisualization.vizSandboxHelpAxes}</p>
-            </div>
-          </section>
         </div>
       );
     },

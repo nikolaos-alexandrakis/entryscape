@@ -28,7 +28,6 @@ export default (initialVnode) => {
       selected.x = x;
       selected.y = y;
       selected.operation = operation;
-
       return (
         <div class="axisOptions__wrapper">
           <div class="axisX__wrapper">
