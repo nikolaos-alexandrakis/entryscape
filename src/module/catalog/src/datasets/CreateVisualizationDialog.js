@@ -22,7 +22,7 @@ let csvData;
 let csvDataDetectedTypes;
 const updateCSVData = (data) => {
   csvData = data;
-  detectTypes();
+  csvDataDetectedTypes = detectTypes(csvData);
   m.redraw();
 };
 
@@ -233,7 +233,7 @@ const getControllerComponent = (datasetEntry, files) => {
                    oninput={updateVisualizationName} value={state.name}/>
           </div>
         </section>
-      
+
 
         <section class="axisOperation__wrapper">
           <div class="axisOptions">
