@@ -298,6 +298,7 @@ export default (vnode) => {
 
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
+            <div class="charts__container">
             {visualizationEntryConfigurations
               .map(configurationEntry =>
                 <VisualizationPreview
@@ -310,6 +311,8 @@ export default (vnode) => {
                   }
                 />)
             }
+            </div>
+            
           </div>
         </main>
       );
