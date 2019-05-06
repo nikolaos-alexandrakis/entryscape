@@ -141,7 +141,7 @@ export default () => {
 
 
                     <div class="dataset__metadata">
-                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
+                      <label>{distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
                       <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
                     </div>
                   </div>;
