@@ -110,7 +110,7 @@ const parseCSVFile = (uri) => {
 const CSV_COLUMN_TYPE = {
   NONE: 'none',
   NUMBER: 'number',
-  DATE: 'date',
+  // DATE: 'date',
   GEO_LAT: 'geo-latitude',
   GEO_LONG: 'geo-longitude',
   TEXT: 'text',
@@ -170,7 +170,7 @@ const detectTypes = (csvData) => {
   const columns = csvData.meta.fields;
 
   // pre-liminary check of common names, latitude/longitude
-  const csvDataDetectedTypes = columns.map((column) => {
+  const csvDataDetectedTypes = columns.map((column, idx) => {
     const normalizedColumnName = column.toLowerCase();
     if (normalizedColumnName.includes('latitude')) {
       return CSV_COLUMN_TYPE.GEO_LAT;
@@ -178,14 +178,15 @@ const detectTypes = (csvData) => {
     if (normalizedColumnName.includes('longitude')) {
       return CSV_COLUMN_TYPE.GEO_LONG;
     }
-    if (normalizedColumnName.includes('date')) {
-      return CSV_COLUMN_TYPE.DATE;
-    }
+    // if (normalizedColumnName.includes('date')) {
+    //   return CSV_COLUMN_TYPE.DATE;
+    // }
 
     return null;
   });
 
   const rowsToCheckCount = Math.min(CSV_ROWS_TO_SNIFF, csvData.data.length);
+  console.log(rowsToCheckCount);
   columns.forEach((column, idx) => {
     // this is used as a benchmark to check against
     // if the detected type in the rows is not consistent with this then ignore type detection
@@ -198,12 +199,16 @@ const detectTypes = (csvData) => {
         break;
       }
 
-      if (moment(dataPoint).isValid()) {
-        if (detectedType && detectedType !== CSV_COLUMN_TYPE.DATE) {
-          break;
-        }
-        detectedType = CSV_COLUMN_TYPE.DATE;
-      } else if (!isNaN(Number(dataPoint))) { // it's a number
+      // if (moment(dataPoint).isValid()) {
+      //   if (detectedType && detectedType !== CSV_COLUMN_TYPE.DATE) {
+      //     if (idx === 1) {
+      //       console.log('NOT A DATE!!!!!!!!!!!!!!!!!');
+      //     }
+      //     break;
+      //   }
+      //   detectedType = CSV_COLUMN_TYPE.DATE;
+      // } else
+      if (!isNaN(Number(dataPoint))) { // it's a number
         // check if it looks like a coordinate
         if (isPotentiallyLongitude(dataPoint)) {
           if (detectedType &&

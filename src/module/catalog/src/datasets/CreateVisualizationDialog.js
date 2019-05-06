@@ -23,13 +23,14 @@ let csvDataDetectedTypes;
 const updateCSVData = (data) => {
   csvData = data;
   csvDataDetectedTypes = detectTypes(csvData);
+  console.log(csvDataDetectedTypes);
   m.redraw();
 };
 
 const CSV_COLUMN_TYPE = {
   NONE: 'none',
   NUMBER: 'number',
-  DATE: 'date',
+  // DATE: 'date',
   GEO_LAT: 'geo-latitude',
   GEO_LONG: 'geo-longitude',
   TEXT: 'text',
@@ -94,14 +95,12 @@ const getControllerComponent = (datasetEntry, files) => {
             break;
           case 'bar':
             if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DISCRETE ||
-              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER ||
-              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DATE) {
+              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER) {
               return true;
             }
             break;
           case 'line':
-            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER ||
-              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DATE) {
+            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER) {
               return true;
             }
             break;
@@ -139,15 +138,16 @@ const getControllerComponent = (datasetEntry, files) => {
         // 1. time series
         // 2. discrete value with operation
         // 3.
-        const timeIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DATE);
+        // const timeIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DATE);
         const numberIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.NUMBER);
         const discreteIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.DISCRETE);
-        if (timeIdx > -1 && numberIdx > -1) {
-          setState({
-            xAxisField: sensibleHeaders[timeIdx],
-            yAxisField: sensibleHeaders[numberIdx],
-          });
-        } else if (discreteIdx > -1 && numberIdx > -1) {
+        // if (timeIdx > -1 && numberIdx > -1) {
+        //   setState({
+        //     xAxisField: sensibleHeaders[timeIdx],
+        //     yAxisField: sensibleHeaders[numberIdx],
+        //   });
+        // } else
+        if (discreteIdx > -1 && numberIdx > -1) {
           setState({
             xAxisField: sensibleHeaders[discreteIdx],
             yAxisField: sensibleHeaders[numberIdx],
