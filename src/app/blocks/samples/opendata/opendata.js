@@ -108,8 +108,8 @@ window.__entryscape_config = {
         '<span class="label formatLabel label-success md5_{{prop "dcterms:format" render="md5"}}" ' +
         'title="{{prop "dcterms:format"}}">{{prop "dcterms:format" render="label"}}</span>' +
         '<span class="resourceLabel">{{text fallback="<span class=\\\'distributionNoName\\\'>Ingen titel' +
-        ' given</span>"}}</span></div>' +
-        '{{#ifprop "dcterms:format" literal="text/csv"}}{{event signal="format"}}{{/ifprop}}',
+        ' given</span>"}}</span>' +
+        '{{#ifprop "dcterms:format" literal="text/csv"}}{{event signal="format"}}{{/ifprop}}</div>',
     },
     {
       block: 'visualizationList',

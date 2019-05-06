@@ -81,6 +81,10 @@ body .lightbox {
     padding: 0px;
 }
 
+.entryscape .entryList .entryName a.btn {
+    margin-left: 10px;
+}
+
 .entryscape .entryList .entryName a {
     margin-left: 0px;
 }
