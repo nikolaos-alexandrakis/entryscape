@@ -67,13 +67,19 @@ const processCount = (dataset, xField, yField) => {
   };
 };
 
-export default () => {
-
   const processGeoData = (data, xField, yField) => {
-    const parsedGeoData = data ? data.data.map(row => row[xField] ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
+    if (Array.isArray(data)) {
+      const parsedGeoDatas = data.map(mapData => mapData.csv.data.map(row => (row[mapData.xField] && row[mapData.yField]) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
+
+      return parsedGeoDatas;
+    }
+    const parsedGeoData = data ? data.data.map(row => (row[xField] && row[yField]) ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
 
     return parsedGeoData;
   };
+
+export default () => {
+
 
   const processXYData = (datasets, xField, yField, operation) => {
     if (operation === 'sum') {
