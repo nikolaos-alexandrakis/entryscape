@@ -1,3 +1,7 @@
+import {
+  detectTypes,
+  parseCSVFile,
+} from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
@@ -11,6 +15,17 @@ import './index.scss';
 let datasetEntries = [];
 let distributionEntries = [];
 let distributionWithCsvFilesRURI = [];
+
+const csvData = new Map();
+const csvDetectedTypes = new Map(); // map of maps
+const updateCsvData = (csvUri, data) => {
+  csvData.set(csvUri, data);
+  const detectedTypes = detectTypes(data);
+  csvDetectedTypes.set(csvUri, detectedTypes);
+  console.log(csvDetectedTypes);
+  m.redraw();
+};
+
 const loadDatasetsAndDistributions = async () => {
   const es = registry.getEntryStore();
 
@@ -43,6 +58,7 @@ const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata
 
 export default () => {
   const state = {
+    chartType: '',
     datasets: [{
       datasetEntry: null,
       distributionEntry: null,
@@ -61,8 +77,6 @@ export default () => {
     const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
     const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
 
-    console.log(csvURI);
-
     return { datasetEntry, distributionEntry, csvURI };
   };
 
@@ -75,6 +89,16 @@ export default () => {
     setState({
       datasets,
     });
+
+    if (!csvData.has(data.csvURI)) {
+      parseCSVFile(data.csvURI)
+        .then(csvParsedData => updateCsvData(data.csvURI, csvParsedData));
+    }
+  };
+
+  const onTypeChange = (type) => {
+    setState({ chartType: type });
+    // setSensibleDefaults(type);
   };
 
   const onchangeEntry = (selectedIdx, e) => {
@@ -124,14 +148,12 @@ export default () => {
                   const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
                   return <div className="datasetSelector">
                     <div>
-                    <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
-                      {datasetEntries.map(dataset => <option
+                      <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
+                        {datasetEntries.map(dataset => <option
                           value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
-                    </select>
-                    <button className="btn btn-secondary fas fa-times"></button>
-                  </div>
-
-
+                      </select>
+                      <button className="btn btn-secondary fas fa-times"></button>
+                    </div>
                     <div class="dataset__metadata">
                       <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
                       <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
@@ -148,6 +170,7 @@ export default () => {
                 </header>
                 <TypeSelector
                   type={state.chartType}
+                  onSelect={onTypeChange}
                 />
               </section>
 
@@ -184,9 +207,9 @@ export default () => {
 
             </div>
             <div class="vizNotes__help">
-              <p>{escaVisualization.vizSandboxHelpDataset}</p>
-              <p>{escaVisualization.vizSandboxHelpType}</p>
-              <p>{escaVisualization.vizSandboxHelpAxes}</p>
+              <p>{m.trust(escaVisualization.vizSandboxHelpDataset)}</p>
+              <p>{m.trust(escaVisualization.vizSandboxHelpType)}</p>
+              <p>{m.trust(escaVisualization.vizSandboxHelpAxes)}</p>
             </div>
           </section>
         </div>

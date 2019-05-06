@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { createEntry } from 'commons/util/storeUtil';
 import Papa from 'papaparse';
 import { namespaces as ns } from 'rdfjson';
@@ -107,10 +108,148 @@ const parseCSVFile = (uri) => {
   });
 };
 
+const CSV_COLUMN_TYPE = {
+  NONE: 'none',
+  NUMBER: 'number',
+  DATE: 'date',
+  GEO_LAT: 'geo-latitude',
+  GEO_LONG: 'geo-longitude',
+  TEXT: 'text',
+  DISCRETE: 'discrete',
+};
+
+const CSV_ROWS_TO_SNIFF = 20;
+
+/**
+ *
+ * @param {number} n
+ * @return {boolean}
+ */
+const isPotentiallyLatitude = n => (n >= -90 && n >= 90);
+
+/**
+ *
+ * @param {number} n
+ * @return {boolean}
+ */
+const isPotentiallyLongitude = n => (n >= -180 && n >= 180);
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+/**
+ *
+ * @param data
+ * @param column
+ * @param count
+ * @return {*}
+ */
+const getColumnSpecificRandomRowValues = (data, column, count = CSV_ROWS_TO_SNIFF) => {
+  const randomData = [];
+  const maxInteger = data.length - 1;
+  for (let i = 0; i < count; i++) {
+    const idx = getRandomInt(maxInteger);
+    randomData.push(data[idx][column]);
+  }
+
+  return randomData;
+};
+
+const DISCREET_THRESHOLD = 20; // random
+
+const isPotentiallyDiscrete = (array, totalValues) => {
+  const discreteValues = new Set(array).size;
+  let threshold = DISCREET_THRESHOLD;
+  if (totalValues < threshold) {
+    threshold = totalValues - 1; // at least one value is repeated twice
+  }
+  return discreteValues > 0 && (discreteValues < threshold); // @todo very random: discrete value means no more than 20
+};
+
+const detectTypes = (csvData) => {
+  const columns = csvData.meta.fields;
+
+  // pre-liminary check of common names, latitude/longitude
+  const csvDataDetectedTypes = columns.map((column) => {
+    const normalizedColumnName = column.toLowerCase();
+    if (normalizedColumnName.includes('latitude')) {
+      return CSV_COLUMN_TYPE.GEO_LAT;
+    }
+    if (normalizedColumnName.includes('longitude')) {
+      return CSV_COLUMN_TYPE.GEO_LONG;
+    }
+    if (normalizedColumnName.includes('date')) {
+      return CSV_COLUMN_TYPE.DATE;
+    }
+
+    return null;
+  });
+
+  const rowsToCheckCount = Math.min(CSV_ROWS_TO_SNIFF, csvData.data.length);
+  columns.forEach((column, idx) => {
+    // this is used as a benchmark to check against
+    // if the detected type in the rows is not consistent with this then ignore type detection
+    let detectedType = csvDataDetectedTypes[idx];
+
+    for (let i = 0; i < rowsToCheckCount; i++) {
+      const dataPoint = csvData.data[i][column];
+
+      if (!dataPoint) { // empty string
+        break;
+      }
+
+      if (moment(dataPoint).isValid()) {
+        if (detectedType && detectedType !== CSV_COLUMN_TYPE.DATE) {
+          break;
+        }
+        detectedType = CSV_COLUMN_TYPE.DATE;
+      } else if (!isNaN(Number(dataPoint))) { // it's a number
+        // check if it looks like a coordinate
+        if (isPotentiallyLongitude(dataPoint)) {
+          if (detectedType &&
+            (detectedType !== CSV_COLUMN_TYPE.GEO_LONG || detectedType !== CSV_COLUMN_TYPE.GEO_LAT)) {
+            if (detectedType !== CSV_COLUMN_TYPE.NUMBER) {
+              break;
+            }
+            detectedType = CSV_COLUMN_TYPE.NUMBER; // it looked like a co-ordinate before but it's most probably a number
+          }
+          detectedType = CSV_COLUMN_TYPE.GEO_LONG;
+          if (isPotentiallyLatitude(dataPoint)) {
+            detectedType = CSV_COLUMN_TYPE.GEO_LAT;
+          }
+        } else {
+          if (detectedType && detectedType !== CSV_COLUMN_TYPE.NUMBER) {
+            break;
+          }
+          detectedType = CSV_COLUMN_TYPE.NUMBER;
+        }
+      } else {
+        const randomValues = getColumnSpecificRandomRowValues(csvData.data, column);
+        if (isPotentiallyDiscrete(randomValues, csvData.data.length)) {
+          detectedType = CSV_COLUMN_TYPE.DISCRETE;
+          break;
+        }
+
+        detectedType = CSV_COLUMN_TYPE.TEXT;
+      }
+    }
+
+    csvDataDetectedTypes[idx] = detectedType;
+  });
+
+  return csvDataDetectedTypes;
+  // const mappings = new Map();
+  // csvData.meta.fields.forEach((field, idx) => {
+  //   mappings.set(field, csvDataDetectedTypes[idx]);
+  // });
+};
+
 export {
   createVisualizationConfigurationEntry,
   chartTypeToURI,
   chartURIToType,
   operationURIToType,
   parseCSVFile,
+  detectTypes,
 };
