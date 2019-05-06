@@ -43,7 +43,7 @@ export default () => {
       const chartType = chartURIToType(chartTypeURI);
       const xAxisField = md.findFirstValue(ruri, 'store:x');
       const yAxisField = md.findFirstValue(ruri, 'store:y');
-      const operationURI = md.findFirstValue(ruri, 'store:operation');
+      const operationURI = md.findFirstValue(ruri, 'store:op');
       const operation = operationURIToType(operationURI);
 
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);

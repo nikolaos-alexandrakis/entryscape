@@ -56,15 +56,15 @@ const getNewChart = (ctx, type) => {
     options: {
       maintainAspectRatio: false,
       legend: {
-        display: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-            }
-          }]
-        },
-      }
+        display: true,
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+          },
+        }],
+      },
     },
   });
 };
@@ -79,6 +79,7 @@ export default () => {
     oncreate(vnode) {
       const { type = 'bar' } = vnode.attrs;
       chart = getNewChart(document.getElementById(this.elementId), type);
+      m.redraw();
     },
     onupdate(vnode) {
       const { type = 'bar' } = vnode.attrs;
@@ -100,6 +101,7 @@ export default () => {
           datasets: data.map(dataset => ({
             labels: dataset.xLabels,
             data: dataset.yData,
+            label: dataset.label || '',
           })),
         };
 
