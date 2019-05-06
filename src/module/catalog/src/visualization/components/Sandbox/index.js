@@ -44,60 +44,69 @@ const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata
 export default () => {
   const state = {
     datasets: [{
-      // datasetEntry: null,
-      // distributionEntry: null,
-      // csvURI: null,
+      datasetEntry: null,
+      distributionEntry: null,
+      csvURI: null,
     }],
   };
   const setState = createSetState(state);
+
+  const getDefaultDatasetURI = () => {
+    const datasetEntry = datasetEntries.length > 0 ? datasetEntries[0] : null; // just select the first
+    return datasetEntry.getResourceURI();
+  };
+
+  const getDatasetInfo = (entryRURI) => {
+    const datasetEntry = datasetEntries.find(entry => entry.getResourceURI() === entryRURI);
+    const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
+    const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
+
+    console.log(csvURI);
+
+    return { datasetEntry, distributionEntry, csvURI };
+  };
+
+  const updateEntry = (selectedIdx, entryRURI) => {
+    const data = getDatasetInfo(entryRURI);
+
+    const datasets = state.datasets;
+    datasets[selectedIdx] = data;
+
+    setState({
+      datasets,
+    });
+  };
+
+  const onchangeEntry = (selectedIdx, e) => {
+    const entryRURI = e.target.value;
+    updateEntry(selectedIdx, entryRURI);
+  };
 
   const addDataset = () => {
     const datasets = state.datasets;
     datasets.push({
       datasetEntry: null,
       distributionEntry: null,
-      csvURI: null,
+      csvURI: '',
     });
 
     setState({
       datasets,
     });
-  };
-
-  const updateEntries = (selectedIdx, e) => {
-    const entryRURI = e.target.value;
-    const datasetEntry = datasetEntries.find(entry => entry.getResourceURI() === entryRURI);
-    const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
-    const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
-
-    const datasets = state.datasets;
-    datasets[selectedIdx] = {
-      datasetEntry,
-      distributionEntry,
-      csvURI,
-    };
-
-    setState({
-      datasets,
-    });
+    const defaultDatasetURI = getDefaultDatasetURI();
+    updateEntry(datasets.length - 1, defaultDatasetURI); // just selects a default for the new
   };
 
   return {
     oninit() {
-      loadDatasetsAndDistributions().then(() => {
-        const datasetEntry = datasetEntries.length > 0 ? datasetEntries[0] : null;
-        const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
-        const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
-        setState({
-          datasetEntry,
-          distributionEntry,
-          csvURI,
+      loadDatasetsAndDistributions()
+        .then(() => {
+          const defaultDatasetURI = getDefaultDatasetURI();
+          updateEntry(0, defaultDatasetURI);
         });
-      });
     },
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
-
 
       return (
         <div className='visualizations__sandbox'>
@@ -114,7 +123,7 @@ export default () => {
                 {state.datasets.map((datasetSelect, idx) => {
                   const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
                   return <div className="datasetSelector">
-                    <select className="form-control" onchange={updateEntries.bind(null, idx)}>
+                    <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
                       {datasetEntries.map(dataset => <option
                         value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
                     </select>
@@ -142,11 +151,12 @@ export default () => {
                 <header>
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
+                {state.datasets.map(dataset => <div>
+                  {dataset.datasetEntry ? <label>Dataset {getEntryRenderName(dataset.datasetEntry)}</label> : null}
+                  <AxisSelector></AxisSelector>
+                </div>)
+                }
 
-                <div>
-                <label>Dataset *datasetName*</label>
-                <AxisSelector></AxisSelector>
-                </div>
               </section>
             </div>
 
