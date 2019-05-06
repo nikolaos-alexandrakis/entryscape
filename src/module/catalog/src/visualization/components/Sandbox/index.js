@@ -1,7 +1,4 @@
-import {
-  detectTypes,
-  parseCSVFile,
-} from 'catalog/datasets/utils/visualizationUtil';
+import { detectTypes, parseCSVFile, } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
@@ -22,8 +19,15 @@ const updateCsvData = (csvUri, data) => {
   csvData.set(csvUri, data);
   const detectedTypes = detectTypes(data);
   csvDetectedTypes.set(csvUri, detectedTypes);
-  console.log(csvDetectedTypes);
   m.redraw();
+};
+
+const getCsvDataFields = (datasetRURI) => {
+  if (datasetRURI && csvData.has(datasetRURI)) {
+    return csvData.get(datasetRURI).meta.fields;
+  }
+
+  return [];
 };
 
 const loadDatasetsAndDistributions = async () => {
@@ -58,7 +62,7 @@ const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata
 
 export default () => {
   const state = {
-    chartType: '',
+    chartType: 'bar',
     datasets: [{
       datasetEntry: null,
       distributionEntry: null,
@@ -138,12 +142,13 @@ export default () => {
           <div class="viz__wrapper">
 
             <div class="vizOptions__wrapper">
-            <section class="vizTypes__wrapper">
+              <section class="vizTypes__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxTypeTitle}</h4>
                 </header>
                 <TypeSelector
                   type={state.chartType}
+                  onSelect={onTypeChange}
                 />
               </section>
               <section class="datasets__wrapper">
@@ -176,25 +181,35 @@ export default () => {
                 <header>
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
-                {state.datasets.map(dataset => <div>
-                  {dataset.datasetEntry ? <label>{escaVisualization.vizSandboxDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
-                  <AxisSelector></AxisSelector>
-                </div>)
-                }
-
+                {state.datasets.map((dataset) => {
+                  return <div>
+                    {dataset.datasetEntry ?
+                      <label>{escaVisualization.vizSandboxDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
+                    <AxisSelector
+                      x={state.xAxisField}
+                      y={state.yAxisField}
+                      operation={state.operation}
+                      fields={getCsvDataFields(dataset.csvURI)}
+                      type={state.chartType}
+                      // onSelect={onAxisUpdate}
+                    />
+                  </div>;
+                })}
               </section>
             </div>
 
             <section class="vizGraph__wrapper">
               <div>
-                <VisualizationChart
-                  type={state.chartType}
-                  xAxisField={state.xAxisField}
-                  yAxisField={state.yAxisField}
-                  operation={state.operation}
-                  data={null}/>
-                <div class="no-data">{escaVisualization.vizNoData}</div>
+                {Array.from(csvData).length > 0 ?
+                  <VisualizationChart
+                    type={state.chartType}
+                    xAxisField={state.xAxisField}
+                    yAxisField={state.yAxisField}
+                    operation={state.operation}
+                    data={Array.from(csvData)[0]}/> : null
+                }
 
+                <div class="no-data">{escaVisualization.vizNoData}</div>
               </div>
             </section>
 

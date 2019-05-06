@@ -98,7 +98,6 @@ const createVisualizationConfigurationEntry = async (datasetEntry, distributionR
 };
 
 const parseCSVFile = (uri) => {
-  console.log(uri);
   return new Promise((resolve) => {
     Papa.parse(uri, {
       download: true,
@@ -239,10 +238,6 @@ const detectTypes = (csvData) => {
   });
 
   return csvDataDetectedTypes;
-  // const mappings = new Map();
-  // csvData.meta.fields.forEach((field, idx) => {
-  //   mappings.set(field, csvDataDetectedTypes[idx]);
-  // });
 };
 
 export {
