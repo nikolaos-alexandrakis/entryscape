@@ -1,6 +1,7 @@
 @import '~commons/theme.scss';
 
 .viz__editDialog {
+    
     h4 {
         @include title--underlined;
         border-bottom: 0;
