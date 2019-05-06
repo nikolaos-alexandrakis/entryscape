@@ -1,0 +1,21 @@
+{
+  "vizDialogTitle": "Skapa visualisering av datamängd",
+  "vizDialogFooter": "Spara",
+  "vizDialogDistributionTitle": "Distributioner",
+  "vizDialogDistributionUse": "Du använder den här filen:",
+  "vizDialogNameviz": "Namnge visualisering",
+  "vizDialogTypeTitle": "Typ av visualisering",
+  "vizDialogAxesTitle": "Axlar att använda",
+  "vizDialogPreview": "Förhandsgranskning av datamängdens visualisering",
+  "vizSandboxTitle": "Visualiseringssandlåda",
+  "vizSandboxDatasetTitle": "Datamängder",
+  "vizSandboxDatasetLabel": "Datamängd",
+  "vizSandboxTypeTitle": "Typ av visualisering",
+  "vizSandboxAxesTitle": "Axlar att använda",
+  "vizSandboxDatasetDistribution": "Datakälla:",
+  "vizGraphMap": "Karta",
+  "vizGraphBar": "Stapeldiagram",
+  "vizGraphLine": "Linjediagram",
+  "vizNoData": "Visualiseringen kunde inte skapas på grund av ett fel",
+  "createViz": "Skapa visualisering"
+}
