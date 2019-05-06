@@ -1,7 +1,9 @@
 import { getUploadedDistributionEntries } from 'catalog/datasets/utils/datasetUtil';
 import { getDistributionFileEntries } from 'catalog/datasets/utils/distributionUtil';
 import { createVisualizationConfigurationEntry, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
+import { i18n } from 'esi18n';
 import escaVisualization from 'catalog/nls/escaVisualization.nls';
+import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import DistributionSelector from 'catalog/visualization/components/DistributionSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
@@ -329,22 +331,23 @@ const getControllerComponent = (datasetEntry, files) => {
       if (hasData) {
         fields = getSensibleHeadersForChartType();
       }
+      const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
       return <section class="viz__editDialog">
         <section class="useFile">
-          <h4>Distribution</h4>
+          <h4>{escaVisualization.vizDialogDistributionTitle}</h4>
           <DistributionSelector
             files={files}
             onChangeSelectedFile={onChangeSelectedFile}
           />
 
-          <h5>{escaVisualization.vizDialogDistributionUse}</h5>
           <div className="form-group">
+            <label>{escaVisualization.vizDialogNameviz}</label>
             <input className="form-control" id="visualization-name" placeholder="Visualization name" oninput={updateVisualizationName} value={state.name} />
           </div>
         </section>
         <section class="graphType__wrapper">
-          <h4>Type of visualization</h4>
+          <h4>{escaVisualization.vizDialogTypeTitle}</h4>
           <TypeSelector
             type={state.chartType}
             onSelect={onTypeChange}
@@ -353,7 +356,7 @@ const getControllerComponent = (datasetEntry, files) => {
 
         <section class="axisOperation__wrapper">
           <div class="axisOptions">
-            <h4>Axes to use</h4>
+            <h4>{escaVisualization.vizDialogAxesTitle}</h4>
             <AxisSelector
               x={state.xAxisField}
               y={state.yAxisField}
@@ -366,7 +369,7 @@ const getControllerComponent = (datasetEntry, files) => {
         </section>
 
         <section class="vizPreview__wrapper">
-          <h4>Preview of dataset visualization</h4>
+          <h4>{escaVisualization.vizDialogPreview}</h4>
 
           <VisualizationChart
             type={state.chartType}

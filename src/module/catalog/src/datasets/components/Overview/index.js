@@ -2,6 +2,7 @@ import VisualizationPreview from 'catalog/datasets/components/VisualizationPrevi
 import VisualizationPreviewActions from 'catalog/datasets/components/VisualizationPreviewActions';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaPublicNLS from 'catalog/nls/escaPublic.nls';
+import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import comments from 'commons/comments/comments';
 import Toggle from 'commons/components/common/toggle/Toggle';
 import escoListNLS from 'commons/nls/escoList.nls';
@@ -174,6 +175,8 @@ export default (vnode) => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const escaPublic = i18n.getLocalization(escaPublicNLS);
       const escoList = i18n.getLocalization(escoListNLS);
+      const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
+
 
       const title = getTitle(entry);
       const lastUpdatedDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
@@ -249,7 +252,7 @@ export default (vnode) => {
                       onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
-              <Button class="btn-secondary" onclick={actions.openCreateVisualization}>Create Visualization</Button>
+              <Button class="btn-secondary" onclick={actions.openCreateVisualization}>{escaVisualization.createViz}</Button>
               <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class="btn-secondary" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
