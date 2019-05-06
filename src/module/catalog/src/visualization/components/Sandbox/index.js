@@ -1,24 +1,100 @@
-import m from 'mithril';
-import { createSetState } from 'commons/util/util';
-import Map from 'commons/rdforms/choosers/components/Map';
-import BarChartTime from 'catalog/statistics/components/BarChartTime';
-import { i18n } from 'esi18n';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
+import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
 import VisualizationChart from 'catalog/visualization/components/VisualizationChart';
-import AxisSelector from 'catalog/visualization/components/AxisSelector';
+import registry from 'commons/registry';
+import { getEntryRenderName } from 'commons/util/entryUtil';
+import { createSetState } from 'commons/util/util';
+import { i18n } from 'esi18n';
 import './index.scss';
 
+let datasetEntries = [];
+let distributionEntries = [];
+let distributionWithCsvFilesRURI = [];
+const loadDatasetsAndDistributions = async () => {
+  const es = registry.getEntryStore();
+
+  // get all distributions that have an uploaded(?) csv file
+  distributionEntries = await es.newSolrQuery()
+    .rdfType('dcat:Distribution')
+    .literalProperty('dcterms:format', 'text/csv')
+    .getEntries(0); // @todo gets only first page
+
+  distributionWithCsvFilesRURI = distributionEntries.map(distEntry => distEntry.getResourceURI());
+
+  datasetEntries = await es.newSolrQuery()
+    .rdfType('dcat:Dataset')
+    .uriProperty('dcat:distribution', distributionWithCsvFilesRURI)
+    .getEntries(0); // @todo gets only first page
 
 
+  return [datasetEntries, distributionEntries];
+};
 
-export default (vnode) => {
+const getFirstCSVDistributionFromDataset = (dataset) => {
+  const stmts = dataset.getMetadata().find(dataset.getResourceURI(), 'dcat:distribution');
+  const distributionEntryStmt = stmts.find(stmt => distributionWithCsvFilesRURI.some(ruri => ruri === stmt.getValue()));
+  const distRURI = distributionEntryStmt.getValue();
+  return distributionEntries.find(distEntry => distEntry.getResourceURI() === distRURI);
+};
+
+const getFirstCSVFileFromDistribution = distribution => distribution.getMetadata()
+  .findFirstValue(distribution.getResourceURI(), 'dcat:downloadURL');
+
+export default () => {
   const state = {
+    datasets: [{
+      // datasetEntry: null,
+      // distributionEntry: null,
+      // csvURI: null,
+    }],
   };
-
   const setState = createSetState(state);
 
+  const addDataset = () => {
+    const datasets = state.datasets;
+    datasets.push({
+      datasetEntry: null,
+      distributionEntry: null,
+      csvURI: null,
+    });
+
+    setState({
+      datasets,
+    });
+  };
+
+  const updateEntries = (selectedIdx, e) => {
+    const entryRURI = e.target.value;
+    const datasetEntry = datasetEntries.find(entry => entry.getResourceURI() === entryRURI);
+    const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
+    const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
+
+    const datasets = state.datasets;
+    datasets[selectedIdx] = {
+      datasetEntry,
+      distributionEntry,
+      csvURI,
+    };
+
+    setState({
+      datasets,
+    });
+  };
+
   return {
+    oninit() {
+      loadDatasetsAndDistributions().then(() => {
+        const datasetEntry = datasetEntries.length > 0 ? datasetEntries[0] : null;
+        const distributionEntry = getFirstCSVDistributionFromDataset(datasetEntry);
+        const csvURI = getFirstCSVFileFromDistribution(distributionEntry);
+        setState({
+          datasetEntry,
+          distributionEntry,
+          csvURI,
+        });
+      });
+    },
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
@@ -27,20 +103,34 @@ export default (vnode) => {
         <div className='visualizations__sandbox'>
           <h3>{escaVisualization.vizSandboxTitle}</h3>
           <div class="viz__wrapper">
-          
+
             <div class="vizOptions__wrapper">
               <section class="datasets__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxDatasetTitle}</h4>
-                  <button alt="Add dataset" class="btn btn-primary btn--add btn-fab btn-raised"><span class="fa fa-plus"></span></button>
+                  <button alt="Add dataset" class="btn btn-primary btn--add btn-fab btn-raised"><span
+                    class="fa fa-plus" onclick={addDataset}></span></button>
                 </header>
-                <div class="datasetSelector">
-                  <select class="form-control">
-                    <option>Dataset 1</option>
-                  </select>
-                  <button class="btn btn-secondary fas fa-times"></button>
-                </div>
-                
+                {state.datasets.map((datasetSelect, idx) => {
+                  const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
+                  return <div className="datasetSelector">
+                  <div>
+                   <select className="form-control" onchange={updateEntries.bind(null, idx)}>
+                      {datasetEntries.map(dataset => <option
+                          value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
+                    </select>
+                    <button className="btn btn-secondary fas fa-times"></button>
+                  </div>
+                    
+
+                    <div class="dataset__metadata">
+                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
+                      <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
+                    </div>
+                  </div>;
+                })}
+
+
               </section>
 
               <section class="vizTypes__wrapper">
@@ -57,7 +147,14 @@ export default (vnode) => {
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
 
-                <AxisSelector></AxisSelector>
+                <div class="axesDataset__wrapper">
+                  <label>Dataset *datasetName*</label>
+                  <AxisSelector></AxisSelector>
+                </div>
+                <div class="axesDataset__wrapper">
+                  <label>Dataset *datasetName*</label>
+                  <AxisSelector></AxisSelector>
+                </div>
               </section>
             </div>
 
@@ -70,11 +167,8 @@ export default (vnode) => {
                   operation={state.operation}
                   data={null}/>
                 <div class="no-data">{escaVisualization.vizNoData}</div>
-                <div class="vizPlaceholder">
-{/*                   <GraphPlaceholderAnimation/>
- */}                </div>
-                {/*                 <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
- */}              </div>
+
+              </div>
             </section>
 
           </div>
@@ -93,4 +187,5 @@ export default (vnode) => {
       );
     },
   };
-};
+}
+;
