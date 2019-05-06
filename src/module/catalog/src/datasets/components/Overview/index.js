@@ -249,7 +249,7 @@ export default (vnode) => {
                       onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
-              <Button class="btn-secondary" onclick={actions.openCreateVisualization}>Create Visualization</Button>
+              <Button class="btn-secondary" onclick={actions.openCreateVisualization}>{escaVisualization.createViz}</Button>
               <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
               <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
               <Button class="btn-secondary" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
