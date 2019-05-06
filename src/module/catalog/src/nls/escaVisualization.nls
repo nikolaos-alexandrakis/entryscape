@@ -18,6 +18,7 @@
     "vizGraphBar": "Bar chart",
     "vizGraphLine": "Line chart",
     "vizNoData": "The visualization could not be created due to an error",
+    "vizNotReady": "Please, provide all the necesssary fields for the visualization to be presented",
     "createViz": "Create visualization"
   },
   "sv": true,

@@ -37,7 +37,7 @@ const loadDatasetsAndDistributions = async (context) => {
   const query =  es.newSolrQuery()
     .rdfType('dcat:Distribution')
     .literalProperty('dcterms:format', 'text/csv');
-    
+
   if (context) {
     query.context(context);
   }
@@ -154,11 +154,13 @@ export default () => {
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
       const data = state.datasets.map(dataset => {
+        const datasetEntry = dataset.datasetEntry;
         return {
           xField: dataset.xAxisField,
           yField: dataset.yAxisField,
           operation: dataset.operation,
           csv: csvData.get(dataset.csvURI),
+          label: datasetEntry ? `${getEntryRenderName(datasetEntry)} - ${dataset.xAxisField}` : '',
         };
       });
       console.log(data);
@@ -191,7 +193,7 @@ export default () => {
                         {datasetEntries.map(dataset => <option
                           value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
                       </select>
-                      <button className="btn btn-secondary fas fa-times"></button>
+                      <button className="btn btn-secondary"><i class="fas fa-times"></i></button>
                     </div>
                     <div class="dataset__metadata">
                       <a href={datasetSelect.csvURI}
@@ -228,7 +230,7 @@ export default () => {
               <div>
                 {data.every(dataset => dataset.xField) ? <VisualizationChart
                   type={state.chartType}
-                  data={data}/> : <div className="no-data">{escaVisualization.vizNoData}</div>
+                  data={data}/> : <div className="no-data">{escaVisualization.vizNotReady}</div>
                 }
               </div>
             </section>
