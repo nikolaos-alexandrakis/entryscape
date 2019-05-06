@@ -18,13 +18,13 @@
             min-height: 580px;
             background:white;
             padding: 15px;
-            min-width: 300px;
+            min-width: 400px;
             section{
                 margin-top: 20px;
             }
-            
+
             .datasets__wrapper{
-                
+
                 header{
                     display: flex;
                     align-items: center;
@@ -39,7 +39,7 @@
                         }
 
                     }
-                   
+
                 }
                 .btn__wrapper{
                     display: flex;
@@ -55,12 +55,12 @@
                     }
                     .dataset__metadata{
                         flex-direction: column;
-                        
+
                         a{
                             cursor: pointer;
                         }
                     }
-                    
+
                     .form-group{
                         margin:0;
                         .form-control{
@@ -72,7 +72,7 @@
                         padding: 10px 15px;
                         margin: 0;
                         height: 40px;
-                        
+
                     }
                     .fa-times{
                         color:lightgray;
@@ -142,7 +142,7 @@
         }
     }
  .vizNotes__help{
-    margin-top:20px; 
+    margin-top:20px;
     line-height: 2;
     p{
          font-size: 16px;
@@ -155,6 +155,6 @@
             width: 100px;
         }
 
-    
+
  }
 }
