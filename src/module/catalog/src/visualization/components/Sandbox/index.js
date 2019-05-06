@@ -34,13 +34,14 @@ const loadDatasetsAndDistributions = async (context) => {
   const es = registry.getEntryStore();
 
   // get all distributions that have an uploaded(?) csv file
-  const query = await es.newSolrQuery()
+  const query =  es.newSolrQuery()
     .rdfType('dcat:Distribution')
     .literalProperty('dcterms:format', 'text/csv');
+    
   if (context) {
     query.context(context);
   }
-  distributionEntries = query.getEntries(0); // @todo gets only first page
+  distributionEntries = await query.getEntries(0); // @todo gets only first page
 
   distributionWithCsvFilesRURI = distributionEntries.map(distEntry => distEntry.getResourceURI());
 
