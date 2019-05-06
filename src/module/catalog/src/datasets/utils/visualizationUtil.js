@@ -186,7 +186,6 @@ const detectTypes = (csvData) => {
   });
 
   const rowsToCheckCount = Math.min(CSV_ROWS_TO_SNIFF, csvData.data.length);
-  console.log(rowsToCheckCount);
   columns.forEach((column, idx) => {
     // this is used as a benchmark to check against
     // if the detected type in the rows is not consistent with this then ignore type detection
