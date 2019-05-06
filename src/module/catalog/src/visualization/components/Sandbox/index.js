@@ -191,8 +191,9 @@ export default () => {
               <section class="datasets__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxDatasetTitle}</h4>
-                  <button alt="Add dataset" class="btn btn-primary btn--add btn-fab btn-raised"><span
-                    class="fa fa-plus" onclick={addDataset}></span></button>
+                  <button alt="Add dataset" class="btn btn-primary btn--add btn-fab btn-raised" onclick={addDataset}>
+                    <span class="fa fa-plus"></span>
+                  </button>
                 </header>
                 {state.datasets.map((datasetSelect, idx) => {
                   const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
