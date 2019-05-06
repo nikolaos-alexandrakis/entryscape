@@ -168,8 +168,7 @@ export default () => {
                       <button className="btn btn-secondary fas fa-times"></button>
                     </div>
                     <div class="dataset__metadata">
-                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
-                      <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
+                      <a href={datasetSelect.csvURI} target='_blank'>{distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : 'CSV'}</a>
                     </div>
                   </div>;
                 })}

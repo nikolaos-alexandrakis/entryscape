@@ -66,15 +66,25 @@ export default () => {
   const processXYData = (datasets, xField, yField, operation) => {
     if (operation === 'sum') {
       // Needs to support multiple datasets
+      if(Array.isArray(datasets)) {
+        return datasets.map( dataset => processSum(dataset, xField, yField));
+      }
+
       return [processSum(datasets, xField, yField)];
     }
     if (operation === 'count') {
       // Needs to support multiple datasets
+      if(Array.isArray(datasets)) {
+        return datasets.map( dataset => processCount(dataset, xField, yField));
+      }
+
       return [processCount(datasets, xField)];
     }
+
     if (Array.isArray(dataset)) {
       return datasets.map(dataset => processXYDataset(dataset, xField, yField));
     }
+
     return [processXYDataset(datasets, xField, yField)];
   };
 
