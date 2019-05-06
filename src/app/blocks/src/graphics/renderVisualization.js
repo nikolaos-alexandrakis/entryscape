@@ -4,7 +4,17 @@ import VisualizationPreview from 'catalog/datasets/components/VisualizationPrevi
 
 export default (node, data) => {
   getEntry(data, (entry) => {
-    m.mount(node, { view: () => m(VisualizationPreview, { configurationEntry: entry }) });
-//  node.innerHTML = entry.getId();
+    const headerNode = document.createElement('div');
+    const visNode = document.createElement('div');
+    node.appendChild(headerNode);
+    node.appendChild(visNode);
+    m.mount(visNode, { view: () => m(VisualizationPreview, { configurationEntry: entry }) });
+    const md = entry.getMetadata();
+    const ruri = entry.getResourceURI();
+    const name = md.findFirstValue(ruri, 'dcterms:title');
+    if (name) {
+      headerNode.classList.add('esbVisLabel');
+      headerNode.innerText = name;
+    }
   });
 };
