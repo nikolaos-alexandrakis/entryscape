@@ -33,7 +33,8 @@ const processSum = (dataset, xField, yField) => {
   const fields = uniq(dataset.data.map(row => row[xField]));
   const fieldMap = new Map(fields.map(field => ([field, null])));
 
-  dataset.data.forEach(row =>
+  const csvData = dataset.data || dataset.csv.data;
+  csvData.forEach(row =>
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(row[yField])));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
@@ -45,7 +46,8 @@ const processSum = (dataset, xField, yField) => {
 
 const processCount = (dataset, xField, yField) => {
   const fieldMap = new Map();
-  dataset.data.forEach(row =>
+  const csvData = dataset.data || dataset.csv.data;
+  csvData.forEach(row =>
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + 1));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
@@ -67,7 +69,7 @@ export default () => {
     if (operation === 'sum') {
       // Needs to support multiple datasets
       if(Array.isArray(datasets)) {
-        return datasets.map( dataset => processSum(dataset, xField, yField));
+        return datasets.map(dataset => processSum(dataset, dataset.xField, dataset.yField));
       }
 
       return [processSum(datasets, xField, yField)];
@@ -75,14 +77,24 @@ export default () => {
     if (operation === 'count') {
       // Needs to support multiple datasets
       if(Array.isArray(datasets)) {
-        return datasets.map( dataset => processCount(dataset, xField, yField));
+
+        return datasets.map(dataset => processCount(dataset, dataset.xField, dataset.yField));
       }
 
       return [processCount(datasets, xField)];
     }
 
-    if (Array.isArray(dataset)) {
-      return datasets.map(dataset => processXYDataset(dataset, xField, yField));
+    if (Array.isArray(datasets)) {
+      return datasets.map((dataset) => {
+        switch (dataset.operation) {
+          case 'sum':
+            return processSum(dataset, dataset.xField, dataset.yField);
+          case 'count':
+            return processCount(dataset, dataset.xField, dataset.yField);
+          default:
+            return processXYDataset(dataset, dataset.xField, dataset.yField);
+        }
+      });
     }
 
     return [processXYDataset(datasets, xField, yField)];
@@ -92,9 +104,11 @@ export default () => {
     const transpose = matrix => Object.keys(matrix[0])
       .map(colNumber => matrix.map(rowNumber => rowNumber[colNumber]));
 
-    // 
+    //
+
+    const csvData = data.data || data.csv.data;
     const [xLabels, yData] = transpose(
-      data.data.map(row => ([row[xField], row[yField]])),
+      csvData.map(row => ([row[xField], row[yField]])),
     );
 
     return cleanFalseRows({

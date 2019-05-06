@@ -1,4 +1,4 @@
-import { detectTypes, parseCSVFile, } from 'catalog/datasets/utils/visualizationUtil';
+import { detectTypes, parseCSVFile } from 'catalog/datasets/utils/visualizationUtil';
 import escaVisualizationNLS from 'catalog/nls/escaVisualization.nls';
 import AxisSelector from 'catalog/visualization/components/AxisSelector';
 import TypeSelector from 'catalog/visualization/components/TypeSelector';
@@ -67,6 +67,9 @@ export default () => {
       datasetEntry: null,
       distributionEntry: null,
       csvURI: null,
+      xAxisField: null,
+      yAxisField: null,
+      operation: null,
     }],
   };
   const setState = createSetState(state);
@@ -110,6 +113,17 @@ export default () => {
     updateEntry(selectedIdx, entryRURI);
   };
 
+  const onAxisUpdate = (selectedIdx, fields) => {
+    const datasets = state.datasets;
+    datasets[selectedIdx].xAxisField = fields.x;
+    datasets[selectedIdx].yAxisField = fields.y;
+    datasets[selectedIdx].operation = fields.operation;
+
+    setState({
+      datasets,
+    });
+  };
+
   const addDataset = () => {
     const datasets = state.datasets;
     datasets.push({
@@ -135,7 +149,15 @@ export default () => {
     },
     view(vnode) {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
-
+      const data = state.datasets.map(dataset => {
+        return {
+          xField: dataset.xAxisField,
+          yField: dataset.yAxisField,
+          operation: dataset.operation,
+          csv: csvData.get(dataset.csvURI),
+        };
+      });
+      console.log(data);
       return (
         <div className='visualizations__sandbox'>
           <h3>{escaVisualization.vizSandboxTitle}</h3>
@@ -168,7 +190,8 @@ export default () => {
                       <button className="btn btn-secondary fas fa-times"></button>
                     </div>
                     <div class="dataset__metadata">
-                      <a href={datasetSelect.csvURI} target='_blank'>{distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : 'CSV'}</a>
+                      <a href={datasetSelect.csvURI}
+                         target='_blank'>{distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : 'CSV'}</a>
                     </div>
                   </div>;
                 })}
@@ -180,17 +203,17 @@ export default () => {
                 <header>
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
-                {state.datasets.map((dataset) => {
+                {state.datasets.map((dataset, idx) => {
                   return <div>
                     {dataset.datasetEntry ?
                       <label>{escaVisualization.vizSandboxDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
                     <AxisSelector
-                      x={state.xAxisField}
-                      y={state.yAxisField}
-                      operation={state.operation}
+                      x={dataset.xAxisField}
+                      y={dataset.yAxisField}
+                      operation={dataset.operation}
                       fields={getCsvDataFields(dataset.csvURI)}
                       type={state.chartType}
-                      // onSelect={onAxisUpdate}
+                      onSelect={onAxisUpdate.bind(null, idx)}
                     />
                   </div>;
                 })}
@@ -199,16 +222,10 @@ export default () => {
 
             <section class="vizGraph__wrapper">
               <div>
-                {Array.from(csvData).length > 0 ?
-                  <VisualizationChart
-                    type={state.chartType}
-                    xAxisField={state.xAxisField}
-                    yAxisField={state.yAxisField}
-                    operation={state.operation}
-                    data={Array.from(csvData)[0]}/> : null
+                {data.every(dataset => dataset.xField) ? <VisualizationChart
+                  type={state.chartType}
+                  data={data}/> : <div className="no-data">{escaVisualization.vizNoData}</div>
                 }
-
-                <div class="no-data">{escaVisualization.vizNoData}</div>
               </div>
             </section>
 
