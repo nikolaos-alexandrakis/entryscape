@@ -3,7 +3,6 @@
 .viz__editDialog {
     h4 {
         @include title--underlined;
-        max-width: 80%;
         border-bottom: 0;
         font-weight: bold;
     }

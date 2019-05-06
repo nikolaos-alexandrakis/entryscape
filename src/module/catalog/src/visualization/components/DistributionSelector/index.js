@@ -11,7 +11,7 @@ export default () => {
 
       return (
         <div class="useFile__wrapper">
-          <h5>{escaVisualization.vizDialogDistributionUse}</h5>
+          <label>{escaVisualization.vizDialogDistributionUse}</label>
           <div class="form-group">
             <select className="form-control" onchange={onChangeSelectedFile}>
               {files && files.map(file => <option value={file.uri}>{file.distributionName} - {file.fileName}</option>)}
