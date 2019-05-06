@@ -60,7 +60,7 @@ export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, te
       productName: 'Visualize',
       faClass: 'chart-bar',
       startView: 'catalog__visualize',
-      public: true,
+      public: 'admin',
     },
     documentation: {
       title: { en: 'Documentation', sv: 'Dokumentation', de: 'Dokumentation' },
