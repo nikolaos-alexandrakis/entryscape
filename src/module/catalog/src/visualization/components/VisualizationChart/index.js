@@ -147,6 +147,7 @@ export default () => {
       data,
     } = chartOptions;
 
+    const displayLegend = Array.isArray(data);
     let processedData;
     switch(type) {
       case 'map':
@@ -169,12 +170,14 @@ export default () => {
       bar: (
         <BarChart
           data={processedData}
+          displayLegend={displayLegend}
           type="bar"
         />
       ),
       line: (
         <BarChart
           data={processedData}
+          displayLegend={displayLegend}
           type="line"
         />
       ),

@@ -117,6 +117,17 @@ export default () => {
     updateEntry(selectedIdx, entryRURI);
   };
 
+  const onremoveEntry = (selectedIdx, e) => {
+    const datasets = state.datasets;
+
+    datasets.splice(selectedIdx, 1);
+    console.log(datasets);
+
+    setState({
+      datasets,
+    });
+  };
+
   const onAxisUpdate = (selectedIdx, fields) => {
     const datasets = state.datasets;
     datasets[selectedIdx].xAxisField = fields.x;
@@ -163,10 +174,8 @@ export default () => {
           label: datasetEntry ? `${getEntryRenderName(datasetEntry)} - ${dataset.xAxisField}` : '',
         };
       });
-      console.log(data);
       return (
         <div className='visualizations__sandbox'>
-          <h3>{escaVisualization.vizSandboxTitle}</h3>
           <div class="viz__wrapper">
 
             <div class="vizOptions__wrapper">
@@ -193,7 +202,7 @@ export default () => {
                         {datasetEntries.map(dataset => <option
                           value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
                       </select>
-                      <button className="btn btn-secondary"><i class="fas fa-times"></i></button>
+                      <button className="btn btn-secondary" onclick={onremoveEntry.bind(null, idx)}><i class="fas fa-times" /></button>
                     </div>
                     <div class="dataset__metadata">
                       <a href={datasetSelect.csvURI}
