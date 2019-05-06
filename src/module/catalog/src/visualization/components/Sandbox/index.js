@@ -30,14 +30,17 @@ const getCsvDataFields = (datasetRURI) => {
   return [];
 };
 
-const loadDatasetsAndDistributions = async () => {
+const loadDatasetsAndDistributions = async (context) => {
   const es = registry.getEntryStore();
 
   // get all distributions that have an uploaded(?) csv file
-  distributionEntries = await es.newSolrQuery()
+  const query = await es.newSolrQuery()
     .rdfType('dcat:Distribution')
-    .literalProperty('dcterms:format', 'text/csv')
-    .getEntries(0); // @todo gets only first page
+    .literalProperty('dcterms:format', 'text/csv');
+  if (context) {
+    query.context(context);
+  }
+  distributionEntries = query.getEntries(0); // @todo gets only first page
 
   distributionWithCsvFilesRURI = distributionEntries.map(distEntry => distEntry.getResourceURI());
 
@@ -140,8 +143,8 @@ export default () => {
   };
 
   return {
-    oninit() {
-      loadDatasetsAndDistributions()
+    oninit(vnode) {
+      loadDatasetsAndDistributions(vnode.attrs.context)
         .then(() => {
           const defaultDatasetURI = getDefaultDatasetURI();
           updateEntry(0, defaultDatasetURI);
