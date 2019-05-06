@@ -1,6 +1,9 @@
 @import '~commons/theme.scss';
 
 .visualizations__sandbox {
+    label{
+        font-size: 13px;
+    }
     .viz__wrapper{
         display:flex;
         h4{
@@ -49,9 +52,7 @@
                     }
                     .dataset__metadata{
                         flex-direction: column;
-                        label{
-                            font-size: 13px;
-                        }
+                        
                         a{
                             cursor: pointer;
                         }
@@ -82,10 +83,10 @@
                 .graphType__card__wrapper{
                     .btn-group{
                         display:flex;
-                        flex-direction: column;
                     }
                     .btn{
-                        margin: 5px 0;
+                        width: 120px;
+                        margin-right: 5px;
                     }
                 }
 

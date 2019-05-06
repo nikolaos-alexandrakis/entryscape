@@ -10,6 +10,7 @@
     "vizDialogPreview":"Preview of distribution visualization",
     "vizSandboxTitle":"Visualization Sandbox",
     "vizSandboxDatasetTitle": "Datasets",
+    "vizSandbozDatasetLabel": "Dataset",
     "vizSandboxTypeTitle":"Type of Visualization",
     "vizSandboxAxesTitle":"Axes to use",
     "vizSandboxDatasetDistribution":"is working with",
