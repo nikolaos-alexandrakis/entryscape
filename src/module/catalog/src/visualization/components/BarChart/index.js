@@ -56,7 +56,7 @@ const getNewChart = (ctx, type) => {
     options: {
       maintainAspectRatio: false,
       legend: {
-        display: false,
+        display: true,
       },
       scales: {
         yAxes: [{
@@ -101,6 +101,7 @@ export default () => {
           datasets: data.map(dataset => ({
             labels: dataset.xLabels,
             data: dataset.yData,
+            label: dataset.label || '',
           })),
         };
 

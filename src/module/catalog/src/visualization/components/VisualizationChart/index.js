@@ -38,10 +38,15 @@ const processSum = (dataset, xField, yField) => {
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + parseFloat(row[yField])));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
-  return cleanFalseRows({
+  const cleaned = cleanFalseRows({
     xLabels: countedFields[0],
     yData: countedFields[1],
   });
+
+  return {
+    ...cleaned,
+    label: dataset.label,
+  };
 };
 
 const processCount = (dataset, xField, yField) => {
@@ -51,10 +56,15 @@ const processCount = (dataset, xField, yField) => {
     fieldMap.set(row[xField], (fieldMap.get(row[xField]) ? fieldMap.get(row[xField]) : 0) + 1));
   const countedFields = [Array.from(fieldMap.keys()), Array.from(fieldMap.values())];
 
-  return cleanFalseRows({
+  const cleaned = cleanFalseRows({
     xLabels: countedFields[0],
     yData: countedFields[1],
   });
+
+  return {
+    ...cleaned,
+    label: dataset.label,
+  };
 };
 
 export default () => {
@@ -111,10 +121,15 @@ export default () => {
       csvData.map(row => ([row[xField], row[yField]])),
     );
 
-    return cleanFalseRows({
+    const cleaned = cleanFalseRows({
       xLabels,
       yData,
     });
+
+    return {
+      ...cleaned,
+      label: data.label,
+    };
   };
 
   const renderChart = (chartOptions) => {
