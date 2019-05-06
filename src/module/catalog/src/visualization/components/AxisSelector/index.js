@@ -32,7 +32,7 @@ export default (initialVnode) => {
       return (
         <div class="axisOptions__wrapper">
           <div class="axisX__wrapper">
-            <h5>X:</h5>
+            <h5>{type === 'map' ? 'Longitude' : 'X'}:</h5>
             <div class="form-group">
               <select class="form-control"
                 value={x}
@@ -55,7 +55,7 @@ export default (initialVnode) => {
           </div>
           {operation !== 'count' && (
             <div class="axisY__wrapper">
-              <h5>Y:</h5>
+              <h5>{type === 'map' ? 'Latitude' : 'Y'}:</h5>
               <div class="form-group">
                 <select class="form-control"
                   value={y}

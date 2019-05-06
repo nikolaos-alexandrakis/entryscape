@@ -41,9 +41,22 @@
                 }
                 .datasetSelector{
                     display: flex;
+                    flex-direction: column;
                     justify-content: space-between;
-                    align-items: center;
                     margin: 20px 0;
+                    &>div{
+                        display: flex;
+                    }
+                    .dataset__metadata{
+                        flex-direction: column;
+                        label{
+                            font-size: 13px;
+                        }
+                        a{
+                            cursor: pointer;
+                        }
+                    }
+                    
                     .form-group{
                         margin:0;
                         .form-control{
@@ -99,9 +112,12 @@
             min-height: 580px;
             width:100%;
             position: relative;
+            &>div{
+                height: 100%;
+            }
             .no-data {
                 background-color: $green;
-                height: 580px;
+                min-height: 580px;
                 padding: 20px;
                 display: flex;
                 justify-content: center;
@@ -110,6 +126,7 @@
                 color:white;
                 font-size:18px;
                 opacity: 0.7;
+                height: 100%;
             }
             .chart-container{
                 position: relative;

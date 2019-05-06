@@ -123,13 +123,17 @@ export default () => {
                 {state.datasets.map((datasetSelect, idx) => {
                   const distributionName = datasetSelect.distributionEntry ? getEntryRenderName(datasetSelect.distributionEntry) : '';
                   return <div className="datasetSelector">
+                    <div>
                     <select className="form-control" onchange={onchangeEntry.bind(null, idx)}>
                       {datasetEntries.map(dataset => <option
-                        value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
+                          value={dataset.getResourceURI()}>{getEntryRenderName(dataset)}</option>)}
                     </select>
                     <button className="btn btn-secondary fas fa-times"></button>
-                    <div>
-                      {datasetSelect.distributionName ? `You are working with ${distributionName}` : ''}
+                  </div>
+
+
+                    <div class="dataset__metadata">
+                      <label>{datasetSelect.distributionName ? `${escaVisualization.vizSandboxDatasetDistribution} ${distributionName}` : ''}</label>
                       <a href={datasetSelect.csvURI} target='_blank'>csv file</a>
                     </div>
                   </div>;
@@ -169,11 +173,8 @@ export default () => {
                   operation={state.operation}
                   data={null}/>
                 <div class="no-data">{escaVisualization.vizNoData}</div>
-                <div class="vizPlaceholder">
-                  {/*                   <GraphPlaceholderAnimation/>
- */}                </div>
-                {/*                 <img src="https://static.vaadin.com/directory/user35550/screenshot/file8494337878231358249_15061520778722017-09-2309_33_26-VaadinChart.jsAddon.png"></img>
- */}              </div>
+
+              </div>
             </section>
 
           </div>
