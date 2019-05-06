@@ -146,20 +146,6 @@ export default (vnode) => {
       });
   };
 
-  let visualizationEntryConfigurations = [];
-  const getVisualizations = async () => {
-    const metadata = entry.getMetadata();
-    const stmts = metadata.find(entry.getResourceURI(), 'schema:diagram');
-
-    const loadEntriesPromises = [];
-    stmts.forEach((stmt) => {
-      const entryURI = stmt.getValue();
-      loadEntriesPromises.push(registry.getEntryStoreUtil().getEntryByResourceURI(entryURI));
-    });
-
-    visualizationEntryConfigurations = await Promise.all(loadEntriesPromises);
-  };
-
   return {
     oninit() {
       // Cache the entry context
@@ -169,7 +155,7 @@ export default (vnode) => {
       refreshComments();
       setIdeas();
       setShowcases();
-      getVisualizations();
+      actions.loadVisualizationConfigurations().then(() => m.redraw());
     },
     view: () => {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
@@ -302,7 +288,7 @@ export default (vnode) => {
           <div class="flex--sb">
             <DistributionList dataset={entry}></DistributionList>
             <div class="charts__container">
-            {visualizationEntryConfigurations
+            {actions.getVisualizationConfigurations()
               .map(configurationEntry =>
                 <VisualizationPreview
                   configurationEntry={configurationEntry}

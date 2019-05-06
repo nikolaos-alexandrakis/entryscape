@@ -1,5 +1,5 @@
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
-import CreateVisualizationDialog from "catalog/datasets/CreateVisualizationDialog";
+import CreateVisualizationDialog from 'catalog/datasets/CreateVisualizationDialog';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
@@ -447,12 +447,30 @@ export default (entry) => {
     }
   };
 
+  let visualizationEntryConfigurations = [];
+  const loadVisualizationConfigurations = async () => {
+    const metadata = entry.getMetadata();
+    const stmts = metadata.find(entry.getResourceURI(), 'schema:diagram');
+
+    const loadEntriesPromises = [];
+    stmts.forEach((stmt) => {
+      const entryURI = stmt.getValue();
+      loadEntriesPromises.push(registry.getEntryStoreUtil().getEntryByResourceURI(entryURI));
+    });
+
+    visualizationEntryConfigurations = await Promise.all(loadEntriesPromises);
+  };
+  const getVisualizationConfigurations = () => visualizationEntryConfigurations;
+
   const addVisualizationDialog = new CreateVisualizationDialog();
   const openCreateVisualization = async () => {
     // const fileEntries = await getDistributionFileEntries(distribution);
     addVisualizationDialog.open({
       entry,
-      onDone: () => m.redraw(),
+      onDone: async () => {
+        await loadVisualizationConfigurations();
+        m.redraw();
+      },
     });
   };
 
@@ -462,6 +480,8 @@ export default (entry) => {
     entry.getMetadata().findAndRemove(datasetRURI, 'schema:diagram', vizRURI);
     await entry.commitMetadata();
     await visualizationEntry.del();
+    await loadVisualizationConfigurations();
+    m.redraw();
   };
 
   /**
@@ -501,6 +521,8 @@ export default (entry) => {
     openShowcases,
     openPreview,
     openCreateVisualization,
+    loadVisualizationConfigurations,
+    getVisualizationConfigurations,
     removeVisualization,
     clone,
     downgrade,
