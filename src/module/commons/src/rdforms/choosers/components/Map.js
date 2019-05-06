@@ -157,6 +157,18 @@ const Map = () => {
           } else {
             populateMapWithValue(map, value);
           }
+          const allMarkers = [];
+          map.eachLayer(layer => { 
+            if(layer instanceof leaflet.Marker) { 
+              allMarkers.push(layer);
+            }
+          });
+
+          const latLngBounds = leaflet.latLngBounds(allMarkers.map(marker => marker.getLatLng()));
+          map.fitBounds(latLngBounds);
+          if (latLngBounds.length <= 1) {
+            map.zoomOut(3); // Zooming out by one level for usability
+          }
         }
 
         if (editable) {
