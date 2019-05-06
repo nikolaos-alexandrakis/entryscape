@@ -212,6 +212,13 @@ const getControllerComponent = (datasetEntry, files) => {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
       return <section class="viz__editDialog">
+        <section class="graphType__wrapper">
+          <h4>{escaVisualization.vizDialogTypeTitle}</h4>
+          <TypeSelector
+            type={state.chartType}
+            onSelect={onTypeChange}
+          />
+        </section>
 
         <section class="useFile">
           <h4>{escaVisualization.vizDialogDistributionTitle}</h4>
@@ -226,13 +233,7 @@ const getControllerComponent = (datasetEntry, files) => {
                    oninput={updateVisualizationName} value={state.name}/>
           </div>
         </section>
-        <section class="graphType__wrapper">
-          <h4>{escaVisualization.vizDialogTypeTitle}</h4>
-          <TypeSelector
-            type={state.chartType}
-            onSelect={onTypeChange}
-          />
-        </section>
+      
 
         <section class="axisOperation__wrapper">
           <div class="axisOptions">

@@ -138,6 +138,14 @@ export default () => {
           <div class="viz__wrapper">
 
             <div class="vizOptions__wrapper">
+            <section class="vizTypes__wrapper">
+                <header>
+                  <h4>{escaVisualization.vizSandboxTypeTitle}</h4>
+                </header>
+                <TypeSelector
+                  type={state.chartType}
+                />
+              </section>
               <section class="datasets__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxDatasetTitle}</h4>
@@ -164,22 +172,12 @@ export default () => {
 
               </section>
 
-              <section class="vizTypes__wrapper">
-                <header>
-                  <h4>{escaVisualization.vizSandboxTypeTitle}</h4>
-                </header>
-                <TypeSelector
-                  type={state.chartType}
-                  onSelect={onTypeChange}
-                />
-              </section>
-
               <section class="axesOperations__wrapper">
                 <header>
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
                 {state.datasets.map(dataset => <div>
-                  {dataset.datasetEntry ? <label>Dataset {getEntryRenderName(dataset.datasetEntry)}</label> : null}
+                  {dataset.datasetEntry ? <label>{escaVisualization.vizSandbozDatasetLabel} {getEntryRenderName(dataset.datasetEntry)}</label> : null}
                   <AxisSelector></AxisSelector>
                 </div>)
                 }
@@ -201,17 +199,6 @@ export default () => {
             </section>
 
           </div>
-          <section class="vizNotes__wrapper">
-            <div class="vizNotes__errors">
-              <p></p>
-
-            </div>
-            <div class="vizNotes__help">
-              <p>{m.trust(escaVisualization.vizSandboxHelpDataset)}</p>
-              <p>{m.trust(escaVisualization.vizSandboxHelpType)}</p>
-              <p>{m.trust(escaVisualization.vizSandboxHelpAxes)}</p>
-            </div>
-          </section>
         </div>
       );
     },
