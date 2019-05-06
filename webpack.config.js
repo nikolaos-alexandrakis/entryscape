@@ -209,7 +209,7 @@ module.exports = (env, argv) => {
     },
   };
 
-  if (APP === 'BLOCKS') {
+  if (APP === 'blocks') {
     config.output.publicPath = (argv && argv.localbuild ? '/dist/' : `${STATIC_URL_BLOCKS}${PUBLIC_PATH}`); // @todo invent a better option that allows runtime detection from the app.js
   }
 
@@ -248,6 +248,7 @@ module.exports = (env, argv) => {
       });
 
     } else if (argv.mode === 'production') {
+      console.log("jihaaaa "+config.output.publicPath);
       if (APP !== 'blocks') {
         config = merge(config, {
           optimization: {
