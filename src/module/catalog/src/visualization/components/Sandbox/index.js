@@ -91,7 +91,10 @@ export default () => {
                   <h4>{escaVisualization.vizSandboxAxesTitle}</h4>
                 </header>
 
+                <div>
+                <label>Dataset *datasetName*</label>
                 <AxisSelector></AxisSelector>
+                </div>
               </section>
             </div>
 
