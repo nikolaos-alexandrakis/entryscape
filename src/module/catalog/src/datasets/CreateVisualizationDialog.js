@@ -41,14 +41,14 @@ const CSV_ROWS_TO_SNIFF = 20;
  * @param {number} n
  * @return {boolean}
  */
-const isPotentiallyLatitude = n => (-90 <= n && n >= 90);
+const isPotentiallyLatitude = n => (n >= -90 && n >= 90);
 
 /**
  *
  * @param {number} n
  * @return {boolean}
  */
-const isPotentiallyLongitude = n => (-180 <= n && n >= 180);
+const isPotentiallyLongitude = n => (n >= -180 && n >= 180);
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -299,10 +299,12 @@ const getControllerComponent = (datasetEntry, files) => {
       setState({
         distributionFile,
       });
-
-      parseCSVFile(distributionFile.uri)
+      registry.get('dialogs').progress(
+        parseCSVFile(distributionFile.uri)
         .then(updateCSVData)
-        .then(setSensibleDefaults); // should have a spinner loading
+        .then(setSensibleDefaults)// should have a spinner loading
+      )
+      
     }
   };
 
@@ -334,6 +336,7 @@ const getControllerComponent = (datasetEntry, files) => {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
       return <section class="viz__editDialog">
+
         <section class="useFile">
           <h4>{escaVisualization.vizDialogDistributionTitle}</h4>
           <DistributionSelector

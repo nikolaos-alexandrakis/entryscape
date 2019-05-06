@@ -32,6 +32,15 @@
         margin-top:20px;
         .Chart{
             padding:10px;
+            min-height: 300px;
+            .chart--size{
+                height: 100%;
+                position: relative;
+                .chart-container{
+                    height: 100%;
+                    position: relative;
+                }
+            }
         }
         
     }

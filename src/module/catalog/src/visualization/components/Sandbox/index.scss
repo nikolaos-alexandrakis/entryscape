@@ -9,7 +9,7 @@
             margin:0px 15px 5px 0px;
         }
         .vizOptions__wrapper{
-            height: 580px;
+            min-height: 580px;
             background:white;
             padding: 15px;
             min-width: 300px;
@@ -29,7 +29,6 @@
                         .fa-plus{
                             font-size: 14px;
                             position: relative;
-                            right: 0.8px;
                             vertical-align: top
                         }
 
@@ -86,6 +85,8 @@
                     .form-group{
                         margin:0;
                         padding: 0;
+                        min-width: 100px;
+                        margin-right: 10px;
                         .form-control{
                             margin-left:5px;
                         }
@@ -95,8 +96,9 @@
             }
         }
         .vizGraph__wrapper{
-            height: 580px;
+            min-height: 580px;
             width:100%;
+            position: relative;
             .no-data {
                 background-color: $green;
                 height: 580px;
@@ -110,8 +112,8 @@
                 opacity: 0.7;
             }
             .chart-container{
-                height: 580px;
-                background-color:lightpink;
+                position: relative;
+                height: 100%
             }
             img{
                 width: 100%;

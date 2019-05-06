@@ -114,7 +114,7 @@ export default () => {
     view(vnode) {
 
       return (
-        <div>
+        <div class="chart--size">
           {renderChart(vnode.attrs)}
         </div>
       );
