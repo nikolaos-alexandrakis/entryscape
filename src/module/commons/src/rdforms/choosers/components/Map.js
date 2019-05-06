@@ -116,7 +116,6 @@ const Map = () => {
     unfocusInputs();
   };
 
-
   const MapNode = {
     view() {
       return (
@@ -138,9 +137,14 @@ const Map = () => {
         leaflet = leafletImport.default;
         const map = getConstructedMap(vnode.dom);
         setState({ map }, true);
+
         if (value) {
           if (Array.isArray(value)) {
-            value.forEach(coord => populateMapWithValue(map, coord));
+            if (Array.isArray(value[0])) {
+              value.forEach(datasetValues => datasetValues.forEach(coord => populateMapWithValue(map, coord)));
+            } else {
+              value.forEach(coord => populateMapWithValue(map, coord));
+            }
           } else {
             populateMapWithValue(map, value);
           }
@@ -169,7 +173,11 @@ const Map = () => {
       if (state.map) {
         clearMapLayers(state.map);
         if (Array.isArray(value)) {
-          value.forEach(coord => populateMapWithValue(state.map, coord));
+          if (Array.isArray(value[0])) {
+            value.forEach(datasetValues => datasetValues.forEach(coord => populateMapWithValue(state.map, coord)));
+          } else {
+            value.forEach(coord => populateMapWithValue(state.map, coord));
+          }
         } else {
           populateMapWithValue(state.map, value);
         }
