@@ -179,17 +179,7 @@ export default () => {
             </section>
 
           </div>
-{/*           <section class="vizNotes__wrapper">
-            <div class="vizNotes__errors">
-              <p></p>
 
-            </div>
-            <div class="vizNotes__help">
-              <p>{escaVisualization.vizSandboxHelpDataset}</p>
-              <p>{escaVisualization.vizSandboxHelpType}</p>
-              <p>{escaVisualization.vizSandboxHelpAxes}</p>
-            </div>
-          </section> */}
         </div>
       );
     },
