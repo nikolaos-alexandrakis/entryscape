@@ -270,6 +270,7 @@ export default declare([TitleDialog.ContentComponent], {
   nlsHeaderTitle: 'vizDialogTitle',
   nlsFooterButtonLabel: 'vizDialogFooter',
   async open(params) {
+    this.onDone = params.onDone;
     const { entry: datasetEntry } = params;
     this.entry = datasetEntry;
 
@@ -283,6 +284,7 @@ export default declare([TitleDialog.ContentComponent], {
     const { distributionFile } = state;
     return createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state)
       .then(console.log)
+      .then(this.onDone)
       .catch(console.log);
   },
 });

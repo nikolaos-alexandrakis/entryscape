@@ -57,14 +57,14 @@ const getNewChart = (ctx, type) => {
       maintainAspectRatio: false,
       legend: {
         display: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-            }
-          }]
-        },
-      }
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+          },
+        }],
+      },
     },
   });
 };
@@ -79,6 +79,7 @@ export default () => {
     oncreate(vnode) {
       const { type = 'bar' } = vnode.attrs;
       chart = getNewChart(document.getElementById(this.elementId), type);
+      m.redraw();
     },
     onupdate(vnode) {
       const { type = 'bar' } = vnode.attrs;
