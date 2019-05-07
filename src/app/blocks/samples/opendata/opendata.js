@@ -144,11 +144,13 @@ window.__entryscape_config = {
       '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
       '{{/ifprop}}' +
       '{{#distributionList}}{{/distributionList}}' +
+      '{{#visualizationList}}{{/visualizationList}}' +
       '<h4>Ytterligare information</h4>\n' +
       '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
       'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n' +
+      '{{#table on="format" label="<h4>Tabellvisning av rådata</h4>" prop="dcat:downloadURL"}}{{/table}}' +
       '{{showcaseList}}' +
-      '{{ideasList}}',
+      '{{ideaList}}',
     },
     {
       block: 'datasetList',
@@ -186,10 +188,11 @@ window.__entryscape_config = {
       extends: 'searchList',
       rdftype: 'http://entryscape.com/terms/Idea',
       limit: '10',
+      initsearch: true,
       dependencyproperties: 'dcterms:source',
-      listplaceholder: '<h4>Inga idÃ©er Ã¤nnu</h4>',
+      listplaceholder: '<h4>Inga idéer ännu</h4>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-      '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>AnvÃ¤nder: </span><strong>{{link' +
+      '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
       ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
       '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
@@ -202,7 +205,7 @@ window.__entryscape_config = {
       limit: '10',
       relationinverse: 'dcterms:source',
       rdftype: 'http://entryscape.com/terms/Idea',
-      listhead: '<br><h4>IdÃ©er - fÃ¶rslag pÃ¥ anvÃ¤ndning</h4>',
+      listhead: '<br><h4>Idéer - förslag på användning</h4>',
       listbody: '<div class="esbIndent">{{body}}</div>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
         '<h4><strong>{{text}}</strong></h4>' +
@@ -215,11 +218,12 @@ window.__entryscape_config = {
       block: 'showcaseSearch',
       extends: 'searchList',
       rdftype: 'http://entryscape.com/terms/Result',
-      listplaceholder: '<h4>Inga showcases Ã¤nnu</h4>',
+      listplaceholder: '<h4>Inga showcases ännu</h4>',
       limit: '10',
+      initsearch: true,
       dependencyproperties: 'dcterms:source',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-        '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>AnvÃ¤nder: </span><strong>{{link' +
+        '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
         ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
         '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
@@ -230,7 +234,7 @@ window.__entryscape_config = {
       block: 'showcaseList',
       extends: 'list',
       rdftype: 'http://entryscape.com/terms/Result',
-      listhead: '<br><h4>Showcases - kÃ¤nd anvÃ¤ndning</h4>',
+      listhead: '<br><h4>Showcases - känd användning</h4>',
       limit: '10',
       relationinverse: 'dcterms:source',
       listbody: '<div class="esbIndent">{{body}}</div>',
