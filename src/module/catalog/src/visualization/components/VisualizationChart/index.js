@@ -74,7 +74,7 @@ const processGeoData = (data, xField, yField) => {
     // )));
 
     // const parsedGeoDatas = cleanGeoDatas.map(mapData => mapData.csv.data.map(row => (row[mapData.xField] && row[mapData.yField]) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
-    const parsedGeoDatas = data.map(mapData => mapData.csv.data.map(row => (parseFloat(row[mapData.xField]) && parseFloat(row[mapData.yField])) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
+    const parsedGeoDatas = data.map(mapData => mapData.csv.data.map(row => (parseFloat(row[mapData.xField]) && parseFloat(row[mapData.yField])) ? `POINT(${parseFloat(row[mapData.xField])} ${parseFloat(row[mapData.yField])})` : null).filter(point => point !== null));
 
     return parsedGeoDatas;
   }
