@@ -1,4 +1,5 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
+import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
 import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
@@ -7,12 +8,17 @@ import statsAPI from 'commons/statistics/api';
 import dateUtil from 'commons/util/dateUtil';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
-import escaCatalogNLS from 'catalog/nls/escaCatalog.nls';
+import config from 'config';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import './escaOverview.scss';
 
-
+/**
+ * Get top statistics for a specific time. Used here only with specific dates
+ *
+ * @param timeRangeDay
+ * @return {Promise<*>}
+ */
 const getCatalogStatistics = async (timeRangeDay) => {
   const context = registry.getContext();
   return statsAPI.getTopStatistics(context.getId(), 'all', timeRangeDay);
@@ -32,11 +38,14 @@ const sumTotalCountFromResult = (results, type = null) => results.reduce((totalC
   return totalCount;
 }, 0);
 
-
+/**
+ * Get statistics for catalog in the last 7 days
+ *
+ * @return {Promise<{bar: {datasets: Array}, doughnut: {datasets: {data: number[], label: *}[], labels: *[]}}>}
+ */
 const getStatisticsData = async () => {
-  // prepare data structures and api callls
+  // prepare data structures and api calls
   const barData = { datasets: [] };
-  const doughnutData = { labels: ['Files', 'API'], datasets: [{ data: [] }] };
   const today = new Date();
   const timeRanges = [];
   for (let i = 0; i < 7; i++) {
@@ -50,8 +59,9 @@ const getStatisticsData = async () => {
   }
 
   // make api call and calculate results
+  const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
   const dataPoints = [];
-  const label = 'Aggregate';
+  const label = escaStatistics.statsCatalogOverviewChartLabel;
   let fileCount = 0;
   let apiCount = 0;
   const results = await Promise.all(timeRanges.map(getCatalogStatistics));
@@ -68,10 +78,15 @@ const getStatisticsData = async () => {
 
   // populate the data structures for the charts
   barData.datasets.push({ data: dataPoints, label });
-  doughnutData.datasets[0].data.push(fileCount);
-  doughnutData.datasets[0].data.push(apiCount);
+  const doughnutData = {
+    labels: [escaStatistics.statsCatalogOverviewDoughnutFiles, escaStatistics.statsCatalogOverviewDoughnutAPI],
+    datasets: [{
+      label: escaStatistics.statsCatalogOverviewDoughnutLabel, // @todo perhaps not used
+      data: [fileCount, apiCount],
+    }],
+  };
 
-  return [barData, doughnutData];
+  return { bar: barData, doughnut: doughnutData };
 };
 
 
@@ -120,6 +135,7 @@ const getOverviewData = async () => {
 
   const b = i18n.getLocalization(escaOverview);
 
+
   // box list
   data.bList = [];
   querySListMap.forEach((searchList, rdfType) => {
@@ -164,11 +180,10 @@ export default declare(MithrilView, {
     };
 
     const setState = createSetState(state);
-
     return {
       oninit() {
         getOverviewData().then(data => setState({ data }));
-        getStatisticsData().then(([bar, doughnut]) => setState({
+        getStatisticsData().then(({ bar, doughnut }) => setState({
           chart: {
             bar,
             doughnut,
@@ -176,21 +191,22 @@ export default declare(MithrilView, {
         }));
       },
       view() {
-        const escaCatalog = i18n.getLocalization(escaCatalogNLS);
+        const showStats = config.get('catalog.includeStatistics', false);
+        const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
 
         return <div class="esca__Overview__wrapper">
           <Overview data={state.data}/>
-          <div class="charts__column">
-            <h4>{escaCatalog.catalogOverviewStatsTitle}</h4>
-            <div class="chart__wrapper">
-              <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
-            </div>
-            <div class="chart__wrapper">
-              <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
-            </div>
-            <button onClick="" class="btn btn-raised btn-sm btn-primary">{escaCatalog.SeeAllBtn}</button>
-
-          </div>
+          {showStats ?
+            <div class="charts__column">
+              <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
+              <div class="chart__wrapper">
+                <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
+              </div>
+              <div class="chart__wrapper">
+                <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
+              </div>
+              <button class="btn btn-raised btn-sm btn-primary">{escaStatistics.statsCatalogSeeAllBtn}</button>
+            </div> : null}
         </div>;
       },
     };
