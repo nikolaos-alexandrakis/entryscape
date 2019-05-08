@@ -69,10 +69,12 @@ const processCount = (dataset, xField, yField) => {
 
 const processGeoData = (data, xField, yField) => {
   if (Array.isArray(data)) {
-    const cleanGeoDatas = data.map(mapData => mapData.csv.data.filter(row => (
-      (row[mapData.xField] && parseFloat(row[mapData.yField])) === false
-    )));
-    const parsedGeoDatas = cleanGeoDatas.map(mapData => mapData.csv.data.map(row => (row[mapData.xField] && row[mapData.yField]) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
+    // const cleanGeoCSVDatas = data.map(mapData => mapData.csv.data.filter(row => (
+      // (row[mapData.xField] && parseFloat(row[mapData.yField])) === false
+    // )));
+
+    // const parsedGeoDatas = cleanGeoDatas.map(mapData => mapData.csv.data.map(row => (row[mapData.xField] && row[mapData.yField]) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
+    const parsedGeoDatas = data.map(mapData => mapData.csv.data.map(row => (parseFloat(row[mapData.xField]) && parseFloat(row[mapData.yField])) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
 
     return parsedGeoDatas;
   }
