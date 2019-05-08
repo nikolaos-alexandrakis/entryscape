@@ -158,8 +158,8 @@ const Map = () => {
             populateMapWithValue(map, value);
           }
           const allMarkers = [];
-          map.eachLayer(layer => { 
-            if(layer instanceof leaflet.Marker) { 
+          map.eachLayer(layer => {
+            if (layer instanceof leaflet.Marker) {
               allMarkers.push(layer);
             }
           });
