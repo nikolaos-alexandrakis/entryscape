@@ -6,14 +6,14 @@ import './index.scss';
   const cleanFalseRows = ({xLabels, yData}) => {
     if (
       (
-        (xLabels[xLabels.size-1] == null)
-        || (xLabels[xLabels.size-1] == '')
+        (xLabels[xLabels.length-1] == null)
+        || (xLabels[xLabels.length-1] == '')
       )
       && (
-        (yData[yData.size-1] !== 0)
+        (yData[yData.length-1] !== 0)
         && (
-          (yData[yData.size-1] == null)
-          || (yData[yData.size-1] == '')
+          (yData[yData.length-1] == null)
+          || (yData[yData.length-1] == '')
         )
       )
     ){

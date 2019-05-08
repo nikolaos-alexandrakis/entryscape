@@ -161,7 +161,7 @@ const isPotentiallyDiscrete = (array, totalValues) => {
   const discreteValues = new Set(array).size;
   let threshold = DISCREET_THRESHOLD;
   if (totalValues < threshold) {
-    threshold = totalValues - 1; // at least one value is repeated twice
+    threshold = totalValues; // at least one value is repeated twice (this includes the header)
   }
   return discreteValues > 0 && (discreteValues < threshold); // @todo very random: discrete value means no more than 20
 };
