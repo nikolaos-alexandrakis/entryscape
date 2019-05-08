@@ -7,6 +7,7 @@ import statsAPI from 'commons/statistics/api';
 import dateUtil from 'commons/util/dateUtil';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
+import escaCatalogNLS from 'catalog/nls/escaCatalog.nls';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import './escaOverview.scss';
@@ -55,7 +56,6 @@ const getStatisticsData = async () => {
   let apiCount = 0;
   const results = await Promise.all(timeRanges.map(getCatalogStatistics));
   results.forEach((result, idx) => {
-
     const totalCount = sumTotalCountFromResult(result) || 0;
     fileCount += sumTotalCountFromResult(result, 'file');
     apiCount += sumTotalCountFromResult(result, 'api');
@@ -160,7 +160,7 @@ export default declare(MithrilView, {
       chart: {
         bar: [],
         doughnut: [],
-      }
+      },
     };
 
     const setState = createSetState(state);
@@ -176,16 +176,20 @@ export default declare(MithrilView, {
         }));
       },
       view() {
+        const escaCatalog = i18n.getLocalization(escaCatalogNLS);
+
         return <div class="esca__Overview__wrapper">
           <Overview data={state.data}/>
           <div class="charts__column">
-            <h4>Aggregated stats from the last 7 days</h4>
+            <h4>{escaCatalog.catalogOverviewStatsTitle}</h4>
             <div class="chart__wrapper">
               <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
             </div>
             <div class="chart__wrapper">
               <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
             </div>
+            <button onClick="" class="btn btn-raised btn-sm btn-primary">{escaCatalog.SeeAllBtn}</button>
+
           </div>
         </div>;
       },

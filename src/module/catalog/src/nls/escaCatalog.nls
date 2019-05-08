@@ -53,7 +53,9 @@
     "headerInfo": "",
     "catalogNamePlaceholder": "Enter a name for the catalog",
     "catalogDescPlaceholder": "Enter a description for the catalog",
-    "agentNamePlaceholder": "Enter a name for the publisher"
+    "agentNamePlaceholder": "Enter a name for the publisher",
+    "catalogOverviewStatsTitle":"Aggregated stats from the last 7 days",
+    "SeeAllBtn":"See all"
   },
   "sv": true,
   "da": true,
