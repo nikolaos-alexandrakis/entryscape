@@ -3,11 +3,8 @@ import Chart from 'chart.js';
 import { i18n } from 'esi18n';
 
 const BACKGROUND_COLOURS = [
-  'rgba(0, 131, 143,0.2)',
-  'rgba(22, 91, 152,0.2)',
-  'rgba(174, 213, 129,0.2)',
-  'rgba(251, 192, 45,0.2)',
-  'rgba(233, 30, 99,0.2)',
+  'rgba(251, 192, 45,0.6)',
+  'rgba(179, 157, 219,0.6)',
 ];
 export default () => {
   let chart;
