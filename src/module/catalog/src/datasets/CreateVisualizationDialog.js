@@ -200,13 +200,15 @@ const getControllerComponent = (datasetEntry, files) => {
     oncreate() {
       const distributionFile = files[0]; // default selected
 
-      parseCSVFile(distributionFile.uri)
-        .then(updateCSVData)
-        .then(setSensibleDefaults); // should have a spinner loading
+      if (distributionFile) {
+        parseCSVFile(distributionFile.uri)
+          .then(updateCSVData)
+          .then(setSensibleDefaults); // should have a spinner loading
 
-      setState({
-        distributionFile,
-      });
+        setState({
+          distributionFile,
+        });
+      }
     },
     view() {
       const hasData = state.distributionFile && csvData;
@@ -216,7 +218,10 @@ const getControllerComponent = (datasetEntry, files) => {
       }
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
-      return <section class="viz__editDialog">
+      if(hasData) {
+      return 
+         (
+        <section class="viz__editDialog">
         <section class="graphType__wrapper">
           <h4>{escaVisualization.vizDialogTypeTitle}</h4>
           <TypeSelector
@@ -264,7 +269,14 @@ const getControllerComponent = (datasetEntry, files) => {
             data={csvData}
           />
         </section>
-      </section>;
+        </section>
+        );
+    }
+    return (
+          <section class="viz__editDialog">
+            <p>Please add a distribution to your dataset before creating a visualization</p>
+          </section>
+        );
     },
   };
 };
@@ -286,10 +298,14 @@ export default declare([TitleDialog.ContentComponent], {
   },
   footerButtonAction() {
     const { distributionFile } = state;
-    state.name = document.getElementById('visualization-name').value;
-    return createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state)
-      .then(console.log)
-      .then(this.onDone)
-      .catch(console.log);
+    if(distributionFile) {
+      state.name = document.getElementById('visualization-name').value;
+      return createVisualizationConfigurationEntry(this.entry, distributionFile.distributionRURI, state)
+        .then(console.log)
+        .then(this.onDone)
+        .catch(console.log);
+    } else {
+      return true;
+    }
   },
 });
