@@ -76,7 +76,7 @@ const processGeoData = (data, xField, yField) => {
 
     return parsedGeoDatas;
   }
-  const parsedGeoData = data ? data.data.map(row => (row[xField] && row[yField]) ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
+  const parsedGeoData = data ? data.data.map(row => (row[xField] && row[yField]) ? `POINT(${row[xField]} ${parseFloat(row[yField])})` : null).filter(point => point !== null) : null;
 
   return parsedGeoData;
 };

@@ -119,18 +119,24 @@ const getControllerComponent = (datasetEntry, files) => {
 
     switch (selectedType) {
       case 'map':
-        const latIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
-        let longIdx = -1;
-        if (latIdx !== -1) {
-          longIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
+        // const latIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LAT);
+        // let longIdx = -1;
+        // if (latIdx !== -1) {
+          // longIdx = sensibleHeaders.findIndex(detectedType => detectedType === CSV_COLUMN_TYPE.GEO_LONG);
 
-          if (latIdx && longIdx !== -1) {
+          // if (latIdx && longIdx !== -1) {
+        if (sensibleHeaders.length > 1) {
             setState({
-              xAxisField: sensibleHeaders[longIdx],
-              yAxisField: sensibleHeaders[latIdx],
+              xAxisField: sensibleHeaders[0],
+              yAxisField: sensibleHeaders[1],
             });
-          }
+        } else if (sensibleHeaders.length === 1) {
+            setState({
+              xAxisField: sensibleHeaders[0],
+            });
         }
+          // }
+        // }
         break;
       case 'bar':
       case 'line':
