@@ -126,14 +126,14 @@ const getControllerComponent = (datasetEntry, files) => {
 
           // if (latIdx && longIdx !== -1) {
         if (sensibleHeaders.length > 1) {
-            setState({
-              xAxisField: sensibleHeaders[0],
-              yAxisField: sensibleHeaders[1],
-            });
+            // setState({
+              // xAxisField: sensibleHeaders[0],
+              // yAxisField: sensibleHeaders[1],
+            // });
         } else if (sensibleHeaders.length === 1) {
-            setState({
-              xAxisField: sensibleHeaders[0],
-            });
+            // setState({
+              // xAxisField: sensibleHeaders[0],
+            // });
         }
           // }
         // }
@@ -219,9 +219,7 @@ const getControllerComponent = (datasetEntry, files) => {
       const escaVisualization = i18n.getLocalization(escaVisualizationNLS);
 
       if(hasData) {
-      return 
-         (
-        <section class="viz__editDialog">
+      return <section class="viz__editDialog">
         <section class="graphType__wrapper">
           <h4>{escaVisualization.vizDialogTypeTitle}</h4>
           <TypeSelector
@@ -269,14 +267,11 @@ const getControllerComponent = (datasetEntry, files) => {
             data={csvData}
           />
         </section>
-        </section>
-        );
+        </section>;
     }
-    return (
-          <section class="viz__editDialog">
+    return <section class="viz__editDialog">
             <p>Please add a distribution to your dataset before creating a visualization</p>
-          </section>
-        );
+          </section>;
     },
   };
 };

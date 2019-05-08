@@ -37,6 +37,7 @@ export default (initialVnode) => {
                 value={x}
                 onchange={updateX}
               >
+        <option value="none"></option>
                 {fields ? fields.map(field => <option value={field}>{field}</option>) : null}
               </select>
             </div>
@@ -60,6 +61,7 @@ export default (initialVnode) => {
                   value={y}
                   onchange={updateY}
                 >
+        <option value="none"></option>
                   {fields ? fields.map(field => <option disabled={field === selected.x} value={field}>{field}</option>) : null}
                 </select>
               </div>
