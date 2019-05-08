@@ -13,7 +13,12 @@ import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import './escaOverview.scss';
 
-
+/**
+ * Get top statistics for a specific time. Used here only with specific dates
+ *
+ * @param timeRangeDay
+ * @return {Promise<*>}
+ */
 const getCatalogStatistics = async (timeRangeDay) => {
   const context = registry.getContext();
   return statsAPI.getTopStatistics(context.getId(), 'all', timeRangeDay);
@@ -33,9 +38,13 @@ const sumTotalCountFromResult = (results, type = null) => results.reduce((totalC
   return totalCount;
 }, 0);
 
-
+/**
+ * Get statistics for catalog in the last 7 days
+ *
+ * @return {Promise<{bar: {datasets: Array}, doughnut: {datasets: {data: number[], label: *}[], labels: *[]}}>}
+ */
 const getStatisticsData = async () => {
-  // prepare data structures and api callls
+  // prepare data structures and api calls
   const barData = { datasets: [] };
   const today = new Date();
   const timeRanges = [];
@@ -77,8 +86,7 @@ const getStatisticsData = async () => {
     }],
   };
 
-
-  return [barData, doughnutData];
+  return { bar: barData, doughnut: doughnutData };
 };
 
 
@@ -175,7 +183,7 @@ export default declare(MithrilView, {
     return {
       oninit() {
         getOverviewData().then(data => setState({ data }));
-        getStatisticsData().then(([bar, doughnut]) => setState({
+        getStatisticsData().then(({ bar, doughnut }) => setState({
           chart: {
             bar,
             doughnut,
