@@ -165,9 +165,11 @@ const Map = () => {
           });
 
           const latLngBounds = leaflet.latLngBounds(allMarkers.map(marker => marker.getLatLng()));
-          map.fitBounds(latLngBounds);
-          if (latLngBounds.length <= 1) {
-            map.zoomOut(3); // Zooming out by one level for usability
+          if (latLngBounds.isValid()) {
+            map.fitBounds(latLngBounds);
+            if (latLngBounds.length <= 1) {
+              map.zoomOut(3); // Zooming out by one level for usability
+            }
           }
         }
 
@@ -211,9 +213,11 @@ const Map = () => {
         });
 
         const latLngBounds = leaflet.latLngBounds(allMarkers.map(marker => marker.getLatLng()));
+        if (latLngBounds.isValid()) {
         state.map.fitBounds(latLngBounds);
-        if(latLngBounds.length <= 1) {
-          state.map.zoomOut(3); // Zooming out by one level for usability
+          if(latLngBounds.length <= 1) {
+            state.map.zoomOut(3); // Zooming out by one level for usability
+          }
         }
       }
     },

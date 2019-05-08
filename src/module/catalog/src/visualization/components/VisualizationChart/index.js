@@ -67,19 +67,21 @@ const processCount = (dataset, xField, yField) => {
   };
 };
 
-  const processGeoData = (data, xField, yField) => {
-    if (Array.isArray(data)) {
-      const parsedGeoDatas = data.map(mapData => mapData.csv.data.map(row => (row[mapData.xField] && row[mapData.yField]) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
+const processGeoData = (data, xField, yField) => {
+  if (Array.isArray(data)) {
+    const cleanGeoDatas = data.map(mapData => mapData.csv.data.filter(row => (
+      (row[mapData.xField] && parseFloat(row[mapData.yField])) === false
+    )));
+    const parsedGeoDatas = cleanGeoDatas.map(mapData => mapData.csv.data.map(row => (row[mapData.xField] && row[mapData.yField]) ? `POINT(${row[mapData.xField]} ${row[mapData.yField]})` : null).filter(point => point !== null));
 
-      return parsedGeoDatas;
-    }
-    const parsedGeoData = data ? data.data.map(row => (row[xField] && row[yField]) ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
+    return parsedGeoDatas;
+  }
+  const parsedGeoData = data ? data.data.map(row => (row[xField] && row[yField]) ? `POINT(${row[xField]} ${row[yField]})` : null).filter(point => point !== null) : null;
 
-    return parsedGeoData;
-  };
+  return parsedGeoData;
+};
 
 export default () => {
-
 
   const processXYData = (datasets, xField, yField, operation) => {
     if (operation === 'sum') {
