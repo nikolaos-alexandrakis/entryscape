@@ -1,5 +1,6 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
-import Chart from 'catalog/statistics/components/BarChart';
+import DoughnutChart from 'commons/components/common/chart/Doughnut';
+import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
@@ -16,10 +17,25 @@ const getCatalogStatistics = async (timeRangeDay) => {
   return statsAPI.getTopStatistics(context.getId(), 'all', timeRangeDay);
 };
 
-const sumTotalCountFromResult = results => results.reduce((totalCount, res) => totalCount + res.count, 0);
+/**
+ * Sum downloads of api/file or both
+ * @param results
+ * @param {null|String} type
+ * @return {*}
+ */
+const sumTotalCountFromResult = (results, type = null) => results.reduce((totalCount, res) => {
+  if (type === null || type === res.type) {
+    return totalCount + res.count;
+  }
 
-const getChartData = async () => {
-  const chartData = { datasets: [] };
+  return totalCount;
+}, 0);
+
+
+const getStatisticsData = async () => {
+  // prepare data structures and api callls
+  const barData = { datasets: [] };
+  const doughnutData = { labels: ['Files', 'API'], datasets: [{ data: [] }] };
   const today = new Date();
   const timeRanges = [];
   for (let i = 0; i < 7; i++) {
@@ -31,21 +47,33 @@ const getChartData = async () => {
       date: date.getDate(),
     });
   }
+
+  // make api call and calculate results
   const dataPoints = [];
   const label = 'Aggregate';
+  let fileCount = 0;
+  let apiCount = 0;
   const results = await Promise.all(timeRanges.map(getCatalogStatistics));
   results.forEach((result, idx) => {
+
     const totalCount = sumTotalCountFromResult(result) || 0;
+    fileCount += sumTotalCountFromResult(result, 'file');
+    apiCount += sumTotalCountFromResult(result, 'api');
     const timeRange = timeRanges[idx];
     dataPoints.push({
       x: new Date(timeRange.year, timeRange.month, timeRange.date),
       y: totalCount,
     });
   });
-  chartData.datasets.push({ data: dataPoints, label });
 
-  return chartData;
+  // populate the data structures for the charts
+  barData.datasets.push({ data: dataPoints, label });
+  doughnutData.datasets[0].data.push(fileCount);
+  doughnutData.datasets[0].data.push(apiCount);
+
+  return [barData, doughnutData];
 };
+
 
 const getOverviewData = async () => {
   const data = {};
@@ -129,9 +157,10 @@ export default declare(MithrilView, {
         sList: [],
         bList: [],
       },
-      chartData: {
-        datasets: [],
-      },
+      chart: {
+        bar: [],
+        doughnut: [],
+      }
     };
 
     const setState = createSetState(state);
@@ -139,7 +168,12 @@ export default declare(MithrilView, {
     return {
       oninit() {
         getOverviewData().then(data => setState({ data }));
-        getChartData().then(chartData => setState({ chartData }));
+        getStatisticsData().then(([bar, doughnut]) => setState({
+          chart: {
+            bar,
+            doughnut,
+          },
+        }));
       },
       view() {
         return <div class="esca__Overview__wrapper">
@@ -147,12 +181,12 @@ export default declare(MithrilView, {
           <div class="charts__column">
             <h4>Aggregated stats from the last 7 days</h4>
             <div class="chart__wrapper">
-              <Chart data={state.chartData} elementId={'catalog-statistics-overview'}/>
+              <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
             </div>
             <div class="chart__wrapper">
-              <Chart data={state.chartData} elementId={'catalog-statistics-overview'}/>
+              <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
             </div>
-          </div>   
+          </div>
         </div>;
       },
     };
