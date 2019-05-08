@@ -46,7 +46,7 @@ export default (initialVnode) => {
 
     actionButtons.push(
       <button
-        className="btn--distribution fa fa-fw fa-pencil"
+        className="btn--distribution fas fa-fw fa-pencil-alt"
         onclick={editDistribution}
       >
         <span>{escaDataset.editDistributionTitle}</span>
@@ -56,7 +56,7 @@ export default (initialVnode) => {
     if (distribution.getEntryInfo().hasMetadataRevisions()) {
       actionButtons.push(
         <button
-          className=" btn--distribution fa fa-fw fa-bookmark"
+          className=" btn--distribution fas fa-fw fa-bookmark"
           title={escoList.versionsTitle}
           onclick={actions.openRevisions}
         >
@@ -70,7 +70,7 @@ export default (initialVnode) => {
       if (isFileDistributionWithOutAPI(entry, fileEntryURIs, registry.get('entrystore'))) {
         actionButtons.push(
           <button
-            className="btn--distribution fa fa-fw fa-link"
+            className="btn--distribution fas fa-fw fa-link"
             title={escaDataset.apiActivateTitle}
             onclick={activateAPI}
           >
@@ -81,21 +81,21 @@ export default (initialVnode) => {
       if (isSingleFileDistribution(entry)) {
         actionButtons.push([
           <button
-            className="btn--distribution fa fa-fw fa-download"
+            className="btn--distribution fas fa-fw fa-download"
             title={escaDataset.downloadButtonTitle}
             onclick={actions.openResource}
           >
             <span>{escaDataset.downloadButtonTitle}</span>
           </button>,
           <button
-            className="btn--distribution fa fa-fw fa-exchange"
+            className="btn--distribution fas fa-fw fa-exchange-alt"
             title={escaDataset.replaceFileTitle}
             onclick={openReplaceFile}
           >
             <span>{escaDataset.replaceFile}</span>
           </button>,
           <button
-            className="btn--distribution fa fa-fw fa-file"
+            className="btn--distribution fas fa-fw fa-file"
             title={escaDataset.addFileTitle}
             onclick={openManageFiles}
           >
@@ -105,7 +105,7 @@ export default (initialVnode) => {
       } else {
         actionButtons.push(
           <button
-            className="btn--distribution fa fa-fw fa-files-o"
+            className="btn--distribution fas fa-fw fa-files-o"
             title={escaDataset.manageFilesTitle}
             onclick={openManageFiles}
           >
@@ -117,14 +117,14 @@ export default (initialVnode) => {
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
       actionButtons.push([
         <button
-          className="btn--distribution fa fa-fw fa-info-circle"
+          className="btn--distribution fas fa-fw fa-info-circle"
           title={escaDataset.apiDistributionTitle}
           onclick={actions.openApiInfo}
         >
           <span>{escaDataset.apiDistributionTitle}</span>
         </button>,
         <button
-          className="btn--distribution fa fa-fw fa-retweet"
+          className="btn--distribution fas fa-fw fa-retweet"
           title={escaDataset.reGenerateAPITitle}
           onclick={refreshAPI}
         >
@@ -136,7 +136,7 @@ export default (initialVnode) => {
       if (!isAccessURLEmpty(entry)) {
         actionButtons.push(
           <button
-            className="btn--distribution fa fa-fw fa-info-circle"
+            className="btn--distribution fas fa-fw fa-info-circle"
             title={escaDataset.accessURLButtonTitle}
             onclick={actions.openResource}
           >
@@ -147,7 +147,7 @@ export default (initialVnode) => {
       if (!isDownloadURLEmpty(entry)) {
         actionButtons.push(
           <button
-            className="btn--distribution  fa fa-fw fa-download"
+            className="btn--distribution  fas fa-fw fa-download"
             title={escaDataset.downloadButtonTitle}
             onclick={actions.openResource}
           >
@@ -159,7 +159,7 @@ export default (initialVnode) => {
 
     actionButtons.push(
       <button
-        className=" btn--distribution fa fa-fw fa-remove"
+        className=" btn--distribution fas fa-fw fa-times"
         title={escaDataset.removeDistributionTitle}
         onclick={removeDistribution}
       >
