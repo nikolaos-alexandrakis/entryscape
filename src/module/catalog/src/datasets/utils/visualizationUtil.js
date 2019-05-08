@@ -172,10 +172,10 @@ const detectTypes = (csvData) => {
   // pre-liminary check of common names, latitude/longitude
   const csvDataDetectedTypes = columns.map((column, idx) => {
     const normalizedColumnName = column.toLowerCase();
-    if (normalizedColumnName.includes('latitude')) {
+    if (normalizedColumnName.includes('latitud')) {
       return CSV_COLUMN_TYPE.GEO_LAT;
     }
-    if (normalizedColumnName.includes('longitude')) {
+    if (normalizedColumnName.includes('longitud')) {
       return CSV_COLUMN_TYPE.GEO_LONG;
     }
     // if (normalizedColumnName.includes('date')) {
@@ -185,7 +185,7 @@ const detectTypes = (csvData) => {
     return null;
   });
 
-  const rowsToCheckCount = Math.min(CSV_ROWS_TO_SNIFF, csvData.data.length);
+  const rowsToCheckCount = Math.min(CSV_ROWS_TO_SNIFF, csvData.data.length) - 1;
   columns.forEach((column, idx) => {
     // this is used as a benchmark to check against
     // if the detected type in the rows is not consistent with this then ignore type detection
