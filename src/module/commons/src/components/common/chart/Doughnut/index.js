@@ -34,7 +34,6 @@ export default () => {
         // update chart data and xAxis if needed
 
         data.datasets[0].backgroundColor = BACKGROUND_COLOURS;
-        data.datasets[0].label = 'what is this?';
         chart.data = data;
         chart.update();
       }
