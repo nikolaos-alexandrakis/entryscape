@@ -1,4 +1,5 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
+import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
 import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
@@ -7,6 +8,7 @@ import statsAPI from 'commons/statistics/api';
 import dateUtil from 'commons/util/dateUtil';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
+import config from 'config';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import './escaOverview.scss';
@@ -35,7 +37,6 @@ const sumTotalCountFromResult = (results, type = null) => results.reduce((totalC
 const getStatisticsData = async () => {
   // prepare data structures and api callls
   const barData = { datasets: [] };
-  const doughnutData = { labels: ['Files', 'API'], datasets: [{ data: [] }] };
   const today = new Date();
   const timeRanges = [];
   for (let i = 0; i < 7; i++) {
@@ -49,13 +50,13 @@ const getStatisticsData = async () => {
   }
 
   // make api call and calculate results
+  const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
   const dataPoints = [];
-  const label = 'Aggregate';
+  const label = escaStatistics.statsCatalogOverviewChartLabel;
   let fileCount = 0;
   let apiCount = 0;
   const results = await Promise.all(timeRanges.map(getCatalogStatistics));
   results.forEach((result, idx) => {
-
     const totalCount = sumTotalCountFromResult(result) || 0;
     fileCount += sumTotalCountFromResult(result, 'file');
     apiCount += sumTotalCountFromResult(result, 'api');
@@ -68,8 +69,14 @@ const getStatisticsData = async () => {
 
   // populate the data structures for the charts
   barData.datasets.push({ data: dataPoints, label });
-  doughnutData.datasets[0].data.push(fileCount);
-  doughnutData.datasets[0].data.push(apiCount);
+  const doughnutData = {
+    labels: [escaStatistics.statsCatalogOverviewDoughnutFiles, escaStatistics.statsCatalogOverviewDoughnutAPI],
+    datasets: [{
+      label: escaStatistics.statsCatalogOverviewDoughnutLabel, // @todo perhaps not used
+      data: [fileCount, apiCount],
+    }],
+  };
+
 
   return [barData, doughnutData];
 };
@@ -120,6 +127,7 @@ const getOverviewData = async () => {
 
   const b = i18n.getLocalization(escaOverview);
 
+
   // box list
   data.bList = [];
   querySListMap.forEach((searchList, rdfType) => {
@@ -160,11 +168,10 @@ export default declare(MithrilView, {
       chart: {
         bar: [],
         doughnut: [],
-      }
+      },
     };
 
     const setState = createSetState(state);
-
     return {
       oninit() {
         getOverviewData().then(data => setState({ data }));
@@ -176,17 +183,21 @@ export default declare(MithrilView, {
         }));
       },
       view() {
+        const showStats = config.get('catalog.includeStatistics', false);
+        const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
+
         return <div class="esca__Overview__wrapper">
           <Overview data={state.data}/>
-          <div class="charts__column">
-            <h4>Aggregated stats from the last 7 days</h4>
-            <div class="chart__wrapper">
-              <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
-            </div>
-            <div class="chart__wrapper">
-              <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
-            </div>
-          </div>
+          {showStats ?
+            <div class="charts__column">
+              <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
+              <div class="chart__wrapper">
+                <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
+              </div>
+              <div class="chart__wrapper">
+                <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
+              </div>
+            </div> : null}
         </div>;
       },
     };
