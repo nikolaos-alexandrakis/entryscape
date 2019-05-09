@@ -1,6 +1,7 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
+import BarChart from 'commons/components/common/chart/TimeBarChart';
 import Pagination from 'commons/components/common/Pagination';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
@@ -10,8 +11,6 @@ import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
-import jquery from 'jquery';
-import BarChart from 'commons/components/common/chart/TimeBarChart';
 import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
@@ -41,6 +40,7 @@ export default declare(MithrilView, {
         selected: 'this-month',
       },
       activeTab: 'file',
+      activeSearch: false,
       loadingData: true,
     };
 
@@ -158,12 +158,6 @@ export default declare(MithrilView, {
       }
     };
 
-    const getSearchFieldValue = () => jquery('#stats-search-input').val();
-    const resetSearchField = () => {
-      // this is done with jquery to avoid keeping a mithril state
-      jquery('#stats-search-input').val('');
-    };
-
     /**
      * Get the list, transform as needed, paginate and show the data in chart
      */
@@ -174,7 +168,6 @@ export default declare(MithrilView, {
         .then(() => {
           paginateList(0);
           resetChart();
-          resetSearchField();
         });
     };
 
@@ -230,12 +223,13 @@ export default declare(MithrilView, {
           });
 
         paginateList(0, filteredItems);
+        setState({ activeSearch: true }, true);
       } else {
+        setState({ activeSearch: false }, true);
         // the search input was cleared
         paginateList(0);
       }
     };
-
 
     const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
     let isCatalogPublic = null;
@@ -261,8 +255,8 @@ export default declare(MithrilView, {
         const ListComponent = tabs.find(tab => tab.id === state.activeTab).component;
         const toRenderItems = state.list.filteredItems || state.list.items || [];
         const hasData = !!toRenderItems.length > 0;
-        const shouldShowSearch = hasData || getSearchFieldValue();
-        const paginationTotalCount = getSearchFieldValue() ? state.list.filteredItems.length : state.list.items.length;
+        const shouldShowSearch = hasData || state.activeSearch;
+        const paginationTotalCount = state.activeSearch ? state.list.filteredItems.length : state.list.items.length;
         return (
           <div>
             <div className="stats__title">
