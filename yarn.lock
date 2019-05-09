@@ -3011,8 +3011,8 @@ dojo-util@^1.13.0:
   resolved "https://registry.yarnpkg.com/dojo-util/-/dojo-util-1.15.0.tgz#4496dfa77fde33882a9cdb5530c37f92c2f78786"
 
 dojo-webpack-plugin@^2.7.5:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/dojo-webpack-plugin/-/dojo-webpack-plugin-2.8.1.tgz#ec51d32391aac3d7b60ad2e91a9a22a2f15e9cf3"
+  version "2.8.8"
+  resolved "https://registry.yarnpkg.com/dojo-webpack-plugin/-/dojo-webpack-plugin-2.8.8.tgz#17daff0b06696b13a0b784e58bb0ec26709ec6a0"
   dependencies:
     loader-utils "1.1.0"
     node-stringify "0.2.1"
