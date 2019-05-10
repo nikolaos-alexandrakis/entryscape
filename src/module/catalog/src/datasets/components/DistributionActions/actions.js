@@ -9,6 +9,7 @@ import {
   isAPIDistribution,
   isFileDistributionWithOutAPI,
   isUploadedDistribution,
+  getDistributionFileEntries,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
@@ -213,23 +214,6 @@ export default (distribution, dataset, wrapperFunction) => {
 
   /**
    *
-   * @param distributionEntry
-   * @return {Promise<store/Entry[]>}
-   */
-  const getDistributionFileEntries = (distributionEntry) => {
-    const md = distributionEntry.getMetadata();
-    const distRURI = distributionEntry.getResourceURI();
-    const fileStmts = md.find(distRURI, 'dcat:downloadURL');
-    const fileURIs = fileStmts.map(fileStmt => fileStmt.getValue());
-
-    const esUtil = registry.getEntryStoreUtil();
-
-    // fetch all entries asynchronously
-    return Promise.all(fileURIs.map((fileURI => esUtil.getEntryByResourceURI(fileURI, registry.getContext()))));
-  };
-
-  /**
-   *
    * @param {store/Entry} distributionEntry
    */
   const openNewTab = (distributionEntry) => {
@@ -298,7 +282,8 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  // @scazan Make some modifications to the class itself before instantiation. I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
+  // @scazan Make some modifications to the class itself before instantiation.
+  // I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
   const dv = RevisionsDialog;
   if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
     dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
@@ -387,9 +372,14 @@ export default (distribution, dataset, wrapperFunction) => {
 
   const showStatisticsDialog = new StatisticsDialog();
   const openStatistics = async () => {
-    const fileEntries = await getDistributionFileEntries(distribution);
+    let entries;
+    if (isAPIDistribution(distribution)) {
+      entries = [distribution];
+    } else {
+      entries = await getDistributionFileEntries(distribution);
+    }
     showStatisticsDialog.open({
-      entries: fileEntries,
+      entries,
       onDone: () => m.redraw(),
     });
   };
@@ -436,7 +426,9 @@ export default (distribution, dataset, wrapperFunction) => {
 
   if (wrapperFunction) {
     Object.entries(actions)
-      .forEach((nameAction) => actions[nameAction[0]] = wrapperFunction(nameAction[1]));
+      .forEach((nameAction) => {
+        actions[nameAction[0]] = wrapperFunction(nameAction[1]);
+      });
   }
 
   return actions;
