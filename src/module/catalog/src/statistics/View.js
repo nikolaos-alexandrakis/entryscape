@@ -276,7 +276,6 @@ export default declare(MithrilView, {
                 <div className="visualization__chart">
                   <BarChart
                     data={state.chart.data}
-                    elementId={'catalog-statistics-chart'}
                     name={state.list.selected.name}/>
                 </div>
               </div>

@@ -6,14 +6,14 @@ const BACKGROUND_COLOURS = [
   'rgba(251, 192, 45,0.6)',
   'rgba(179, 157, 219,0.6)',
 ];
+
 export default () => {
   let chart;
 
   return {
     oncreate(vnode) {
-      const { elementId } = vnode.attrs;
-      const ctx = document.getElementById(elementId);
-      chart = new Chart(ctx, {
+      const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
+      chart = new Chart(canvasNode, {
         type: 'doughnut',
         options: {
           circumference: Math.PI, // half doughnut
@@ -23,7 +23,7 @@ export default () => {
     },
 
     view(vnode) {
-      const { data, elementId } = vnode.attrs;
+      const { data } = vnode.attrs;
 
       let noData = true;
       if (chart && data
@@ -43,7 +43,6 @@ export default () => {
           className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
         <canvas
           className={` ${noData ? 'hidden' : ''}`}
-          id={elementId}
           aria-label="Statistics chart" role="img"/>
       </div>);
     },

@@ -40,38 +40,30 @@ const getControllerComponent = (entries) => {
   const state = {
     data: [],
   };
-
   const setState = createSetState(state);
+  const defaultTimeRange = 'this-month';
 
-  const timeRangeSelected = 'this-month';
-  const elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
+  const loadData = (timeRange) => {
+    const range = typeof timeRange === 'string' ? timeRange : defaultTimeRange;
+    const context = registry.getContext();
 
-  const onclickTimeRange = (range) => {
-    getChartData(entries, registry.getContext(), range)
-      .then(data => setState({ data }));
+    getChartData(entries, context, range).then(data => setState({ data }));
   };
 
   return {
-    oninit() {
-      getChartData(entries, registry.getContext(), timeRangeSelected)
-        .then(data => setState({ data }));
-    },
+    oninit: loadData,
     view() {
       const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
       return <section>
-        <div>
-          <h4>Combined Statistics</h4>
-          <p>Here you can see a combined view of different user actions through time</p>
-        </div>
         <div className="chooser__wrapper">
           <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
           <SearchSelect
             options={timeRangesItems}
-            selectedOptions={[timeRangeSelected]}
-            onChange={onclickTimeRange}
+            selectedOptions={[defaultTimeRange]}
+            onChange={loadData}
           />
         </div>
-        <Chart data={state.data} elementId={elementId}/>
+        <Chart data={state.data} />
       </section>;
     },
   };

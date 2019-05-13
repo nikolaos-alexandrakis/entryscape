@@ -211,10 +211,10 @@ export default declare(MithrilView, {
             <div class="charts__column">
               <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
               <div class="chart__wrapper">
-                <Chart data={state.chart.bar} elementId={'catalog-statistics-overview-bar'}/>
+                <Chart data={state.chart.bar} />
               </div>
               <div class="chart__wrapper">
-                <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
+                <DoughnutChart data={state.chart.doughnut} />
               </div>
               <button
                 class="btn btn-sm btn-secondary"

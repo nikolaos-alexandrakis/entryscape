@@ -83,9 +83,9 @@ export default () => {
 
   return {
     oncreate(vnode) {
-      const { elementId } = vnode.attrs;
-      const ctx = document.getElementById(elementId);
-      chart = new Chart(ctx, {
+      const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
+
+      chart = new Chart(canvasNode, {
         type: 'bar',
         options: {
           maintainAspectRatio: false,
@@ -119,8 +119,8 @@ export default () => {
     onbeforeupdate: updateXAxis,
 
     view(vnode) {
-      const { data, elementId, chartDimensions = {} } = vnode.attrs;
-      const { width = 400, height = 400 } = chartDimensions;
+      const { data, chartDimensions = {} } = vnode.attrs;
+      const { width = 400, height = 400 } = chartDimensions; // @todo @valentino are these used?
 
       let noData = true;
       if (chart && data
@@ -154,7 +154,6 @@ export default () => {
           className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
         <canvas
           className={` ${noData ? 'hidden' : ''}`}
-          id={elementId}
           width={width}
           height={height}
           aria-label="Statistics chart" role="img"/>
