@@ -34,7 +34,6 @@ const getChartData = async (entries, context, timeRange) => {
   return chartData;
 };
 
-let component = null;
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
 const state = {
@@ -45,10 +44,6 @@ const state = {
 const setState = createSetState(state);
 
 const getControllerComponent = (entries, elementId) => {
-  if (component) {
-    return component;
-  }
-
   const onclickTimeRange = (range) => {
     setState({
       timeRangeSelected: range,
@@ -58,9 +53,7 @@ const getControllerComponent = (entries, elementId) => {
       .then(data => setState({ data }));
   };
 
-
-  component = {
-    elementId,
+  return {
     oninit() {
       getChartData(entries, registry.getContext(), state.timeRangeSelected)
         .then(data => setState({ data }));
@@ -79,12 +72,10 @@ const getControllerComponent = (entries, elementId) => {
             selected={state.timeRangeSelected}
             onclickTimeRange={onclickTimeRange}/>
         </div>
-        <Chart data={state.data} elementId={this.elementId}/>
+        <Chart data={state.data} elementId={elementId}/>
       </section>;
     },
   };
-
-  return component;
 };
 
 export default declare([TitleDialog.ContentComponent], {
@@ -94,7 +85,7 @@ export default declare([TitleDialog.ContentComponent], {
   postCreate() {
     this.inherited(arguments);
     this.dialog.footerButtonAction = () => {
-      component = null;
+      this.hide();
     };
 
     this.elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
