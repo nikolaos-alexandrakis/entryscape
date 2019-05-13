@@ -36,26 +36,24 @@ const getChartData = async (entries, context, timeRange) => {
 
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
-const getControllerComponent = (entries, elementId) => {
+const getControllerComponent = (entries) => {
   const state = {
     data: [],
-    timeRangeSelected: 'this-month',
   };
 
   const setState = createSetState(state);
 
-  const onclickTimeRange = (range) => {
-    setState({
-      timeRangeSelected: range,
-    });
+  const timeRangeSelected = 'this-month';
+  const elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
 
-    getChartData(entries, registry.getContext(), state.timeRangeSelected)
+  const onclickTimeRange = (range) => {
+    getChartData(entries, registry.getContext(), range)
       .then(data => setState({ data }));
   };
 
   return {
     oninit() {
-      getChartData(entries, registry.getContext(), state.timeRangeSelected)
+      getChartData(entries, registry.getContext(), timeRangeSelected)
         .then(data => setState({ data }));
     },
     view() {
@@ -69,7 +67,7 @@ const getControllerComponent = (entries, elementId) => {
           <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
           <SearchSelect
             options={timeRangesItems}
-            selectedOptions={[state.timeRangeSelected]}
+            selectedOptions={[timeRangeSelected]}
             onChange={onclickTimeRange}
           />
         </div>
@@ -88,12 +86,10 @@ export default declare([TitleDialog.ContentComponent], {
     this.dialog.footerButtonAction = () => {
       this.hide();
     };
-
-    this.elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
   },
   open(params) {
     this.dialog.show();
-    const controllerComponent = getControllerComponent(params.entries, this.elementId);
+    const controllerComponent = getControllerComponent(params.entries);
     this.show(controllerComponent);
   },
 });
