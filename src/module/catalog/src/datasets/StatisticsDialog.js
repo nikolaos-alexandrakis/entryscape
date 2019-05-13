@@ -81,10 +81,6 @@ export default declare([TitleDialog.ContentComponent], {
   nlsBundles: [{ escaStatistics }],
   nlsHeaderTitle: 'statsDialogTitle',
   nlsFooterButtonLabel: 'statsDialogFooter',
-  postCreate() {
-    this.inherited(arguments);
-    this.elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
-  },
   open(params) {
     this.dialog.show();
     const controllerComponent = getControllerComponent(params.entries);
