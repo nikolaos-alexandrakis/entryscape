@@ -186,6 +186,7 @@ TitleDialog.Content = declare([_WidgetBase, _TemplatedMixin], {
     this.dialog = new TitleDialog(SideDialog.createParams(this,
       ['indent', 'firstIndent', 'maxWidth', 'nlsHeaderTitle',
         'nlsFooterButtonLabel', 'nlsFooterButtonTitle', 'includeFooter',
+        'destroyOnHide',
       ]), dialogNode);
     if (this.footerButtonAction) {
       this.dialog.footerButtonAction = this.footerButtonAction.bind(this);
@@ -211,7 +212,7 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
   localeChange() {
     if (this.title === '') {
       const bundle0 = this.NLSLocalized0;
-      this.dialog.updateLocaleStrings(bundle0); //
+      this.dialog.updateLocaleStrings(bundle0);
     } else {
       // @scazan THis is a "mock" sort of bundle so it needs to conform
       // to the bundle format
