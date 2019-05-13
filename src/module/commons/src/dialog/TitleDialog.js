@@ -182,7 +182,7 @@ TitleDialog.Content = declare([_WidgetBase, _TemplatedMixin], {
   templateString: '<h1>Override me!</h1>',
 
   buildRendering() {
-    const dialogNode = this.srcNodeRef || DOMUtil.create('div', null, document.body); // TODO @scazan should it be document.body??
+    const dialogNode = this.srcNodeRef || DOMUtil.create('div');
     this.dialog = new TitleDialog(SideDialog.createParams(this,
       ['indent', 'firstIndent', 'maxWidth', 'nlsHeaderTitle',
         'nlsFooterButtonLabel', 'nlsFooterButtonTitle', 'includeFooter',
