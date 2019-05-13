@@ -182,10 +182,11 @@ TitleDialog.Content = declare([_WidgetBase, _TemplatedMixin], {
   templateString: '<h1>Override me!</h1>',
 
   buildRendering() {
-    const dialogNode = this.srcNodeRef || DOMUtil.create('div', null, document.body); // TODO @scazan should it be document.body??
+    const dialogNode = this.srcNodeRef || DOMUtil.create('div');
     this.dialog = new TitleDialog(SideDialog.createParams(this,
       ['indent', 'firstIndent', 'maxWidth', 'nlsHeaderTitle',
         'nlsFooterButtonLabel', 'nlsFooterButtonTitle', 'includeFooter',
+        'destroyOnHide',
       ]), dialogNode);
     if (this.footerButtonAction) {
       this.dialog.footerButtonAction = this.footerButtonAction.bind(this);
@@ -211,7 +212,7 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
   localeChange() {
     if (this.title === '') {
       const bundle0 = this.NLSLocalized0;
-      this.dialog.updateLocaleStrings(bundle0); //
+      this.dialog.updateLocaleStrings(bundle0);
     } else {
       // @scazan THis is a "mock" sort of bundle so it needs to conform
       // to the bundle format
@@ -225,11 +226,9 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
 });
 
 TitleDialog.ContentComponent = declare([TitleDialog.ContentNLS], {
+  destroyOnHide: true,
   show(component) {
     m.mount(this.dialog.containerNode, component);
-  },
-  hide() {
-    m.mount(this.dialog.containerNode, null);
   },
 });
 
