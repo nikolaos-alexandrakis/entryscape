@@ -176,11 +176,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const entry = registry.getEntry();
     this.__conceptEditorMain.classList.add('active');
 
+    const label = registry.get('rdfutils').getLabel(entry);
+    this.__selectedTerm.innerHTML = label;
+
     if (entry === this.currentSelectedEntry) {
       return;
     }
-    const label = registry.get('rdfutils').getLabel(entry);
-    this.__selectedTerm.innerHTML = label;
     this._askToProceedIfChanged().then(() => this._updateSelected(entry));
   },
   _askToProceedIfChanged() {
@@ -236,11 +237,13 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     }
     this._updateButton('save', 2);
     this.currentSelectedEntry.setMetadata(this.currentMetadata);
-    this.currentSelectedEntry.commitMetadata().then(() => {
-      this._conceptTree.refresh(this.currentSelectedEntry, false);
-      this.currentMetadata.setChanged(false);
-      this._updateButtons();
-    });
+    this.currentSelectedEntry.commitMetadata()
+      .then(() => {
+        this._conceptTree.refresh(this.currentSelectedEntry, false);
+        this.currentMetadata.setChanged(false);
+        this._updateButtons();
+      })
+      .then(() => this._treeClick());
   },
   _deleteC() {
     if (!this.currentSelectedEntry) {
