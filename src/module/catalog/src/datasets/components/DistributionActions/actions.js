@@ -395,6 +395,7 @@ export default (distribution, dataset, wrapperFunction) => {
     const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
+
     entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
       replaceFileDialog.open({
         entry: fileEntry,
@@ -408,6 +409,7 @@ export default (distribution, dataset, wrapperFunction) => {
         datasetEntry: dataset,
       });
     });
+
   };
 
   const actions = {
