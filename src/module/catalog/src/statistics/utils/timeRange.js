@@ -9,28 +9,28 @@ const getTimeRanges = () => {
   const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
   return [
     {
-      id: 'today',
-      name: escaStatisticsNLS.timeRangeToday,
+      value: 'today',
+      label: escaStatisticsNLS.timeRangeToday,
     },
     {
-      id: 'yesterday',
-      name: escaStatisticsNLS.timeRangeYesterday,
+      value: 'yesterday',
+      label: escaStatisticsNLS.timeRangeYesterday,
     },
     {
-      id: 'this-month',
-      name: escaStatisticsNLS.timeRangeThisMonth,
+      value: 'this-month',
+      label: escaStatisticsNLS.timeRangeThisMonth,
     },
     {
-      id: 'last-month',
-      name: escaStatisticsNLS.timeRangeLastMonth,
+      value: 'last-month',
+      label: escaStatisticsNLS.timeRangeLastMonth,
     },
     {
-      id: 'this-year',
-      name: escaStatisticsNLS.timeRangeThisYear,
+      value: 'this-year',
+      label: escaStatisticsNLS.timeRangeThisYear,
     },
     {
-      id: 'last-year',
-      name: escaStatisticsNLS.timeRangeLastYear,
+      value: 'last-year',
+      label: escaStatisticsNLS.timeRangeLastYear,
     },
   ];
 };

@@ -1,9 +1,9 @@
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import Chart from 'commons/components/common/chart/TimeBarChart';
+import SearchSelect from 'commons/components/common/select/SearchSelect';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
@@ -36,26 +36,24 @@ const getChartData = async (entries, context, timeRange) => {
 
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
-const state = {
-  data: [],
-  timeRangeSelected: 'this-month',
-};
+const getControllerComponent = (entries) => {
+  const state = {
+    data: [],
+  };
 
-const setState = createSetState(state);
+  const setState = createSetState(state);
 
-const getControllerComponent = (entries, elementId) => {
+  const timeRangeSelected = 'this-month';
+  const elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
+
   const onclickTimeRange = (range) => {
-    setState({
-      timeRangeSelected: range,
-    });
-
-    getChartData(entries, registry.getContext(), state.timeRangeSelected)
+    getChartData(entries, registry.getContext(), range)
       .then(data => setState({ data }));
   };
 
   return {
     oninit() {
-      getChartData(entries, registry.getContext(), state.timeRangeSelected)
+      getChartData(entries, registry.getContext(), timeRangeSelected)
         .then(data => setState({ data }));
     },
     view() {
@@ -67,10 +65,11 @@ const getControllerComponent = (entries, elementId) => {
         </div>
         <div className="chooser__wrapper">
           <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
-          <TimeRangeDropdown
-            items={timeRangesItems}
-            selected={state.timeRangeSelected}
-            onclickTimeRange={onclickTimeRange}/>
+          <SearchSelect
+            options={timeRangesItems}
+            selectedOptions={[timeRangeSelected]}
+            onChange={onclickTimeRange}
+          />
         </div>
         <Chart data={state.data} elementId={elementId}/>
       </section>;
@@ -84,12 +83,11 @@ export default declare([TitleDialog.ContentComponent], {
   nlsFooterButtonLabel: 'statsDialogFooter',
   postCreate() {
     this.inherited(arguments);
-
     this.elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
   },
   open(params) {
     this.dialog.show();
-    const controllerComponent = getControllerComponent(params.entries, this.elementId);
+    const controllerComponent = getControllerComponent(params.entries);
     this.show(controllerComponent);
   },
 });

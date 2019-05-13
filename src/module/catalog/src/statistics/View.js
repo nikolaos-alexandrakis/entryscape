@@ -3,6 +3,7 @@ import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import BarChart from 'commons/components/common/chart/TimeBarChart';
 import Pagination from 'commons/components/common/Pagination';
+import SearchSelect from 'commons/components/common/select/SearchSelect';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
@@ -15,7 +16,6 @@ import Placeholder from './components/Placeholder';
 import SearchInput from './components/SearchInput';
 import Spinner from './components/Spinner';
 import Tabs from './components/Tabs';
-import TimeRangeDropdown from './components/TimeRangeDropdown';
 import './index.scss';
 import getDatasetByDistributionRURI from './utils/distribution';
 import getTabs from './utils/tabs';
@@ -265,10 +265,11 @@ export default declare(MithrilView, {
             <section className="stats__wrapper">
               <div className="chooser__wrapper">
                 <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
-                <TimeRangeDropdown
-                  items={timeRangesItems}
-                  selected={state.timeRanges.selected}
-                  onclickTimeRange={onclickTimeRange}/>
+                <SearchSelect
+                  options={timeRangesItems}
+                  selectedOptions={[state.timeRanges.selected]}
+                  onChange={onclickTimeRange}
+                />
               </div>
               <div className="visualization__wrapper">
                 <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
