@@ -1,4 +1,5 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import { getMultiDatasetChartData } from 'catalog/statistics/utils/chart';
 import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import BarChart from 'commons/components/common/chart/TimeBarChart';
@@ -45,29 +46,6 @@ export default declare(MithrilView, {
     };
 
     const setState = createSetState(state);
-
-    const getChartData = async (selectedEntryInfo, entryType, timeRange) => {
-      const { uri, name: label } = selectedEntryInfo;
-      const context = registry.getContext();
-      const chartData = {
-        datasets: [],
-      };
-      try {
-        const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(uri); // @todo add catch
-        const entryId = entryType === 'file' ? entry.getId() : getRowstoreAPIUUID(entry);
-        let data =
-          await statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
-
-        delete data.count; // keep only chart relevant data
-        data = timeRangeUtil.normalizeChartData(timeRange, data);
-
-        chartData.datasets.push({ data, label });
-        return chartData;
-      } catch (err) {
-        console.log(`Could not fetch statistics for ${uri}`, err);
-        return [];
-      }
-    };
 
     const getListItems = async () => {
       const context = registry.getContext();
@@ -149,10 +127,14 @@ export default declare(MithrilView, {
       });
     };
 
-    const resetChart = () => {
-      const { list, timeRanges, activeTab: entryType } = state;
+    const resetChart = async () => {
+      const { list, timeRanges } = state;
       if (list.selected.uri && timeRanges.selected !== 'custom') {
-        getChartData(list.selected, entryType, timeRanges.selected).then(data => setState({ chart: { data } }));
+        const selectedEntry = await registry.getEntryStoreUtil().getEntryByResourceURI(list.selected.uri);
+        const context = registry.getContext();
+
+        getMultiDatasetChartData([selectedEntry], context, timeRanges.selected)
+          .then(data => setState({ chart: { data } }));
       } else {
         setState({ chart: { data: [] } });
       }
@@ -165,10 +147,8 @@ export default declare(MithrilView, {
       getListItems()
         .then(getFirstItemFileName)
         .then(updateStateOfList)
-        .then(() => {
-          paginateList(0);
-          resetChart();
-        });
+        .then(() => paginateList(0)) // @todo shorthand for this
+        .then(resetChart);
     };
 
     const onchangeTab = (tab) => {
@@ -195,15 +175,17 @@ export default declare(MithrilView, {
       getListItemsAndRender();
     };
 
-    const onclickListItem = (selected) => {
+    const onclickListItem = async (selected) => {
+      const selectedEntry = await registry.getEntryStoreUtil().getEntryByResourceURI(selected.uri);
+      const context = registry.getContext();
+
       setState({
         list: {
           selected,
         },
-      });
+      }, true);
 
-      const { timeRanges, activeTab: entryType } = state;
-      getChartData(selected, entryType, timeRanges.selected)
+      getMultiDatasetChartData([selectedEntry], context, state.timeRanges.selected)
         .then(data => setState({ chart: { data } }));
     };
 
