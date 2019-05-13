@@ -276,14 +276,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
           });
 
           this.clear();
-
           // Update the label in the "Create Concept" input field to now reflect the root
-          const context = registry.get('context');
-          registry.get('entrystoreutil').getEntryByType('skos:ConceptScheme', context)
-            .then((contextSchemeEntry) => {
-              const createLabel = registry.get('rdfutils').getLabel(contextSchemeEntry);
-              this.__selectedTerm.innerHTML = createLabel;
-            });
+          this.__selectedTerm.innerHTML = registry.get('rdfutils').getLabel(this.conceptScheme);
         });
       });
     }
