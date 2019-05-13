@@ -84,9 +84,6 @@ export default declare([TitleDialog.ContentComponent], {
   nlsFooterButtonLabel: 'statsDialogFooter',
   postCreate() {
     this.inherited(arguments);
-    this.dialog.footerButtonAction = () => {
-      this.hide();
-    };
 
     this.elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
   },

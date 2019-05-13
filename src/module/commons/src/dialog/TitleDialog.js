@@ -225,11 +225,9 @@ TitleDialog.ContentNLS = declare([TitleDialog.Content, NLSMixin.Dijit], {
 });
 
 TitleDialog.ContentComponent = declare([TitleDialog.ContentNLS], {
+  destroyOnHide: true,
   show(component) {
     m.mount(this.dialog.containerNode, component);
-  },
-  hide() {
-    m.mount(this.dialog.containerNode, null);
   },
 });
 

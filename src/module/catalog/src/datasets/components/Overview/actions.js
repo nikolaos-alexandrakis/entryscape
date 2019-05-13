@@ -16,6 +16,7 @@ import { navigateToCatalogView } from 'catalog/utils/catalog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import escoCommentNLS from 'commons/nls/escoComment.nls';
+import DOMUtil from 'commons/util/htmlUtil';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -94,7 +95,7 @@ export default (entry) => {
   });
 
   const clone = () => {
-    const cloneDialog = new CloneDialog({ entry, destroyOnHide: true });
+    const cloneDialog = new CloneDialog({ entry, destroyOnHide: true }, DOMUtil.create('div'));
     cloneDialog.open();
   };
   /**
@@ -103,7 +104,7 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openEditDialog = () => {
-    const editDialog = new EditDialog({ entry, destroyOnHide: true });
+    const editDialog = new EditDialog({ entry, destroyOnHide: true }, DOMUtil.create('div'));
 
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
@@ -334,7 +335,7 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openRevisions = async () => {
-    const revisionsDialog = new RevisionsDialog({ destroyOnHide: true });
+    const revisionsDialog = new RevisionsDialog({ destroyOnHide: true }, DOMUtil.create('div'));
 
     if (isUploadedDistribution(entry, registry.get('entrystore'))) {
       revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
@@ -374,7 +375,7 @@ export default (entry) => {
         this.footerButtonLabel = this.NLSLocalized.escaDataset.commentFooterButton;
         this.localeChange();
       },
-    });
+    }, DOMUtil.create('div'));
 
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
@@ -396,7 +397,7 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openIdeas = () => {
-    const showIdeasDialog = new ShowIdeasDialog({ destroyOnHide: true });
+    const showIdeasDialog = new ShowIdeasDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     openDialog(showIdeasDialog);
   };
 
@@ -406,7 +407,7 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openShowcases = () => {
-    const showShowcasesDialog = new ShowShowcasesDialog({ destroyOnHide: true });
+    const showShowcasesDialog = new ShowShowcasesDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     openDialog(showShowcasesDialog);
   };
 
@@ -416,7 +417,7 @@ export default (entry) => {
    * @returns {undefined}
    */
   const downgrade = () => {
-    const downgradeDialog = new DowngradeDialog({ destroyOnHide: true });
+    const downgradeDialog = new DowngradeDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     downgradeDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
