@@ -205,7 +205,7 @@ export default declare(MithrilView, {
               <div class="chart__wrapper">
                 <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
               </div>
-              <button class="btn btn-raised btn-sm btn-primary">{escaStatistics.statsCatalogSeeAllBtn}</button>
+              <button class="btn btn-raised btn-sm btn-secondary">{escaStatistics.statsCatalogSeeAllBtn}</button>
             </div> : null}
         </div>;
       },
