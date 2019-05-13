@@ -3,7 +3,7 @@ import { isCatalogPublished } from 'catalog/utils/catalog';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import BarChart from 'commons/components/common/chart/TimeBarChart';
 import Pagination from 'commons/components/common/Pagination';
-import SearchSelect from 'commons/components/entry/select/SearchSelect';
+import SearchSelect from 'commons/components/common/select/SearchSelect';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
