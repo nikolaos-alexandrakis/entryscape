@@ -86,6 +86,7 @@ export default (entry, distribution, onUpdate) => {
   const replaceFile = () => {
     const dom = DOMUtil.create('div');
     const replaceFileDialog = new ReplaceFileDialog({
+      destroyOnHide: true,
       list: {
         entry: distribution,
       },
@@ -106,6 +107,7 @@ export default (entry, distribution, onUpdate) => {
 
   const removeFile = () => {
     const removeFileDialog = new RemoveFileDialog({
+      destroyOnHide: true,
       list: {
         entry: distribution,
         fileEntry: entry,
