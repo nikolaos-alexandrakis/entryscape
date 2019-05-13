@@ -2,20 +2,11 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { i18n } from 'esi18n';
 
 /**
- * @todo @valentino
- *  - make map?
+ * @todo make map?
  * @return {*[]}
  */
-const getTimeRanges = (custom = null) => {
+const getTimeRanges = () => {
   const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
-  let customName = escaStatisticsNLS.timeRangeCustom;
-  if (custom) {
-    if (custom.startDate.year() === custom.endDate.year()) { // time range in same year
-      customName = `${custom.startDate.format('MMM DD')} - ${custom.endDate.format('MMM DD')}`;
-    } else {
-      customName = `${custom.startDate.format('MMM DD, YYYY')} - ${custom.endDate.format('MMM DD, YYYY')}`;
-    }
-  }
   return [
     {
       id: 'today',
@@ -40,14 +31,6 @@ const getTimeRanges = (custom = null) => {
     {
       id: 'last-year',
       name: escaStatisticsNLS.timeRangeLastYear,
-    },
-    { // denotes li.divider
-      id: '-',
-      name: '-',
-    },
-    {
-      id: 'custom',
-      name: customName,
     },
   ];
 };
@@ -135,7 +118,7 @@ const normalizeChartData = (selected, data) => {
       break;
     case 'last-month':
       date.setMonth(date.getMonth() - 1); // update date
-      max = daysInMonth(date.getMonth() - 1, date.getFullYear());
+      max = daysInMonth(date.getMonth(), date.getFullYear());
       day = date.getDate();
       month = date.getMonth();
       year = date.getFullYear();

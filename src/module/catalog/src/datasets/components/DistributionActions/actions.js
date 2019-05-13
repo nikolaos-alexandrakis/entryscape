@@ -1,28 +1,29 @@
-import m from 'mithril';
-import config from 'config';
-import registry from 'commons/registry';
-import { i18n } from 'esi18n';
-import stamp from 'dojo/date/stamp';
-import declare from 'dojo/_base/declare';
-import DOMUtil from 'commons/util/htmlUtil';
-import Lookup from 'commons/types/Lookup';
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
-import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
 import GenerateAPI from 'catalog/datasets/GenerateAPI';
-import EntryType from 'commons/create/EntryType';
-import typeIndex from 'commons/create/typeIndex';
+import ManageFilesDialog from 'catalog/datasets/ManageFiles';
+import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import StatisticsDialog from 'catalog/datasets/StatisticsDialog';
 import {
-  isUploadedDistribution,
-  isFileDistributionWithOutAPI,
-  isAPIDistribution,
   isAccessDistribution,
+  isAPIDistribution,
+  isFileDistributionWithOutAPI,
+  isUploadedDistribution,
+  getDistributionFileEntries,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
+import EntryType from 'commons/create/EntryType';
+import typeIndex from 'commons/create/typeIndex';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import registry from 'commons/registry';
+import Lookup from 'commons/types/Lookup';
+import DOMUtil from 'commons/util/htmlUtil';
+import declare from 'dojo/_base/declare';
+import stamp from 'dojo/date/stamp';
+import { i18n } from 'esi18n';
+import m from 'mithril';
 
 export default (distribution, dataset, wrapperFunction) => {
   // STUBBED DIALOGS
@@ -193,8 +194,7 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  const openNewTab = (distributionEntry) => {
-    const resURI = distributionEntry.getResourceURI();
+  const getUploadedFileDownloadUrl = (distributionEntry) => {
     const md = distributionEntry.getMetadata();
     const subj = distributionEntry.getResourceURI();
     const accessURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:accessURL'));
@@ -209,6 +209,15 @@ export default (distribution, dataset, wrapperFunction) => {
       uri = accessURI;
     }
 
+    return uri;
+  };
+
+  /**
+   *
+   * @param {store/Entry} distributionEntry
+   */
+  const openNewTab = (distributionEntry) => {
+    const uri = getUploadedFileDownloadUrl(distributionEntry);
     window.open(uri, '_blank');
   };
   // END UTILS
@@ -273,7 +282,8 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  // @scazan Make some modifications to the class itself before instantiation. I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
+  // @scazan Make some modifications to the class itself before instantiation.
+  // I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
   const dv = RevisionsDialog;
   if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
     dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
@@ -360,6 +370,20 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
+  const showStatisticsDialog = new StatisticsDialog();
+  const openStatistics = async () => {
+    let entries;
+    if (isAPIDistribution(distribution)) {
+      entries = [distribution];
+    } else {
+      entries = await getDistributionFileEntries(distribution);
+    }
+    showStatisticsDialog.open({
+      entries,
+      onDone: () => m.redraw(),
+    });
+  };
+
   /**
    * Open the replace file dialog
    *
@@ -398,12 +422,15 @@ export default (distribution, dataset, wrapperFunction) => {
     remove,
     openAddFile,
     openManageFiles,
+    openStatistics,
     openReplaceFile,
   };
 
   if (wrapperFunction) {
     Object.entries(actions)
-      .forEach((nameAction) => actions[nameAction[0]] = wrapperFunction(nameAction[1]));
+      .forEach((nameAction) => {
+        actions[nameAction[0]] = wrapperFunction(nameAction[1]);
+      });
   }
 
   return actions;

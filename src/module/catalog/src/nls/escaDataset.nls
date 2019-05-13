@@ -96,6 +96,8 @@
     "addFileTitle": "Add file",
     "manageFiles": "Manage files",
     "manageFilesTitle": "You can edit, replace and remove files",
+    "seeStatistics": "Statistics",
+    "seeStatisticsTitle": "Download and access statistics",
     "reGenerateAPI": "Refresh API",
     "reGenerateAPITitle": "Refresh API",
     "invalidAliasName": "API aliases must not contain spaces or special characters.",
