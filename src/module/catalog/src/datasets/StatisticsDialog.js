@@ -1,9 +1,9 @@
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import Chart from 'commons/components/common/chart/TimeBarChart';
+import SearchSelect from 'commons/components/common/select/SearchSelect';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
@@ -36,14 +36,14 @@ const getChartData = async (entries, context, timeRange) => {
 
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
-const state = {
-  data: [],
-  timeRangeSelected: 'this-month',
-};
-
-const setState = createSetState(state);
-
 const getControllerComponent = (entries, elementId) => {
+  const state = {
+    data: [],
+    timeRangeSelected: 'this-month',
+  };
+
+  const setState = createSetState(state);
+
   const onclickTimeRange = (range) => {
     setState({
       timeRangeSelected: range,
@@ -67,10 +67,11 @@ const getControllerComponent = (entries, elementId) => {
         </div>
         <div className="chooser__wrapper">
           <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
-          <TimeRangeDropdown
-            items={timeRangesItems}
-            selected={state.timeRangeSelected}
-            onclickTimeRange={onclickTimeRange}/>
+          <SearchSelect
+            options={timeRangesItems}
+            selectedOptions={[state.timeRangeSelected]}
+            onChange={onclickTimeRange}
+          />
         </div>
         <Chart data={state.data} elementId={elementId}/>
       </section>;
