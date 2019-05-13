@@ -1,12 +1,13 @@
 import { isAPIDistribution } from 'catalog/datasets/utils/distributionUtil';
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import Chart from 'commons/components/common/chart/TimeBarChart';
 import TimeRangeDropdown from 'catalog/statistics/components/TimeRangeDropdown';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
 import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
+import Chart from 'commons/components/common/chart/TimeBarChart';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
+import { getEntryRenderName } from 'commons/util/entryUtil';
 import { createSetState } from 'commons/util/util';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
@@ -15,7 +16,7 @@ const getChartData = async (entries, context, timeRange) => {
   const chartData = { datasets: [] };
   const labels = [];
   const entryStatisticsPromises = entries.map((entry) => {
-    const label = entry.getMetadata().findFirstValue(null, 'dcterms:title');
+    const label = getEntryRenderName(entry);
     labels.push(label);
     const entryId = isAPIDistribution(entry) ? entry.getId() : getRowstoreAPIUUID(entry); // @todo @valentino check if this works with aliasses
     return statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
@@ -33,7 +34,6 @@ const getChartData = async (entries, context, timeRange) => {
   return chartData;
 };
 
-let component = null;
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
 const state = {
@@ -44,10 +44,6 @@ const state = {
 const setState = createSetState(state);
 
 const getControllerComponent = (entries, elementId) => {
-  if (component) {
-    return component;
-  }
-
   const onclickTimeRange = (range) => {
     setState({
       timeRangeSelected: range,
@@ -57,9 +53,7 @@ const getControllerComponent = (entries, elementId) => {
       .then(data => setState({ data }));
   };
 
-
-  component = {
-    elementId,
+  return {
     oninit() {
       getChartData(entries, registry.getContext(), state.timeRangeSelected)
         .then(data => setState({ data }));
@@ -78,12 +72,10 @@ const getControllerComponent = (entries, elementId) => {
             selected={state.timeRangeSelected}
             onclickTimeRange={onclickTimeRange}/>
         </div>
-        <Chart data={state.data} elementId={this.elementId}/>
+        <Chart data={state.data} elementId={elementId}/>
       </section>;
     },
   };
-
-  return component;
 };
 
 export default declare([TitleDialog.ContentComponent], {
@@ -93,13 +85,14 @@ export default declare([TitleDialog.ContentComponent], {
   postCreate() {
     this.inherited(arguments);
     this.dialog.footerButtonAction = () => {
-      component = null;
+      this.hide();
     };
+
+    this.elementId = `distribution-dialog-statistics-${Math.random().toString(36).substring(4)}`;
   },
   open(params) {
-    const elementId = 'distribution-dialog-statistics';
     this.dialog.show();
-    const controllerComponent = getControllerComponent(params.entries, elementId);
+    const controllerComponent = getControllerComponent(params.entries, this.elementId);
     this.show(controllerComponent);
   },
 });

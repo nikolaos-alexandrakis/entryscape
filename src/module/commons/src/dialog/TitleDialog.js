@@ -228,6 +228,9 @@ TitleDialog.ContentComponent = declare([TitleDialog.ContentNLS], {
   show(component) {
     m.mount(this.dialog.containerNode, component);
   },
+  hide() {
+    m.mount(this.dialog.containerNode, null);
+  },
 });
 
 export default TitleDialog;

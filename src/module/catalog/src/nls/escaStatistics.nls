@@ -28,6 +28,8 @@
     "statsDialogFooter": "Close",
     "statsCatalogOverviewTitle": "Catalog statistics overview from last 7 days",
     "statsCatalogOverviewChartLabel": "File downloads and API usage",
+    "statsCatalogOverviewChartFileLabel": "File downloads",
+    "statsCatalogOverviewChartAPILabel": "API calls",
     "statsCatalogOverviewDoughnutFiles": "Files",
     "statsCatalogOverviewDoughnutAPI": "API",
     "statsCatalogSeeAllBtn":"See all"

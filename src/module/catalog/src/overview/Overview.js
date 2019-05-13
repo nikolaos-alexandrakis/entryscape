@@ -1,5 +1,6 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
 import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
+import { navigateToCatalogView } from 'catalog/utils/catalog';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
 import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
@@ -60,29 +61,37 @@ const getStatisticsData = async () => {
 
   // make api call and calculate results
   const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
-  const dataPoints = [];
-  const label = escaStatistics.statsCatalogOverviewChartLabel;
-  let fileCount = 0;
-  let apiCount = 0;
+  const dataPointsFiles = [];
+  const dataPointsAPI = [];
+  let fileTotalCount = 0;
+  let apiTotalCount = 0;
   const results = await Promise.all(timeRanges.map(getCatalogStatistics));
   results.forEach((result, idx) => {
-    const totalCount = sumTotalCountFromResult(result) || 0;
-    fileCount += sumTotalCountFromResult(result, 'file');
-    apiCount += sumTotalCountFromResult(result, 'api');
+    const fileCount = sumTotalCountFromResult(result, 'file');
+    const apiCount = sumTotalCountFromResult(result, 'api');
     const timeRange = timeRanges[idx];
-    dataPoints.push({
+    dataPointsFiles.push({
       x: new Date(timeRange.year, timeRange.month, timeRange.date),
-      y: totalCount,
+      y: fileCount,
     });
+    dataPointsAPI.push({
+      x: new Date(timeRange.year, timeRange.month, timeRange.date),
+      y: apiCount,
+    });
+
+    fileTotalCount += fileCount;
+    apiTotalCount += apiCount;
   });
 
   // populate the data structures for the charts
-  barData.datasets.push({ data: dataPoints, label });
+  barData.datasets.push({ data: dataPointsFiles, label: escaStatistics.statsCatalogOverviewChartFileLabel });
+  barData.datasets.push({ data: dataPointsAPI, label: escaStatistics.statsCatalogOverviewChartAPILabel });
+
   const doughnutData = {
     labels: [escaStatistics.statsCatalogOverviewDoughnutFiles, escaStatistics.statsCatalogOverviewDoughnutAPI],
     datasets: [{
       label: escaStatistics.statsCatalogOverviewDoughnutLabel, // @todo perhaps not used
-      data: [fileCount, apiCount],
+      data: [fileTotalCount, apiTotalCount],
     }],
   };
 
@@ -180,6 +189,8 @@ export default declare(MithrilView, {
     };
 
     const setState = createSetState(state);
+    const navigateToStatisticsView = () => navigateToCatalogView('catalog__statistics');
+
     return {
       oninit() {
         getOverviewData().then(data => setState({ data }));
@@ -205,7 +216,10 @@ export default declare(MithrilView, {
               <div class="chart__wrapper">
                 <DoughnutChart data={state.chart.doughnut} elementId={'catalog-statistics-overview-doughnut'}/>
               </div>
-              <button class="btn btn-raised btn-sm btn-secondary">{escaStatistics.statsCatalogSeeAllBtn}</button>
+              <button
+                class="btn btn-sm btn-secondary"
+                onclick={navigateToStatisticsView}>{escaStatistics.statsCatalogSeeAllBtn}
+              </button>
             </div> : null}
         </div>;
       },
