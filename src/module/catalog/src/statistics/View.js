@@ -1,7 +1,6 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { getMultiDatasetChartData } from 'catalog/statistics/utils/chart';
 import { isCatalogPublished } from 'catalog/utils/catalog';
-import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import BarChart from 'commons/components/common/chart/TimeBarChart';
 import Pagination from 'commons/components/common/Pagination';
 import SearchSelect from 'commons/components/common/select/SearchSelect';
