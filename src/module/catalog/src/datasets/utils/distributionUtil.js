@@ -84,11 +84,11 @@ export const isSingleFileDistribution = (entry) => {
 };
 
 export const isAPIDistribution = (entry) => {
-  const ns = registry.get('namespaces');
   const md = entry.getMetadata();
   const subj = entry.getResourceURI();
-  const source = md.findFirstValue(subj, ns.expand('dcterms:source'));
-  return !!((source !== '' && source != null));
+  const source = md.findFirstValue(subj, 'dcterms:source');
+  const accessURL = md.findFirstValue(subj, 'dcat:accessURL');
+  return accessURL && !!((source !== '' && source != null));
 };
 
 export const isUploadedDistribution = (entry, entrystore) => {
@@ -96,8 +96,7 @@ export const isUploadedDistribution = (entry, entrystore) => {
   const md = entry.getMetadata();
   const subj = entry.getResourceURI();
   const downloadURI = md.findFirstValue(subj, ns.expand('dcat:downloadURL'));
-  const es = entrystore;
-  const baseURI = es.getBaseURI();
+  const baseURI = entrystore.getBaseURI();
   return !!((downloadURI !== '' && downloadURI != null && downloadURI.indexOf(baseURI) > -1));
 };
 

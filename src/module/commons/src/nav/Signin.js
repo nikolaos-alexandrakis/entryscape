@@ -134,7 +134,7 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
       }
     };
 
-    if (config.site && registry.getSiteConfig().signup !== false) {
+    if (config.get('site.signup', true)) {
       this.showSignupButton.style.display = '';
     }
 
@@ -222,7 +222,7 @@ Signin.Dialog = declare([TitleDialog.ContentNLS, SigninMixin], {
     };
     this.domNode.classList.add('signindialog');
     // TODO remove site.signup in next version, this is for compatability with old configs
-    if (registry.getSiteConfig().signup !== false && config.entrystore.signup !== false) {
+    if (config.get('site.signup', true) && config.get('entrystore.signup', true)) {
       this.showSignupButton.style.display = '';
     }
 

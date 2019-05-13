@@ -10,7 +10,7 @@ const Overview = {
 
     return m('div', [
       m(OverviewHeader, { title, description }),
-      m('.escoOverview__wrapper', [
+      m('.escoOverview__main', [
         m('', [
           m('.escoOverview__wrapper', [
             m('.escoOverview__termFact', m(DescriptionList, { sList })),

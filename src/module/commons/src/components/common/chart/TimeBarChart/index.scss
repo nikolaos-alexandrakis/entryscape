@@ -2,12 +2,11 @@
 
 
 .ct-series-a .ct-bar {
-    /* Colour of your bars */
-    stroke:$main-colour;
-    /* The width of your bars */
-    stroke-width: 20px;
-
-  }
+  /* Colour of your bars */
+  stroke: $main-colour;
+  /* The width of your bars */
+  stroke-width: 20px;
+}
 
   .ct-series-a .ct-area{
     fill:$main-colour;
