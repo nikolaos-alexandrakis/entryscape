@@ -223,8 +223,9 @@ export default (distribution, dataset, wrapperFunction) => {
   // END UTILS
 
   // ACTIONS
-  const editDialog = new EditDistributionDialog({}, DOMUtil.create('div'));
+
   const editDistribution = (onDone) => {
+    const editDialog = new EditDistributionDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     editDialog.open({ row: { entry: distribution }, onDone });
   };
@@ -238,8 +239,9 @@ export default (distribution, dataset, wrapperFunction) => {
     openNewTab(distribution);
   };
 
-  const apiInfoDialog = new ApiInfoDialog({}, DOMUtil.create('div'));
+
   const openApiInfo = () => {
+    const apiInfoDialog = new ApiInfoDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     getEtlEntry(distribution).then((etlEntry) => {
       apiInfoDialog.open({ etlEntry, apiDistributionEntry: distribution });
     });
@@ -294,8 +296,8 @@ export default (distribution, dataset, wrapperFunction) => {
   }
   dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
 
-  const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
   const openRevisions = async () => {
+    const revisionsDialog = new RevisionsDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     const template = await Lookup.getTemplate(distribution);
     revisionsDialog.open({
       row: { entry: distribution },
@@ -336,8 +338,8 @@ export default (distribution, dataset, wrapperFunction) => {
     }
   };
 
-  const addFileDialog = new AddFileDialog({}, DOMUtil.create('div'));
   const openAddFile = () => {
+    const addFileDialog = new AddFileDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     const escaFilesList = i18n.getLocalization(escaFilesListNLS);
     addFileDialog.open({
       list: {
@@ -359,8 +361,8 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div'));
   const openManageFiles = (fileEntryURIs) => {
+    const manageFilesDialog = new ManageFilesDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     manageFilesDialog.open({
       entry: distribution,
       row: { entry: distribution },
@@ -370,8 +372,8 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  const showStatisticsDialog = new StatisticsDialog();
   const openStatistics = async () => {
+    const showStatisticsDialog = new StatisticsDialog();
     let entries;
     if (isAPIDistribution(distribution)) {
       entries = [distribution];
@@ -380,7 +382,6 @@ export default (distribution, dataset, wrapperFunction) => {
     }
     showStatisticsDialog.open({
       entries,
-      onDone: () => m.redraw(),
     });
   };
 
@@ -389,9 +390,10 @@ export default (distribution, dataset, wrapperFunction) => {
    *
    * @returns {undefined}
    */
-  const dom = DOMUtil.create('div');
-  const replaceFileDialog = new FileReplaceDialog({}, dom);
+
   const openReplaceFile = (onDone, fileEntryURIs) => {
+    const dom = DOMUtil.create('div');
+    const replaceFileDialog = new FileReplaceDialog({ destroyOnHide: true }, dom);
     const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
