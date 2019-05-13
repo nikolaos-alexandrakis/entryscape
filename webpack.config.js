@@ -184,6 +184,7 @@ module.exports = (env, argv) => {
         catalog: getAlias('catalog'),
         admin: getAlias('admin'),
         terms: getAlias('terms'),
+        tools: getAlias('tools'),
         workbench: getAlias('workbench'),
         suite: getAlias('suite', 'app'),
         registry: getAlias('registry', 'app'),

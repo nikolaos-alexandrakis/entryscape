@@ -3,13 +3,14 @@ import adminSiteConfig from 'admin/config/site';
 import catalogSiteConfig from 'catalog/config/site';
 import workbenchSiteConfig from 'workbench/config/site';
 import termsSiteConfig from 'terms/config/site';
+import toolsSiteConfig from 'tools/config/site';
 import Site from 'commons/nav/Site';
 import Layout from 'commons/nav/Layout';
 import Start from 'commons/nav/Start';
 import Signin from 'commons/nav/Signin';
 import Permission from 'commons/nav/Permission';
 
-export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, termsSiteConfig, {
+export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, termsSiteConfig, toolsSiteConfig, {
   siteClass: Site, // mandatory
   controlClass: Layout, // mandatory
   startView: 'start', // mandatory
@@ -63,5 +64,5 @@ export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, te
       public: false,
     },
   },
-  moduleList: ['catalog', 'terms', 'workbench', 'search', 'admin', 'documentation'],
+  moduleList: ['catalog', 'terms', 'workbench', 'search', 'tools', 'admin', 'documentation'],
 }, __entryscape_config.site || {});
