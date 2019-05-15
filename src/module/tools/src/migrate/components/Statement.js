@@ -1,6 +1,5 @@
-import m from 'mithril';
+import { namespaces } from 'rdfjson';
 import './statement.scss';
-
 
 /**
  *
@@ -12,11 +11,17 @@ export default {
       statement,
     } = vnode.attrs;
     return (
-      <div className="statement__row">
-        <div className="statement__subject">{statement.getSubject()}</div>
-        <div className="statement__predicate">{statement.getPredicate()}</div>
-        <div className="statement__object">{statement.getValue()}</div>
-      </div>
+      <tr className="statement__row">
+        <td className="statement__subject"
+          title={statement.getSubject()}>{namespaces.shortenKnown(statement.getSubject())}</td>
+        <td className="statement__predicate"
+          title={statement.getPredicate()}>{namespaces.shortenKnown(statement.getPredicate())}</td>
+        {statement.getType() === 'uri' ?
+          <td className="statement__object"
+            title={statement.getValue()}>{namespaces.shortenKnown(statement.getValue())}</td> :
+          <td className="statement__object">{statement.getValue()}</td>
+        }
+      </tr>
     );
   },
 };

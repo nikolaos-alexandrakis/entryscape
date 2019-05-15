@@ -25,6 +25,7 @@ const Input = {
       onkeyup,
       oninput,
       onchange,
+      onvalue,
       value = null,
       classNames = ['form-control'],
     } = vnode.attrs.input;
@@ -51,11 +52,21 @@ const Input = {
     if (onkeyup) {
       attrs.onkeyup = onkeyup;
     }
-    if (oninput) {
-      attrs.oninput = oninput;
+    if (oninput || onvalue) {
+      attrs.oninput = (ie) => {
+        if (oninput) {
+          oninput(ie);
+        }
+        if (onvalue) {
+          onvalue(ie.currentTarget.value);
+        }
+      };
     }
     if (onchange) {
       attrs.onchange = onchange;
+    }
+    if (onvalue) {
+
     }
     if (typeof value === 'string') {
       attrs.value = value;
