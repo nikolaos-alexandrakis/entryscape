@@ -227,7 +227,7 @@ export default (vnode) => {
     // if (this.datasetRow.list.createAndRemoveDistributions) { // @scazan simple boolean defined in the class
     actions.push(
       <button
-      class=" btn--distributionFile fa fa-fw fa-remove"
+      class=" btn--distributionFile fa fa-fw fa-times"
       title={nls.removeDistributionTitle}
       // onclick={remove}
       >
