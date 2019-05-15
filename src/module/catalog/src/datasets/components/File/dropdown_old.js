@@ -174,7 +174,7 @@ export default (vnode) => {
       } else {
         actions.push(
           <button
-            class="btn--distributionFile fa fa-fw fa-files-o"
+            class="btn--distributionFile fa fa-fw fa-copy"
             title={nls.manageFilesTitle}
             onclick={manageFiles}
           >
