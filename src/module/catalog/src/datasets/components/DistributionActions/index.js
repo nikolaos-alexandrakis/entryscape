@@ -105,7 +105,7 @@ export default (initialVnode) => {
       } else {
         actionButtons.push(
           <button
-            className="btn--distribution fas fa-fw fa-files-o"
+            className="btn--distribution fas fa-fw fa-copy"
             title={escaDataset.manageFilesTitle}
             onclick={openManageFiles}
           >
