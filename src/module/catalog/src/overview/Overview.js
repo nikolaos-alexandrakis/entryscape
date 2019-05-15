@@ -192,17 +192,25 @@ export default declare(MithrilView, {
     const navigateToStatisticsView = () => navigateToCatalogView('catalog__statistics');
 
     return {
-      oninit() {
-        getOverviewData().then(data => setState({ data }));
-        getStatisticsData().then(({ bar, doughnut }) => setState({
-          chart: {
-            bar,
-            doughnut,
-          },
-        }));
+      oninit(vnode) {
+        getOverviewData()
+          .then(data => setState({ data }))
+          .then(() => {
+            const contextEntry = registry.getContext().getEntry(true);
+            vnode.state.isCatalogPublic = contextEntry.isPublic();
+
+            if (vnode.state.isCatalogPublic) {
+              getStatisticsData().then(({ bar, doughnut }) => setState({
+                chart: {
+                  bar,
+                  doughnut,
+                },
+              }));
+            }
+          });
       },
-      view() {
-        const showStats = config.get('catalog.includeStatistics', false);
+      view(vnode) {
+        const showStats = config.get('catalog.includeStatistics', false) && vnode.state.isCatalogPublic;
         const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
 
         return <div class="esca__Overview__wrapper">
@@ -211,10 +219,10 @@ export default declare(MithrilView, {
             <div class="charts__column">
               <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
               <div class="chart__wrapper">
-                <Chart data={state.chart.bar} />
+                <Chart data={state.chart.bar}/>
               </div>
               <div class="chart__wrapper">
-                <DoughnutChart data={state.chart.doughnut} />
+                <DoughnutChart data={state.chart.doughnut}/>
               </div>
               <button
                 class="btn btn-sm btn-secondary"
