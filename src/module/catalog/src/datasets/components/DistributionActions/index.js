@@ -22,6 +22,7 @@ import bindActions from './actions';
 export default (initialVnode) => {
   const { distribution, dataset, refreshDistributions = () => {} } = initialVnode.attrs;
   const actions = bindActions(distribution, dataset, DOMUtil.preventBubbleWrapper);
+  const isCatalogPublic = dataset.getContext().getEntry(true).isPublic(); // should be safe to load context entry from cache
 
   const renderActions = (entry, fileEntryURIs) => {
     const escaDataset = i18n.getLocalization(escaDatasetNLS);
@@ -113,7 +114,9 @@ export default (initialVnode) => {
           </button>,
         );
       }
-      actionButtons.push(statisticsVnode);
+      if (isCatalogPublic) {
+        actionButtons.push(statisticsVnode);
+      }
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
       actionButtons.push([
         <button
@@ -130,8 +133,10 @@ export default (initialVnode) => {
         >
           <span>{escaDataset.reGenerateAPI}</span>
         </button>,
-        statisticsVnode,
       ]);
+      if (isCatalogPublic) {
+        actionButtons.push(statisticsVnode);
+      }
     } else {
       if (!isAccessURLEmpty(entry)) {
         actionButtons.push(
