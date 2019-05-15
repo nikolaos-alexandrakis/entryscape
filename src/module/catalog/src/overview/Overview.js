@@ -1,6 +1,6 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
 import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
-import { navigateToCatalogView } from 'catalog/utils/catalog';
+import { isCatalogPublished, navigateToCatalogView } from 'catalog/utils/catalog';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
 import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
@@ -191,26 +191,23 @@ export default declare(MithrilView, {
     const setState = createSetState(state);
     const navigateToStatisticsView = () => navigateToCatalogView('catalog__statistics');
 
+    let isCatalogPublic = false;
     return {
-      oninit(vnode) {
+      oninit() {
         getOverviewData()
-          .then(data => setState({ data }))
+          .then(data => setState({ data })) // update state
+          // if the catalog is public then get overview stats data
           .then(() => {
-            const contextEntry = registry.getContext().getEntry(true);
-            vnode.state.isCatalogPublic = contextEntry.isPublic();
-
-            if (vnode.state.isCatalogPublic) {
-              getStatisticsData().then(({ bar, doughnut }) => setState({
-                chart: {
-                  bar,
-                  doughnut,
-                },
-              }));
-            }
+            isCatalogPublished().then((isPublic) => {
+              isCatalogPublic = isPublic;
+              if (isCatalogPublic) {
+                getStatisticsData().then(({ bar, doughnut }) => setState({ chart: { bar, doughnut } }));
+              }
+            });
           });
       },
-      view(vnode) {
-        const showStats = config.get('catalog.includeStatistics', false) && vnode.state.isCatalogPublic;
+      view() {
+        const showStats = config.get('catalog.includeStatistics', false) && isCatalogPublic;
         const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
 
         return <div class="esca__Overview__wrapper">
