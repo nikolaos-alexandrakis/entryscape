@@ -2,6 +2,7 @@
   "root": {
     "statsViewHeader": "Statistics for publicly downloadable files and APIs",
     "statsNotPublishedCatalog": "Statistics are only available for published catalogs",
+    "statsChartPlaceholder": "Statistics palceholder",
     "statsViewTimeRange": "Time range",
     "statsViewDistributionStats": "Distribution statistics for selected time range",
     "statsSearchInputPlaceholder": "Search for resources...",

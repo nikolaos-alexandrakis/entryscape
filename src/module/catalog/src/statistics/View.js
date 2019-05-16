@@ -1,6 +1,7 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { getMultiDatasetChartData } from 'catalog/statistics/utils/chart';
 import { isCatalogPublished } from 'catalog/utils/catalog';
+import PlaceholderChart from 'commons/components/chart/Placeholder';
 import BarChart from 'commons/components/common/chart/TimeBarChart';
 import Pagination from 'commons/components/common/Pagination';
 import SearchSelect from 'commons/components/common/select/SearchSelect';
@@ -255,9 +256,12 @@ export default declare(MithrilView, {
               <div className="visualization__wrapper">
                 <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
                 <div className="visualization__chart">
-                  <BarChart
-                    data={state.chart.data}
-                    name={state.list.selected.name}/>
+                  {hasData ?
+                    <BarChart
+                      data={state.chart.data}
+                      name={state.list.selected.name}/> :
+                    !state.loadingData ? <PlaceholderChart text={escaStatisticsNLS.statsChartPlaceholder}/> : null
+                  }
                 </div>
               </div>
               <div className="data__wrapper">
