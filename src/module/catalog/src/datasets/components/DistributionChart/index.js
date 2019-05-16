@@ -6,6 +6,7 @@ import SearchSelect from 'commons/components/common/select/SearchSelect';
 import registry from 'commons/registry';
 import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
+import './index.scss';
 
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
