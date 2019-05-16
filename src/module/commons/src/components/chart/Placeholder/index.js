@@ -2,14 +2,10 @@ import Chart from 'chart.js';
 
 const COLOR_OPTIONS = [
   {
-    borderColor: '#00838f',
-    backgroundColor: 'rgba(0, 131, 143,0.2)',
-    borderWidth: 3,
+    backgroundColor: 'rgba(0, 131, 143,0.05)',
   },
   {
-    borderColor: '#165b98',
-    backgroundColor: 'rgba(22, 91, 152,0.2)',
-    borderWidth: 3,
+    backgroundColor: 'rgba(22, 91, 152,0.05)',
   },
 ];
 
@@ -26,7 +22,7 @@ export default () => {
           const height = paramChart.chart.height;
           const ctx = paramChart.chart.ctx;
           ctx.restore();
-          const fontSize = (height / 114).toFixed(2);
+          const fontSize = (height / 190).toFixed(2);
           ctx.font = `${fontSize}em sans-serif`;
           ctx.textBaseline = 'middle';
           const textX = Math.round((width - ctx.measureText(text).width) / 2);
