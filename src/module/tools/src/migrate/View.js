@@ -6,6 +6,7 @@ import declare from 'dojo/_base/declare';
 import EntrySearchSelect from 'commons/components/entry/select/EntrySearchSelect';
 import Button from 'commons/components/common/button/Button';
 import Select from 'commons/components/common/form/Select';
+import Alert from 'commons/components/common/alert/Alert';
 import Input from 'commons/components/common/form/Input';
 import { createSetState } from 'commons/util/util';
 import Entry from './components/Entry';
@@ -22,6 +23,7 @@ const nodeTypes = [
 export default declare(MithrilView, {
   mainComponent: () => {
     const state = {
+      migratingMessage: '',
       context: null,
       entries: [],
       hasLanguage: false,
@@ -81,9 +83,15 @@ export default declare(MithrilView, {
       }
     };
     const fix = () => {
+      setState({ migratingMessage: `Starting to change ${state.entries.length} entries` });
       const arr = [];
       entryQuery().forEach(e => arr.push(e)).then(() => {
+        let idx = 0;
         promiseUtil.forEach(arr, (e) => {
+          if (idx !== 0) {
+            setState({ migratingMessage: `Changed ${idx} of ${state.entries.length} entries` });
+          }
+          idx += 1;
           const s = state.from.s === '' ? null : state.from.s;
           const p = state.from.p === '' ? null : state.from.p;
           const o = state.from.o === '' ? null : { value: state.from.o, type: state.nodeType };
@@ -112,6 +120,8 @@ export default declare(MithrilView, {
             return e.commitMetadata();
           }
           return Promise.resolve();
+        }).then(() => {
+          setState({ migratingMessage: '', entries: [] });
         });
       });
     };
@@ -163,7 +173,7 @@ export default declare(MithrilView, {
                 </tr>
                 <tr>
                   <td className="migrate__rowname"><label>Convert to</label></td>
-                  <td><Input input={{ value: state.to.s, onvalue: s => setState({ to: { s } }) }}/></td>
+                  <td></td>
                   <td><Input input={{ value: state.to.p, onvalue: p => setState({ to: { p } }) }}/></td>
                   <td><Input input={{ value: state.to.o, onvalue: o => setState({ to: { o } }) }}/></td>
                   { state.hasLanguage ?
@@ -178,19 +188,27 @@ export default declare(MithrilView, {
               <Button text="Sök" onclick={searchClicked} classNames={['pull-right', 'btn-raised', 'btn-primary']}/>
             </section>
             <section className="migrate__data">
-              {state.entries.length === 0 ? '' :
+              {state.migratingMessage !== '' ?
+                <Alert type="warning" text={state.migratingMessage}/> :
                 <div>
-                  <table className="migrate__table">
-                    <thead>
-                      <tr>
-                        <th>Subject</th>
-                        <th>Predicate</th>
-                        <th>Object</th>
-                      </tr>
-                    </thead>
-                    {state.entries.map(entry => <Entry entry={entry} from={state.from}/>)}
-                  </table>
-                  <Button text="Migrate" onclick={fix} classNames={['pull-right', 'btn-raised', 'btn-primary']}/>
+                  {state.entries.length === 0 ?
+                    <Alert text="No matching entries, refine your filter and do a new search"/> :
+                    <div>
+                      <table className="migrate__table">
+                        <thead>
+                          <tr>
+                            <th>Subject</th>
+                            <th>Predicate</th>
+                            <th>Object</th>
+                          </tr>
+                        </thead>
+                        {state.entries.map(entry => <Entry entry={entry} nodeType={state.nodeType}
+                          from={state.from}/>)}
+                      </table>
+                      <Button text="Migrate" onclick={fix}
+                        classNames={['pull-right', 'btn-raised', 'btn-primary']}/>
+                    </div>
+                  }
                 </div>
               }
             </section>

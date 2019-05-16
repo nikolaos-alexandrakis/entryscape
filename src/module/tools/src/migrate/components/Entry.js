@@ -12,11 +12,12 @@ export default {
     const {
       entry,
       from,
+      nodeType,
     } = vnode.attrs;
     const stmts = entry.getMetadata().find(
       from.s === '' ? null : from.s,
       from.p === '' ? null : from.p,
-      from.o === '' ? null : { value: from.o, type: 'literal' });
+      from.o === '' ? null : { value: from.o, type: nodeType });
     return (
       <tbody className="entry__row">
         {stmts.map(stmt => <Statement statement={stmt}/>)}
