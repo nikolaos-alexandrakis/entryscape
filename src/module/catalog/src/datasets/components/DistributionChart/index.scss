@@ -8,4 +8,7 @@
       margin-top: 5px;
       margin-left: 5px;
     }
+    .selectize-control.single .selectize-dropdown, .selectize-control.multi .selectize-dropdown{
+        width: 40% !important;
+    }
   }
