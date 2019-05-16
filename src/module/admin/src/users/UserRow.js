@@ -48,6 +48,15 @@ export default declare([EntryRow], {
 
     return this.inherited(arguments);
   },
+  getRenderNameHTML() {
+    const isUserDisabled = this.getIsUserDisabled();
+    const name = `${this.getRenderName()} ${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
+    const href = this.getRowClickLink() || this.list.getRowClickLink(this);
+    if (href) {
+      return `<a href="${href}">${name}</a>`;
+    }
+    return name;
+  },
   getRenderName() {
     const username = this.entry.getEntryInfo().getName() || (this.entry.getResource(true)
       && this.entry.getResource(true).getName());
@@ -57,8 +66,7 @@ export default declare([EntryRow], {
       return template(this.nlsSpecificBundle.unnamedUser)({ id: this.entry.getId() });
     }
 
-    const isUserDisabled = this.getIsUserDisabled();
-    return `${escape(username)}  -  ${escape(name)}${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
+    return `${escape(username)}  -  ${escape(name)}`;
   },
   action_remove() {
     const entry = this.entry;
@@ -66,6 +74,7 @@ export default declare([EntryRow], {
     const dialogs = registry.get('dialogs');
     const bundle = this.nlsSpecificBundle;
     const name = this.getRenderName();
+
     let soleUserMsg = null;// fix for ESAD-5
     // Check if there are any solely owned non-homecontexts.
     es.newSolrQuery().graphType(types.GT_CONTEXT).admin(entry.getResourceURI()).limit(100)
