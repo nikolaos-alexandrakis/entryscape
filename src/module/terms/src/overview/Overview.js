@@ -1,14 +1,15 @@
-import m from 'mithril';
-import registry from 'commons/registry';
 import Overview from 'commons/overview/components/Overview';
-import ViewMixin from 'commons/view/ViewMixin';
+import OverviewHeader from 'commons/overview/components/OverviewHeader';
+import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
-import { NLSMixin } from 'esi18n';
-import esteOverviewNLS from 'terms/nls/esteOverview.nls';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
+import ViewMixin from 'commons/view/ViewMixin';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
+import m from 'mithril';
+import esteOverviewNLS from 'terms/nls/esteOverview.nls';
 
 export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, NLSMixin.Dijit, ViewMixin], {
   templateString: '<div class="termsOverview"></div>',
@@ -89,7 +90,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
           value: creationDateFormats.short,
         });
 
-      m.render(document.querySelector('.termsOverview'), m(Overview, { data: this.data }));
+      m.render(document.querySelector('.termsOverview'),
+        m('div', [
+          m(OverviewHeader, { title: this.data.title, description: this.data.description }),
+          m(Overview, { data: this.data }),
+        ]),
+      );
     });
   },
 });

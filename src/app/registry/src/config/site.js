@@ -217,4 +217,4 @@ const siteConfigs = merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfi
 
 config.site = siteConfigs;
 
-export default (siteConfigs, __entryscape_config.site || {});
+export default merge(siteConfigs, __entryscape_config.site || {});

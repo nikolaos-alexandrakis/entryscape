@@ -17,6 +17,7 @@ const SideDialog = declare([_WidgetBase, _TemplatedMixin], {
   firstIndent: 75,
   maxWidth: 0,
   _isHidden: true,
+  destroyOnHide: false,
 
   postCreate() {
     this.inherited('postCreate', arguments);
@@ -113,6 +114,9 @@ const SideDialog = declare([_WidgetBase, _TemplatedMixin], {
       this._isHidden = true;
       busy = false;
       this.hideComplete();
+      if (this.destroyOnHide) {
+        this.destroy();
+      }
     });
 
     if (this === maxWidthOwner) {

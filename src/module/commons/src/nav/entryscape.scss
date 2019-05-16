@@ -50,7 +50,7 @@ body {
     font-size: 24px;
     margin-right: 10px;
     margin-top: -3px;
-    color: $main-colour;
+    color: $main-colour-logo;
 }
 
 .logo-text.icon-text img,
@@ -95,7 +95,7 @@ footer .logo-text img {
 
 footer .logo-text span {
     font-size: 15px;
-    color: $main-colour;
+    color: $main-colour-logo;
 }
 
 .entryscape-footer .btn-link {
@@ -345,7 +345,7 @@ div.modules a:hover {
 }
 
 .entryscapeViewList li.selected {
-    border-top: 5px solid $main-colour;
+    border-top: 4px solid $main-colour;
 }
 
 .entryscapeViewList li.selected a {

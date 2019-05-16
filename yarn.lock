@@ -819,10 +819,6 @@ ajv@^6.9.1:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-almond@~0.3.1:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
-
 alphanum-sort@^1.0.0, alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
@@ -1202,7 +1198,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-loader@^8.0.2, babel-loader@^8.0.4:
+babel-loader@^8.0.2:
   version "8.0.5"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.5.tgz#225322d7509c2157655840bba52e46b6c2f2fe33"
   dependencies:
@@ -1210,6 +1206,15 @@ babel-loader@^8.0.2, babel-loader@^8.0.4:
     loader-utils "^1.0.2"
     mkdirp "^0.5.1"
     util.promisify "^1.0.0"
+
+babel-loader@^8.0.4:
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.6.tgz#e33bdb6f362b03f4bb141a0c21ab87c501b70dfb"
+  dependencies:
+    find-cache-dir "^2.0.0"
+    loader-utils "^1.0.2"
+    mkdirp "^0.5.1"
+    pify "^4.0.1"
 
 babel-messages@^6.23.0:
   version "6.23.0"
@@ -3262,12 +3267,12 @@ escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^
 
 "esi18n@https://bitbucket.org/metasolutions/esi18n.git#develop":
   version "1.2.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/esi18n.git#92648b2b6acf648934f9c7073d95c2069e17a293"
+  resolved "https://bitbucket.org/metasolutions/esi18n.git#499dde19d43388ddf461bf042270837bb02acbf7"
   dependencies:
     dojo "^1.14.1"
     lodash-es "^4.17.10"
     moment "^2.22.2"
-    pubsub-js "^1.6.0"
+    pubsub-js "https://bitbucket.org/metasolutions/pubsubjs.git"
 
 eslint-config-airbnb-base@^11.1.1:
   version "11.3.2"
@@ -4011,15 +4016,6 @@ fuelux@3.16.6:
     moment "2.18.1"
     require-handlebars-plugin "^1.0.0"
 
-fuelux@^3.16.6:
-  version "3.17.0"
-  resolved "https://registry.yarnpkg.com/fuelux/-/fuelux-3.17.0.tgz#e33ecf1754a3f0fd0f498187686f36a02ac683af"
-  dependencies:
-    bootstrap "3.3.7"
-    jquery "3.2.1"
-    moment "2.18.1"
-    require-handlebars-plugin "^1.0.0"
-
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
@@ -4584,6 +4580,12 @@ idb-connector@^1.1.8:
 ieee754@^1.1.4:
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.12.tgz#50bf24e5b9c8bb98af4964c941cdb0918da7b60b"
+
+ifdef-loader@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ifdef-loader/-/ifdef-loader-2.1.1.tgz#443cb6c99c68ae085966b9e2ada853001d368ee7"
+  dependencies:
+    loader-utils "^1.1.0"
 
 iferr@^0.1.5:
   version "0.1.5"
@@ -5157,7 +5159,7 @@ jquery-extend@~2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/jquery-extend/-/jquery-extend-2.0.3.tgz#6815cdb01a866ddba30e6f4d0fc5fb6679272735"
 
-jquery-mousewheel@^3.1.13, jquery-mousewheel@~3.1.13:
+jquery-mousewheel@^3.1.13:
   version "3.1.13"
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
 
@@ -6010,8 +6012,8 @@ node-addon-api@^1.2.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-1.6.2.tgz#d8aad9781a5cfc4132cc2fecdbdd982534265217"
 
 node-fetch@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
 
 node-forge@0.7.5:
   version "0.7.5"
@@ -6289,8 +6291,8 @@ object-copy@^0.1.0:
     kind-of "^3.0.3"
 
 object-keys@^1.0.12:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.0.tgz#11bd22348dd2e096a045ab06f6c85bcc340fa032"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
 
 object-visit@^1.0.0:
   version "1.0.1"
@@ -6565,8 +6567,8 @@ p-try@^1.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
 
 p-try@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.1.0.tgz#c1a0f1030e97de018bb2c718929d2af59463e505"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
 
 pako@^1.0.0, pako@~1.0.5:
   version "1.0.8"
@@ -7367,9 +7369,9 @@ public-encrypt@^4.0.0:
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
 
-pubsub-js@^1.6.0, pubsub-js@^1.7.0:
+pubsub-js@^1.7.0, "pubsub-js@https://bitbucket.org/metasolutions/pubsubjs.git":
   version "1.7.0"
-  resolved "https://registry.yarnpkg.com/pubsub-js/-/pubsub-js-1.7.0.tgz#eca97f9a4217bef62b2d3aaa1552005260cc2e49"
+  resolved "https://bitbucket.org/metasolutions/pubsubjs.git#9aba34cdd397cfbe80e6541087d69349d607f216"
 
 pump@^2.0.0, pump@^2.0.1:
   version "2.0.1"
@@ -7500,7 +7502,7 @@ rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "9.3.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#f69e476fa6da07171e11bdb9d69543933b1fcdd0"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#f0c3e2b9a27dbd563f650326852b737a1c13dfd9"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
@@ -7515,7 +7517,8 @@ rc@^1.2.7:
     dojo "^1.13.0"
     dojo-util "^1.13.0"
     esi18n "https://bitbucket.org/metasolutions/esi18n.git#develop"
-    fuelux "^3.16.6"
+    fuelux "3.16.6"
+    ifdef-loader "^2.1.1"
     jquery "^3.3.1"
     jquery-mousewheel "^3.1.13"
     lodash-es "^4.17.10"
@@ -7995,11 +7998,8 @@ select-hose@^2.0.0:
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
 
 select2@^4.0.6-rc.1:
-  version "4.0.6-rc.1"
-  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.6-rc.1.tgz#aa6c3038a7f0f2e91ffade38f0a21c15e1813276"
-  dependencies:
-    almond "~0.3.1"
-    jquery-mousewheel "~3.1.13"
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.7.tgz#7b80473ef7900f4dc2b988623275fe569204ae8d"
 
 selectize@^0.12.6:
   version "0.12.6"
@@ -8028,11 +8028,11 @@ semver-truncate@^1.1.2:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
 
-"semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.4.1, semver@^5.6.0:
+"semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.4.1:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
 
-semver@^5.5.0, semver@^5.5.1:
+semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.0.tgz#790a7cf6fea5459bac96110b29b60412dc8ff96b"
 

@@ -7,12 +7,6 @@ export default declare([TitleDialog.ContentComponent], {
   nlsBundles: [{ escaStatistics }],
   nlsHeaderTitle: 'statsDialogTitle',
   nlsFooterButtonLabel: 'statsDialogFooter',
-  postCreate() {
-    this.inherited(arguments);
-    this.dialog.footerButtonAction = () => {
-      this.hide();
-    };
-  },
   open(params) {
     this.dialog.show();
     const { entries } = params;

@@ -1,22 +1,21 @@
+import m from 'mithril';
+import registry from 'commons/registry';
+import config from 'config';
+import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
+import Lookup from 'commons/types/Lookup';
+import { createEntry } from 'commons/util/storeUtil';
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ShowIdeasDialog from 'catalog/datasets/ShowIdeasDialog';
 import ShowShowcasesDialog from 'catalog/datasets/ShowResultsDialog';
-import { isAPIDistribution, isUploadedDistribution, } from 'catalog/datasets/utils/distributionUtil';
+import { isAPIDistribution, isUploadedDistribution } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import { navigateToCatalogView } from 'catalog/utils/catalog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import escoCommentNLS from 'commons/nls/escoComment.nls';
-import registry from 'commons/registry';
-import Lookup from 'commons/types/Lookup';
-import DOMUtil from 'commons/util/htmlUtil';
-import { createEntry } from 'commons/util/storeUtil';
-import config from 'config';
-import declare from 'dojo/_base/declare';
-import { i18n } from 'esi18n';
-import m from 'mithril';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -51,6 +50,7 @@ export default (entry) => {
   const CloneDialog = declare([ListDialogMixin], {
     maxWidth: 800,
     title: 'temporary',
+
     open(params) {
       const escaDataset = i18n.getLocalization(escaDatasetNLS);
       const datasetEntry = entry;
@@ -93,17 +93,18 @@ export default (entry) => {
     },
   });
 
-  const cloneDialog = new CloneDialog({ entry }, DOMUtil.create('div'));
   const clone = () => {
+    const cloneDialog = new CloneDialog({ entry, destroyOnHide: true });
     cloneDialog.open();
   };
-  const editDialog = new EditDialog({ entry }, DOMUtil.create('div'));
   /**
    * Open an Edit Side Dialog for this dataset
    *
    * @returns {undefined}
    */
   const openEditDialog = () => {
+    const editDialog = new EditDialog({ entry, destroyOnHide: true });
+
     editDialog.showEntry(entry, () => {
       entry.refresh().then(() => m.redraw());
     });
@@ -326,7 +327,6 @@ export default (entry) => {
       });
   };
 
-  const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
   /**
    *
    * Open the Revisions dialog for this dataset
@@ -334,6 +334,8 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openRevisions = async () => {
+    const revisionsDialog = new RevisionsDialog({ destroyOnHide: true });
+
     if (isUploadedDistribution(entry, registry.get('entrystore'))) {
       revisionsDialog.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
     } else if (isAPIDistribution(entry)) {
@@ -355,16 +357,6 @@ export default (entry) => {
 
   const escoComment = escoCommentNLS;
   const escaDataset = escaDatasetNLS;
-  const commentsDialog = new CommentDialog({
-    nlsBundles: [{ escoComment, escaDataset }],
-    open(params) {
-      this.inherited('open', arguments);
-      const name = registry.get('rdfutils').getLabel(params.row.entry);
-      this.title = i18n.renderNLSTemplate(this.NLSLocalized.escaDataset.commentHeader, { name });
-      this.footerButtonLabel = this.NLSLocalized.escaDataset.commentFooterButton;
-      this.localeChange();
-    },
-  }, DOMUtil.create('div'));
   /**
    *
    * Open the Comments dialog for this dataset
@@ -372,6 +364,18 @@ export default (entry) => {
    * @returns {undefined}
    */
   const openComments = (onUpdate) => {
+    const commentsDialog = new CommentDialog({
+      destroyOnHide: true,
+      nlsBundles: [{ escoComment, escaDataset }],
+      open(params) {
+        this.inherited('open', arguments);
+        const name = registry.get('rdfutils').getLabel(params.row.entry);
+        this.title = i18n.renderNLSTemplate(this.NLSLocalized.escaDataset.commentHeader, { name });
+        this.footerButtonLabel = this.NLSLocalized.escaDataset.commentFooterButton;
+        this.localeChange();
+      },
+    });
+
     commentsDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',
@@ -386,33 +390,33 @@ export default (entry) => {
     });
   };
 
-  const showIdeasDialog = new ShowIdeasDialog({}, DOMUtil.create('div'));
   /**
    * Open the Ideas dialog for this dataset
    *
    * @returns {undefined}
    */
   const openIdeas = () => {
+    const showIdeasDialog = new ShowIdeasDialog({ destroyOnHide: true });
     openDialog(showIdeasDialog);
   };
 
-  const showShowcasesDialog = new ShowShowcasesDialog({}, DOMUtil.create('div'));
   /**
    * Open the showcases dialog for this dataset
    *
    * @returns {undefined}
    */
   const openShowcases = () => {
+    const showShowcasesDialog = new ShowShowcasesDialog({ destroyOnHide: true });
     openDialog(showShowcasesDialog);
   };
 
-  const downgradeDialog = new DowngradeDialog({}, DOMUtil.create('div'));
   /**
    * Open a "dialog" (which is just a modal) fr
    *
    * @returns {undefined}
    */
   const downgrade = () => {
+    const downgradeDialog = new DowngradeDialog({ destroyOnHide: true });
     downgradeDialog.open({
       nlsPublicTitle: 'publicDatasetTitle',
       nlsProtectedTitle: 'privateDatasetTitle',

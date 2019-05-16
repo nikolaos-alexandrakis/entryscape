@@ -1,9 +1,10 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
 import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
-import { navigateToCatalogView } from 'catalog/utils/catalog';
+import { isCatalogPublished, navigateToCatalogView } from 'catalog/utils/catalog';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
 import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
+import OverviewHeader from 'commons/overview/components/OverviewHeader';
 import registry from 'commons/registry';
 import statsAPI from 'commons/statistics/api';
 import dateUtil from 'commons/util/dateUtil';
@@ -191,36 +192,44 @@ export default declare(MithrilView, {
     const setState = createSetState(state);
     const navigateToStatisticsView = () => navigateToCatalogView('catalog__statistics');
 
+    let isCatalogPublic = false;
     return {
       oninit() {
-        getOverviewData().then(data => setState({ data }));
-        getStatisticsData().then(({ bar, doughnut }) => setState({
-          chart: {
-            bar,
-            doughnut,
-          },
-        }));
+        getOverviewData()
+          .then(data => setState({ data })) // update state
+          // if the catalog is public then get overview stats data
+          .then(() => {
+            isCatalogPublished().then((isPublic) => {
+              isCatalogPublic = isPublic;
+              if (isCatalogPublic) {
+                getStatisticsData().then(({ bar, doughnut }) => setState({ chart: { bar, doughnut } }));
+              }
+            });
+          });
       },
       view() {
-        const showStats = config.get('catalog.includeStatistics', false);
+        const showStats = config.get('catalog.includeStatistics', false) && isCatalogPublic;
         const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
 
-        return <div class="esca__Overview__wrapper">
-          <Overview data={state.data}/>
-          {showStats ?
-            <div class="charts__column">
-              <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
-              <div class="chart__wrapper">
-                <Chart data={state.chart.bar} />
-              </div>
-              <div class="chart__wrapper">
-                <DoughnutChart data={state.chart.doughnut} />
-              </div>
-              <button
-                class="btn btn-sm btn-secondary"
-                onclick={navigateToStatisticsView}>{escaStatistics.statsCatalogSeeAllBtn}
-              </button>
-            </div> : null}
+        return <div>
+          <OverviewHeader title={state.data.title} description={state.data.description}/>
+          <div class="esca__Overview__wrapper">
+            <Overview data={state.data}/>
+            {showStats ?
+              <div class="charts__column">
+                <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
+                <div class="chart__wrapper">
+                  <Chart data={state.chart.bar} />
+                </div>
+                <div class="chart__wrapper">
+                  <DoughnutChart data={state.chart.doughnut} />
+                </div>
+                <button
+                  class="btn btn-sm btn-secondary"
+                  onclick={navigateToStatisticsView}>{escaStatistics.statsCatalogSeeAllBtn}
+                </button>
+              </div> : null}
+          </div>
         </div>;
       },
     };

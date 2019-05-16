@@ -217,14 +217,14 @@ export default declare(MithrilView, {
     return {
       oninit() {
         isCatalogPublished().then((isPublic) => {
-          isCatalogPublic = isPublic;
-        });
+          if (isPublic) {
+            // update list item state
+            getListItemsAndRender();
+          }
 
-        if (isCatalogPublic === false) {
-          return;
-        }
-        // update list item state
-        getListItemsAndRender();
+          isCatalogPublic = isPublic;
+          m.redraw();
+        });
       },
       view() {
         if (isCatalogPublic === false) {

@@ -49,13 +49,11 @@
     "reasonForRevisionMessage": "Datasets have been added and/or removed since the previous revision.",
     "noRevertSameGraphExcludeTitle": "There is nothing to revert. The latest revision is identical except for information that cannot be reverted easily (e.g. relations to datasets).",
     "revertExcludeMessage": "Datasets will neither be added nor removed.",
-    "apiExistsToUnpublishCatalog": "This catalog contains APIs which will continue to be accessible even if you unpublish this cataloag.<br>Do you want to unpublish this catalog anyway?",
+    "apiExistsToUnpublishCatalog": "This catalog contains APIs which will continue to be accessible even if you unpublish this catalog.<br>Do you want to unpublish this catalog anyway?",
     "headerInfo": "",
     "catalogNamePlaceholder": "Enter a name for the catalog",
     "catalogDescPlaceholder": "Enter a description for the catalog",
-    "agentNamePlaceholder": "Enter a name for the publisher",
-    "catalogOverviewStatsTitle":"Aggregated stats from the last 7 days",
-    "SeeAllBtn":"See all"
+    "agentNamePlaceholder": "Enter a name for the publisher"
   },
   "sv": true,
   "da": true,

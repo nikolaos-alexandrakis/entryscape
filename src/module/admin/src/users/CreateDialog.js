@@ -39,7 +39,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.newNameIsOk = false;
 
     const es = registry.get('entrystore');
-    es.getREST().get(`${es.getBaseURI()}_principals?entryname=${username}`)
+    es.getREST().get(`${es.getBaseURI()}_principals?entryname=${username.toLowerCase()}`)
       .then((data) => {
         if (data.length > 0) {
           this.newNameIsOk = false;
