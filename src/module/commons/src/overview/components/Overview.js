@@ -9,7 +9,6 @@ const Overview = {
     const { title, description, sList, bList } = vnode.attrs.data;
 
     return m('div', [
-      m(OverviewHeader, { title, description }),
       m('.escoOverview__main', [
         m('', [
           m('.escoOverview__wrapper', [
