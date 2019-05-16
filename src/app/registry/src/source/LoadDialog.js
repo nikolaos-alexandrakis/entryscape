@@ -54,6 +54,16 @@ export default declare([TitleDialog], {
         .catch(err => Promise.reject(err)); // TODO nls
     }
 
-    return registry.get('entrystore').loadViaProxy(entryTypeValue, 'application/rdf+xml').then(f);
+
+    // @todo @valentino proxy most probably not needed anymore. Use fetch?
+    return registry.get('entrystore').loadViaProxy(entryTypeValue, 'application/rdf+xml')
+      .then((data) => {
+        const report = converters.detect(data);
+        if (!report.error) {
+          cb(report.graph, entryTypeValue);
+        } else {
+          throw report.error;
+        }
+      });
   },
 });
