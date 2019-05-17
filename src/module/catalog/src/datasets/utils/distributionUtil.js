@@ -47,7 +47,8 @@ export const getDistributionFilesInfo = async (distributionEntry) => {
     /** @type {string} */
     const resourceURI = entry.getResourceURI();
     /** @type {string} */
-    const format = entry.getEntryInfo().getFormat();
+    const format = distributionEntry.getMetadata().findFirstValue(distributionEntry.getResourceURI(), 'dcterms:format')
+      || entry.getEntryInfo().getFormat();
     /** @type {String} */
     const sizeOfFile = entry.getEntryInfo().getSize();
 
