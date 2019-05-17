@@ -82,8 +82,12 @@ export default declare(MithrilView, {
       const selectedItem = items.find(item => item.uri === itemURI);
 
       let filename = '';
-      if (selectedItem && 'filename' in selectedItem) {
-        filename = selectedItem.filename;
+      if (selectedItem) {
+        if ('filename' in selectedItem) {
+          filename = selectedItem.filename;
+        } else {
+          filename = selectedItem.name;
+        }
       }
 
       return [items, filename];
