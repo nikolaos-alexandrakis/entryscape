@@ -86,6 +86,8 @@ footer .logo-text {
     margin-right: 10px;
     margin-top: -3px;
     color: $main-colour;
+    display: flex;
+    align-items: center;
 }
 
 footer .logo-text img {
