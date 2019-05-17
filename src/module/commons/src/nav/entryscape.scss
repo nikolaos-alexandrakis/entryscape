@@ -423,7 +423,7 @@ body.spaTwoMenu .spaControl.navbar-nav {
 .body .input-group-btn .btn.btn-raised.btn-success,
 .body .btn-group-raised .btn.btn-success,
 .body .btn-group-raised .input-group-btn .btn.btn-success {
-    background-color: $main-colour;
+    background-color: $main-colour !important;
     color: #fff;
 }
 
@@ -432,6 +432,8 @@ body.spaTwoMenu .spaControl.navbar-nav {
 .body .btn-group-raised .input-group-btn .btn.btn-success:hover {
     background-color: $main-colour-hover;
 }
+
+
 
 .body .pagination > li > a,
 .body .pagination > li > span {
