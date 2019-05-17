@@ -32,8 +32,7 @@
     "statsCatalogOverviewChartFileLabel": "File downloads",
     "statsCatalogOverviewChartAPILabel": "API calls",
     "statsCatalogOverviewDoughnutFiles": "Files",
-    "statsCatalogOverviewDoughnutAPI": "API",
-    "statsCatalogSeeAllBtn": "See all"
+    "statsCatalogOverviewDoughnutAPI": "API"
   },
   "sv": true,
   "da": true,

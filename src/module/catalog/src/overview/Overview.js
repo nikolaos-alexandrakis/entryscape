@@ -228,10 +228,6 @@ export default declare(MithrilView, {
                   <div class="chart__wrapper">
                     <DoughnutChart data={state.chart.doughnut}/>
                   </div>
-                  <button
-                    class="btn btn-sm btn-secondary"
-                    onclick={navigateToStatisticsView}>{escaStatistics.statsCatalogSeeAllBtn}
-                  </button>
                 </div> : <PlaceholderChart text={escaStatistics.statsChartPlaceholder}/>)
               : null}
           </div>
