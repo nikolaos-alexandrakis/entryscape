@@ -4,7 +4,7 @@
 .charts__column{
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 46px;
     h4{
         margin-left: 40px;
     }
@@ -15,10 +15,13 @@
             width: 400px;
             height: 300px;
         }
-       
+        
     }
-    .btn-primary{
+    .btn-secondary{
         margin-left: 40px;
+        width: 120px;
+        align-self: flex-end;
+        margin-top: 10px;
     }
 }
 

@@ -2,7 +2,6 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import Chart from 'chart.js';
 import { i18n } from 'esi18n';
 import moment from 'moment';
-import './index.scss';
 
 /**
  * Given a length guess what date format is appropriate to render.

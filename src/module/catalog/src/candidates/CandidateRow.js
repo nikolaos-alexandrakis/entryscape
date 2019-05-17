@@ -65,6 +65,7 @@ export default declare([EntryRow], {
       this.__progressBar.classList = '';
       this.__progressBar.classList.add('escaCandidateRow__progressBar'); // IE11 doesn't allow multiple params in classList.add();
       if (isMandatoryCheckslistCompleted) {
+        this.__progressBar.classList.remove('escaCandidateRow__progressBar--incomplete');
         this.__progressBar.classList.add('escaCandidateRow__progressBar--ready');
       } else {
         this.__progressBar.classList.add('escaCandidateRow__progressBar--incomplete');

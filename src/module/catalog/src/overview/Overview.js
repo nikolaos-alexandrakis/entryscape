@@ -1,6 +1,7 @@
 import escaOverview from 'catalog/nls/escaOverview.nls';
 import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
 import { isCatalogPublished, navigateToCatalogView } from 'catalog/utils/catalog';
+import PlaceholderChart from 'commons/components/chart/Placeholder';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
 import Chart from 'commons/components/common/chart/TimeBarChart';
 import Overview from 'commons/overview/components/Overview';
@@ -209,26 +210,30 @@ export default declare(MithrilView, {
       },
       view() {
         const showStats = config.get('catalog.includeStatistics', false) && isCatalogPublic;
+        const hasChartData = state.chart.bar.length > 0;
         const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
+
 
         return <div>
           <OverviewHeader title={state.data.title} description={state.data.description}/>
           <div class="esca__Overview__wrapper">
             <Overview data={state.data}/>
             {showStats ?
-              <div class="charts__column">
-                <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
-                <div class="chart__wrapper">
-                  <Chart data={state.chart.bar} />
-                </div>
-                <div class="chart__wrapper">
-                  <DoughnutChart data={state.chart.doughnut} />
-                </div>
-                <button
-                  class="btn btn-sm btn-secondary"
-                  onclick={navigateToStatisticsView}>{escaStatistics.statsCatalogSeeAllBtn}
-                </button>
-              </div> : null}
+              (hasChartData ?
+                <div class="charts__column">
+                  <h4>{escaStatistics.statsCatalogOverviewTitle}</h4>
+                  <div class="chart__wrapper">
+                    <Chart data={state.chart.bar}/>
+                  </div>
+                  <div class="chart__wrapper">
+                    <DoughnutChart data={state.chart.doughnut}/>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-secondary"
+                    onclick={navigateToStatisticsView}>{escaStatistics.statsCatalogSeeAllBtn}
+                  </button>
+                </div> : <PlaceholderChart text={escaStatistics.statsChartPlaceholder}/>)
+              : null}
           </div>
         </div>;
       },
