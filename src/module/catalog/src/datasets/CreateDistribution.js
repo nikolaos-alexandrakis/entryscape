@@ -121,9 +121,15 @@ export default declare([RDFormsEditDialog], {
         const md = pFileEntry.getMetadata();
         const pfileURI = pFileEntry.getResourceURI();
         md.add(pfileURI, 'rdf:type', 'esterms:File');
-        md.addL(pfileURI, 'dcterms:title', this.fileOrLink.getValue());
+        const fileName = this.fileOrLink.getValue();
+        md.addL(pfileURI, 'dcterms:title', fileName);
+
+        if (fileName.endsWith('.csv')) {
+          md.addL(pfileURI, 'dcterms:format', 'text/csv');
+        }
+
         return pFileEntry.commit().then(fileEntry => fileEntry.getResource(true)
-          .putFile(this.fileOrLink.getFileInputElement())
+          .putFile(this.fileOrLink.getFileInputElement(), 'text/csv')
           .then(() => fileEntry.refresh().then(() => {
             const fileResourceURI = fileEntry.getResourceURI();
             graph.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
