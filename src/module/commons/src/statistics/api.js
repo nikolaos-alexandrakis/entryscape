@@ -6,7 +6,7 @@ import config from 'config';
  */
 
 // @todo @valentino delete
-//const STATS_BASE_URL = 'https://stats.infra.entryscape.com/v.dev.entryscape.com/' || `${config.get('entrystore.repository')}/statistics`;
+// const STATS_BASE_URL = 'https://stats.infra.entryscape.com/v.dev.entryscape.com/' || `${config.get('entrystore.repository')}/statistics`;
 let repoURL = config.get('entrystore.repository');
 if (!repoURL.endsWith('/')) {
   repoURL = `${repoURL}/`; // @todo @valentino make a generic functionality like path.join
