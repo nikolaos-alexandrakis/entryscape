@@ -26,9 +26,9 @@ export default () => ({
     const hasData = !!toRenderItems.length > 0;
     const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
 
-    return hasData ?
-      (<div className="stats__row__wrapper--API">
-        <div className="stats-header">
+    return <div className="stats__row__wrapper--API"> 
+    {hasData ?  
+        (<div><div className="stats-header">
           <span className="distribution__head__title">{escaStatisticsNLS.tabHeaderTitle}</span>
           <div className="flex header--wrapper--right">
             <span
@@ -37,8 +37,7 @@ export default () => ({
             </span>
           </div>
         </div>
-        {hasData ? toRenderItems.map(item => (
-          <div
+        {hasData ? toRenderItems.map(item => <div
             key={item.uri}
             onclick={this.handleListItemClick}
             tabIndex="0"
@@ -51,11 +50,9 @@ export default () => ({
             <div className="flex--sb row--right--wrapper">
               <span className="row__text stat__count">{item.count}</span>
             </div>
-          </div>)) :
-          (<div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>)
-        }
-      </div>) :
-      (<div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>);
+          </div>) : <div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>
+        }</div>) : <div class="no-data">{escaStatisticsNLS.timeRangeNoDataAvailable}</div>}
+      </div>
   },
 });
 
