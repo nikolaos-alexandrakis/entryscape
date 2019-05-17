@@ -137,7 +137,7 @@ export default declare(MithrilView, {
         const selectedEntry = await registry.getEntryStoreUtil().getEntryByResourceURI(list.selected.uri);
         const context = registry.getContext();
 
-        getMultiDatasetChartData([selectedEntry], context, timeRanges.selected)
+        getMultiDatasetChartData([selectedEntry], context, timeRanges.selected, list.selected.name)
           .then(data => setState({ chart: { data } }));
       } else {
         setState({ chart: { data: [] } });
