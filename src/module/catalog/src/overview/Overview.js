@@ -86,8 +86,10 @@ const getStatisticsData = async () => {
   });
 
   // populate the data structures for the charts
-  barData.datasets.push({ data: dataPointsFiles, label: escaStatistics.statsCatalogOverviewChartFileLabel });
-  barData.datasets.push({ data: dataPointsAPI, label: escaStatistics.statsCatalogOverviewChartAPILabel });
+  if (fileTotalCount || apiTotalCount) { // at least some data, not all 0
+    barData.datasets.push({ data: dataPointsFiles, label: escaStatistics.statsCatalogOverviewChartFileLabel });
+    barData.datasets.push({ data: dataPointsAPI, label: escaStatistics.statsCatalogOverviewChartAPILabel });
+  }
 
   const doughnutData = {
     labels: [escaStatistics.statsCatalogOverviewDoughnutFiles, escaStatistics.statsCatalogOverviewDoughnutAPI],
