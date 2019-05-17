@@ -210,7 +210,7 @@ export default declare(MithrilView, {
       },
       view() {
         const showStats = config.get('catalog.includeStatistics', false) && isCatalogPublic;
-        const hasChartData = state.chart.bar.length > 0;
+        const hasChartData = state.chart.bar.datasets && state.chart.bar.datasets.length > 0;
         const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
 
 
