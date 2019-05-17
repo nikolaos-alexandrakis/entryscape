@@ -83,7 +83,7 @@ export default declare(MithrilView, {
 
       let filename = '';
       if (selectedItem) {
-        if ('filename' in selectedItem) {
+        if ('filename' in selectedItem && selectedItem.filename) {
           filename = selectedItem.filename;
         } else {
           filename = selectedItem.name;
