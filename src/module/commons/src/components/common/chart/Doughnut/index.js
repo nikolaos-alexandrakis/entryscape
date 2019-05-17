@@ -20,6 +20,8 @@ export default () => {
           rotation: -Math.PI,
         },
       });
+
+      m.redraw();
     },
 
     view(vnode) {

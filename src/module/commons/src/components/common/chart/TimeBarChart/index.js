@@ -113,6 +113,7 @@ export default () => {
       });
 
       updateXAxis(vnode);
+      m.redraw();
     },
 
     onbeforeupdate: updateXAxis,
