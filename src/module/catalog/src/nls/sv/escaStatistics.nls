@@ -31,5 +31,6 @@
   "statsCatalogOverviewChartAPILabel": "API-anrop",
   "statsCatalogOverviewDoughnutFiles": "Filer",
   "statsCatalogOverviewDoughnutAPI": "API",
-  "statsCatalogSeeAllBtn": "Visa allt"
+  "statsCatalogSeeAllBtn": "Visa allt",
+  "statsChartPlaceholder": "Det finns ingen åtkomststatistik för offentliga filer och API:er än"
 }

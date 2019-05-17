@@ -31,5 +31,6 @@
   "statsCatalogOverviewChartAPILabel": "API-Aufrufe",
   "statsCatalogOverviewDoughnutFiles": "Dateien",
   "statsCatalogOverviewDoughnutAPI": "API",
-  "statsCatalogSeeAllBtn": "Alles anzeigen"
+  "statsCatalogSeeAllBtn": "Alles anzeigen",
+  "statsChartPlaceholder": "Es ist noch keine Zugriffsstatistik für öffentliche Dateien und APIs vorhanden"
 }
