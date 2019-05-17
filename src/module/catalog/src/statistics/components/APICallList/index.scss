@@ -3,11 +3,12 @@
 .distributionList {
     width: 100%;
     position: relative;
-    min-height: 300px;
+    .input-group-btn{
+        vertical-align: baseline;
+    }
 }
 
 .stats__row__wrapper--API {
-    height: 600px;
     overflow-y: auto;
     padding-bottom: 20px;
 
