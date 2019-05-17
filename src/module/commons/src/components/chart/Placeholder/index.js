@@ -1,4 +1,5 @@
 import Chart from 'chart.js';
+import './index.scss';
 
 const COLOR_OPTIONS = [
   {
@@ -71,9 +72,9 @@ export default () => {
     // },
     view(vnode) {
       const { text } = vnode.attrs;
-      return <div className="chart-container" style={{ position: 'relative' }}>
+      return <div className="chart-container">
         <canvas aria-label="Statistics placeholder" role="img"/>
-        <h3 class="placeholder__text" style={{ top: '50%', right: '50%', position: 'absolute' }}>{text}</h3>
+        <h3 class="placeholder__text">{text}</h3>
       </div>;
     },
   };

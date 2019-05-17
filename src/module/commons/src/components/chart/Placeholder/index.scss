@@ -1,0 +1,17 @@
+.esca__Overview__wrapper{
+    .chart-container{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 500px;
+        width: 500px;
+        .placeholder__text{
+            position: absolute;
+            word-wrap:break-word;
+            overflow-wrap: break-word;
+            color:#666;
+        }
+    }
+}
