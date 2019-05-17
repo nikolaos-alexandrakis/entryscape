@@ -124,12 +124,18 @@ export default declare([RDFormsEditDialog], {
         const fileName = this.fileOrLink.getValue();
         md.addL(pfileURI, 'dcterms:title', fileName);
 
+        /**
+         * Fixes browsers' issue when a  default application has not been assigned to a mime type.
+         * We care fixing this only for csv as it is vital to creating APIs
+         */
+        let isCSV = false;
         if (fileName.endsWith('.csv')) {
           md.addL(pfileURI, 'dcterms:format', 'text/csv');
+          isCSV = true;
         }
 
         return pFileEntry.commit().then(fileEntry => fileEntry.getResource(true)
-          .putFile(this.fileOrLink.getFileInputElement(), 'text/csv')
+          .putFile(this.fileOrLink.getFileInputElement())
           .then(() => fileEntry.refresh().then(() => {
             const fileResourceURI = fileEntry.getResourceURI();
             graph.add(distResourceURI, 'dcat:accessURL', fileResourceURI);
@@ -137,7 +143,11 @@ export default declare([RDFormsEditDialog], {
             const format = fileEntry.getEntryInfo().getFormat();
             const manualFormatList = graph.find(distResourceURI, 'dcterms:format');
             if (typeof format !== 'undefined' && manualFormatList.length === 0) {
-              graph.addL(distResourceURI, 'dcterms:format', format);
+              if (isCSV) {
+                graph.addL(distResourceURI, 'dcterms:format', 'text/csv');
+              } else {
+                graph.addL(distResourceURI, 'dcterms:format', format);
+              }
             }
             return createAndConnect();
           })));
