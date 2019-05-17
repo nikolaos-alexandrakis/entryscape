@@ -189,7 +189,7 @@ export default declare(MithrilView, {
         },
       }, true);
 
-      getMultiDatasetChartData([selectedEntry], context, state.timeRanges.selected)
+      getMultiDatasetChartData([selectedEntry], context, state.timeRanges.selected, selected.name)
         .then(data => setState({ chart: { data } }));
     };
 

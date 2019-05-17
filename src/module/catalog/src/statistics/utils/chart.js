@@ -4,14 +4,18 @@ import { getRowstoreAPIUUID } from 'catalog/utils/rowstoreApi';
 import statsAPI from 'commons/statistics/api';
 import { getEntryRenderName } from 'commons/util/entryUtil';
 
-const getMultiDatasetChartData = async (entries, context, timeRange) => {
+const getMultiDatasetChartData = async (entries, context, timeRange, name = '') => {
   const chartData = { datasets: [] };
   const labels = [];
 
   try {
     const entryStatisticsPromises = entries.map((entry) => {
       const label = getEntryRenderName(entry);
-      labels.push(label);
+      if (label) {
+        labels.push(label);
+      } else if (name) {
+        labels.push(name);
+      }
       const entryId = isAPIDistribution(entry) ? entry.getId() : getRowstoreAPIUUID(entry); // @todo @valentino check if this works with aliasses
       return statsAPI.getEntryStatistics(context.getId(), entryId, timeRangeUtil.toAPIRequestPath(timeRange));
     });
