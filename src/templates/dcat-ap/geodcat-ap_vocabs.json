@@ -12,7 +12,7 @@
         "de": "Ressourcenart"
       },
       "cardinality": {
-        "pref": 0,
+        "pref": 1,
         "max": 1
       },
       "styles": [
@@ -57,7 +57,7 @@
         "de": "Art des Geodatendienstes"
       },
       "cardinality": {
-        "pref": 0,
+        "pref": 1,
         "max": 1
       },
       "deps": [
@@ -157,8 +157,7 @@
       },
       "pattern": "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/.*",
       "cardinality": {
-        "pref": 0,
-        "max": 1
+        "pref": 1
       },
       "choices": [
         {
@@ -427,7 +426,7 @@
         "de": "Das INSPIRE Themen-Register enthält alle in den Anhängen der INSPIRE-Richtlinie (Richtlinie 2007/2/EG des Europäischen Parlaments und des Rates vom 14. März 2007 zur Schaffung einer Geodateninfrastruktur in der Europäischen Gemeinschaft (INSPIRE)) definierten Geodaten-Themen. Die Beschreibung der Themen basiert auf Version 3.0 des Dokuments Definition of Annex Themes and Scope (D 2.3) des Drafting Teams für Datenspezifikationen und deren Überarbeitung durch die INSPIRE Thematischen Arbeitsgruppen (TWGs)."
       },
       "cardinality": {
-        "pref": 0,
+        "pref": 1,
         "max": 1
       },
       "choices": [
