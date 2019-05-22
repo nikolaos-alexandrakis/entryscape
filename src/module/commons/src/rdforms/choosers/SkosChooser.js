@@ -285,7 +285,7 @@ const SkosChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, NL
       if (inskosinSchemeRURIs.length === 1) {
         this.selectedSkosConceptSchemaURI = inskosinSchemeRURIs;// setting default value to render
         this.__skosConceptSchemaList.style.display = 'none';
-        return Promise.all();
+        return Promise.resolve();
       }
       // add terminologies and display all
       this.skosConceptSchemas = [];
