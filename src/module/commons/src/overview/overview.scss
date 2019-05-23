@@ -1,0 +1,93 @@
+@import '~commons/theme.scss';
+
+
+.catalogOverview.escoList {
+    height: auto;
+}
+
+.catalogOverview .statBoxList,
+.escoOverview__wrapper .statBoxList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.catalogOverview .page-header {
+    border-bottom: none;
+}
+
+.escoOverview__description {
+    color: #535353;
+}
+
+.escoOverview__statCount,
+.escoOverview__statLabel {
+    font-size: 18px;
+    font-family: 'Montserrat';
+    color: #FF8D41;
+    text-align: start;
+    margin: 10px;
+    font-weight: normal;
+}
+
+.escoOverview__statCount {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.escoOverview__statLabel {
+    font-size: 18px;
+    color: $text-colour;
+    text-align: start;
+    cursor: pointer;
+}
+
+.escoOverview__statBox {
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 100px;
+    background-color: white;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.5);
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.escoOverview__wrapper,
+.escoOverview__main {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 900px;
+}
+
+.escoOverview__title {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: $main-colour;
+    border-bottom: 1.5px solid #FF8D41;
+    padding-bottom: 10px;
+/*     max-width: 900px;
+ */}
+
+
+.catalog__status {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-wrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.catalog__status__label {
+    color: $text-colour;
+    font-weight: bolder;
+    margin-right: 10px;
+}
+
+.catalog__status__value {
+    color: $text-colour;
+}

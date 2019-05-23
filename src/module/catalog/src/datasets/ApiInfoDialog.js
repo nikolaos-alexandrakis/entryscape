@@ -43,19 +43,16 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     this.__aliasError.style.display = 'none';
     const aliasName = this.apiAlias.value;
     if (aliasName === '' || aliasName === this.currentAliasName) {
-      // domClass.add(this.saveButton, 'disabled');
       this.saveButton.setAttribute('disabled', true);
     } else {
       const alphanum = /^[0-9a-zA-Z]+$/;
       if (!aliasName.match(alphanum)) {
-        // domClass.add(this.saveButton, 'disabled');
         this.saveButton.setAttribute('disabled', true);
         this.__aliasError.style.display = '';
-        this.__aliasError.innerHTML = this.NLSBundles.escaDataset.invalidAliasName;
+        this.__aliasError.innerHTML = this.NLSLocalized.escaDataset.invalidAliasName;
         return;
       }
-      // domClass.remove(this.saveButton, 'disabled');
-      this.saveButton.setAttribute('disabled', false); // maybe remove the attribute completely?
+      this.saveButton.removeAttribute('disabled');
     }
   },
 
@@ -63,13 +60,13 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     const aliasName = this.apiAlias.value;
     pipelineUtil.setAlias(this.etlEntry, aliasName).then(() => {
       this.currentAliasName = aliasName;
-      this.removeButton.setAttribute('disabled', false); // maybe remove the attribute completely?
+      this.removeButton.removeAttribute('disabled');
       this._setAliasNameInExternalMetadata(aliasName);
       this._updateExampleURL(aliasName);
     }, (err) => {
       if (err && err.response.status === 400) {
         this.__aliasError.style.display = '';
-        this.__aliasError.innerHTML = this.NLSBundles.escaDataset.duplicateAliasName;
+        this.__aliasError.innerHTML = this.NLSLocalized.escaDataset.duplicateAliasName;
       }
     });
   },
@@ -83,7 +80,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     });
   },
   localeChange() {
-    this.dialog.updateLocaleStrings(this.NLSBundles.escaDataset);
+    this.dialog.updateLocaleStrings(this.NLSLocalized.escaDataset);
   },
   open(params) {
     this.etlEntry = params.etlEntry;
@@ -125,11 +122,11 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     const stmts = this.etlEntry.getCachedExternalMetadata().find(null, 'store:pipelineResultColumnName');
     const cols = stmts.map(stmt => stmt.getValue());
     if (cols.length === 0) {
-      this.apiStatus.innerHTML = this.NLSBundles.escaFiles.apiNotConnected;
+      this.apiStatus.innerHTML = this.NLSLocalized.escaFiles.apiNotConnected;
       this.apiInfo.style.display = 'none';
       this.__apiRefreshButton.style.display = '';
     } else {
-      this.apiStatus.innerHTML = this.NLSBundles.escaFiles.apiStatus_available;
+      this.apiStatus.innerHTML = this.NLSLocalized.escaFiles.apiStatus_available;
       this.__apiRefreshButton.style.display = 'none';
       this.apiStatus.style.color = 'green';
       this.apiInfo.style.display = '';
@@ -145,8 +142,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
         this._updateExampleURL();
       }
       if (this.currentAliasName) { // check for
-        // domClass.remove(this.removeButton, 'disabled');
-        this.removeButton.setAttribute('disabled', false);
+        this.removeButton.removeAttribute('disabled');
       }
       /*
       const exampleURL = `${this.etlEntry.getResourceURI()}?${cols[0]}=some_string_pattern`;
@@ -176,7 +172,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     this.getAPIStatus(this.etlEntry)
       .then((status) => {
         const statusMessageKey = `apiStatus_${status}`;
-        this.apiStatus.innerHTML = this.NLSBundles.escaFiles[statusMessageKey];
+        this.apiStatus.innerHTML = this.NLSLocalized.escaFiles[statusMessageKey];
         switch (status) {
           case 'error':
             this.apiStatus.style.color = 'red';

@@ -111,7 +111,7 @@ class ListRow extends EntryRow {
     return this.domNode;
   }
   getRenderNameHTML() {
-    const name = escape(this.getRenderName());
+    const name = this.getRenderName();
     const href = this.list.getRowClickLink(this);
     return href ? `<a href="${href}">${name}</a>` : name;
   }
@@ -222,7 +222,7 @@ export default declare([List, NLSMixin.Dijit], {
     return null;
   },
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
+    this.updateLocaleStrings(this.NLSLocalized0, this.NLSLocalized1);
   },
 
   showStopSign() {

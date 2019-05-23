@@ -4,7 +4,7 @@ import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import m from 'mithril';
 import CardComponent from './components/CardComponent';
-import './esreStart.css';
+import './esreStart.scss';
 
 export default declare([Start], {
   bid: 'esreStart',

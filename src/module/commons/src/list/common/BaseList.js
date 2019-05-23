@@ -61,7 +61,7 @@ export default declare([List, NLSMixin.Dijit], {
         name: 'edit',
         button: 'default',
         iconType: 'fa',
-        icon: 'pencil',
+        icon: 'pencil-alt',
         nlsKey: this.nlsEditEntryLabel,
         nlsKeyTitle: this.nlsEditEntryTitle,
       });
@@ -81,7 +81,7 @@ export default declare([List, NLSMixin.Dijit], {
         name: 'remove',
         button: 'danger',
         iconType: 'fa',
-        icon: 'remove',
+        icon: 'times',
         nlsKey: this.nlsRemoveEntryLabel,
         nlsKeyTitle: this.nlsRemoveEntryTitle,
       });
@@ -90,7 +90,7 @@ export default declare([List, NLSMixin.Dijit], {
     if (this.includeCreateButton) {
       this.registerListAction({
         name: 'create',
-        button: 'success',
+        button: 'primary',
         icon: 'plus',
         iconType: 'fa',
         max: this.createLimit,
@@ -128,12 +128,12 @@ export default declare([List, NLSMixin.Dijit], {
     }
   },
   localeChange() {
-    this.updateLocaleStrings(this.NLSBundle0, this.NLSBundle1);
+    this.updateLocaleStrings(this.NLSLocalized0, this.NLSLocalized1);
   },
   getName() {
-    if (this.NLSBundle1) {
-      return this.NLSBundle1.createEntryName ? this.NLSBundle1.createEntryName
-        : this.NLSBundle0.createEntryName;
+    if (this.NLSLocalized1) {
+      return this.NLSLocalized1.createEntryName ? this.NLSLocalized1.createEntryName
+        : this.NLSLocalized0.createEntryName;
     }
 
     return '';

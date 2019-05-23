@@ -16,7 +16,7 @@ const ContentPlaceholder = declare([Placeholder], {
   nlsBundles: [{ eswoListAndContentView }],
 
   getText() {
-    return this.NLSBundle0.noContentViewerMessage;
+    return this.NLSLocalized0.noContentViewerMessage;
   },
 
   render() {

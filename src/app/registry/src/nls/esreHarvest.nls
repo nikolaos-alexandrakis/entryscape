@@ -36,7 +36,7 @@
     "harvesterDetails": "Harvester details",
     "publicLabel": "Public organization",
     "ownLabel": "This is my own organization",
-    "cPUsernameLabel": "Username",
+    "cPUsernameLabel": "Username of organization administrator",
     "cPUsernamePlaceholder": "Must be a valid email address associated with an account, if account does not exist it will be created",
     "cpNotValidUsername": "Username must not empty",
     "changeOrganizationOwner": "Change organization manager, choose between your own account or a different one by providing a user name",

@@ -95,7 +95,7 @@ export default declare([ETBaseList], {
     this.registerRowAction({
       name: 'upgrade',
       button: 'default',
-      icon: 'level-up',
+      icon: 'level-up-alt',
       iconType: 'fa',
       nlsKey: 'upgrade',
       nlsKeyTitle: 'upgradeTitle',

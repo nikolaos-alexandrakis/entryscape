@@ -1,4 +1,4 @@
-import { clone, template, escape } from 'lodash-es';
+import { clone, template } from 'lodash-es';
 import dateUtil from 'commons/util/dateUtil';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
@@ -142,7 +142,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     let cls;
     if (params.iconType === 'fa') {
-      cls = `fa fa-fw fa-${params.icon}`;
+      cls = `fas fa-fw fa-${params.icon}`;
     } else { // Default is glyphicons
       cls = `glyphicon glyphicon-${params.icon}`;
     }
@@ -191,7 +191,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
 
   getRenderNameHTML() {
-    const name = escape(this.getRenderName());
+    const name = this.getRenderName();
     const href = this.getRowClickLink() || this.list.getRowClickLink(this);
     if (href) {
       return `<a href="${href}">${name}</a>`;

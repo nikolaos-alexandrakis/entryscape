@@ -1,23 +1,21 @@
 import m from 'mithril';
-import OverviewHeader from './OverviewHeader';
 import DescriptionList from './DescriptionList';
-import StatBox from './StatBox';
-import '../overview.css';
+import StatBoxList from './StatBoxList';
+import '../overview.scss';
 
 const Overview = {
   view(vnode) {
-    const { title, description, sList, bList } = vnode.attrs.data;
+    const { sList, bList } = vnode.attrs.data;
 
     return m('div', [
-      m(OverviewHeader, { title, description }),
-      m('.escoOverview__wrapper', [
+      m('.escoOverview__main', [
         m('', [
           m('.escoOverview__wrapper', [
             m('.escoOverview__termFact', m(DescriptionList, { sList })),
           ]),
         ]),
         m('', [
-          m('.escoOverview__wrapper', m(StatBox, { bList })),
+          m('.escoOverview__wrapper', m(StatBoxList, { bList })),
         ]),
       ]),
     ]);

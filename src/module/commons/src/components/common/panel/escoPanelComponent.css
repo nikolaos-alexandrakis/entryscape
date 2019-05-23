@@ -11,11 +11,11 @@
     display: none;
 }
 
-.panel__item .collapsed .fa-chevron-right {
+.panel__item .collapsed .fa-chevron-up {
     display: inline;
 }
 
-.panel__item .fa-chevron-right {
+.panel__item .fa-chevron-up {
     display: none;
 }
 

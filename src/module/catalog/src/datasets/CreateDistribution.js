@@ -15,9 +15,9 @@ const DistributionEntryType = declare([EntryType], {
   nlsBundles: [{ escoEntryType }, { escaDataset }],
   localeChange() {
     this.inherited(arguments);
-    this.__fileOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.fileUploadDistribution;
-    this.__linkOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.accessURIDistribution;
-    this.__linkLabel.innerHTML = this.NLSBundles.escaDataset.accessURIDistribution;
+    this.__fileOptionLabelNLS.innerHTML = this.NLSLocalized.escaDataset.fileUploadDistribution;
+    this.__linkOptionLabelNLS.innerHTML = this.NLSLocalized.escaDataset.accessURIDistribution;
+    this.__linkLabel.innerHTML = this.NLSLocalized.escaDataset.accessURIDistribution;
   },
   fileOption(ev) {
     if (config.catalog && config.catalog.disallowFileuploadDistributionDialog) {
@@ -67,13 +67,16 @@ export default declare([RDFormsEditDialog], {
     this.editor.render();
   },
   updateGenericCreateNLS() {
-    this.title = this.NLSBundles.escaDataset[this.nlsHeaderTitle];
-    this.doneLabel = this.NLSBundles.escaDataset[this.nlsFooterButtonLabel];
+    this.title = this.NLSLocalized.escaDataset[this.nlsHeaderTitle];
+    this.doneLabel = this.NLSLocalized.escaDataset[this.nlsFooterButtonLabel];
     this.updateTitleAndButton();
   },
   open(params) {
     this.row = params.row;
-    this.datasetEntry = params.row.entry;
+    if (params.onDone != null) {
+      this.onDone = params.onDone;
+    }
+    this.datasetEntry = this.row.entry;
     if (this.fileOrLink) {
       this.fileOrLink.show(config.catalog.excludeFileuploadDistribution !== true, true, false);
       this.editor.filterPredicates = { 'http://www.w3.org/ns/dcat#accessURL': true };
@@ -82,14 +85,7 @@ export default declare([RDFormsEditDialog], {
     const nds = this._newEntry;
     nds.getMetadata().add(nds.getResourceURI(), ns.expand('rdf:type'), ns.expand('dcat:Distribution'));
     this.updateGenericCreateNLS();
-    this.show(nds.getResourceURI(), nds.getMetadata(), this.getDistributionTemplate());
-  },
-  getDistributionTemplate() {
-    if (!this.dtemplate) {
-      this.dtemplate = registry.get('itemstore').getItem(
-        config.catalog.distributionTemplateId);
-    }
-    return this.dtemplate;
+    this.showChildEntry(nds, this.datasetEntry);
   },
   getReport() {
     const report = validate.bindingReport(this.editor.binding);
@@ -109,13 +105,14 @@ export default declare([RDFormsEditDialog], {
         this.datasetEntry.getMetadata()
           .add(this.datasetEntry.getResourceURI(), 'dcat:distribution', distributionEntry.getResourceURI());
         return this.datasetEntry.commitMetadata().then(() => {
-          this.row.clearDistributions();
-          this.row.listDistributions();
+          if (this.onDone != null) {
+            this.onDone();
+          }
           distributionEntry.setRefreshNeeded();
           return distributionEntry.refresh();
         });
       }, () => {
-        throw this.NLSBundles.escaDataset.createDistributionErrorMessage;
+        throw this.NLSLocalized.escaDataset.createDistributionErrorMessage;
       });
     const distResourceURI = pDistributionEntry.getResourceURI();
     if (this.fileOrLink) {
@@ -124,7 +121,19 @@ export default declare([RDFormsEditDialog], {
         const md = pFileEntry.getMetadata();
         const pfileURI = pFileEntry.getResourceURI();
         md.add(pfileURI, 'rdf:type', 'esterms:File');
-        md.addL(pfileURI, 'dcterms:title', this.fileOrLink.getValue());
+        const fileName = this.fileOrLink.getValue();
+        md.addL(pfileURI, 'dcterms:title', fileName);
+
+        /**
+         * Fixes browsers' issue when a  default application has not been assigned to a mime type.
+         * We care fixing this only for csv as it is vital to creating APIs
+         */
+        let isCSV = false;
+        if (fileName.endsWith('.csv')) {
+          md.addL(pfileURI, 'dcterms:format', 'text/csv');
+          isCSV = true;
+        }
+
         return pFileEntry.commit().then(fileEntry => fileEntry.getResource(true)
           .putFile(this.fileOrLink.getFileInputElement())
           .then(() => fileEntry.refresh().then(() => {
@@ -134,7 +143,11 @@ export default declare([RDFormsEditDialog], {
             const format = fileEntry.getEntryInfo().getFormat();
             const manualFormatList = graph.find(distResourceURI, 'dcterms:format');
             if (typeof format !== 'undefined' && manualFormatList.length === 0) {
-              graph.addL(distResourceURI, 'dcterms:format', format);
+              if (isCSV) {
+                graph.addL(distResourceURI, 'dcterms:format', 'text/csv');
+              } else {
+                graph.addL(distResourceURI, 'dcterms:format', format);
+              }
             }
             return createAndConnect();
           })));

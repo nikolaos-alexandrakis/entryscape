@@ -1,5 +1,26 @@
-import PubSub from 'pubsub-js';
 import jquery from 'jquery';
+import PubSub from 'pubsub-js';
+
+/**
+ * Returns closest <a> parent (including the node) for a node
+ *
+ * @param {HTMLElement} node
+ * @return {HTMLAnchorElement|null}
+ */
+const getClosestLink = (node) => {
+  const closestLinks = jquery(node).closest('a');
+  return closestLinks.length > 0 ? closestLinks[0] : null;
+};
+
+/**
+ * Open an external link to a new window
+ *
+ * @param {string} href
+ * @param {boolean} [blank=true]
+ */
+const openExternalLink = (href, blank = true) => {
+  window.open(href, blank ? '_blank' : '');
+};
 
 export default class Handler {
   /**
@@ -50,7 +71,7 @@ export default class Handler {
    */
   clickHandler(e) {
     if (!this.site._ignoreSpaHandler) {
-      const closestLink = this._getClosestLink(e.target);
+      const closestLink = getClosestLink(e.target);
       const href = e.target.href || (closestLink ? closestLink.href : undefined);
       if (href) {
         if (closestLink && this.isExplicitActionLink(closestLink)) {
@@ -59,7 +80,7 @@ export default class Handler {
         // if this is an external link than open in new window
         if (this.isExternalLink(href)) {
           e.preventDefault();
-          this.openExternalLink(href);
+          openExternalLink(href);
           return false;
         }
 
@@ -108,30 +129,21 @@ export default class Handler {
   }
 
   /**
+   * If there's already a state with an application view then use the spa's render
+   * otherwise let the browser decide
    *
    * @private
    */
   _popStateHandler() {
     window.addEventListener('popstate', (event) => {
       const view = event.state.view;
-      const params = event.state[view];
-
-      this.site._render(view, params);
+      if (view) {
+        const params = event.state[view];
+        this.site._render(view, params);
+      }
     });
   }
 
-  /**
-   * Returns closest <a> parent (including the node) for a node
-   *
-   * @param node DOM node
-   * @return {null|String} href value
-   * @private
-   */
-  _getClosestLink(node) {
-    const closestLinks = jquery(node).closest('a');
-    const closestLink = closestLinks.length > 0 ? closestLinks[0] : null;
-    return closestLink && closestLink;
-  }
 
   /**
    * Check if a given url is internal but should not be considered as navigational
@@ -172,14 +184,4 @@ export default class Handler {
 
     return !isLocal;
   }
-
-  /**
-   * Open an external link to a new window
-   *
-   * @param href
-   * @param blank
-   */
-  openExternalLink(href, blank = true) {
-    window.open(href, blank ? '_blank' : '');
-  }
-};
+}

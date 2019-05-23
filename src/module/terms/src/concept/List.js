@@ -116,10 +116,10 @@ const CRemoveDialog = declare([RemoveDialog, NLSMixin], {
     const label = registry.get('rdfutils').getLabel(this.cEntry);
     let message;
     if (skosUtil.hasChildrenOrRelationsConcepts(this.cEntry)) {
-      message = i18n.renderNLSTemplate(this.NLSBundles.esteConcept.cannotRemoveTermTree, label);
+      message = i18n.renderNLSTemplate(this.NLSLocalized.esteConcept.cannotRemoveTermTree, label);
       registry.get('dialogs').acknowledge(message);
     } else {
-      message = i18n.renderNLSTemplate(this.NLSBundles.esteConcept.confirmRemoveTerm, label);
+      message = i18n.renderNLSTemplate(this.NLSLocalized.esteConcept.confirmRemoveTerm, label);
       registry.get('dialogs').confirm(message).then(() => {
         this.remove();
       });

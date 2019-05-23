@@ -1,21 +1,22 @@
-import config from 'config';
-import registry from 'commons/registry';
-import Signup from 'commons/nav/Signup';
-import PasswordReset from 'commons/nav/PasswordReset';
-import PublicView from 'commons/view/PublicView';
-import escoSignin from 'commons/nls/escoSignin.nls';
+import esadUser from 'admin/nls/esadUser.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
+import PasswordReset from 'commons/nav/PasswordReset';
+import Signup from 'commons/nav/Signup';
+import escoSignin from 'commons/nls/escoSignin.nls';
+import registry from 'commons/registry';
+import PublicView from 'commons/view/PublicView';
+import config from 'config';
+import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import _WidgetBase from 'dijit/_WidgetBase';
+import declare from 'dojo/_base/declare';
 import { i18n, NLSMixin } from 'esi18n';
 import m from 'mithril';
-import declare from 'dojo/_base/declare';
-import _WidgetBase from 'dijit/_WidgetBase';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
+import configUtil from '../util/configUtil';
+import DOMUtil from '../util/htmlUtil';
 
 import Logo from './components/Logo';
-import DOMUtil from '../util/htmlUtil';
-import configUtil from '../util/configUtil';
-import template from './SigninTemplate.html';
 import './escoSignin.css';
+import template from './SigninTemplate.html';
 
 let signup;
 let resetPassword;
@@ -65,22 +66,24 @@ const SigninMixin = declare([PublicView], {
   },
   footerButtonAction() {
     if (!this.isFormValid(this.signinForm)) {
-      return this.NLSBundle0.signinUnauthorized;
+      return this.NLSLocalized0.signinUnauthorized;
     }
     const esUser = this.username.value;
-    const esPassword = window.encodeURI(this.password.value);
+    const esPassword = this.password.value;
     const auth = registry.get('entrystore').getAuth();
     const async = registry.get('asynchandler');
     async.addIgnore('login', async.codes.UNAUTHORIZED, true);
-    return auth.login(esUser, esPassword).then(
-      () => {
+    return auth.login(esUser, esPassword)
+      .then(() => {
         this.signinForm.reset();
-      },
-      (err) => {
+      })
+      .catch((err) => {
         if (err.response.status === 401) {
-          throw this.NLSBundle0.signinUnauthorized;
+          throw Error(this.NLSLocalized0.signinUnauthorized);
+        } else if (err.response.status === 403) {
+          throw Error(i18n.localize(esadUser, 'userStatusDisabled'));
         } else {
-          throw this.NLSBundle0.signinError;
+          throw Error(this.NLSLocalized0.signinError);
         }
       });
   },
@@ -117,6 +120,9 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
     this.params = params;
     this.setStatus();
     this.updateExternalSignInOption();
+    PubSub.subscribeOnce('spa.afterViewChange', () => {
+      this.username.focus();
+    });
   },
   postCreate() {
     this.inherited('postCreate', arguments);
@@ -128,7 +134,7 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
       }
     };
 
-    if (config.site && registry.getSiteConfig().signup !== false) {
+    if (config.get('site.signup', true)) {
       this.showSignupButton.style.display = '';
     }
 
@@ -216,7 +222,7 @@ Signin.Dialog = declare([TitleDialog.ContentNLS, SigninMixin], {
     };
     this.domNode.classList.add('signindialog');
     // TODO remove site.signup in next version, this is for compatability with old configs
-    if (registry.getSiteConfig().signup !== false && config.entrystore.signup !== false) {
+    if (config.get('site.signup', true) && config.get('entrystore.signup', true)) {
       this.showSignupButton.style.display = '';
     }
 

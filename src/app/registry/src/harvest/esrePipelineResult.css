@@ -2,11 +2,11 @@
     display: none;
 }
 
-.esrePipelineResult .collapsed .fa-chevron-right {
+.esrePipelineResult .collapsed .fa-chevron-up {
     display: inline;
 }
 
-.esrePipelineResult .fa-chevron-right {
+.esrePipelineResult .fa-chevron-up {
     display: none;
 }
 

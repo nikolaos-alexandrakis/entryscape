@@ -61,7 +61,7 @@ In a boostrap modal and when all tasks have successfully completed:
         <ul class="list-group">
           <li class="list-group-item">
             <div class="row">
-              <div class="col-md-1"><i class="fa fa-check" style="font-size: 24px;"></i></div>
+              <div class="col-md-1"><i class="fas fa-check" style="font-size: 24px;"></i></div>
               <div class="col-md-11">
                 <div class="row ">
                   <div class="col-md-12"><span>Upload File</span></div>
@@ -71,7 +71,7 @@ In a boostrap modal and when all tasks have successfully completed:
           </li>
           <li class="list-group-item">
             <div class="row">
-              <div class="col-md-1"><i class="fa fa-check" style="font-size: 24px;"></i></div>
+              <div class="col-md-1"><i class="fas fa-check" style="font-size: 24px;"></i></div>
               <div class="col-md-11">
                 <div class="row ">
                   <div class="col-md-12"><span>Analyse Scheme</span></div>
@@ -81,7 +81,7 @@ In a boostrap modal and when all tasks have successfully completed:
           </li>
           <li class="list-group-item">
             <div class="row">
-              <div class="col-md-1"><i class="fa fa-check" style="font-size: 24px;"></i></div>
+              <div class="col-md-1"><i class="fas fa-check" style="font-size: 24px;"></i></div>
               <div class="col-md-11">
                 <div class="row ">
                   <div class="col-md-12"><span>Import Concepts</span></div>

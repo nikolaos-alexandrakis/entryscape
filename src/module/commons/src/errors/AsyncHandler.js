@@ -42,7 +42,7 @@ const extractProblem = function (err) {
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   templateString: template,
-  progressDelay: 400,
+  progressDelay: 2000,
   nlsBundles: [{ escoErrors }],
   codes: {
     GENERIC_PROBLEM,
@@ -155,25 +155,30 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     }
   },
 
-  openDialog() {
+  openDialog(manual = false) {
+    this.manual = manual;
     this.dialogOpen = true;
     this.domNode.style.display = 'block';
     jquery(this.domNode).fadeTo(400, 1);
-    this.updateDialog();
+    if (!this.manual) {
+      this.updateDialog();
+    }
   },
 
   updateOrCloseDialog() {
-    let resolved = true;
-    for (let i = 0; i < this.promises.length; i++) {
-      const obj = this.promises[i];
-      if (obj.resolved !== true) {
-        resolved = false;
+    if (!this.manual) {
+      let resolved = true;
+      for (let i = 0; i < this.promises.length; i++) {
+        const obj = this.promises[i];
+        if (obj.resolved !== true) {
+          resolved = false;
+        }
       }
-    }
-    if (resolved) {
-      this.closeDialog();
-    } else {
-      this.updateDialog();
+      if (resolved) {
+        this.closeDialog();
+      } else {
+        this.updateDialog();
+      }
     }
   },
 
@@ -212,6 +217,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       clearTimeout(this.checkCountdownTimeout);
     }
     this.messages.style.display = '';
+    this.manual = false;
   },
 
   closeDialogSignedOut() {
@@ -258,7 +264,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       }
       let message;
       if (obj.err && obj.err.response && obj.err.response.status === 412) {
-        message = this.NLSBundle0.conflictProblem;
+        message = this.NLSLocalized0.conflictProblem;
       } else {
         message = typeof obj.err === 'object' && typeof obj.err.message === 'string' ?
           obj.err.message : obj.err;
@@ -281,14 +287,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   hideDetails() {
     const showHideButtonEl = this.domNode.querySelector('.btn-default');
 
-    showHideButtonEl.innerHTML = this.NLSBundle0.showDetails;
+    showHideButtonEl.innerHTML = this.NLSLocalized0.showDetails;
     this.messages.style.display = 'none';
     this.detailsShowing = false;
   },
   showDetails() {
     const showHideButtonEl = this.domNode.querySelector('.btn-default');
 
-    showHideButtonEl.innerHTML = this.NLSBundle0.hideDetails;
+    showHideButtonEl.innerHTML = this.NLSLocalized0.hideDetails;
     this.messages.style.display = 'block';
     this.detailsShowing = true;
   },
@@ -324,7 +330,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const drawCounter = (seconds) => {
       // Not connected. Connecting in 4s... Try Now
       this.timeToCheck.innerHTML =
-        renderTemplate(this.NLSBundle0.notConnected)({ time: seconds });
+        renderTemplate(this.NLSLocalized0.notConnected)({ time: seconds });
     };
     let check;
     const countdown = (seconds) => {

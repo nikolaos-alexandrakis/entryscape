@@ -11,7 +11,7 @@ import declare from 'dojo/_base/declare';
 import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import hash from 'dojo/hash';
-import './eswoCollection.css';
+import './eswoCollection.scss';
 import CollectionItemContainer from './components/CollectionItemContainer';
 import template from './CollectionTemplate.html';
 
@@ -261,7 +261,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
   localeChange() {
     if (!this.placeholder) {
       this.placeholder = new Placeholder({}, htmlUtil.create('div', null, this.__placeholder));
-      this.placeholder.getText = () => this.NLSBundle0.selectEntitytypeMessage;
+      this.placeholder.getText = () => this.NLSLocalized0.selectEntitytypeMessage;
       this.placeholder.render();
     }
   },

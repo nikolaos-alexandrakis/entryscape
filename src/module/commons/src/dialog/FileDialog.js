@@ -31,7 +31,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.numFiles = this.fileInput.files ? this.fileInput.files.length : 1;
     this.label = this.fileInput.value.replace(/\\/g, '/').replace(/.*\//, '');
     this.validFile = true;
-    this.uploadNode.setAttribute('disabled', false);
+    this.uploadNode.removeAttribute('disabled');
     this.selectedFile.value = this.label;
   },
   show(message, uploadLabel, cancelLabel, callback) {
@@ -54,8 +54,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   unlockUpload() {
     this.lock = false;
     this.spinner.style.display = 'none';
-    this.uploadNode.setAttribute('disabled', false);
-    this.cancelLabelNode.setAttribute('disabled', false);
+    this.uploadNode.removeAttribute('disabled');
+    this.cancelLabelNode.removeAttribute('disabled');
     this.messageNode.innerHTML = '';
     jquery(this.domNode).modal('hide');
   },

@@ -56,7 +56,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       this.headerContainer.insertBefore(this.searchBlockInner, this.headerContainerInner);
     }
     if (this.searchVisibleFromStart && this.searchInList === true) {
-      this.expandButtonIcon.classList.toggle('fa-chevron-right');
+      this.expandButtonIcon.classList.toggle('fa-chevron-up');
       this.expandButtonIcon.classList.toggle('fa-chevron-down');
     }
     if (this.includeExpandButton && this.searchInList === true) {
@@ -140,7 +140,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       } else {
         jquery(this.searchBlock).slideUp(300);
       }
-      this.expandButtonIcon.classList.toggle('fa-chevron-right');
+      this.expandButtonIcon.classList.toggle('fa-chevron-up');
       this.expandButtonIcon.classList.toggle('fa-chevron-down');
     }.bind(this);
     if (this.rowClickDialog != null) {
@@ -277,7 +277,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     DOMUtil.addClass(el, `pull-right btn btn-raised btn-${params.button}`);
 
     const span = DOMUtil.create('span', { 'aria-hidden': true }, el);
-    DOMUtil.addClass(span, `fa fa-${params.icon}`);
+    DOMUtil.addClass(span, `fas fa-${params.icon}`);
 
     const label = DOMUtil.create('span', null, el);
     label.classList.add('escoList__buttonLabel');
@@ -430,7 +430,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       }
     }
     if (this.listSize === 0) {
-      this.showPlaceholder(false);
+      this.showPlaceholder(this.searchTerm != null && this.searchTerm !== '');
       if (this.includeMassOperations === true) {
         this.selectallCheck.setAttribute('disabled', 'disabled');
         this.selectAll.style.cursor = 'not-allowed';
@@ -520,18 +520,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     const Cls = this.rowClass;
     const row = new Cls({ list: this.list, entry }, node);
+    row.domNode.classList.add('entryListRow');
     if (newRow === true) {
-      const rowBackgroundColor = row.domNode.style.background;
-      jquery(row.domNode).css({ backgroundColor: 'yellow' });
-      jquery(row.domNode).animate(
-        {
-          backgroundColor: rowBackgroundColor,
-        },
-        2500,
-        () => {
-          row.domNode.style.background = '';
-        },
-      );
+      row.domNode.classList.add('newRow');
+      setTimeout(() => {
+        row.domNode.classList.remove('newRow');
+      }, 1500);
     }
     if (this.nlsGenericBundle) {
       row.updateLocaleStrings(this.nlsGenericBundle, this.nlsSpecificBundle);
@@ -541,7 +535,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     } else {
       this.rows.push(row);
     }
-    if (this.rowClickDialog != null) {
+
+    if (this.rowClickDialog != null || row.list.rowClickView != null) {
       row.domNode.onclick = function (ev) {
         // Check if click should not trigger rowclick
         if (typeof row.isRowClick === 'function' && !row.isRowClick(ev)) {
@@ -551,12 +546,21 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         if (ev.target.classList.contains('dropdown-backdrop') || ev.target.classList.contains('check')) {
           return;
         }
+
         ev.preventDefault();
         ev.stopPropagation();
-        if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
-          row[`action_${this.rowClickDialog}`]({ row });
-        } else {
-          this.list.openDialog(this.rowClickDialog, { row });
+
+        if (this.rowClickDialog != null) {
+          if (typeof row[`action_${this.rowClickDialog}`] === 'function') {
+            row[`action_${this.rowClickDialog}`]({ row });
+          } else {
+            this.list.openDialog(this.rowClickDialog, { row });
+          }
+        } else if (row.list.rowClickView != null) {
+          const site = registry.getSiteManager();
+          const context = row.entry.getContext().getId();
+          const dataset = row.entry.getId();
+          site.render(row.list.rowClickView, { context, dataset });
         }
       }.bind(this);
     }

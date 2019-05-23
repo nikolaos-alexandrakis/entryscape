@@ -48,8 +48,8 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         this._deferred.then(callback); // TODO no need for a callback, just use thenable part of the promise
       }
       const f = function () {
-        // domAttr.set(this.okLabelNode, 'innerHTML', okLabel || this.NLSBundle0.ok);
-        this.okLabelNode.innerHTML = okLabel || this.NLSBundle0.ok;
+        // domAttr.set(this.okLabelNode, 'innerHTML', okLabel || this.NLSLocalized0.ok);
+        this.okLabelNode.innerHTML = okLabel || this.NLSLocalized0.ok;
         // domAttr.set(this.acknowledgeMessage, 'innerHTML', message);
         this.acknowledgeMessage.innerHTML = message;
         jquery(this.domNode).modal('show');

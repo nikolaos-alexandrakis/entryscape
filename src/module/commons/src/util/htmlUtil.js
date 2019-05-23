@@ -64,6 +64,14 @@ const htmlUtil = {
 
     return node;
   },
+  preventBubbleWrapper(onClick) {
+    return (e, args) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const argsArray = Array.isArray(args) ? args : [args];
+      onClick && onClick.apply(null, argsArray);
+    }
+  },
 };
 
 export default htmlUtil;

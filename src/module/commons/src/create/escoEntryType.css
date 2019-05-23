@@ -17,9 +17,8 @@
 }
 
 .escoEntryType__fileUploadButton {
-    vertical-align: text-bottom !important;
+    vertical-align:bottom;
 }
-
 .escoEntryType--linkLabelVisible .escoEntryType__optionBlock,
 .escoEntryType--fileLabelVisible .escoEntryType__optionBlock,
 .escoEntryType__linkLabel,

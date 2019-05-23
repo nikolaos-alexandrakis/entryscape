@@ -32,7 +32,7 @@ export default declare([BaseList, PublicView], {
    */
   updateLocaleStrings() {
     this.inherited(arguments);
-    const b = this.NLSBundles.esreStatus;
+    const b = this.NLSLocalized.esreStatus;
     this.getView().setTableHead(`<div class='psirow'>
       <div class='vmiddle entryName'>${b.otherOrgLabel}</div> 
       <div class='flex-wrapper'>

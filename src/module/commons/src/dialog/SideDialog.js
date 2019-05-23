@@ -2,7 +2,7 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import DOMUtil from '../util/htmlUtil';
-import './dialog.css';
+import './dialog.scss';
 import template from './SideDialogTemplate.html';
 
 const mobileMaxWidth = 415;
@@ -17,6 +17,7 @@ const SideDialog = declare([_WidgetBase, _TemplatedMixin], {
   firstIndent: 75,
   maxWidth: 0,
   _isHidden: true,
+  destroyOnHide: false,
 
   postCreate() {
     this.inherited('postCreate', arguments);
@@ -113,6 +114,9 @@ const SideDialog = declare([_WidgetBase, _TemplatedMixin], {
       this._isHidden = true;
       busy = false;
       this.hideComplete();
+      if (this.destroyOnHide) {
+        this.destroy();
+      }
     });
 
     if (this === maxWidthOwner) {

@@ -1,7 +1,7 @@
 import { namespaces as ns } from 'rdfjson';
 
 ns.add('cld', 'http://purl.org/cld/freq/');
-ns.add('freq', 'http://publications.europa.eu/resource/authority/frequency');
+ns.add('freq', 'http://publications.europa.eu/resource/authority/frequency/');
 ns.add('adms', 'http://www.w3.org/ns/adms#');
 ns.add('dcat', 'http://www.w3.org/ns/dcat#');
 ns.add('eurovoc', 'http://eurovoc.europa.eu/');
