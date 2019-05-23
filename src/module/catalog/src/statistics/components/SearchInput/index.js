@@ -8,7 +8,7 @@ export default () => ({
       <input type="text" id="stats-search-input" className="form-control"
              placeholder={i18n.localize(escaStatistics, 'statsSearchInputPlaceholder')} onchange={onchange}
              onkeyup={onkeyup}/>
-      <span className="input-group-btn">
+      <span className="input-group-btn input-group-append">
         <button className="btn btn-secondary searchButton" type="button" title="" aria-label="Search">
           <span className="screenreader__span"></span>
           <span className="fa fa-search" aria-hidden="true"/>
