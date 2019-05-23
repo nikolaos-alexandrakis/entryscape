@@ -2,11 +2,11 @@
     <div class="btn-group ${bid}__optionBlock" data-toggle="buttons">
         <label for="${id}-linkOption" class="btn btn-secondary" data-dojo-attach-point="__linkOptionLabel"
                data-dojo-attach-event="click:linkOption"><span data-dojo-attach-point="nls,__linkOptionLabelNLS">linkLabel</span>
-            <input type="radio" name="entryType"  id="${id}-linkOption" checked autocomplete="off" />
+            <input type="radio" class="form-check-input" name="entryType"  id="${id}-linkOption" checked autocomplete="off" />
         </label>
         <label for="${id}-fileOption" class="btn btn-secondary" data-dojo-attach-point="__fileOptionLabel"
                data-dojo-attach-event="click:fileOption"><span data-dojo-attach-point="nls,__fileOptionLabelNLS">fileLabel</span>
-            <input type="radio" name="entryType" id="${id}-fileOption" autocomplete="off"/>
+            <input type="radio" class="form-check-input" name="entryType" id="${id}-fileOption" autocomplete="off"/>
         </label>
     </div>
     <label class="${bid}__linkLabel" data-dojo-attach-point="nls,__linkLabel">linkLabel</label>
