@@ -8,7 +8,7 @@ export default () => ({
 
     const classes = ['logo-text', 'icon-text'];
     if (type !== 'icon') { // we are rendering both full and icon logo
-      classes.push('hidden-md', 'hidden-lg hidden-xl');
+      classes.push('d-md-none', 'd-lg-none d-xl-none');
     }
     if (isFooter) {
       classes.push('footer-logo-text');
@@ -22,7 +22,7 @@ export default () => ({
         alt: 'logo image',
         title,
       }),
-      text ? m('span.hidden-sm-down', {
+      text ? m('span.d-sm-none-down', {
         title,
       }, text) : null,
     ]);
