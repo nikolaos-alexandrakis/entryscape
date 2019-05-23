@@ -96,7 +96,7 @@ body {
     }
 
     /* @scazan: Small hack for mobile language chooser*/
-    .nav_menu .col-xs-1 {
+    .nav_menu .col-1 {
       z-index: 888;
     }
 }
@@ -209,7 +209,7 @@ body {
         display: none;
     }
 }
-.col-xs-offset-8{
+.col-offset-8{
   margin-left: 0 !important;
 }
 .navbar-nav .open .dropdown-menu {
