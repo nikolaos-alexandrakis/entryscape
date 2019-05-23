@@ -1,25 +1,23 @@
 import { createSetState } from 'commons/util/util';
+import { i18n } from 'esi18n';
 import { namespaces } from 'rdfjson';
+import esteConceptNLS from 'terms/nls/esteConcept.nls';
+import skosUtil from 'commons/tree/skos/util';
 import './style.css';
 
-
 /**
- *
- * @param {store/Entry} entry
- * @return {*}
+ * @param initalVnode
+ * @return {{view(): *, oninit(): void}|*}
  */
-export default (entry) => {
+export default (initalVnode) => {
+  const {
+    /** @type {store/Entry} */ entry,
+  } = initalVnode.attrs;
+
   const state = {
     isEditMode: null,
     namespace: '',
     localName: '',
-    /**
-     * the resource uri computed on the fly
-     * @return {string}
-     */
-    get uri() {
-      return this.namespace + this.localName;
-    },
   };
   const setState = createSetState(state);
 
@@ -32,79 +30,56 @@ export default (entry) => {
     });
   };
 
-  const updateConceptRURI = (newLocalName) => {
-    const entryInfo = entry.getEntryInfo();
-    entryInfo.setResourceURI(state.namespace + newLocalName);
-    return entryInfo.commit();
-  };
-
-  const updateConceptIncomingMappings = async () => {
-
-  };
-
   const updateConceptLocalName = async () => {
-    const oldLocalName = state.localName;
-    const localNameInput = document.getElementById('concept-local-name');
-    const newLocalName = localNameInput.value;
+    const newNode = initalVnode.dom.getElementsByTagName('input')[0];
+    const localName = newNode.value;
 
-    console.log(oldLocalName, newLocalName);
-
-    await updateConceptRURI(newLocalName);
-
-    await updateConceptIncomingMappings();
+    await skosUtil.updateConceptResourceURI(entry, state.namespace + localName);
 
     setState({
       isEditMode: false,
-      newLocalName,
+      localName,
     });
   };
 
-  /**
-   * Get a vnode for previewing the resource URI of the concept
-   * @param namespace
-   * @param localName
-   * @return {*}
-   */
-  const geURIFieldReadOnly = ({ namespace, localName }) => <div className='rdformsField rdformsSingleline'>
-    <div className='rdformsField'>
-      <span>{namespace + localName}</span>
-      <a className='edit-action spaExplicitLink' onclick={changeMode}>
-        <i className='fa fa-edit' aria-hidden='true'/>
-      </a>
-    </div>
-  </div>;
-
-
-  /**
-   * Get a vnode for editing the localName of the concept
-   * @param namespace
-   * @param localName
-   * @return {*}
-   */
-  const getURIFieldEdit = ({ namespace, localName }) => <div className='input-group rdformsField'>
-    <span className='input-group-addon' id='sizing-addon2'>{namespace}</span>
-    <input type='text' className='form-control' id="concept-local-name" placeholder={localName} aria-describedby='sizing-addon2'/>
-    <span className='input-group-btn'>
-      <button className='btn btn-default' type='button' onclick={updateConceptLocalName}>
-        <i className='fa fa-check' aria-hidden='true'/>
-      </button>
-    </span>
-  </div>;
-
   return {
-    oninit() {
-      state.isEditMode = false;
-      const { localname, ns } = namespaces.nsify(entry.getResourceURI());
-      state.namespace = ns;
-      state.localName = localname;
+    oncreate() {
+      const { localname: localName, ns: namespace } = namespaces.nsify(entry.getResourceURI());
+      console.log(localName, namespace);
+
+      setState({
+        isEditMode: false,
+        namespace,
+        localName,
+      });
     },
-    view(vnode) {
-      return (<div className='form-group concept-uri'>
-        <div className='rdformsLabel rdformsLabelRow noPointer'>Concept URI</div>
-        <div className='rdformsFields'>
-          {state.isEditMode ? getURIFieldEdit(state) : geURIFieldReadOnly(state)}
-        </div>
-      </div>);
+    view() {
+      const esteConcept = i18n.getLocalization(esteConceptNLS);
+      const { isEditMode, namespace, localName } = state;
+      console.log(namespace);
+
+      return <div class='form-group concept-uri'>
+        <label>{esteConcept.termURI}</label>
+        {isEditMode ?
+          <div className='input-group'>
+            <span className='input-group-addon'>{namespace}</span>
+            <input type='text' className='form-control' placeholder={localName} aria-describedby='sizing-addon2'/>
+            <span className='input-group-btn'>
+              <button className='btn btn-default' type='button' onclick={updateConceptLocalName}>
+                <i className='fa fa-check' aria-hidden='true'/>
+              </button>
+            </span>
+          </div> :
+          <div className=''>
+            <div className=''>
+              <span>{namespace + localName}</span>
+              <a className='edit-action spaExplicitLink' onclick={changeMode}>
+                <i className='fa fa-edit' aria-hidden='true'/>
+              </a>
+            </div>
+          </div>
+        }
+      </div>;
     },
   };
 };

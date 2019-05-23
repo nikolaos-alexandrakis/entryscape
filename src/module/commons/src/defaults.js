@@ -14,6 +14,7 @@ import geoDcatVocabsBundle from 'templates/dcat-ap/geodcat-ap_vocabs';
 import geoDcatPropsBundle from 'templates/dcat-ap/geodcat-ap_props';
 import dcatPropsBundle from 'templates/dcat-ap/dcat-ap_props';
 import dctermsBundle from 'templates/dcterms/dcterms';
+import voidBundle from 'templates/void/void';
 import escBundle from 'templates/entryscape/esc';
 import foafBundle from 'templates/foaf/foaf';
 import odrsBundle from 'templates/odrs/odrs';

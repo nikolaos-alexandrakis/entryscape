@@ -14,6 +14,8 @@
     "createSchemeNamePlaceholder": "Enter a name for the terminology",
     "createSchemeDesc": "Terminology description",
     "createSchemeDescPlaceholder": "Enter a description for the terminology",
+    "createSchemeNamespace": "Terminology namespace",
+    "createSchemeNamespacePlaceholder": "Enter a namespace for terminology",
     "createSchemeNote": "The terminology's name and description can be changed later",
     "insufficientInfoToCreateScheme": "You need to fill in all the fields to create a terminology",
     "missingMandatoryFields": "You need to provide all mandatory fields",

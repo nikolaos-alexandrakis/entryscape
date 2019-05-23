@@ -233,10 +233,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this._editor.show(entry.getResourceURI(), md, itemstore.getItem(templateId));
     }).then(() => {
       // update the concept URI field
-      const firstChild = jquery(this._editor.domNode).find('.rdforms.rdformsEditor')[0];
-      const newEl = document.createElement('div', { id: 'concept-update-uri', style: 'margin: 15px' });
-      this._editor.domNode.insertBefore(newEl, firstChild);
-      m.mount(newEl, ConceptUriComponent(entry));
+      m.mount(this.__namespaceURI, { view: () => m(ConceptUriComponent, { entry }) });
     });
   },
   _saveC() {

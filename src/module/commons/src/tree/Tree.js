@@ -90,7 +90,7 @@ export default declare([_WidgetBase], {
       domNode: this.domNode,
     };
 
-    const conf = Object.assign(skosUtil.getSemanticRelations(), treeConf);
+    const conf = Object.assign({}, skosUtil.getSemanticProperties(), treeConf);
     this.model = new TreeModel(conf);
   },
   checkMove(operation, node, nodeParent) {

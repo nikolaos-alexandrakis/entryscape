@@ -3,6 +3,7 @@
     "createTerm": "Create concept",
     "selectedTermDesc": "Create concept in",
     "termLabelPlaceholder": "Name of concept",
+    "termURI": "Concept URI",
     "saveButton": "Save",
     "saveProcessingButton": "Saving...",
     "revertButton": "Revert",

@@ -20,7 +20,7 @@ const skosClasses = {
  * SKOS semantic relations are links between SKOS concepts, where the link is inherent
  * in the meaning of the linked concepts.
  */
-const semanticRelation = {
+const semanticRelations = {
   membershipToRootProperty: 'skos:inScheme',
   inScheme: 'skos:inScheme',
   toParentProperty: 'skos:broader',
@@ -53,8 +53,8 @@ const getParentResourceURI = (e) => {
   const eRURI = e.getResourceURI();
   const md = e.getMetadata();
 
-  return md.findFirstValue(eRURI, semanticRelation.toParentProperty)
-    || md.findFirstValue(eRURI, semanticRelation.toRootProperty);
+  return md.findFirstValue(eRURI, semanticRelations.toParentProperty)
+    || md.findFirstValue(eRURI, semanticRelations.toRootProperty);
 };
 
 /**
@@ -66,7 +66,7 @@ const addNewConceptStmts = (data) => {
   const { md, conceptRURI, schemeRURI, label, l, isRoot } = data;
 
   md.add(conceptRURI, 'rdf:type', skosClasses.concept);
-  md.add(conceptRURI, semanticRelation.inScheme, schemeRURI);
+  md.add(conceptRURI, semanticRelations.inScheme, schemeRURI);
 
   if (label) {
     if (l) {
@@ -77,7 +77,7 @@ const addNewConceptStmts = (data) => {
   }
 
   if (isRoot) {
-    md.add(conceptRURI, semanticRelation.toRootProperty, schemeRURI);
+    md.add(conceptRURI, semanticRelations.toRootProperty, schemeRURI);
   }
 
   return md;
@@ -86,7 +86,7 @@ const addNewConceptStmts = (data) => {
 const addConceptToConceptScheme = (conceptEntry, schemeEntry) => schemeEntry.refresh().then(() => {
   const schemeMd = schemeEntry.getMetadata();
   const schemeRURI = schemeEntry.getResourceURI();
-  schemeMd.add(schemeRURI, semanticRelation.fromRootProperty, conceptEntry.getResourceURI());
+  schemeMd.add(schemeRURI, semanticRelations.fromRootProperty, conceptEntry.getResourceURI());
   schemeEntry.commitMetadata();
 });
 
@@ -126,7 +126,7 @@ const util = {
        * @type Array
        */
       const mappingRelationProperties = mappingProperties;
-      mappingRelationProperties.push(semanticRelation.toRelatedProperty);
+      mappingRelationProperties.push(semanticRelations.toRelatedProperty);
 
       // populate the mappedProperties (Map) with mappings (keys) and entries (values)
       mappingRelationProperties.forEach((mappingProperty) => {
@@ -150,6 +150,32 @@ const util = {
 
     return loadRelationsPromise;
   },
+  /**
+   *
+   * @param resourceURI
+   * @return {Promise<Map<any, Array<store/Entry>>>}
+   */
+  async getSemanticRelations(resourceURI) {
+    const semanticMapping = new Map();
+    const promises = [];
+
+    Object.keys(semanticRelations).forEach((semanticRelation) => {
+      const semanticRelationProperty = semanticRelations[semanticRelation];
+      promises.push(es.newSolrQuery()
+        .uriProperty(semanticRelationProperty, resourceURI)
+        .list()
+        .forEach((mappedEntry) => {
+          // update map with mapped entries
+          const entries = semanticMapping.get(semanticRelationProperty) || [];
+          entries.push(mappedEntry);
+          semanticMapping.set(semanticRelationProperty, entries);
+        }));
+    });
+
+    await Promise.all(promises);
+
+    return semanticMapping;
+  },
   deleteConcept(entry) {
     const entryRURI = entry.getResourceURI();
     const parentRURI = getParentResourceURI(entry);
@@ -171,13 +197,32 @@ const util = {
       return entry.del();
     });
   },
+  async updateConceptResourceURI(entry, newResourceURI) {
+    const oldResourceURI = entry.getResourceURI();
+
+    const entryInfo = entry.getEntryInfo();
+    entryInfo.setResourceURI(newResourceURI);
+    await entryInfo.commit();
+
+    const semanticMapping = await util.getSemanticRelations(oldResourceURI);
+
+    semanticMapping.forEach((entries, semanticProperty) => {
+      entries.forEach((toUpdateEntry) => {
+        const md = toUpdateEntry.getMetadata();
+        md.findAndReplace(toUpdateEntry.getResourceURI(), semanticProperty, oldResourceURI, newResourceURI);
+
+        toUpdateEntry.setMetadata(md);
+        toUpdateEntry.commitMetadata(); // async, no need to await
+      });
+    });
+  },
   hasChildrenOrRelationsConcepts(entry) {
     const md = entry.getMetadata();
     const entryRURI = entry.getResourceURI();
-    const children = md.find(entryRURI, semanticRelation.toChildProperty, null);
+    const children = md.find(entryRURI, semanticRelations.toChildProperty, null);
 
     if (checkRelatedConcepts) {
-      const related = md.find(entryRURI, semanticRelation.toRelatedProperty, null);
+      const related = md.find(entryRURI, semanticRelations.toRelatedProperty, null);
       return children.length && related.length;
     }
 
@@ -194,8 +239,8 @@ const util = {
         throw Error('Concept could not be added to concept scheme');
       });
   },
-  getSemanticRelations() {
-    return semanticRelation;
+  getSemanticProperties() {
+    return semanticRelations;
   },
   getMappingProperties() {
     return mappingProperties;

@@ -192,9 +192,9 @@ export default declare([ETBaseList], {
     es.newSolrQuery().rdfType(this.rootEntryType).context(context).limit(1)
       .getEntries(0)
       .then((entries) => {
-        // this is hack, get the first (and hopefully only) concept sceheme in this context
+        // this is hack, get the first (and hopefully only) concept scheme in this context
         treeModel = new TreeModel(
-          Object.assign(skosUtil.getSemanticRelations(), { rootEntry: entries[0] }));
+          Object.assign({}, skosUtil.getSemanticProperties(), { rootEntry: entries[0] }));
       });
 
     this.inherited('postCreate', arguments);
