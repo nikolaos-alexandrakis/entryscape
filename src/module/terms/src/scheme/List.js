@@ -1,18 +1,40 @@
+import MemberDialog from 'admin/groups/MemberDialog';
+import typeIndex from 'commons/create/typeIndex';
+import Export from 'commons/export/Export';
+import GCERow from 'commons/gce/GCERow';
+import List from 'commons/gce/List';
+import EditDialog from 'commons/list/common/EditDialog';
+import escoList from 'commons/nls/escoList.nls';
 import registry from 'commons/registry';
 import config from 'config';
-import List from 'commons/gce/List';
-import GCERow from 'commons/gce/GCERow';
-import MemberDialog from 'admin/groups/MemberDialog';
-import Export from 'commons/export/Export';
-import { i18n } from 'esi18n';
-import esteTerminologyexport from 'terms/nls/esteTerminologyexport.nls';
-import escoList from 'commons/nls/escoList.nls';
-import esteScheme from 'terms/nls/esteScheme.nls';
 import declare from 'dojo/_base/declare';
-import typeIndex from 'commons/create/typeIndex';
+import { i18n } from 'esi18n';
+import esteScheme from 'terms/nls/esteScheme.nls';
+import esteTerminologyexport from 'terms/nls/esteTerminologyexport.nls';
 import CreateTerminologyDialog from './CreateTerminologyDialog';
 
 const ns = registry.get('namespaces');
+
+const ConceptSchemeEditDialog = declare(EditDialog, {
+  doneAction(graph) {
+    const oldNamespace = this.row.entry.getMetadata().findFirstValue(null, 'void:uriSpace');
+    try {
+      this.inherited(arguments); // commitMetadata
+    } catch {
+      // something went wrong with committing metadata
+    }
+
+
+    const newNamespace = graph.findFirstValue(null, 'void:uriSpace');
+    if (newNamespace !== oldNamespace) {
+      registry.get('dialogs').confirm('Shall we update all concepts?', null, null, (confirm) => {
+        if (confirm) {
+
+        }
+      });
+    }
+  },
+});
 
 const ExportDialog = declare([Export], {
   nlsBundles: [{ esteTerminologyexport }],
@@ -71,6 +93,7 @@ export default declare([List], {
   rowActionNames: ['edit', 'versions', 'export', 'members', 'remove'],
 
   postCreate() {
+
     this.registerDialog('members', TLMemberDialog);
 
     this.registerRowButton({
@@ -92,6 +115,7 @@ export default declare([List], {
     });
     this.inherited('postCreate', arguments);
     this.registerDialog('create', CreateTerminologyDialog);
+    this.registerDialog('edit', ConceptSchemeEditDialog);
   },
 
   getEmptyListWarning() {

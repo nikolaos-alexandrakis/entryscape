@@ -17,7 +17,7 @@ import { i18n, NLSMixin } from 'esi18n';
 import jquery from 'jquery';
 import m from 'mithril';
 import { LevelEditor, renderingContext } from 'rdforms';
-import { expandConceptLocalName } from "terms/concept/util";
+import { expandConceptLocalName, isConceptSchemeNamespaced } from "terms/concept/util";
 import esteConcept from 'terms/nls/esteConcept.nls';
 import utils from '../utils';
 import ConceptUriComponent from './components/ConceptUri';
@@ -234,7 +234,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this._editor.show(entry.getResourceURI(), md, itemstore.getItem(templateId));
     }).then(() => {
       // update the concept URI field
-      m.mount(this.__namespaceURI, { view: () => m(ConceptUriComponent, { entry }) });
+      if (isConceptSchemeNamespaced(this.conceptScheme)) {
+        m.mount(this.__namespaceURI, {
+          view: () => m(ConceptUriComponent, {
+            conceptEntry: entry,
+            conceptSchemeEntry: this.conceptScheme,
+          }),
+        });
+      }
     });
   },
   _saveC() {

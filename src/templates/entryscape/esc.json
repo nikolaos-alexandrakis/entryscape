@@ -437,10 +437,7 @@
         },
         {
           "extends": "void:uriSpace",
-          "cardinality": {"pref": 1},
-          "styles": [
-            "nonEditable"
-          ],
+          "cardinality": {"max": 1, "pref": 1},
           "label": {
             "en": "Namespace",
             "sv": "Namespace",

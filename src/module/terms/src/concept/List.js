@@ -13,7 +13,7 @@ import { i18n, NLSMixin } from 'esi18n';
 import m from "mithril";
 import ConceptUriComponent from "terms/concept/components/ConceptUri";
 import esteConcept from 'terms/nls/esteConcept.nls';
-import { expandConceptLocalName } from './util';
+import { expandConceptLocalName, isConceptSchemeNamespaced } from './util';
 
 let treeModel;
 const ns = registry.get('namespaces');
@@ -77,10 +77,13 @@ const CEditDialog = declare(EditDialog, {
   open(params) {
     this.inherited(arguments);
 
-    const { entry } = params.row;
+    console.log(params);
+    const { entry: conceptEntry } = params.row;
+    const { conceptSchemeEntry } = params.list;
+
     this.conceptURINode = document.createElement('div');
     this.spaSideDialogBodyNode.insertBefore(this.conceptURINode, this.headerExtensionNode);
-    m.mount(this.conceptURINode, { view: () => m(ConceptUriComponent, { entry }) });
+    m.mount(this.conceptURINode, { view: () => m(ConceptUriComponent, { conceptEntry, conceptSchemeEntry }) });
   },
   onDialogHide() {
     this.spaSideDialogBodyNode.removeChild(this.conceptURINode);
@@ -177,14 +180,32 @@ export default declare([ETBaseList], {
       .getEntries(0)
       .then((entries) => {
         // this is hack, get the first (and hopefully only) concept scheme in this context
+        this.conceptSchemeEntry = entries[0];
+        if (isConceptSchemeNamespaced(this.conceptSchemeEntry)) { // show only if the terminology is namespaced
+          this.registerDialog('edit', CEditDialog);
+        }
         treeModel = new TreeModel(
           Object.assign({}, skosUtil.getSemanticProperties(), { rootEntry: entries[0] }));
       });
 
     this.inherited('postCreate', arguments);
     this.registerDialog('create', CCreateDialog);
-    this.registerDialog('edit', CEditDialog);
     this.registerDialog('remove', CRemoveDialog);
+  },
+  // make sure the edit dialog is updated depending on the terminology at work is namespaced or not
+  show() {
+    if (this.conceptSchemeEntry) {
+      const isEditWithoutNamespaceDialog = this.dialogs.edit instanceof EditDialog;
+      if (isConceptSchemeNamespaced(this.conceptSchemeEntry) && isEditWithoutNamespaceDialog) {
+        delete this.dialogs.edit;
+        this.registerDialog('edit', CEditDialog);
+      } else if (!isConceptSchemeNamespaced(this.conceptSchemeEntry) && !isEditWithoutNamespaceDialog) {
+        delete this.dialogs.edit;
+        this.registerDialog('edit', EditDialog);
+      }
+    }
+
+    this.inherited(arguments);
   },
   getTemplate() {
     const templateId = config.terms.conceptTemplateId || '';

@@ -1,8 +1,9 @@
+import skosUtil from 'commons/tree/skos/util';
 import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
-import { namespaces } from 'rdfjson';
+import { camelCase } from 'lodash-es';
+import { isConceptSchemeNamespaced } from 'terms/concept/util';
 import esteConceptNLS from 'terms/nls/esteConcept.nls';
-import skosUtil from 'commons/tree/skos/util';
 import './style.css';
 
 /**
@@ -11,13 +12,12 @@ import './style.css';
  */
 export default (initalVnode) => {
   const {
-    /** @type {store/Entry} */ entry,
+    /** @type {store/Entry} */ conceptEntry,
+    /** @type {store/Entry} */ conceptSchemeEntry,
   } = initalVnode.attrs;
 
   const state = {
-    isEditMode: null,
-    namespace: '',
-    localName: '',
+    isEditMode: false,
   };
   const setState = createSetState(state);
 
@@ -33,30 +33,23 @@ export default (initalVnode) => {
   const updateConceptLocalName = async () => {
     const newNode = initalVnode.dom.getElementsByTagName('input')[0];
     const localName = newNode.value;
+    const namespace = isConceptSchemeNamespaced(conceptSchemeEntry);
 
-    await skosUtil.updateConceptResourceURI(entry, state.namespace + localName);
+    await skosUtil.updateConceptResourceURI(conceptEntry, namespace + localName);
 
     setState({
       isEditMode: false,
-      localName,
     });
   };
 
   return {
-    oncreate() {
-      const { localname: localName, ns: namespace } = namespaces.nsify(entry.getResourceURI());
-      console.log(localName, namespace);
-
-      setState({
-        isEditMode: false,
-        namespace,
-        localName,
-      });
-    },
     view() {
       const esteConcept = i18n.getLocalization(esteConceptNLS);
-      const { isEditMode, namespace, localName } = state;
-      console.log(namespace);
+      const { isEditMode } = state;
+      const namespace = isConceptSchemeNamespaced(conceptSchemeEntry);
+      const { localname } = namespaces.nsify(entry.getResourceURI());
+      const localName = localname ||
+        camelCase(conceptEntry.getMetadata().findFirstValue(conceptEntry.getResourceURI(), 'skos:prefLabel').trim());
 
       return <div class='form-group concept-uri'>
         <label>{esteConcept.termURI}</label>
@@ -72,7 +65,7 @@ export default (initalVnode) => {
           </div> :
           <div className=''>
             <div className=''>
-              <span>{namespace + localName}</span>
+              <span>{conceptEntry.getResourceURI()}</span>
               <a className='edit-action spaExplicitLink' onclick={changeMode}>
                 <i className='fa fa-edit' aria-hidden='true'/>
               </a>

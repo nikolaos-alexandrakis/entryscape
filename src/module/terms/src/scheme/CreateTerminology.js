@@ -1,5 +1,6 @@
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import registry from 'commons/registry';
+import { createEntry } from 'commons/util/storeUtil';
 import { isUri } from 'commons/util/util';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
@@ -89,7 +90,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
       })
       .then(() => {
         // create an entry with a preset resource uri
-        const conceptSchemeEntry = context.newLink(namespace);
+        const conceptSchemeEntry = namespace ? context.newLink(namespace) : createEntry(context, 'skos:ConceptScheme');
         const resourceURI = conceptSchemeEntry.getResourceURI();
         const md = conceptSchemeEntry.getMetadata();
         const lang = renderingContext.getDefaultLanguage();
