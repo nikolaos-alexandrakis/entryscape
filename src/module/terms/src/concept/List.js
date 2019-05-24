@@ -1,4 +1,5 @@
 import CreateDialog from 'commons/list/common/CreateDialog';
+import EditDialog from 'commons/list/common/EditDialog';
 import ETBaseList from 'commons/list/common/ETBaseList';
 import RemoveDialog from 'commons/list/common/RemoveDialog';
 import escoList from 'commons/nls/escoList.nls';
@@ -7,39 +8,16 @@ import ConceptRow from 'commons/tree/skos/ConceptRow';
 import skosUtil from 'commons/tree/skos/util';
 import TreeModel from 'commons/tree/TreeModel';
 import config from 'config';
-
 import declare from 'dojo/_base/declare';
 import { i18n, NLSMixin } from 'esi18n';
+import m from "mithril";
+import ConceptUriComponent from "terms/concept/components/ConceptUri";
 import esteConcept from 'terms/nls/esteConcept.nls';
+import { expandConceptLocalName } from './util';
 
 let treeModel;
 const ns = registry.get('namespaces');
 
-/**
- * TODO @valentino if the inverse relational cache is available for the ConceptScheme then use that instead of the query
- * @param conceptPrefLabel
- * @param {store/Context} context
- * @param {string} conceptSchemeNamespace
- */
-const getUniqueConceptRURI = async (conceptPrefLabel, context, conceptSchemeNamespace) => {
-  const conceptURIs = new Set();
-
-  await registry.getEntryStore().newSolrQuery()
-    .context(context)
-    .rdfType('skos:Concept')
-    .forEach((conceptEntry) => {
-      console.log(conceptEntry);
-      conceptURIs.add(conceptEntry.getResourceURI());
-    });
-
-  let conceptCandidateRURI = `${conceptSchemeNamespace}${conceptPrefLabel}`;
-  if (conceptURIs.has(conceptCandidateRURI)) {
-    // out of luck, find a new namespace uri
-    conceptCandidateRURI = `${conceptSchemeNamespace}${conceptPrefLabel}-${Math.floor(Math.random() * Math.floor(10))};`;
-  }
-
-  return conceptCandidateRURI;
-};
 
 const CCreateDialog = declare(CreateDialog, {
   open() {
@@ -59,21 +37,12 @@ const CCreateDialog = declare(CreateDialog, {
      */
     const context = registry.get('context');
     const schemeEntry = await registry.get('entrystoreutil').getEntryByType('skos:ConceptScheme', context);
-    const schemeMetadata = schemeEntry.getMetadata();
     const schemeRURI = schemeEntry.getResourceURI();
 
     /**
      * get the concept resource URI based on the uriSpace of the conceptScheme if exists
      */
-    let conceptRURI;
-    let namespaceURI = schemeMetadata.findFirstValue(null, 'void:uriSpace');
-    if (namespaceURI) {
-      namespaceURI = namespaceURI.endsWith('/') ? namespaceURI : `${namespaceURI}/`;
-      const conceptName = graph.findFirstValue(null, 'skos:prefLabel');
-      conceptRURI = await getUniqueConceptRURI(conceptName, context, namespaceURI);
-    } else {
-      conceptRURI = this._newEntry.getResourceURI();
-    }
+    const conceptRURI = expandConceptLocalName(this._newEntry, schemeEntry);
 
     /**
      * create metadata graph for new concept scheme
@@ -103,6 +72,21 @@ const CCreateDialog = declare(CreateDialog, {
     registry.get('incrementConceptCount')();
   },
 });
+
+const CEditDialog = declare(EditDialog, {
+  open(params) {
+    this.inherited(arguments);
+
+    const { entry } = params.row;
+    this.conceptURINode = document.createElement('div');
+    this.spaSideDialogBodyNode.insertBefore(this.conceptURINode, this.headerExtensionNode);
+    m.mount(this.conceptURINode, { view: () => m(ConceptUriComponent, { entry }) });
+  },
+  onDialogHide() {
+    this.spaSideDialogBodyNode.removeChild(this.conceptURINode);
+  },
+});
+
 
 const CRemoveDialog = declare([RemoveDialog, NLSMixin], {
   nlsBundles: [{ esteConcept }],
@@ -199,6 +183,7 @@ export default declare([ETBaseList], {
 
     this.inherited('postCreate', arguments);
     this.registerDialog('create', CCreateDialog);
+    this.registerDialog('edit', CEditDialog);
     this.registerDialog('remove', CRemoveDialog);
   },
   getTemplate() {

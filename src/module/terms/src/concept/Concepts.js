@@ -17,6 +17,7 @@ import { i18n, NLSMixin } from 'esi18n';
 import jquery from 'jquery';
 import m from 'mithril';
 import { LevelEditor, renderingContext } from 'rdforms';
+import { expandConceptLocalName } from "terms/concept/util";
 import esteConcept from 'terms/nls/esteConcept.nls';
 import utils from '../utils';
 import ConceptUriComponent from './components/ConceptUri';
@@ -142,7 +143,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this._newC();
     }
   },
-  _newC() {
+  async _newC() {
     const defLang = renderingContext.getDefaultLanguage();
     const termLabel = this._termLabel;
     const label = termLabel.value;
@@ -154,7 +155,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const tree = ct.getTree();
     const model = ct.getTreeModel();
     const selNode = ct.getSelectedNode();
-    const uri = pe.getResourceURI();
+    const ruri = await expandConceptLocalName(pe, this.conceptScheme, label);
+    pe.setResourceURI(ruri);
     const graph = pe.getMetadata();
     let l;
     if (typeof defLang === 'string' && defLang !== '') {
@@ -163,16 +165,15 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
 
     skosUtil.addNewConceptStmts({
       md: graph,
-      conceptRURI: uri,
+      conceptRURI: ruri,
       schemeRURI: this.conceptScheme.getResourceURI(),
       isRoot: !selNode,
       label,
       l,
     });
 
-    model.createEntry(pe, selNode || model.getRootNode(), tree).then(() => {
-      termLabel.value = '';
-    });
+    await model.createEntry(pe, selNode || model.getRootNode(), tree);
+    termLabel.value = '';
   },
   _treeClick() {
     const entry = registry.getEntry();

@@ -2,6 +2,11 @@
 import registry from 'commons/registry';
 import configUtil from './configUtil';
 
+/**
+ * @param context
+ * @param scope
+ * @return {store|PrototypeEntry}
+ */
 export const createEntry = (context, scope) => {
   const c = context || registry.get('context');
   const resourceBase = configUtil.getResourceBase(scope);
