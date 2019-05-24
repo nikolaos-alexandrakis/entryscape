@@ -3,10 +3,26 @@
 .stats__wrapper {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
   h4 {
     font-weight: bold;
+  }
+
+  .chooser__wrapper {
+    display: flex;
+    margin-bottom: 20px;
+
+    .selectize-control.single .selectize-input:after, .selectize-control.multi .selectize-input:after, .selectize-control.single .selectize-input.input-active:after, .selectize-control.multi .selectize-input.input-active:after {
+      position: relative;
+    }
+
+    .selectize-control.single .selectize-input {
+      margin-bottom: 0;
+      margin-top: 5px;
+      margin-left: 15px;
+    }
   }
 
   .flex {
@@ -15,7 +31,14 @@
   }
 
   .data__wrapper {
-    width: 75%;
+    /*     width: 40%;
+     */
+    display: flex;
+    flex-direction: column;
+
+    .pagination {
+      align-self: center;
+    }
 
     /* .stats__row__wrapper--file{
   .fa {
@@ -26,8 +49,8 @@
     .stats__row__wrapper--API {
       .fas {
         margin: 0 10px;
-        padding-right: 10px
-      }
+/*         padding-right: 10px
+ */      }
     }
 
 
@@ -44,15 +67,21 @@
 }
 
 .visualization__wrapper {
-  width: 40%;
+  margin: 10px 0;
+
+  .visualization__chart {
+    width: 100%;
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+
 }
 
-.visualization__chart {
-  width: 100%;
-}
 
 .stats__title {
-  margin: 50px 0;
+  margin: 40px 0;
 
   h3 {
     font-size: 20px;
@@ -60,7 +89,7 @@
 }
 
 // HACK for the datepicker
-.dtp>.dtp-content>.dtp-date-view>header.dtp-header {
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
   background-color: $main-colour;
 }
 

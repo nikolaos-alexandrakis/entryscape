@@ -25,7 +25,7 @@ export default declare([TitleDialog], {
     this.entryType.show(true, true, false);
     this.inherited(arguments);
     this.callback = params;
-    const b = this.merge.NLSBundles.esreMerge;
+    const b = this.merge.NLSLocalized.esreMerge;
     this.updateLocaleStringsExplicit(b.loadTitle, b.loadButton, b.loadButtonTitle);
   },
   footerButtonAction() {

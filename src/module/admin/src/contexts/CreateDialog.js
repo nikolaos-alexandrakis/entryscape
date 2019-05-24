@@ -49,7 +49,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
           if (data.length > 0) {
             this.newNameIsOk = false;
             this.contextnameError.style.display = '';
-            this.contextnameError.innerHTML = this.NLSBundle0.contextnameTaken;
+            this.contextnameError.innerHTML = this.NLSLocalized0.contextnameTaken;
             // domClass.add(this.createContextButton, "disabled");
             this.dialog.lockFooterButton();
           } else {

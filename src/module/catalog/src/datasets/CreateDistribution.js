@@ -15,9 +15,9 @@ const DistributionEntryType = declare([EntryType], {
   nlsBundles: [{ escoEntryType }, { escaDataset }],
   localeChange() {
     this.inherited(arguments);
-    this.__fileOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.fileUploadDistribution;
-    this.__linkOptionLabelNLS.innerHTML = this.NLSBundles.escaDataset.accessURIDistribution;
-    this.__linkLabel.innerHTML = this.NLSBundles.escaDataset.accessURIDistribution;
+    this.__fileOptionLabelNLS.innerHTML = this.NLSLocalized.escaDataset.fileUploadDistribution;
+    this.__linkOptionLabelNLS.innerHTML = this.NLSLocalized.escaDataset.accessURIDistribution;
+    this.__linkLabel.innerHTML = this.NLSLocalized.escaDataset.accessURIDistribution;
   },
   fileOption(ev) {
     if (config.catalog && config.catalog.disallowFileuploadDistributionDialog) {
@@ -67,8 +67,8 @@ export default declare([RDFormsEditDialog], {
     this.editor.render();
   },
   updateGenericCreateNLS() {
-    this.title = this.NLSBundles.escaDataset[this.nlsHeaderTitle];
-    this.doneLabel = this.NLSBundles.escaDataset[this.nlsFooterButtonLabel];
+    this.title = this.NLSLocalized.escaDataset[this.nlsHeaderTitle];
+    this.doneLabel = this.NLSLocalized.escaDataset[this.nlsFooterButtonLabel];
     this.updateTitleAndButton();
   },
   open(params) {
@@ -112,7 +112,7 @@ export default declare([RDFormsEditDialog], {
           return distributionEntry.refresh();
         });
       }, () => {
-        throw this.NLSBundles.escaDataset.createDistributionErrorMessage;
+        throw this.NLSLocalized.escaDataset.createDistributionErrorMessage;
       });
     const distResourceURI = pDistributionEntry.getResourceURI();
     if (this.fileOrLink) {
@@ -121,7 +121,19 @@ export default declare([RDFormsEditDialog], {
         const md = pFileEntry.getMetadata();
         const pfileURI = pFileEntry.getResourceURI();
         md.add(pfileURI, 'rdf:type', 'esterms:File');
-        md.addL(pfileURI, 'dcterms:title', this.fileOrLink.getValue());
+        const fileName = this.fileOrLink.getValue();
+        md.addL(pfileURI, 'dcterms:title', fileName);
+
+        /**
+         * Fixes browsers' issue when a  default application has not been assigned to a mime type.
+         * We care fixing this only for csv as it is vital to creating APIs
+         */
+        let isCSV = false;
+        if (fileName.endsWith('.csv')) {
+          md.addL(pfileURI, 'dcterms:format', 'text/csv');
+          isCSV = true;
+        }
+
         return pFileEntry.commit().then(fileEntry => fileEntry.getResource(true)
           .putFile(this.fileOrLink.getFileInputElement())
           .then(() => fileEntry.refresh().then(() => {
@@ -131,7 +143,11 @@ export default declare([RDFormsEditDialog], {
             const format = fileEntry.getEntryInfo().getFormat();
             const manualFormatList = graph.find(distResourceURI, 'dcterms:format');
             if (typeof format !== 'undefined' && manualFormatList.length === 0) {
-              graph.addL(distResourceURI, 'dcterms:format', format);
+              if (isCSV) {
+                graph.addL(distResourceURI, 'dcterms:format', 'text/csv');
+              } else {
+                graph.addL(distResourceURI, 'dcterms:format', format);
+              }
             }
             return createAndConnect();
           })));

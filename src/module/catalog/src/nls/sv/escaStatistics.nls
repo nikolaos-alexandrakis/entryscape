@@ -21,5 +21,15 @@
   "rowHeaderFile": "Antal nedladdningar",
   "rowHeaderAPI": "Antal API-anrop",
   "datasetPrefix": "Tillhör datamängd:",
-  "distributionPrefix": "Tillhör distribution:"
+  "distributionPrefix": "Tillhör distribution:",
+  "statsDialogTimeRange": "Tidsintervall",
+  "statsDialogTitle": "Distributionsstatistik",
+  "statsDialogFooter": "Stänga",
+  "statsCatalogOverviewTitle": "Statistik för de senaste 7 dagarna",
+  "statsCatalogOverviewChartLabel": "Filnedladdningar och API-användning",
+  "statsCatalogOverviewChartFileLabel": "Filnedladdningar",
+  "statsCatalogOverviewChartAPILabel": "API-anrop",
+  "statsCatalogOverviewDoughnutFiles": "Filer",
+  "statsCatalogOverviewDoughnutAPI": "API",
+  "statsChartPlaceholder": "Det finns ingen åtkomststatistik för offentliga filer och API:er än"
 }

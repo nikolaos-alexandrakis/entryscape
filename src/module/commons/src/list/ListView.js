@@ -430,7 +430,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
       }
     }
     if (this.listSize === 0) {
-      this.showPlaceholder(false);
+      this.showPlaceholder(this.searchTerm != null && this.searchTerm !== '');
       if (this.includeMassOperations === true) {
         this.selectallCheck.setAttribute('disabled', 'disabled');
         this.selectAll.style.cursor = 'not-allowed';

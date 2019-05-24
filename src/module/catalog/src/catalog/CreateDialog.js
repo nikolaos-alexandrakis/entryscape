@@ -61,7 +61,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const publisher = this.agentName.value;
     const store = registry.get('entrystore');
     if ((!createWithoutPublisher && publisher === '') || desc === '' || name === '') {
-      return this.NLSBundles.escaCatalog.insufficientInfoToCreateCatalog;
+      return this.NLSLocalized.escaCatalog.insufficientInfoToCreateCatalog;
     }
     let context;
     return store.createGroupAndContext()

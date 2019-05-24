@@ -41,7 +41,7 @@ export default declare([TitleDialog.ContentNLS], {
         sourceUrl: '',
       } : {};
       this.formComponent.setFormData({
-        bundle: this.NLSBundle0,
+        bundle: this.NLSLocalized0,
         isOwnOrg: !(isAdmin || inAdminGroup),
         isOwnOrgEnabled: inAdminGroup,
         isPSIOrg: isAdmin || inAdminGroup,
@@ -59,7 +59,7 @@ export default declare([TitleDialog.ContentNLS], {
       // create components and mount
       this.formComponent = new PipelineFormComponent({
         id: this.id,
-        bundle: this.NLSBundle0,
+        bundle: this.NLSLocalized0,
         isOwnOrg: !(isAdmin || inAdminGroup),
         isOwnOrgEnabled: inAdminGroup,
         isPSIOrg: isAdmin || inAdminGroup,
@@ -196,7 +196,7 @@ export default declare([TitleDialog.ContentNLS], {
    * @return {*}
    */
   footerButtonAction() {
-    const bundle = this.NLSBundle0;
+    const bundle = this.NLSLocalized0;
     const entrystore = registry.get('entrystore');
     const data = this.getFormData();
 

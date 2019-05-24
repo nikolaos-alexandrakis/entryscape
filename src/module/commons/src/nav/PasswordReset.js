@@ -30,8 +30,8 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     };
     return es.getREST().post(`${es.getBaseURI()}auth/pwreset`, JSON.stringify(pwResetInfo))
       .then(() => registry.get('dialogs')
-        .acknowledge(this.NLSBundle0.passwordResetConfirmationMessage), () => {
-        throw this.NLSBundle0.passwordResetErrorMessage;
+        .acknowledge(this.NLSLocalized0.passwordResetConfirmationMessage), () => {
+        throw this.NLSLocalized0.passwordResetErrorMessage;
       });
   },
   show() {
@@ -83,7 +83,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
   validateEmail() {
     if (this.pwrUsername.value.length > 0 &&
       isFunction(this.pwrUsername.checkValidity) && !this.pwrUsername.checkValidity()) {
-      this.setStatus(this.emailStatus, this.NLSBundle0.signupInvalidEmail);
+      this.setStatus(this.emailStatus, this.NLSLocalized0.signupInvalidEmail);
     } else {
       this.setStatus(this.emailStatus);
     }

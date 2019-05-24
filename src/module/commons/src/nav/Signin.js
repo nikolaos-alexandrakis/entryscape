@@ -66,7 +66,7 @@ const SigninMixin = declare([PublicView], {
   },
   footerButtonAction() {
     if (!this.isFormValid(this.signinForm)) {
-      return this.NLSBundle0.signinUnauthorized;
+      return this.NLSLocalized0.signinUnauthorized;
     }
     const esUser = this.username.value;
     const esPassword = this.password.value;
@@ -79,11 +79,11 @@ const SigninMixin = declare([PublicView], {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          throw Error(this.NLSBundle0.signinUnauthorized);
+          throw Error(this.NLSLocalized0.signinUnauthorized);
         } else if (err.response.status === 403) {
           throw Error(i18n.localize(esadUser, 'userStatusDisabled'));
         } else {
-          throw Error(this.NLSBundle0.signinError);
+          throw Error(this.NLSLocalized0.signinError);
         }
       });
   },
@@ -134,7 +134,7 @@ const Signin = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, SigninMixi
       }
     };
 
-    if (config.site && registry.getSiteConfig().signup !== false) {
+    if (config.get('site.signup', true)) {
       this.showSignupButton.style.display = '';
     }
 
@@ -222,7 +222,7 @@ Signin.Dialog = declare([TitleDialog.ContentNLS, SigninMixin], {
     };
     this.domNode.classList.add('signindialog');
     // TODO remove site.signup in next version, this is for compatability with old configs
-    if (registry.getSiteConfig().signup !== false && config.entrystore.signup !== false) {
+    if (config.get('site.signup', true) && config.get('entrystore.signup', true)) {
       this.showSignupButton.style.display = '';
     }
 

@@ -26,8 +26,8 @@ export default {
             // eslint-disable-next-line max-len
             m(`a[aria-controls="collapse-${id}"][aria-expanded="true"][data-parent="#accordion"][data-toggle="collapse"][data-target="#collapse-${id}"][role="button"]`,
               [
-                m('i.float-left.fas.fa-fw.fa-chevron-down'),
-                m('i.float-left.fas.fa-fw.fa-chevron-right'),
+                m('i.pull-left.fas.fa-fw.fa-chevron-down'),
+                m('i.pull-left.fas.fa-fw.fa-chevron-up'),
                 m('span', title),
                 m('span.card__headerDate', date),
               ],

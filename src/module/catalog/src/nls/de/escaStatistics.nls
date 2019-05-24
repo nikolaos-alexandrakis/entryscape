@@ -21,5 +21,15 @@
   "rowHeaderFile": "Anzahl der Downloads",
   "rowHeaderAPI": "Anzahl der API-Aufrufe",
   "datasetPrefix": "Gehört zu Datensatz:",
-  "distributionPrefix": "Gehört zu Distribution:"
+  "distributionPrefix": "Gehört zu Distribution:",
+  "statsDialogTimeRange": "Zeitspanne",
+  "statsDialogTitle": "Statistik der Distribution",
+  "statsDialogFooter": "Schließen",
+  "statsCatalogOverviewTitle": "Statistik der letzten 7 Tage",
+  "statsCatalogOverviewChartLabel": "Dateidownloads und API-Nutzung",
+  "statsCatalogOverviewChartFileLabel": "Dateidownload",
+  "statsCatalogOverviewChartAPILabel": "API-Aufrufe",
+  "statsCatalogOverviewDoughnutFiles": "Dateien",
+  "statsCatalogOverviewDoughnutAPI": "API",
+  "statsChartPlaceholder": "Es ist noch keine Zugriffsstatistik für öffentliche Dateien und APIs vorhanden"
 }

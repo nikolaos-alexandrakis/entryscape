@@ -1,28 +1,29 @@
-import m from 'mithril';
-import config from 'config';
-import registry from 'commons/registry';
-import { i18n } from 'esi18n';
-import stamp from 'dojo/date/stamp';
-import declare from 'dojo/_base/declare';
-import DOMUtil from 'commons/util/htmlUtil';
-import Lookup from 'commons/types/Lookup';
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import ListDialogMixin from 'commons/list/common/ListDialogMixin';
-import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
 import ApiInfoDialog from 'catalog/datasets/ApiInfoDialog';
-import ManageFilesDialog from 'catalog/datasets/ManageFiles';
 import FileReplaceDialog from 'catalog/datasets/FileReplaceDialog';
 import GenerateAPI from 'catalog/datasets/GenerateAPI';
-import EntryType from 'commons/create/EntryType';
-import typeIndex from 'commons/create/typeIndex';
+import ManageFilesDialog from 'catalog/datasets/ManageFiles';
+import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
+import StatisticsDialog from 'catalog/datasets/StatisticsDialog';
 import {
-  isUploadedDistribution,
-  isFileDistributionWithOutAPI,
-  isAPIDistribution,
   isAccessDistribution,
+  isAPIDistribution,
+  isFileDistributionWithOutAPI,
+  isUploadedDistribution,
+  getDistributionFileEntries,
 } from 'catalog/datasets/utils/distributionUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import escaFilesListNLS from 'catalog/nls/escaFilesList.nls';
+import EntryType from 'commons/create/EntryType';
+import typeIndex from 'commons/create/typeIndex';
+import ListDialogMixin from 'commons/list/common/ListDialogMixin';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import registry from 'commons/registry';
+import Lookup from 'commons/types/Lookup';
+import DOMUtil from 'commons/util/htmlUtil';
+import declare from 'dojo/_base/declare';
+import stamp from 'dojo/date/stamp';
+import { i18n } from 'esi18n';
+import m from 'mithril';
 
 export default (distribution, dataset, wrapperFunction) => {
   // STUBBED DIALOGS
@@ -193,8 +194,7 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  const openNewTab = (distributionEntry) => {
-    const resURI = distributionEntry.getResourceURI();
+  const getUploadedFileDownloadUrl = (distributionEntry) => {
     const md = distributionEntry.getMetadata();
     const subj = distributionEntry.getResourceURI();
     const accessURI = md.findFirstValue(subj, registry.get('namespaces').expand('dcat:accessURL'));
@@ -209,13 +209,23 @@ export default (distribution, dataset, wrapperFunction) => {
       uri = accessURI;
     }
 
+    return uri;
+  };
+
+  /**
+   *
+   * @param {store/Entry} distributionEntry
+   */
+  const openNewTab = (distributionEntry) => {
+    const uri = getUploadedFileDownloadUrl(distributionEntry);
     window.open(uri, '_blank');
   };
   // END UTILS
 
   // ACTIONS
-  const editDialog = new EditDistributionDialog({}, DOMUtil.create('div'));
+
   const editDistribution = (onDone) => {
+    const editDialog = new EditDistributionDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
     editDialog.open({ row: { entry: distribution }, onDone });
   };
@@ -229,8 +239,9 @@ export default (distribution, dataset, wrapperFunction) => {
     openNewTab(distribution);
   };
 
-  const apiInfoDialog = new ApiInfoDialog({}, DOMUtil.create('div'));
+
   const openApiInfo = () => {
+    const apiInfoDialog = new ApiInfoDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     getEtlEntry(distribution).then((etlEntry) => {
       apiInfoDialog.open({ etlEntry, apiDistributionEntry: distribution });
     });
@@ -273,7 +284,8 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  // @scazan Make some modifications to the class itself before instantiation. I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
+  // @scazan Make some modifications to the class itself before instantiation.
+  // I pulled this logic in from the previous version so no 100% sure of the need to do it pre-instantiation
   const dv = RevisionsDialog;
   if (isUploadedDistribution(distribution, registry.get('entrystore'))) {
     dv.excludeProperties = ['dcat:accessURL', 'dcat:downloadURL'];
@@ -284,8 +296,8 @@ export default (distribution, dataset, wrapperFunction) => {
   }
   dv.excludeProperties = dv.excludeProperties.map(property => registry.get('namespaces').expand(property));
 
-  const revisionsDialog = new RevisionsDialog({}, DOMUtil.create('div'));
   const openRevisions = async () => {
+    const revisionsDialog = new RevisionsDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     const template = await Lookup.getTemplate(distribution);
     revisionsDialog.open({
       row: { entry: distribution },
@@ -326,8 +338,8 @@ export default (distribution, dataset, wrapperFunction) => {
     }
   };
 
-  const addFileDialog = new AddFileDialog({}, DOMUtil.create('div'));
   const openAddFile = () => {
+    const addFileDialog = new AddFileDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     const escaFilesList = i18n.getLocalization(escaFilesListNLS);
     addFileDialog.open({
       list: {
@@ -349,8 +361,8 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
-  const manageFilesDialog = new ManageFilesDialog({}, DOMUtil.create('div'));
   const openManageFiles = (fileEntryURIs) => {
+    const manageFilesDialog = new ManageFilesDialog({ destroyOnHide: true }, DOMUtil.create('div'));
     manageFilesDialog.open({
       entry: distribution,
       row: { entry: distribution },
@@ -360,17 +372,32 @@ export default (distribution, dataset, wrapperFunction) => {
     });
   };
 
+  const openStatistics = async () => {
+    const showStatisticsDialog = new StatisticsDialog();
+    let entries;
+    if (isAPIDistribution(distribution)) {
+      entries = [distribution];
+    } else {
+      entries = await getDistributionFileEntries(distribution);
+    }
+    showStatisticsDialog.open({
+      entries,
+    });
+  };
+
   /**
    * Open the replace file dialog
    *
    * @returns {undefined}
    */
-  const dom = DOMUtil.create('div');
-  const replaceFileDialog = new FileReplaceDialog({}, dom);
+
   const openReplaceFile = (onDone, fileEntryURIs) => {
+    const dom = DOMUtil.create('div');
+    const replaceFileDialog = new FileReplaceDialog({ destroyOnHide: true }, dom);
     const md = distribution.getMetadata();
     const entryStoreUtil = registry.get('entrystoreutil');
     const downloadURI = md.findFirstValue(null, registry.get('namespaces').expand('dcat:downloadURL'));
+
     entryStoreUtil.getEntryByResourceURI(downloadURI).then((fileEntry) => {
       replaceFileDialog.open({
         entry: fileEntry,
@@ -384,6 +411,7 @@ export default (distribution, dataset, wrapperFunction) => {
         datasetEntry: dataset,
       });
     });
+
   };
 
   const actions = {
@@ -396,12 +424,15 @@ export default (distribution, dataset, wrapperFunction) => {
     remove,
     openAddFile,
     openManageFiles,
+    openStatistics,
     openReplaceFile,
   };
 
   if (wrapperFunction) {
     Object.entries(actions)
-      .forEach((nameAction) => actions[nameAction[0]] = wrapperFunction(nameAction[1]));
+      .forEach((nameAction) => {
+        actions[nameAction[0]] = wrapperFunction(nameAction[1]);
+      });
   }
 
   return actions;

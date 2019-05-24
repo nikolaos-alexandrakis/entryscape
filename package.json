@@ -1,6 +1,6 @@
 {
   "name": "entryscape",
-  "version": "2.3.0-SNAPSHOT",
+  "version": "2.4.0-SNAPSHOT",
   "license": "AGPL-3.0-only",
   "private": true,
   "ignore": [
@@ -13,7 +13,12 @@
     "bloodhound-js": "^1.2.3",
     "bootstrap": "^4.3.1",
     "bootstrap-material-datetimepicker": "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack",
+<<<<<<< HEAD
     "bootstrap-material-design": "^4.1.1",
+=======
+    "bootstrap-material-design": "https://bitbucket.org/metasolutions/bootstrap-material-design.git#amd",
+    "chart.js": "^2.8.0",
+>>>>>>> develop
     "chartist": "https://bitbucket.org/metasolutions/chartist-js.git#develop",
     "chartist-plugin-legend": "~0.6.2",
     "dijit": "^1.14.2",
@@ -77,6 +82,7 @@
     "handlebars-loader": "^1.7.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "ifdef-loader": "^2.1.1",
     "imports-loader": "^0.8.0",
     "less": "^3.8.1",
     "mini-css-extract-plugin": "^0.4.1",

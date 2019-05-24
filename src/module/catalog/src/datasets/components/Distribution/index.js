@@ -62,7 +62,11 @@ export default (vnode) => {
   };
 
   const editDistribution = (e) => {
-    actions.editDistribution(() => m.redraw());
+    const target = e.target;
+    const isDropdownClick = vnode.dom.querySelector('.ESDropdown').contains(target);
+    if (!isDropdownClick) {
+      actions.editDistribution(() => m.redraw());
+    }
   };
 
   return {
@@ -90,7 +94,7 @@ export default (vnode) => {
             <div class="flex--sb">
               <p class="distribution__date">{modificationDate.short}</p>
               <span
-                class={`fa fa-exclamation-triangle ${duplicateFileTypeClass}`}
+                class={`fas fa-exclamation-triangle ${duplicateFileTypeClass}`}
                 title={escaDataset.sameMimeTypeDistributions}
               ></span>
               <DistributionActions

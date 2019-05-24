@@ -281,7 +281,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   localeChange() {
     this.inherited(arguments);
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     if (bundle) {
       this.tasks = cloneDeep(initialTasksState);
       this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
@@ -354,7 +354,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
         return data;
       }, (err) => {
-        const bundle = this.NLSBundles.esteImport;
+        const bundle = this.NLSLocalized.esteImport;
         let message;
         if (err.response.status === 504) {
           message = bundle.noResponseFromLink;
@@ -366,7 +366,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       });
   },
   _clear() {
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     if (bundle) {
       this.tasks = cloneDeep(initialTasksState);
       this.tasks.upload.name = bundle[initialTasksState.upload.nlsTaskName];
@@ -433,7 +433,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    * @return {String}
    */
   getConceptSchemeURI(graph) {
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     const stmts = graph.find(null, 'rdf:type', 'skos:ConceptScheme');
     if (stmts.length !== 1) {
       throw Error(bundle.noConceptSchemeInSKOS);
@@ -447,7 +447,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
    * @return graph
    */
   convertDataToGraph(data) {
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
     const report = converters.detect(data);
     const graph = report.graph;
     if (graph) {
@@ -468,7 +468,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   showFooterResult(message = null) {
     const modalFooter = this.progressDialog.getModalFooter();
     const onclick = this.progressDialog.hide.bind(this.progressDialog);
-    const bundle = this.NLSBundles.esteImport;
+    const bundle = this.NLSLocalized.esteImport;
 
     m.render(modalFooter, m(Row, {
       classNames: ['spaSideDialogFooter'],
@@ -523,7 +523,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     });
   },
   getConceptsImportedMessage(importedConcepts, totalConcepts) {
-    return i18n.renderNLSTemplate(this.NLSBundles.esteImport.nlsNumberOfConceptsImported, {
+    return i18n.renderNLSTemplate(this.NLSLocalized.esteImport.nlsNumberOfConceptsImported, {
       importedConcepts,
       totalConcepts,
     });

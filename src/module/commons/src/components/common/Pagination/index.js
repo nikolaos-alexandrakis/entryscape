@@ -16,7 +16,7 @@ const onChangePage = (callback, e) => {
 };
 
 /**
- * Calculate the pagination range
+ * Calculate the pagination range. Note that the page range is 0-indexed but we need to show entries from 1
  *
  * @param currentPage
  * @param pageSize
@@ -27,7 +27,7 @@ const getPageRange = (currentPage, pageSize, totalCount) => {
   const fromCount = !currentPage ? 0 : currentPage * pageSize;
   const toCount = (fromCount + pageSize) < totalCount ? fromCount + pageSize : totalCount;
 
-  return { fromCount, toCount };
+  return { fromCount: fromCount + 1, toCount };
 };
 
 export default () => ({
@@ -50,7 +50,7 @@ export default () => ({
       <PaginationArrow
         disabled={!currentPage}
         className={!currentPage ? 'disabled' : ''}
-        onClick={this.onChangePage}
+        onclick={this.onChangePage}
         page={0}
         icon="fa-angle-double-left"
       />

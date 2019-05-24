@@ -307,8 +307,8 @@ body {
     padding-top: 10px;
     z-index: 999;
     background: #F7F7F7;
-    height: 40px;
-}
+/*     height: 40px;
+ */}
 
 .main_container .bottom_footer .bottom_logo {
     display: block;
@@ -323,6 +323,10 @@ body {
 
 .no-padding {
     padding: 0 !important
+}
+
+.page-header {
+  border-bottom: none;
 }
 
 .page-title {
@@ -537,7 +541,7 @@ table.no-margin .progress {
 
 .nav.side-menu > li.current-page,
 .nav.side-menu > li.active {
-    border-right: 5px solid $main-colour-hover;
+    border-right: 5px solid $main-colour;
 }
 
 .nav li.current-page {

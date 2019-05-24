@@ -2,52 +2,35 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { i18n } from 'esi18n';
 
 /**
- * @todo @valentino
- *  - make map?
+ * @todo make map?
  * @return {*[]}
  */
-const getTimeRanges = (custom = null) => {
+const getTimeRanges = () => {
   const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
-  let customName = escaStatisticsNLS.timeRangeCustom;
-  if (custom) {
-    if (custom.startDate.year() === custom.endDate.year()) { // time range in same year
-      customName = `${custom.startDate.format('MMM DD')} - ${custom.endDate.format('MMM DD')}`;
-    } else {
-      customName = `${custom.startDate.format('MMM DD, YYYY')} - ${custom.endDate.format('MMM DD, YYYY')}`;
-    }
-  }
   return [
     {
-      id: 'today',
-      name: escaStatisticsNLS.timeRangeToday,
+      value: 'today',
+      label: escaStatisticsNLS.timeRangeToday,
     },
     {
-      id: 'yesterday',
-      name: escaStatisticsNLS.timeRangeYesterday,
+      value: 'yesterday',
+      label: escaStatisticsNLS.timeRangeYesterday,
     },
     {
-      id: 'this-month',
-      name: escaStatisticsNLS.timeRangeThisMonth,
+      value: 'this-month',
+      label: escaStatisticsNLS.timeRangeThisMonth,
     },
     {
-      id: 'last-month',
-      name: escaStatisticsNLS.timeRangeLastMonth,
+      value: 'last-month',
+      label: escaStatisticsNLS.timeRangeLastMonth,
     },
     {
-      id: 'this-year',
-      name: escaStatisticsNLS.timeRangeThisYear,
+      value: 'this-year',
+      label: escaStatisticsNLS.timeRangeThisYear,
     },
     {
-      id: 'last-year',
-      name: escaStatisticsNLS.timeRangeLastYear,
-    },
-    { // denotes li.divider
-      id: '-',
-      name: '-',
-    },
-    {
-      id: 'custom',
-      name: customName,
+      value: 'last-year',
+      label: escaStatisticsNLS.timeRangeLastYear,
     },
   ];
 };
@@ -135,7 +118,7 @@ const normalizeChartData = (selected, data) => {
       break;
     case 'last-month':
       date.setMonth(date.getMonth() - 1); // update date
-      max = daysInMonth(date.getMonth() - 1, date.getFullYear());
+      max = daysInMonth(date.getMonth(), date.getFullYear());
       day = date.getDate();
       month = date.getMonth();
       year = date.getFullYear();

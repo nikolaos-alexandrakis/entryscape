@@ -176,6 +176,12 @@ const getAggregateFilters = (timeRange) => {
 
 /**
  *
+ * @deprecated The API infrastructure has a result limit of 100 which makes aggregation of results inherently
+ * not reliable. E.g a distribution might be in one result set but be missing from another
+ * because it's not in the top 100
+ *
+ * This was used for custom time range statistics
+ *
  * @param contextId
  * @param type
  * @param customRange

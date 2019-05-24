@@ -113,5 +113,7 @@
   "cannotRemoveDatasetPublishedTitle": "Denna datamängd är för närvarande publicerad och kan därför inte tas bort",
   "psiDataset": "PSI",
   "notPsiDataset": "Icke-PSI",
-  "notPsiDatasetTitle": "Denna datamängd är inte del av PSI (Public Sector Information) förteckningen och kommer inte skördas av andra portaler"
+  "notPsiDatasetTitle": "Denna datamängd är inte del av PSI (Public Sector Information) förteckningen och kommer inte skördas av andra portaler",
+  "seeStatistics": "Statistik",
+  "seeStatisticsTitle": "Åtkomst till statistik"
 }

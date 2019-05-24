@@ -113,5 +113,7 @@
   "cannotRemoveDatasetPublishedTitle": "Dieser Datensatz ist derzeit veröffentlicht und kann daher nicht entfernt werden",
   "psiDataset": "PSI",
   "notPsiDataset": "Nicht PSI",
-  "notPsiDatasetTitle": "Dieser Datensatz ist nicht Teil des PSI (Public Sector Information) Verzeichnisses und wird nicht von anderen Portalen erfasst"
+  "notPsiDatasetTitle": "Dieser Datensatz ist nicht Teil des PSI (Public Sector Information) Verzeichnisses und wird nicht von anderen Portalen erfasst",
+  "seeStatistics": "Statistik",
+  "seeStatisticsTitle": "Auf Statistiken zugreifen"
 }

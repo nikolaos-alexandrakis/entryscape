@@ -45,8 +45,8 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.updateLocaleStrings();
   },
   updateLocaleStrings() {
-    if (this.NLSBundle0) {
-      this.creationDateTitle = this.NLSBundle0.creationDateTitle;
+    if (this.NLSLocalized0) {
+      this.creationDateTitle = this.NLSLocalized0.creationDateTitle;
 
       const tStr = template(this.creationDateTitle)({ date: this.cDateFull });
 
@@ -54,7 +54,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       if (this.noOfReplies > 0) {
         this.__replies.style.display = '';
         this.__replyIcon.style.display = '';
-        this.__replies.innerHTML = i18n.renderNLSTemplate(this.NLSBundle0.reply, this.noOfReplies);
+        this.__replies.innerHTML = i18n.renderNLSTemplate(this.NLSLocalized0.reply, this.noOfReplies);
       } else {
         this.__replies.style.display = 'none';
         this.__replyIcon.style.display = 'none';
@@ -124,7 +124,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   deleteComment() {
     const dialogs = registry.get('dialogs');
-    const confirmMessage = i18n.renderNLSTemplate(this.NLSBundle0.removeComment, this.noOfReplies);
+    const confirmMessage = i18n.renderNLSTemplate(this.NLSLocalized0.removeComment, this.noOfReplies);
     dialogs.confirm(confirmMessage, null, null, (confirm) => {
       if (confirm) {
         comments.deleteCommentAndReplies(this.entry)
