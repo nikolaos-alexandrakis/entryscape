@@ -697,6 +697,7 @@ table.no-margin .progress {
 }
 
 .nav.spaBreadcrumbs.breadcrumbs {
+    flex-direction: row;
     margin: 13px 0px 0px 0px;
     padding: 0px;
     font-size: 14px;
@@ -720,7 +721,8 @@ table.no-margin .progress {
 }
 
 .spaTwoMenu .nav.spaBreadcrumbs.breadcrumbs.navbar-nav > li {
-    float: initial;
+   display:flex;
+   align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -733,7 +735,8 @@ table.no-margin .progress {
 }
 
 .spaBreadcrumbs.breadcrumbs > li > * {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     padding: 5px 15px;
     border-radius: 0;
     color: #535353;
