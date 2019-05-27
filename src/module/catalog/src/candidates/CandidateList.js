@@ -10,8 +10,10 @@ import escaCandidates from 'catalog/nls/escaCandidates.nls';
 import config from 'config';
 import declare from 'dojo/_base/declare';
 import ListView from '../utils/ListView';
+import MithrilView from 'commons/view/MithrilView';
 import CandidateRow from './CandidateRow';
 import UpgradeDialog from './UpgradeDialog';
+import CandidateOverview from './views/Overview';
 
 const ns = registry.get('namespaces');
 
@@ -61,7 +63,17 @@ const CommentDialog2 = declare([CommentDialog], {
   },
 });
 
-export default declare([ETBaseList], {
+export default declare(MithrilView, {
+  mainComponent: () => {
+    return {
+      view() {
+        return <CandidateOverview />
+      },
+    };
+  },
+});
+
+export const view = declare([ETBaseList], {
   includeCreateButton: true,
   includeInfoButton: false,
   includeEditButton: true,
