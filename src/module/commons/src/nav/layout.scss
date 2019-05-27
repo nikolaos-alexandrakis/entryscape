@@ -106,9 +106,9 @@ body {
     width: 230px;
     padding: 0;
     position: absolute;
-    display: -ms-flexbox;
     display: flex;
-    z-index: 1
+    z-index: 1;
+    left:0;
 }
 
 .nav-md .container.body .left_col.menu_fixed {
@@ -696,7 +696,7 @@ table.no-margin .progress {
     background: transparent !important;
 }
 
-.nav.spaBreadcrumbs.breadcrumb {
+.nav.spaBreadcrumbs.breadcrumbs {
     margin: 13px 0px 0px 0px;
     padding: 0px;
     font-size: 14px;
@@ -707,32 +707,32 @@ table.no-margin .progress {
     color: #535353;
 }
 
-.spaTwoMenu .nav.spaBreadcrumbs.breadcrumb {
+.spaTwoMenu .nav.spaBreadcrumbs.breadcrumbs {
     float: left;
     margin-top: 5px;
     padding-top: 5px;
     background-color: inherit;
 }
 
-.spaTwoMenu .nav.spaBreadcrumbs.breadcrumb a {
+.spaTwoMenu .nav.spaBreadcrumbs.breadcrumb-item a {
     line-height: normal;
     color: #535353;
 }
 
-.spaTwoMenu .nav.spaBreadcrumbs.breadcrumb.navbar-nav > li {
+.spaTwoMenu .nav.spaBreadcrumbs.breadcrumbs.navbar-nav > li {
     float: initial;
 }
 
 @media (min-width: 768px) {
     body.spaTwoMenu .spaControl.navbar-nav,
-    body.spaTwoMenu .spaBreadcrumbs.breadcrumb {
+    body.spaTwoMenu .spaBreadcrumbs.breadcrumb-item {
         margin-left: 210px;
         margin-top: 3px;
         margin-bottom: 8px;
     }
 }
 
-.spaBreadcrumbs.breadcrumb > li > * {
+.spaBreadcrumbs.breadcrumbs > li > * {
     display: inline-block;
     padding: 5px 15px;
     border-radius: 0;
@@ -740,18 +740,18 @@ table.no-margin .progress {
     height: 32px;
 }
 
-.spaBreadcrumbs.breadcrumb > li > a:hover {
+.spaBreadcrumbs.breadcrumb-item > li > a:hover {
     color: black;
     text-decoration: none;
     background-color: #e1e1e1;
 }
 
-.spaBreadcrumbs.breadcrumb > .active > span {
+.spaBreadcrumbs.breadcrumb-item > .active > span {
     color: black;
     background-color: #e1e1e1 !important;
 }
 
-.spaBreadcrumbs.breadcrumb > .crumbPath > span {
+.spaBreadcrumbs.breadcrumb-item > .crumbPath > span {
     cursor: default;
 }
 

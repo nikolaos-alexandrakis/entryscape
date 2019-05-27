@@ -1,5 +1,5 @@
-import 'bootstrap-material-design/dist/js/material';
-import 'bootstrap-material-design/dist/js/ripples';
+//import 'bootstrap-material-design/dist/js/material';
+//import 'bootstrap-material-design/dist/js/ripples';
 import jquery from 'jquery';
 import PubSub from 'pubsub-js';
 import util from './util';
