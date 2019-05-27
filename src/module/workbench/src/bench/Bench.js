@@ -180,7 +180,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
       }
       const a = htmlUtil.create('a', { href: sm.getViewPath(view, params) }, node);
       const title = registry.get('localize')(typeConf.label);
-      const badge = htmlUtil.create('span', { class: 'badge float-right' }, a);
+      const badge = htmlUtil.create('span', { class: 'badge badge-pill badge-primary float-right' }, a);
       htmlUtil.create('span', {
         innerHTML: title,
         class: 'eswoBench__entityName',

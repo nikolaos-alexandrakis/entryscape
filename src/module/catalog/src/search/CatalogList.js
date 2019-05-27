@@ -37,7 +37,7 @@ export default declare([_WidgetBase], {
       // create anchor element
       const anchor = document.createElement('a');
       anchor.classList.add('list-group-item-action');
-      anchor.innerHTML = `<span class='badge'>${catalog.nr}</span>${catalog.label}`;
+      anchor.innerHTML = `<span class='badge badge-pill badge-primary'>${catalog.nr}</span>${catalog.label}`;
       this.domNode.appendChild(anchor);
     });
   },

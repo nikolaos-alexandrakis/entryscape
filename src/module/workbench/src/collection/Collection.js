@@ -74,13 +74,13 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
               case 'addToList':
                 newSize = this.collectionSizes.get(entry.getId()) + 1;
                 this.collectionSizes.set(entry.getId(), newSize);
-                nList = document.querySelector('.eswoCollection__listItem.active span.badge');
+                nList = document.querySelector('.eswoCollection__listItem.active span.badge.badge-pill.badge-primary');
                 nList.innerHTML = newSize;
                 break;
               case 'removeFromList':
                 newSize = this.collectionSizes.get(entry.getId()) - 1;
                 this.collectionSizes.set(entry.getId(), newSize);
-                nList = document.querySelector('.eswoCollection__listItem.active span.badge');
+                nList = document.querySelector('.eswoCollection__listItem.active span.badge.badge-pill.badge-primary');
                 nList.innerHTML = newSize;
                 break;
               case 'commitMetadata':

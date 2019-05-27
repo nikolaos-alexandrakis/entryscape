@@ -101,7 +101,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         htmlUtil.create('a', {
           class: 'list-group-item list-group-item-action',
           href: site.getViewPath(this.datasetSearchView, p),
-          innerHTML: `<span class='badge'>${catal.nr}</span>${catal.label}`,
+          innerHTML: `<span class='badge badge-pill badge-primary'>${catal.nr}</span>${catal.label}`,
         }, this.__catalogList);
       });
       toggleDisplayNoneEmpty(this.__catalogControls);

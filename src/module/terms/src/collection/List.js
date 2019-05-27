@@ -72,7 +72,7 @@ const CollectionRow = declare([EntryRow], {
   renderCol1() {
     const count = this.entry.getMetadata().find(this.entry.getResourceURI(), 'skos:member').length;
     $(this.domNode).addClass('termsCollection');
-    this.col1Node.innerHTML = `<span class="badge">${count}</span>`;
+    this.col1Node.innerHTML = `<span class=" badge-pill badge-primary">${count}</span>`;
     if (this.nlsSpecificBundle) {
       this.col1Node.setAttribute('title', i18n.renderNLSTemplate(this.nlsSpecificBundle.collectionMembers, count));
     }
