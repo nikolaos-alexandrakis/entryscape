@@ -2,6 +2,7 @@ import skosUtil from 'commons/tree/skos/util';
 import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
 import { camelCase } from 'lodash-es';
+import { namespaces } from 'rdfjson';
 import { isConceptSchemeNamespaced } from 'terms/concept/util';
 import esteConceptNLS from 'terms/nls/esteConcept.nls';
 import './style.css';
@@ -47,7 +48,7 @@ export default (initalVnode) => {
       const esteConcept = i18n.getLocalization(esteConceptNLS);
       const { isEditMode } = state;
       const namespace = isConceptSchemeNamespaced(conceptSchemeEntry);
-      const { localname } = namespaces.nsify(entry.getResourceURI());
+      const { localname } = namespaces.nsify(conceptEntry.getResourceURI());
       const localName = localname ||
         camelCase(conceptEntry.getMetadata().findFirstValue(conceptEntry.getResourceURI(), 'skos:prefLabel').trim());
 

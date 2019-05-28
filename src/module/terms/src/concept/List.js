@@ -10,8 +10,8 @@ import TreeModel from 'commons/tree/TreeModel';
 import config from 'config';
 import declare from 'dojo/_base/declare';
 import { i18n, NLSMixin } from 'esi18n';
-import m from "mithril";
-import ConceptUriComponent from "terms/concept/components/ConceptUri";
+import m from 'mithril';
+import ConceptUriComponent from 'terms/concept/components/ConceptUri';
 import esteConcept from 'terms/nls/esteConcept.nls';
 import { expandConceptLocalName, isConceptSchemeNamespaced } from './util';
 

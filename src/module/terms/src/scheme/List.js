@@ -5,39 +5,90 @@ import GCERow from 'commons/gce/GCERow';
 import List from 'commons/gce/List';
 import EditDialog from 'commons/list/common/EditDialog';
 import escoList from 'commons/nls/escoList.nls';
+import escoRdformsNLS from 'commons/nls/escoRdforms.nls';
 import registry from 'commons/registry';
 import config from 'config';
 import declare from 'dojo/_base/declare';
+import skosUtil from 'commons/tree/skos/util';
 import { i18n } from 'esi18n';
+import { namespaces } from 'rdfjson';
 import esteScheme from 'terms/nls/esteScheme.nls';
-import esteTerminologyexport from 'terms/nls/esteTerminologyexport.nls';
+import esteTerminologyExport from 'terms/nls/esteTerminologyexport.nls';
 import CreateTerminologyDialog from './CreateTerminologyDialog';
 
 const ns = registry.get('namespaces');
 
 const ConceptSchemeEditDialog = declare(EditDialog, {
-  doneAction(graph) {
-    const oldNamespace = this.row.entry.getMetadata().findFirstValue(null, 'void:uriSpace');
-    try {
-      this.inherited(arguments); // commitMetadata
-    } catch {
-      // something went wrong with committing metadata
+  async doneAction(graph) {
+    const conceptSchemeEntry = this.row.entry;
+    const oldNamespace = conceptSchemeEntry.getMetadata().findFirstValue(null, 'void:uriSpace');
+    const newNamespace = graph.findFirstValue(null, 'void:uriSpace');
+    if (!(newNamespace.endsWith('/') || newNamespace.endsWith('#'))) {
+      graph.findAndReplaceObject(resourceURI, 'void:uriSpace', `${newNamespace}/`);
     }
 
+    try {
+      const async = registry.get('asynchandler');
+      async.addIgnore('commitMetadata', async.codes.GENERIC_PROBLEM, true);
 
-    const newNamespace = graph.findFirstValue(null, 'void:uriSpace');
+      // update mdatadata
+      conceptSchemeEntry.setMetadata(graph);
+      await conceptSchemeEntry.commitMetadata();
+      this.list.rowMetadataUpdated(this.row);
+
+      // update ruri if needed
+      if (newNamespace !== oldNamespace) {
+        await skosUtil.updateConceptSchemeRURI(conceptSchemeEntry, newNamespace);
+      }
+    } catch (err) {
+      console.log(err);
+      // something went wrong with committing metadata
+      if (err.response.status === 412) {
+        const escoRdforms = i18n.getLocalization(escoRdformsNLS);
+        return registry.get('dialogs')
+          .confirm(
+            escoRdforms.metadataConflictMessage,
+            escoRdforms.metadataConflictLoadChanges,
+            escoRdforms.metadataConflictCancel)
+          .then(() => {
+            self.refreshEntry(conceptSchemeEntry);
+            throw escoRdforms.metadataConflictRefreshMessage;
+          }, () => {
+            throw escoRdforms.metadataConflictRemainMessage;
+          });
+      }
+      throw err;
+    }
+
+    // update the object uri for the concept entries skos:inScheme triple
     if (newNamespace !== oldNamespace) {
-      registry.get('dialogs').confirm('Shall we update all concepts?', null, null, (confirm) => {
-        if (confirm) {
+      return registry.get('dialogs').confirm('Shall we update all concepts?', null, null, (confirm) => {
+        // progress dialog
 
-        }
+        // first change concept scheme ruri
+
+        // get all inScheme concepts
+
+        // keep all their localnames but change their namespace
+        registry.getEntryStore()
+          .newSolrQuery()
+          // .context()?
+          .uriProperty('skos:inScheme', newNamespace) // it's newNamespace because we updated already "updateConceptSchemeRURI"
+          .forEach((conceptEntry) => {
+            if (confirm) {
+              const { localname } = namespaces.nsify(conceptEntry.getResourceURI());
+              skosUtil.updateConceptResourceURI(conceptEntry, newNamespace + localname);
+            }
+          });
       });
     }
+
+    return Promise.resolve(); // to provide consistent returns
   },
 });
 
 const ExportDialog = declare([Export], {
-  nlsBundles: [{ esteTerminologyexport }],
+  nlsBundles: [{ esteTerminologyExport }],
   nlsHeaderTitle: 'exportHeaderLabel',
   title: 'temporary', // to avoid exception
   profile: 'conceptscheme',
@@ -93,7 +144,6 @@ export default declare([List], {
   rowActionNames: ['edit', 'versions', 'export', 'members', 'remove'],
 
   postCreate() {
-
     this.registerDialog('members', TLMemberDialog);
 
     this.registerRowButton({

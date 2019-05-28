@@ -58,6 +58,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
   clearFields() {
     this.schemeName.value = '';
     this.schemeDesc.value = '';
+    this.schemeNamespace.value = '';
   },
 
   clear() {
@@ -100,7 +101,11 @@ export default declare([_WidgetBase, _TemplatedMixin, ListDialogMixin, NLSMixin.
           md.addL(resourceURI, 'dcterms:description', desc, lang);
         }
         if (namespace) { // void:uriSpace is actually a URL literal
-          md.addL(resourceURI, 'void:uriSpace', namespace);
+          if (namespace.endsWith('/') || namespace.endsWith('#')) {
+            md.addL(resourceURI, 'void:uriSpace', namespace);
+          } else {
+            md.addL(resourceURI, 'void:uriSpace', `${namespace}/`);
+          }
         }
         return conceptSchemeEntry.commit();
       })

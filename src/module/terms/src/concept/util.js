@@ -18,7 +18,7 @@ const getUniqueConceptRURI = async (conceptPrefLabel, conceptSchemeNamespace) =>
   try {
     const entry = await registry.getEntryStoreUtil().getEntryByResourceURI(conceptCandidateRURI);
     if (entry) { // not really needed
-      conceptCandidateRURI = `${conceptSchemeNamespace}${conceptPrefLabel}-${Math.floor(Math.random() * Math.floor(10))}`;
+      conceptCandidateRURI = `${conceptSchemeNamespace}${conceptPrefLabel}-${Math.floor(Math.random() * Math.floor(100))}`;
     }
   } catch {
     // proceed, no entry found with that resource

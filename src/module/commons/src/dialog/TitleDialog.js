@@ -154,7 +154,7 @@ const TitleDialog = declare([SideDialog], {
       this.footerButtonSpinner.style.display = '';
       res.then((status) => {
         this.unlockFooterButton();
-        if (!(status && 'stopHide' in status)) {
+        if (!(status && typeof status === 'object' && 'stopHide' in status)) {
           this.hide();
         }
       }, (err) => {
