@@ -298,8 +298,12 @@
 }
 
 .listSortLabel {
-    font-size: 12px;
+    font-size: 12px;    
+        .form-check-input{
+            visibility: hidden;
+    }
 }
+
 
 .newlyCreated > tr > td {
     background-color: yellow;

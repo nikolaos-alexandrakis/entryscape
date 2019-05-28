@@ -235,7 +235,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
   },
 
   render(selectedCollection) {
-    this.__multipleEtypes.style.display = 'block';
+    this.__multipleEtypes.style.display = 'flex';
     this.__singleEtype.style.display = 'none';
     this.__list.innerHTML = '';
     this.__placeholder.style.display = '';

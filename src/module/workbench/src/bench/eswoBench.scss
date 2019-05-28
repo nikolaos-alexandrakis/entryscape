@@ -49,8 +49,15 @@
 .eswoBench .nav-pills > li.active > a:focus,
 .eswoBench .nav-pills > li.active > a:hover {
     background-color: $main-colour;
+    color:white;
     border-radius: 0;
 }
+ .eswoBench__sideList{
+     flex-direction: column;
+ }
+ .eswoBench__multiple{
+     display: flex;
+ }
 
 @media (min-width: 768px) {
     .eswoBench__multiple {

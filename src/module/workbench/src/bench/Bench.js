@@ -154,7 +154,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
     const sm = registry.get('siteManager');
     const view = sm.getUpcomingOrCurrentView();
     const uparams = sm.getUpcomingOrCurrentParams();
-    this.__multipleEtypes.style.display = 'block';
+    this.__multipleEtypes.style.display = 'flex';
     this.__singleEtype.style.display = 'none';
     this.__list.innerHTML = '';
     this.__sideList.innerHTML = '';
