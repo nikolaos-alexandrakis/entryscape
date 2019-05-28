@@ -20,6 +20,7 @@ const buttons = [
 export default () => ({
   view() {
     const escaCandidates = i18n.getLocalization(escaCandidatesNLS);
+
     return (
       <div class="entryList searchVisible" >
         <div class="panel panel-default" data-dojo-attach-point="listHeaderS">
