@@ -345,3 +345,10 @@ label {
 .btn-group label {
   font-weight: normal;
 }
+
+//align fix for checkbox
+.form-check{
+    label{
+        margin:0;
+    }
+}

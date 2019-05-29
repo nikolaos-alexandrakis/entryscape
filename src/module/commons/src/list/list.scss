@@ -427,6 +427,15 @@
 
 .escoList__headerContainer {
     padding: 0;
+    //bmd hack
+    .escoList__massOperations{
+        display: flex;
+        align-items: center;
+    }
+    .btn-raised{
+        margin-top: 0;
+        margin-left: 20px;
+    }
 }
 
 .escoList__headerContainer .form-group {
