@@ -426,6 +426,12 @@ table.no-margin .progress {
     cursor: pointer;
 }
 
+//bmd hack
+.dropdown-menu{
+    left:unset;
+    right: 0;
+    font-size: 14px;
+}
 .dropdown-menu li a:focus,
 .dropdown-menu li a:hover {
     color: $main-colour-hover;

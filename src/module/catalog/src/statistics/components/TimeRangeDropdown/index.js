@@ -15,7 +15,7 @@ export default () => ({
             if (item.id === '-') {
               return <li className="dropdown-divider"/>;
             }
-            return <li className={selected === item.id ? 'active' : ''} data-range={item.id} onclick={onclick}>
+            return <li className={`${selected === item.id ? 'active' : ''} dropdown-item`} data-range={item.id} onclick={onclick}>
               <a>{item.name}</a>
             </li>;
           })}

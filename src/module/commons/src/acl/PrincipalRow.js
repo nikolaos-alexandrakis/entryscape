@@ -157,12 +157,14 @@ export default declare([EntryRow], {
           li = document.createElement('li');
           li.innerHTML = labelA;
           li.classList.add('extraRights', 'selectable');
+          li.classList.add('dropdown-item');
           li.setAttribute('title', title);
           ul.appendChild(li);
         } else {
           li = document.createElement('li');
           li.innerHTML = labelA;
           li.classList.add('selectable');
+          li.classList.add('dropdown-item');
           li.setAttribute('title', title);
           ul.appendChild(li);
         }
