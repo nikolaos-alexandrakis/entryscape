@@ -520,3 +520,9 @@ background-color: transparent;
 .escoList .entryList .entryListRow.newRow .listRowSurface {
     background-color: yellow;
 }
+
+.escoList__sortBy{
+    input[type="radio"], input[type="checkbox"]{
+        visibility:hidden;
+    }
+}
