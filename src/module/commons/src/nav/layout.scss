@@ -626,7 +626,10 @@ table.no-margin .progress {
 }
 
 .main_menu_side {
-    padding: 0
+    padding: 0;
+    .side-menu{
+        flex-direction: column;
+    }
 }
 
 .sidebar-footer {
