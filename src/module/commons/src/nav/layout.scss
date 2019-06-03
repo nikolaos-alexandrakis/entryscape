@@ -432,6 +432,12 @@ table.no-margin .progress {
     right: 0;
     font-size: 14px;
 }
+@media (min-width: 768px){
+.dropdown-menu .dropdown-item {
+    padding-right: 15px;
+    padding-left: 15px; 
+}
+}
 .dropdown-menu li a:focus,
 .dropdown-menu li a:hover {
     color: $main-colour-hover;
