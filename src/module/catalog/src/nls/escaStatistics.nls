@@ -31,8 +31,8 @@
     "statsCatalogOverviewChartLabel": "File downloads and API usage",
     "statsCatalogOverviewChartFileLabel": "File downloads",
     "statsCatalogOverviewChartAPILabel": "API calls",
-    "statsCatalogOverviewDoughnutFiles": "Files",
-    "statsCatalogOverviewDoughnutAPI": "API"
+    "statsCatalogOverviewDoughnutFiles": "File downloads",
+    "statsCatalogOverviewDoughnutAPI": "API calls"
   },
   "sv": true,
   "da": true,
