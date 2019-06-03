@@ -91,6 +91,39 @@ const addConceptToConceptScheme = (conceptEntry, schemeEntry) => schemeEntry.ref
 });
 
 /**
+ * Pushes an element into an array (which might be newly created). The array is itself an element of the 'map'
+ * identified by the 'key'
+ *
+ * @param map
+ * @param key
+ * @param newElement
+ */
+const addElementToMapOfArrays = (map, key, newElement) => {
+  const elements = map.get(key) || [];
+  elements.push(newElement);
+  map.set(key, elements);
+};
+
+/**
+ * A convenience data transformation function.
+ * Map<propertyString, arrayOfEntries> => Map<entryURI, arrayOfProperties>
+ *
+ * @param semanticRelationsMap
+ * @return {Map<any, any>}
+ */
+const transformSemanticRelationsToEntriesMap = (semanticRelationsMap) => {
+  const replaceObjectValuesMap = new Map();
+  semanticRelationsMap.forEach((entries, semanticProperty) => {
+    entries.forEach((entry) => {
+      const entryURI = entry.getEntryInfo().getEntryURI();
+      addElementToMapOfArrays(replaceObjectValuesMap, entryURI, semanticProperty);
+    });
+  });
+
+  return replaceObjectValuesMap;
+};
+
+/**
  * Utility functions for working with SKOS
  */
 const util = {
@@ -131,13 +164,10 @@ const util = {
       // populate the mappedProperties (Map) with mappings (keys) and entries (values)
       mappingRelationProperties.forEach((mappingProperty) => {
         queryPromises.push(es.newSolrQuery().uriProperty(mappingProperty, entryRURI)
-          .list()
           .forEach((mappedEntry) => {
             // update map with mapped entries
             if (mappedEntry.canWriteMetadata()) {
-              const entries = mappedProperties.get(mappingProperty) || [];
-              entries.push(mappedEntry);
-              mappedProperties.set(mappingProperty, entries);
+              addElementToMapOfArrays(mappedProperties, mappingProperty, mappedEntry);
             }
           }));
       });
@@ -177,12 +207,9 @@ const util = {
       if (shouldPassFilter(semanticRelationProperty)) {
         promises.push(es.newSolrQuery()
           .uriProperty(semanticRelationProperty, resourceURI)
-          .list()
           .forEach((mappedEntry) => {
             // update map with mapped entries
-            const entries = semanticMapping.get(semanticRelationProperty) || [];
-            entries.push(mappedEntry);
-            semanticMapping.set(semanticRelationProperty, entries);
+            addElementToMapOfArrays(semanticMapping, semanticRelationProperty, mappedEntry);
           }));
       }
     });
@@ -212,6 +239,12 @@ const util = {
       return entry.del();
     });
   },
+  /**
+   * Update the resource URI for the concept scheme and all (semantic) links referring to the old resource URI
+   * @param entry
+   * @param newResourceURI
+   * @return {Array<Promise>}
+   */
   async updateConceptSchemeRURI(entry, newResourceURI) {
     // update ruri if needed
     const conceptSchemeEntryInfo = entry.getEntryInfo();
@@ -220,25 +253,33 @@ const util = {
     await conceptSchemeEntryInfo.commit();
 
     const semanticMapping = await util.getSemanticRelations(oldResourceURI, ['skos:inScheme', 'skos:topConceptOf']);
+    const raplaceObjectValuesEntries = transformSemanticRelationsToEntriesMap(semanticMapping);
 
-    semanticMapping.forEach((entries, semanticProperty) => {
-      entries.forEach((toUpdateEntry) => {
+    try {
+      return Array.from(raplaceObjectValuesEntries).map(([entryURI, properties]) => {
+        const toUpdateEntry = es.getEntry(entryURI, { direct: true }); // should be already in cache, it was just queried
         const entryRURI = toUpdateEntry.getResourceURI();
         const md = toUpdateEntry.getMetadata();
 
-        md.findAndReplaceObject(entryRURI, semanticProperty, oldResourceURI, newResourceURI);
+        properties.forEach((property) => {
+          md.findAndReplaceObject(entryRURI, property, oldResourceURI, newResourceURI);
+        });
 
         toUpdateEntry.setMetadata(md);
-        toUpdateEntry.commitMetadata(); // async, no need to await
+        return toUpdateEntry.commitMetadata(); // async, no need to await
       });
-    });
+    } catch {
+      // something went wrong. @todo
+      return [];
+    }
   },
   /**
-   * Update the resource URI for the concept and all links (semantic) referring to that resource URI
+   * Update the resource URI for the concept and all (semantic) links referring to the old resource URI
    *
    * @param entry
    * @param newResourceURI
    * @return {Promise<void>}
+   * @see  semanticRelations
    */
   async updateConceptResourceURI(entry, newResourceURI) {
     const oldResourceURI = entry.getResourceURI();
@@ -248,16 +289,19 @@ const util = {
     await entryInfo.commit();
 
     const semanticMapping = await util.getSemanticRelations(oldResourceURI);
+    try {
+      semanticMapping.forEach((entries, semanticProperty) => {
+        entries.forEach((toUpdateEntry) => {
+          const md = toUpdateEntry.getMetadata();
+          md.findAndReplaceObject(toUpdateEntry.getResourceURI(), semanticProperty, oldResourceURI, newResourceURI);
 
-    semanticMapping.forEach((entries, semanticProperty) => {
-      entries.forEach((toUpdateEntry) => {
-        const md = toUpdateEntry.getMetadata();
-        md.findAndReplaceObject(toUpdateEntry.getResourceURI(), semanticProperty, oldResourceURI, newResourceURI);
-
-        toUpdateEntry.setMetadata(md);
-        toUpdateEntry.commitMetadata(); // async, no need to await
+          toUpdateEntry.setMetadata(md);
+          toUpdateEntry.commitMetadata(); // async, no need to await
+        });
       });
-    });
+    } catch {
+      // something went wrong. @todo
+    }
   },
   hasChildrenOrRelationsConcepts(entry) {
     const md = entry.getMetadata();
