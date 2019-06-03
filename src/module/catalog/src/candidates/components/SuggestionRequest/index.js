@@ -8,7 +8,6 @@ import {
 } from 'commons/util/metadata';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 // import bindActions from '../DistributionActions/actions';
-import SuggestionDataset from '../SuggestionDataset';
 import './index.scss';
 
 export default (vnode) => {
@@ -19,6 +18,7 @@ export default (vnode) => {
   const setState = createSetState(state);
   // const actions = bindActions(distribution, dataset);
 
+  // @scazan Phase II
   const expandDistribution = () => {
     setState({
       isExpanded: !state.isExpanded,
@@ -47,7 +47,7 @@ export default (vnode) => {
         <div class="suggestion">
           <div class="progressBar">
           </div>
-          <div onclick={expandDistribution}>
+          <div onclick={editSuggestion}>
             <div tabindex="0" class="distribution__row flex--sb">
               <div class={distributionArrowClass}></div>
               <p class="distribution__title">{title}</p>
@@ -57,7 +57,6 @@ export default (vnode) => {
             </div>
 
             <div class={`distribution__expand ${expandedClass}`}>
-              <SuggestionDataset entry={entry} />
             </div>
           </div>
         </div>
