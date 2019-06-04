@@ -1,7 +1,7 @@
 import { i18n } from 'esi18n';
 import dateUtil from 'commons/util/dateUtil';
 import Dropdown from 'commons/components/common/Dropdown';
-import Button from 'catalog/datasets/components/Button';
+import Button from 'commons/components/Button';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 import {
   getTitle,

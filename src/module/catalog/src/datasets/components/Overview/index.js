@@ -24,7 +24,7 @@ import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import { isDatasetPSI } from '../../utils/distributionUtil';
 import DistributionList from '../DistributionList';
 import MoreMetadata from '../MoreMetadata';
-import Button from '../Button';
+import Button from 'commons/components/Button';
 import bindActions from './actions';
 import './index.scss';
 

@@ -9,6 +9,8 @@ import {
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
 // import bindActions from '../DistributionActions/actions';
 import SuggestionDataset from '../SuggestionDataset';
+import SuggestionRequest from '../SuggestionRequest';
+import SuggestionActions from '../SuggestionActions';
 import './index.scss';
 
 export default (vnode) => {
@@ -35,7 +37,7 @@ export default (vnode) => {
 
   return {
     view(vnode) {
-      const { entry } = vnode.attrs;
+      const { entry, showChildren = true } = vnode.attrs;
       const title = getTitle(entry);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
       const description = getDescription(entry);
@@ -47,16 +49,15 @@ export default (vnode) => {
         <div class="suggestion">
           <div class="progressBar">
           </div>
-          <div onclick={expandDistribution}>
-            <div tabindex="0" class="distribution__row flex--sb">
-              <div class={distributionArrowClass}></div>
-              <p class="distribution__title">{title}</p>
-              <div class="flex--sb">
-                <p class="distribution__date">{modificationDate.short}</p>
-              </div>
+          <div onclick={expandDistribution} tabindex="0" class="row">
+            <div class={distributionArrowClass}></div>
+            <p class="distribution__title">{title}</p>
+            <div class="flex--sb">
+              <p class="date">{modificationDate.short}</p>
+              <SuggestionActions />
             </div>
-
             <div class={`distribution__expand ${expandedClass}`}>
+              <SuggestionRequest entry={entry} />
               <SuggestionDataset entry={entry} />
             </div>
           </div>
