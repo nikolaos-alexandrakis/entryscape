@@ -11,7 +11,7 @@ import Dropdown from 'commons/components/common/Dropdown';
 import escoListNLS from 'commons/nls/escoList.nls';
 import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
-import Button from 'commons/components/common/button/Button';
+import Button from 'commons/components/Button';
 import { i18n } from 'esi18n';
 // import bindActions from './actions';
 
@@ -181,9 +181,14 @@ export default (vnode) => {
       const { fileEntryURIs } = vnode.attrs;
 
       return (
-        <div className=" icon--wrapper">
+        <div class=" icon--wrapper">
           <Dropdown>
-            <Button>hello</Button>
+            <Button>Edit</Button>
+            <Button>Link to Dataset</Button>
+            <Button>Create Dataset</Button>
+            <Button>Comment</Button>
+            <Button>Archive</Button>
+            <Button>Delete</Button>
           </Dropdown>
         </div>
       );
