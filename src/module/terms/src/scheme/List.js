@@ -1,5 +1,4 @@
 import MemberDialog from 'admin/groups/MemberDialog';
-import Alert from "commons/components/common/alert/Alert";
 import Button from "commons/components/common/button/Button";
 import RowComponent from 'commons/components/common/grid/Row';
 import typeIndex from 'commons/create/typeIndex';
@@ -16,6 +15,7 @@ import skosUtil from 'commons/tree/skos/util';
 import config from 'config';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
+import { cloneDeep } from "lodash-es";
 import m from "mithril";
 import { namespaces } from 'rdfjson';
 import esteScheme from 'terms/nls/esteScheme.nls';
@@ -24,14 +24,14 @@ import CreateTerminologyDialog from './CreateTerminologyDialog';
 
 const ns = registry.get('namespaces');
 
-const initialTasksState = {
+const initialTasks = {
   conceptScheme: {
     id: 'conceptScheme',
     name: 'Update concept Scheme resource URI',
     nlsTaskName: 'uploadTask', // nlsString
     width: '33%', // max width / nr of tasks,
     order: 1,
-    status: 'done', // started, progress, done
+    status: '', // started, progress, done
     message: '',
   },
   concepts: {
@@ -58,17 +58,11 @@ const showFooterResult = (modalFooter, onclick, message = null) => {
         m(Button, {
           element: 'button',
           // type: message ? 'default' : 'primary',
-          classNames: ['pull-right', 'col-md-2'],
+          classNames: ['btn-lg', 'btn-block', 'btn-raised'],
           text: message ? 'cancel' : 'done',
           onclick,
         }),
-        m(Alert, {
-          element: 'span',
-          type: message ? 'danger' : 'success',
-          classNames: ['pull-left', 'col-md-8'],
-          text: message || 'sucess', // nls
-          children: null,
-        })],
+      ],
     }],
   }));
 };
@@ -88,8 +82,11 @@ const ConceptSchemeEditDialog = declare(EditDialog, {
         return registry.get('dialogs').confirm('The namespace of the terminology has changed.\nWould you like also like to update the namespaces of the concepts in the concept scheme?', 'yes, update all', 'no, update only the concept scheme', async (confirm) => {
           const progressDialog = new ProgressDialog();
           progressDialog.show();
-          initialTasksState.concepts.status = 'progress';
-          updateProgressDialog(progressDialog, initialTasksState);
+
+          const tasks = cloneDeep(initialTasks);
+
+          tasks.conceptScheme.status = 'progress';
+          updateProgressDialog(progressDialog, tasks);
 
           const async = registry.get('asynchandler');
           async.addIgnore('commitMetadata', async.codes.GENERIC_PROBLEM, true);
@@ -102,40 +99,45 @@ const ConceptSchemeEditDialog = declare(EditDialog, {
           // update ruri if needed
 
           const updatesConceptPromises = await skosUtil.updateConceptSchemeRURI(conceptSchemeEntry, newNamespace);
-          initialTasksState.concepts.status = 'done';
+
           const totalPromises = updatesConceptPromises.length;
 
           if (totalPromises) {
             let fulfilledCount = 0;
             for await (const conceptMdCommitted of updatesConceptPromises) {
-              initialTasksState.concepts.message = `${++fulfilledCount} of ${totalPromises} concepts updated`;
-              updateProgressDialog(progressDialog, initialTasksState);
+              tasks.conceptScheme.message = `${++fulfilledCount} of ${totalPromises} concepts updated`;
+              updateProgressDialog(progressDialog, tasks);
             }
-            initialTasksState.concepts.status = 'done';
             await updatesConceptPromises;
-            updateProgressDialog(progressDialog, initialTasksState);
+            updateProgressDialog(progressDialog, tasks);
           } else {
-            initialTasksState.concepts.message = 'No concepts to update';
-            updateProgressDialog(progressDialog, initialTasksState);
+            tasks.conceptScheme.message = 'No concepts in the concepts scheme to update';
+            updateProgressDialog(progressDialog, tasks);
           }
 
-          updateProgressDialog(progressDialog, initialTasksState, {
-            showFooterResult:
-              showFooterResult.bind(null, progressDialog.getModalFooter(), progressDialog.hide.bind(progressDialog)),
-            updateFooter: true,
-          });
-
+          tasks.conceptScheme.status = 'done';
 
           if (confirm) {
+            tasks.concepts.status = 'progress';
+            let fulfilledCount = 0;
             registry.getEntryStore()
               .newSolrQuery()
               // .context() ?
               .uriProperty('skos:inScheme', newNamespace) // it's newNamespace because we updated already "updateConceptSchemeRURI"
-              .forEach((conceptEntry) => {
+              .forEach(async (conceptEntry) => {
                 const { localname } = namespaces.nsify(conceptEntry.getResourceURI());
-                skosUtil.updateConceptResourceURI(conceptEntry, newNamespace + localname);
+                await skosUtil.updateConceptResourceURI(conceptEntry, newNamespace + localname);
+                tasks.concepts.message = `${++fulfilledCount} of ${totalPromises} concepts updated`;
+                updateProgressDialog(progressDialog, tasks);
               });
+            tasks.concepts.status = 'done';
           }
+
+          updateProgressDialog(progressDialog, tasks, {
+            showFooterResult:
+              showFooterResult.bind(null, progressDialog.getModalFooter(), progressDialog.hide.bind(progressDialog)),
+            updateFooter: true,
+          });
         });
       }
     } catch (err) {
