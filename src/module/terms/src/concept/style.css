@@ -100,9 +100,9 @@
 .conceptsControlls label.col-form-label{
     margin-top:5px;
 }
-.conceptsControlls .input-group .form-control{
+/* .conceptsControlls .input-group .form-control{
     width: 100%;
-}
+} */
 
 .conceptsControlls .cardinality {
     float: left;
