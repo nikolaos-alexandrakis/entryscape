@@ -47,7 +47,7 @@
     }
 }
 
-.btn.btn-raised.btn-primary,.btn.bmd-btn-icon.btn-primary{
+.btn.btn-raised.btn-primary,.btn.bmd-btn-fab.btn-primary{
     background-color:$main-colour; //primary colour on Bootstrap 4
     &:hover{
         color: white;
@@ -61,7 +61,7 @@
         margin-right: 10px;
     }
 }
-.btn.bmd-btn-icon{
+.btn.bmd-btn-fab{
     width: 24px;
     height: 24px;
     min-width: 24px;
