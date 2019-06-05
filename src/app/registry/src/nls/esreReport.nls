@@ -13,6 +13,8 @@
         "deprecatedTitle": "{{PLURAL:$1|1 deprecated value|$1 deprecated values}}",
         "report_few": "Too few values",
         "report_many": "Too many values",
+        "report_value": "Wrong value",
+        "report_nodetype": "Wrong nodetype",
         "report_disjoint": "A single value is expected",
         "reportHead": "${URI} has {{PLURAL:${errors}|one error|${errors} errors}} and {{PLURAL:${warnings}|one warning|${warnings} warnings}}:",
         "closeValidationDialog": "Close",

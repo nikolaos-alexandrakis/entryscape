@@ -24,10 +24,10 @@
 }
 
 .classReport .panel-title .problems>span {
-    padding-left: 10px;
+    padding-left: 20px;
 }
 
-.classReport .panel-title .problems>span .fa {
+.classReport .panel-title .problems>span .fas {
     padding-left: 5px;
 }
 
@@ -42,7 +42,7 @@
     width: 1px;
 }
 
-.classReport .panel-title .fa {
+.classReport .panel-title .fas {
     margin-right: 7px;
 }
 
