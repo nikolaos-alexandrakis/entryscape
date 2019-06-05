@@ -121,7 +121,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       const divCard = DOMUtil.create('div', null, this.__checkboxNode);
       DOMUtil.addClass(divCard, 'card escoProgress__task');
       const heading = DOMUtil.create('div', null, divCard);
-      DOMUtil.addClass(heading, 'checkbox card-heading escoProgress__taskHeading');
+      DOMUtil.addClass(heading, 'checkbox card-header escoProgress__taskHeading');
 
       const label = DOMUtil.create('label', null, heading);
       const input = DOMUtil.create('input', { type: 'checkbox' }, label);

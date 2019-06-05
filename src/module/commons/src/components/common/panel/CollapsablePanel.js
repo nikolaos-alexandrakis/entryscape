@@ -21,7 +21,7 @@ export default {
 
     return m(`.card.${cardType}`, { key: id, class: bemElement },
       [
-        m(`.card-heading[id="heading-${id}"][role="tab"]`,
+        m(`.card-header[id="heading-${id}"][role="tab"]`,
           m('h4.card-title',
             // eslint-disable-next-line max-len
             m(`a[aria-controls="collapse-${id}"][aria-expanded="true"][data-parent="#accordion"][data-toggle="collapse"][data-target="#collapse-${id}"][role="button"]`,
