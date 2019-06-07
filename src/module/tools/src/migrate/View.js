@@ -28,10 +28,10 @@ export default declare(MithrilView, {
       entries: [],
       hasLanguage: false,
       hasDatatype: false,
-      nodeType: 'literal',
+      nodeType: 'literal', // OR uri
       nodeTypeIdx: 0,
       rdfType: '',
-      from: { s: '', p: '', o: '', d: '', l: '' },
+      from: { s: '', p: '', o: '', d: '', l: '' }, // (s)ubject, (p)redicate, (o)bject, (d)atatype, (l)anguage
       to: { s: '', p: '', o: '', d: '', l: '' },
     };
 
@@ -157,8 +157,8 @@ export default declare(MithrilView, {
                     <th><span>Predicate</span></th>
                     <th className="migrate__object-header"><Select value={nodeTypes[state.nodeTypeIdx]}
                       options={nodeTypes} onchange={nodeTypeChange}/></th>
-                    { state.hasLanguage ? <th><span>Language code</span></th> : '' }
-                    { state.hasDatatype ? <th><span>Datatype</span></th> : '' }
+                    { state.hasLanguage && <th><span>Language code</span></th> }
+                    { state.hasDatatype && <th><span>Datatype</span></th> }
                   </tr>
                 </thead>
                 <tr>
@@ -166,20 +166,20 @@ export default declare(MithrilView, {
                   <td><Input input={{ value: state.from.s, onvalue: s => setState({ from: { s } }) }}/></td>
                   <td><Input input={{ value: state.from.p, onvalue: p => setState({ from: { p } }) }}/></td>
                   <td><Input input={{ value: state.from.o, onvalue: o => setState({ from: { o } }) }}/></td>
-                  { state.hasLanguage ?
-                    <td><Input input={{ value: state.from.l, onvalue: l => setState({ from: { l } }) }}/></td> : ''}
-                  { state.hasDatatype ?
-                    <td><Input input={{ value: state.from.d, onvalue: d => setState({ from: { d } }) }}/></td> : ''}
+                  { state.hasLanguage &&
+                    <td><Input input={{ value: state.from.l, onvalue: l => setState({ from: { l } }) }}/></td> }
+                  { state.hasDatatype &&
+                    <td><Input input={{ value: state.from.d, onvalue: d => setState({ from: { d } }) }}/></td> }
                 </tr>
                 <tr>
                   <td className="migrate__rowname"><label>Convert to</label></td>
                   <td></td>
                   <td><Input input={{ value: state.to.p, onvalue: p => setState({ to: { p } }) }}/></td>
                   <td><Input input={{ value: state.to.o, onvalue: o => setState({ to: { o } }) }}/></td>
-                  { state.hasLanguage ?
-                    <td><Input input={{ value: state.to.l, onvalue: l => setState({ to: { l } }) }}/></td> : ''}
-                  { state.hasDatatype ?
-                    <td><Input input={{ value: state.to.d, onvalue: d => setState({ to: { d } }) }}/></td> : ''}
+                  { state.hasLanguage &&
+                    <td><Input input={{ value: state.to.l, onvalue: l => setState({ to: { l } }) }}/></td> }
+                  { state.hasDatatype &&
+                    <td><Input input={{ value: state.to.d, onvalue: d => setState({ to: { d } }) }}/></td> }
                 </tr>
                 <tbody>
 
@@ -188,8 +188,9 @@ export default declare(MithrilView, {
               <Button text="Sök" onclick={searchClicked} classNames={['pull-right', 'btn-raised', 'btn-primary']}/>
             </section>
             <section className="migrate__data">
-              {state.migratingMessage !== '' ?
-                <Alert type="warning" text={state.migratingMessage}/> :
+              {state.migratingMessage !== '' ? (
+                <Alert type="warning" text={state.migratingMessage}/>
+              ) : (
                 <div>
                   {state.entries.length === 0 ?
                     <Alert text="No matching entries, refine your filter and do a new search"/> :
@@ -210,6 +211,7 @@ export default declare(MithrilView, {
                     </div>
                   }
                 </div>
+              )
               }
             </section>
           </div>
