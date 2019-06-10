@@ -1,9 +1,10 @@
+import DOMUtil from 'commons/util/htmlUtil';
 import escoListNLS from 'commons/nls/escoList.nls';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Dropdown from 'commons/components/common/Dropdown';
 import Button from 'commons/components/Button';
 import { i18n } from 'esi18n';
-// import bindActions from './actions';
+import bindActions from './actions';
 
 /**
  * Renders a list of action buttons that can be applied to a Suggestion
@@ -11,8 +12,11 @@ import { i18n } from 'esi18n';
  * @returns {Mithril.Component}
  */
 export default (vnode) => {
-  const { suggestion, refresh = () => {} } = vnode.attrs;
-  // const actions = bindActions(distribution, dataset, DOMUtil.preventBubbleWrapper);
+  const { entry, refresh = () => {} } = vnode.attrs;
+  const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
+
+  const editSuggestion = e => actions.editSuggestion(e);
+  const deleteSuggestion = e => actions.removeSuggestion(e, m.render);
 
   return {
     view(vnode) {
@@ -22,12 +26,12 @@ export default (vnode) => {
       return (
         <div class=" icon--wrapper">
           <Dropdown>
-            <Button>{escoList.editEntry}</Button>
-            <Button>{escaPreparations.linkDatasetMenu}</Button>
-            <Button>{escaPreparations.createDatasetMenu}</Button>
-            <Button>{escaPreparations.commentMenu}</Button>
-            <Button>{escaPreparations.archiveMenu}</Button>
-            <Button>{escaPreparations.deleteMenu}</Button>
+            <Button onclick={editSuggestion}>{escoList.editEntry}</Button>
+            <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>
+            <Button onclick={editSuggestion}>{escaPreparations.createDatasetMenu}</Button>
+            <Button onclick={editSuggestion}>{escaPreparations.commentMenu}</Button>
+            <Button onclick={editSuggestion}>{escaPreparations.archiveMenu}</Button>
+            <Button onclick={deleteSuggestion}>{escaPreparations.deleteMenu}</Button>
           </Dropdown>
         </div>
       );

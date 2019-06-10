@@ -54,7 +54,7 @@ export default (vnode) => {
             <p class="distribution__title">{title}</p>
             <div class="flex--sb">
               <p class="date">{modificationDate.short}</p>
-              <SuggestionActions />
+              <SuggestionActions entry={entry} />
             </div>
             <div class={`distribution__expand ${expandedClass}`}>
               <SuggestionRequest entry={entry} />
