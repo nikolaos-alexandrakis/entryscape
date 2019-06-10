@@ -325,8 +325,10 @@ body {
     padding: 0 !important
 }
 
-.page-header {
+.page__header {
   border-bottom: none;
+padding-bottom: 9px;
+  margin: 40px 0 20px;
 }
 
 .page-title {

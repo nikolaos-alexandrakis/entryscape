@@ -11,8 +11,10 @@
     flex-wrap: wrap;
 }
 
-.catalogOverview .page-header {
+.catalogOverview .page__header {
     border-bottom: none;
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
 }
 
 .escoOverview__description {
@@ -90,4 +92,5 @@
 
 .catalog__status__value {
     color: $text-colour;
+    margin-bottom:0;
 }
