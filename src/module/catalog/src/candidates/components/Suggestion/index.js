@@ -43,7 +43,10 @@ export default (vnode) => {
       return (
         <div class="suggestion">
           <div class="progressBar" onclick={editSuggestion}>
-            <div class="bar"></div>
+            <div class="bar">
+              <div class="indicator">
+              </div>
+            </div>
           </div>
           <div onclick={expandDistribution} tabindex="0" class="row">
             <div class={distributionArrowClass}></div>

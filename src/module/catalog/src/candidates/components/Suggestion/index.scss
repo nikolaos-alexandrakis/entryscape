@@ -5,7 +5,9 @@
 
   .progressBar {
     display: flex;
-    width: 150px;
+    width: 154px;
+    height: 42px;
+    padding: 15px;
 
     background-color: #fff;
 
@@ -13,8 +15,14 @@
       width: 120px;
       height: 16px;
 
-      background-color: #f00;
+      overflow: hidden;
 
+      .indicator {
+        width: 120px;
+        height: 16px;
+
+        background-color: #f00;
+      }
     }
   }
 
@@ -22,6 +30,4 @@
     display: flex;
     width: 100%;
   }
-
-
 }
