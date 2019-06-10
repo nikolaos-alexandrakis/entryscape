@@ -1,9 +1,10 @@
 import { Graph } from 'rdfjson';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
-import { Presenter } from 'rdforms';
+import { renderingContext, Presenter } from 'rdforms';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import registry from 'commons/registry';
+import { i18n } from 'esi18n';
 import TitleDialog from '../dialog/TitleDialog'; // In template
 import templateString from './RDFormsPresentDialogTemplate.html';
 import Lookup from '../types/Lookup';
@@ -25,6 +26,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {
     this.template = tmpl;
     this.presenter.show({ resource: uri, graph: this.graph, template: tmpl });
     this.dialog.show();
+  },
+  localeChange() {
+    renderingContext.setMessages(i18n.getLocalization(escoRdforms));
+    this.inherited(arguments);
   },
   async showChildEntry(entry, parentEntry, level) {
     const uri = entry.getResourceURI();
