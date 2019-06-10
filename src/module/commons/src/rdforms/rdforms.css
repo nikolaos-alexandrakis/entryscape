@@ -204,7 +204,3 @@
     margin-top: 20px;
 }
 
-.selectize-control.single .selectize-input:after, .selectize-control.multi .selectize-input:after, .selectize-control.single .selectize-input.input-active:after, .selectize-control.multi .selectize-input.input-active:after{
-    font-family: 'Font Awesome\ 5 Free';
-    font-weight: 900;
-}

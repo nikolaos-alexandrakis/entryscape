@@ -1,6 +1,7 @@
 .escoEntryType__inputBlocks {
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left:0;
 }
 
 .escoEntryType--fileLabelVisible .escoEntryType__inputBlocks,
@@ -10,6 +11,8 @@
 
 .escoEntryType__filePathInput[disabled] {
     cursor: pointer;
+    background:none;
+    border-bottom: 1px solid lightgrey;
 }
 
 .escoEntryType__file {
@@ -27,6 +30,7 @@
 .escoEntryType__fileBlock {
     display: none;
 }
+
 
 .escoEntryType__linkLabel,
 .escoEntryType__fileLabel{
@@ -51,4 +55,13 @@
 .escoEntryType--internalLink .escoEntryType__onlyInternalLink {
     display: block;
     margin-top: 20px;
+}
+.escoEntryType__optionBlock{
+    input[type="radio"]{
+        display: none;
+    }
+}
+
+.escoEntryType__file>div{
+    width: 80%;
 }

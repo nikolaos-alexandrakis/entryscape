@@ -215,6 +215,7 @@
 
 .spaSideDialogBody .nav-pills > li.active > a {
     background-color: #337ab7;
+    color:white;
 }
 
 .modal-dialog {
@@ -319,6 +320,7 @@
 .btn-file {
     position: relative;
     overflow: hidden;
+    margin-left:10px;
 }
 
 .btn-file input[type=file] {
