@@ -6,6 +6,16 @@
   .progressBar {
     display: flex;
     width: 150px;
+
+    background-color: #fff;
+
+    .bar {
+      width: 120px;
+      height: 16px;
+
+      background-color: #f00;
+
+    }
   }
 
   .row {

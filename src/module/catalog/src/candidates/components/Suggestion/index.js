@@ -6,8 +6,9 @@ import {
   getModifiedDate,
   getDescription,
 } from 'commons/util/metadata';
+import DOMUtil from 'commons/util/htmlUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-// import bindActions from '../DistributionActions/actions';
+import bindActions from './actions';
 import SuggestionDataset from '../SuggestionDataset';
 import SuggestionRequest from '../SuggestionRequest';
 import SuggestionActions from '../SuggestionActions';
@@ -19,7 +20,7 @@ export default (vnode) => {
     isExpanded: false,
   };
   const setState = createSetState(state);
-  // const actions = bindActions(distribution, dataset);
+  const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const expandDistribution = () => {
     setState({
@@ -27,13 +28,7 @@ export default (vnode) => {
     });
   };
 
-  const editSuggestion = (e) => {
-    const target = e.target;
-    const isDropdownClick = vnode.dom.querySelector('.ESDropdown').contains(target);
-    if (!isDropdownClick) {
-      actions.editDistribution(() => m.redraw());
-    }
-  };
+  const editSuggestion = (e) => actions.editSuggestion(e, () => m.redraw());
 
   return {
     view(vnode) {
@@ -47,7 +42,8 @@ export default (vnode) => {
 
       return (
         <div class="suggestion">
-          <div class="progressBar">
+          <div class="progressBar" onclick={editSuggestion}>
+            <div class="bar"></div>
           </div>
           <div onclick={expandDistribution} tabindex="0" class="row">
             <div class={distributionArrowClass}></div>

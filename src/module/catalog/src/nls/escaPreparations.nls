@@ -13,6 +13,8 @@
     "linkDatasetMenu": "Link to dataset",
     "createDatasetMenu": "Create dataset",
     "listSearchPlaceholder": "Search for suggestions and requests...",
-    "emptyListWarning": "Suggestions that you create will appear here"
+    "emptyListWarning": "Suggestions that you create will appear here",
+    "editSuggestionButton": "Save",
+    "editSuggestionHeader": "Edit Suggestion"
   }
 }

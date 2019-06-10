@@ -4,7 +4,7 @@ import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Dropdown from 'commons/components/common/Dropdown';
 import Button from 'commons/components/Button';
 import { i18n } from 'esi18n';
-import bindActions from './actions';
+import bindActions from '../Suggestion/actions';
 
 /**
  * Renders a list of action buttons that can be applied to a Suggestion
