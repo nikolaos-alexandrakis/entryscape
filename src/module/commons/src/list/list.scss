@@ -102,6 +102,9 @@
     background-color:white;
     margin-bottom: 20px;
     box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
+    &:focus{
+        border:2px solid $main-colour;
+    }
 }
 
 .escoList .table > tbody + tbody {
