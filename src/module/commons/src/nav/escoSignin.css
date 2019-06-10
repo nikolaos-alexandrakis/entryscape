@@ -19,9 +19,10 @@
     margin: 20px
 }
 
-.escoSignin .well {
+.escoSignin .card {
     margin-left: auto;
     margin-right: auto;
+    padding: 19px;
 }
 
 .escoSignin.signindialog {
@@ -39,6 +40,7 @@
     color: #337ab7;
     text-transform: none;
     padding: 6px 12px;
+    margin: 10px 1px;
 }
 
 .escoSignin a.signupButton {
@@ -46,6 +48,7 @@
     color: #333;
     text-transform: none;
     padding: 10px;
+    margin: 10px 1px;
 }
 
 .escoSignin .createAccount {
@@ -112,4 +115,8 @@
     margin-top: -15px;
     padding: 10px;
     text-align: center;
+}
+.form-group{
+    padding-bottom: 7px;
+    margin: 28px 0 0 0;
 }
