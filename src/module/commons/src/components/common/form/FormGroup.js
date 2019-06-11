@@ -30,7 +30,7 @@ export default {
       input.disabled = 'disabled';
     }
 
-    return m('.form-group row', attrs, [
+    return m('.form-group', attrs, [
       m(Label, { label }),
       m('div', [
         m(Input, { input }),
