@@ -84,30 +84,32 @@ const getControllerComponent = (datasetEntry, files) => {
       const selectedType = type || state.chartType;
       const headers = csvData.meta.fields;
 
-      return headers.filter((header, idx) => {
-        switch (selectedType) {
-          case 'map':
-            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.GEO_LAT ||
-              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.GEO_LONG) {
-              return true;
-            }
-            break;
-          case 'bar':
-            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DISCRETE ||
-              csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER) {
-              return true;
-            }
-            break;
-          case 'line':
-            if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER) {
-              return true;
-            }
-            break;
-          default:
-            break;
-        }
-        return false;
-      });
+      return headers;
+
+      // return headers.filter((header, idx) => {
+      //   switch (selectedType) {
+      //     case 'map':
+      //       if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.GEO_LAT ||
+      //         csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.GEO_LONG) {
+      //         return true;
+      //       }
+      //       break;
+      //     case 'bar':
+      //       if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.DISCRETE ||
+      //         csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER) {
+      //         return true;
+      //       }
+      //       break;
+      //     case 'line':
+      //       if (csvDataDetectedTypes[idx] === CSV_COLUMN_TYPE.NUMBER) {
+      //         return true;
+      //       }
+      //       break;
+      //     default:
+      //       break;
+      //   }
+      //   return false;
+      // });
     }
 
     return [];
