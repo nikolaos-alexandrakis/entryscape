@@ -30,6 +30,15 @@ const semanticRelations = {
   fromRootProperty: 'skos:hasTopConcept',
 };
 
+const semanticRelationsProperties = [
+  'skos:inScheme',
+  'skos:broader',
+  'skos:narrower',
+  'skos:related',
+  'skos:topConceptOf',
+  'skos:hasTopConcept',
+];
+
 /**
  *  These properties are used to state mapping (alignment) links between SKOS concepts in
  *  different concept schemes, where the links are inherent in the meaning of the linked concepts.
@@ -85,7 +94,7 @@ const addNewConceptStmts = (data) => {
 
 /**
  *
- * @param {String|Object} entry If string then it is the entryURI otherwise the actual entry
+ * @param {String|store/Entry} entry If string then it is the entryURI otherwise the actual entry
  * @param oldResourceURI
  * @param newResourceURI
  * @param properties
@@ -98,7 +107,11 @@ const updateConceptMetadata = async (entry, oldResourceURI, newResourceURI, prop
     const md = toUpdateEntry.getMetadata();
 
     properties.forEach((property) => {
-      md.findAndReplaceObject(entryRURI, property, oldResourceURI, newResourceURI);
+      const stmts = md.find(entryRURI, property, oldResourceURI);
+      if (stmts.length > 0) {
+        const stmt = stmts[0];
+        stmt.setValue(newResourceURI);
+      }
     });
 
     toUpdateEntry.setMetadata(md);
@@ -224,12 +237,11 @@ const util = {
     const shouldPassFilter = semanticRelationProperty =>
       Array.isArray(filteredRelations) && // it's array
       (!filteredRelations.length || // either empty or
-        (filteredRelations.length > 1
+        (filteredRelations.length > 0
           && filteredRelations.includes(semanticRelationProperty)) // not empty but includes property
       );
 
-    Object.keys(semanticRelations).forEach((semanticRelation) => {
-      const semanticRelationProperty = semanticRelations[semanticRelation];
+    semanticRelationsProperties.forEach((semanticRelationProperty) => {
       if (shouldPassFilter(semanticRelationProperty)) {
         promises.push(es.newSolrQuery()
           .uriProperty(semanticRelationProperty, resourceURI)
@@ -269,52 +281,68 @@ const util = {
    * Update the resource URI for the concept scheme and all (semantic) links referring to the old resource URI
    * @param entry
    * @param newResourceURI
-   * @return {Array<Promise>}
+   * @param conceptEntries
+   * @return {Promise<Array>}
    */
-  async updateConceptSchemeRURI(entry, newResourceURI, updateConcepts = true) {
+  async updateConceptSchemeRURI(entry, newResourceURI, conceptEntries = []) {
     // update ruri if needed
     const conceptSchemeEntryInfo = entry.getEntryInfo();
     const oldResourceURI = entry.getResourceURI();
     conceptSchemeEntryInfo.setResourceURI(newResourceURI);
     await conceptSchemeEntryInfo.commit();
 
-    // Map<'skos:inScheme', [Entry1, Entry2, ...]>
-    const propertiesToEntriesMap =
-      await util.getSemanticRelations(oldResourceURI, ['skos:inScheme']);
-    const replaceObjectValuesEntries = transformSemanticRelationsToEntriesMap(propertiesToEntriesMap);
-
-    try {
-      for (const [entryURI, properties] of Array.from(replaceObjectValuesEntries)) {
-        const pros = await updateConceptMetadata(entryURI, oldResourceURI, newResourceURI, properties);
-        promises.push(pros);
+    const promises = [];
+    const properties = ['skos:inScheme', 'skos:topConceptOf'];
+    if (conceptEntries.length > 0) {
+      try {
+        for (const conceptEntry of conceptEntries) {
+          const pros = await updateConceptMetadata(conceptEntry, oldResourceURI, newResourceURI, properties);
+          promises.push(pros);
+        }
+      } catch {
+        // wrong
       }
-    } catch {
-      // something went wrong. @todo
-      return [];
+    } else {
+      // Map<'skos:inScheme', [Entry1, Entry2, ...]>
+      const propertiesToEntriesMap =
+        await util.getSemanticRelations(oldResourceURI, properties);
+      // Map<EntryURI, ['skos:inScheme, ...]>
+      const replaceObjectValuesEntries = transformSemanticRelationsToEntriesMap(propertiesToEntriesMap);
+
+      try {
+        for (const [entryURI, props] of Array.from(replaceObjectValuesEntries)) {
+          const pros = await updateConceptMetadata(entryURI, oldResourceURI, newResourceURI, props);
+          promises.push(pros);
+        }
+      } catch {
+        // something went wrong. @todo
+        return [];
+      }
     }
 
-    return Promise.resolve(promises);
+    return promises;
   },
   /**
    * Update the resource URI for the concept and all (semantic) links referring to the old resource URI
-   *
    * @param entry
    * @param newResourceURI
-   * @return {Promise<void>}
-   * @see  semanticRelations
+   * @param conceptEntries
+   * @return {Promise<Array>}
    */
-  async updateConceptResourceURI(entry, newResourceURI, entries = []) {
+  async updateConceptResourceURI(entry, newResourceURI, conceptEntries = []) {
     const oldResourceURI = entry.getResourceURI();
 
     const entryInfo = entry.getEntryInfo();
     entryInfo.setResourceURI(newResourceURI);
     await entryInfo.commit();
 
-    if (entries.length > 0) {
+    const promises = [];
+
+    if (conceptEntries.length > 0) {
       try {
-        for (const entry of entries) {
-          const entryURI = get
-          const pros = await updateConceptMetadata(entryURI, oldResourceURI, newResourceURI, properties);
+        for (const relatedEntry of conceptEntries) {
+          const pros =
+            await updateConceptMetadata(relatedEntry, oldResourceURI, newResourceURI, semanticRelationsProperties);
           promises.push(pros);
         }
       } catch {
@@ -324,7 +352,6 @@ const util = {
       const semanticMapping = await util.getSemanticRelations(oldResourceURI);
       const replaceObjectValuesEntries = transformSemanticRelationsToEntriesMap(semanticMapping);
 
-      const promises = [];
       try {
         for (const [entryURI, properties] of Array.from(replaceObjectValuesEntries)) {
           const pros = await updateConceptMetadata(entryURI, oldResourceURI, newResourceURI, properties);
@@ -334,8 +361,6 @@ const util = {
         // something went wrong. @todo
       }
     }
-
-    console.log(promises);
 
     return Promise.resolve(promises);
   },

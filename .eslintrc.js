@@ -33,5 +33,7 @@ module.exports = {
     'max-len': ['error', { 'code': 120, "ignoreTrailingComments": true, "ignoreTemplateLiterals": true }],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
+    'no-restricted-syntax': 'off',
+    'no-await-in-loop': 'off',
   }
 };

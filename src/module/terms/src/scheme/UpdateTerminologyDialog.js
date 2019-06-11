@@ -15,7 +15,7 @@ import { namespaces } from 'rdfjson';
 const initialTasks = {
   conceptScheme: {
     id: 'conceptScheme',
-    name: 'Update concept Scheme resource URI',
+    name: 'Update Concept Scheme',
     nlsTaskName: 'uploadTask', // nlsString
     width: '50%', // max width / nr of tasks,
     order: 1,
@@ -24,11 +24,11 @@ const initialTasks = {
   },
   concepts: {
     id: 'concepts',
-    name: 'Update concepts ',
+    name: 'Update concepts',
     nlsTaskName: 'uploadTask', // nlsString
     width: '50%', // max width / nr of tasks,
     order: 2,
-    status: '', // started, progress, done, skip
+    status: '', // started, progress, done
     message: '',
   },
 };
@@ -54,10 +54,14 @@ const showFooterResult = (modalFooter, onclick, message = null) => {
 export default declare(EditDialog, {
   async doneAction(graph) {
     const conceptSchemeEntry = this.row.entry;
-    const oldNamespace = conceptSchemeEntry.getMetadata().findFirstValue(null, 'void:uriSpace');
-    const newNamespace = graph.findFirstValue(null, 'void:uriSpace');
+    const conceptSchemeRURI = conceptSchemeEntry.getResourceURI();
+    const oldNamespace = conceptSchemeEntry.getMetadata().find(conceptSchemeRURI, 'void:uriSpace');
+
+    // normalize namespace if there's one
+    const namespaceStmt = graph.find(conceptSchemeRURI, 'void:uriSpace')[0];
+    const newNamespace = namespaceStmt.getValue();
     if (!(newNamespace.endsWith('/') || newNamespace.endsWith('#'))) {
-      graph.findAndReplaceObject(resourceURI, 'void:uriSpace', `${newNamespace}/`);
+      namespaceStmt.setValue(`${newNamespace}/`);
     }
 
     try {
@@ -90,24 +94,24 @@ export default declare(EditDialog, {
 
           // Map<'skos:inScheme', [Entry1, Entry2, ...]>
           const conceptEntriesMap =
-            await util.getSemanticRelations(oldResourceURI, ['skos:inScheme']);
+            await skosUtil.getSemanticRelations(conceptSchemeRURI, ['skos:inScheme']);
           const conceptEntries = conceptEntriesMap.get('skos:inScheme');
 
 
-          // update mdatadata
+          // update metatadata, this part updates the concept scheme metadata only. E.g dcterms:title
           conceptSchemeEntry.setMetadata(graph);
           await conceptSchemeEntry.commitMetadata();
           this.list.rowMetadataUpdated(this.row);
 
-          // update ruri if needed
 
-          let updatesConceptPromises = await skosUtil.updateConceptSchemeRURI(conceptSchemeEntry, newNamespace);
+          const updatesConceptPromises =
+            await skosUtil.updateConceptSchemeRURI(conceptSchemeEntry, newNamespace, conceptEntries);
 
           const totalPromises = updatesConceptPromises.length;
 
           if (totalPromises) {
             let fulfilledCount = 0;
-            for await (const conceptMdCommitted of updatesConceptPromises) {
+            for await (const conceptMdCommitted of updatesConceptPromises) { // eslint-disable-line
               tasks.conceptScheme.message = `${++fulfilledCount} of ${totalPromises} concepts links updated`;
               updateProgressDialog(progressDialog, tasks);
             }
@@ -116,15 +120,15 @@ export default declare(EditDialog, {
 
             tasks.conceptScheme.status = 'done';
 
-
             if (confirm) {
               tasks.concepts.status = 'progress';
               fulfilledCount = 0;
               for (const conceptEntry of conceptEntries) {
                 console.log('in for each');
                 const { localname } = namespaces.nsify(conceptEntry.getResourceURI());
-
-                await skosUtil.updateConceptResourceURI(conceptEntry, newNamespace + localname).then(Promise.all);
+                await skosUtil.updateConceptResourceURI(conceptEntry, newNamespace + localname);
+                tasks.concepts.message = `${++fulfilledCount} of ${totalPromises} concepts' URI updated`;
+                updateProgressDialog(progressDialog, tasks);
               }
 
               tasks.concepts.status = 'done';
