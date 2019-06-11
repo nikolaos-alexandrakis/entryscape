@@ -7,7 +7,7 @@
   "createCandidateDatasetHeader": "Datensatzkandidat erstellen",
   "progressMenu": "Checkliste",
   "progressTitle": "Eine Checkliste der Dinge, die vor dem Hochstufen auf einen regulären Datensatz berücksichtigt werden müssen",
-  "progressBarTitle": "${checked} (davon ${mandatory} obligatorisch) von insgesamt ${total} (davon ${totalMandatory} obligatorisch) Schritt{{PLURAL:${total}||en}} sind fertiggestellt",
+  "progressBarTitle": "${checked} (davon ${mandatory} verbindlich) von insgesamt ${total} (davon ${totalMandatory} verbindlich) Schritt{{PLURAL:${total}||en}} {{PLURAL:${total}|ist|sind}} fertiggestellt",
   "commentMenuTitle": "Kommentar hinzufügen",
   "commentMenu": "Kommentare",
   "commentHeader": "Kommentare zum Datensatzkandidaten \"${name}\"",
