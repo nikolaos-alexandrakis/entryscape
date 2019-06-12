@@ -130,7 +130,7 @@ export default class {
     }
     m.render(this.modalBody, m(TaskProgress, { tasks: getObjectValues(tasks) }));
     if (updateFooter) {
-      this.showFooterResult(errorMessage);
+      this.showFooterResult(errorMessage, 'danger');
     }
   }
 
@@ -442,7 +442,7 @@ export default class {
 
       // TODO explain
       const result = await pipelineResource.execute(fileEntry, {});
-      await apiUtil.checkStatusOnRepeat(result[0]);
+      const statusCheckMessage = await apiUtil.checkStatusOnRepeat(result[0]);
       tempFileURIs = tempFileURIs.slice(1); // remove first file entry
       if (tempFileURIs.length === 0) {
         this.updateProgressDialogState({ fileprocess: { status: 'done' } });
@@ -467,7 +467,7 @@ export default class {
       }
       // update distribution and UI
       await this.updateApiDistribution();
-      await this.showFooterResult();
+      await this.showFooterResult(statusCheckMessage, statusCheckMessage ? 'warning' : 'success');
     } catch (err) {
       // TODO Error code here
       const errMessage = `${this.escaApiProgress.apiProgressError}
@@ -478,7 +478,7 @@ export default class {
       throw Error(err);
     }
   }
-  showFooterResult(message = null) {
+  showFooterResult(message = null, type = 'success') {
     const modalFooter = this.progressDialog.getModalFooter();
     const onclick = this.progressDialog.hide.bind(this.progressDialog);
     m.render(modalFooter, m(Row, {
@@ -496,7 +496,7 @@ export default class {
           }),
           m(Alert, {
             element: 'span',
-            type: message ? 'danger' : 'success',
+            type,
             classNames: ['pull-left', 'col-md-8'],
             text: message || this.escaApiProgress.nlsProgressSuccess,
             children: null,

@@ -1,4 +1,6 @@
+import escaApiProgressNLS from 'catalog/nls/escaApiProgress.nls';
 import registry from 'commons/registry';
+import { i18n } from 'esi18n';
 import { promiseUtil } from 'store';
 
 /**
@@ -111,30 +113,36 @@ const syncStatus = async (pipelineEntryURI) => {
   return newStatus;
 };
 
+const STATUS_CHECK_REPEATS = 50;
+const STATUS_CHECK_DELAY_MILLIS = 500;
+
 /**
  * Recursive function that returns only whe the api status is 'available' or throws error.
  * Otherwise keeps looping every certain millis
  * @param {store/Entry} pipelineEntryURI
  * @param {number} repeat how many times should we re-try to find the API in an available status
  * @param {number} delayMillis how many millis to delay before trying again
- * @return {Promise<*>}
+ * @return {Promise<String>}
  * @throws
  */
-const checkStatusOnRepeat = async (pipelineEntryURI, repeat = 30, delayMillis = 300) => {
-  // let counter = 30;/
+const checkStatusOnRepeat = async (
+  pipelineEntryURI,
+  repeat = STATUS_CHECK_REPEATS,
+  delayMillis = STATUS_CHECK_DELAY_MILLIS) => {
   const newStatus = await syncStatus(pipelineEntryURI);
+  const escaApiProgress = i18n.getLocalization(escaApiProgressNLS);
   switch (newStatus) {
     case 'available':
-      return true;
+      return '';
     case 'error':
-      throw Error('API returned an error status');// reject();
+      throw Error(escaApiProgress.apiProgressError); // reject();
     default:
       // retry checking the API after 'delayMillis'
       if (repeat > 0) {
-        await promiseUtil.delay(delayMillis + ((31 - repeat) * 30));
+        await promiseUtil.delay(delayMillis);
         return checkStatusOnRepeat(pipelineEntryURI, repeat - 1);
       }
-      throw Error('API returned an error status');
+      return escaApiProgress.apiProgressWarning;
   }
 };
 
