@@ -37,7 +37,9 @@ const updateMaterial = util.throttle(() => {
 
 // run only once, when first view is loaded
 const viewListener = PubSub.subscribe('spa.viewLoaded', () => {
-  jquery.material.init();
+  // jquery.material.init();
+  jquery('body').bootstrapMaterialDesign();
+  window.$ = jquery;
   observeDOMAdditions(jquery('#viewsNode')[0], updateMaterial); // main content
   observeDOMAdditions(jquery('#entryscapeDialogs')[0], updateMaterial); // side dialogs
   PubSub.unsubscribe(viewListener);
