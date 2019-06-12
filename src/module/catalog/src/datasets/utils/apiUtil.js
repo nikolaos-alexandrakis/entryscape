@@ -99,12 +99,13 @@ const updateAliasInEntry = (etlEntry, aliasName) => {
 /**
  * Synchronizes the API status values between what was returned from RowStore and what is
  * saved in the external metadata graph
- * @param pipelineEntryURI
+ * @param {string} pipelineEntryURI
+ * @param {boolean} forceLoad
  * @return {Promise<string>}
  * @see update
  */
-const syncStatus = async (pipelineEntryURI) => {
-  const pipelineEntry = await registry.getEntryStore().getEntry(pipelineEntryURI);
+const syncStatus = async (pipelineEntryURI, forceLoad = false) => {
+  const pipelineEntry = await registry.getEntryStore().getEntry(pipelineEntryURI, { forceLoad });
   const data = await load(pipelineEntry);
   const newStatus = status(data);
   if (newStatus !== oldStatus(pipelineEntry)) {
@@ -153,4 +154,5 @@ export default {
   update,
   updateAliasInEntry,
   checkStatusOnRepeat,
+  syncStatus,
 };
