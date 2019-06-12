@@ -101,6 +101,7 @@ export default () => {
               time: {
                 unit: 'month',
               },
+              offset: true,
             }],
             yAxes: [{
               ticks: {
