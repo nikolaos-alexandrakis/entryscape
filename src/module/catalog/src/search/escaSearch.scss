@@ -33,6 +33,8 @@
 
 .escaSearch__sidebar .list-group .list-group-item {
     padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .escaSearch__sidebar .list-group .list-group-item:hover {
