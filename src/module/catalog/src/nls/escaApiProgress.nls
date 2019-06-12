@@ -8,7 +8,7 @@
     "apiFileProcessed": "${number} of ${totalFiles} files have been processed",
     "apiFileProcessedOnlyAddition": "${number} of ${totalFiles} newly added files have been processed",
     "apiProgressError": "Something went wrong while processing the input data. Check the input and refresh.",
-    "apiProgressWarning": "The API is still being processed. You can close this dialog safely and check the API info dialog later on",
+    "apiProgressWarning": "The API is still being processed. You can close this dialog safely and check the API info dialog later on.",
     "apiProgressButtonError": "OK",
     "nlsProgressCancel": "Cancel",
     "nlsProgressDone": "Done",
