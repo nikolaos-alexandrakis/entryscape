@@ -3,7 +3,7 @@ import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
 import { camelCase } from 'lodash-es';
 import { namespaces } from 'rdfjson';
-import { isConceptSchemeNamespaced } from 'terms/concept/util';
+import { getUniqueConceptRURI, isConceptSchemeNamespaced } from 'terms/concept/util';
 import esteConceptNLS from 'terms/nls/esteConcept.nls';
 import './style.css';
 
@@ -36,7 +36,8 @@ export default (initalVnode) => {
     const localName = newNode.value;
     const namespace = isConceptSchemeNamespaced(conceptSchemeEntry);
 
-    await skosUtil.updateConceptResourceURI(conceptEntry, namespace + localName);
+    const newRURI = await getUniqueConceptRURI(localName, namespace);
+    await skosUtil.updateConceptResourceURI(conceptEntry, newRURI);
 
     setState({
       isEditMode: false,

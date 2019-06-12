@@ -39,7 +39,8 @@ const expandConceptLocalName = async (conceptEntry, conceptSchemeEntry, conceptL
   let conceptRURI;
   const namespace = isConceptSchemeNamespaced(conceptSchemeEntry);
   if (namespace) {
-    const conceptName = conceptLabel || conceptEntry.getMetadata().findFirstValue(null, 'skos:prefLabel');
+    const conceptName = conceptLabel ||
+      conceptEntry.getMetadata().findFirstValue(conceptEntry.getResourceURI(), 'skos:prefLabel');
     conceptRURI = await getUniqueConceptRURI(conceptName, namespace);
   } else {
     return conceptEntry.getResourceURI();
@@ -51,5 +52,6 @@ const expandConceptLocalName = async (conceptEntry, conceptSchemeEntry, conceptL
 export {
   isConceptSchemeNamespaced,
   expandConceptLocalName,
+  getUniqueConceptRURI,
 };
 

@@ -24,7 +24,7 @@ const initialTasks = {
   },
   concepts: {
     id: 'concepts',
-    name: 'Update concepts',
+    name: 'Update Concepts',
     nlsTaskName: 'uploadTask', // nlsString
     width: '50%', // max width / nr of tasks,
     order: 2,
