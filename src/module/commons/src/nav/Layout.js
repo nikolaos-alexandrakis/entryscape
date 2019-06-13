@@ -448,7 +448,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     nvi.views.forEach((viewDef) => {
       const isSelected = viewDef.name === viewName;
 
-      const li = DOMUtil.create('li', {class:'list-inline-item'}, this.controllerViewList);
+      const li = DOMUtil.create('li', {class:'nav-item'}, this.controllerViewList);
       if (isSelected) {
         li.classList.add('selected');
       }
