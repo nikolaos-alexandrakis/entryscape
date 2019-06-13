@@ -9,7 +9,7 @@ import TitleDialog from '../dialog/TitleDialog';
 import template from './ProgressDialogTemplate.html';
 import DOMUtil from '../util/htmlUtil';
 import ListDialogMixin from '../list/common/ListDialogMixin';
-import './escoProgress.css';
+import './escoProgress.scss';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin], {
   bid: 'escoProgress',
