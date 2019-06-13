@@ -377,7 +377,16 @@ label {
         padding:10px;
     }
 }
-
+.spaSideDialogBody{
+    .card{
+        margin-bottom: 20px;
+        width:100%;
+        .card-header{
+            background-color:#eeeeee;
+            border-bottom:0;
+        }
+    }
+}
 
 .bmd-form-group [class*=' bmd-label']{
     position: relative;
