@@ -165,7 +165,10 @@
 }
 
 .entryCooser__btn-group {
-    padding-left:10px
+    padding-left:10px;
+    input[type="radio"]{
+        visibility: hidden;
+    }
 }
 
 .entryChooser__input-group {
