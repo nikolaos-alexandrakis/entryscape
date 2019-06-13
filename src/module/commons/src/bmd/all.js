@@ -32,6 +32,7 @@ const updateMaterial = util.throttle(() => {
     jquery.material.togglebutton();
     // jquery.material.init();
   }
+  jquery('[data-toggle="popover"]').popover();
 }, 500, { leading: false });
 
 
