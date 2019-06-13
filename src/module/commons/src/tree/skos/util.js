@@ -300,7 +300,7 @@ const util = {
           promises.push(pros);
         }
       } catch {
-        // wrong
+        // something went wrong. @todo
       }
     } else {
       // Map<'skos:inScheme', [Entry1, Entry2, ...]>

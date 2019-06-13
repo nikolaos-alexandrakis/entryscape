@@ -3,7 +3,15 @@
     "createTerminology": "Create terminology",
     "createTerminologyButton": "Create",
     "importLabel": "Import",
-    "createLabel": "Create"
+    "createLabel": "Create",
+    "namespaceUpdateConfirmation": "The namespace of the terminology has change. Would you like also like to update the namespaces of the concepts in the concept scheme?",
+    "namespaceUpdateConfirmationAffirmative": "yes, update all",
+    "namespaceUpdateConfirmationNegative": "no, update only concept scheme",
+    "namespaceUpdateConceptSchemeLinks": "${1} of {2} concepts links updated",
+    "namespaceUpdateConceptRURI": "${1} of {2} concepts' URI updated",
+    "namespaceUpdateNoConcepts": "No concepts in the concepts scheme to update",
+    "namespaceTaskUploadConceptScheme": "Update concept scheme",
+    "namespaceTaskUploadConcepts": "Update concepts"
   },
   "sv": true,
   "de": true
