@@ -440,8 +440,12 @@ table.no-margin .progress {
     right: 0;
     font-size: 14px;
 }
-@media (min-width: 768px){
 .dropdown-menu .dropdown-item {
+  min-height: initial;
+  padding: 0;
+}
+@media (min-width: 768px){
+  .dropdown-menu .dropdown-item > li > a {
     padding-right: 15px;
     padding-left: 15px; 
 }
@@ -449,6 +453,17 @@ table.no-margin .progress {
 .dropdown-menu li a:focus,
 .dropdown-menu li a:hover {
     color: $main-colour-hover;
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  width: 100%;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
 }
 
 @media (max-width: 767px) {
