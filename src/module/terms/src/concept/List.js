@@ -77,7 +77,6 @@ const CEditDialog = declare(EditDialog, {
   open(params) {
     this.inherited(arguments);
 
-    console.log(params);
     const { entry: conceptEntry } = params.row;
     const { conceptSchemeEntry } = params.list;
 
@@ -170,42 +169,46 @@ export default declare([ETBaseList], {
   rowActionNames: ['info', 'edit', 'versions', 'remove'],
 
   postCreate() {
-    /** @type {store/EntryStore} */
-    const es = registry.get('entrystore');
-    const context = registry.get('context');
-
-    // although this is a list view, the underlying model is still a tree
-    // and we use the model for operations like delete
-    es.newSolrQuery().rdfType(this.rootEntryType).context(context).limit(1)
-      .getEntries(0)
-      .then((entries) => {
-        // this is hack, get the first (and hopefully only) concept scheme in this context
-        this.conceptSchemeEntry = entries[0];
-        if (isConceptSchemeNamespaced(this.conceptSchemeEntry)) { // show only if the terminology is namespaced
-          this.registerDialog('edit', CEditDialog);
-        }
-        treeModel = new TreeModel(
-          Object.assign({}, skosUtil.getSemanticProperties(), { rootEntry: entries[0] }));
-      });
-
+    this.updateWorkingConceptScheme();
     this.inherited('postCreate', arguments);
     this.registerDialog('create', CCreateDialog);
     this.registerDialog('remove', CRemoveDialog);
   },
-  // make sure the edit dialog is updated depending on the terminology at work is namespaced or not
-  show() {
-    if (this.conceptSchemeEntry) {
-      const isEditWithoutNamespaceDialog = this.dialogs.edit instanceof EditDialog;
-      if (isConceptSchemeNamespaced(this.conceptSchemeEntry) && isEditWithoutNamespaceDialog) {
-        delete this.dialogs.edit;
-        this.registerDialog('edit', CEditDialog);
-      } else if (!isConceptSchemeNamespaced(this.conceptSchemeEntry) && !isEditWithoutNamespaceDialog) {
-        delete this.dialogs.edit;
-        this.registerDialog('edit', EditDialog);
-      }
+  async updateWorkingConceptScheme() {
+    const es = registry.getEntryStore();
+    const context = registry.getContext();
+
+    const entries = await es.newSolrQuery()
+      .rdfType(this.rootEntryType)
+      .context(context)
+      .limit(1)
+      .getEntries(0);
+
+    // this is hack, get the first (and hopefully only) concept scheme in this context
+    this.conceptSchemeEntry = entries[0];
+    if (isConceptSchemeNamespaced(this.conceptSchemeEntry)) { // show only if the terminology is namespaced
+      this.registerDialog('edit', CEditDialog);
     }
 
-    this.inherited(arguments);
+    // although this is a list view, the underlying model is still a tree
+    // and we use the model for operations like delete
+    treeModel = new TreeModel(Object.assign({}, skosUtil.getSemanticProperties(), { rootEntry: entries[0] }));
+  },
+  // make sure the edit dialog is updated depending on the terminology at work is namespaced or not
+  show() {
+    this.updateWorkingConceptScheme().then(() => {
+      if (this.conceptSchemeEntry) {
+        const isEditWithoutNamespaceDialog = this.dialogs.edit instanceof EditDialog;
+        if (isConceptSchemeNamespaced(this.conceptSchemeEntry) && isEditWithoutNamespaceDialog) {
+          delete this.dialogs.edit;
+          this.registerDialog('edit', CEditDialog);
+        } else if (!isConceptSchemeNamespaced(this.conceptSchemeEntry) && !isEditWithoutNamespaceDialog) {
+          delete this.dialogs.edit;
+          this.registerDialog('edit', EditDialog);
+        }
+      }
+      this.inherited(arguments);
+    });
   },
   getTemplate() {
     const templateId = config.terms.conceptTemplateId || '';

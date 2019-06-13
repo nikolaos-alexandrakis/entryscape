@@ -241,6 +241,8 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
             conceptSchemeEntry: this.conceptScheme,
           }),
         });
+      } else {
+        m.mount(this.__namespaceURI, null);
       }
     });
   },
