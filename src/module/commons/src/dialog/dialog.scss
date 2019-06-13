@@ -377,3 +377,12 @@ label {
         padding:10px;
     }
 }
+
+
+.bmd-form-group [class*=' bmd-label']{
+    position: relative;
+    margin-bottom:10px;
+}
+.bmd-form-group{
+    padding-top:0;
+}
