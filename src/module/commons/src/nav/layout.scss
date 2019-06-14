@@ -653,7 +653,14 @@ table.no-margin .progress {
 .nav > li > a:focus {
     background-color: transparent
 }
-
+.entryscapeViewList{
+    .nav-item{
+        a{
+            padding-top: 0;
+        }
+      
+    }
+}
 .main_menu_side {
     padding: 0;
     .side-menu{
