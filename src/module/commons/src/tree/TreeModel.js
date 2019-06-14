@@ -10,10 +10,11 @@ const filterOutNulls = arr => arr.filter(obj => obj != null);
 
 const getEntryFromResourceURI = (uri, context) => {
   const cache = context.getEntryStore().getCache();
-  let arr = cache.getByResourceURI(uri);
-  arr = arr.filter(e => e.getContext() === context);
-  if (arr.length > 0) {
-    return arr[0];
+  const entriesSet = cache.getByResourceURI(uri);
+  for (entry of entriesSet) {
+    if (entry.getContext() === context) {
+      return entry;
+    }
   }
 
   return null;

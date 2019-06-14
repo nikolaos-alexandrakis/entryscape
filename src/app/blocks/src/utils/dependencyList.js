@@ -31,7 +31,7 @@ export default function (list, data) {
         dps.forEach((dp) => {
           md.find(s, dp).forEach((stmt) => {
             if (stmt.getType() === 'uri') {
-              if (cache.getByResourceURI(stmt.getValue()).length === 0) {
+              if (cache.getByResourceURI(stmt.getValue()).size === 0) {
                 toLoad[stmt.getValue()] = true;
               }
             }

@@ -246,11 +246,10 @@ export default declare([ToggleRow], {
           if (!confirm) {
             return;
           }
-          const dists = stmts.map((stmt) => {
+          const dists = Array.from(stmts.map((stmt) => {
             const ruri = stmt.getValue();
             return cache.getByResourceURI(ruri);
-          })
-            .filter(dist => dist.length > 0);
+          })).filter(dist => dist.length > 0);
 
           es.newSolrQuery()
             .uriProperty('oa:hasTarget', this.entry.getResourceURI()).rdfType('oa:Annotation')

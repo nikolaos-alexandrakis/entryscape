@@ -1,10 +1,3 @@
-import m from 'mithril';
-import registry from 'commons/registry';
-import config from 'config';
-import declare from 'dojo/_base/declare';
-import { i18n } from 'esi18n';
-import Lookup from 'commons/types/Lookup';
-import { createEntry } from 'commons/util/storeUtil';
 import DowngradeDialog from 'catalog/candidates/DowngradeDialog';
 import EditDialog from 'catalog/datasets/DatasetEditDialog';
 import RevisionsDialog from 'catalog/datasets/RevisionsDialog';
@@ -16,6 +9,13 @@ import { navigateToCatalogView } from 'catalog/utils/catalog';
 import CommentDialog from 'commons/comments/CommentDialog';
 import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import escoCommentNLS from 'commons/nls/escoComment.nls';
+import registry from 'commons/registry';
+import Lookup from 'commons/types/Lookup';
+import { createEntry } from 'commons/util/storeUtil';
+import config from 'config';
+import declare from 'dojo/_base/declare';
+import { i18n } from 'esi18n';
+import m from 'mithril';
 
 const getDistributionStatements = entry => entry.getMetadata().find(entry.getResourceURI(), 'dcat:distribution');
 
@@ -292,11 +292,10 @@ export default (entry) => {
             if (!confirm) {
               return;
             }
-            const dists = stmts.map((stmt) => {
+            const dists = Array.from(stmts.map((stmt) => {
               const ruri = stmt.getValue();
               return cache.getByResourceURI(ruri);
-            })
-              .filter(dist => dist.length > 0);
+            })).filter(dist => dist.length > 0);
 
             es.newSolrQuery()
               .uriProperty('oa:hasTarget', entry.getResourceURI()).rdfType('oa:Annotation')

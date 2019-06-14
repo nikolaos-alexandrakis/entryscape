@@ -3370,9 +3370,9 @@ entities@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
 
-"entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#develop":
+"entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#feature/code-style-revamp":
   version "4.8.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#9b907d5ce4176ffa67298ecbe6657bea4219870c"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#3644668345e08d200693b8b8893d911f3eb65bd0"
   dependencies:
     "@babel/core" "^7.2.2"
     babel-core "^6.26.3"

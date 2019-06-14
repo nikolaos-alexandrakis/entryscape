@@ -292,7 +292,7 @@ const ext = {
             .then(entryToObj).then(onSuccess, onError);
         } else if (item.hasStyle('internalLink')) {
           let ct;
-          if (store.getCache().getByResourceURI(value).length === 0) {
+          if (store.getCache().getByResourceURI(value).size === 0) {
             ct = ignoreCallType('search');
           }
           return storeutil.getEntryByResourceURI(value, null, ct).then(entryToObj).then(

@@ -14,7 +14,7 @@ export default (values, valueType = 'uri') => {
   const getLabel = (value) => {
     const named = val2named[value];
     const choice = val2choice[value];
-    const entryArr = cache.getByResourceURI(value);
+    const entryArr = Array.from(cache.getByResourceURI(value));
     if (named) {
       return localize(named);
     } else if (choice) {

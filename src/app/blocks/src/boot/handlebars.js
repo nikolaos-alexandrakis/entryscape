@@ -91,7 +91,7 @@ let initializeHelpers = () => {
         if (val2named[val]) {
           label = localize(val2named[val]);
         } else {
-          const entryArr = es.getCache().getByResourceURI(val);
+          const entryArr = Array.from(es.getCache().getByResourceURI(val));
           if (entryArr.length > 0) {
             label = rdfutils.getLabel(entryArr[0]);
           }
