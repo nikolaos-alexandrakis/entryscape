@@ -395,3 +395,9 @@ label {
 .bmd-form-group{
     padding-top:0;
 }
+.bmd-form-group [class^='bmd-label'], .bmd-form-group [class*=' bmd-label']{
+    position: relative;
+}
+.bmd-form-group .form-control, .bmd-form-group .custom-file-control, .bmd-form-group label, .bmd-form-group input::placeholder{
+    line-height: 2;
+}
