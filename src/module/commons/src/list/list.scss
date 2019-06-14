@@ -27,9 +27,10 @@
     vertical-align: top;
 }
 
-.badge {
+.badge, .badge-primary {
   background-color: $main-colour;
 }
+
 .entryList {
     overflow-y: visible;
     height: 100%;
@@ -457,9 +458,9 @@
 .termsCollection .entryRow .entryRowCol1{
   display: block;
 }
-.termsList .entryName{
+/* .termsList .entryName{
   display: block;
-}
+} */
 .escoList__lowerBlockContainer .form-check-input .checkboxLabel {
     vertical-align: text-bottom;
     margin-left: 4px;
