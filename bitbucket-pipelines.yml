@@ -67,6 +67,9 @@ pipelines:
     release/*:
       - step: *build
       - step: *deploybranch
+    improvement/*:
+      - step: *build
+      - step: *deploybranch
 
 #definitions:
 #  caches:
