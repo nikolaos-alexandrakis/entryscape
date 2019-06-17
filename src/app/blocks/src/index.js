@@ -1,4 +1,5 @@
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import 'mithril';
 import 'popper.js';
 import 'bootstrap-material-design';

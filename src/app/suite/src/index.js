@@ -1,5 +1,6 @@
 // NOTE! order of imports is important
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import './publicPath';
 import 'jquery';
 import 'popper.js';
