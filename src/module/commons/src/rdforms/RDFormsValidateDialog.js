@@ -1,7 +1,7 @@
 import { Graph } from 'rdfjson';
-import { ValidationPresenter } from 'rdforms';
+import { renderingContext, ValidationPresenter } from 'rdforms';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
-import { NLSMixin } from 'esi18n';
+import { NLSMixin, i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
 import TitleDialog from '../dialog/TitleDialog'; // In template
@@ -18,8 +18,10 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     this.validator = new ValidationPresenter({ compact: true }, this.validator);
   },
   localeChange() {
+    const bundle = i18n.getLocalization(escoRdforms);
+    renderingContext.setMessages(bundle);
     if (this.title === '') {
-      this.dialog.updateLocaleStrings(this.NLSLocalized0);
+      this.dialog.updateLocaleStrings(bundle);
     } else {
       const mesg = {};
       mesg[this.nlsHeaderTitle] = this.title;

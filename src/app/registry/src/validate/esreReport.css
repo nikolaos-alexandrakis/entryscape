@@ -27,7 +27,7 @@
     padding-left: 10px;
 }
 
-.classReport .card-title .problems>span .fa {
+.classReport .card-title .problems>span .fas {
     padding-left: 5px;
 }
 
@@ -42,7 +42,7 @@
     width: 1px;
 }
 
-.classReport .card-title .fa {
+.classReport .card-title .fas {
     margin-right: 7px;
 }
 
