@@ -7728,7 +7728,7 @@ rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "9.3.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#687dd692db378a519d6b5db4ed435dc7af9f07ff"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#8b608d75b0de4a8cd4da7bcebbc2662ee8835ca3"
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.1.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
