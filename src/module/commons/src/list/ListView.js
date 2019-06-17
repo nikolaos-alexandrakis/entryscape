@@ -249,7 +249,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         popoverOptions.content = mesg;
         jquery(params.element).popover(popoverOptions);
       } else {
-        jquery(params.element).popover('destroy');
+        jquery(params.element).popover('dispose');
         if (params.params.nlsKeyTitle) {
           params.element.setAttribute('title',
             (specific && specific[params.params.nlsKeyTitle]) ||

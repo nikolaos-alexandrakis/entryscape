@@ -1,5 +1,4 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import Chart from 'chart.js';
 import { i18n } from 'esi18n';
 
 const BACKGROUND_COLOURS = [
@@ -12,16 +11,20 @@ export default () => {
 
   return {
     oncreate(vnode) {
-      const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
-      chart = new Chart(canvasNode, {
-        type: 'doughnut',
-        options: {
-          circumference: Math.PI, // half doughnut
-          rotation: -Math.PI,
-        },
-      });
+      import(/* webpackChunkName: "chart.js" */ 'chart.js')
+        .then(Chart => Chart.default)
+        .then((Chart) => {
+          const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
+          chart = new Chart(canvasNode, {
+            type: 'doughnut',
+            options: {
+              circumference: Math.PI, // half doughnut
+              rotation: -Math.PI,
+            },
+          });
 
-      m.redraw();
+          m.redraw();
+        });
     },
 
     view(vnode) {

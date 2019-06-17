@@ -1,5 +1,4 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import Chart from 'chart.js';
 import { i18n } from 'esi18n';
 import moment from 'moment';
 
@@ -82,39 +81,43 @@ export default () => {
 
   return {
     oncreate(vnode) {
-      const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
+      import(/* webpackChunkName: "chart.js" */ 'chart.js')
+        .then(Chart => Chart.default)
+        .then((Chart) => {
+          const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
 
-      chart = new Chart(canvasNode, {
-        type: 'bar',
-        options: {
-          maintainAspectRatio: false,
-          tooltips: {
-            callbacks: {
-              title(item) {
-                return moment(item[0].label).format('MMM Do, YYYY');
+          chart = new Chart(canvasNode, {
+            type: 'bar',
+            options: {
+              maintainAspectRatio: false,
+              tooltips: {
+                callbacks: {
+                  title(item) {
+                    return moment(item[0].label).format('MMM Do, YYYY');
+                  },
+                },
+              },
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    unit: 'month',
+                  },
+                  offset: true,
+                }],
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    precision: 0,
+                  },
+                }],
               },
             },
-          },
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                unit: 'month',
-              },
-              offset: true,
-            }],
-            yAxes: [{
-              ticks: {
-                min: 0,
-                precision: 0,
-              },
-            }],
-          },
-        },
-      });
+          });
 
-      updateXAxis(vnode);
-      m.redraw();
+          updateXAxis(vnode);
+          m.redraw();
+        });
     },
 
     onbeforeupdate: updateXAxis,
