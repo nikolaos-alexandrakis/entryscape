@@ -110,7 +110,7 @@ export default declare([EntryRow], {
     } else { // Default is glyphicons
       cls = `glyphicon glyphicon-${param.icon}`;
     }
-    cls = `${cls} pull-left escoDropdownRow__menuItemIcon`;
+    cls = `${cls} float-left escoDropdownRow__menuItemIcon`;
 
     const italicEl = DOMUtil.create('i', null, a);
     DOMUtil.addClass(italicEl, cls);

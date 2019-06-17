@@ -32,7 +32,7 @@
     margin-left: 10px;
 }
 
-.esrePipelineCreateDialog .grid-container .form-group label.control-label {
+.esrePipelineCreateDialog .grid-container .form-group label.col-form-label {
     font-size: 14px;
 }
 

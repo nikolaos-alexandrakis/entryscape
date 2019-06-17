@@ -1,15 +1,15 @@
 <div class=entryChooser>
     <div class="entryChooser__moveInput" data-dojo-attach-point="moveInput" style="display: none">
         <div class="btn-group entryCooser__btn-group" data-toggle="buttons">
-            <label for="${id}-searchOption" class="btn btn-default active" data-dojo-attach-point="__searchOptionLabel"
+            <label for="${id}-searchOption" class="btn btn-secondary active" data-dojo-attach-point="__searchOptionLabel"
                    data-dojo-attach-event="click:searchOption"><span
                     data-dojo-attach-point="nls,__searchOptionLabelNLS">searchLabel</span>
-                <input type="radio" name="optionType" id="${id}-searchOption" checked autocomplete="off"/>
+                <input type="radio" class="form-check-input" name="optionType" id="${id}-searchOption" checked autocomplete="off"/>
             </label>
-            <label for="${id}-createOption" class="btn btn-default" data-dojo-attach-point="__createOptionLabel"
+            <label for="${id}-createOption" class="btn btn-secondary" data-dojo-attach-point="__createOptionLabel"
                    data-dojo-attach-event="click:createOption"><span
                     data-dojo-attach-point="nls,__createOptionLabelNLS">createLabel</span>
-                <input type="radio" name="optionType" id="${id}-createOption" autocomplete="off"/>
+                <input type="radio" class="form-check-input" name="optionType" id="${id}-createOption" autocomplete="off"/>
             </label>
         </div>
     </div>

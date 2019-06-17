@@ -1,5 +1,6 @@
 .progress {
     height: 20px;
+    margin-bottom:20px;
 }
 
 escoProgress__task {
@@ -28,4 +29,14 @@ escoProgress__task {
 .escoProgress__mandatorytask {
     margin-top: 5px;
     color: darkred;
+}
+
+.escoProgress__task{
+    margin-bottom:20px;
+    .bmd-form-group{
+        padding-top:0;
+    }
+    .escoProgress__taskHeading{
+        background-color: #eeeeee;
+    }
 }

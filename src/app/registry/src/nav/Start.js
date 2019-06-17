@@ -40,8 +40,7 @@ export default declare([Start], {
   getBannerNode() {
     const node = this.inherited(arguments);
     node.classList.remove('jumbotron');
-    node.classList.add('panel');
-    node.classList.add('panel-default');
+    node.classList.add('card');
     return node;
   },
   canShowView() {

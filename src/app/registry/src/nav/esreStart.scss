@@ -3,7 +3,7 @@
 .esreStart__banner {
     margin-top: 2em;
 }
-.esreStart__banner .well {
+.esreStart__banner .card {
     padding-right: 60px;
     padding-left: 60px;
     padding-top: 48px;
@@ -14,11 +14,11 @@
     line-height: 2.1428571435;
 }
 
-.esreStart__banner .well p {
+.esreStart__banner .card p {
     line-height: 1.4;
 }
 
-.esreStart__banner .btn.pull-right {
+.esreStart__banner .btn.float-right {
     margin-top: 7px;
     margin-left: 10px;
 }

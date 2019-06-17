@@ -1,6 +1,6 @@
 <div>
        <form data-dojo-attach-point="commentForm" onsubmit="return false;">
-           <div class="form-group ${bid}">
+           <div class="form-group row ${bid}">
                <label for="${id}-subject" class="${bid}__Label"
                       data-dojo-attach-point="nls">subject</label>
                <input id="${id}-subject" class="form-control ${bid}__subjectInput"
@@ -10,7 +10,7 @@
                     data-dojo-attach-point="__subjectInputStatus"></div>
    
            </div>
-           <div class="form-group">
+           <div class="form-group row">
                <label for="${id}-comment" class="${bid}__Label"
                       data-dojo-attach-point="nls">comment</label>
                <textarea class="form-control" class="${bid}_commentInput"

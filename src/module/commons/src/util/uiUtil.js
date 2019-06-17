@@ -3,8 +3,7 @@ export default {
     return {
       html: true,
       placement: 'left',
-      template: '<div class="popover" role="tooltip"><div class="arrow"></div>' +
-        '<div class="popover-content"></div></div>',
+      template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-body"></div></div>',
       trigger: 'hover',
       container: 'body',
     };

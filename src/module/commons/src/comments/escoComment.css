@@ -52,7 +52,7 @@
     padding-top: 5px;
 }
 
-.escoComment--leftPadding .btn-default {
+.escoComment--leftPadding .btn-secondary {
     margin-right: 5px;
 }
 
@@ -69,7 +69,3 @@
     margin-top: 15px;
     height: 38px;
 }
-/* .form-group.is-empty{
-    margin: 0;
-    padding: 0;
-} */

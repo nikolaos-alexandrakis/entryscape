@@ -113,7 +113,7 @@ export default declare([EntryRow], {
       const list = this.list;
       const entryId = this.entry.getId();
       const wrapperNode = document.createElement('span');
-      wrapperNode.classList.add('dropdown', 'pull-right');
+      wrapperNode.classList.add('dropdown', 'float-right');
       this.col3Node.appendChild(wrapperNode);
 
       let currentRight = list.getRight(entryId);
@@ -157,12 +157,14 @@ export default declare([EntryRow], {
           li = document.createElement('li');
           li.innerHTML = labelA;
           li.classList.add('extraRights', 'selectable');
+          li.classList.add('dropdown-item');
           li.setAttribute('title', title);
           ul.appendChild(li);
         } else {
           li = document.createElement('li');
           li.innerHTML = labelA;
           li.classList.add('selectable');
+          li.classList.add('dropdown-item');
           li.setAttribute('title', title);
           ul.appendChild(li);
         }

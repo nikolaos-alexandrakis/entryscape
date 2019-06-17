@@ -21,7 +21,7 @@ vnode.attrs
 {
    element: 'span',
    type: message ? 'danger' : 'success',
-   className: 'pull-right',
+   className: 'float-right',
    text: message || 'Your teminology was successfully imported.', // nls
    children: null,
 }
@@ -29,7 +29,7 @@ vnode.attrs
 
 ## Outputs
 ```
-<span class="alert alert-success pull-right" role="alert">
+<span class="alert alert-success float-right" role="alert">
   <span>Your teminology was successfully imported.</span>
 </span>
 ```

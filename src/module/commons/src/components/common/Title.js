@@ -10,7 +10,7 @@ export default {
     const small = subtitle ? `<small>${subtitle}</small>` : '';
     const { classNames = [] } = button;
     classNames.push('escoButton--inTitle');
-    classNames.push('pull-right');
+    classNames.push('float-right');
     return m('div', [
       m(hx, [
         button.text ? m(Button, button) : null,

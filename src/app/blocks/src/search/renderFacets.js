@@ -17,7 +17,7 @@ class FacetBlock {
     this.bodyNode = DOMUtil.create('ul');
     this.domNode.appendChild(this.bodyNode);
     this.viewAllNode = DOMUtil.create('button',
-      { class: 'btn btn-default pull-right',
+      { class: 'btn btn-secondary float-right',
         innerHTML: 'visa alla' });
     this.viewAllNode.style.display = 'none';
     this.domNode.appendChild(this.viewAllNode);

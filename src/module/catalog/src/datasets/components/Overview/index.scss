@@ -12,6 +12,9 @@
     .btn__wrapper{
         display: flex;
         flex-direction: column;
+        .btn{
+            margin: 10px 1px;
+        }
     }
     .intro--wrapper {
         display: flex;

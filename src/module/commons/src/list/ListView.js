@@ -78,7 +78,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
           labelHeight: true,
           inHeader: true,
         }, DOMUtil.create('button', null, this.buttonContainer));
-        this.dropdownMenu.domNode.classList.add('pull-right');
+        this.dropdownMenu.domNode.classList.add('float-right');
         buttons.forEach(this.installMenuItem.bind(this));
       } else {
         buttons.forEach(this.installButton.bind(this));
@@ -274,7 +274,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const el = DOMUtil.create('button', {
       type: 'button',
     }, this.buttonContainer, params.first === true);
-    DOMUtil.addClass(el, `pull-right btn btn-raised btn-${params.button}`);
+    DOMUtil.addClass(el, `float-right btn btn-raised btn-${params.button}`);
 
     const span = DOMUtil.create('span', { 'aria-hidden': true }, el);
     DOMUtil.addClass(span, `fas fa-${params.icon}`);

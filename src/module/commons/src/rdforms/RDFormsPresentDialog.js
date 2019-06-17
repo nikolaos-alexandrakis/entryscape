@@ -7,7 +7,7 @@ import registry from 'commons/registry';
 import TitleDialog from '../dialog/TitleDialog'; // In template
 import templateString from './RDFormsPresentDialogTemplate.html';
 import Lookup from '../types/Lookup';
-import './rdforms.css';
+import './rdforms.scss';
 
 // TODO not sure if this is the only class depending on rdforms.css
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin], {

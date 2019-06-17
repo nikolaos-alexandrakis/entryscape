@@ -478,14 +478,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
           m(Button, {
             element: 'button',
             // type: message ? 'default' : 'primary',
-            classNames: ['pull-right', 'col-md-2'],
+            classNames: ['float-right', 'col-md-2'],
             text: message ? bundle.nlsProgressCancel : bundle.nlsProgressDone,
             onclick,
           }),
           m(Alert, {
             element: 'span',
             type: message ? 'danger' : 'success',
-            classNames: ['pull-left', 'col-md-8'],
+            classNames: ['float-left', 'col-md-8'],
             text: message || bundle.nlsProgressSuccess, // nls
             children: null,
           })],

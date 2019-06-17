@@ -63,7 +63,7 @@ export default (vnode) => {
 
       return (
         <div className='ESDropdown'>
-          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown} ></button>
+          <button class="icons fa fa-cog" onclick={toggleDropdown} ></button>
           <div class={`row__dropdownMenu ${showingDropdownClass}`}>
             { children }
           </div>
