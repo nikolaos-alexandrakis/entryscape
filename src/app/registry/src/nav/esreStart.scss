@@ -1,60 +1,63 @@
 @import '~commons/theme.scss';
 
 .esreStart__banner {
-    margin-top: 2em;
+  margin-top: 2em;
 }
+
 .esreStart__banner .card {
-    padding-right: 60px;
-    padding-left: 60px;
-    padding-top: 48px;
-    padding-bottom: 48px;
-    margin-bottom: 30px;
-    font-size: 21px;
-    font-weight: 200;
-    line-height: 2.1428571435;
+  padding-right: 60px;
+  padding-left: 60px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  margin-bottom: 30px;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 2.1428571435;
 }
 
 .esreStart__banner .card p {
-    line-height: 1.4;
+  line-height: 1.4;
 }
 
 .esreStart__banner .btn.float-right {
-    margin-top: 7px;
-    margin-left: 10px;
+  margin-top: 7px;
+  margin-left: 10px;
+}
+
+.esreStart__cardsContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .esreStart__cards {
-    margin-top: 30px;
-    margin-right: -30px;
-    margin-left: -30px;
+  margin-top: 30px;
+  margin-right: -30px;
+  margin-left: -30px;
 }
 
 @media (min-width: 768px) {
-    .esreStart__card {
-        height: 200px;
-    }
+  .esreStart__card {
+    height: 200px;
+  }
 }
 
 .esreStart__card {
-    color: #555;
-    cursor: pointer;
-    display: block;
-    padding: 20px;
+  color: #555;
+  cursor: pointer;
+  display: block;
+  padding: 20px;
 }
 
 .esreStart__card:hover {
-    background: white;
-    position: relative;
-    z-index: 2000;
-    text-decoration: none;
-    color: $main-colour-hover;
+  background: white;
+  position: relative;
+  z-index: 2000;
+  text-decoration: none;
+  color: $main-colour-hover;
 }
 
 .esreStart__cardHeader {
-    margin-top: 0px;
-    margin-bottom: 20px;
-}
-
-.esreStart__cardParagraph {
-    font-size: larger;
+  margin-top: 0px;
+  margin-bottom: 20px;
 }

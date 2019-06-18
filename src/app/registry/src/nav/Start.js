@@ -1,4 +1,3 @@
-import GroupComponent from 'commons/components/common/Group';
 import Start from 'commons/nav/Start';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
@@ -33,7 +32,10 @@ export default declare([Start], {
       });
     }, this);
 
-    m.render(this.mainNode, m(GroupComponent, { components: cardsComponents }));
+    m.render(this.mainNode,
+      m({
+        view: () => (<div className="esreStart__cardsContainer">{cardsComponents}</div>),
+      }));
   },
 
   // TODO change in commons so this is not neccessary

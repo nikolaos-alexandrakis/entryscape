@@ -1,6 +1,4 @@
-import m from 'mithril';
-
-export default {
+export default () => ({
   view(vnode) {
     const {
       id,
@@ -10,12 +8,10 @@ export default {
       onclick,
     } = vnode.attrs;
 
-    return m('div.col-12.col-md-6', { style: 'padding: 0 7.5px' }, [
-      m(`.col-12 ${id}__card card`, { onclick }, [
-        m('i', { class: `${id}__cardIcon float-right fas fa-2x fa-${faClass}` }, null),
-        m('h3', { class: `${id}__cardHeader` }, title),
-        m('p', { class: `${id}__cardParagraph` }, text),
-      ]),
-    ]);
+    return <div className={`${id}__card card`} style="width: calc(50% - 0.5em); margin: 0.25em;" onclick={onclick}>
+      <i className={`${id}__cardIcon float-right fas fa-2x fa-${faClass}`}/>
+      <h4 className={`${id}__cardHeader`}>{title}</h4>
+      <p className={`${id}__cardParagraph`}>{text}</p>
+    </div>;
   },
-};
+});
