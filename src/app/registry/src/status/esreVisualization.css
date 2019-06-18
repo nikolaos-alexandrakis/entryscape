@@ -6,13 +6,16 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 60px;
+    margin-top: 10px;
 }
+
 @media (max-width: 824px) {
     .esreVisualization__container {
         flex-wrap: wrap;
         justify-content: center;
         margin-bottom: 50px;
     }
+
     .esreVisualization__block:first-child {
         margin-right: 0px;
     }
@@ -36,6 +39,7 @@
     font-size: 40px;
     color: #88aa00;
 }
+
 /*---Legend specific css below ---*/
 
 .ct-chart-donut .ct-label, .ct-chart-pie .ct-label {
@@ -57,6 +61,7 @@
         font-size: 10px !important;
     }
 }
+
 @media (min-width: 768px) AND (max-width: 1240px) {
     .vis2 .ct-legend {
         max-width: 180px !important;
@@ -77,6 +82,7 @@
     text-align: center;
     margin-top: 16px;
 }
+
 .ct-legend li {
     position: relative;
     padding-left: 23px;
@@ -85,6 +91,7 @@
     cursor: pointer;
     display: inline-block;
 }
+
 .ct-legend li:before {
     width: 12px;
     height: 12px;
@@ -95,35 +102,43 @@
     border-radius: 2px;
     margin-top: 4px;
 }
+
 .ct-legend li.inactive:before {
     background: transparent;
 }
+
 .ct-legend.ct-legend-inside {
     position: absolute;
     top: 0;
     right: 0;
 }
-.ct-legend.ct-legend-inside li{
+
+.ct-legend.ct-legend-inside li {
     display: block;
     margin: 0;
     text-align: left;
 }
+
 .ct-legend .ct-series-0:before {
     background-color: #d70206;
     border-color: #d70206;
 }
+
 .ct-legend .ct-series-1:before {
     background-color: #f05b4f;
     border-color: #f05b4f;
 }
+
 .ct-legend .ct-series-2:before {
     background-color: #f4c63d;
     border-color: #f4c63d;
 }
+
 .ct-legend .ct-series-3:before {
     background-color: #d17905;
     border-color: #d17905;
 }
+
 .ct-legend .ct-series-4:before {
     background-color: #453d3f;
     border-color: #453d3f;
