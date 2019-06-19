@@ -3,7 +3,7 @@ import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
 import { isCatalogPublished, navigateToCatalogView } from 'catalog/utils/catalog';
 import PlaceholderChart from 'commons/components/chart/Placeholder';
 import DoughnutChart from 'commons/components/common/chart/Doughnut';
-import Chart from 'commons/components/common/chart/TimeBarChart';
+import Chart from 'commons/components/common/chart/TimeChart';
 import Overview from 'commons/overview/components/Overview';
 import OverviewHeader from 'commons/overview/components/OverviewHeader';
 import registry from 'commons/registry';

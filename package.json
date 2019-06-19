@@ -13,8 +13,6 @@
     "bootstrap-material-datetimepicker": "https://bitbucket.org/metasolutions/bootstrap-material-datetimepicker.git#webpack",
     "bootstrap-material-design": "^4.1.1",
     "chart.js": "^2.8.0",
-    "chartist": "https://bitbucket.org/metasolutions/chartist-js.git#develop",
-    "chartist-plugin-legend": "~0.6.2",
     "core-js": "^3.1.4",
     "dijit": "^1.14.2",
     "dojo": "^1.14.2",

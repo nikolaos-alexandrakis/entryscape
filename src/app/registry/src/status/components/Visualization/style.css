@@ -1,0 +1,30 @@
+.esreVisualization__header {
+    text-align: center;
+}
+
+.esreVisualization__container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 60px;
+    margin-top: 10px;
+}
+
+@media (max-width: 824px) {
+    .esreVisualization__container {
+        justify-content: center;
+    }
+}
+
+.esreVisualization__block {
+    text-align: center;
+}
+
+.esreVisualization__centralHeading {
+    font-family: Montserrat;
+}
+
+.esreVisualization__centralNumber {
+    font-size: 40px;
+    color: #88aa00;
+}
+

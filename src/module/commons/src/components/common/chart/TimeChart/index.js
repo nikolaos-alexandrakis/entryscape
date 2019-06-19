@@ -54,27 +54,29 @@ export default () => {
   let chart;
 
   const updateXAxis = (vnode) => {
-    const { data } = vnode.attrs;
-    if (data && data.datasets && data.datasets.length > 0) {
-      const numberOfDataPoints = data.datasets[0].data.length;
-      const type = guessAxisFormatFromData(numberOfDataPoints);
-      if (vnode.state && vnode.state.type !== type) {
-        vnode.state.type = type;
+    if (chart) {
+      const { data } = vnode.attrs;
+      if (data && data.datasets && data.datasets.length > 0) {
+        const numberOfDataPoints = data.datasets[0].data.length;
+        const type = guessAxisFormatFromData(numberOfDataPoints);
+        if (vnode.state && vnode.state.type !== type) {
+          vnode.state.type = type;
 
-        let titleCallback;
-        switch (type) {
-          case 'hour':
-            titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
-            break;
-          case 'day':
-            titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
-            break;
-          case 'month':
-            titleCallback = items => moment(items[0].label).format('MMMM YYYY');
-            break;
-          default:
+          let titleCallback;
+          switch (type) {
+            case 'hour':
+              titleCallback = items => moment(items[0].label).format('MMMM Do YYYY, h A');
+              break;
+            case 'day':
+              titleCallback = items => moment(items[0].label).format('MMM Do, YYYY');
+              break;
+            case 'month':
+              titleCallback = items => moment(items[0].label).format('MMMM YYYY');
+              break;
+            default:
+          }
+          chart.options.tooltips.callbacks.title = titleCallback;
         }
-        chart.options.tooltips.callbacks.title = titleCallback;
       }
     }
   };
@@ -85,9 +87,10 @@ export default () => {
         .then(Chart => Chart.default)
         .then((Chart) => {
           const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
+          const { type = 'bar', offset = true} = vnode.attrs;
 
           chart = new Chart(canvasNode, {
-            type: 'bar',
+            type,
             options: {
               maintainAspectRatio: false,
               tooltips: {
@@ -103,7 +106,7 @@ export default () => {
                   time: {
                     unit: 'month',
                   },
-                  offset: true,
+                  offset,
                 }],
                 yAxes: [{
                   ticks: {
@@ -155,7 +158,7 @@ export default () => {
 
       return (<div className="chart-container">
         <div
-          className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
+          className={`no-data ${noData ? '' : 'd-none'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
         <canvas
           className={` ${noData ? 'hidden' : ''}`}
           width={width}

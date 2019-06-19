@@ -4,6 +4,7 @@ import { i18n } from 'esi18n';
 const BACKGROUND_COLOURS = [
   'rgba(251, 192, 45,0.6)',
   'rgba(179, 157, 219,0.6)',
+  'rgba(43,64,219,0.6)',
 ];
 
 export default () => {
@@ -15,12 +16,19 @@ export default () => {
         .then(Chart => Chart.default)
         .then((Chart) => {
           const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
-          chart = new Chart(canvasNode, {
-            type: 'doughnut',
-            options: {
-              circumference: Math.PI, // half doughnut
-              rotation: -Math.PI,
+          const { type = 'doughnut' } = vnode.attrs;
+          const options = type === 'doughnut' ? {
+            circumference: Math.PI, // half doughnut
+            rotation: -Math.PI,
+          } : {
+            legend: {
+              position: 'right',
             },
+          };
+
+          chart = new Chart(canvasNode, {
+            type,
+            options,
           });
 
           m.redraw();
@@ -45,9 +53,9 @@ export default () => {
 
       return (<div className="chart-container">
         <div
-          className={`no-data ${noData ? '' : 'hidden'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
+          className={`no-data ${noData ? '' : 'd-none'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
         <canvas
-          className={` ${noData ? 'hidden' : ''}`}
+          className={` ${noData ? 'd-none' : ''}`}
           aria-label="Statistics chart" role="img"/>
       </div>);
     },
