@@ -2,8 +2,7 @@ import Start from 'commons/nav/Start';
 import registry from 'commons/registry';
 import declare from 'dojo/_base/declare';
 import m from 'mithril';
-import CardComponent from './components/CardComponent';
-import './esreStart.scss';
+import CardsContainer from './components/CardsContainer';
 
 export default declare([Start], {
   bid: 'esreStart',
@@ -11,7 +10,7 @@ export default declare([Start], {
   render() {
     this.renderBanner();
     const site = registry.getSiteManager();
-    const cardsComponents = this.getCards().map((card) => {
+    const cards = this.getCards().map((card) => {
       const cardView = this.getCardView(card);
       const text = this.getText(card);
       let onclick;
@@ -22,20 +21,17 @@ export default declare([Start], {
         onclick = () => registry.get('siteManager').render(cardView, params);
       }
 
-      return m(CardComponent, {
+      return {
         text,
         tooltip,
         onclick,
         title: label,
         id: this.bid,
         faClass: card.faClass,
-      });
+      };
     }, this);
 
-    m.render(this.mainNode,
-      m({
-        view: () => (<div className="esreStart__cardsContainer">{cardsComponents}</div>),
-      }));
+    m.render(this.mainNode, <CardsContainer cards={cards}/>);
   },
 
   // TODO change in commons so this is not neccessary
