@@ -1,52 +1,70 @@
-import chartist from 'chartist';
+import BarChart from 'commons/components/chart/BarChart';
 import DOMUtil from 'commons/util/htmlUtil';
-import chartistPluginLegend from 'chartist-plugin-legend';
+import m from 'mithril';
 
 let counter = 0;
-const renderChart = function (node, data, items) {
+
+/**
+ * Return as many items as limit indicates.
+ *
+ * @todo re-write as pure function
+ *
+ * @param data
+ * @param limit
+ */
+const applyLimit = (data, limit) => {
+  data.labels = data.labels.slice(0, limit);
+  if (Array.isArray(data.series[0])) {
+    data.series = data.series.map(t => t.slice(0, limit));
+  } else {
+    data.series = data.series.slice(0, limit);
+  }
+
+  return data;
+};
+
+
+const renderChart = (node, data) => {
   const f = (loadedData) => {
     counter += 1;
     const idClass = `chartist_${counter}`;
 
-    const div = DOMUtil.create('div', { class: `${idClass} ${data.proportion}` });
+    // Create node
+    const div = DOMUtil.create('div', { class: `${idClass} ${data.proportion}` }, node);
     if (data.width) {
       div.style.width = parseInt(data.width, 10) == data.width ? `${data.width}px` : data.width;
     } else {
       div.style.width = '100%';
     }
-    if (data.options.axisX && data.options.axisX.type) {
-      data.options.axisX.type = Chartist[data.options.axisX.type];
-    }
-    if (data.options.axisY && data.options.axisY.type) {
-      data.options.axisY.type = Chartist[data.options.axisY.type];
+
+    let filteredData = Object.assign({}, loadedData);
+    if (data.limit) {
+      filteredData = applyLimit(filteredData, data.limit);
     }
 
-    if (data.limit) {
-      loadedData.labels = loadedData.labels.slice(0, data.limit);
-      if (Array.isArray(loadedData.series[0])) {
-        loadedData.series = loadedData.series.map(t => t.slice(0, data.limit));
-      } else {
-        loadedData.series = loadedData.series.slice(0, data.limit);
-      }
-    }
-    if (data.legend) {
-      data.options.plugins = [
-        Chartist.plugins.legend({
-          position: 'bottom',
-          legendNames: loadedData.labels.map((l, idx) => `${l} (${loadedData.series[idx]})`),
-        }),
-      ];
-      data.options.labelInterpolationFnc = value => '';
-      delete loadedData.labels;
-    }
-    new Chartist[data.type](`.${idClass}`, loadedData, data.options, data.responsiveOptions);
+    const chartJSData = {
+      datasets: [{
+        data: filteredData.series[0],
+      }],
+      labels: filteredData.labels,
+    };
+
+    m.mount(div, {
+      view: () => m(BarChart, {
+        data: chartJSData,
+        type: 'horizontalBar',
+      }),
+    });
   };
+
   if (data.data) {
     f(data.data);
   } else if (data.url) {
-    require([data.url], (loadedData) => {
-      f(loadedData);
-    });
+    if (data.url.endsWith('.json')) {
+      fetch(data.url).then(res => res.json()).then(f);
+    } else {
+      require([data.url], f);
+    }
   }
 };
 
