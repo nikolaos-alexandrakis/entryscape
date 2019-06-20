@@ -1,33 +1,6 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import { COLOURS_BAR_CHART } from 'commons/components/chart/colors';
 import { i18n } from 'esi18n';
-
-const COLOR_OPTIONS = [
-  {
-    borderColor: '#00838f',
-    backgroundColor: 'rgba(0, 131, 143,0.2)',
-    borderWidth: 3,
-  },
-  {
-    borderColor: '#165b98',
-    backgroundColor: 'rgba(22, 91, 152,0.2)',
-    borderWidth: 3,
-  },
-  {
-    borderColor: '#aed581',
-    backgroundColor: 'rgba(174, 213, 129,0.2)',
-    borderWidth: 3,
-  },
-  {
-    borderColor: '#fbc02d',
-    backgroundColor: 'rgba(251, 192, 45,0.2)',
-    borderWidth: 3,
-  },
-  {
-    borderColor: '#e91e63',
-    backgroundColor: 'rgba(233, 30, 99,0.2)',
-    borderWidth: 3,
-  },
-];
 
 export default () => {
   let chart;
@@ -38,17 +11,11 @@ export default () => {
         .then(Chart => Chart.default)
         .then((Chart) => {
           const canvasNode = vnode.dom.getElementsByTagName('canvas')[0];
-          const { type = 'bar' } = vnode.attrs;
+          const { type = 'bar', options = {} } = vnode.attrs;
 
           chart = new Chart(canvasNode, {
             type,
-            options: {
-              scales: {
-                yAxes: [{
-                  barThickness: 6,
-                }],
-              },
-            },
+            options,
           });
 
           m.redraw();
@@ -57,7 +24,7 @@ export default () => {
 
 
     view(vnode) {
-      const { data, chartDimensions = {} } = vnode.attrs;
+      const { data, options = {}, colors = [], chartDimensions = {} } = vnode.attrs;
       const { width = 400, height = 400 } = chartDimensions; // @todo @valentino are these used?
 
       let noData = true;
@@ -66,18 +33,21 @@ export default () => {
         && data.datasets[0].data.length > 0) { // @todo refactor
         noData = false;
 
-        // update chart data and xAxis if needed
+        // update chart data
         chart.data = {
           labels: [],
           ...data,
         };
 
+        // merge colours to apply
+        const colorsToApply = [...colors, ...COLOURS_BAR_CHART];
+
         // update chart colors and axes and re-render
         if (chart.data.datasets) {
-          const colorOptionsCount = COLOR_OPTIONS.length;
+          const colorOptionsCount = colorsToApply.length;
           chart.data.datasets.forEach((dataset, idx) => {
             const colorIdx = idx % colorOptionsCount; // repeat colors
-            Object.assign(chart.data.datasets[idx], { ...COLOR_OPTIONS[colorIdx] }); // shallow is fine
+            Object.assign(chart.data.datasets[idx], { ...colorsToApply[colorIdx] }); // shallow is fine
           });
 
           chart.update();

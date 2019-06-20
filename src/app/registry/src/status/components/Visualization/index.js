@@ -231,7 +231,10 @@ export default declare([MithrilView, PublicView], {
           <div className="row">
             <div className="col justify-content-md-center" style="margin-bottom: 80px">
               <h6 className="esreVisualization__header">{esreVisualization.topOrganizations}</h6>
-              <BarChart data={state.publicOrganizations} type="horizontalBar"/>
+              <BarChart
+                data={state.publicOrganizations}
+                type="horizontalBar"
+                options={{ scales: { yAxes: [{ barThickness: 6 }] } }}/>
             </div>
           </div>
         </div>);

@@ -1,11 +1,6 @@
-import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
+import { COLOURS_PIE } from 'commons/components/chart/colors';
 import { i18n } from 'esi18n';
-
-const BACKGROUND_COLOURS = [
-  'rgba(251, 192, 45,0.6)',
-  'rgba(179, 157, 219,0.6)',
-  'rgba(43,64,219,0.6)',
-];
 
 export default () => {
   let chart;
@@ -36,7 +31,7 @@ export default () => {
     },
 
     view(vnode) {
-      const { data } = vnode.attrs;
+      const { data, colors = [] } = vnode.attrs;
 
       let noData = true;
       if (chart && data
@@ -46,17 +41,18 @@ export default () => {
 
         // update chart data and xAxis if needed
 
-        data.datasets[0].backgroundColor = BACKGROUND_COLOURS;
+        data.datasets[0].backgroundColor = [...colors, ...COLOURS_PIE];
         chart.data = data;
         chart.update();
       }
 
+      const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
       return (<div className="chart-container">
-        <div
-          className={`no-data ${noData ? '' : 'd-none'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
+        <div className={`no-data ${noData ? '' : 'd-none'}`}>{escaStatistics.timeRangeNoDataAvailable}</div>
         <canvas
           className={` ${noData ? 'd-none' : ''}`}
-          aria-label="Statistics chart" role="img"/>
+          aria-label="Statistics chart"
+          role="img"/>
       </div>);
     },
   };
