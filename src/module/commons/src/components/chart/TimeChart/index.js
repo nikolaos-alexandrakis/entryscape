@@ -1,6 +1,6 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { i18n } from 'esi18n';
-import moment from 'moment';
+import moment from 'moment/moment';
 
 /**
  * Given a length guess what date format is appropriate to render.
