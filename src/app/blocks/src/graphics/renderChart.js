@@ -3,8 +3,6 @@ import DoughnutChart from 'commons/components/chart/Doughnut';
 import DOMUtil from 'commons/util/htmlUtil';
 import m from 'mithril';
 
-let counter = 0;
-
 /**
  * Return as many items as limit indicates.
  *
@@ -24,74 +22,84 @@ const applyLimit = (data, limit) => {
   return data;
 };
 
+/**
+ *
+ * @param data
+ * @return {{datasets: {data: *}[], labels: *}}
+ */
+const convertToChartJs = data => ({
+  datasets: [{
+    data: Array.isArray(data.series[0]) ? data.series[0] : data.series,
+  }],
+  labels: data.labels,
+});
 
-const renderChart = (node, data) => {
-  const f = (loadedData) => {
-    counter += 1;
-    const idClass = `chartist_${counter}`;
+/**
+ *
+ * @param data
+ * @param configData
+ * @return {{datasets: {data: *}[], labels: *}}
+ */
+const transformData = (data, configData) => {
+  let filteredData = data;
+  if (configData.limit) {
+    filteredData = applyLimit(filteredData, configData.limit);
+  }
 
-    // Create node
-    const div = DOMUtil.create('div', { class: `${idClass} ${data.proportion}` }, node);
+  return convertToChartJs(filteredData);
+};
 
-    let filteredData = Object.assign({}, loadedData);
-    if (data.limit) {
-      filteredData = applyLimit(filteredData, data.limit);
-    }
+/**
+ * Match block config data with mithril chart component
+ *
+ * @param node
+ * @param configData
+ * @param rawData
+ */
+const renderChartComponent = (node, configData, rawData) => {
+  // transform fetched data
+  const data = transformData(Object.assign({}, rawData), configData);
 
-    console.log(loadedData);
-    const chartJSData = {
-      datasets: [{
-        data: Array.isArray(filteredData.series[0]) ? filteredData.series[0] : filteredData.series,
-      }],
-      labels: filteredData.labels,
-    };
-
-    let chartComponent = null;
-    const type = data.type;
-    switch (type) {
-      case 'bar':
-      case 'line':
-      case 'horizontalBar':
-        chartComponent = {
-          view: () => m(BarChart, {
-            data: chartJSData,
-            type,
-            dimensions: {
-              width: data.width,
-              height: data.height,
-            },
-            options: data.options,
-          }),
-        };
-        break;
-      case 'pie':
-      case 'doughnut':
-        chartComponent = {
-          view: () => m(DoughnutChart, {
-            data: chartJSData,
-            type,
-            dimensions: {
-              width: data.width,
-              height: data.height,
-            },
-            options: data.options,
-          }),
-        };
-      default:
-    }
-
-    m.mount(div, chartComponent);
+  // prepare chartjs options
+  const type = configData.type;
+  const options = {
+    data,
+    type: configData.type,
+    dimensions: {
+      width: configData.width,
+      height: configData.height,
+    },
+    options: configData.options,
   };
 
-  if (data.data) {
-    f(data.data);
-  } else if (data.url) {
-    if (data.url.endsWith('.json')) {
-      fetch(data.url).then(res => res.json()).then(f);
+  // find suitable chatjs component
+  let chartComponent = null;
+  switch (type) {
+    case 'bar':
+    case 'line':
+    case 'horizontalBar':
+      chartComponent = { view: () => m(BarChart, options) };
+      break;
+    case 'pie':
+    case 'doughnut':
+      chartComponent = { view: () => m(DoughnutChart, options) };
+      break;
+    default:
+  }
+
+  m.mount(DOMUtil.create('div', {}, node), chartComponent);
+};
+
+export default (node, configData) => {
+  if (configData.data) {
+    renderChartComponent(node, configData.data);
+  } else if (configData.url) {
+    if (configData.url.endsWith('.json')) {
+      fetch(configData.url)
+        .then(res => res.json())
+        .then(data => renderChartComponent(node, configData, data));
     } else {
-      require([data.url], f);
+      require([configData.url], data => renderChartComponent(node, configData, data));
     }
   }
 };
-
-export default renderChart;
