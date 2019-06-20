@@ -1,4 +1,5 @@
-import BarChart from 'commons/components/chart/BarChart';
+import BarChart from 'commons/components/chart/Bar';
+import DoughnutChart from 'commons/components/chart/Doughnut';
 import DOMUtil from 'commons/util/htmlUtil';
 import m from 'mithril';
 
@@ -31,30 +32,55 @@ const renderChart = (node, data) => {
 
     // Create node
     const div = DOMUtil.create('div', { class: `${idClass} ${data.proportion}` }, node);
-    if (data.width) {
-      div.style.width = parseInt(data.width, 10) == data.width ? `${data.width}px` : data.width;
-    } else {
-      div.style.width = '100%';
-    }
 
     let filteredData = Object.assign({}, loadedData);
     if (data.limit) {
       filteredData = applyLimit(filteredData, data.limit);
     }
 
+    console.log(loadedData);
     const chartJSData = {
       datasets: [{
-        data: filteredData.series[0],
+        data: Array.isArray(filteredData.series[0]) ? filteredData.series[0] : filteredData.series,
       }],
       labels: filteredData.labels,
     };
 
-    m.mount(div, {
-      view: () => m(BarChart, {
-        data: chartJSData,
-        type: 'horizontalBar',
-      }),
-    });
+    let chartComponent = null;
+    const type = data.type;
+    switch (type) {
+      case 'bar':
+      case 'line':
+      case 'horizontalBar':
+        chartComponent = {
+          view: () => m(BarChart, {
+            data: chartJSData,
+            type,
+            dimensions: {
+              width: data.width,
+              height: data.height,
+            },
+            options: data.options,
+          }),
+        };
+        break;
+      case 'pie':
+      case 'doughnut':
+        chartComponent = {
+          view: () => m(DoughnutChart, {
+            data: chartJSData,
+            type,
+            dimensions: {
+              width: data.width,
+              height: data.height,
+            },
+            options: data.options,
+          }),
+        };
+      default:
+    }
+
+    m.mount(div, chartComponent);
   };
 
   if (data.data) {
