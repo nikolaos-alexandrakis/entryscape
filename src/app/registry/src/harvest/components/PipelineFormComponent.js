@@ -81,7 +81,7 @@ export default class {
       id: this.formId,
     }, [
       m(Group, {
-        element: 'div.grid-container',
+        element: 'div',
         components: [
           this.getOrgDetailsFieldsetComponents(),
           this.getHarvesterDetailsFieldsetComponents(),
