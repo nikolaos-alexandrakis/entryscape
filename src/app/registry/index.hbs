@@ -48,53 +48,55 @@
             var earr = entryPart[1].split('/'); // TODO huge guess
             var context = earr[0];
             var dataset = earr[2];
-            location.href = '/catalog/' + context + '/datasets/' + dataset + queryParams;
+            var redirectURL = window.location.origin + '/catalog/' + context + '/datasets/' + dataset + queryParams;
+            window.location.replace(redirectURL);
+        } else {
+
+            var js = function (src, dataMain) {
+                dataMain = dataMain || '';
+                document.write('\x3Cscript data-main="' + dataMain + '" src="' + src + '">\x3C/script>');
+            };
+
+            /**
+             * if there's a localconfig query param load a script src
+             *
+             * path values and respective script src:
+             *  - true                    -> src = '/theme/local.js.local'
+             *  - starts with '.' or '/'  -> src = path
+             *  - starts with other char  -> src = /theme/path
+             */
+            if (queryParamsMap.localconfig) {
+                var localPath = queryParamsMap.localconfig;
+                var src = localPath === 'true' ?
+                        '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
+                                localPath : '/theme' + localPath);
+                js(src);
+            }
+
+            /**
+             * if __entryscape_config_dev is defined already then override values in __entryscape_config
+             */
+            if (window.__entryscape_config_dev) {
+                Object.assign(__entryscape_config, __entryscape_config_dev); // TODO @valentino not supported in IE11
+            }
+
+            var useLocalBuild = __entryscape_config.entryscape.localBuild;
+            var app = __entryscape_config.entryscape.static.app;
+            var path = useLocalBuild ? '/dist' : __entryscape_config.entryscape.static.url;
+            var version = useLocalBuild ? '' : (__entryscape_config.entryscape.static.version || 'latest');
+
+            /**
+             * load the right css/js for the given config/queryParams
+             */
+            const appPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/app.js';
+            js(appPath);
+
+            const favIconPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/assets/favicon.ico';
+            document.write('<link rel="icon" href="' + favIconPath + '" type="image/x-icon"/>');
         }
-
-        var js = function (src, dataMain) {
-            dataMain = dataMain || '';
-            document.write('\x3Cscript data-main="' + dataMain + '" src="' + src + '">\x3C/script>');
-        };
-
-        /**
-         * if there's a localconfig query param load a script src
-         *
-         * path values and respective script src:
-         *  - true                    -> src = '/theme/local.js.local'
-         *  - starts with '.' or '/'  -> src = path
-         *  - starts with other char  -> src = /theme/path
-         */
-        if (queryParamsMap.localconfig) {
-            var localPath = queryParamsMap.localconfig;
-            var src = localPath === 'true' ?
-                    '/theme/local.js.local' : (localPath.startsWith('.') || localPath.startsWith('/') ?
-                            localPath : '/theme' + localPath);
-            js(src);
-        }
-
-        /**
-         * if __entryscape_config_dev is defined already then override values in __entryscape_config
-         */
-        if (window.__entryscape_config_dev) {
-            Object.assign(__entryscape_config, __entryscape_config_dev); // TODO @valentino not supported in IE11
-        }
-
-        var useLocalBuild = __entryscape_config.entryscape.localBuild;
-        var app = __entryscape_config.entryscape.static.app;
-        var path = useLocalBuild ? '/dist' : __entryscape_config.entryscape.static.url;
-        var version = useLocalBuild ? '' : (__entryscape_config.entryscape.static.version || 'latest');
-
-        /**
-         * load the right css/js for the given config/queryParams
-         */
-        const appPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/app.js';
-        js(appPath);
-
-        const favIconPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/assets/favicon.ico';
-        document.write('<link rel="icon" href="' + favIconPath + '" type="image/x-icon"/>');
     </script>
 </head>
 <body class="nav-md">
-    <div id="controlNode"></div>
+<div id="controlNode"></div>
 </body>
 </html>
