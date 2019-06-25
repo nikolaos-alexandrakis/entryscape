@@ -10,13 +10,9 @@ export default {
     const small = subtitle ? `<small>${subtitle}</small>` : '';
     const { classNames = [] } = button;
     classNames.push('escoButton--inTitle');
-    classNames.push('pull-right');
-    return m('div', [
-      m(hx, [
-        button.text ? m(Button, button) : null,
-        m.trust(`${title} ${small}`),
-      ]),
-      m('hr', { style: 'margin: 10px auto;' }),
+    return m('div.d-flex.justify-content-between', [
+      m(hx, m.trust(`${title} ${small}`)),
+      button.text ? m(Button, button) : null,
     ]);
   },
 };

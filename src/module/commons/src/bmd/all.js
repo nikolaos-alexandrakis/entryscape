@@ -1,5 +1,5 @@
-import 'bootstrap-material-design/dist/js/material';
-import 'bootstrap-material-design/dist/js/ripples';
+//import 'bootstrap-material-design/dist/js/material';
+//import 'bootstrap-material-design/dist/js/ripples';
 import jquery from 'jquery';
 import PubSub from 'pubsub-js';
 import util from './util';
@@ -32,12 +32,15 @@ const updateMaterial = util.throttle(() => {
     jquery.material.togglebutton();
     // jquery.material.init();
   }
+  jquery('[data-toggle="popover"]').popover();
 }, 500, { leading: false });
 
 
 // run only once, when first view is loaded
 const viewListener = PubSub.subscribe('spa.viewLoaded', () => {
-  jquery.material.init();
+  // jquery.material.init();
+  jquery('body').bootstrapMaterialDesign();
+  window.$ = jquery;
   observeDOMAdditions(jquery('#viewsNode')[0], updateMaterial); // main content
   observeDOMAdditions(jquery('#entryscapeDialogs')[0], updateMaterial); // side dialogs
   PubSub.unsubscribe(viewListener);

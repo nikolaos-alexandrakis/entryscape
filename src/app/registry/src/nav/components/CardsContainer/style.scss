@@ -1,0 +1,49 @@
+@import '~commons/theme.scss';
+
+.esreStart__cardsContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+@media (min-width: 768px) {
+    .esreStart__card {
+        width: calc(50% - 0.5em);
+    }
+}
+
+@media (max-width: 767px) {
+    .esreStart__cardsContainer {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .esreStart__card {
+        width: 100%;
+    }
+}
+
+.esreStart__card {
+    color: #555;
+    cursor: pointer;
+    display: block;
+    padding: 20px;
+    margin: 0.25em;
+    flex-basis: content;
+
+}
+
+.esreStart__card:hover {
+    background: white;
+    position: relative;
+    z-index: 2000;
+    text-decoration: none;
+    color: $main-colour-hover;
+}
+
+.esreStart__cardHeader {
+    margin-top: 0;
+    margin-bottom: 20px;
+}

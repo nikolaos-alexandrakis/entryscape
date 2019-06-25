@@ -18,7 +18,7 @@ import List from 'registry/present/List';
 import Source from 'registry/source/Source';
 import OtherStatus from 'registry/status/OtherStatus';
 import PSIStatus from 'registry/status/PSIStatus';
-import Visualization from 'registry/status/Visualization';
+import Visualization from 'registry/status/components/Visualization';
 import Report from 'registry/validate/Report';
 import workbenchSiteConfig from 'workbench/config/site';
 

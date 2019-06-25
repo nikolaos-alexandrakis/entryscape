@@ -10,10 +10,12 @@
 
 .escoEntryType__filePathInput[disabled] {
     cursor: pointer;
+    background:none;
+    border-bottom: 1px solid lightgrey;
 }
 
 .escoEntryType__file {
-    margin-top: -9px;
+    margin-top: 28px;
 }
 
 .escoEntryType__fileUploadButton {
@@ -27,6 +29,7 @@
 .escoEntryType__fileBlock {
     display: none;
 }
+
 
 .escoEntryType__linkLabel,
 .escoEntryType__fileLabel{
@@ -51,4 +54,13 @@
 .escoEntryType--internalLink .escoEntryType__onlyInternalLink {
     display: block;
     margin-top: 20px;
+}
+.escoEntryType__optionBlock{
+    input[type="radio"]{
+        display: none;
+    }
+}
+
+.escoEntryType__file > div{
+    width: 60%;
 }

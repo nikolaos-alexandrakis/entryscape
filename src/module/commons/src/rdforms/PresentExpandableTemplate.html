@@ -1,18 +1,18 @@
-<div class = "panel panel-default"  data-dojo-attach-point="__external">
-    <div class ="panel-heading" >
+<div class = "card"  data-dojo-attach-point="__external">
+    <div class ="card-header" >
         <span data-dojo-attach-point="nls">externalMetadataHeader</span>
-        <div class="pull-right">
+        <div class="float-right">
             <a data-dojo-attach-point="__help" class=${bid}__link style="color: black;">
                 <i class="fas fa-question-circle"></i>
             </a>
         </div>
     </div>
 
-    <div class="panel-body ${bid}__presenterPanel" data-dojo-attach-point="__presenterPanel">
+    <div class="card-body ${bid}__presenterPanel" data-dojo-attach-point="__presenterPanel">
         <div class=${bid}__presenter" data-dojo-attach-point="__presenter"></div>
         <div data-dojo-attach-point="__shader" class="${bid}__shader" style="display: none"></div>
     </div>
-    <div class="panel-footer ${bid}__panelFooter" data-dojo-attach-point="__footerPanel">
+    <div class="card-footer ${bid}__panelFooter" data-dojo-attach-point="__footerPanel">
         <div class="text-center" data-dojo-attach-point="__showMore">
             <span class="${bid}__expandHide" data-dojo-attach-point="nls" title="showmoreTitle" data-dojo-attach-event="onClick:showMore">
                 <i data-dojo-attach-point="__showMoreIcon" class="fas fa-angle-double-down"></i>

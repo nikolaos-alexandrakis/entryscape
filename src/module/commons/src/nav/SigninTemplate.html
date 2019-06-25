@@ -2,7 +2,7 @@
     <div>
         <a href="/" data-dojo-attach-point="${bid}__home"></a>
     </div>
-    <div class="well ${bid}__external">
+    <div class="card card-body ${bid}__external">
         <img class="${bid}__externalImage" data-dojo-attach-point="__externalImage">
         <p class="${bid}__externalMessage" data-dojo-attach-point="__externalMessage"></p>
         <a class="btn btn-block btn-raised btn-success ${bid}__externalButton spaExplicitLink"
@@ -13,21 +13,21 @@
     <div class="${bid}__or" data-dojo-attach-point="__or">– <span
             data-dojo-attach-point="nls">signinOr</span> –
     </div>
-    <div class="well ${bid}__internal">
+    <div class="card card-body ${bid}__internal">
         <form onsubmit="return false;" class="${bid}__signin" data-dojo-attach-point="signinForm">
-            <div class="form-group">
+            <div class="form-group row">
                 <label data-dojo-attach-point="nls" for="${id}-loginUsername">username</label>
                 <input id="${id}-loginUsername" type="text" autofocus class="form-control"
                        data-dojo-attach-point="nls,username" placeholder="usernamePlaceholder"
                        required>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="${id}-loginPassword" data-dojo-attach-point="nls">password</label>
                 <input id="${id}-loginPassword" type="password" class="form-control"
                        data-dojo-attach-point="nls,password" placeholder="passwordPlaceholder"
                        pattern=".{8,}" title="passwordTitle" required>
             </div>
-            <div class="form-group" style="display: none"
+            <div class="form-group row" style="display: none"
                  data-dojo-attach-point="signinStatusWrapper">
                 <div class="alert alert-danger" role="alert"
                      data-dojo-attach-point="signinStatus"></div>
@@ -45,13 +45,13 @@
         </form>
         <div class="${bid}__signout">
             <h3 data-dojo-attach-point="signedInHeaderNode"></h3>
-            <div class="btn-group btn-group-justified btn-group-raised">
+            <div class="btn-group d-flex btn-group-raised" role="group">
                 <button data-dojo-attach-event="onClick: start" class="btn btn-success"
                         data-dojo-attach-point="nls">backToAppButton
                 </button>
             </div>
-            <div class="btn-group btn-group-justified btn-group-raised">
-                <button data-dojo-attach-event="onClick: signout" class="btn btn-default"
+            <div class="btn-group d-flex btn-group-raised" role="group">
+                <button data-dojo-attach-event="onClick: signout" class="btn btn-secondary"
                         data-dojo-attach-point="nls">signOutButton
                 </button>
             </div>

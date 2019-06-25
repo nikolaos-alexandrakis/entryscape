@@ -232,11 +232,11 @@ export default (vnode) => {
                 onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
-              <Button class="btn btn-secondary" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
-              <Button class="btn-secondary" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
-              <Button class="btn-secondary" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
+              <Button class="btn btn-default" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
+              <Button class="btn-default" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
+              <Button class="btn-default" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
               <Button
-                class={`btn-secondary ${isRemoveable ? '' : 'disabled'}`}
+                class={`btn-default ${isRemoveable ? '' : 'disabled'}`}
                 title={isRemoveable ? '' : escaDataset.cannotRemoveDatasetPublishedTitle}
                 onclick={isRemoveable && removeDataset}
               >

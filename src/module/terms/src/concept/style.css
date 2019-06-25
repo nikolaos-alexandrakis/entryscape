@@ -57,7 +57,7 @@
     width: 50%;
 }
 
-.conceptsControlls .btn-group .btn-default {
+.conceptsControlls .btn-group .btn-secondary {
     height: 100%;
     width: 25%;
 }
@@ -97,12 +97,12 @@
 .conceptsControlls .input-group-btn > button{
     padding: 10px;
 }
-.conceptsControlls label.control-label{
+.conceptsControlls label.col-form-label{
     margin-top:5px;
 }
-.conceptsControlls .input-group .form-control{
+/* .conceptsControlls .input-group .form-control{
     width: 100%;
-}
+} */
 
 .conceptsControlls .cardinality {
     float: left;

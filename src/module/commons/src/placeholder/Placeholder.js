@@ -82,7 +82,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.__placeholderImage.removeAttribute('class');
     this.__placeholderImage.classList.add('fa');
     this.__placeholderImage.classList.add('fa-5x');
-    this.__placeholderImage.classList.add('center-block');
+    this.__placeholderImage.classList.add('mx-auto');
     this.__placeholderImage.classList.add(`fa-${cls}`);
   },
   setText(text) { // pass localized message

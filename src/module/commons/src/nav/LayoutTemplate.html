@@ -62,12 +62,12 @@
             <div class="nav_menu" data-dojo-attach-point="topNavNode">
                 <nav>
                     <div class="row" style="margin-left: 0">
-                        <div class="hidden-xs col-sm-10"
+                        <div class="d-flex col-sm-10"
                              data-dojo-attach-point="allBreadcrumbs">
-                            <ol class="nav navbar-nav breadcrumb spaBreadcrumbs"
+                            <ol class="nav navbar-nav breadcrumbs spaBreadcrumbs"
                                 data-dojo-attach-point="crumbListSingle" style="display:none">
                             </ol>
-                            <ol class="nav navbar-nav breadcrumb spaBreadcrumbs"
+                            <ol class="nav navbar-nav breadcrumbs spaBreadcrumbs"
                                 data-dojo-attach-point="crumbList" style="display: none">
                             </ol>
                             <ul class="nav navbar-nav spaControl spaTabControl"
@@ -77,42 +77,42 @@
                             </ul>
                         </div>
 
-                        <div class="col-xs-offset-8 col-sm-offset-0 col-xs-1">
+                        <div class="col-1">
                             <div class="firstrow">
                                 <ul class="nav navbar-nav navbar-right"
                                     data-dojo-attach-point="userDetails">
-                                    <li>
-                                        <a class="user-profile dropdown-toggle"
+                                    <li >
+                                        <a class="user-profile "
                                            data-toggle="dropdown" aria-expanded="false" title="User menu" data-dojo-attach-point="nls,userProfile"
                                            aria-hidden="true" title="userDropdown">
                                            <span data-dojo-attach-point="nls" class="screenreader__span">userDropdown</span>
                                             <span class="fas fa-user-circle"></span>
                                         </a>
-                                        <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                            <li>
+                                        <ul class="dropdown-menu dropdown-usermenu float-right">
+                                            <li class="dropdown-item">
                                                 <a class="text-center">
                                                     <span data-dojo-attach-point="userName"></span>
                                                 </a>
                                             </li>
-                                            <li class="divider"></li>
-                                            <li><a data-dojo-attach-point="nls,settingsButton"
+                                            <li class="dropdown-divider"></li>
+                                            <li class="dropdown-item"><a data-dojo-attach-point="nls,settingsButton"
                                                    title="settingsTitle"><i
-                                                    class="fas fa-user pull-right"></i>
+                                                    class="fas fa-user float-right"></i>
                                                 <span data-dojo-attach-point="nls">settingsLabel
                                                 </span>
                                             </a>
                                             </li>
-                                            <li data-dojo-attach-point="helpInfoDropdown"
+                                            <li class="dropdown-item" data-dojo-attach-point="helpInfoDropdown"
                                                 style="display:none">
                                                 <a title="helpTitle"><i
-                                                        class="fas fa-info pull-right"></i>
+                                                        class="fas fa-info float-right"></i>
                                                     <span data-dojo-attach-point="nls">settingsHelp</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="dropdown-item">
                                                 <a data-dojo-attach-point="nls,signOutButton"
                                                    title="signOutTitle"><i
-                                                        class="fas fa-sign-out-alt pull-right"></i><span
+                                                        class="fas fa-sign-out-alt float-right"></i><span
                                                         data-dojo-attach-point="nls">signOutLabel</span></a>
                                             </li>
                                         </ul>
@@ -148,13 +148,13 @@
 
         <footer class="bottom_footer right_side">
             <div class="row">
-                <div class="col-xs-10" data-dojo-attach-point="footerButtons"></div>
-                <div class="col-xs-10">
+                <div class="col-10" data-dojo-attach-point="footerButtons"></div>
+                <div class="col-10">
                     <span class="copyright" data-dojo-attach-point="footerText"></span>
                 </div>
             </div>
-            <div class="pull-right bottom_logo">
-                <div class="logo-text pull-right">
+            <div class="float-right bottom_logo">
+                <div class="logo-text float-right">
                     <a href="https://entryscape.com" target="_blank"
                        style="color: initial" data-dojo-attach-point="logoNodeFooter" role="link">
                         <!--<img data-dojo-attach-point="logoNodeFooter">-->
@@ -169,7 +169,7 @@
                 <div class="row row-centered">
                     <div class="col-md-12">
                         <ul data-dojo-attach-point="controllerViewList"
-                            style="display: none" class="entryscapeViewList list-inline"></ul>
+                            style="display: none" class="entryscapeViewList nav"></ul>
                     </div>
                     <section data-dojo-attach-point="viewsNode" class="col-md-12" id="viewsNode"></section>
                 </div>

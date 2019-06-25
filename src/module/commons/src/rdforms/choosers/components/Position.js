@@ -104,12 +104,12 @@ export default () => {
       } = vnode.attrs;
 
       state.inputsEditable = inputsFocused;
-      const components = [m(`span.fa.fa-globe.fa-2x.${bid}__globe`)];
+      const components = [m(`span.fas.fa-globe.fa-2x.${bid}__globe`)];
       if (detectClick && detectLabel) {
         components.push(m(Button, {
           text: detectLabel,
           onclick: detectClick,
-          classNames: ['pull-right', 'escoPosition__detect'],
+          classNames: ['float-right', 'escoPosition__detect'],
         }));
       }
 

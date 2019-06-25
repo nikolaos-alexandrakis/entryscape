@@ -80,8 +80,8 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
           const but = DOMUtil.create('button', {}, node);
           but.classList.add('btn');
           but.classList.add('btn-raised');
-          but.classList.add('btn-default');
-          but.classList.add('pull-right');
+          but.classList.add('btn-secondary');
+          but.classList.add('float-right');
           but.innerHTML = txt;
 
           txt = rdformsUtils.getLocalizedValue(de.header).value;
@@ -94,7 +94,7 @@ export default declare([Cards, ViewMixin, NLSMixin.Dijit], {
         this.signInNode.classList.add('btn');
         this.signInNode.classList.add('btn-raised');
         this.signInNode.classList.add('btn-success');
-        this.signInNode.classList.add('pull-right');
+        this.signInNode.classList.add('float-right');
 
         if (this.NLSLocalized1) {
           this.signInNode.innerHTML =

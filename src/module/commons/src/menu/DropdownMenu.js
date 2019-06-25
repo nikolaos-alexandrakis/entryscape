@@ -46,7 +46,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     params.forEach(this.addItem.bind(this));
   },
   addItem(param) {
-    const li = DOMUtil.create('li', null, this.dropdownMenuNode);
+    const li = DOMUtil.create('li', {class: 'dropdown-item'}, this.dropdownMenuNode);
     const a = DOMUtil.create('a', null, li);
     let cls;
     if (param.iconType === 'fa') {

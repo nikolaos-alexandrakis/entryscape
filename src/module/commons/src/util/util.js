@@ -62,3 +62,6 @@ export const convertBytesToMBytes = bytes => Number(parseFloat(bytes / 1048576).
 export const LIST_PAGE_SIZE_SMALL = 5;
 export const LIST_PAGE_SIZE_MEDIUM = 20;
 export const LIST_PAGE_SIZE_LARGE = 50;
+
+
+export const getRandomInt = max => Math.floor(Math.random() * Math.floor(max));

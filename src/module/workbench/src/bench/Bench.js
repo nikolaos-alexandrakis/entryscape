@@ -154,7 +154,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
     const sm = registry.get('siteManager');
     const view = sm.getUpcomingOrCurrentView();
     const uparams = sm.getUpcomingOrCurrentParams();
-    this.__multipleEtypes.style.display = 'block';
+    this.__multipleEtypes.style.display = 'flex';
     this.__singleEtype.style.display = 'none';
     this.__list.innerHTML = '';
     this.__sideList.innerHTML = '';
@@ -180,7 +180,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, ViewMixin]
       }
       const a = htmlUtil.create('a', { href: sm.getViewPath(view, params) }, node);
       const title = registry.get('localize')(typeConf.label);
-      const badge = htmlUtil.create('span', { class: 'badge pull-right' }, a);
+      const badge = htmlUtil.create('span', { class: 'badge badge-pill badge-primary float-right' }, a);
       htmlUtil.create('span', {
         innerHTML: title,
         class: 'eswoBench__entityName',

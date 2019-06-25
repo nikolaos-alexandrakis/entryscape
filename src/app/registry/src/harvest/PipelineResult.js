@@ -159,7 +159,7 @@ export default declare([NLSMixin], {
     return m(ButtonComponent, {
       text,
       onclick,
-      classNames: ['pull-right', 'btn-default'],
+      classNames: ['float-right', 'btn-secondary'],
       inner: 'small',
     });
   },

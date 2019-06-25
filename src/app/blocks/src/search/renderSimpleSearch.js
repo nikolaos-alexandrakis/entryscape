@@ -43,9 +43,9 @@ export default (node, data) => {
       title: data.placeholder,
     });
     inputgroup.appendChild(input);
-    const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
+    const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn input-group-append' });
     inputgroup.appendChild(inputGroupButtonEl);
-    const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);
+    const button = DOMUtil.create('button', { class: 'btn btn-secondary' }, inputGroupButtonEl);
     DOMUtil.create('span', { 'aria-hidden': true, class: 'fas fa-search' }, button);
     button.onclick = searchTriggered;
   }

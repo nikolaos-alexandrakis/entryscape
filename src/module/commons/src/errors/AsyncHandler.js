@@ -285,14 +285,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.hideDetails();
   },
   hideDetails() {
-    const showHideButtonEl = this.domNode.querySelector('.btn-default');
+    const showHideButtonEl = this.domNode.querySelector('.btn-secondary');
 
     showHideButtonEl.innerHTML = this.NLSLocalized0.showDetails;
     this.messages.style.display = 'none';
     this.detailsShowing = false;
   },
   showDetails() {
-    const showHideButtonEl = this.domNode.querySelector('.btn-default');
+    const showHideButtonEl = this.domNode.querySelector('.btn-secondary');
 
     showHideButtonEl.innerHTML = this.NLSLocalized0.hideDetails;
     this.messages.style.display = 'block';

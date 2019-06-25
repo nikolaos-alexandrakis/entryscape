@@ -5,7 +5,7 @@ import Input from './Input';
  */
 export default {
   view(vnode) {
-    const { name, id, label, checked, input = { type: 'radio' }, onclick, classNames = ['radio-inline'] } = vnode.attrs;
+    const { name, id, label, checked, input = { type: 'radio' }, onclick, classNames = ['form-check-input'] } = vnode.attrs;
 
     input.id = `${id}Input${label}`;
     input.name = `${name}Input`;

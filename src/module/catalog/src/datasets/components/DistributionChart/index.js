@@ -1,7 +1,7 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { getMultiDatasetChartData } from 'catalog/statistics/utils/chart';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
-import Chart from 'commons/components/common/chart/TimeBarChart';
+import Chart from 'commons/components/chart/TimeChart';
 import SearchSelect from 'commons/components/common/select/SearchSelect';
 import registry from 'commons/registry';
 import { createSetState } from 'commons/util/util';

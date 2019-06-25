@@ -24,7 +24,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
     this.getCards().forEach(async (card) => {
       const cardView = this.getCardView(card);
       const col = DOMUtil.create('div', null, this.mainNode);
-      col.classList.add('col-xs-6');
+      col.classList.add('col-6');
       col.classList.add('col-sm-6');
       col.classList.add('col-md-4');
 

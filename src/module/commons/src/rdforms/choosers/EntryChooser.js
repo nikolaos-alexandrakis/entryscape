@@ -112,8 +112,12 @@ const EntryChooserList = declare([BaseList], {
     const term = _params.term != null && _params.term.length > 0 ? _params.term : '';
     /** @type {store/EntryStore} */
     const es = registry.get('entrystore');
+    const item = this.binding.getItem();
+    const conf = typeIndex.getConfFromConstraints(item.getConstraints());
+    const searchProps = conf ? conf.searchProps : undefined;
+
     const qo = typeIndex.query(es.newSolrQuery(),
-      { constraints: this.binding.getItem().getConstraints() }, term);
+      { constraints: item.getConstraints(), searchProps }, term);
     restrictToContext(this.binding.getItem(), qo);
 
     if (_params.sortOrder === 'title') {
@@ -323,7 +327,10 @@ const ext = {
     const qo = es.newSolrQuery();
     restrictToContext(item, qo);
     const rdfutils = registry.get('rdfutils');
-    return typeIndex.query(qo, { constraints: item.getConstraints() }, term)
+    const conf = typeIndex.getConfFromConstraints(item.getConstraints());
+    const searchProps = conf ? conf.searchProps : undefined;
+
+    return typeIndex.query(qo, { constraints: item.getConstraints(), searchProps }, term)
       .limit(10).list().getEntries()
       .then(entries => entries.map(e => ({
         value: e.getResourceURI(),

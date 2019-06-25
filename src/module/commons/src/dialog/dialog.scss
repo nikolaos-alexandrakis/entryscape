@@ -12,7 +12,7 @@
 }
 
 .spaSideDialog .navbar,
-.spaSideDialog .navbar.navbar-default {
+.spaSideDialog .navbar.navbar-light {
     background-color: #333;
     color: #fff;
 }
@@ -100,6 +100,8 @@
 
 .spaHeaderDialog.spaFooter .spaSideDialogFooterNavbar {
     position: absolute;
+    bottom:0;
+    width:100%;
 }
 
 .spaHeaderDialog .spaSideDialogHeader > * {
@@ -117,6 +119,7 @@
 .spaHeaderDialog .spaSideDialogHeader .cardinality {
     margin-bottom: 0px;
     width: auto;
+  
 }
 
 .spaHeaderDialog .spaSideDialogHeader {
@@ -146,13 +149,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /*color: #333 !important;*/
+    color: white !important;
+    margin-left: 20px !important;
+    &:hover{
+        color:white;
+    }
 }
 
 .spaSideDialogHeaderNavbar > .close {
     position: absolute;
-    top: 10px;
-    right: 15px;
+/*     top: 10px;
+ */    right: 15px;
     font-size: 28px;
     color: #fff;
     line-height: inherit;
@@ -174,7 +181,7 @@
     color: #fff !important;
     background-color: $main-colour;
 }
-.modal-dialog .progress .progress-bar.progress-bar-danger {
+.modal-dialog .progress .progress-bar.bg-danger {
   background-color: $main-colour !important;
 }
 .spaSideDialogFooter .btn.btn-primary.disabled {
@@ -208,10 +215,12 @@
 
 .spaSideDialogBody .nav-pills > li.active > a {
     background-color: #337ab7;
+    color:white;
 }
 
 .modal-dialog {
     margin: 120px auto;
+    max-width: 850px;
 }
 
 .confirmDialog .modal-body {
@@ -312,6 +321,7 @@
 .btn-file {
     position: relative;
     overflow: hidden;
+    margin-left:10px;
 }
 
 .btn-file input[type=file] {
@@ -335,7 +345,7 @@
   font-weight: bold;
 }
 
-.checkbox label, .radio label, label {
+ .form-check-input label, label {
   color: #4f4f4f;
   font-weight: bold;
 }
@@ -344,4 +354,50 @@ label {
 }
 .btn-group label {
   font-weight: normal;
+}
+
+//align fix for checkbox
+.form-check{
+    label{
+        margin:0;
+    }
+}
+
+///BMD Hacks
+.cardinality{
+    .btn-group{
+        width: 100%;
+    }
+    .btn-lg{
+        width:100%;
+    }
+}
+.spaSideDialogContent{
+    .spaSideDialogHeaderNavbar{
+        padding:10px;
+    }
+}
+.spaSideDialogBody{
+    .card{
+        margin-bottom: 20px;
+        width:100%;
+        .card-header{
+            background-color:#eeeeee;
+            border-bottom:0;
+        }
+    }
+}
+
+.bmd-form-group [class*=' bmd-label']{
+    position: relative;
+    margin-bottom:10px;
+}
+.bmd-form-group{
+    padding-top:0;
+}
+.bmd-form-group [class^='bmd-label'], .bmd-form-group [class*=' bmd-label']{
+    position: relative;
+}
+.bmd-form-group .form-control, .bmd-form-group .custom-file-control, .bmd-form-group label, .bmd-form-group input::placeholder{
+    line-height: 2;
 }
