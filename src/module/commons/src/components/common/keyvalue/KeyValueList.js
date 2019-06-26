@@ -4,8 +4,8 @@ export default () => ({
 
     const items = [];
     Object.keys(data).forEach((key) => {
-      items.push(<dt className={`${dtClass} col-sm-4`}>{key}</dt>);
-      items.push(<dd className={`${ddClass} col-sm-8`}>{asBadge ?
+      items.push(<dt className={`${dtClass} col-12 col-sm-4 col-lg-3`}>{key}</dt>);
+      items.push(<dd className={`${ddClass} col-12 col-sm-8 col-lg-9`}>{asBadge ?
         <span className="badge badge-pill badge-primary">{data[key]}</span> : data[key]}</dd>);
     });
 
