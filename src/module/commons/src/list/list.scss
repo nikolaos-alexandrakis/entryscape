@@ -203,6 +203,10 @@
     margin-left: 10px;
 }
 
+.entryList .listButtons button span:empty {
+    padding: 0 10px;
+}
+
 .entryList .card-header {
     padding-top: 0;
 }
@@ -299,7 +303,7 @@
 }
 
 .listSortLabel {
-    font-size: 12px;    
+    font-size: 12px;
         .form-check-input{
             visibility: hidden;
     }

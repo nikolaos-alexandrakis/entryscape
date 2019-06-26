@@ -274,8 +274,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const el = DOMUtil.create('button', {
       type: 'button',
     }, this.buttonContainer, params.first === true);
-    const buttonRaisedClass = params.button.includes('outline') ? '' : 'btn-raised';
-    DOMUtil.addClass(el, `float-right btn ${buttonRaisedClass} btn-${params.button}`);
+    DOMUtil.addClass(el, `float-right btn btn-raised btn-${params.button}`);
 
 
     const span = DOMUtil.create('span', { 'aria-hidden': true }, el);
