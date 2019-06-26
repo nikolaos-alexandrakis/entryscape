@@ -1,7 +1,7 @@
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
-import 'fuelux/js/loader';
+// import 'fuelux/js/loader';
 import jquery from 'jquery';
 import DOMUtil from '../util/htmlUtil';
 import template from './ProgressTemplate.html';

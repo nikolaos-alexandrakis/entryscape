@@ -4,7 +4,7 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import { NLSMixin } from 'esi18n';
-import 'fuelux/js/loader';
+// import 'fuelux/js/loader';
 import jquery from 'jquery';
 import { template as renderTemplate } from 'lodash-es';
 import DOMUtil from '../util/htmlUtil';
@@ -209,7 +209,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       // jquery(this.fadeIn).stop();
       this.domNode.style.display = 'none';
       if (this._loader.firstChild) {
-        jquery(this._loader.firstChild).loader('destroy');
+        this._loader.classList.remove('d-block');
+        this._loader.classList.add('d-none');
+        // jquery(this._loader.firstChild).loader('destroy');
       }
       this.promises = [];
       delete this.dialogOpen;
@@ -226,10 +228,12 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   renderDialog(state) {
     if (state === INPROGRESS) {
-      jquery(this._loader.firstChild).loader('destroy');
-      jquery(DOMUtil.create('div', { class: 'loader' }, this._loader)).loader();
+      this._loader.classList.add('d-block');
+      // jquery(this._loader.firstChild).loader('destroy');
+      // jquery(DOMUtil.create('div', { class: 'loader' }, this._loader)).loader();
     } else {
-      jquery(this._loader.firstChild).loader('destroy');
+      this._loader.classList.remove('d-block');
+      this._loader.classList.remove('d-none');
     }
 
     switch (state) {
