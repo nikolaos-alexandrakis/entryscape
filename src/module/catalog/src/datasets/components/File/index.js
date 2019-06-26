@@ -34,21 +34,21 @@ export default (vnode) => {
               <p class="distributionFile__date">{modifiedDate.short}</p>
               <Dropdown>
                 <Button
-                  class="btn--distribution fa fa-fw fa-bookmark"
+                  class="btn--distribution fas fa-fw fa-bookmark"
                   title={escaDataset.removeDistributionTitle}
                   onclick={actions.removeFile}
                 >
                   {escaDataset.removeDistributionTitle}
                 </Button>
                 <Button
-                  class="btn--distribution fa fa-fw fa-exchange"
+                  class="btn--distribution fas fa-fw fa-exchange"
                   title={escaDataset.replaceFileTitle}
                   onclick={actions.replaceFile}
                 >
                   {escaDataset.replaceFile}
                 </Button>
                 <Button
-                  class="btn--distribution fa fa-fw fa-download"
+                  class="btn--distribution fas fa-fw fa-download"
                   title={escaDataset.downloadButtonTitle}
                   onclick={actions.downloadFile}
                 >

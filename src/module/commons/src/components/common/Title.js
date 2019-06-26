@@ -10,7 +10,7 @@ export default {
     const small = subtitle ? `<small>${subtitle}</small>` : '';
     const { classNames = [] } = button;
     classNames.push('escoButton--inTitle');
-    return m('div.d-flex.justify-content-between', [
+    return m('div.d-flex.justify-content-between.align-content-center', [
       m(hx, m.trust(`${title} ${small}`)),
       button.text ? m(Button, button) : null,
     ]);
