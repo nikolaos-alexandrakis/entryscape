@@ -1,2 +1,17 @@
-.candidatesOverview {
+.preparationsOverview {
+
+  h1 {
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: #1C4CD1;
+
+    width: 238px;
+    padding: 2.5px;
+
+    border-bottom: solid 1px #ED9234;
+
+    .fas {
+      margin-right: 5px;
+    }
+  }
 }

@@ -86,10 +86,13 @@ export default () =>  {
       const escaCandidates = i18n.getLocalization(escaCandidatesNLS);
 
       return (
-        <div class="entryList searchVisible" >
+        <div class="preparationsOverview entryList searchVisible" >
 
           <div class="suggestions">
-            <h1>Suggestions</h1>
+            <h1>
+              <span class="fas fa-file-signature"></span>
+              Suggestions
+            </h1>
             <div class="list">
               { state.suggestions.map(suggestion => (
                 <Suggestion

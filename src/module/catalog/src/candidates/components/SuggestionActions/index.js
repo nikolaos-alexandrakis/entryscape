@@ -24,7 +24,7 @@ export default (vnode) => {
       const escoList = i18n.getLocalization(escoListNLS);
 
       return (
-        <div class=" icon--wrapper">
+        <div class="suggestionActions icon--wrapper">
           <Dropdown>
             <Button onclick={editSuggestion}>{escoList.editEntry}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>
