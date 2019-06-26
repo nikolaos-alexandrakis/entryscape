@@ -1,0 +1,8 @@
+@import '~commons/components/Button/index.scss';
+
+.suggestionActions {
+
+  button {
+    @include button;
+  }
+}
