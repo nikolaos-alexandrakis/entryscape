@@ -4,7 +4,6 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import { NLSMixin } from 'esi18n';
-// import 'fuelux/js/loader';
 import jquery from 'jquery';
 import { template as renderTemplate } from 'lodash-es';
 import DOMUtil from '../util/htmlUtil';

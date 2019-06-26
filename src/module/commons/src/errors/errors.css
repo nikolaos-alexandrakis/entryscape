@@ -35,11 +35,6 @@
     border-radius: 20px;
 }
 
-/*.fuelux .spaAsyncContent .rejectIcon,*/
-/*.fuelux .spaAsyncContent .loaderContainer {*/
-/*    position: absolute;*/
-/*}*/
-
 .spaAsyncContent .asyncMessages {
     margin-top: 10px;
     min-height: 64px;
