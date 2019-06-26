@@ -99,7 +99,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         const p = Object.assign({}, params);
         p.context = catal.entry.getContext().getId();
         htmlUtil.create('a', {
-          class: 'list-group-item list-group-item-action',
+          class: 'list-group-item list-group-item-action flex-nowrap',
           href: site.getViewPath(this.datasetSearchView, p),
           innerHTML: `${catal.label}<span class='badge badge-pill badge-primary'>${catal.nr}</span>`,
         }, this.__catalogList);
