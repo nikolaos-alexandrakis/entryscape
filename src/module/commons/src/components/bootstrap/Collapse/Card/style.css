@@ -1,11 +1,3 @@
-.card-header > a {
-    display: flex;
-}
-
-[data-toggle="collapse"] .fas {
-    align-self: center;
-}
-
 [data-toggle="collapse"] .fas:before {
     content: "\f078";
 }
