@@ -447,7 +447,7 @@ table.no-margin .progress {
 @media (min-width: 768px){
   .dropdown-menu .dropdown-item > li > a {
     padding-right: 15px;
-    padding-left: 15px; 
+    padding-left: 15px;
 }
 }
 .dropdown-menu li a:focus,
@@ -659,7 +659,7 @@ table.no-margin .progress {
         a{
             padding-top: 0;
         }
-      
+
     }
 }
 .main_menu_side {
@@ -746,8 +746,7 @@ table.no-margin .progress {
 
 .nav.spaBreadcrumbs.breadcrumbs {
     flex-direction: row;
-    margin: 13px 0px 0px 0px;
-    padding: 0px;
+    padding: 0;
     font-size: 14px;
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
@@ -758,8 +757,6 @@ table.no-margin .progress {
 
 .spaTwoMenu .nav.spaBreadcrumbs.breadcrumbs {
     float: left;
-    margin-top: 5px;
-    padding-top: 5px;
     background-color: inherit;
 }
 
