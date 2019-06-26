@@ -267,26 +267,8 @@
     display: block;
 }
 
-.entryPagination nav {
-    text-align: center;
-}
-
 .entryPagination .pagination {
     margin: 10px 5px;
-}
-
-.entryPagination .pagination > li {
-    cursor: pointer;
-}
-
-.entryPagination .pagination > a {
-    color: black;
-}
-
-.entryPagination .pagination > li > span {
-    background-color: white !important;
-    color: #808080;
-    cursor: default;
 }
 
 .searchBlock {
