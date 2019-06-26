@@ -45,7 +45,7 @@ export default declare([EntryRow], {
       const menuObj = this.items[menuItem].param;
       let icon = menuObj.icon;
       if (menuObj.iconType === 'fa') {
-        icon = `fa fa-${icon}`;
+        icon = `fas fa-${icon}`;
       } else { // Default is glyphicons
         icon = `glyphicon glyphicon-${icon}`;
       }
@@ -67,7 +67,7 @@ export default declare([EntryRow], {
    */
   setDropdownStatusIcon(icon) {
     // remove old icons
-    const fontAwesomeFilter = cls => cls === 'fa' || cls.startsWith('fa-');
+    const fontAwesomeFilter = cls => cls === 'fas' || cls.startsWith('fa-');
     const toRemoveIconClasses = Array.from(this.statusIcon.classList).filter(fontAwesomeFilter);
     toRemoveIconClasses.forEach(cls => this.statusIcon.classList.remove(cls));
 
@@ -106,7 +106,7 @@ export default declare([EntryRow], {
     const a = DOMUtil.create('a', null, li);
     let cls;
     if (param.iconType === 'fa') {
-      cls = `fa fa-${param.icon}`;
+      cls = `fas fa-${param.icon}`;
     } else { // Default is glyphicons
       cls = `glyphicon glyphicon-${param.icon}`;
     }

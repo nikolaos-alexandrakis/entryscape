@@ -38,7 +38,7 @@ export default (initialVnode) => {
     const openStatistics = e => actions.openStatistics(e, [fileEntryURIs]);
 
     const statisticsVnode = (<button
-      className="btn--distribution fa fa-fw fa-chart-area"
+      className="btn--distribution fas fa-fw fa-chart-area"
       title={escaDataset.seeStatisticsTitle}
       onclick={openStatistics}
     >

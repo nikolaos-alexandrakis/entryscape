@@ -108,7 +108,7 @@ export default (initialVnode) => {
               onclick={openCreateDialog}
               alt={escaDataset.addDistributionTitle}
             >
-              <span class="fa fa-plus"></span>
+              <span class="fas fa-plus"></span>
             </button>
           </div>
 

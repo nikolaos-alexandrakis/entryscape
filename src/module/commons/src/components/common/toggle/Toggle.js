@@ -13,7 +13,7 @@ export default () => ({
 
     return (
       <button
-        class={`fa fa-toggle-on fa-lg  btn--publish ${disabledClass} ${toggledOnClass}`}
+        class={`fas fa-toggle-on fa-lg btn--publish ${disabledClass} ${toggledOnClass}`}
         title={title}
         onclick={isEnabled ? onToggle : undefined}
       ></button>

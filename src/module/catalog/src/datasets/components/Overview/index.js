@@ -177,7 +177,7 @@ export default (vnode) => {
       return (
         <main class="overview__wrapper">
           <Button class="btn-link btn-sm  btn-back" onclick={actions.navigateToDatasets}>
-            <span class="fa fa-arrow-left"></span>
+            <span class="fas fa-arrow-left"></span>
             {escaDataset.backTitle}
           </Button>
           <div class="flex--sb">
@@ -245,7 +245,7 @@ export default (vnode) => {
 
               <div class="externalPublish flex--sb">
                 <div class="icon--wrapper">
-                  <span class="icons fa fa-globe"></span>
+                  <span class="icons fas fa-globe"></span>
                   <p>{publishToggleString}</p>
                 </div>
                 <Toggle
@@ -258,7 +258,7 @@ export default (vnode) => {
               { config.catalog.allowInternalDatasetPublish &&
                 <div class="psiPublish flex--sb">
                   <div class="icon--wrapper">
-                    <span class="icons fa fa-eye"></span>
+                    <span class="icons fas fa-eye"></span>
                     <p>{internalToggleString}</p>
                   </div>
                   <Toggle
