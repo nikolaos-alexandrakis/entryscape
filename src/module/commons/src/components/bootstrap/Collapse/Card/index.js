@@ -2,10 +2,10 @@ import './style.css';
 
 export default () => ({
   view(vnode) {
-    const { body, title, date, id, type } = vnode.attrs.card;
+    const { body, title, date, cardId, type } = vnode.attrs;
 
-    const headerId = `card-header--${id}`;
-    const collapseId = `card-body--${id}`;
+    const headerId = `card-header--${cardId}`;
+    const collapseId = `card-body--${cardId}`;
     const borderClass = `bg-${type}`;
 
     return <div className={'card mb-2'}>

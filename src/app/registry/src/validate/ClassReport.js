@@ -8,7 +8,6 @@ import jquery from 'jquery';
 import esreReport from 'registry/nls/esreReport.nls';
 import ClassReportTemplate from './ClassReportTemplate.html';
 import template from './InstanceReportTemplate.html';
-import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
 
 const InstanceReport = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   report: null,
@@ -57,13 +56,16 @@ const InstanceReport = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       errors: this.report.errors.length,
       warnings: this.report.warnings.length,
     });
+
     this.instanceHeader.innerHTML = titleStr;
+
     if (this.report.errors.length > 0) {
       this.domNode.classList.add('errors');
     } else if (this.report.warnings.length > 0) {
       this.domNode.classList.add('warnings');
     }
   },
+
   _openView() {
     // var binding = Engine.match(this.graph, this.report.uri, this.template);
     // Engine.report(binding);
