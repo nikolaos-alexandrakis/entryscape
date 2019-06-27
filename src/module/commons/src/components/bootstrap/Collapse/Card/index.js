@@ -1,14 +1,14 @@
-import './style.css';
+import './style.scss';
 
 export default () => ({
   view(vnode) {
     const { body, title, date, cardId, type } = vnode.attrs;
-
+    console.log(this);
     const headerId = `card-header--${cardId}`;
     const collapseId = `card-body--${cardId}`;
     const borderClass = `bg-${type}`;
 
-    return <div className={'card mb-2'}>
+    return <div className={'collapsableCard card mb-2'}>
       <div className={`card-header ${borderClass} text-white`} id={headerId}>
         <a
           className="collapsed spaExplicitLink d-flex justify-content-between"

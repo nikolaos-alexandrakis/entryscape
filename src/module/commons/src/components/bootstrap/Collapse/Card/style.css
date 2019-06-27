@@ -1,9 +1,0 @@
-
-[data-toggle="collapse"] .fas:before {
-    content: "\f078";
-}
-
-[data-toggle="collapse"].collapsed .fas:before {
-    align-self: center;
-    content: "\f077";
-}

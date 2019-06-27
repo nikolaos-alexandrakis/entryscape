@@ -1,3 +1,4 @@
+import m from 'mithril';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
@@ -7,6 +8,7 @@ import { i18n, NLSMixin } from 'esi18n';
 import jquery from 'jquery';
 import esreReport from 'registry/nls/esreReport.nls';
 import ClassReportTemplate from './ClassReportTemplate.html';
+import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
 import template from './InstanceReportTemplate.html';
 
 const InstanceReport = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
@@ -81,10 +83,13 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   postCreate() {
     this.inherited('postCreate', arguments);
     jquery(this.card).collapse('hide');
-    this.headingNode.innerHTML = i18n.renderNLSTemplate(this.NLSLocalized0.instancesHeader, {
+    const headerTitle = i18n.renderNLSTemplate(this.NLSLocalized0.instancesHeader, {
       nr: this.reports.length,
       class: registry.get('namespaces').shorten(this.rdftype),
     });
+    this.headingNode.innerHTML = headerTitle;
+    const problemsNode = htmlUtil.create('div', { class: 'float-right problems' });
+
     let nrErr = 0;
     let nrWarn = 0;
     let nrDep = 0;
@@ -93,35 +98,50 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       nrWarn += rep.warnings.length;
       nrDep += rep.deprecated.length;
     });
+
+    const problems = [];
     if (nrErr > 0) {
-      htmlUtil.create('span', {
-        title: i18n.renderNLSTemplate(this.NLSLocalized0.errorTitle, nrErr),
-        innerHTML: `${nrErr}<i class="fas fa-exclamation-triangle"></i>`,
-      }, this.problems);
+      problems.push(
+        <span title={i18n.renderNLSTemplate(this.NLSLocalized0.errorTitle, nrErr)}>
+          {nrErr}<i class="fas fa-exclamation-triangle"></i>
+        </span>,
+      );
     }
     if (nrWarn > 0) {
-      htmlUtil.create('span', {
-        title: i18n.renderNLSTemplate(this.NLSLocalized0.warningTitle, nrWarn),
-        innerHTML: `${nrWarn}<i class="fas fa-exclamation-circle"></i>`,
-      }, this.problems);
+      problems.push(
+        <span title={i18n.renderNLSTemplate(this.NLSLocalized0.warningTitle, nrWarn)}>
+          {nrWarn}<i class="fas fa-exclamation-circle"></i>
+        </span>,
+      );
     }
 
     if (nrDep > 0) {
-      htmlUtil.create('span', {
-        title: i18n.renderNLSTemplate(this.NLSLocalized0.deprecatedTitle, nrDep),
-        innerHTML: `${nrDep}<i class="fas fa-question-circle"></i>`,
-      }, this.problems);
+      problems.push(
+        <span title={i18n.renderNLSTemplate(this.NLSLocalized0.deprecatedTitle, nrDep)}>
+          {nrDep}<i class="fas fa-question-circle"></i>
+        </span>,
+      );
     }
+
 
     // htmlUtil.create("h3",
     // {"class": "instanceType", innerHTML: messages.instancesHeader + key}, this._rdformsNode);
-    this.reports.forEach((resourceReport) => {
-      InstanceReport({
-        report: resourceReport,
-        validateDialog: this.validateDialog,
-        graph: this.graph,
-        template: this.template,
-      }, htmlUtil.create('tbody', {}, this.reportTable));
-    }, this);
+    const reports = this.reports.map(resourceReport => m('div', {config: InstanceReport({
+      report: resourceReport,
+      validateDialog: this.validateDialog,
+      graph: this.graph,
+      template: this.template,
+    }, htmlUtil.create('div')).domNode}));
+
+    const headerNode = (<div class="">
+      {headerTitle}
+    </div>);
+
+    m.render(this.domNode, m(CollapsableCard, {
+      body: reports,
+      title: headerNode,
+      date: <div class="float-right problems">{problems}</div>,
+      cardId: parseInt(Math.random() * 50, 10),
+    }));
   },
 });

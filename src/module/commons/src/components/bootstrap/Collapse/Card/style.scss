@@ -1,0 +1,11 @@
+
+.collapsableCard {
+  [data-toggle="collapse"] .title.fas:before {
+    content: "\f078";
+  }
+
+  [data-toggle="collapse"].collapsed .title.fas:before {
+    align-self: center;
+    content: "\f077";
+  }
+}

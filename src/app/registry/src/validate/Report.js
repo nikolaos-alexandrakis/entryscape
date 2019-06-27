@@ -1,4 +1,3 @@
-import m from 'mithril';
 import RDFormsValidateDialog from 'commons/rdforms/RDFormsValidateDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
@@ -12,7 +11,6 @@ import { validate } from 'rdforms';
 import esreReport from 'registry/nls/esreReport.nls';
 import esreSource from 'registry/nls/esreSource.nls';
 import ClassReport from './ClassReport';
-import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
 import './esreReport.css';
 import templateString from './ReportTemplate.html';
 
@@ -90,10 +88,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     Object.keys(type2resourceReports).forEach((key) => {
       console.log(key, type2resourceReports[key]);
 
-      m.render(htmlUtil.create('div', { class: 'instance' }, this._rdformsNode), m(CollapsableCard, {
-        body: 'hej',
-        title: 'title hek',
-      }));
 
       ClassReport({
         rdftype: key,
