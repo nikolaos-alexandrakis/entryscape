@@ -65,6 +65,18 @@ div.errorreport{
     padding-left: 12px;
 }
 
+.classReport .problems {
+  position: absolute;
+  right: 16px;
+}
+
+.classReport .problems span {
+  margin-left: 10px;
+}
+.classReport .problems .fas{
+  margin-left: 5px;
+}
+
 .sidebarMode .esreReport {
     margin-left: 15px;
 }

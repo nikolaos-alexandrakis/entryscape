@@ -8,6 +8,7 @@ import jquery from 'jquery';
 import esreReport from 'registry/nls/esreReport.nls';
 import ClassReportTemplate from './ClassReportTemplate.html';
 import template from './InstanceReportTemplate.html';
+import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
 
 const InstanceReport = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   report: null,
