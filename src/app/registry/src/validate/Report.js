@@ -10,7 +10,7 @@ import { NLSMixin } from 'esi18n';
 import { validate } from 'rdforms';
 import esreReport from 'registry/nls/esreReport.nls';
 import esreSource from 'registry/nls/esreSource.nls';
-import ClassReport from './ClassReport';
+import { ClassReport } from './ClassReport';
 import './esreReport.css';
 import templateString from './ReportTemplate.html';
 
@@ -86,16 +86,24 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const report = validate.graphReport(this._graph, this.type2template, this.mandatoryTypes);
     const type2resourceReports = regroup(report.resources, 'type');
     Object.keys(type2resourceReports).forEach((key) => {
-      console.log(key, type2resourceReports[key]);
+      // ClassReport({
+        // rdftype: key,
+        // reports: type2resourceReports[key],
+        // validateDialog: this._validateDialog,
+        // graph: this._graph,
+        // template: this.type2template[key],
+      // }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
 
 
-      ClassReport({
-        rdftype: key,
+
+      m.render(this._rdformsNode, m(ClassReport, {
         reports: type2resourceReports[key],
-        validateDialog: this._validateDialog,
         graph: this._graph,
         template: this.type2template[key],
-      }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
+        rdfType: key,
+        validateDialog: this._validateDialog,
+      }));
+
     });
   },
 });

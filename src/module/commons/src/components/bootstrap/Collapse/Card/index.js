@@ -17,7 +17,7 @@ export default () => ({
           aria-expanded="false"
           aria-controls={collapseId}>
           <span className="d-flex align-items-center">
-            <i className="float-left fas fa-fw mr-1"/>
+            <i className="title float-left fas fa-fw mr-1"/>
             {title}
           </span>
           <span className={'card__headerDAte'}>{date}</span>
