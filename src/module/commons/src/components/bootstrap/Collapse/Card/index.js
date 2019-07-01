@@ -3,7 +3,6 @@ import './style.scss';
 export default () => ({
   view(vnode) {
     const { body, title, date, cardId, type } = vnode.attrs;
-    console.log(this);
     const headerId = `card-header--${cardId}`;
     const collapseId = `card-body--${cardId}`;
     const borderClass = `bg-${type}`;
@@ -27,7 +26,7 @@ export default () => ({
         id={collapseId}
         className="collapse"
         aria-labelledby={headerId}>
-        <div className="card-body">{body}</div>
+        <div className="card-body">{body}{vnode.children}</div>
       </div>
     </div>;
   },

@@ -24,6 +24,9 @@ const InstanceReportWidget = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dij
     const errorSeverityHTML = '<i class="fas fa-exclamation-triangle"></i>';
     const warningSeverityHTML = '<i class="fas fa-exclamation-circle"></i>';
     const deprecatedSeverityHTML = '<i class="fas fa-question-circle"></i>';
+
+
+    // List out all the errors into a table
     this.report.errors.forEach((err) => {
       const row = htmlUtil.create('tr', null, this.domNode);
       htmlUtil.create('td', {
@@ -43,6 +46,7 @@ const InstanceReportWidget = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dij
       htmlUtil.create('td', { innerHTML: messages[`report_${warn.code}`] }, row);
     }, this);
 
+    // List out all the deprecateds into a table
     this.report.deprecated.forEach((dep) => {
       const row = htmlUtil.create('tr', null, this.domNode);
       htmlUtil.create('td', {
@@ -53,6 +57,7 @@ const InstanceReportWidget = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dij
       htmlUtil.create('td', { innerHTML: messages.deprecated }, row);
     }, this);
 
+    // Render the title
     const titleStr = i18n.renderNLSTemplate(messages.reportHead, {
       URI: this.report.uri,
       errors: this.report.errors.length,
@@ -145,30 +150,110 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
 });
 
-const InstanceReport = () => {
-  console.log('hello');
+
+
+// MITHRIL VIEWS
+const InstanceReport = (vnode) => {
+  const { validateDialog, report, graph, rdfTemplate } = vnode.attrs;
+  console.log(vnode.attrs);
+
+  const renderReportBadges = (report) => {
+    const esreReport = i18n.getLocalization(esreReportNLS);
+    const errors = report.errors.map(err =>
+      <tr>
+        <td title={esreReport.error}>
+          <i class="fas fa-exclamation-triangle"></i>
+        </td>
+        <td>
+          { err.path }
+        </td>
+        <td>
+          { esreReport[`report_${err.code}`] }
+        </td>
+      </tr>,
+    );
+
+    // List out all the deprecateds into a table
+    const warnings = report.warnings.map(warn =>
+      <tr>
+        <td title={esreReport.warning}>
+          <i class="fas fa-exclamation-circle"></i>
+        </td>
+        <td>
+          { warn.path }
+        </td>
+        <td>
+          { esreReport[`report_${warn.code}`] }
+        </td>
+      </tr>,
+    );
+
+    // List out all the deprecateds into a table
+    const deprecateds = report.deprecated.map(dep =>
+      <tr>
+        <td title={esreReport.deprecated}>
+          <i class="fas fa-question-circle"></i>
+        </td>
+        <td>
+          { dep }
+        </td>
+        <td>
+          { esreReport.deprecated }
+        </td>
+      </tr>,
+    );
+
+    return [...errors, ...warnings, ...deprecateds];
+  };
+
+  const openView = () => {
+    // var binding = Engine.match(this.graph, this.report.uri, this.template);
+    // Engine.report(binding);
+    validateDialog.title = report.uri;
+    validateDialog.localeChange();
+    validateDialog.show(report.uri, graph, rdfTemplate);
+    console.log('doing it');
+  };
+
   return {
-    view() {
+    view(vnode) {
+      const { report } = vnode.attrs;
+
       const esreReport = i18n.getLocalization(esreReportNLS);
+      const titleStr = i18n.renderNLSTemplate(esreReport.reportHead, {
+        URI: report.uri,
+        errors: report.errors.length,
+        warnings: report.warnings.length,
+      });
 
       return <tbody>
         <tr data-dojo-attach-point="instanceRow">
           <td class="instanceHeader" colspan="3">
-            <span data-dojo-attach-point="instanceHeader"></span>
-            <button type="button" class="btn btn-sm btn-raised btn-success float-right"
-              data-dojo-attach-event="onclick:_openView">
+            <span data-dojo-attach-point="instanceHeader">{ titleStr }</span>
+            <button type="button"
+              class="btn btn-sm btn-raised btn-success float-right"
+              onclick={openView}
+            >
               <i class="fas fa-eye fa-lg"></i>
               <span>{esreReport.viewValidation}</span>
             </button>
           </td>
         </tr>
+        {(report.errors.length > 0 || report.warnings.length > 0) &&
+          <tr>
+            <th>{esreReport.severity}</th>
+            <th>{esreReport.path}</th>
+            <th>{esreReport.problem}</th>
+          </tr>
+        }
+        { renderReportBadges(report) }
       </tbody>;
     },
   };
 };
 
 export const ClassReport = (vnode) => {
-  const { reports, graph, rdfType } = vnode.attrs;
+  const { reports, graph, rdfType, rdfTemplate, validateDialog } = vnode.attrs;
   const esreReport = i18n.getLocalization(esreReportNLS);
 
   const headerTitle = i18n.renderNLSTemplate(esreReport.instancesHeader, {
@@ -211,45 +296,37 @@ export const ClassReport = (vnode) => {
 
 
   return {
-    view() {
+    view(vnode) {
       const esreReport = i18n.getLocalization(esreReportNLS);
       // validateDialog={g.validateDialog}
       const instanceReports = reports.map(resourceReport =>
         <InstanceReport
           report={resourceReport}
           graph={graph}
-        />
+          rdfTemplate={rdfTemplate}
+          validateDialog={validateDialog}
+          rdfType={rdfType}
+        />,
       );
 
       return <div class="classReport" data-dojo-attach-point="_rdformsNode">
         <CollapsableCard
-          body={instanceReports}
           title={headerTitle}
           date={<div class="float-right problems">{problems}</div>}
           cardId={parseInt(Math.random() * 50, 10)}
-        />
+        >
+          <table className="table">
+            
+            {instanceReports}
+          </table>
+        </CollapsableCard>
 
-        <div class="card">
-
-          <div id={`_collapse`}
-            class="card-collapse collapse table"
-            role="tabcard"
-            data-dojo-attach-point="card"
-          >
-
-            <table class="table" data-dojo-attach-point="reportTable">
-              <thead>
-                <tr>
-                  <th>{esreReport.severity}</th>
-                  <th>{esreReport.path}</th>
-                  <th>{esreReport.problem}</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
+        <div id={`_collapse`}
+          class="card-collapse collapse table"
+          role="tabcard"
+          data-dojo-attach-point="card"
+        >
         </div>
-
-
       </div>;
     },
   };

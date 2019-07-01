@@ -95,15 +95,14 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       // }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
 
 
-
-      m.render(this._rdformsNode, m(ClassReport, {
+      const reportContainer = htmlUtil.create('div', { class: 'instance' }, this._rdformsNode);
+      m.render(reportContainer, m(ClassReport, {
         reports: type2resourceReports[key],
         graph: this._graph,
-        template: this.type2template[key],
+        rdfTemplate: this.type2template[key],
         rdfType: key,
         validateDialog: this._validateDialog,
       }));
-
-    });
+    }, this);
   },
 });
