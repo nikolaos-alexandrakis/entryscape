@@ -8,9 +8,9 @@ export default () => ({
     const borderClass = `bg-${type}`;
 
     return <div className={'collapsableCard card mb-2'}>
-      <div className={`card-header ${borderClass} text-white`} id={headerId}>
+      <div className={`${borderClass}`} id={headerId}>
         <a
-          className="collapsed spaExplicitLink d-flex justify-content-between"
+          className="card-header collapsed spaExplicitLink d-flex justify-content-between"
           data-toggle="collapse"
           data-target={`#${collapseId}`}
           aria-expanded="false"
