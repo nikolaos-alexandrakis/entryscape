@@ -10,7 +10,7 @@ import { NLSMixin } from 'esi18n';
 import { validate } from 'rdforms';
 import esreReport from 'registry/nls/esreReport.nls';
 import esreSource from 'registry/nls/esreSource.nls';
-import { ClassReport } from './ClassReport';
+import ClassReport from './ClassReport';
 import './esreReport.css';
 import templateString from './ReportTemplate.html';
 

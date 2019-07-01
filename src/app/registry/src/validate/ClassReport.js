@@ -1,161 +1,10 @@
-import m from 'mithril';
 import registry from 'commons/registry';
-import htmlUtil from 'commons/util/htmlUtil';
-import _TemplatedMixin from 'dijit/_TemplatedMixin';
-import _WidgetBase from 'dijit/_WidgetBase';
-import declare from 'dojo/_base/declare';
-import { i18n, NLSMixin } from 'esi18n';
-import jquery from 'jquery';
+import { i18n } from 'esi18n';
 import esreReportNLS from 'registry/nls/esreReport.nls';
-import ClassReportTemplate from './ClassReportTemplate.html';
 import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
-import template from './InstanceReportTemplate.html';
 
-const InstanceReportWidget = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
-  report: null,
-  template: null,
-  graph: null,
-  nlsBundles: [{ esreReportNLS }],
-  templateString: template,
-
-  postCreate() {
-    this.inherited('postCreate', arguments);
-    const messages = this.NLSLocalized0;
-    const errorSeverityHTML = '<i class="fas fa-exclamation-triangle"></i>';
-    const warningSeverityHTML = '<i class="fas fa-exclamation-circle"></i>';
-    const deprecatedSeverityHTML = '<i class="fas fa-question-circle"></i>';
-
-
-    // List out all the errors into a table
-    this.report.errors.forEach((err) => {
-      const row = htmlUtil.create('tr', null, this.domNode);
-      htmlUtil.create('td', {
-        title: messages.error,
-        innerHTML: errorSeverityHTML,
-      }, row);
-      htmlUtil.create('td', { innerHTML: err.path }, row);
-      htmlUtil.create('td', { innerHTML: messages[`report_${err.code}`] }, row);
-    }, this);
-    this.report.warnings.forEach((warn) => {
-      const row = htmlUtil.create('tr', null, this.domNode);
-      htmlUtil.create('td', {
-        title: messages.warning,
-        innerHTML: warningSeverityHTML,
-      }, row);
-      htmlUtil.create('td', { innerHTML: warn.path }, row);
-      htmlUtil.create('td', { innerHTML: messages[`report_${warn.code}`] }, row);
-    }, this);
-
-    // List out all the deprecateds into a table
-    this.report.deprecated.forEach((dep) => {
-      const row = htmlUtil.create('tr', null, this.domNode);
-      htmlUtil.create('td', {
-        title: messages.deprecated,
-        innerHTML: deprecatedSeverityHTML,
-      }, row);
-      htmlUtil.create('td', { innerHTML: dep }, row);
-      htmlUtil.create('td', { innerHTML: messages.deprecated }, row);
-    }, this);
-
-    // Render the title
-    const titleStr = i18n.renderNLSTemplate(messages.reportHead, {
-      URI: this.report.uri,
-      errors: this.report.errors.length,
-      warnings: this.report.warnings.length,
-    });
-
-    this.instanceHeader.innerHTML = titleStr;
-
-    if (this.report.errors.length > 0) {
-      this.domNode.classList.add('errors');
-    } else if (this.report.warnings.length > 0) {
-      this.domNode.classList.add('warnings');
-    }
-  },
-
-  _openView() {
-    // var binding = Engine.match(this.graph, this.report.uri, this.template);
-    // Engine.report(binding);
-    this.validateDialog.title = this.report.uri;
-    this.validateDialog.localeChange();
-    this.validateDialog.show(this.report.uri, this.graph, this.template);
-  },
-});
-
-
-export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
-  nlsBundles: [{ esreReportNLS }],
-  templateString: ClassReportTemplate,
-  postCreate() {
-    this.inherited('postCreate', arguments);
-    // jquery(this.card).collapse('hide');
-    const headerTitle = i18n.renderNLSTemplate(this.NLSLocalized0.instancesHeader, {
-      nr: this.reports.length,
-      class: registry.get('namespaces').shorten(this.rdftype),
-    });
-
-    let nrErr = 0;
-    let nrWarn = 0;
-    let nrDep = 0;
-    this.reports.forEach((rep) => {
-      nrErr += rep.errors.length;
-      nrWarn += rep.warnings.length;
-      nrDep += rep.deprecated.length;
-    });
-
-    const problems = [];
-    if (nrErr > 0) {
-      problems.push(
-        <span title={i18n.renderNLSTemplate(this.NLSLocalized0.errorTitle, nrErr)}>
-          {nrErr}<i class="fas fa-exclamation-triangle"></i>
-        </span>,
-      );
-    }
-    if (nrWarn > 0) {
-      problems.push(
-        <span title={i18n.renderNLSTemplate(this.NLSLocalized0.warningTitle, nrWarn)}>
-          {nrWarn}<i class="fas fa-exclamation-circle"></i>
-        </span>,
-      );
-    }
-
-    if (nrDep > 0) {
-      problems.push(
-        <span title={i18n.renderNLSTemplate(this.NLSLocalized0.deprecatedTitle, nrDep)}>
-          {nrDep}<i class="fas fa-question-circle"></i>
-        </span>,
-      );
-    }
-
-
-    // htmlUtil.create("h3",
-    // {"class": "instanceType", innerHTML: messages.instancesHeader + key}, this._rdformsNode);
-    const reports = this.reports.map(resourceReport => m('div', {config: InstanceReportWidget({
-      report: resourceReport,
-      validateDialog: this.validateDialog,
-      graph: this.graph,
-      template: this.template,
-    }, htmlUtil.create('div')).domNode}));
-
-    const headerNode = (<div class="">
-      {headerTitle}
-    </div>);
-
-    m.render(this.domNode, m(CollapsableCard, {
-      body: reports,
-      title: headerNode,
-      date: <div class="float-right problems">{problems}</div>,
-      cardId: parseInt(Math.random() * 50, 10),
-    }));
-  },
-});
-
-
-
-// MITHRIL VIEWS
 const InstanceReport = (vnode) => {
   const { validateDialog, report, graph, rdfTemplate } = vnode.attrs;
-  console.log(vnode.attrs);
 
   const renderReportBadges = (report) => {
     const esreReport = i18n.getLocalization(esreReportNLS);
@@ -206,13 +55,15 @@ const InstanceReport = (vnode) => {
     return [...errors, ...warnings, ...deprecateds];
   };
 
+  /**
+   * Open a side dialog view of this report
+   *
+   * @returns {undefined}
+   */
   const openView = () => {
-    // var binding = Engine.match(this.graph, this.report.uri, this.template);
-    // Engine.report(binding);
     validateDialog.title = report.uri;
     validateDialog.localeChange();
     validateDialog.show(report.uri, graph, rdfTemplate);
-    console.log('doing it');
   };
 
   return {
@@ -227,9 +78,9 @@ const InstanceReport = (vnode) => {
       });
 
       return <tbody>
-        <tr data-dojo-attach-point="instanceRow">
+        <tr>
           <td class="instanceHeader" colspan="3">
-            <span data-dojo-attach-point="instanceHeader">{ titleStr }</span>
+            <span>{ titleStr }</span>
             <button type="button"
               class="btn btn-sm btn-raised btn-success float-right"
               onclick={openView}
@@ -252,7 +103,7 @@ const InstanceReport = (vnode) => {
   };
 };
 
-export const ClassReport = (vnode) => {
+export default ClassReport = (vnode) => {
   const { reports, graph, rdfType, rdfTemplate, validateDialog } = vnode.attrs;
   const esreReport = i18n.getLocalization(esreReportNLS);
 
@@ -296,9 +147,7 @@ export const ClassReport = (vnode) => {
 
 
   return {
-    view(vnode) {
-      const esreReport = i18n.getLocalization(esreReportNLS);
-      // validateDialog={g.validateDialog}
+    view() {
       const instanceReports = reports.map(resourceReport =>
         <InstanceReport
           report={resourceReport}
@@ -309,22 +158,20 @@ export const ClassReport = (vnode) => {
         />,
       );
 
-      return <div class="classReport" data-dojo-attach-point="_rdformsNode">
+      return <div class="classReport">
         <CollapsableCard
           title={headerTitle}
           date={<div class="float-right problems">{problems}</div>}
           cardId={parseInt(Math.random() * 50, 10)}
         >
           <table className="table">
-            
             {instanceReports}
           </table>
         </CollapsableCard>
 
-        <div id={`_collapse`}
+        <div id="_collapse"
           class="card-collapse collapse table"
           role="tabcard"
-          data-dojo-attach-point="card"
         >
         </div>
       </div>;
