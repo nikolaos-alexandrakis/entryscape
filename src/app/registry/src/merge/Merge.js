@@ -8,7 +8,7 @@ import { NLSMixin } from 'esi18n';
 import esreMerge from 'registry/nls/esreMerge.nls';
 import esreSource from 'registry/nls/esreSource.nls';
 import CatalogDetect from './CatalogDetect';
-import './esreMerge.css';
+import './esreMerge.scss';
 import LoadDialog from './LoadDialog';
 import merge from './mergeScript';
 import template from './MergeTemplate.html';

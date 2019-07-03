@@ -2,7 +2,7 @@ import './style.scss';
 
 export default () => ({
   view(vnode) {
-    const { body, title, date, cardId, type } = vnode.attrs;
+    const { body, title, date, cardId, type = 'light' } = vnode.attrs;
     const headerId = `card-header--${cardId}`;
     const collapseId = `card-body--${cardId}`;
     const borderClass = `bg-${type}`;
