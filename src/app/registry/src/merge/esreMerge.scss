@@ -1,19 +1,37 @@
 .esreMerge {
+  margin-top: 10px;
+  margin-bottom: 100px;
+
+  .list-group {
     margin-top: 10px;
-    margin-bottom: 100px;
 
-    .list-group {
-      margin-top: 10px;
-
-      .esreCatalogDetect__sourceBlock {
-        display: block;
-        width: 100%;
-      }
-      .esreCatalogDetect__removeCatalogButton {
-        position: absolute;
-        right: 0;
-      }
+    .esreCatalogDetect__sourceBlock {
+      display: block;
+      width: 100%;
     }
+    .esreCatalogDetect__removeCatalogButton {
+      position: absolute;
+      right: 16px;
+    }
+
+    & :first-child {
+      margin: 0;
+    }
+     .esreCatalogDetect__catalogStatus .fas {
+      margin-right: 10px;
+    }
+  }
+
+
+  .card {
+    margin-bottom: 16px;
+
+    .card-header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
 }
 
 .esreMerge__addMergeCatalogButton {
@@ -32,11 +50,3 @@
     margin-bottom: 20px;
 }
 
-
-
-
-.esreMerge .card .card-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
