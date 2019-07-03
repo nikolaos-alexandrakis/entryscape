@@ -1,5 +1,19 @@
 .esreMerge {
     margin-top: 10px;
+    margin-bottom: 100px;
+
+    .list-group {
+      margin-top: 10px;
+
+      .esreCatalogDetect__sourceBlock {
+        display: block;
+        width: 100%;
+      }
+      .esreCatalogDetect__removeCatalogButton {
+        position: absolute;
+        right: 0;
+      }
+    }
 }
 
 .esreMerge__addMergeCatalogButton {
@@ -18,9 +32,6 @@
     margin-bottom: 20px;
 }
 
-.esreMerge .list-group{
-    margin-top: 10px;
-}
 
 
 
