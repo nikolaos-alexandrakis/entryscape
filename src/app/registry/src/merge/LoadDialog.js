@@ -43,7 +43,7 @@ export default declare([TitleDialog], {
       const inputElement = this.entryType.getFileInputElement();
       /** @type File */
       const file = inputElement.files.item(0);
-      return readFileAsText(file, f);
+      return readFileAsText(file).then(f);
     }
     return registry.get('entrystore').loadViaProxy(val, 'application/rdf+xml').then(f);
   },
