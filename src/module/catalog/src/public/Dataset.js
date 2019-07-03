@@ -126,12 +126,13 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const desc = md.findFirstValue(subj, 'http://purl.org/dc/terms/description');
         const access = md.findFirstValue(subj, 'http://www.w3.org/ns/dcat#accessURL');
         const label = title || desc || access;
-        const tr = htmlUtil.create('tr', null, this.distributions);
-        htmlUtil.create('td', { innerHTML: label }, tr);
-        const tdButtons = htmlUtil.create('td', null, tr);
-        const divWrapper = htmlUtil.create('div', { class: 'min-height-row' }, tdButtons);
-        htmlUtil.create('span', { class: 'badge badge-pill badge-primary' }, divWrapper);
-        htmlUtil.create('span', { class: 'fas fa-info-circle' }, divWrapper);
+
+
+        const tr = htmlUtil.create('div', {
+          class: 'list-group-item list-group-item-action d-flex justify-content-between flex-nowrap',
+        }, this.distributions);
+        htmlUtil.create('span', { innerHTML: label }, tr);
+        htmlUtil.create('i', { class: 'fas fa-info-circle' }, tr);
         const f = (ev) => {
           ev.stopPropagation();
           this.distributionInfoDialog.set('title', label);
