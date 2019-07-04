@@ -22,7 +22,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     this.progress.innerHTML = '';
     const div = DOMUtil.create('div', null, this.progress);
     this._loader = DOMUtil.create('div', null, div);
-    this._loader.classList.add('loader');
+    this._loader.classList.add('spinner-border');
     jquery(this._loader).loader();
     // this.fadeIn = basefx.fadeIn({node: this.domNode});
 
@@ -40,7 +40,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     }
     delete this.lock;
     // this.fadeIn.stop();
-    jquery(this._loader).loader('destroy');
+    // jquery(this._loader).loader('destroy');
+		this._loader.classList.remove('spinner-border');
     this.domNode.style.display = 'none';
   },
 });
