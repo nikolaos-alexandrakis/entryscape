@@ -1,3 +1,13 @@
+/*
+Entryscape Bootstrap Material Design Overrides
+*/
+
 .form-control, .custom-file-control {
   font-size: 13px;
+}
+
+/* TODO: @scazan Adjusting here since BMD's alignment has some padding that I can't quite figure out */
+.entryList.escoMassOperations .entryRow .entryRowCol0 .checkbox {
+    position: relative;
+    top: -0.5em;
 }
