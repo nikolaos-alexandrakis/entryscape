@@ -93,6 +93,10 @@
     display: none;
 }
 
+nav.navbar.navbar-light.spaSideDialogHeaderNavbar {
+    min-height: 67px;
+}
+
 .spaHeaderDialog.spaHeader .spaSideDialogHeaderNavbar,
 .spaHeaderDialog.spaFooter .spaSideDialogFooterNavbar {
     display: block;
