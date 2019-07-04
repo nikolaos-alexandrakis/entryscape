@@ -123,8 +123,8 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       const heading = DOMUtil.create('div', null, divCard);
       DOMUtil.addClass(heading, 'checkbox card-header escoProgress__taskHeading');
 
+      const input = DOMUtil.create('input', { type: 'checkbox' }, heading);
       const label = DOMUtil.create('label', null, heading);
-      const input = DOMUtil.create('input', { type: 'checkbox' }, label);
       const task = DOMUtil.create('span', null, label);
       task.innerHTML = configuredTask.label;
       DOMUtil.addClass(task, 'escoProgress__taskLabel');
