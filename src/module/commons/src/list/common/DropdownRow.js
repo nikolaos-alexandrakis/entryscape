@@ -36,8 +36,10 @@ export default declare([EntryRow], {
   },
   disableDropdown() {
     this.dropdownRowMenu.classList.add('disabled');
-    this.dropdownIcon.style.visibility = 'hidden';
-    this.dropdownIcon.classList.add('escoDropdownRow__menuDisabled');
+    if (this.dropdownIcon) {
+      this.dropdownIcon.style.visibility = 'hidden';
+      this.dropdownIcon.classList.add('escoDropdownRow__menuDisabled');
+    }
   },
   /* start */
   setDropdownStatus(menuItem) {
