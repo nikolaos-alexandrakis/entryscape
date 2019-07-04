@@ -1,5 +1,3 @@
-//import 'bootstrap-material-design/dist/js/material';
-//import 'bootstrap-material-design/dist/js/ripples';
 import jquery from 'jquery';
 import PubSub from 'pubsub-js';
 import util from './util';
@@ -24,21 +22,12 @@ const observeDOMAdditions = (obj, callback) => {
 
 // initializeMaterial is not called more than once per X ms
 const updateMaterial = util.throttle(() => {
-  if (jquery.material) {
-    jquery.material.ripples();
-    jquery.material.input();
-    jquery.material.checkbox();
-    jquery.material.radio();
-    jquery.material.togglebutton();
-    // jquery.material.init();
-  }
   jquery('[data-toggle="popover"]').popover();
 }, 500, { leading: false });
 
 
 // run only once, when first view is loaded
 const viewListener = PubSub.subscribe('spa.viewLoaded', () => {
-  // jquery.material.init();
   jquery('body').bootstrapMaterialDesign();
   window.$ = jquery;
   observeDOMAdditions(jquery('#viewsNode')[0], updateMaterial); // main content
