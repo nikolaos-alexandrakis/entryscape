@@ -159,11 +159,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const desc = md.findFirstValue(subj, 'dcterms:description');
         const access = md.findFirstValue(subj, 'foaf:page');
         const label = title || desc || access;
-        const tr = htmlUtil.create('tr', null, this.results);
-        htmlUtil.create('td', { innerHTML: label }, tr);
-        const tdButtons = htmlUtil.create('td', null, tr);
-        const infoButton = htmlUtil.create('button', { class: 'btn btn-sm btn-secondary' }, tdButtons);
-        htmlUtil.create('span', { class: 'fas fa-info-circle' }, infoButton);
+
+        const tr = htmlUtil.create('div', {
+          class: 'list-group-item list-group-item-action d-flex justify-content-between flex-nowrap',
+        }, this.results);
+        htmlUtil.create('span', { innerHTML: label }, tr);
+        htmlUtil.create('i', { class: 'fas fa-info-circle' }, tr);
         const f = (ev) => {
           ev.stopPropagation();
           this.infoDialog.title = label;
@@ -173,7 +174,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
             resultE.getResourceURI(), resultE.getMetadata(), dataResultTemplate);
         };
 
-        infoButton.addEventListener('click', f.bind(this));
         tr.addEventListener('click', f.bind(this));
       }
     });
