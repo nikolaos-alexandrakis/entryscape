@@ -160,6 +160,13 @@
     display: block;
 }
 
+/* TODO: @scazan Adjusting here for BMD since BMD's alignment has some padding that I can't quite figure out */
+.entryList.escoMassOperations .entryRow .entryRowCol0 .checkbox {
+    position: relative;
+    top: -0.5em;
+}
+
+
 
 /* Former entryModificationDate*/
 .entryList .entryRowCol0 {
