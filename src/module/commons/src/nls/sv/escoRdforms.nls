@@ -70,5 +70,12 @@
   "longitudePlaceholder": "Ett värde mellan −180 and 180.",
   "edit_upgrade": "Ange ytterligare information för webbadressen",
   "address_label": "Adress",
-  "entityChooserLabel": "Välj profil:"
+  "entityChooserLabel": "Välj profil:",
+  "validation_disjoint": "Högst ett värde är tillåtet",
+  "validation_nodetype": "Fel nodtyp",
+  "validation_value": "Fel värde",
+  "validation_datatype": "Fel datatyp",
+  "validation_constraints": "Begränsningar saknas",
+  "validation_pattern": "Värdet följer inte mönstret",
+  "validation_language": "En språkkod krävs"
 }
