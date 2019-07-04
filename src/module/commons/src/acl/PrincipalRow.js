@@ -126,8 +126,9 @@ export default declare([EntryRow], {
       const currentRightTitle = this.getNLSTitle(currentRight);
       const textNode = document.createElement('span');
       textNode.classList.add('principalRight');
-      // textNode.classList.add('dropdown-toggle');
+      textNode.classList.add('dropdown-toggle');
       textNode.classList.add('text-wrap');
+      textNode.classList.add('small');
       textNode.setAttribute('data-toggle', 'dropdown');
       wrapperNode.appendChild(textNode);
 
@@ -139,9 +140,6 @@ export default declare([EntryRow], {
       if (this.list.readOnly) {
         return;
       }
-      const newSpan = document.createElement('span');
-      newSpan.classList.add('caret');
-      textNode.appendChild(newSpan);
 
       const ul = document.createElement('ul');
       ul.classList.add('dropdown-menu', 'dropdown-menu-right');
