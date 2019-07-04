@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime';
 import './publicPath';
 import 'jquery';
 import 'popper.js';
+import 'arrive';
 import 'bootstrap';
 import 'bootstrap-material-design';
 import 'typeahead.js/dist/typeahead.jquery';
