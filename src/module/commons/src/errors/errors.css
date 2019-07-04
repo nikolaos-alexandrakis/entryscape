@@ -35,6 +35,11 @@
     border-radius: 20px;
 }
 
+.spaAsyncContent .rejectIcon,
+.spaAsyncContent .loaderContainer {
+  position: absolute;
+}
+
 .spaAsyncContent .asyncMessages {
     margin-top: 10px;
     min-height: 64px;
