@@ -84,7 +84,7 @@ export default {
     catalog__datasets__dataset: {
       class: DatasetOverview,
       faClass: 'cubes',
-      title: { en: 'Dataset', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
+      title: { en: 'Dataset', sv: 'Data&shy;mängd', da: 'Datasæt', de: 'Daten&shy;satz' },
       constructorParams: { createAndRemoveDistributions: true },
       route: '/catalog/:context/datasets/:dataset/overview',
       parent: 'catalog__datasets',
@@ -92,7 +92,7 @@ export default {
     },
     catalog__datasets__preview: {
       class: Public,
-      title: { en: 'Datasets Preview', sv: 'Data&shy;mängder', da: 'Datasæt', de: 'Daten&shy;sätze' },
+      title: { en: 'Dataset', sv: 'Data&shy;mängd', da: 'Datasæt', de: 'Daten&shy;satz' },
       route: '/catalog/:context/datasets/:dataset',
       parent: 'catalog__datasets__dataset',
       module: 'catalog',
