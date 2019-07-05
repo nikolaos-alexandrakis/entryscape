@@ -21,7 +21,7 @@ const UNAUTHORIZED = 2;
 const SIGNED_OUT = 3;
 const LOST_CONNECTION = 4;
 
-const extractProblem = function (err) {
+const extractProblem = (err) => {
   if (typeof err === 'object' && err.response && typeof err.response.status === 'number') {
     const status = err.response.status;
     const major = Math.floor(status / 100);
@@ -32,7 +32,8 @@ const extractProblem = function (err) {
       case 3:
         return GENERIC_PROBLEM;
       case 4:
-        return status === 401 ? UNAUTHORIZED : GENERIC_PROBLEM;
+        // 403 is a specific error when a user is disabled and the correct username/password combination was submitted
+        return status === 401 || status === 403 ? UNAUTHORIZED : GENERIC_PROBLEM;
       default:
     }
   }
