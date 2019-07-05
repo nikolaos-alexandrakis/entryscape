@@ -229,10 +229,12 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   renderDialog(state) {
     if (state === INPROGRESS) {
       this._loader.classList.add('d-block');
+      this._loader.classList.add('spinner-border');
       // jquery(this._loader.firstChild).loader('destroy');
       // jquery(DOMUtil.create('div', { class: 'loader' }, this._loader)).loader();
     } else {
       this._loader.classList.remove('d-block');
+      this._loader.classList.remove('spinner-border');
       this._loader.classList.remove('d-none');
     }
 
