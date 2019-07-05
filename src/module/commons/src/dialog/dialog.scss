@@ -221,7 +221,7 @@ nav.navbar.navbar-light.spaSideDialogHeaderNavbar {
 
 .modal-dialog {
     margin: 120px auto;
-    max-width: 850px;
+    //max-width: 850px;
 }
 
 .confirmDialog .modal-body {
@@ -381,7 +381,6 @@ label {
 
 .bmd-form-group [class*=' bmd-label']{
     position: relative;
-    margin-bottom:10px;
 }
 .bmd-form-group{
     padding-top:0;

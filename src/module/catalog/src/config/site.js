@@ -108,7 +108,7 @@ export default {
     catalog__ideas: {
       title: { en: 'Ideas', sv: 'Idéer', da: 'Ideer', de: 'Ideen' },
       class: IdeasList,
-      faClass: 'lightbulb-o',
+      faClass: 'lightbulb',
       route: '/catalog/:context/ideas',
       parent: 'catalog',
       module: 'catalog',

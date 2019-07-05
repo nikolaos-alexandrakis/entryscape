@@ -33,10 +33,12 @@
                      data-dojo-attach-point="signinStatus"></div>
             </div>
             <div class="row">
-                <a data-dojo-attach-event="onClick: showPWResetDialog"
-                   class="resetButton" data-dojo-attach-point="nls">
-                    resetPasswordButton
-                </a>
+                <div class="col float-right">
+                    <a data-dojo-attach-event="onClick: showPWResetDialog"
+                       class="resetButton" data-dojo-attach-point="nls">
+                        resetPasswordButton
+                    </a>
+                </div>
             </div>
             <a data-dojo-attach-event="onClick: signin"
                class="btn btn-block btn-raised btn-success signinButton"
