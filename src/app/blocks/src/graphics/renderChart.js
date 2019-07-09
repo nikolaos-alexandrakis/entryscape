@@ -1,53 +1,105 @@
-import chartist from 'chartist';
+import BarChart from 'commons/components/chart/Bar';
+import DoughnutChart from 'commons/components/chart/Doughnut';
 import DOMUtil from 'commons/util/htmlUtil';
-import chartistPluginLegend from 'chartist-plugin-legend';
+import m from 'mithril';
 
-let counter = 0;
-const renderChart = function (node, data, items) {
-  const f = (loadedData) => {
-    counter += 1;
-    const idClass = `chartist_${counter}`;
-
-    const div = DOMUtil.create('div', { class: `${idClass} ${data.proportion}` });
-    if (data.width) {
-      div.style.width = parseInt(data.width, 10) == data.width ? `${data.width}px` : data.width;
-    } else {
-      div.style.width = '100%';
-    }
-    if (data.options.axisX && data.options.axisX.type) {
-      data.options.axisX.type = Chartist[data.options.axisX.type];
-    }
-    if (data.options.axisY && data.options.axisY.type) {
-      data.options.axisY.type = Chartist[data.options.axisY.type];
-    }
-
-    if (data.limit) {
-      loadedData.labels = loadedData.labels.slice(0, data.limit);
-      if (Array.isArray(loadedData.series[0])) {
-        loadedData.series = loadedData.series.map(t => t.slice(0, data.limit));
-      } else {
-        loadedData.series = loadedData.series.slice(0, data.limit);
-      }
-    }
-    if (data.legend) {
-      data.options.plugins = [
-        Chartist.plugins.legend({
-          position: 'bottom',
-          legendNames: loadedData.labels.map((l, idx) => `${l} (${loadedData.series[idx]})`),
-        }),
-      ];
-      data.options.labelInterpolationFnc = value => '';
-      delete loadedData.labels;
-    }
-    new Chartist[data.type](`.${idClass}`, loadedData, data.options, data.responsiveOptions);
-  };
-  if (data.data) {
-    f(data.data);
-  } else if (data.url) {
-    require([data.url], (loadedData) => {
-      f(loadedData);
-    });
+/**
+ * Return as many items as limit indicates.
+ *
+ * @todo re-write as pure function
+ *
+ * @param data
+ * @param limit
+ */
+const applyLimit = (data, limit) => {
+  data.labels = data.labels.slice(0, limit);
+  if (Array.isArray(data.series[0])) {
+    data.series = data.series.map(t => t.slice(0, limit));
+  } else {
+    data.series = data.series.slice(0, limit);
   }
+
+  return data;
 };
 
-export default renderChart;
+/**
+ *
+ * @param data
+ * @return {{datasets: {data: *}[], labels: *}}
+ */
+const convertToChartJs = data => ({
+  datasets: [{
+    data: Array.isArray(data.series[0]) ? data.series[0] : data.series,
+  }],
+  labels: data.labels,
+});
+
+/**
+ *
+ * @param data
+ * @param configData
+ * @return {{datasets: {data: *}[], labels: *}}
+ */
+const transformData = (data, configData) => {
+  let filteredData = data;
+  if (configData.limit) {
+    filteredData = applyLimit(filteredData, configData.limit);
+  }
+
+  return convertToChartJs(filteredData);
+};
+
+/**
+ * Match block config data with mithril chart component
+ *
+ * @param node
+ * @param configData
+ * @param rawData
+ */
+const renderChartComponent = (node, configData, rawData) => {
+  // transform fetched data
+  const data = transformData(Object.assign({}, rawData), configData);
+
+  // prepare chartjs options
+  const type = configData.type;
+  const options = {
+    data,
+    type: configData.type,
+    dimensions: {
+      width: configData.width,
+      height: configData.height,
+    },
+    options: configData.options,
+  };
+
+  // find suitable chatjs component
+  let chartComponent = null;
+  switch (type) {
+    case 'bar':
+    case 'line':
+    case 'horizontalBar':
+      chartComponent = { view: () => m(BarChart, options) };
+      break;
+    case 'pie':
+    case 'doughnut':
+      chartComponent = { view: () => m(DoughnutChart, options) };
+      break;
+    default:
+  }
+
+  m.mount(DOMUtil.create('div', {}, node), chartComponent);
+};
+
+export default (node, configData) => {
+  if (configData.data) {
+    renderChartComponent(node, configData.data);
+  } else if (configData.url) {
+    if (configData.url.endsWith('.json')) {
+      fetch(configData.url)
+        .then(res => res.json())
+        .then(data => renderChartComponent(node, configData, data));
+    } else {
+      require([configData.url], data => renderChartComponent(node, configData, data));
+    }
+  }
+};

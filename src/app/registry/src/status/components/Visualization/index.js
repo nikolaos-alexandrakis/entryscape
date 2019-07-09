@@ -1,6 +1,6 @@
-import BarChart from 'commons/components/chart/BarChart';
+import BarChart from 'commons/components/chart/Bar';
 import DoughnutChart from 'commons/components/chart/Doughnut';
-import TimeChart from 'commons/components/chart/TimeChart';
+import TimeChart from 'commons/components/chart/Time';
 import registry from 'commons/registry';
 import { createSetState } from 'commons/util/util';
 import MithrilView from 'commons/view/MithrilView';
