@@ -135,7 +135,10 @@ export default () => {
       const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
       return <div className="chart-container" style={`position: relative; height:${height}; width:${width}`}>
         <div className={`no-data ${noData ? '' : 'd-none'}`}>{escaStatistics.timeRangeNoDataAvailable}</div>
-        <canvas className={` ${noData ? 'hidden' : ''}`} aria-label="Statistics chart" role="img"/>
+        <canvas
+          className={` ${noData ? 'd-none' : ''}`}
+          aria-label="Statistics chart"
+          role="img"/>
       </div>;
     },
   };
