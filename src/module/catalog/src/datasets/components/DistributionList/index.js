@@ -104,11 +104,11 @@ export default (initialVnode) => {
         <div class="distributions">
           <div class="header flex--sb">
             <h2 class="title">{escaDataset.distributionsTitle}</h2>
-            <button class="btn btn-primary btn--add bmd-btn-fab bmd-btn-fab-sm btn-raised"
+            <button class="btn btn-primary btn--add bmd-btn-fab"
               onclick={openCreateDialog}
               alt={escaDataset.addDistributionTitle}
             >
-              <span class="fa fa-plus"></span>
+              <span class="fas fa-plus"></span>
             </button>
           </div>
 

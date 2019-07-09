@@ -25,7 +25,7 @@ const Result = {
       return m('li.list-group-item', {
         class: `${this.bid}__resultListRow`,
         key: result.id,
-      }, m('.row', [
+      }, m('.d-flex', [
         m('.col-md-1', m(resultIcon, { class: `${this.bid}__resultListRowIcon` })),
         m('.col-md-11', [
           m(Row,

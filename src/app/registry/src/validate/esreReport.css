@@ -38,6 +38,9 @@
     text-align: center;
     vertical-align: middle;
 }
+.classReport tr:first-child td:first-child {
+    border: 0;
+}
 .classReport table th:first-child {
     width: 1px;
 }
@@ -63,6 +66,18 @@ div.errorreport{
     border-left-style: dotted;
     border-left-color: white;
     padding-left: 12px;
+}
+
+.classReport .problems {
+  position: absolute;
+  right: 16px;
+}
+
+.classReport .problems span {
+  margin-left: 10px;
+}
+.classReport .problems .fas{
+  margin-left: 5px;
 }
 
 .sidebarMode .esreReport {

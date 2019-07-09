@@ -1,92 +1,15 @@
-.spaAsync {
-    display: none;
-    overflow: hidden;
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-    z-index: 1040;
+.modal .spaAsync .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
-.spaAsyncUnderlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: #808080;
-    opacity: .5;
-    filter: alpha(opacity=50);
+.modal .spaAsync .info > div {
+    margin: 10px auto;
 }
 
-
-.spaAsyncContent {
-    position: absolute;
-    top:50%;
-    left:50%;
-    margin-top: -26px;
-    margin-left: -202px;
-}
-
-.spaAsyncContent>div {
-    padding: 26px;
-    background: white;
-    border-radius: 20px;
-}
-
-.fuelux .spaAsyncContent .rejectIcon,
-.fuelux .spaAsyncContent .loaderContainer {
-    position: absolute;
-}
-
-.spaAsyncContent .asyncMessages {
-    margin-top: 10px;
-    min-height: 64px;
-    width: 350px;
-    max-height: 110px;
-    overflow-y: auto;
-}
-
-.spaAsyncContent .amessage {
-    margin-left: 102px;
-    min-height: 64px;
-    width: 500px;
-    max-height: 110px;
-    overflow-y: auto;
-}
-
-.spaAsyncContent .alert {
-    padding: 5px 7px;
-    margin-bottom: 5px;
-    word-wrap: break-word;
-}
-
-.spaAsyncContent .alert:last-child {
-    margin-bottom: 0px;
-}
-
-.spaAsyncContent .rejectIcon,
-.spaAsyncContent .loaderContainer,
-.spaAsyncContent .loading,
-.spaAsyncContent .reject1,
-.spaAsyncContent .reject2,
-.spaAsyncContent .reject3,
-.spaAsyncContent .asyncMessages {
-    display: none;
-}
-
-.inprogress .spaAsyncContent .loaderContainer,
-.inprogress .spaAsyncContent .loading,
-.reject1 .spaAsyncContent .rejectIcon,
-.reject2 .spaAsyncContent .rejectIcon,
-.reject3 .spaAsyncContent .rejectIcon,
-.reject1 .spaAsyncContent .reject1,
-.reject2 .spaAsyncContent .reject2,
-.reject3 .spaAsyncContent .reject3 {
-    display: block;
-}
-
-.spaAsyncContent .buttonRow {
-    height: 33px;
+.modal .spaAsync .info .buttonRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

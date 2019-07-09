@@ -56,11 +56,11 @@
                         <span class="listSortLabel"
                               data-dojo-attach-point="sortOptionsLabel"></span>
                         <div class="btn-group " data-toggle="buttons">
-                            <label class="btn btn-secondary"
+                            <label class="btn btn-outline-secondary"
                                    data-dojo-attach-point="sortOrderTitleNode">
                                 <input type="radio" class="form-check-input" name="${id}_listOrder" autocomplete="off">
                                 <span data-dojo-attach-point="sortOrderTitleCheck"></span></label>
-                            <label class="btn btn-secondary active"
+                            <label class="btn btn-outline-secondary active"
                                    data-dojo-attach-point="sortOrderModNode">
                                 <input type="radio" class="form-check-input" name="${id}_listOrder" autocomplete="off"
                                        checked>
@@ -71,7 +71,7 @@
                 <div class="col-md-5 escoList__headerContainer escoList__lowerBlockContainer col-sm-7"
                      data-dojo-attach-point="lowerBlockContainer">
                     <div class="escoList__massOperations" data-dojo-attach-point="massOperationsNode">
-                        <div class="col-md-5 form-check checkbox" style="padding: 0px; margin-bottom: 15px">
+                        <div class="form-check checkbox" style="padding: 0px; margin-bottom: 15px">
                             <label data-dojo-attach-point="selectAll">
                                 <input type="checkbox" class="form-check-input" data-dojo-attach-point="selectallCheck">
                                 <span class="checkboxLabel" data-dojo-attach-point="selectallLabel"></span>
@@ -95,22 +95,8 @@
     </div>
     <div data-dojo-attach-point="__placeholder"
          class="" role="alert"></div>
-    <div class="entryPagination small">
-        <nav>
-            <ul class="pagination" data-dojo-attach-point="paginationList">
-                <li data-dojo-attach-point="paginationPreviousLi" class="disabled">
-                    <a data-dojo-attach-point="paginationPreviousA"
-                       data-dojo-attach-event="click:_clickPrevious">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li data-dojo-attach-point="paginationNextLi">
-                    <a data-dojo-attach-point="paginationNextA"
-                       data-dojo-attach-event="click:_clickNext">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+    <div class="entryPagination">
+        <nav data-dojo-attach-point="__pagination">
         </nav>
     </div>
 </div>

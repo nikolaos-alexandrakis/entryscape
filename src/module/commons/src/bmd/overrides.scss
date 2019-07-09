@@ -1,0 +1,26 @@
+/*
+Entryscape Bootstrap Material Design Overrides
+*/
+
+$baseFontSize: 16px;
+
+.form-control, .custom-file-control {
+  font-size: $baseFontSize;
+}
+
+
+/* RDFORMS */
+/* TODO: @scazan Adjusting here since BMD's alignment has some padding that I can't quite figure out */
+.entryList.escoMassOperations .entryRow .entryRowCol0 .checkbox {
+    position: relative;
+    top: -0.5em;
+}
+
+.body .bmd-form-group .bmd-label-static {
+  font-size: .85rem;
+  margin-bottom: 1rem;
+}
+
+#entryscapeDialogs .selectize-control.single .selectize-input {
+  font-size: $baseFontSize !important;
+}

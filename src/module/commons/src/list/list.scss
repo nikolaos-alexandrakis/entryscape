@@ -103,9 +103,6 @@
     background-color:white;
     margin-bottom: 20px;
     box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
-    &:focus{
-        border:2px solid $main-colour;
-    }
 }
 
 .escoList .table > tbody + tbody {
@@ -162,6 +159,8 @@
 .entryList.escoMassOperations .entryRow .entryRowCol0 {
     display: block;
 }
+
+
 
 
 /* Former entryModificationDate*/
@@ -263,26 +262,8 @@
     display: block;
 }
 
-.entryPagination nav {
-    text-align: center;
-}
-
 .entryPagination .pagination {
     margin: 10px 5px;
-}
-
-.entryPagination .pagination > li {
-    cursor: pointer;
-}
-
-.entryPagination .pagination > a {
-    color: black;
-}
-
-.entryPagination .pagination > li > span {
-    background-color: white !important;
-    color: #808080;
-    cursor: default;
 }
 
 .searchBlock {
@@ -299,7 +280,7 @@
 }
 
 .listSortLabel {
-    font-size: 12px;    
+    font-size: 12px;
         .form-check-input{
             visibility: hidden;
     }

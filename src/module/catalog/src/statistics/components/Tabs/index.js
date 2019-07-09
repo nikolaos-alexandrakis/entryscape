@@ -23,7 +23,7 @@ export default () => ({
             className={item.id === selected ? 'selected' : ''}
             data-tab={item.id}>
             <a className="spaExplicitLink">
-              <i className={`fa ${item.icon}`}/>
+              <i className={`fas ${item.icon}`}/>
               <span>{item.label}</span>
             </a>
           </li>)}

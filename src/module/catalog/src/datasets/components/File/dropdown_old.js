@@ -127,7 +127,7 @@ export default (vnode) => {
     const actions = [];
     // actions.push(
       // <button
-        // class="btn--distributionFile fa fa-fw fa-pencil"
+        // class="btn--distributionFile fas fa-fw fa-pencil"
         // title={nls.editDistributionTitle}
       // >
         // <span>{nls.editDistributionTitle}</span>
@@ -139,7 +139,7 @@ export default (vnode) => {
       if (isFileDistributionWithOutAPI(entry, fileEntryURIs, registry.get('entrystore'))) {
         actions.push(
           <button
-            class="btn--distributionFile fa fa-fw fa-link"
+            class="btn--distributionFile fas fa-fw fa-link"
             title={nls.apiActivateTitle}
             onclick={activateAPI}
           >
@@ -150,21 +150,21 @@ export default (vnode) => {
       if (isSingleFileDistribution(entry)) {
         actions.push([
           <button
-            class="btn--distributionFile fa fa-fw fa-download"
+            class="btn--distributionFile fas fa-fw fa-download"
             title={nls.downloadButtonTitle}
             onclick={openResource}
           >
             <span>{nls.downloadButtonTitle}</span>
           </button>,
           <button
-            class="btn--distributionFile fa fa-fw fa-exchange"
+            class="btn--distributionFile fas fa-fw fa-exchange"
             title={nls.replaceFileTitle}
             onclick={replaceFile}
           >
             <span>{nls.replaceFile}</span>
           </button>,
           <button
-            class="btn--distributionFile fa fa-fw fa-file"
+            class="btn--distributionFile fas fa-fw fa-file"
             title={nls.addFileTitle}
             onclick={manageFiles}
           >
@@ -174,7 +174,7 @@ export default (vnode) => {
       } else {
         actions.push(
           <button
-            class="btn--distributionFile fa fa-fw fa-copy"
+            class="btn--distributionFile fas fa-fw fa-copy"
             title={nls.manageFilesTitle}
             onclick={manageFiles}
           >
@@ -185,14 +185,14 @@ export default (vnode) => {
     } else if (isAPIDistribution(entry)) { // Add ApiInfo menu item,if its api distribution
       actions.push([
         <button
-          class="btn--distributionFile fa fa-fw fa-info-circle"
+          class="btn--distributionFile fas fa-fw fa-info-circle"
           title={nls.apiDistributionTitle}
           onclick={openApiInfo}
         >
           <span>{nls.apiDistributionTitle}</span>
         </button>,
         <button
-          class="btn--distributionFile  fa fa-fw fa-retweet"
+          class="btn--distributionFile  fas fa-fw fa-retweet"
           title={nls.reGenerateAPITitle}
           onclick={refreshAPI}
         >
@@ -203,7 +203,7 @@ export default (vnode) => {
       if (!isAccessURLEmpty(entry)) {
         actions.push(
           <button
-            class="btn--distributionFile fa fa-fw fa-info-circle"
+            class="btn--distributionFile fas fa-fw fa-info-circle"
             title={nls.accessURLButtonTitle}
             onclick={openResource}
           >
@@ -214,7 +214,7 @@ export default (vnode) => {
       if (!isDownloadURLEmpty(entry)) {
         actions.push(
           <button
-            class="btn--distributionFile  fa fa-fw fa-download"
+            class="btn--distributionFile  fas fa-fw fa-download"
             title={nls.downloadButtonTitle}
             onclick={openResource}
           >
@@ -227,7 +227,7 @@ export default (vnode) => {
     // if (this.datasetRow.list.createAndRemoveDistributions) { // @scazan simple boolean defined in the class
     actions.push(
       <button
-      class=" btn--distributionFile fa fa-fw fa-times"
+      class=" btn--distributionFile fas fa-fw fa-times"
       title={nls.removeDistributionTitle}
       // onclick={remove}
       >
@@ -247,7 +247,7 @@ export default (vnode) => {
         <div>
           <div class="flex--sb">
             <p class="distributionFile__date">Jan 17</p>
-            <button class="icons fa fa-cog" onclick={toggleFileDropdown}></button>
+            <button class="icons fas fa-cog" onclick={toggleFileDropdown}></button>
           </div>
           <div class={`file__dropdownMenu ${showingDropdownClass}`}>
           </div>

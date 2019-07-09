@@ -3,11 +3,6 @@
     padding: 10px 15px;
     padding-right: 0;
 }
-.escoDropdownRow__menu.btn-secondary.disabled {
-    /*background-color: white;*/
-    /*border-color: white;*/
-    /*padding-right: 23px;*/
-}
 .escoDropdownRow__menuIcon.fa-shield.escoDropdownRow__menuDisabled {
     padding-right: 18px;
 }

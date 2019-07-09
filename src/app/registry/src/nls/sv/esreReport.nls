@@ -10,10 +10,17 @@
   "warningTitle": "{{PLURAL:$1|1 varning|$1 varningar}}",
   "deprecated": "Föråldrat värde",
   "deprecatedTitle": "{{PLURAL:$1|1 föråldrat värde|$1 föråldrade värden}}",
-  "report_few": "För få värden",
   "report_many": "För många värden",
   "report_disjoint": "Endast ett värde tillåtet",
   "reportHead": "${URI} har {{PLURAL:${errors}|ett fel|${errors} fel}} och {{PLURAL:${warnings}|en varning|${warnings} varningar}}:",
   "closeValidationDialog": "Stäng",
-  "viewValidation": "Visa valideringsresultat"
+  "viewValidation": "Visa valideringsresultat",
+  "report_min": "Obligatoriskt värde saknas",
+  "report_pref": "Rekommenderat värde saknas",
+  "report_value": "Fel värde",
+  "report_nodetype": "Fel nodtyp",
+  "report_datatype": "Fel datatyp",
+  "report_constraints": "Begränsningar saknas",
+  "report_pattern": "Värdet följer inte mönstret",
+  "report_language": "En språkkod krävs"
 }

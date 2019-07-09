@@ -204,7 +204,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         DOMUtil.addClass(a, 'bottom_footer_button btn btn-raised btn-link btn-sm');
 
         if (fButton.faIcon) {
-          DOMUtil.create('span', null, a).classList.add(`fa fa-${fButton.faIcon}`);
+          DOMUtil.create('span', null, a).classList.add(`fas fa-${fButton.faIcon}`);
         }
         a.setAttribute('title', title);
         DOMUtil.create('span', null, a).innerHTML = label;

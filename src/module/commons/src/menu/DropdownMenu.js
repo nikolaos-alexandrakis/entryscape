@@ -50,7 +50,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const a = DOMUtil.create('a', null, li);
     let cls;
     if (param.iconType === 'fa') {
-      cls = `fa fa-fw fa-${param.icon}`;
+      cls = `fas fa-fw fa-${param.icon}`;
     } else { // Default is glyphicons
       cls = `glyphicon glyphicon-${param.icon}`;
     }
