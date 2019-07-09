@@ -49,16 +49,6 @@ const getCatalogStatisticsEntries = () => {
     .context(es.getContextById('catalogstatistics'))
     .list()
     .getEntries();
-
-  // if ( {
-  //   this.renderNoData();
-  // } else {
-  //   this.renderMainStatistics(arr[0]);
-  //   this.renderPartitions(arr[0]);
-  //   arr.reverse();
-  //   this.renderOrganisations(arr);
-  //   this.renderLastMonth(arr);
-  // }
 };
 
 const getLastMonthData = (entries) => {
@@ -178,8 +168,7 @@ export default declare([MithrilView, PublicView], {
     return {
       oncreate() {
         getCatalogStatisticsEntries().then((entries) => {
-          if (entries.length === 0) {
-          } else {
+          if (entries.length > 0) {
             const { datasetCount, organizationCount } = getMainStatistics(entries[0]);
             const partitions = getPartitions(entries[0]);
             const lastMonthData = {

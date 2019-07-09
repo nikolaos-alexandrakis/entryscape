@@ -8013,7 +8013,7 @@ rc@^1.2.7:
 
 "rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
   version "9.3.0-SNAPSHOT"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#6e06641c702f84103a18b6579e7b9b25ee95d289"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#13e95b967a6493448a742e452d214f4d9626e33c"
   dependencies:
     arrive "^2.4.1"
     bootstrap "^4.3.1"
