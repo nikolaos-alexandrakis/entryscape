@@ -236,8 +236,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     Object.keys(this.buttons).forEach((name) => {
       const params = this.buttons[name];
       if (params.params.nlsKey) {
-        params.label.innerHTML =
-          `&nbsp;${(specific && specific[params.params.nlsKey]) || generic[params.params.nlsKey] || ''}`;
+        const labelContent = (specific && specific[params.params.nlsKey]) || generic[params.params.nlsKey] || '';
+        params.label.innerHTML = labelContent.length > 0 ? `&nbsp;${labelContent}` : '';
       }
       const popoverOptions = uiUtil.getPopoverOptions();
       mesg = null;
