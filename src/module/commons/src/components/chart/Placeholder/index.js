@@ -1,4 +1,4 @@
-import { getRandomInt } from 'commons/util/util';
+import m from 'mithril';
 import { COLOURS_PLACEHOLDER } from '../colors';
 import './index.scss';
 
@@ -10,7 +10,8 @@ export default () => {
       import(/* webpackChunkName: "chart.js" */ 'chart.js')
         .then(Chart => Chart.default)
         .then((Chart) => {
-          chart = new Chart(vnode.dom.children[0], {
+          const node = vnode.dom.getElementsByTagName('canvas')[0];
+          chart = new Chart(node, {
             type: 'bar',
             options: {
               maintainAspectRatio: false,
@@ -28,12 +29,12 @@ export default () => {
                 backgroundColor: COLOURS_PLACEHOLDER[0].backgroundColor,
                 borderColor: COLOURS_PLACEHOLDER[0].borderColor,
                 borderWidth: 1,
-                data: Array(12).forEach(a => getRandomInt(12)),
+                data: [5, 8, 4, 6, 7, 8, 9, 10, 11, 14, 5, 12],
               }, {
                 label: 'Dataset 2',
                 backgroundColor: COLOURS_PLACEHOLDER[1].backgroundColor,
                 borderColor: COLOURS_PLACEHOLDER[1].borderColor,
-                data: Array(12).forEach(a => getRandomInt(12)),
+                data: [2, 8, 4, 5, 9, 8, 9, 4, 16, 8, 5, 10],
               }],
             },
           });
@@ -45,7 +46,7 @@ export default () => {
       const { text } = vnode.attrs;
       return <div className="chart-container">
         <canvas aria-label="Statistics placeholder" role="img"/>
-        <h3 class="placeholder__text">{text}</h3>
+        <h3 className="placeholder__text">{text}</h3>
       </div>;
     },
   };
