@@ -38,7 +38,7 @@
     "popper.js": "^1.12.9",
     "pubsub-js": "^1.7.0",
     "rdfjson": "https://bitbucket.org/metasolutions/rdfjson.git#2.2.1",
-    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#9.4.0",
+    "rdforms": "https://bitbucket.org/metasolutions/rdforms.git#9.4",
     "regenerator-runtime": "^0.13.2",
     "selectize": "^0.12.6",
     "sizzle": "^2.3.3",
