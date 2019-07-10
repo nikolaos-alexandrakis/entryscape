@@ -1,0 +1,12 @@
+.harvestingList {
+  a.card-header {
+    color: white;
+
+    &:visited,
+    &:hover,
+    &:active,
+    span {
+      color: white;
+    }
+  }
+}

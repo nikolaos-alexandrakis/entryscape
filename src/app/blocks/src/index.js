@@ -10,7 +10,7 @@ import 'jquery';
 import 'jquery-mousewheel';
 import 'bootstrap';
 import 'sizzle';
-import 'blocks/bootstrap.less';
+import 'blocks/bootstrap.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'commons/list/list.scss'; // escoList .panel
 import 'commons/errors/errors.css';

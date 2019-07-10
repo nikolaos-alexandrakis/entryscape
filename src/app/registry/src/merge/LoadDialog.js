@@ -30,8 +30,7 @@ export default declare([TitleDialog], {
   },
   footerButtonAction() {
     const val = this.entryType.getValue();
-    const f = (evt, reader) => {
-      const data = reader.result;
+    const f = (data) => {
       const report = converters.detect(data);
       if (!report.error) {
         this.callback(report.graph, val);
@@ -44,7 +43,7 @@ export default declare([TitleDialog], {
       const inputElement = this.entryType.getFileInputElement();
       /** @type File */
       const file = inputElement.files.item(0);
-      return readFileAsText(file, f);
+      return readFileAsText(file).then(f);
     }
     return registry.get('entrystore').loadViaProxy(val, 'application/rdf+xml').then(f);
   },

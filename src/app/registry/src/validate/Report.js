@@ -86,13 +86,23 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const report = validate.graphReport(this._graph, this.type2template, this.mandatoryTypes);
     const type2resourceReports = regroup(report.resources, 'type');
     Object.keys(type2resourceReports).forEach((key) => {
-      ClassReport({
-        rdftype: key,
+      // ClassReport({
+        // rdftype: key,
+        // reports: type2resourceReports[key],
+        // validateDialog: this._validateDialog,
+        // graph: this._graph,
+        // template: this.type2template[key],
+      // }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
+
+
+      const reportContainer = htmlUtil.create('div', { class: 'instance' }, this._rdformsNode);
+      m.render(reportContainer, m(ClassReport, {
         reports: type2resourceReports[key],
-        validateDialog: this._validateDialog,
         graph: this._graph,
-        template: this.type2template[key],
-      }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
-    });
+        rdfTemplate: this.type2template[key],
+        rdfType: key,
+        validateDialog: this._validateDialog,
+      }));
+    }, this);
   },
 });

@@ -23,6 +23,16 @@
     min-height: 28px;
 }
 
+.dataset > .row,
+.dataset .fullView .secondary-info > .row {
+    margin-bottom: 10px;
+}
+
+.dataset > .row .list-group .list-group-item  {
+    padding-left: 0;
+    cursor: pointer;
+}
+
 .dataset.mainView {
   margin-top: 20px;
 }

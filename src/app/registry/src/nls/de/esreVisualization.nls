@@ -7,5 +7,6 @@
   "onlyDcatLegend": "Nur DCAT-AP ($1)",
   "neitherLegend": "Keiner der beiden ($1)",
   "datasetCount": "Anzahl der Datensätze",
-  "organizationCount": "Organisationen die Datensätze bereitstellen"
+  "organizationCount": "Organisationen die Datensätze bereitstellen",
+  "topOrganizations": "Organisationen mit den meisten Datensätzen"
 }

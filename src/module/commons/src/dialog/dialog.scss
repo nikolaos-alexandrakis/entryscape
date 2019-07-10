@@ -93,6 +93,10 @@
     display: none;
 }
 
+nav.navbar.navbar-light.spaSideDialogHeaderNavbar {
+    min-height: 67px;
+}
+
 .spaHeaderDialog.spaHeader .spaSideDialogHeaderNavbar,
 .spaHeaderDialog.spaFooter .spaSideDialogFooterNavbar {
     display: block;
@@ -119,7 +123,7 @@
 .spaHeaderDialog .spaSideDialogHeader .cardinality {
     margin-bottom: 0px;
     width: auto;
-  
+
 }
 
 .spaHeaderDialog .spaSideDialogHeader {
@@ -174,9 +178,6 @@
   margin-right: 24px;
   padding: 14px;
 }
-.escoButton {
-  margin-right: 20px;
-}
 .spaSideDialogFooter .btn.btn-primary {
     color: #fff !important;
     background-color: $main-colour;
@@ -220,7 +221,6 @@
 
 .modal-dialog {
     margin: 120px auto;
-    max-width: 850px;
 }
 
 .confirmDialog .modal-body {
@@ -377,20 +377,9 @@ label {
         padding:10px;
     }
 }
-.spaSideDialogBody{
-    .card{
-        margin-bottom: 20px;
-        width:100%;
-        .card-header{
-            background-color:#eeeeee;
-            border-bottom:0;
-        }
-    }
-}
 
 .bmd-form-group [class*=' bmd-label']{
     position: relative;
-    margin-bottom:10px;
 }
 .bmd-form-group{
     padding-top:0;

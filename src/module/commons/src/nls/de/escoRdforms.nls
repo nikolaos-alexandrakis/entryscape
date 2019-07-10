@@ -70,5 +70,12 @@
   "longitudePlaceholder": "Ein Wert zwischen -180 und 180.",
   "edit_upgrade": "Geben Sie zusätzliche Informationen für diese Webadresse ein",
   "address_label": "Adresse",
-  "entityChooserLabel": "Profil auswählen:"
+  "entityChooserLabel": "Profil auswählen:",
+  "validation_disjoint": "Es ist maximal ein Wert zulässig",
+  "validation_nodetype": "Falscher Node Type",
+  "validation_value": "Falscher Wert",
+  "validation_datatype": "Falscher Datentyp",
+  "validation_constraints": "Einschränkungen fehlen",
+  "validation_pattern": "Wert folgt nicht dem Muster",
+  "validation_language": "Ein Sprachcode ist erforderlich"
 }

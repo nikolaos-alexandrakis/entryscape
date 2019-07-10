@@ -46,7 +46,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
         div.classList.add('ssb-icon');
 
         const i = DOMUtil.create('i', { 'aria-hidden': 'true' }, div);
-        DOMUtil.addClass(i, `fa fa-${card.faClass}`);
+        DOMUtil.addClass(i, `fas fa-${card.faClass}`);
         titleNode = DOMUtil.create('h2', null, a);
         titleNode.classList.add('ssb-title');
         const textNode = DOMUtil.create('p', null, titleNode);
@@ -54,7 +54,7 @@ export default declare([_WidgetBase, _TemplatedMixin, ViewMixin], {
         this.setLabelAndTooltip(titleNode, a, card);
         this.setText(textNode, card);
       } else {
-        DOMUtil.create('h2', null, a).innerHTML = `<i class="fa fa-2x fa-${card.faClass}"></i>`;
+        DOMUtil.create('h2', null, a).innerHTML = `<i class="fas fa-2x fa-${card.faClass}"></i>`;
         titleNode = DOMUtil.create('h3', null, a);
         this.setLabelAndTooltip(titleNode, a, card);
       }

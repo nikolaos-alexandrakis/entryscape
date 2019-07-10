@@ -17,7 +17,7 @@ const htmlUtil = {
    *
    * @returns {Node}
    */
-  create(type, attributes, parent, before) {
+  create(type, attributes, parent, before = null) {
     const newDOMNode = document.createElement(type);
 
     if (attributes) {

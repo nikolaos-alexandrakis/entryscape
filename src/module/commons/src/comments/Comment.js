@@ -52,12 +52,10 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
       this.__dateInfo.setAttribute('title', tStr);
       if (this.noOfReplies > 0) {
-        this.__replies.style.display = '';
-        this.__replyIcon.style.display = '';
+        this.__replyButton.classList.remove('d-none');
         this.__replies.innerHTML = i18n.renderNLSTemplate(this.NLSLocalized0.reply, this.noOfReplies);
       } else {
-        this.__replies.style.display = 'none';
-        this.__replyIcon.style.display = 'none';
+        this.__replyButton.classList.add('d-none');
         this.__editComment.removeAttribute('disabled');
       }
     }

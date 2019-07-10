@@ -1,12 +1,11 @@
 import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { getMultiDatasetChartData } from 'catalog/statistics/utils/chart';
 import timeRangeUtil from 'catalog/statistics/utils/timeRange';
-import Chart from 'commons/components/chart/TimeChart';
+import Chart from 'commons/components/chart/Time';
 import SearchSelect from 'commons/components/common/select/SearchSelect';
 import registry from 'commons/registry';
 import { createSetState } from 'commons/util/util';
 import { i18n } from 'esi18n';
-import './index.scss';
 
 const timeRangesItems = timeRangeUtil.getTimeRanges();
 
@@ -30,8 +29,8 @@ export default (initialVnode) => {
     view() {
       const escaStatisticsNLS = i18n.getLocalization(escaStatistics);
       return <section>
-        <div className="chooser__wrapper">
-          <h4>{escaStatisticsNLS.statsDialogTimeRange}</h4>
+        <div className="chooser__wrapper d-flex align-items-center justify-content-start">
+          <h5>{escaStatisticsNLS.statsDialogTimeRange}</h5>
           <SearchSelect
             options={timeRangesItems}
             selectedOptions={[defaultTimeRange]}

@@ -87,7 +87,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     const filteredEtypes = entitytypes.filterEntitypeConfigurations(config.entitytypes);
     const sortedEntitytypes = entitytypes.sort(filteredEtypes);
     sortedEntitytypes.forEach((entitytype) => {
-      const divPanel = htmlUtil.create('div', { class: 'togglebutton' }, this.__entitytypeList);
+      const divPanel = htmlUtil.create('div', { class: 'switch' }, this.__entitytypeList);
       const label = htmlUtil.create('label', null, divPanel);
       const input = htmlUtil.create('input', { type: 'checkbox' }, label);
       const task = htmlUtil.create('span', {

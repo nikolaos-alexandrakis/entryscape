@@ -410,7 +410,6 @@ export default class Site {
    */
   resetView() {
     m.mount(this.config.viewsNode, null);
-    this.config.viewsNode.innerHTML = '';
   }
 
   attachViewToDom(viewDef) {
@@ -513,7 +512,6 @@ export default class Site {
             viewInstance.show(this._queue[0]);
           }
           domNodeShow(viewDef.node);
-          this.attachViewToDom(viewDef);
 
           if (this._ignoreSpaHandler) {
             const path = this.getRoutePath(viewDef.route, this._switchingToParams);

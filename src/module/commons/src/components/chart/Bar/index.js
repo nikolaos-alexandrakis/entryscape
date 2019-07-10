@@ -1,4 +1,4 @@
-import escaStatistics from 'catalog/nls/escaStatistics.nls';
+import escaStatisticsNLS from 'catalog/nls/escaStatistics.nls';
 import { COLOURS_BAR_CHART } from 'commons/components/chart/colors';
 import { i18n } from 'esi18n';
 
@@ -21,11 +21,9 @@ export default () => {
           m.redraw();
         });
     },
-
-
     view(vnode) {
-      const { data, options = {}, colors = [], chartDimensions = {} } = vnode.attrs;
-      const { width = 400, height = 400 } = chartDimensions; // @todo @valentino are these used?
+      const { data, colors = [], dimensions = {} } = vnode.attrs;
+      const { width = '100%', height = '100%' } = dimensions;
 
       let noData = true;
       if (chart && data
@@ -54,14 +52,10 @@ export default () => {
         }
       }
 
-      return (<div className="chart-container">
-        <div
-          className={`no-data ${noData ? '' : 'd-none'}`}>{i18n.localize(escaStatistics, 'timeRangeNoDataAvailable')}</div>
-        <canvas
-          className={` ${noData ? 'd-none' : ''}`}
-          width={width}
-          height={height}
-          aria-label="Statistics chart" role="img"/>
+      const escaStatistics = i18n.getLocalization(escaStatisticsNLS);
+      return (<div className="chart-container" style={`position: relative; height:${height}; width:${width}`}>
+        <div className={`no-data ${noData ? '' : 'd-none'}`}>{escaStatistics.timeRangeNoDataAvailable}</div>
+        <canvas className={` ${noData ? 'd-none' : ''}`} aria-label="Statistics chart" role="img"/>
       </div>);
     },
   };

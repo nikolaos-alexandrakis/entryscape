@@ -6,7 +6,7 @@ import 'regenerator-runtime/runtime';
 import './publicPath';
 import 'jquery';
 import 'popper.js';
-import 'bootstrap';
+// import 'bootstrap';
 import 'bootstrap-material-design';
 import 'typeahead.js/dist/typeahead.jquery';
 import 'bloodhound-js'; // TODO @valentino typeahead alone seems to have issues, so import bloodhound seperately

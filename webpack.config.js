@@ -82,7 +82,7 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
+          exclude: /node_modules\/(?!(bootstrap|bootstrap-material-design|rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
           use: [
             {
               loader: 'babel-loader',
