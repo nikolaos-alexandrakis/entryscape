@@ -1,6 +1,8 @@
 import registry from 'commons/registry';
 import ETBaseList from 'commons/list/common/ETBaseList';
 import ProgressDialog from 'commons/progress/ProgressDialog';
+import CommentDialog from 'commons/comments/CommentDialog';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import escoList from 'commons/nls/escoList.nls';
 import escaCandidates from 'catalog/nls/escaCandidates.nls';
 import config from 'config';
@@ -13,7 +15,54 @@ import MithrilView from 'commons/view/MithrilView';
 
 const ns = registry.get('namespaces');
 
-export default declare(MithrilView, {
+const CreateDialog = declare(RDFormsEditDialog, {
+  maxWidth: 800,
+  explicitNLS: true,
+  constructor(params) {
+    this.list = params.list;
+  },
+  open() {
+    this.list.getView().clearSearch();
+    this.title = this.list.nlsSpecificBundle.createCandidateDatasetHeader;
+    this.doneLabel = this.list.nlsSpecificBundle.createCandidateDatasetButton;
+    this.updateTitleAndButton();
+    const nds = createEntry(null, 'dcat:Dataset');
+    this._newCandidate = nds;
+    registry.get('getGroupWithHomeContext')(nds.getContext())
+      .then((groupEntry) => {
+        const ei = nds.getEntryInfo();
+        const acl = ei.getACL(true);
+        acl.admin.push(groupEntry.getId());
+        ei.setACL(acl);
+      });
+
+    nds.getMetadata().add(nds.getResourceURI(), 'rdf:type', 'esterms:CandidateDataset');
+    this.show(nds.getResourceURI(), nds.getMetadata(),
+      this.list.getTemplate(), this.list.getTemplateLevel(nds));
+  },
+  doneAction(graph) {
+    return this._newCandidate.setMetadata(graph).commit()
+      .then((newEntry) => {
+        this.list.getView().addRowForEntry(newEntry);
+        return newEntry.refresh();
+      });
+  },
+});
+
+const CommentDialog2 = declare([CommentDialog], {
+  maxWidth: 800,
+  title: 'temporary', // to avoid exception
+  open(params) {
+    this.inherited(arguments);
+    const name = registry.get('rdfutils').getLabel(params.row.entry);
+    this.title = i18n.renderNLSTemplate(this.list.nlsSpecificBundle.commentHeader, { name });
+    this.footerButtonLabel = this.list.nlsSpecificBundle.commentFooterButton;
+    this.localeChange();
+  },
+});
+
+let viewExport;
+const preparationsView = declare(MithrilView, {
   mainComponent: () => ({
     view() {
       return <CandidateOverview />;
@@ -21,7 +70,7 @@ export default declare(MithrilView, {
   }),
 });
 
-export const view = declare([ETBaseList], {
+const candidatesView = declare([ETBaseList], {
   includeCreateButton: true,
   includeInfoButton: false,
   includeEditButton: true,
@@ -94,3 +143,12 @@ export const view = declare([ETBaseList], {
     return 'recommended';
   },
 });
+
+const configured = 'candidates';
+if (configured === 'preparations') {
+  viewExport = preparationsView;
+} else {
+  viewExport = candidatesView;
+}
+
+export default viewExport;
