@@ -28,14 +28,10 @@ body {
 }
 
 #viewsNode {
-  height: 100%;
+  height: calc(100% - 40px); /* 40px for the bottom footer */
+  position: relative;
   overflow: hidden;
   overflow-y: auto;
-}
-
-#viewsNode {
-  height: 100%;
-  position: relative;
   overflow-x: hidden;
 }
 
