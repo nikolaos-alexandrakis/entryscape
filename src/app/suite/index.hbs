@@ -87,10 +87,11 @@
             /**
              * load the right css/js for the given config/queryParams
              */
-            const appPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/app.js';
+            var debug = queryParamsMap.debug;
+            var appPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + (debug ? '/app.debug.js' : '/app.js');
             js(appPath);
 
-            const favIconPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/assets/favicon.ico';
+            var favIconPath = path + (useLocalBuild ? '' : app) + (version ? '/' : '') + version + '/assets/favicon.ico';
             document.write('<link rel="icon" href="' + favIconPath + '" type="image/x-icon"/>');
         }
     </script>
