@@ -107,7 +107,7 @@
     "lint"
   ],
   "scripts": {
-    "build:all": "parallel-webpack --config webpack.prod.js",
+    "build:all": "parallel-webpack --config webpack.prod.js -no-stats",
     "build:suite": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite",
     "build:suite:nls": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite --nls-warnings=true",
     "build:registry": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry",
