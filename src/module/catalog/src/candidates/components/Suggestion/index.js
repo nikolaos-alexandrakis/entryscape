@@ -8,10 +8,11 @@ import {
 } from 'commons/util/metadata';
 import DOMUtil from 'commons/util/htmlUtil';
 import escaDatasetNLS from 'catalog/nls/escaDataset.nls';
-import bindActions from './actions';
+import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
 import SuggestionDataset from '../SuggestionDataset';
 import SuggestionRequest from '../SuggestionRequest';
 import SuggestionActions from '../SuggestionActions';
+import bindActions from './actions';
 import './index.scss';
 
 export default (vnode) => {
@@ -48,18 +49,15 @@ export default (vnode) => {
               </div>
             </div>
           </div>
-          <div onclick={expandDistribution} tabindex="0" class="row">
-            <div class={distributionArrowClass}></div>
-            <p class="distribution__title">{title}</p>
-            <div class="flex--sb">
-              <p class="date">{modificationDate.short}</p>
-              <SuggestionActions entry={entry} />
-            </div>
-            <div class={`distribution__expand ${expandedClass}`}>
-              <SuggestionRequest entry={entry} />
-              <SuggestionDataset entry={entry} />
-            </div>
-          </div>
+
+          <CollapsableCard
+            title={title}
+            subTitle={[modificationDate.short, <SuggestionActions entry={entry} />]}
+          >
+            <SuggestionRequest entry={entry} />
+            <SuggestionDataset entry={entry} />
+          </CollapsableCard>
+
         </div>
       );
     },

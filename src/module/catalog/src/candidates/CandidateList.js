@@ -10,7 +10,7 @@ import declare from 'dojo/_base/declare';
 import ListView from '../utils/ListView';
 import CandidateRow from './CandidateRow';
 import UpgradeDialog from './UpgradeDialog';
-import CandidateOverview from './views/Overview';
+import PreparationsOverview from './views/Overview';
 import MithrilView from 'commons/view/MithrilView';
 
 const ns = registry.get('namespaces');
@@ -65,7 +65,7 @@ let viewExport;
 const preparationsView = declare(MithrilView, {
   mainComponent: () => ({
     view() {
-      return <CandidateOverview />;
+      return <PreparationsOverview />;
     },
   }),
 });
@@ -144,7 +144,8 @@ const candidatesView = declare([ETBaseList], {
   },
 });
 
-const configured = 'candidates';
+// const configured = 'candidates';
+const configured = 'preparations';
 if (configured === 'preparations') {
   viewExport = preparationsView;
 } else {
