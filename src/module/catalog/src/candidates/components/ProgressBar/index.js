@@ -2,13 +2,19 @@ import './index.scss';
 
 export default () => ({
   view(vnode) {
-    const { progressPercent = 0, clickHandler } = vnode.attrs;
+    const { progressPercent = 0, incomplete = true, clickHandler } = vnode.attrs;
 
     return (
       <div class="progressBar" onclick={clickHandler}>
-        <div class="bar">
-          <div class="indicator">
-            {progressPercent}
+        <div class="progress bar">
+          <div
+            class={`progress-bar ${incomplete && 'incomplete'}`}
+            role="progressbar"
+            aria-valuenow={progressPercent}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={`width: ${progressPercent}%`}
+          >
           </div>
         </div>
       </div>

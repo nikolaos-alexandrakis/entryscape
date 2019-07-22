@@ -1,1 +1,24 @@
 @import '~commons/theme.scss';
+
+.progressBar {
+  display: flex;
+  width: 154px;
+  height: 42px;
+  padding: 15px;
+
+  background-color: #fff;
+
+  .bar {
+    width: 120px;
+    height: 16px;
+
+    overflow: hidden;
+
+    .progress-bar {
+      &.incomplete {
+        background-color: #f00;
+      }
+    }
+  }
+
+}

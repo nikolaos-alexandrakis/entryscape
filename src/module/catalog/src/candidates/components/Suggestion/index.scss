@@ -3,29 +3,6 @@
 .suggestion {
   display: flex;
 
-  .progressBar {
-    display: flex;
-    width: 154px;
-    height: 42px;
-    padding: 15px;
-
-    background-color: #fff;
-
-    .bar {
-      width: 120px;
-      height: 16px;
-
-      overflow: hidden;
-
-      .indicator {
-        width: 120px;
-        height: 16px;
-
-        background-color: #f00;
-      }
-    }
-  }
-
   .row {
     display: flex;
     width: 100%;

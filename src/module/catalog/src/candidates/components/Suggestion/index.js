@@ -26,7 +26,8 @@ export default (vnode) => {
       return (
         <div class="suggestion">
           <ProgressBar
-            progressPercent="100"
+            progressPercent="50"
+            incomplete={false}
             clickHandler={editSuggestion}
           />
           <CollapsableCard
