@@ -161,7 +161,7 @@ export default ClassReport = (vnode) => {
       return <div class="classReport">
         <CollapsableCard
           title={headerTitle}
-          date={<div class="float-right problems">{problems}</div>}
+          subTitle={<div class="float-right problems">{problems}</div>}
           cardId={parseInt(Math.random() * 50, 10)}
         >
           <table className="table">

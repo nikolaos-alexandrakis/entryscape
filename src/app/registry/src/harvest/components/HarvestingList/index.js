@@ -11,9 +11,9 @@ export default () => ({
       <div className="accordion">
         {cards.map((card, idx) => <CollapsableCard
           title={card.title}
-          date={card.date}
+          subTitle={card.date}
           cardId={card.id}
-          type={card.type}
+          backgroundType={card.type}
           id ={`harvesting-list-${idx}`}
         >
           {card.body}
