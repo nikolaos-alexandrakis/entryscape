@@ -24,7 +24,7 @@ export default (vnode) => {
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
 
       return (
-        <div class="suggestion">
+        <div class="suggestion d-flex">
           <ProgressBar
             progressPercent="50"
             incomplete={false}
@@ -33,6 +33,7 @@ export default (vnode) => {
           <CollapsableCard
             title={title}
             subTitle={[modificationDate.short, <SuggestionActions entry={entry} />]}
+            className="flex-fill"
           >
             <SuggestionRequest entry={entry} />
             <SuggestionDataset entry={entry} />
