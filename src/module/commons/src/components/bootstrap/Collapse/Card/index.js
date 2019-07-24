@@ -19,7 +19,9 @@ export default () => ({
             <i className="title float-left fas fa-fw mr-1"/>
             {title}
           </span>
-          <span className={'subTitle'}>{subTitle}</span>
+          <span className={'subTitle d-flex align-items-center'}>
+            {subTitle}
+          </span>
         </a>
       </div>
       <div

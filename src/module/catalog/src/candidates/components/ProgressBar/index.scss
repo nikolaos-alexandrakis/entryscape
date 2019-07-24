@@ -1,7 +1,9 @@
 @import '~commons/theme.scss';
 
 .progressBar {
-  padding: 15px;
+  height: calc(16px + 14px + 14px);
+  padding: 14px;
+  margin-right: 14px;
 
   background-color: #fff;
 
