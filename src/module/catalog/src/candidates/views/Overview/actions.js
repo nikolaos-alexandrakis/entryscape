@@ -1,7 +1,16 @@
 import { createEntry } from 'commons/util/storeUtil';
 import { i18n } from 'esi18n';
+import registry from 'commons/registry';
+import config from 'config';
+import DOMUtil from 'commons/util/htmlUtil';
+import declare from 'dojo/_base/declare';
+import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import CommentDialog from 'commons/comments/CommentDialog';
+
+const getTemplate = () => registry.get('itemstore')
+  // .getItem('esterms:Suggestion');
+  .getItem(config.catalog.datasetCandidateTemplateId);
 
 const CreateDialog = declare(RDFormsEditDialog, {
   maxWidth: 800,
@@ -10,33 +19,38 @@ const CreateDialog = declare(RDFormsEditDialog, {
     this.list = params.list;
   },
   open() {
-    this.list.getView().clearSearch();
-    this.title = this.list.nlsSpecificBundle.createCandidateDatasetHeader;
-    this.doneLabel = this.list.nlsSpecificBundle.createCandidateDatasetButton;
+    const escaPreparation = i18n.getLocalization(escaPreparationsNLS);
+    // this.list.getView().clearSearch();
+    this.title = escaPreparation.createSuggestionHeader;
+    this.doneLabel = escaPreparation.createSuggestionButton;
     this.updateTitleAndButton();
-    const nds = createEntry(null, 'dcat:Dataset');
-    this._newCandidate = nds;
-    registry.get('getGroupWithHomeContext')(nds.getContext())
+
+    this.newSuggestion = createEntry(null, 'esterms:Suggestion');
+    const newSuggestion = this.newSuggestion;
+
+    registry.get('getGroupWithHomeContext')(newSuggestion.getContext())
       .then((groupEntry) => {
-        const ei = nds.getEntryInfo();
-        const acl = ei.getACL(true);
+        const entryInfo = newSuggestion.getEntryInfo();
+        const acl = entryInfo.getACL(true);
         acl.admin.push(groupEntry.getId());
-        ei.setACL(acl);
+        entryInfo.setACL(acl);
       });
 
-    nds.getMetadata().add(nds.getResourceURI(), 'rdf:type', 'esterms:CandidateDataset');
-    this.show(nds.getResourceURI(), nds.getMetadata(),
-      this.list.getTemplate(), this.list.getTemplateLevel(nds));
+    newSuggestion.getMetadata()
+      .add(newSuggestion.getResourceURI(), 'rdf:type', 'esterms:Suggestion');
+
+    this.show(newSuggestion.getResourceURI(), newSuggestion.getMetadata(),
+      getTemplate(), 'mandatory');
   },
   doneAction(graph) {
-    return this._newCandidate.setMetadata(graph).commit()
+    return this.newSuggestion.setMetadata(graph)
+      .commit()
       .then((newEntry) => {
-        this.list.getView().addRowForEntry(newEntry);
+        // this.list.getView().addRowForEntry(newEntry);
         return newEntry.refresh();
       });
   },
 });
-
 
 const CommentDialog2 = declare([CommentDialog], {
   maxWidth: 800,
@@ -49,3 +63,31 @@ const CommentDialog2 = declare([CommentDialog], {
     this.localeChange();
   },
 });
+
+export default (nothing, wrapperFunction) => {
+  const createSuggestion = (onDone) => {
+    const createDialog = new CreateDialog({
+      destroyOnHide: true,
+      row: {
+        // entry: suggestion,
+      },
+    }, DOMUtil.create('div'));
+    // @scazan Some glue here to communicate with RDForms without a "row"
+    createDialog.open({ onDone });
+  };
+
+  const actions = {
+    createSuggestion,
+  };
+
+  // Sometimes we may need to compose a wrapper function.
+  // For instance, when we use e.preventDefault or e.stopPropagation
+  if (wrapperFunction) {
+    Object.entries(actions)
+      .forEach((nameAction) => {
+        actions[nameAction[0]] = wrapperFunction(nameAction[1]);
+      });
+  }
+
+  return actions;
+};

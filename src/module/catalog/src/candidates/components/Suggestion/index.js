@@ -28,7 +28,7 @@ export default (vnode) => {
           <ProgressBar
             progressPercent="50"
             incomplete={false}
-            clickHandler={editSuggestion}
+            onclick={editSuggestion}
           />
           <CollapsableCard
             title={title}

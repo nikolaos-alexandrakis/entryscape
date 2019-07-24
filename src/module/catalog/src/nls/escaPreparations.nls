@@ -3,7 +3,8 @@
     "listHeader": "Preparations in catalog \"$1\"",
     "createSuggestion": "Create suggestion",
     "createSuggestionPopoverTitle": "Create suggestion",
-    "createSuggestionDatasetMenu": "Create dataset",
+    "createSuggestionDatasetMenu": "Create suggestion",
+    "createSuggestionHeader": "Create suggestion",
     "progressMenu": "Checklist",
     "progressTitle": "A checklist of things to consider before creating a dataset from this suggestion",
     "progressBarTitle": "${checked} (${mandatory} mandatory) of ${total} (${totalMandatory} mandatory) step{{PLURAL:${total}||s}} are marked as finished in checklist",
@@ -14,6 +15,7 @@
     "createDatasetMenu": "Create dataset",
     "listSearchPlaceholder": "Search for suggestions and requests...",
     "emptyListWarning": "Suggestions that you create will appear here",
+    "createSuggestionButton": "Create suggestion",
     "editSuggestionButton": "Save",
     "editSuggestionHeader": "Edit Suggestion"
   }

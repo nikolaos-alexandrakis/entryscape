@@ -30,7 +30,7 @@ export default (suggestion, wrapperFunction) => {
 
       entry.setRefreshNeeded();
       entry.refresh().then(() => {
-        this.showEntry(entry, this.getTemplate(entry), 'mandatory');
+        this.showEntry(entry, this.getTemplate(entry), 'recommended');
       });
     },
     getTemplate(entry) {

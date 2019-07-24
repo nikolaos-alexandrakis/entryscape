@@ -2,8 +2,10 @@ import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import config from 'config';
 import { createSetState } from 'commons/util/util';
-import escaCandidatesNLS from 'catalog/nls/escaCandidates.nls';
+import DOMUtil from 'commons/util/htmlUtil';
+import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Suggestion from 'catalog/candidates/components/Suggestion';
+import bindActions from './actions';
 import './index.scss';
 
 const buttons = [
@@ -24,15 +26,9 @@ const buttons = [
 
 const getSearchObject = () => registry.get('entrystore')
   .newSolrQuery()
-  .rdfType('esterms:CandidateDataset')
+  .rdfType('esterms:Suggestion')
   .context(registry.get('context'));
 
-const getTemplate = () => registry.get('itemstore')
-  .getItem(config.catalog.datasetCandidateTemplateId);
-
-const getTemplateLevel = () => {
-  return 'recommended';
-};
 
 const search = (paramsParams) => {
   const params = paramsParams || {};
@@ -66,10 +62,12 @@ const search = (paramsParams) => {
 };
 
 export default () =>  {
+  const actions = bindActions(null, DOMUtil.preventBubbleWrapper);
 
   const state = {
     suggestions: [],
   };
+
   const setState = createSetState(state);
 
   return {
@@ -83,10 +81,26 @@ export default () =>  {
         .then(suggestions => setState({ suggestions }));
     },
     view() {
-      const escaCandidates = i18n.getLocalization(escaCandidatesNLS);
+      const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
       return (
         <div class="preparationsOverview entryList searchVisible" >
+
+          <div class="listButtons float-right col-md-12">
+            <button
+              type="button"
+              class="float-right btn btn-raised btn-primary"
+              title={escaPreparations.createSuggestionPopoverTitle}
+              onclick={actions.createSuggestion}
+            >
+              <span aria-hidden="true" class="fas fa-plus"></span>
+              <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
+            </button>
+            <button type="button" class="float-right btn btn-raised btn-secondary" title="Reload list">
+              <span aria-hidden="true" class="fas fa-sync"></span>
+              <span className="escoList__buttonLabel"></span>
+            </button>
+          </div>
 
           <div class="suggestions">
             <h1>
