@@ -125,17 +125,6 @@
             color: $text-colour;
         }
     }
-    .icons {
-        @include button;
-        font-size: 24px;
-        color: $main-colour;
-        margin-right: 10px;
-        width: 24px;
-        &:hover{
-            opacity: 0.7;
-        }
-
-    }
 
     .metadata__label {
         font-weight: bold;

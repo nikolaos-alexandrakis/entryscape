@@ -1,6 +1,27 @@
 @import '~commons/theme.scss';
+@import '~commons/components/Button/index.scss';
 
-.row__dropdownMenu{
+.ESDropdown {
+  .icons {
+    @include button;
+    margin-right: 10px;
+    width: 24px;
+    align-self: center;
+
+    font-size: 24px;
+    color: $main-colour;
+
+    &:hover {
+      opacity: 0.7;
+      color:$main-colour-hover;
+    }
+
+    &:focus{
+      color: $main-colour;
+    }
+  }
+
+  .row__dropdownMenu {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -14,31 +35,30 @@
     list-style: none;
     background-color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        Button{
-        width: 100%;
+    Button{
+      width: 100%;
+      background-color: white;
+      color:$text-colour;
+      box-shadow: none;
+      border-bottom: 2px solid transparent;
+      font-size: 12px;
+      margin: 0;
+      text-transform:none;
+      &:hover{
+        color:$main-colour;
         background-color: white;
-        color:$text-colour;
-        box-shadow: none;
-        border-bottom: 2px solid transparent;
-        font-size: 12px;
-        margin: 0;
-        text-transform:none;
-        &:hover{
-            color:$main-colour;
-            background-color: white;
-        }
+      }
     }
-}
-.row__dropdownMenu.ESshow {
+  }
+  .row__dropdownMenu.ESshow {
     display: flex;
-}
-.row__dropdownMenu.dropup {
+  }
+
+  .row__dropdownMenu.dropup {
     top: auto;
     bottom: 100%;
     margin-bottom: 2px;
     box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.26);
+  }
 
-
-    
 }
-

@@ -1,4 +1,7 @@
 .preparationsOverview {
+  .fas {
+    margin-right: 5px;
+  }
 
   h1 {
     font-size: 20px;
@@ -7,11 +10,14 @@
 
     width: 238px;
     padding: 2.5px;
+    margin: 14px;
+    margin-left: 0px;
 
     border-bottom: solid 1px #ED9234;
+  }
 
-    .fas {
-      margin-right: 5px;
-    }
+  h2 {
+    font-size: 14px;
+    font-weight: bold;
   }
 }

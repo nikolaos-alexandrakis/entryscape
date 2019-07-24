@@ -116,7 +116,10 @@ export default () =>  {
             </div>
           </div>
           <div class="archive">
-            <h1>Archive</h1>
+            <h1>
+              <span class="fas fa-file-archive"></span>
+              Archive
+            </h1>
 
             <div class="requests">
               <h2>Requests</h2>

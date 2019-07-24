@@ -27,20 +27,6 @@
         }
     }
 
-    .distribution__row {
-        .icons {
-            font-size: 18px;
-            align-self: center;
-            &:focus{
-                color: $main-colour;
-            }
-
-            &:hover {
-                color:$main-colour-hover;
-            }
-        }
-    }
-
     .distributions {
 
         .title {
