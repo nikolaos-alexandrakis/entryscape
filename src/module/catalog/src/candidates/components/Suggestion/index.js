@@ -17,6 +17,7 @@ export default (vnode) => {
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e, () => m.redraw());
+  const cardId = `suggestion${entry.getId()}`;
 
   return {
     view() {
@@ -34,6 +35,7 @@ export default (vnode) => {
             title={title}
             subTitle={[modificationDate.short, <SuggestionActions entry={entry} />]}
             className="flex-fill"
+            cardId={cardId}
           >
             <SuggestionRequest entry={entry} />
             <SuggestionDataset entry={entry} />
