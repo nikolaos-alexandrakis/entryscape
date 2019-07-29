@@ -4,6 +4,7 @@ import config from 'config';
 import { createSetState } from 'commons/util/util';
 import DOMUtil from 'commons/util/htmlUtil';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
+import SearchInput from 'commons/components/SearchInput';
 import Suggestion from 'catalog/candidates/components/Suggestion';
 import bindActions from './actions';
 import './index.scss';
@@ -94,6 +95,7 @@ export default () => {
         <div class="preparationsOverview entryList searchVisible" >
 
           <div class="listButtons float-right col-md-12">
+            <SearchInput onchangeSearch={() => {}}/>
             <button
               type="button"
               class="float-right btn btn-raised btn-primary"

@@ -14,7 +14,7 @@ import MithrilView from 'commons/view/MithrilView';
 import declare from 'dojo/_base/declare';
 import { i18n } from 'esi18n';
 import Placeholder from './components/Placeholder';
-import SearchInput from './components/SearchInput';
+import SearchInput from 'commons/components/SearchInput';
 import Spinner from './components/Spinner';
 import Tabs from './components/Tabs';
 import './index.scss';
