@@ -61,7 +61,7 @@ const search = (paramsParams) => {
   // this.listView.showEntryList(list);
 };
 
-export default () =>  {
+export default () => {
   const actions = bindActions(null, DOMUtil.preventBubbleWrapper);
 
   const state = {
@@ -70,11 +70,22 @@ export default () =>  {
 
   const setState = createSetState(state);
 
-  return {
+  const getEntries = () => {
+    search().getEntries(0)
+      .then(suggestions => setState({ suggestions }));
+  };
+  const reInitView = () => {
+    setState({ suggestions: [] });
+    getEntries();
+  };
 
+  const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({
+    suggestions: [...state.suggestions, newSuggestion],
+  }));
+
+  return {
     oninit() {
-      search().getEntries(0)
-        .then(suggestions => setState({ suggestions }));
+      getEntries();
     },
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
@@ -87,7 +98,7 @@ export default () =>  {
               type="button"
               class="float-right btn btn-raised btn-primary"
               title={escaPreparations.createSuggestionPopoverTitle}
-              onclick={actions.createSuggestion}
+              onclick={createSuggestion}
             >
               <span aria-hidden="true" class="fas fa-plus"></span>
               <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
@@ -107,6 +118,7 @@ export default () =>  {
               { state.suggestions.map(suggestion => (
                 <Suggestion
                   entry={suggestion}
+                  updateParent={reInitView}
                 />
               ))}
             </div>

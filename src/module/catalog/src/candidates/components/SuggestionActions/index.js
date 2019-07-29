@@ -12,11 +12,11 @@ import bindActions from '../Suggestion/actions';
  * @returns {Mithril.Component}
  */
 export default (vnode) => {
-  const { entry, refresh = () => {} } = vnode.attrs;
+  const { entry, updateParent = () => {} } = vnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e);
-  const deleteSuggestion = e => actions.removeSuggestion(e, m.render);
+  const deleteSuggestion = e => actions.remove(e, updateParent);
 
   return {
     view(vnode) {

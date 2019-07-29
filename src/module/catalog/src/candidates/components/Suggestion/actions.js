@@ -14,17 +14,17 @@ export default (suggestion, wrapperFunction) => {
     maxWidth: 800,
     explicitNLS: true,
     open(params) {
-      const escaPreparation = i18n.getLocalization(escaPreparationsNLS);
+      const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
       this.inherited(arguments);
 
       this.onDone = params.onDone;
       const entry = params.row.entry;
       this.suggestionEntry = entry;
 
-      this.set('title', escaPreparation.editSuggestionHeader);
-      this.set('doneLabel', escaPreparation.editSuggestionButton);
-      this.doneLabel = escaPreparation.editDistributionButton;
-      this.title = escaPreparation.editSuggestionHeader;
+      this.set('title', escaPreparations.editSuggestionHeader);
+      this.set('doneLabel', escaPreparations.editSuggestionButton);
+      this.doneLabel = escaPreparations.editDistributionButton;
+      this.title = escaPreparations.editSuggestionHeader;
       this.updateTitleAndButton();
 
       registry.set('context', entry.getContext());
@@ -56,19 +56,16 @@ export default (suggestion, wrapperFunction) => {
    This deletes selected distribution and also deletes
    its relation to dataset
    */
-  const removeSuggestion = (onSuccess = () => {}) => {
+  const removeSuggestion = (onSuccess = () => {}, onError = () => {}) => {
     suggestion
       .del()
-      .then(onSuccess);
+      .then(onSuccess)
+      .catch(onError);
   };
 
   // ACTIONS
   const progressDialog = new ProgressDialog({ suggestion });
   const editChecklist = (onDone) => {
-    // Stub out a fake list
-    // progressDialog.list = {
-      // rowMetadataUpdated: () => {},
-    // };
     progressDialog.open({
       row: {
         entry: suggestion,
@@ -90,36 +87,16 @@ export default (suggestion, wrapperFunction) => {
   };
 
 
-  const remove = (onSuccess = () => {}, fileEntryURIs) => {
-    const escaPreparation = i18n.getLocalization(escaDatasetNLS);
+  const remove = (onSuccess = () => {}) => {
+    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     const dialogs = registry.get('dialogs');
-    if (isFileDistributionWithOutAPI(distribution, fileEntryURIs, registry.get('entrystore'))) {
-      dialogs.confirm(escaDataset.removeDistributionQuestion,
-        null, null, (confirm) => {
-          if (!confirm) {
-            return;
-          }
-          removeDistribution(distribution, dataset, onSuccess);
-        });
-    } else if (isAPIDistribution(distribution)) {
-      dialogs.confirm(escaDataset.removeDistributionQuestion,
-        null, null, (confirm) => {
-          if (!confirm) {
-            return;
-          }
-          deactivateAPInRemoveDist(distribution, dataset, onSuccess);
-        });
-    } else if (isAccessDistribution(distribution, registry.get('entrystore'))) {
-      dialogs.confirm(escaDataset.removeDistributionQuestion,
-        null, null, (confirm) => {
-          if (!confirm) {
-            return;
-          }
-          removeDistribution(distribution, dataset, onSuccess);
-        });
-    } else {
-      dialogs.acknowledge(escaDataset.removeFileDistWithAPI);
-    }
+    dialogs.confirm(escaPreparations.removeSuggestionQuestion,
+      null, null, (confirm) => {
+        if (!confirm) {
+          return;
+        }
+        removeSuggestion(onSuccess);
+      });
   };
 
   const openAddFile = () => {
@@ -170,7 +147,7 @@ export default (suggestion, wrapperFunction) => {
   };
 
   const actions = {
-    removeSuggestion,
+    remove,
     editSuggestion,
     editChecklist,
   };

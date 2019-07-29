@@ -18,11 +18,12 @@ const CreateDialog = declare(RDFormsEditDialog, {
   constructor(params) {
     this.list = params.list;
   },
-  open() {
+  open(params) {
     const escaPreparation = i18n.getLocalization(escaPreparationsNLS);
     // this.list.getView().clearSearch();
     this.title = escaPreparation.createSuggestionHeader;
     this.doneLabel = escaPreparation.createSuggestionButton;
+    this.onDone = params.onDone ? params.onDone : () => {};
     this.updateTitleAndButton();
 
     this.newSuggestion = createEntry(null, 'esterms:Suggestion');
@@ -45,10 +46,8 @@ const CreateDialog = declare(RDFormsEditDialog, {
   doneAction(graph) {
     return this.newSuggestion.setMetadata(graph)
       .commit()
-      .then((newEntry) => {
-        // this.list.getView().addRowForEntry(newEntry);
-        return newEntry.refresh();
-      });
+      .then(newEntry => newEntry.refresh())
+      .then(this.onDone);
   },
 });
 

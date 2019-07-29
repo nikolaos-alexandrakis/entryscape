@@ -13,7 +13,7 @@ import bindActions from './actions';
 import './index.scss';
 
 export default (vnode) => {
-  const { entry } = vnode.attrs;
+  const { entry, updateParent = () => {} } = vnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e, () => m.redraw());
@@ -34,7 +34,7 @@ export default (vnode) => {
           />
           <CollapsableCard
             title={title}
-            subTitle={[modificationDate.short, <SuggestionActions entry={entry} />]}
+            subTitle={[modificationDate.short, <SuggestionActions entry={entry} updateParent={updateParent} />]}
             className="flex-fill"
             cardId={cardId}
           >

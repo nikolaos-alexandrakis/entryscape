@@ -5,6 +5,7 @@
     "createSuggestionPopoverTitle": "Create suggestion",
     "createSuggestionDatasetMenu": "Create suggestion",
     "createSuggestionHeader": "Create suggestion",
+    "removeSuggestionQuestion": "Remove this suggestion?",
     "progressMenu": "Checklist",
     "progressTitle": "A checklist of things to consider before creating a dataset from this suggestion",
     "progressBarTitle": "${checked} (${mandatory} mandatory) of ${total} (${totalMandatory} mandatory) step{{PLURAL:${total}||s}} are marked as finished in checklist",
