@@ -73,11 +73,7 @@ export default () =>  {
   return {
 
     oninit() {
-      const list = search().getEntries(0)
-        // .then(sugg => {
-          // console.log(sugg);
-          // return sugg;
-        // })
+      search().getEntries(0)
         .then(suggestions => setState({ suggestions }));
     },
     view() {

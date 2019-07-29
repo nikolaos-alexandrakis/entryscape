@@ -17,6 +17,7 @@ export default (vnode) => {
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e, () => m.redraw());
+  const editChecklist = e => actions.editChecklist(e, () => m.redraw());
   const cardId = `suggestion${entry.getId()}`;
 
   return {
@@ -29,7 +30,7 @@ export default (vnode) => {
           <ProgressBar
             progressPercent="50"
             incomplete={false}
-            onclick={editSuggestion}
+            onclick={editChecklist}
           />
           <CollapsableCard
             title={title}

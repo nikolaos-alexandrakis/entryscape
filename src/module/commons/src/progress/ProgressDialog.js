@@ -31,6 +31,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.inherited(arguments);
     this.row = params.row;
     this.entry = params.row.entry;
+    this.onDone = params.onDone ? params.onDone : () => {};
     this.displayProgressBar();
     this.dialog.show();
   },
@@ -213,7 +214,13 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
         });
       }
     });
-    return this.entry.getEntryInfo().commit()
-      .then(this.list.rowMetadataUpdated.bind(this.list, this.row));
+
+    const commitPromise = this.entry.getEntryInfo().commit()
+      .then(this.onDone);
+    if (this.list) {
+      commitPromise.then(this.list.rowMetadataUpdated.bind(this.list, this.row));
+    }
+
+    return commitPromise;
   },
 });

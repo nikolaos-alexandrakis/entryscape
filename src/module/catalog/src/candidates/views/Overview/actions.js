@@ -52,6 +52,7 @@ const CreateDialog = declare(RDFormsEditDialog, {
   },
 });
 
+
 const CommentDialog2 = declare([CommentDialog], {
   maxWidth: 800,
   title: 'temporary', // to avoid exception

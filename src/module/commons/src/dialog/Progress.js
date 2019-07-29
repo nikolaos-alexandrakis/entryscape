@@ -41,7 +41,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     delete this.lock;
     // this.fadeIn.stop();
     // jquery(this._loader).loader('destroy');
-		this._loader.classList.remove('spinner-border');
+    this._loader.classList.remove('spinner-border');
     this.domNode.style.display = 'none';
   },
 });

@@ -1,4 +1,5 @@
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
+import ProgressDialog from 'commons/progress/ProgressDialog';
 import typeIndex from 'commons/create/typeIndex';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
@@ -49,7 +50,6 @@ export default (suggestion, wrapperFunction) => {
       return this.suggestionEntry.commitMetadata().then(this.onDone);
     },
   });
-
   // END STUBBED DIALOGS
 
   /*
@@ -63,6 +63,21 @@ export default (suggestion, wrapperFunction) => {
   };
 
   // ACTIONS
+  const progressDialog = new ProgressDialog({ suggestion });
+  const editChecklist = (onDone) => {
+    // Stub out a fake list
+    // progressDialog.list = {
+      // rowMetadataUpdated: () => {},
+    // };
+    progressDialog.open({
+      row: {
+        entry: suggestion,
+      },
+      entry: suggestion,
+      onDone,
+    });
+  };
+
   const editSuggestion = (onDone) => {
     const editDialog = new EditSuggestionDialog({
       destroyOnHide: true,
@@ -157,6 +172,7 @@ export default (suggestion, wrapperFunction) => {
   const actions = {
     removeSuggestion,
     editSuggestion,
+    editChecklist,
   };
 
   // Sometimes we may need to compose a wrapper function.
