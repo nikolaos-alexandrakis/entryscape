@@ -132,6 +132,9 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
   },
 }, __entryscape_config, window.__entryscape_config_dev || {});
 
+// Use the browser's preferred language as a starting point
+i18n.setLocale(navigator.language);
+
 let bestlang;
 for (let i = 0; i < config.locale.supported.length; i++) {
   const l = config.locale.supported[i].lang;
