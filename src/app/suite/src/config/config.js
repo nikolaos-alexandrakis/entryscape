@@ -137,10 +137,10 @@ i18n.setLocale(navigator.language);
 
 let bestlang;
 for (let i = 0; i < config.locale.supported.length; i++) {
-  const l = config.locale.supported[i].lang;
-  if (i18n.getLocale().indexOf(l) === 0) {
-    if (bestlang == null || bestlang.length < l.length) {
-      bestlang = l;
+  const supportedLang = config.locale.supported[i].lang;
+  if (i18n.getLocale().indexOf(supportedLang) === 0) {
+    if (bestlang == null || bestlang.length < supportedLang.length) {
+      bestlang = supportedLang;
     }
   }
 }
