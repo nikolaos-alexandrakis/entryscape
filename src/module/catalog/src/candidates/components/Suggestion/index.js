@@ -18,7 +18,14 @@ export default (vnode) => {
 
   const editSuggestion = e => actions.editSuggestion(e, () => m.redraw());
   const editChecklist = e => actions.editChecklist(e, () => m.redraw());
+  const createDataset = e => actions.createDataset(e, () => {});
   const cardId = `suggestion${entry.getId()}`;
+
+  const getDatasets = datasetResourceURIs => registry.get('entrystore')
+    .newSolrQuery()
+    .rdfType('dcat:Dataset')
+    .uriProperty('dcterms:references', datasetResourceURIs)
+    .getEntries();
 
   return {
     view() {

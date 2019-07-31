@@ -24,7 +24,6 @@ const buttons = [
   },
 ];
 
-
 const getSearchObject = () => registry.get('entrystore')
   .newSolrQuery()
   .rdfType('esterms:Suggestion')
@@ -75,6 +74,7 @@ export default () => {
     search().getEntries(0)
       .then(suggestions => setState({ suggestions }));
   };
+
   const reInitView = () => {
     setState({ suggestions: [] });
     getEntries();
@@ -92,8 +92,7 @@ export default () => {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
       return (
-        <div class="preparationsOverview entryList searchVisible" >
-
+        <div class="preparationsOverview searchVisible" >
           <div class="listButtons float-right col-md-12">
             <SearchInput onchangeSearch={() => {}}/>
             <button

@@ -10,6 +10,7 @@ export default {
     datasetResultTemplateId: 'esc:Results',
     datasetIdeaTemplateId: 'esc:Ideas',
     datasetCandidateTemplateId: 'esc:DatasetCandidate',
+    suggestionTemplateId: 'esc:Suggestion',
     excludeEmptyCatalogsInSearch: true,
     formatTemplateId: 'dcat:format-group_di',
     formatProperty: 'dcterms:format',

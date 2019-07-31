@@ -5,8 +5,8 @@ import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
+import CreateDatasetDialog from 'catalog/datasets/DatasetCreateDialog';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
-import m from 'mithril';
 
 export default (suggestion, wrapperFunction) => {
   // STUBBED DIALOGS
@@ -50,6 +50,7 @@ export default (suggestion, wrapperFunction) => {
       return this.suggestionEntry.commitMetadata().then(this.onDone);
     },
   });
+
   // END STUBBED DIALOGS
 
   /*
@@ -86,7 +87,6 @@ export default (suggestion, wrapperFunction) => {
     editDialog.open({ row: { entry: suggestion }, onDone });
   };
 
-
   const remove = (onSuccess = () => {}) => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     const dialogs = registry.get('dialogs');
@@ -95,54 +95,21 @@ export default (suggestion, wrapperFunction) => {
         if (!confirm) {
           return;
         }
+
         removeSuggestion(onSuccess);
       });
   };
 
-  const openAddFile = () => {
-    const addFileDialog = new AddFileDialog({ destroyOnHide: true }, DOMUtil.create('div'));
-    const escaFilesList = i18n.getLocalization(escaFilesListNLS);
-    addFileDialog.open({
-      list: {
-        entry: distribution,
-        nlsSpecificBundle: escaFilesList,
-        getTemplate(entry) {
-          const conf = typeIndex.getConf(entry);
-          if (conf) {
-            return registry.get('itemstore').getItem(conf.template);
-          }
+  const createDatasetDialog = new CreateDatasetDialog();
+  const createDataset = () => {
+    createDatasetDialog.open({
+      onDone: (datasetEntry) => {
+        suggestion
+          .getMetadata()
+          .add(suggestion.getResourceURI(), 'dcterms:references', datasetEntry.getResourceURI());
 
-          return registry.get('itemstore').createTemplateFromChildren([
-            'dcterms:title',
-            'dcterms:description',
-          ]);
-        },
+        suggestion.commitMetadata();
       },
-      onDone: () => m.redraw(),
-    });
-  };
-
-  const openManageFiles = (fileEntryURIs) => {
-    const manageFilesDialog = new ManageFilesDialog({ destroyOnHide: true }, DOMUtil.create('div'));
-    manageFilesDialog.open({
-      entry: distribution,
-      row: { entry: distribution },
-      fileEntryApiURIs: fileEntryURIs,
-      datasetEntry: dataset,
-      onDone: () => m.redraw(),
-    });
-  };
-
-  const openStatistics = async () => {
-    const showStatisticsDialog = new StatisticsDialog();
-    let entries;
-    if (isAPIDistribution(distribution)) {
-      entries = [distribution];
-    } else {
-      entries = await getDistributionFileEntries(distribution);
-    }
-    showStatisticsDialog.open({
-      entries,
     });
   };
 
@@ -150,6 +117,7 @@ export default (suggestion, wrapperFunction) => {
     remove,
     editSuggestion,
     editChecklist,
+    createDataset,
   };
 
   // Sometimes we may need to compose a wrapper function.

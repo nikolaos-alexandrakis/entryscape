@@ -3,6 +3,10 @@
 .suggestion {
   display: flex;
 
+  .card-header {
+    padding: 1rem;
+  }
+
   .row {
     display: flex;
     width: 100%;

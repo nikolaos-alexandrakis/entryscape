@@ -129,6 +129,42 @@
     },
     {
       "type": "group",
+      "nodetype": "RESOURCE",
+      "id": "esc:Suggestion",
+      "items": [
+        {
+          "extends": "dcterms:title",
+          "cardinality": {
+            "min": 1
+          }
+        },
+        {
+          "extends": "dcterms:description",
+          "cardinality": {
+            "min": 0,
+            "pref": 1
+          }
+        },
+        {
+          "id": "suggestions:source",
+          "property": "http://purl.org/dc/terms/source",
+          "label": {
+            "en": "Request URI"
+          },
+          "description": {
+            "en": "Request URI"
+          },
+          "type": "text",
+          "nodetype": "URI",
+          "cardinality": {
+            "pref": 1
+          },
+          "pattern": "https?://.+"
+        }
+      ]
+    },
+    {
+      "type": "group",
       "id": "esc:Results",
       "label": {
         "en": "Showcases",

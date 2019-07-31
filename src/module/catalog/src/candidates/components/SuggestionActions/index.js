@@ -17,6 +17,7 @@ export default (vnode) => {
 
   const editSuggestion = e => actions.editSuggestion(e);
   const deleteSuggestion = e => actions.remove(e, updateParent);
+  const createDataset = e => actions.createDataset(e, updateParent);
 
   return {
     view(vnode) {
@@ -28,7 +29,7 @@ export default (vnode) => {
           <Dropdown>
             <Button onclick={editSuggestion}>{escoList.editEntry}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>
-            <Button onclick={editSuggestion}>{escaPreparations.createDatasetMenu}</Button>
+            <Button onclick={createDataset}>{escaPreparations.createDatasetMenu}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.commentMenu}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.archiveMenu}</Button>
             <Button onclick={deleteSuggestion}>{escaPreparations.deleteMenu}</Button>
