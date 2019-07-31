@@ -3310,9 +3310,18 @@ escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-"esi18n@https://bitbucket.org/metasolutions/esi18n.git#1.2", "esi18n@https://bitbucket.org/metasolutions/esi18n.git#master":
+"esi18n@https://bitbucket.org/metasolutions/esi18n.git#1.2":
   version "1.2.0"
   resolved "https://bitbucket.org/metasolutions/esi18n.git#949b442479450f78028088e4896db0c8c04f6e59"
+  dependencies:
+    dojo "^1.14.1"
+    lodash-es "^4.17.10"
+    moment "^2.22.2"
+    pubsub-js "https://bitbucket.org/metasolutions/pubsubjs.git"
+
+"esi18n@https://bitbucket.org/metasolutions/esi18n.git#master":
+  version "1.3.0"
+  resolved "https://bitbucket.org/metasolutions/esi18n.git#85838068605862860977850fd5de6e01d574da26"
   dependencies:
     dojo "^1.14.1"
     lodash-es "^4.17.10"
@@ -5733,7 +5742,12 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash-es@^4.17.10, lodash-es@^4.17.11:
+lodash-es@^4.17.10:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
+  integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
+
+lodash-es@^4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
   integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==

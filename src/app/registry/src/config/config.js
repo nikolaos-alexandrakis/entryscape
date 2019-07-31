@@ -13,7 +13,7 @@ const STATIC = {
 const ASSETS_URL = __entryscape_config.entryscape.localBuild ? '/dist/assets/' : `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
 const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
 
-export default merge(adminConfig, catalogConfig, workbenchConfig, {
+const config = merge(adminConfig, catalogConfig, workbenchConfig, {
   entryscape: {
     static: {
       url: STATIC.URL,
@@ -135,3 +135,21 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
     },
   },
 }, __entryscape_config, window.__entryscape_config_dev || {});
+
+let bestlang;
+for (let i = 0; i < config.locale.supported.length; i++) {
+  const supportedLang = config.locale.supported[i].lang;
+  if (i18n.getLocale().indexOf(supportedLang) === 0) {
+    if (bestlang == null || bestlang.length < supportedLang.length) {
+      bestlang = supportedLang;
+    }
+  }
+}
+
+if (bestlang) {
+  i18n.setLocale(bestlang);
+} else {
+  i18n.setLocale(config.locale.fallback);
+}
+
+export default config;
