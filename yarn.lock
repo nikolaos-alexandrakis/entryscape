@@ -3295,16 +3295,16 @@ entities@^1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-"entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#4.7.3":
-  version "4.7.3"
-  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#157945e767f2bcda545f00610c64eafd9983511f"
+"entrystore-js@https://bitbucket.org/metasolutions/entrystore.js.git#develop":
+  version "4.8.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/entrystore.js.git#6a7b10f6429c22e29e14a22420f8d55218c7783e"
   dependencies:
     blueimp-md5 "^2.10.0"
     he "^1.2.0"
     lodash "^4.17.10"
     lodash-es "^4.17.11"
     moment "^2.22.2"
-    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#2.2.1"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     superagent "^3.8.3"
     superagent-jsonp "^0.2.1"
     xmldom "^0.1.27"
@@ -3376,9 +3376,9 @@ escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^
     moment "^2.22.2"
     pubsub-js "https://bitbucket.org/metasolutions/pubsubjs.git"
 
-"esi18n@https://bitbucket.org/metasolutions/esi18n.git#master":
-  version "1.3.0"
-  resolved "https://bitbucket.org/metasolutions/esi18n.git#85838068605862860977850fd5de6e01d574da26"
+"esi18n@https://bitbucket.org/metasolutions/esi18n.git#develop":
+  version "1.4.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/esi18n.git#4692717960d27528475fe23f2b36546f4af36d4c"
   dependencies:
     dojo "^1.14.1"
     lodash-es "^4.17.10"
@@ -8106,16 +8106,16 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#2.2.1":
-  version "2.2.1"
-  resolved "https://bitbucket.org/metasolutions/rdfjson.git#4ee635ffcfb1ef418c65398b90cc4e3bdf70bf0f"
+"rdfjson@https://bitbucket.org/metasolutions/rdfjson.git#develop":
+  version "2.3.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/rdfjson.git#ec20339d023bbffd5aa0322eb6e5b674def5cb1a"
   dependencies:
     md5 "^2.2.1"
     xmldom "~0.1.19"
 
-"rdforms@https://bitbucket.org/metasolutions/rdforms.git#9.4":
-  version "9.4.0"
-  resolved "https://bitbucket.org/metasolutions/rdforms.git#e3d8436952809189468d8507ef934000273326ff"
+"rdforms@https://bitbucket.org/metasolutions/rdforms.git#develop":
+  version "9.5.0-SNAPSHOT"
+  resolved "https://bitbucket.org/metasolutions/rdforms.git#c34c8c28a7193ccca80d53150b5340f67e9c8af8"
   dependencies:
     arrive "^2.4.1"
     bootstrap "^4.3.1"
@@ -8136,7 +8136,7 @@ rc@^1.2.7:
     nls-loader "https://bitbucket.org/metasolutions/nls-loader#master"
     node-fetch "^2.3.0"
     popper.js "^1.12.9"
-    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#2.2.1"
+    rdfjson "https://bitbucket.org/metasolutions/rdfjson.git#develop"
     regenerator-runtime "^0.13.2"
     select2 "^4.0.6-rc.1"
     selectize "^0.12.6"
