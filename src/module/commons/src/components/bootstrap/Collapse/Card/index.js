@@ -2,7 +2,14 @@ import './style.scss';
 
 export default () => ({
   view(vnode) {
-    const { title, subTitle, cardId, backgroundType = 'light', className = '' } = vnode.attrs;
+    const {
+      title,
+      subTitle,
+      cardId,
+      backgroundType = 'light',
+      className = '',
+      onclick = () => {},
+    } = vnode.attrs;
     const headerId = `card-header--${cardId}`;
     const collapseId = `card-body--${cardId}`;
     const borderClass = `bg-${backgroundType}`;
@@ -14,7 +21,9 @@ export default () => ({
           data-toggle="collapse"
           data-target={`#${collapseId}`}
           aria-expanded="false"
-          aria-controls={collapseId}>
+          aria-controls={collapseId}
+          onclick={onclick}
+        >
           <span className="d-flex align-items-center">
             <i className="title float-left fas fa-fw mr-1"/>
             {title}

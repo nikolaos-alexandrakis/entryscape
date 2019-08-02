@@ -1,4 +1,6 @@
+import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
+import { createSetState } from 'commons/util/util';
 import {
   getTitle,
   getModifiedDate,
@@ -16,16 +18,33 @@ export default (vnode) => {
   const { entry, updateParent = () => {} } = vnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
+  const state = {
+    connectedDatasetsAndRequests: [],
+  };
+
+  const setState = createSetState(state);
+
   const editSuggestion = e => actions.editSuggestion(e, () => m.redraw());
   const editChecklist = e => actions.editChecklist(e, () => m.redraw());
   const createDataset = e => actions.createDataset(e, () => {});
   const cardId = `suggestion${entry.getId()}`;
 
-  const getDatasets = datasetResourceURIs => registry.get('entrystore')
-    .newSolrQuery()
-    .rdfType('dcat:Dataset')
-    .uriProperty('dcterms:references', datasetResourceURIs)
-    .getEntries();
+  const getDatasets = () => {
+    const datasetResourceURIs = entry.getMetadata().find(entry.getResourceURI(), 'dcterms:references').map(statement => statement.getValue());
+
+    return registry.get('entrystore')
+      .newSolrQuery()
+      .rdfType('dcat:Dataset')
+      .uriProperty('dcterms:references', datasetResourceURIs)
+      .getEntries()
+      .then(datasets => {
+        console.log(datasets);
+        setState({
+          connectedDatasetsAndRequests: datasets,
+        });
+      }
+      )
+  };
 
   return {
     view() {
@@ -44,9 +63,11 @@ export default (vnode) => {
             subTitle={[modificationDate.short, <SuggestionActions entry={entry} updateParent={updateParent} />]}
             className="flex-fill"
             cardId={cardId}
+            onclick={getDatasets}
           >
-            <SuggestionRequest entry={entry} />
-            <SuggestionDataset entry={entry} />
+            {state.connectedDatasetsAndRequests.map(entry => (
+              <SuggestionRequest entry={entry} />
+            ))}
           </CollapsableCard>
 
         </div>
