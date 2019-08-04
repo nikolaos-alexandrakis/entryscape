@@ -89,9 +89,17 @@ export default (vnode) => {
         percent: progress,
         noOfMandatory,
         noOfMandatoryCompleted,
-        mandatoryChecklistComplete
+        mandatoryChecklistComplete,
       };
     }
+
+    // DEFAULTS
+    return {
+      percent: 0,
+      noOfMandatory: 0,
+      noOfMandatoryCompleted: 0,
+      mandatoryChecklistComplete: false,
+    };
   };
 
   return {
