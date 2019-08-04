@@ -126,7 +126,7 @@ export default (vnode) => {
             onclick={getDatasets}
           >
             {state.datasets.map(entry => (
-              <SuggestionRequest entry={entry} />
+              <SuggestionDataset entry={entry} />
             ))}
           </CollapsableCard>
 

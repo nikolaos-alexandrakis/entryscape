@@ -1,2 +1,17 @@
 @import '~commons/theme.scss';
 
+.suggestionChild {
+  background: #E0DEDE;
+  margin-bottom: 5px;
+  padding: 16px;
+  color: #333;
+  font-size: 14px;
+
+  .title {
+    font-weight: bold;
+    .fa-cubes {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+  }
+}

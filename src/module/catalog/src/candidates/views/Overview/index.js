@@ -130,18 +130,7 @@ export default () => {
               Archive
             </h1>
 
-            <div class="requests">
-              <h2>Requests</h2>
-              <div class="list">
-                { state.suggestions.map(suggestion => (
-                  <Suggestion
-                    entry={suggestion}
-                  />
-                ))}
-              </div>
-            </div>
             <div class="suggestions">
-              <h2>Suggestions</h2>
               <div class="list">
                 { state.suggestions.map(suggestion => (
                   <Suggestion
