@@ -19,7 +19,8 @@ export default (vnode) => {
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const state = {
-    connectedDatasetsAndRequests: [],
+    datasets: [],
+    requests: [],
   };
 
   const setState = createSetState(state);
@@ -39,9 +40,7 @@ export default (vnode) => {
       .getEntries()
       .then(datasets => {
         console.log(datasets);
-        setState({
-          connectedDatasetsAndRequests: datasets,
-        });
+        setState({ datasets });
       }
       )
   };
@@ -65,7 +64,7 @@ export default (vnode) => {
             cardId={cardId}
             onclick={getDatasets}
           >
-            {state.connectedDatasetsAndRequests.map(entry => (
+            {state.datasets.map(entry => (
               <SuggestionRequest entry={entry} />
             ))}
           </CollapsableCard>
