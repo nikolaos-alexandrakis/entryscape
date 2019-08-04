@@ -1,3 +1,4 @@
+import config from 'config';
 import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
 import { createSetState } from 'commons/util/util';
@@ -45,16 +46,68 @@ export default (vnode) => {
       )
   };
 
+  const getChecklistProgress = () => {
+    if (config.catalog && config.catalog.checklist) {
+      const checklistSteps = config.catalog.checklist;
+      const completedChecklistSteps = [];
+      const mandatoryChecklistSteps = [];
+      const infoEntryGraph = entry.getEntryInfo().getGraph();
+      const tasks = infoEntryGraph.find(entry.getResourceURI(), 'http://entrystore.org/terms/progress');
+
+      tasks.forEach((task) => {
+        completedChecklistSteps.push(task.getObject().value);
+      });
+
+      const noOfTasksCompleted = completedChecklistSteps.length;
+      const noOfCheckListSteps = checklistSteps.length;
+
+      let progress = Math.round((noOfTasksCompleted * 100) / checklistSteps.length);
+      if (progress > 0) {
+        progress -= 2;
+      }
+
+      checklistSteps.forEach((checklistStep) => {
+        if (checklistStep.mandatory) {
+          mandatoryChecklistSteps.push({
+            name: checklistStep.name,
+          });
+        }
+      });
+
+      let mandatoryChecklistComplete = true;
+      let mandatory = mandatoryChecklistSteps.length;
+      mandatoryChecklistSteps.forEach((mandatoryChecklistStep) => {
+        if (completedChecklistSteps.indexOf(mandatoryChecklistStep.name) === -1) {
+          mandatoryChecklistComplete = false;
+          mandatory -= 1;
+        }
+      });
+      const noOfMandatoryCompleted = mandatory;
+      const noOfMandatory = mandatoryChecklistSteps.length;
+
+      return {
+        percent: progress,
+        noOfMandatory,
+        noOfMandatoryCompleted,
+        mandatoryChecklistComplete
+      };
+    }
+  };
+
   return {
     view() {
       const title = getTitle(entry);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
+      const checklistProgress = getChecklistProgress();
+
+      const checklistPercent = checklistProgress.percent;
+      const checklistMandatoryComplete = checklistProgress.mandatoryChecklistComplete;
 
       return (
         <div class="suggestion d-flex">
           <ProgressBar
-            progressPercent="50"
-            incomplete={false}
+            progressPercent={checklistPercent}
+            incomplete={!checklistMandatoryComplete}
             onclick={editChecklist}
           />
           <CollapsableCard
