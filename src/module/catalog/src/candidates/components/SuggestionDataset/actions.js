@@ -1,6 +1,7 @@
 export default (entry) => {
   const updateFileEntries = () => {
     const entryStoreUtil = registry.get('entrystoreutil');
+
     Promise.all(
       entry
         .getMetadata()
@@ -9,7 +10,13 @@ export default (entry) => {
     ).then(fileEntries => setState({ fileEntries }));
   };
 
+  const navigateToDataset = () => {
+    console.log('Heyooooo', entry);
+  };
+
+
   return {
     updateFileEntries,
+    navigateToDataset,
   };
 };

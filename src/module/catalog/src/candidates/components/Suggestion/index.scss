@@ -4,11 +4,21 @@
   display: flex;
 
   .card-header {
-    padding: 1rem;
+    // padding: 1rem;
   }
 
   .row {
     display: flex;
     width: 100%;
+  }
+
+  .date {
+    width: 80px;
+    text-align: right;
+  }
+
+  .remove {
+    margin-left: 44px;
+    margin-right: 10px;
   }
 }

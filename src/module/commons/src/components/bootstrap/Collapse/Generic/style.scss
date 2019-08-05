@@ -1,0 +1,38 @@
+
+.collapsable {
+  .collapseHeader {
+    padding: 16px;
+  }
+
+  [data-toggle="collapse"] .title.fas:before {
+    content: "\f078";
+  }
+
+  [data-toggle="collapse"].collapsed .title.fas:before {
+    align-self: center;
+    content: "\f054";
+  }
+
+  .fas.fa-eye {
+    margin-right: 8px;
+  }
+
+  .subTitle {
+    width: 140px;
+  }
+
+  .suggestionActions {
+    margin-left: 33px;
+
+    .icons {
+      padding: 0;
+      font-size: 16px;
+    }
+  }
+
+  /* Bootstrap overrides */
+  .card-body {
+    padding-top: 0;
+    padding-right: 0;
+  }
+}

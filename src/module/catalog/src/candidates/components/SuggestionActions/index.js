@@ -27,7 +27,7 @@ export default (vnode) => {
       return (
         <div class="suggestionActions icon--wrapper">
           <Dropdown>
-            <Button onclick={editSuggestion}>{escoList.editEntry}</Button>
+            <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>
             <Button onclick={createDataset}>{escaPreparations.createDatasetMenu}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.commentMenu}</Button>

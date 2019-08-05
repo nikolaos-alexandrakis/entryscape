@@ -12,7 +12,7 @@ export default (vnode) => {
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
 
       return (
-        <div class="suggestionChild">
+        <div class="suggestionChild align-items-center">
           <div tabindex="0" class="distribution__row flex--sb">
             <p class="title">{title}</p>
             <p class="date">{modificationDate.short}</p>

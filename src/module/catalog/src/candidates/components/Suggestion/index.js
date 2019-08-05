@@ -7,10 +7,9 @@ import {
   getModifiedDate,
 } from 'commons/util/metadata';
 import DOMUtil from 'commons/util/htmlUtil';
-import CollapsableCard from 'commons/components/bootstrap/Collapse/Card';
+import Collapsable from 'commons/components/bootstrap/Collapse/Generic';
 import ProgressBar from '../ProgressBar';
 import SuggestionDataset from '../SuggestionDataset';
-import SuggestionRequest from '../SuggestionRequest';
 import SuggestionActions from '../SuggestionActions';
 import bindActions from './actions';
 import './index.scss';
@@ -26,24 +25,23 @@ export default (vnode) => {
 
   const setState = createSetState(state);
 
-  const editSuggestion = e => actions.editSuggestion(e, () => m.redraw());
   const editChecklist = e => actions.editChecklist(e, () => m.redraw());
-  const createDataset = e => actions.createDataset(e, () => {});
   const cardId = `suggestion${entry.getId()}`;
 
   const getDatasets = () => {
-    const datasetResourceURIs = entry.getMetadata().find(entry.getResourceURI(), 'dcterms:references').map(statement => statement.getValue());
+    const datasetResourceURIs = entry.getMetadata()
+      .find(entry.getResourceURI(), 'dcterms:references')
+      .map(statement => statement.getValue());
 
     return registry.get('entrystore')
       .newSolrQuery()
       .rdfType('dcat:Dataset')
       .uriProperty('dcterms:references', datasetResourceURIs)
       .getEntries()
-      .then(datasets => {
+      .then((datasets) => {
         console.log(datasets);
         setState({ datasets });
-      }
-      )
+      });
   };
 
   const getChecklistProgress = () => {
@@ -59,7 +57,7 @@ export default (vnode) => {
       });
 
       const noOfTasksCompleted = completedChecklistSteps.length;
-      const noOfCheckListSteps = checklistSteps.length;
+      // const noOfCheckListSteps = checklistSteps.length;
 
       let progress = Math.round((noOfTasksCompleted * 100) / checklistSteps.length);
       if (progress > 0) {
@@ -118,7 +116,7 @@ export default (vnode) => {
             incomplete={!checklistMandatoryComplete}
             onclick={editChecklist}
           />
-          <CollapsableCard
+          <Collapsable
             title={title}
             subTitle={[modificationDate.short, <SuggestionActions entry={entry} updateParent={updateParent} />]}
             className="flex-fill"
@@ -128,7 +126,7 @@ export default (vnode) => {
             {state.datasets.map(entry => (
               <SuggestionDataset entry={entry} />
             ))}
-          </CollapsableCard>
+          </Collapsable>
 
         </div>
       );
