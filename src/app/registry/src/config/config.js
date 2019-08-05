@@ -3,6 +3,7 @@ import adminConfig from 'admin/config/config';
 import catalogConfig from 'catalog/config/config';
 import merge from 'commons/merge';
 import workbenchConfig from 'workbench/config/config';
+import { i18n } from 'esi18n';
 
 const isDev = __entryscape_config.entryscape.static.version === 'latest';
 const STATIC = {
