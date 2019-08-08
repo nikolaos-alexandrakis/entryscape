@@ -7,7 +7,7 @@ let site = null;
 
 // TODO consider dynamic importing of these three classes
 const createSite = (siteConf) => {
-  const {siteClass, routerClass, handlerClass} = siteConf;
+  const { siteClass, routerClass, handlerClass } = siteConf;
   const SiteClass = siteClass || Site;
   const RouterClass = routerClass || Router;
   const HandlerClass = handlerClass || Handler;
