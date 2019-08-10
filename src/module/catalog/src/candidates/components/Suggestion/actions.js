@@ -113,13 +113,24 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
-  const removeDatasetReference = (datasetURI) => {
-    console.log('remove', datasetURI);
-    const datasetResourceURIs = suggestion.getMetadata()
-      .find(entry.getResourceURI(), 'dcterms:references'); // need to findAndRemove
+  const removeDatasetReference = (datasetURI, onDone) => {
+    const dialogs = registry.get('dialogs');
+    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
-    suggestion.commitMetadata()
-      .then(getDatasets);
+    return dialogs.confirm(escaPreparations.removeLinkedDataset, null, null, (confirm) => {
+      if (confirm) {
+        suggestion.getMetadata()
+          .findAndRemove(suggestion.getResourceURI(), 'dcterms:references', datasetURI);
+
+        console.log(onDone);
+        return suggestion
+          .commitMetadata()
+          .then(() => {console.log('hello')})
+          .then(onDone);
+      }
+
+      return Promise.resolve(null);
+    });
   };
 
   const actions = {

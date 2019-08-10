@@ -11,10 +11,10 @@ export default (vnode) => {
 
   const actions = bindActions(entry);
 
-  const removeDatasetReference = () => {
+  const removeDatasetReference = (e) => {
     const datasetURI = entry.getResourceURI();
 
-    onRemove && onRemove(datasetURI);
+    onRemove && onRemove(e, datasetURI); // TODO: @scazan figure better way to do bubble wrapper
   };
 
   return {

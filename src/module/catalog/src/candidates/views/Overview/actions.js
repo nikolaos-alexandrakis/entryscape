@@ -42,7 +42,6 @@ const CreateDialog = declare(RDFormsEditDialog, {
     newSuggestion.getEntryInfo()
       .getGraph()
       .add(newSuggestion.getResourceURI(), 'store:status', 'esterms:investigating');
-    // .add(newSuggestion.getResourceURI(), 'dcterms:references', datasetEntry.getResourceURI() );
 
     this.show(newSuggestion.getResourceURI(), newSuggestion.getMetadata(),
       getTemplate(), 'mandatory');

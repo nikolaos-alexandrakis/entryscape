@@ -26,6 +26,12 @@ export default (vnode) => {
   const setState = createSetState(state);
 
   const editChecklist = e => actions.editChecklist(e, () => m.redraw());
+  const removeDatasetReference = (e, uri) => actions.removeDatasetReference(e, uri, () => {
+    // We need to remove the dataset reference from the state as the solr index will not
+    // be updated in time for the refresh
+    console.log('hey');
+    console.log(state.datasets);
+  });
   const cardId = `suggestion${entry.getId()}`;
 
   const loadDatasets = () => {
@@ -47,7 +53,6 @@ export default (vnode) => {
         });
     }
   };
-
 
   const getChecklistProgress = () => {
     if (config.catalog && config.catalog.checklist) {
@@ -131,7 +136,7 @@ export default (vnode) => {
             {state.datasets.map(entry => (
               <SuggestionDataset
                 entry={entry}
-                onRemove={actions.removeDatasetReference}
+                onRemove={removeDatasetReference}
               />
             ))}
           </Collapsable>
