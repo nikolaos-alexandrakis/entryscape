@@ -7,9 +7,15 @@ import bindActions from './actions';
 import './index.scss';
 
 export default (vnode) => {
-  const { entry } = vnode.attrs;
+  const { entry, onRemove } = vnode.attrs;
 
   const actions = bindActions(entry);
+
+  const removeDatasetReference = () => {
+    const datasetURI = entry.getResourceURI();
+
+    onRemove && onRemove(datasetURI);
+  };
 
   return {
     view(vnode) {
@@ -24,7 +30,10 @@ export default (vnode) => {
             {title}
           </p>
           <p class="date">{modificationDate.short}</p>
-          <div class="remove">×</div>
+          <div
+            class="remove"
+            onclick={removeDatasetReference}
+          >×</div>
         </div>
       );
     },

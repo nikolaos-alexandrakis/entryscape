@@ -113,11 +113,21 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  const removeDatasetReference = (datasetURI) => {
+    console.log('remove', datasetURI);
+    const datasetResourceURIs = suggestion.getMetadata()
+      .find(entry.getResourceURI(), 'dcterms:references'); // need to findAndRemove
+
+    suggestion.commitMetadata()
+      .then(getDatasets);
+  };
+
   const actions = {
     remove,
     editSuggestion,
     editChecklist,
     createDataset,
+    removeDatasetReference,
   };
 
   // Sometimes we may need to compose a wrapper function.

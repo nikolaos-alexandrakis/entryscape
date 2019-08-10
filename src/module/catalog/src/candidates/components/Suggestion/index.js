@@ -28,21 +28,26 @@ export default (vnode) => {
   const editChecklist = e => actions.editChecklist(e, () => m.redraw());
   const cardId = `suggestion${entry.getId()}`;
 
-  const getDatasets = () => {
+  const loadDatasets = () => {
     const datasetResourceURIs = entry.getMetadata()
       .find(entry.getResourceURI(), 'dcterms:references')
       .map(statement => statement.getValue());
 
-    return registry.get('entrystore')
-      .newSolrQuery()
-      .rdfType('dcat:Dataset')
-      .uriProperty('dcterms:references', datasetResourceURIs)
-      .getEntries()
-      .then((datasets) => {
-        console.log(datasets);
-        setState({ datasets });
-      });
+    console.log(datasetResourceURIs);
+
+    if (datasetResourceURIs.length > 0) {
+      registry.get('entrystore')
+        .newSolrQuery()
+        .rdfType('dcat:Dataset')
+        .resource(datasetResourceURIs)
+        .getEntries()
+        .then((datasets) => {
+          console.log(datasets);
+          setState({ datasets });
+        });
+    }
   };
+
 
   const getChecklistProgress = () => {
     if (config.catalog && config.catalog.checklist) {
@@ -121,10 +126,13 @@ export default (vnode) => {
             subTitle={[modificationDate.short, <SuggestionActions entry={entry} updateParent={updateParent} />]}
             className="flex-fill"
             cardId={cardId}
-            onclick={getDatasets}
+            onclick={loadDatasets}
           >
             {state.datasets.map(entry => (
-              <SuggestionDataset entry={entry} />
+              <SuggestionDataset
+                entry={entry}
+                onRemove={actions.removeDatasetReference}
+              />
             ))}
           </Collapsable>
 
