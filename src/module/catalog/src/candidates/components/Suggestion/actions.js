@@ -101,7 +101,7 @@ export default (suggestion, wrapperFunction) => {
   };
 
   const createDatasetDialog = new CreateDatasetDialog();
-  const createDataset = () => {
+  const createDataset = (onDone = () => {}) => {
     createDatasetDialog.open({
       onDone: (datasetEntry) => {
         suggestion
@@ -109,6 +109,8 @@ export default (suggestion, wrapperFunction) => {
           .add(suggestion.getResourceURI(), 'dcterms:references', datasetEntry.getResourceURI());
 
         suggestion.commitMetadata();
+
+        onDone();
       },
     });
   };
@@ -122,7 +124,6 @@ export default (suggestion, wrapperFunction) => {
         suggestion.getMetadata()
           .findAndRemove(suggestion.getResourceURI(), 'dcterms:references', datasetURI);
 
-        console.log(onDone);
         return suggestion
           .commitMetadata()
           .then(onDone);

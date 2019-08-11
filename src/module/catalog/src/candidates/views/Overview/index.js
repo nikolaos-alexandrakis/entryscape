@@ -77,7 +77,7 @@ export default () => {
 
   const reInitView = () => {
     setState({ suggestions: [] });
-    getEntries();
+    getEntries(); // Needs to be handled somewhat manually due to solr index
   };
 
   const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({

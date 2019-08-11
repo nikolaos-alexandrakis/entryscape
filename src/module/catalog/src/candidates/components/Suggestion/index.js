@@ -27,10 +27,10 @@ export default (vnode) => {
 
   const editChecklist = e => actions.editChecklist(e, () => m.redraw());
   const removeDatasetReference = (e, uri) => actions.removeDatasetReference(e, uri, () => {
-    // We need to remove the dataset reference from the state as the solr index will not
-    // be updated in time for the refresh
-    console.log('hey');
-    console.log(state.datasets);
+    // @scazan We need to remove the dataset reference from the state as the solr index will not
+    // be updated in time for a server refresh
+    const filteredDatasets = state.datasets.filter(dataset => dataset.getResourceURI() !== uri);
+    setState({ datasets: filteredDatasets });
   });
 
   const cardId = `suggestion${entry.getId()}`;
