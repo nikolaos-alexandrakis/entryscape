@@ -66,13 +66,39 @@ export default () => {
 
   const state = {
     suggestions: [],
+    archives: [],
   };
 
   const setState = createSetState(state);
 
   const getEntries = () => {
+    const ns = registry.get('namespaces');
+
     search().getEntries(0)
-      .then(suggestions => setState({ suggestions }));
+      .then((suggestions) => {
+        const allEntries = suggestions
+          .reduce((accum, suggestion) => {
+            const entryInfoGraph = suggestion.getEntryInfo().getGraph();
+
+            if (
+              entryInfoGraph
+                .findFirstValue(suggestion.getResourceURI(), 'store:status') === ns.expand('esterms:archived')
+            ) {
+              accum.archives.push(suggestion);
+              return accum;
+            }
+
+            accum.suggestions.push(suggestion);
+            return accum;
+          }, {
+            suggestions: [],
+            archives: [],
+          });
+        setState({
+          suggestions: allEntries.suggestions,
+          archives: allEntries.archives,
+        });
+      });
   };
 
   const reInitView = () => {
@@ -132,7 +158,7 @@ export default () => {
 
             <div class="suggestions">
               <div class="list">
-                { state.suggestions.map(suggestion => (
+                { state.archives.map(suggestion => (
                   <Suggestion
                     entry={suggestion}
                   />

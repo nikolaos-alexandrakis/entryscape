@@ -133,12 +133,33 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  const archiveSuggestion = (onDone) => {
+    const dialogs = registry.get('dialogs');
+    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
+
+    return dialogs.confirm(escaPreparations.archiveSuggestion, null, null, (confirm) => {
+      if (confirm) {
+        const entryInfo = suggestion.getEntryInfo().getGraph();
+        entryInfo.findAndRemove(suggestion.getResourceURI(), 'store:status');
+        entryInfo.add(suggestion.getResourceURI(), 'store:status', 'esterms:archived');
+
+        return suggestion
+          .getEntryInfo()
+          .commit()
+          .then(onDone);
+      }
+
+      return Promise.resolve(null);
+    });
+  };
+
   const actions = {
     remove,
     editSuggestion,
     editChecklist,
     createDataset,
     removeDatasetReference,
+    archiveSuggestion,
   };
 
   // Sometimes we may need to compose a wrapper function.

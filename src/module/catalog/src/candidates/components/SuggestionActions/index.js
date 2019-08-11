@@ -18,9 +18,10 @@ export default (vnode) => {
   const editSuggestion = e => actions.editSuggestion(e);
   const deleteSuggestion = e => actions.remove(e, updateParent);
   const createDataset = e => actions.createDataset(e, updateParent);
+  const archiveSuggestion = e => actions.archiveSuggestion(e, updateParent);
 
   return {
-    view(vnode) {
+    view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
       const escoList = i18n.getLocalization(escoListNLS);
 
@@ -31,7 +32,7 @@ export default (vnode) => {
             <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>
             <Button onclick={createDataset}>{escaPreparations.createDatasetMenu}</Button>
             <Button onclick={editSuggestion}>{escaPreparations.commentMenu}</Button>
-            <Button onclick={editSuggestion}>{escaPreparations.archiveMenu}</Button>
+            <Button onclick={archiveSuggestion}>{escaPreparations.archiveMenu}</Button>
             <Button onclick={deleteSuggestion}>{escaPreparations.deleteMenu}</Button>
           </Dropdown>
         </div>
