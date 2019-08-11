@@ -32,6 +32,7 @@ export default (vnode) => {
     console.log('hey');
     console.log(state.datasets);
   });
+
   const cardId = `suggestion${entry.getId()}`;
 
   const loadDatasets = () => {

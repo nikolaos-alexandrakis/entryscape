@@ -125,7 +125,6 @@ export default (suggestion, wrapperFunction) => {
         console.log(onDone);
         return suggestion
           .commitMetadata()
-          .then(() => {console.log('hello')})
           .then(onDone);
       }
 
