@@ -66,13 +66,10 @@ export default () => {
 
     searchList
       .getEntries(state.suggestionPage)
-      .then((suggestions) => {
-        setState({ suggestions: [] }); // @scazan Needing to empty the array to trigger a redraw
-        setState({
-          suggestions,
-          totalSuggestions: searchList.getSize(),
-        });
-      });
+      .then(suggestions => setState({
+        suggestions,
+        totalSuggestions: searchList.getSize(),
+      }));
   };
 
   const getArchiveEntries = (term = null) => {
@@ -101,7 +98,7 @@ export default () => {
   };
 
   const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({
-    suggestions: [...state.suggestions, newSuggestion],
+    suggestions: [newSuggestion, ...state.suggestions],
   }));
 
   const paginateArchiveList = (newPage) => {
@@ -154,6 +151,7 @@ export default () => {
             <div class="list">
               { state.suggestions.map(suggestion => (
                 <Suggestion
+                  key={suggestion.getId()}
                   entry={suggestion}
                   updateParent={reInitView}
                 />
@@ -176,6 +174,7 @@ export default () => {
               <div class="list">
                 { state.archives.map(suggestion => (
                   <Suggestion
+                    key={suggestion.getId()}
                     entry={suggestion}
                     updateParent={reInitView}
                   />

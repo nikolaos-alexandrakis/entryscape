@@ -123,7 +123,7 @@ export default (vnode) => {
         .find(entry.getResourceURI(), 'dcterms:references').length > 0;
 
       return (
-        <div class="suggestion d-flex">
+        <div class={`suggestion d-flex`}>
           <ProgressBar
             progressPercent={checklistPercent}
             incomplete={!checklistMandatoryComplete}
