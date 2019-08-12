@@ -28,7 +28,6 @@ export default (vnode) => {
     .getGraph()
     .findFirstValue(entry.getResourceURI(), 'store:status') === namespaces.expand('esterms:archived')
 
-  console.log('doing');
   return {
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);

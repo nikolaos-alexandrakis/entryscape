@@ -70,10 +70,10 @@ export default () => {
 
   const setState = createSetState(state);
 
-  const getEntries = () => {
+  const getEntries = (term = null) => {
     const ns = registry.get('namespaces');
 
-    search()
+    search({term})
       .getEntries(0)
       .then((suggestions) => {
         const allEntries = suggestions
@@ -120,7 +120,7 @@ export default () => {
       return (
         <div class="preparationsOverview searchVisible" >
           <div class="listButtons float-right col-md-12">
-            <SearchInput onchangeSearch={(query) => {console.log(query)}}/>
+            <SearchInput onchangeSearch={getEntries}/>
             <button
               type="button"
               class="float-right btn btn-raised btn-primary"
