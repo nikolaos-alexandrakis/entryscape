@@ -10,13 +10,7 @@ export default (entry) => {
     ).then(fileEntries => setState({ fileEntries }));
   };
 
-  const navigateToDataset = () => {
-    console.log('Heyooooo', entry);
-  };
-
-
   return {
     updateFileEntries,
-    navigateToDataset,
   };
 };

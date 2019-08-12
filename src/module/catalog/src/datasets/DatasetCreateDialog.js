@@ -53,8 +53,11 @@ export default declare(RDFormsEditDialog, {
       this.list && this.list.getView && this.list.getView().addRowForEntry(newEntry);
 
       return registry.get('entrystoreutil').getEntryByType('dcat:Catalog', newEntry.getContext()).then((catalog) => {
-        catalog.getMetadata().add(catalog.getResourceURI(),
-          'dcat:dataset', newEntry.getResourceURI());
+        catalog.getMetadata().add(
+          catalog.getResourceURI(),
+          'dcat:dataset',
+          newEntry.getResourceURI(),
+        );
         return catalog.commitMetadata().then(() => {
           newEntry.setRefreshNeeded();
 

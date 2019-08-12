@@ -125,22 +125,31 @@ export default () => {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
       return (
-        <div class="preparationsOverview searchVisible" >
-          <div class="listButtons float-right col-md-12">
-            <SearchInput onchangeSearch={search}/>
-            <button
-              type="button"
-              class="float-right btn btn-raised btn-primary"
-              title={escaPreparations.createSuggestionPopoverTitle}
-              onclick={createSuggestion}
-            >
-              <span aria-hidden="true" class="fas fa-plus"></span>
-              <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
-            </button>
-            <button type="button" class="float-right btn btn-raised btn-secondary" title="Reload list">
-              <span aria-hidden="true" class="fas fa-sync"></span>
-              <span className="escoList__buttonLabel"></span>
-            </button>
+        <div class="preparationsOverview entryList searchVisible" >
+          <div class="row">
+            <div class="listButtons row col">
+
+              <SearchInput
+                onchangeSearch={search}
+                placeholder={escaPreparations.listSearchPlaceholder}
+                columnWidth="col"
+              />
+              <div class="col flex-row-reverse d-flex align-items-end">
+                <button
+                  type="button"
+                  class="float-right btn btn-raised btn-primary"
+                  title={escaPreparations.createSuggestionPopoverTitle}
+                  onclick={createSuggestion}
+                >
+                  <span aria-hidden="true" class="fas fa-plus"></span>
+                  <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
+                </button>
+                <button type="button" class="float-right btn btn-raised btn-secondary" title="Reload list">
+                  <span aria-hidden="true" class="fas fa-sync"></span>
+                  <span className="escoList__buttonLabel"></span>
+                </button>
+              </div>
+            </div>
           </div>
 
           <div class="suggestions">

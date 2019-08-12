@@ -1,3 +1,4 @@
+import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
 import {
   getModifiedDate,
@@ -11,6 +12,8 @@ export default (vnode) => {
 
   const actions = bindActions(entry);
 
+  const siteManager = registry.get('siteManager');
+
   const removeDatasetReference = (e) => {
     const datasetURI = entry.getResourceURI();
 
@@ -22,18 +25,24 @@ export default (vnode) => {
       const { entry } = vnode.attrs;
       const title = getTitle(entry);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
+      const linkToDataset = siteManager.getViewPath('catalog__datasets__dataset', {
+        context: entry.getContext().getId(),
+        dataset: entry.getId(),
+      });
 
       return (
-        <div class="suggestionChild d-flex align-items-center" onclick={actions.navigateToDataset}>
-          <p class="title flex-grow-1">
-            <span class="fas fa-cubes"></span>
-            {title}
-          </p>
-          <p class="date">{modificationDate.short}</p>
-          <div
-            class="remove"
-            onclick={removeDatasetReference}
-          >×</div>
+        <div>
+          <a class="suggestionChild d-flex align-items-center" href={linkToDataset}>
+            <p class="title flex-grow-1">
+              <span class="fas fa-cubes"></span>
+              <span class="text">{title}</span>
+            </p>
+            <p class="date">{modificationDate.short}</p>
+            <div
+              onclick={removeDatasetReference}
+              className="remove fas fa-times"
+            ></div>
+          </a>
         </div>
       );
     },

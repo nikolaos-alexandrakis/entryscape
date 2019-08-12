@@ -243,6 +243,8 @@ export default declare(MithrilView, {
         const hasData = !!toRenderItems.length > 0;
         const shouldShowSearch = hasData || state.activeSearch;
         const paginationTotalCount = state.activeSearch ? state.list.filteredItems.length : state.list.items.length;
+        const searchPlaceholder = escaStatisticsNLS.statsSearchInputPlaceholder;
+
         return (
           <div>
             <div className="stats__title">
@@ -275,7 +277,7 @@ export default declare(MithrilView, {
                   </div>
                   <div className="distributionList">
                     {state.loadingData ? <Spinner/> : (<div>
-                      {shouldShowSearch ? <SearchInput onchangeSearch={onchangeSearch}/> : null}
+                      {shouldShowSearch ? <SearchInput onchangeSearch={onchangeSearch} placeholder={searchPlaceholder}/> : null}
                       <ListComponent
                         items={state.list.items}
                         filteredItems={state.list.filteredItems}

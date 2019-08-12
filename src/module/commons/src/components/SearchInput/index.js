@@ -11,9 +11,10 @@ export default () => {
         onchangeSearch(value);
       };
     },
-    view() {
-      const placeholder = i18n.localize(escaStatistics, 'statsSearchInputPlaceholder');
-      return (<div className="form-group input-group col-md-8">
+    view(vnode) {
+      const { placeholder, columnWidth = 'col-md-8' } = vnode.attrs;
+
+      return (<div className={`form-group input-group ${columnWidth}`}>
         <input
           type="text"
           className="form-control"

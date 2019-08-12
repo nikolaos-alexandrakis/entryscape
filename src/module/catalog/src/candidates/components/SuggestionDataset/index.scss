@@ -1,17 +1,28 @@
 @import '~commons/theme.scss';
 
-.suggestionChild {
-  background: #E0DEDE;
-  margin-bottom: 5px;
-  padding: 16px;
-  color: #333;
-  // font-size: 14px;
+.suggestion {
+  .suggestionChild {
+    background: #E0DEDE;
+    margin-bottom: 5px;
+    padding: 16px;
+    color: #333;
 
-  .title {
-    font-weight: bold;
-    .fa-cubes {
-      margin-right: 10px;
-      font-size: 24px;
+    .title {
+      font-weight: bold;
+      .fa-cubes {
+        margin-right: 10px;
+        font-size: 24px;
+      }
+      .text {
+        bottom: 3px;
+        position: relative;
+      }
+    }
+
+    .remove {
+      margin-left: 24px;
+      width: 33px;
+      text-align: center;
     }
   }
 }
