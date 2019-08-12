@@ -1,5 +1,6 @@
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import ProgressDialog from 'commons/progress/ProgressDialog';
+import CommentDialog from 'commons/comments/CommentDialog';
 import typeIndex from 'commons/create/typeIndex';
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
@@ -76,6 +77,17 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  const commentsDialog = new CommentDialog({ suggestion });
+  const editComments = (onDone) => {
+    commentsDialog.open({
+      row: {
+        entry: suggestion,
+      },
+      entry: suggestion,
+      onDone,
+    });
+  };
+
   const editSuggestion = (onDone) => {
     const editDialog = new EditSuggestionDialog({
       destroyOnHide: true,
@@ -133,15 +145,22 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
-  const archiveSuggestion = (onDone) => {
+  /**
+   * Change the 'store:status' on the EntryInfo of this suggestion
+   *
+   * @param {string} The new status in object position
+   * @param {string} The string to display in the confirmation dialog
+   * @param {function} A callback to call on completion
+   * @returns {undefined}
+   */
+  const changeStatus = (newStatus, message, onDone = () => {}) => {
     const dialogs = registry.get('dialogs');
-    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
-    return dialogs.confirm(escaPreparations.archiveSuggestion, null, null, (confirm) => {
+    return dialogs.confirm(message, null, null, (confirm) => {
       if (confirm) {
         const entryInfo = suggestion.getEntryInfo().getGraph();
         entryInfo.findAndRemove(suggestion.getResourceURI(), 'store:status');
-        entryInfo.add(suggestion.getResourceURI(), 'store:status', 'esterms:archived');
+        entryInfo.add(suggestion.getResourceURI(), 'store:status', newStatus);
 
         return suggestion
           .getEntryInfo()
@@ -153,13 +172,25 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  const archiveSuggestion = (onDone) => {
+    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
+    changeStatus('esterms:archived', escaPreparations.archiveSuggestion, onDone);
+  };
+
+  const unArchiveSuggestion = (onDone) => {
+    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
+    changeStatus('esterms:investigating', escaPreparations.unArchiveSuggestion, onDone);
+  };
+
   const actions = {
     remove,
     editSuggestion,
     editChecklist,
+    editComments,
     createDataset,
     removeDatasetReference,
     archiveSuggestion,
+    unArchiveSuggestion,
   };
 
   // Sometimes we may need to compose a wrapper function.

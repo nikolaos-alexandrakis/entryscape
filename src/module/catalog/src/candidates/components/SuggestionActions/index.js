@@ -1,4 +1,5 @@
 import DOMUtil from 'commons/util/htmlUtil';
+import registry from 'commons/registry';
 import escoListNLS from 'commons/nls/escoList.nls';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Dropdown from 'commons/components/common/Dropdown';
@@ -19,7 +20,15 @@ export default (vnode) => {
   const deleteSuggestion = e => actions.remove(e, updateParent);
   const createDataset = e => actions.createDataset(e, updateParent);
   const archiveSuggestion = e => actions.archiveSuggestion(e, updateParent);
+  const unArchiveSuggestion = e => actions.unArchiveSuggestion(e, updateParent);
 
+  const namespaces = registry.get('namespaces');
+  const archived = entry
+    .getEntryInfo()
+    .getGraph()
+    .findFirstValue(entry.getResourceURI(), 'store:status') === namespaces.expand('esterms:archived')
+
+  console.log('doing');
   return {
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
@@ -28,11 +37,19 @@ export default (vnode) => {
       return (
         <div class="suggestionActions icon--wrapper">
           <Dropdown>
-            <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>
-            <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>
-            <Button onclick={createDataset}>{escaPreparations.createDatasetMenu}</Button>
-            <Button onclick={editSuggestion}>{escaPreparations.commentMenu}</Button>
-            <Button onclick={archiveSuggestion}>{escaPreparations.archiveMenu}</Button>
+            {!archived && ([
+              <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>,
+              <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>,
+              <Button onclick={createDataset}>{escaPreparations.createDatasetMenu}</Button>,
+            ])}
+            <Button onclick={actions.editComments}>{escaPreparations.commentMenu}</Button>
+
+            {!archived && (
+              <Button onclick={archiveSuggestion}>{escaPreparations.archiveMenu}</Button>
+            )}
+            {archived && (
+              <Button onclick={unArchiveSuggestion}>{escaPreparations.unArchiveMenu}</Button>
+            )}
             <Button onclick={deleteSuggestion}>{escaPreparations.deleteMenu}</Button>
           </Dropdown>
         </div>

@@ -29,7 +29,6 @@ const getSearchObject = () => registry.get('entrystore')
   .rdfType('esterms:Suggestion')
   .context(registry.get('context'));
 
-
 const search = (paramsParams) => {
   const params = paramsParams || {};
   const qo = getSearchObject();
@@ -74,7 +73,8 @@ export default () => {
   const getEntries = () => {
     const ns = registry.get('namespaces');
 
-    search().getEntries(0)
+    search()
+      .getEntries(0)
       .then((suggestions) => {
         const allEntries = suggestions
           .reduce((accum, suggestion) => {
@@ -120,7 +120,7 @@ export default () => {
       return (
         <div class="preparationsOverview searchVisible" >
           <div class="listButtons float-right col-md-12">
-            <SearchInput onchangeSearch={() => {}}/>
+            <SearchInput onchangeSearch={(query) => {console.log(query)}}/>
             <button
               type="button"
               class="float-right btn btn-raised btn-primary"
