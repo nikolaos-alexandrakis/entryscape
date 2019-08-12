@@ -119,6 +119,8 @@ export default (vnode) => {
 
       const checklistPercent = checklistProgress.percent;
       const checklistMandatoryComplete = checklistProgress.mandatoryChecklistComplete;
+      const hasDatasets = entry.getMetadata()
+        .find(entry.getResourceURI(), 'dcterms:references').length > 0;
 
       return (
         <div class="suggestion d-flex">
@@ -129,7 +131,11 @@ export default (vnode) => {
           />
           <Collapsable
             title={title}
-            subTitle={[modificationDate.short, <SuggestionActions entry={entry} updateParent={updateParent} />]}
+            subTitle={[
+              hasDatasets && <span class="fas fa-cubes"></span>,
+              modificationDate.short,
+              <SuggestionActions entry={entry} updateParent={updateParent} />
+            ]}
             className="flex-fill"
             cardId={cardId}
             onclick={loadDatasets}
