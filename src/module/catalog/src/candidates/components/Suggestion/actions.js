@@ -77,8 +77,16 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
-  const commentsDialog = new CommentDialog({ suggestion });
   const editComments = (onDone) => {
+    const name = registry.get('rdfutils').getLabel(suggestion);
+    const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
+
+    const commentsDialog = new CommentDialog({
+      suggestion,
+      title: i18n.renderNLSTemplate(escaPreparations.commentHeader, { name }),
+      footerButtonLabel: escaPreparations.commentFooterButton,
+    });
+
     commentsDialog.open({
       row: {
         entry: suggestion,
