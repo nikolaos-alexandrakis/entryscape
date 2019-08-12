@@ -159,8 +159,8 @@ export default (suggestion, wrapperFunction) => {
     return dialogs.confirm(message, null, null, (confirm) => {
       if (confirm) {
         const entryInfo = suggestion.getEntryInfo().getGraph();
-        entryInfo.findAndRemove(suggestion.getResourceURI(), 'store:status');
-        entryInfo.add(suggestion.getResourceURI(), 'store:status', newStatus);
+        entryInfo.findAndRemove(suggestion.getURI(), 'store:status');
+        entryInfo.add(suggestion.getURI(), 'store:status', newStatus);
 
         return suggestion
           .getEntryInfo()

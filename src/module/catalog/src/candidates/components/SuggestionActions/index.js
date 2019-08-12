@@ -26,7 +26,7 @@ export default (vnode) => {
   const archived = entry
     .getEntryInfo()
     .getGraph()
-    .findFirstValue(entry.getResourceURI(), 'store:status') === namespaces.expand('esterms:archived')
+    .findFirstValue(entry.getURI(), 'store:status') === namespaces.expand('esterms:archived');
 
   return {
     view() {

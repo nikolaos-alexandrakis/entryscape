@@ -1,37 +1,25 @@
 import { i18n } from 'esi18n';
 import registry from 'commons/registry';
 import config from 'config';
-import { createSetState } from 'commons/util/util';
+import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import DOMUtil from 'commons/util/htmlUtil';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import SearchInput from 'commons/components/SearchInput';
+import Pagination from 'commons/components/common/Pagination';
 import Suggestion from 'catalog/candidates/components/Suggestion';
 import bindActions from './actions';
 import './index.scss';
 
-const buttons = [
-  {
-    name: 'create',
-    button: 'primary',
-    icon: 'plus',
-    iconType: 'fa',
-    max: 2,
-    // max: this.createLimit,
-    disableOnSearch: false,
-    nlsKey: 'createCandidate',
-    nlsKeyTitle: 'createCandidatePopoverTitle',
-    nlsKeyMessage: 'createCandidatePopoverMessage',
-  },
-];
+const ns = registry.get('namespaces');
 
 const getSearchObject = () => registry.get('entrystore')
   .newSolrQuery()
   .rdfType('esterms:Suggestion')
   .context(registry.get('context'));
 
-const search = (paramsParams) => {
-  const params = paramsParams || {};
-  const qo = getSearchObject();
+const getFilteredEntries = (params = { status: 'esterms:investigating' }) => {
+  const qo = getSearchObject()
+    .status(ns.expand(params.status));
 
   if (params.sortOrder === 'title') {
     const l = this.useNoLangSort ? 'nolang' : i18n.getLocale();
@@ -48,16 +36,12 @@ const search = (paramsParams) => {
     }
   }
 
-  if (config.entrystore.defaultSolrLimit) {
-    qo.limit(config.entrystore.defaultSolrLimit);
-  }
+  qo.limit(LIST_PAGE_SIZE_SMALL); // @scazan pre-fetch 3 pages worth
 
   const list = registry.get('entrystore')
     .createSearchList(qo);
 
   return list;
-
-  // this.listView.showEntryList(list);
 };
 
 export default () => {
@@ -65,54 +49,80 @@ export default () => {
 
   const state = {
     suggestions: [],
+    suggestionPage: 0,
+    totalSuggestions: 0,
     archives: [],
+    archivePage: 0,
+    totalArchives: 0,
   };
 
   const setState = createSetState(state);
 
-  const getEntries = (term = null) => {
-    const ns = registry.get('namespaces');
+  const getSuggestionEntries = (term = null) => {
+    const searchList = getFilteredEntries({
+      term,
+      status: 'esterms:investigating',
+    });
 
-    search({term})
-      .getEntries(0)
+    searchList
+      .getEntries(state.suggestionPage)
       .then((suggestions) => {
-        const allEntries = suggestions
-          .reduce((accum, suggestion) => {
-            const entryInfoGraph = suggestion.getEntryInfo().getGraph();
-
-            if (
-              entryInfoGraph
-                .findFirstValue(suggestion.getResourceURI(), 'store:status') === ns.expand('esterms:archived')
-            ) {
-              accum.archives.push(suggestion);
-              return accum;
-            }
-
-            accum.suggestions.push(suggestion);
-            return accum;
-          }, {
-            suggestions: [],
-            archives: [],
-          });
+        setState({ suggestions: [] }); // @scazan Needing to empty the array to trigger a redraw
         setState({
-          suggestions: allEntries.suggestions,
-          archives: allEntries.archives,
+          suggestions,
+          totalSuggestions: searchList.getSize(),
         });
       });
   };
 
+  const getArchiveEntries = (term = null) => {
+    const searchList = getFilteredEntries({
+      term,
+      status: 'esterms:archived',
+    });
+
+    searchList
+      .getEntries(state.archivePage)
+      .then(archives => setState({
+        archives,
+        totalArchives: searchList.getSize(),
+      }));
+  };
+
+  const search = (term = null) => {
+    getArchiveEntries(term);
+    getSuggestionEntries(term);
+  };
+
   const reInitView = () => {
     setState({ suggestions: [] });
-    getEntries(); // Needs to be handled somewhat manually due to solr index
+    getArchiveEntries(); // Needs to be handled somewhat manually due to solr index
+    getSuggestionEntries();
   };
 
   const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({
     suggestions: [...state.suggestions, newSuggestion],
   }));
 
+  const paginateArchiveList = (newPage) => {
+    setState({
+      archivePage: newPage,
+    });
+
+    getArchiveEntries();
+  };
+
+  const paginateSuggestionList = (newPage) => {
+    setState({
+      suggestionPage: newPage,
+    });
+
+    getSuggestionEntries();
+  };
+
   return {
     oninit() {
-      getEntries();
+      reInitView();
     },
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
@@ -120,7 +130,7 @@ export default () => {
       return (
         <div class="preparationsOverview searchVisible" >
           <div class="listButtons float-right col-md-12">
-            <SearchInput onchangeSearch={getEntries}/>
+            <SearchInput onchangeSearch={search}/>
             <button
               type="button"
               class="float-right btn btn-raised btn-primary"
@@ -148,6 +158,12 @@ export default () => {
                   updateParent={reInitView}
                 />
               ))}
+              <Pagination
+                currentPage={state.suggestionPage}
+                totalCount={state.totalSuggestions}
+                pageSize={LIST_PAGE_SIZE_SMALL}
+                handleChangePage={paginateSuggestionList}
+              />
             </div>
           </div>
           <div class="archive">
@@ -161,8 +177,15 @@ export default () => {
                 { state.archives.map(suggestion => (
                   <Suggestion
                     entry={suggestion}
+                    updateParent={reInitView}
                   />
                 ))}
+                <Pagination
+                  currentPage={state.archivePage}
+                  totalCount={state.totalArchives}
+                  pageSize={LIST_PAGE_SIZE_SMALL}
+                  handleChangePage={paginateArchiveList}
+                />
               </div>
             </div>
 

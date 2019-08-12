@@ -134,7 +134,7 @@ export default (vnode) => {
             subTitle={[
               hasDatasets && <span class="fas fa-cubes"></span>,
               modificationDate.short,
-              <SuggestionActions entry={entry} updateParent={updateParent} />
+              <SuggestionActions entry={entry} updateParent={updateParent} />,
             ]}
             className="flex-fill"
             cardId={cardId}
