@@ -23,7 +23,7 @@ export default (vnode) => {
   const unArchiveSuggestion = e => actions.unArchiveSuggestion(e, updateParent);
 
   const namespaces = registry.get('namespaces');
-  const archived = entry
+  const isArchived = entry
     .getEntryInfo()
     .getGraph()
     .findFirstValue(entry.getURI(), 'store:status') === namespaces.expand('esterms:archived');
@@ -36,20 +36,28 @@ export default (vnode) => {
       return (
         <div class="suggestionActions icon--wrapper">
           <Dropdown>
-            {!archived && ([
+            {!isArchived && ([
               <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>,
-              <Button onclick={editSuggestion}>{escaPreparations.linkDatasetMenu}</Button>,
-              <Button onclick={createDataset}>{escaPreparations.createDatasetMenu}</Button>,
+              <Button onclick={editSuggestion} class="fas fa-fw fa-link">{escaPreparations.linkDatasetMenu}</Button>,
+              <Button onclick={createDataset} class="fas fa-fw fa-cubes">{escaPreparations.createDatasetMenu}</Button>,
             ])}
-            <Button onclick={actions.editComments}>{escaPreparations.commentMenu}</Button>
+            <Button onclick={actions.editComments} class="fas fa-fw fa-comment">
+              {escaPreparations.commentMenu}
+            </Button>
 
-            {!archived && (
-              <Button onclick={archiveSuggestion}>{escaPreparations.archiveMenu}</Button>
+            {!isArchived && (
+              <Button onclick={archiveSuggestion} class="fas fa-fw fa-archive">
+                {escaPreparations.archiveMenu}
+              </Button>
             )}
-            {archived && (
-              <Button onclick={unArchiveSuggestion}>{escaPreparations.unArchiveMenu}</Button>
+            {isArchived && (
+              <Button onclick={unArchiveSuggestion} class="fas fa-fw fa-file-import">
+                {escaPreparations.unArchiveMenu}
+              </Button>
             )}
-            <Button onclick={deleteSuggestion}>{escaPreparations.deleteMenu}</Button>
+            <Button onclick={deleteSuggestion} class="fas fa-fw fa-times">
+              {escaPreparations.deleteMenu}
+            </Button>
           </Dropdown>
         </div>
       );
