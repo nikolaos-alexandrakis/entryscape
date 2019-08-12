@@ -156,12 +156,12 @@ export default () => {
                   updateParent={reInitView}
                 />
               ))}
-              <Pagination
+              {(state.totalSuggestions > LIST_PAGE_SIZE_SMALL) && <Pagination
                 currentPage={state.suggestionPage}
                 totalCount={state.totalSuggestions}
                 pageSize={LIST_PAGE_SIZE_SMALL}
                 handleChangePage={paginateSuggestionList}
-              />
+              />}
             </div>
           </div>
           <div class="archive">
@@ -179,12 +179,12 @@ export default () => {
                     updateParent={reInitView}
                   />
                 ))}
-                <Pagination
+                {(state.totalArchives > LIST_PAGE_SIZE_SMALL) && <Pagination
                   currentPage={state.archivePage}
                   totalCount={state.totalArchives}
                   pageSize={LIST_PAGE_SIZE_SMALL}
                   handleChangePage={paginateArchiveList}
-                />
+                />}
               </div>
             </div>
 

@@ -82,6 +82,7 @@ export default (suggestion, wrapperFunction) => {
     commentsDialog.open({
       row: {
         entry: suggestion,
+        renderCommentCount: () => {},
       },
       entry: suggestion,
       onDone,

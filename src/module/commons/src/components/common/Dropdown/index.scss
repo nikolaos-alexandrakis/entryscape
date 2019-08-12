@@ -2,6 +2,8 @@
 @import '~commons/components/Button/index.scss';
 
 .ESDropdown {
+  position: relative;
+
   .icons {
     @include button;
     margin-right: 10px;
