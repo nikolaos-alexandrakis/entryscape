@@ -47,7 +47,7 @@
     }
 }
 
-.btn.btn-raised.btn-primary,.btn.btn-fab.btn-primary{
+.btn.btn-raised.btn-primary,.btn.bmd-btn-fab.btn-primary{
     background-color:$main-colour; //primary colour on Bootstrap 4
     &:hover{
         color: white;
@@ -57,11 +57,15 @@
 
 .btn-back{
     margin-bottom: 50px;
+    background-color:#EEEEEE;
     span{
         margin-right: 10px;
     }
 }
-.btn.btn-fab{
+.btn.btn-link{
+    background-color:#EEEEEE;
+}
+.btn.bmd-btn-fab{
     width: 24px;
     height: 24px;
     min-width: 24px;

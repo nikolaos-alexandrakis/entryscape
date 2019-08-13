@@ -10,5 +10,6 @@
   "nlsProgressCancel": "Avbryt",
   "nlsProgressDone": "Klart",
   "nlsProgressSuccess": "API:et har skapats",
-  "apiFileProcessedOnlyAddition": "${number} av ${totalFiles} nya filer har bearbetats"
+  "apiFileProcessedOnlyAddition": "${number} av ${totalFiles} nya filer har bearbetats",
+  "apiProgressWarning": "API:et behandlas fortfarande. Du kan stänga den här dialogrutan och kontrollera API:ets status genom informationsdialogen vid ett senare tillfälle."
 }

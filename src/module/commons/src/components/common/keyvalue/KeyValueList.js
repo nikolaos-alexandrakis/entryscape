@@ -1,20 +1,14 @@
-import m from 'mithril';
-import './escoKeyValueComponent.css';
-
-/**
- * @see ./KeyValueList.md
- */
-export default {
-  /**
-   * @param {Array} data - An array containing the list items
-   */
+export default () => ({
   view(vnode) {
     const { data, dtClass = '', ddClass = '', asBadge = false } = vnode.attrs;
 
-    return m('dl.dl-horizontal',
-      Object.keys(data).map(key => m('div', { key: key.replace(/\s/g, '') }, [
-        m('dt', { class: dtClass }, key),
-        m('dd', { class: ddClass }, asBadge ? m('span.badge', data[key]) : data[key]),
-      ])));
+    const items = [];
+    Object.keys(data).forEach((key) => {
+      items.push(<dt className={`${dtClass} col-12 col-sm-4 col-lg-3`}>{key}</dt>);
+      items.push(<dd className={`${ddClass} col-12 col-sm-8 col-lg-9`}>{asBadge ?
+        <span className="badge badge-pill badge-primary">{data[key]}</span> : data[key]}</dd>);
+    });
+
+    return <dl className="row">{items}</dl>;
   },
-};
+});

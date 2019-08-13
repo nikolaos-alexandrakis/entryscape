@@ -97,12 +97,12 @@ window.__entryscape_config = {
       listplaceholder: '<div class="alert alert-info" role="alert">Denna datamängd har inga dataresurser' +
         ' angivna</div>',
       listhead: '<h4>Dataresurser</h4>',
-      rowhead: '<div class="esbRowHead"><a href="{{prop "dcat:accessURL"}}" class="pull-right btn btn-sm btn-primary"' +
+      rowhead: '<div class="esbRowHead"><a href="{{prop "dcat:accessURL"}}" class="float-right btn btn-sm btn-primary"' +
         ' role="button"' +
         ' target="_blank">' +
         '<i class="fas fa-external-link-square-alt" aria-hidden="true"></i>&nbsp;Webbsida</a>' +
         '{{#ifprop "dcat:downloadURL"}}' +
-        '<a href="{{prop "dcat:downloadURL"}}" class="pull-right btn btn-sm btn-default" role="button" target="_blank">' +
+        '<a href="{{prop "dcat:downloadURL"}}" class="float-right btn btn-sm btn-secondary" role="button" target="_blank">' +
         '<i class="fas fa-download" aria-hidden="true"></i>&nbsp;Ladda ned</a>' +
         '{{/ifprop}}' +
         '<span class="label formatLabel label-success md5_{{prop "dcterms:format" render="md5"}}" ' +
@@ -177,7 +177,7 @@ window.__entryscape_config = {
       dependencyproperties: 'dcterms:source',
       listplaceholder: '<h4>Inga idéer ännu</h4>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-      '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
+      '<span class="float-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
       ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
       '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
@@ -207,7 +207,7 @@ window.__entryscape_config = {
       limit: '10',
       dependencyproperties: 'dcterms:source',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-        '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
+        '<span class="float-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
         ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
         '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +

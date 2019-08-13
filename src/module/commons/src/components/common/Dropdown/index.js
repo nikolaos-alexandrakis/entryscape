@@ -33,11 +33,15 @@ export default (vnode) => {
   const setDropdownOrientation = () => {
     const dropdownElement = vnode.dom.querySelector('.row__dropdownMenu');
     const dropdownHeight = dropdownElement.offsetHeight;
-    const toggleButton = vnode.dom.querySelector('.dropdown-toggle');
+    const toggleButton = vnode.dom.querySelector('.icons');
     const toggleButtonHeight = toggleButton.offsetHeight;
     const dropdownScreenPositionY = toggleButton.getBoundingClientRect().top;
 
-    const siteFooter = document.querySelector('.bottom_footer').clientHeight;
+    // const siteFooter = document.querySelector('.bottom_footer').clientHeight;
+    // @scazan DANGER: The footer height was previously sized at 40px in CSS and the above took care of that,
+    // but the height was removed on Althea's last day and I'm not sure why.
+    // To avoid any cascading issues setting this manually here for now.
+    const siteFooter = 40;
 
     const spaceAbove = dropdownScreenPositionY;
     const spaceBelow = Math.abs(window.innerHeight - dropdownScreenPositionY) - siteFooter;
@@ -63,7 +67,7 @@ export default (vnode) => {
 
       return (
         <div className='ESDropdown'>
-          <button class="icons fa fa-cog dropdown-toggle" onclick={toggleDropdown} ></button>
+          <button class="icons fas fa-cog" onclick={toggleDropdown} ></button>
           <div class={`row__dropdownMenu ${showingDropdownClass}`}>
             { children }
           </div>

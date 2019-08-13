@@ -1,41 +1,71 @@
 <div class="dataset">
-  <a title="Open a new window with this information" data-dojo-attach-point="directLink"
-                                                     target="_blank" class="directLink btn btn-default pull-right spaExplicitLink">
-    <span data-dojo-attach-point="nls">directLink</span><i style="margin-left: 5px"
-                                                           class="fas fa-external-link-square-alt"></i>
-  </a>
-    <div class='row'>
-        <div class='col-md-9 col-xs-12' data-dojo-attach-point='details'></div>
-        <div class='col-md-3 col-xs-12' data-dojo-attach-point='sidebar'></div>
-    </div>
-
-    <div data-dojo-attach-point="catalogBlock" class="panel panel-default">
-        <div class="panel-heading" data-dojo-attach-point="nls">datasetBelongsToCatalog</div>
-        <table class="table publicList">
-            <tr data-dojo-attach-point="catalogRow" data-dojo-attach-event="click: onCatalogClick">
-                <td><div class="min-height-row" data-dojo-attach-point="catalog"></div></td>
-                <td><div class="min-height-row">
-                    <span data-dojo-attach-event="click: onCatalogClick">
-                    <span class="fas fa-info-circle"></span></span>
-                </div></td>
-            </tr>
-        </table>
-    </div>
-    <div data-dojo-attach-point="distributionBlock" class="panel panel-default">
-        <div class="panel-heading" data-dojo-attach-point="nls">accessDistributionsOfDataset</div>
-        <table class="table publicList" data-dojo-attach-point="distributions"></table>
-    </div>
-    <div data-dojo-attach-point="resultBlock" class="panel panel-default" style="display:none;">
-        <div class="panel-heading" data-dojo-attach-point="nls">resultsOfDataset</div>
-        <table class="table publicList" data-dojo-attach-point="results"></table>
-    </div>
-    <div data-dojo-attach-point="detailsBlock" class="panel panel-default">
-        <div class="panel-heading" data-dojo-attach-point="nls">datasetDetails</div>
-        <div class="panel-body">
-            <div data-dojo-attach-point="presenter"></div>
+    <div class="row">
+        <div class="col float-right">
+            <a title="Open a new window with this information"
+               data-dojo-attach-point="directLink"
+               target="_blank" class="directLink btn btn-secondary float-right spaExplicitLink">
+                <span data-dojo-attach-point="nls">directLink</span>
+                <i style="margin-left: 5px" class="fas fa-external-link-square-alt"></i>
+            </a>
         </div>
     </div>
 
-    <div data-dojo-attach-point="infoDialog"></div>
-    <div data-dojo-attach-point="distributionInfoDialog"></div>
+    <div class='row fullView'>
+        <div class='col-md-9 col-12 primary-info' data-dojo-attach-point='details'></div>
+        <div class='col-md-3 col-12 secondary-info' data-dojo-attach-point='sidebar'></div>
+    </div>
+
+    <div class="row" data-dojo-attach-point="catalogBlock">
+        <div class="col">
+            <div class="card">
+                <h6 class="card-header bg-light" data-dojo-attach-point="nls">datasetBelongsToCatalog</h6>
+                <div class="card-body">
+                    <div class="list-group bmd-list-group-sm">
+                        <div class="list-group-item list-group-item-action d-flex justify-content-between flex-nowrap"
+                             data-dojo-attach-event="click: onCatalogClick">
+                            <span data-dojo-attach-point="catalog"></span>
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-dojo-attach-point="distributionBlock">
+        <div class="col">
+            <div class="card">
+                <h6 class="card-header bg-light" data-dojo-attach-point="nls">accessDistributionsOfDataset</h6>
+                <div class="card-body">
+                    <div class="list-group bmd-list-group-sm" data-dojo-attach-point="distributions">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-dojo-attach-point="resultBlock" style="display:none;">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-light" data-dojo-attach-point="nls">resultsOfDataset</div>
+                <div class="card-body">
+                    <div class="list-group bmd-list-group-sm publicList" data-dojo-attach-point="results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-dojo-attach-point="detailsBlock">
+        <div class="col">
+            <div class="card">
+                <h6 class="card-header bg-light" data-dojo-attach-point="nls">datasetDetails</h6>
+                <div class="card-body">
+                    <div data-dojo-attach-point="presenter"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-dojo-attach-point="infoDialog" class="row"></div>
+    <div data-dojo-attach-point="distributionInfoDialog" class="row"></div>
 </div>

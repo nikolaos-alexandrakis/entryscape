@@ -1,6 +1,9 @@
 .entryscapeCards--noBanner {
     margin-top: 10%;
 }
+.entryscapeCards .row{
+    justify-content: center;
+}
 a:hover, a:focus {
     color: #2a6496;
     text-decoration: none;

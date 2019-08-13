@@ -21,9 +21,9 @@ export default () => {
           onchange={handleSearchUpdate}
           onkeyup={handleSearchUpdate}/>
         <span className="input-group-btn">
-          <button className="btn btn-default searchButton" type="button" title="" aria-label="Search">
+          <button className="btn btn-secondary searchButton" type="button" title="" aria-label="Search">
             <span className="screenreader__span"/>
-            <span className="fa fa-search" aria-hidden="true"/>
+            <span className="fas fa-search" aria-hidden="true"/>
           </button>
         </span>
       </div>);

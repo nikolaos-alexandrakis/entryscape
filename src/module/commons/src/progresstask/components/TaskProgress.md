@@ -52,9 +52,9 @@ In a boostrap modal and when all tasks have successfully completed:
     <div>
       <div>
         <div class="progress">
-          <div class="progress-bar progress-bar-success" style="width: 33%;"><span>Upload File</span></div>
-          <div class="progress-bar progress-bar-success" style="width: 33%;"><span>Analyse Scheme</span></div>
-          <div class="progress-bar progress-bar-success" style="width: 34%;"><span>Import Concepts</span></div>
+          <div class="progress-bar bg-success" style="width: 33%;"><span>Upload File</span></div>
+          <div class="progress-bar bg-success" style="width: 33%;"><span>Analyse Scheme</span></div>
+          <div class="progress-bar bg-success" style="width: 34%;"><span>Import Concepts</span></div>
         </div>
       </div>
       <div>
@@ -98,7 +98,7 @@ In a boostrap modal and when all tasks have successfully completed:
   </div>
   <div data-dojo-attach-point="_modalFooter">
     <div class="row spaSideDialogFooter">
-      <div class="col-md-12"><button class="btn btn-primary pull-right"><span>Done</span></button><span class="alert alert-success pull-right" role="alert"><span>Your teminology was successfully imported.</span></span></div>
+      <div class="col-md-12"><button class="btn btn-primary float-right"><span>Done</span></button><span class="alert alert-success float-right" role="alert"><span>Your teminology was successfully imported.</span></span></div>
     </div>
   </div>
 </div>

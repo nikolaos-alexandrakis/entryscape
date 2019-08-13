@@ -1,14 +1,14 @@
 <div class="${bid}">
     <div class='row ${bid}__multiple' data-dojo-attach-point='__multipleEtypes'>
-        <div class='sidebar ${bid}__side col-md-4 col-sm-3 col-xs-12'>
+        <div class='sidebar ${bid}__side col-md-4 col-sm-3 col-12'>
             <ul class="nav nav-pills nav-stacked ${bid}__sideList"
                 data-dojo-attach-point='__sideList'></ul>
 
             <div class='${bid}__sideInput'>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label" style="font-size: 14px">
+                        <div class="form-group row">
+                            <label class="col-form-label" style="font-size: 14px">
                                 <span data-dojo-attach-point="nls">createCollectionButton</span>
                             </label>
                             <div class="input-group">
@@ -16,8 +16,8 @@
                                        data-dojo-attach-point="nls,_collectionTitle"
                                        data-dojo-attach-event="keyup: _checkKey"/>
 
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"
+                                <span class="input-group-btn input-group-append">
+                                    <button class="btn btn-secondary" type="button"
                                             data-dojo-attach-event="onclick:_createCollection">
                                     <i class="fas fa-check" aria-hidden="true"></i>
                                     </button>
@@ -28,9 +28,9 @@
                 </div>
             </div>
         </div>
-        <div class='${bid}__list col-md-8 col-sm-9 col-xs-12'
+        <div class='${bid}__list col-md-8 col-sm-9 col-12'
              data-dojo-attach-point="__placeholder"></div>
-        <div class='${bid}__list col-md-8 col-sm-9 col-xs-12' data-dojo-attach-point='__list'
+        <div class='${bid}__list col-md-8 col-sm-9 col-12' data-dojo-attach-point='__list'
              style="display:none;"></div>
     </div>
     <div class='row ${bid}' data-dojo-attach-point='__singleEtype'>

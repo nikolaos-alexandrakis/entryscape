@@ -27,9 +27,9 @@
   "statsDialogFooter": "Schließen",
   "statsCatalogOverviewTitle": "Statistik der letzten 7 Tage",
   "statsCatalogOverviewChartLabel": "Dateidownloads und API-Nutzung",
-  "statsCatalogOverviewChartFileLabel": "Dateidownload",
+  "statsCatalogOverviewChartFileLabel": "Dateidownloads",
   "statsCatalogOverviewChartAPILabel": "API-Aufrufe",
-  "statsCatalogOverviewDoughnutFiles": "Dateien",
-  "statsCatalogOverviewDoughnutAPI": "API",
+  "statsCatalogOverviewDoughnutFiles": "Dateidownloads",
+  "statsCatalogOverviewDoughnutAPI": "API-Aufrufe",
   "statsChartPlaceholder": "Es ist noch keine Zugriffsstatistik für öffentliche Dateien und APIs vorhanden"
 }

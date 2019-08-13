@@ -29,7 +29,7 @@
   "statsCatalogOverviewChartLabel": "Filnedladdningar och API-användning",
   "statsCatalogOverviewChartFileLabel": "Filnedladdningar",
   "statsCatalogOverviewChartAPILabel": "API-anrop",
-  "statsCatalogOverviewDoughnutFiles": "Filer",
-  "statsCatalogOverviewDoughnutAPI": "API",
+  "statsCatalogOverviewDoughnutFiles": "Filnedladdningar",
+  "statsCatalogOverviewDoughnutAPI": "API-anrop",
   "statsChartPlaceholder": "Det finns ingen åtkomststatistik för offentliga filer och API:er än"
 }

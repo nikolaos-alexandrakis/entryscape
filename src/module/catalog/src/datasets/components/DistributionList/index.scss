@@ -12,10 +12,6 @@
         display: flex;
         box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.3);
 
-        &:focus {
-            box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
-
-        }
 
         .distribution__format {
             display: flex;
@@ -59,7 +55,6 @@
         span.fa-plus {
           font-size: 14px;
           position: relative;
-          top: 5.5px;
           vertical-align: top;
         }
 
@@ -89,4 +84,9 @@
         }
     }
 
+}
+.btn--add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

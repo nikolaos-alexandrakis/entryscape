@@ -3,7 +3,7 @@ import { Editor, engine, LevelEditor, renderingContext, validate } from 'rdforms
 import TitleDialog from 'commons/dialog/TitleDialog';
 import registry from 'commons/registry';
 import escoRdforms from 'commons/nls/escoRdforms.nls';
-import { NLSMixin } from 'esi18n';
+import { NLSMixin, i18n } from 'esi18n';
 import declare from 'dojo/_base/declare';
 import DOMUtil from 'commons/util/htmlUtil';
 import PresentExpandable from './PresentExpandable';
@@ -47,7 +47,7 @@ export default declare([TitleDialog, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    const bundle = this.NLSLocalized0;
+    const bundle = i18n.getLocalization(escoRdforms);
     renderingContext.setMessages(bundle);
     this.levels.localize(bundle);
     this.discardWarning = bundle.discardMetadataChangesWarning;

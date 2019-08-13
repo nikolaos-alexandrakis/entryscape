@@ -1,7 +1,7 @@
 import escoPagination from 'commons/nls/escoPagination.nls';
 import { LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import { i18n } from 'esi18n';
-import './index.scss';
+import './index.css';
 import PaginationArrow from './PaginationArrow';
 
 /**
@@ -46,7 +46,7 @@ export default () => ({
 
     const lastPage = Math.ceil(totalCount / pageSize) - 1; // pages are 0-indexed
 
-    return (<ul className="pagination">
+    return (<ul className="pagination justify-content-center align-items-center">
       <PaginationArrow
         disabled={!currentPage}
         className={!currentPage ? 'disabled' : ''}
@@ -61,7 +61,7 @@ export default () => ({
         page={currentPage - 1}
         icon="fa-angle-left"
       />
-      <span>{paginationText}</span>
+      <li className="page-item "><span className="page-text">{paginationText}</span></li>
       <PaginationArrow
         disabled={toCount === totalCount}
         className={toCount === totalCount ? 'disabled' : ''}

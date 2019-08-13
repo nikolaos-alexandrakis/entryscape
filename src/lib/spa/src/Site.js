@@ -390,7 +390,7 @@ export default class Site {
       viewDef.node = document.createElement('div');
       viewDef.node.setAttribute('class', 'spaView');
       domNodeHide(viewDef.node);
-      this.config.viewsNode.appendChild(viewDef.node);
+      this.attachViewToDom(viewDef);
     }
     viewDef.constructorParams = viewDef.constructorParams || {};
     Object.assign(viewDef.constructorParams, { _siteManager: this });
@@ -410,6 +410,10 @@ export default class Site {
    */
   resetView() {
     m.mount(this.config.viewsNode, null);
+  }
+
+  attachViewToDom(viewDef) {
+    this.config.viewsNode.appendChild(viewDef.node);
   }
 
   createSiteController(SiteControllerClass, node) {

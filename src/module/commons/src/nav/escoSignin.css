@@ -1,3 +1,4 @@
+
 .escoSignin {
     display: flex;
     flex-direction: column;
@@ -6,12 +7,13 @@
 }
 
 .escoSignin > * {
-  width: 350px;
+    width: 350px;
 }
+
 @media (max-width: 991px) {
-  .escoSignin > * {
-    width: initial;
-  }
+    .escoSignin > * {
+        width: initial;
+    }
 }
 
 .escoSignin .logo-text {
@@ -19,9 +21,10 @@
     margin: 20px
 }
 
-.escoSignin .well {
+.escoSignin .card {
     margin-left: auto;
     margin-right: auto;
+    padding: 19px;
 }
 
 .escoSignin.signindialog {
@@ -36,9 +39,11 @@
 .escoSignin a.resetButton {
     font-size: 12px;
     float: right;
-    color: #337ab7;
+    color: #165b98;
     text-transform: none;
     padding: 6px 12px;
+    margin: 10px 1px;
+    cursor: pointer;
 }
 
 .escoSignin a.signupButton {
@@ -46,6 +51,8 @@
     color: #333;
     text-transform: none;
     padding: 10px;
+    margin: 10px 1px;
+    cursor: pointer;
 }
 
 .escoSignin .createAccount {
@@ -90,7 +97,7 @@
 }
 
 .escoSignin__externalImage {
-    float:left;
+    float: left;
     width: 60px;
     margin: 0 25px 10px 0;
 }
@@ -98,6 +105,7 @@
 .escoSignin__externalMessage {
     font-size: 14px;
 }
+
 .escoSignin__externalButton {
     margin-top: 25px;
 }
@@ -112,4 +120,9 @@
     margin-top: -15px;
     padding: 10px;
     text-align: center;
+}
+
+.form-group {
+    padding-bottom: 7px;
+    margin: 28px 0 0 0;
 }

@@ -1,13 +1,14 @@
 @import '~commons/theme.scss';
 
-.escoList .panel {
+.escoList .card {
     background-color: inherit;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.escoList .panel-heading {
+.escoList .card-header {
     background-color: inherit !important;
+    border:0;
 }
 
 .sidebarMode .escoList {
@@ -26,9 +27,10 @@
     vertical-align: top;
 }
 
-.badge {
+.badge, .badge-primary {
   background-color: $main-colour;
 }
+
 .entryList {
     overflow-y: visible;
     height: 100%;
@@ -87,9 +89,6 @@
     background-color: transparent;
 }
 
-.escoList .entryList .regular > div:nth-child(even) {
-//    background-color: #ededed;
-}
 
 .escoList .entryList > .cardList-body:nth-child(even):not(:hover) {
     background-color:transparent;
@@ -110,7 +109,7 @@
     border-top-width: 1px;
 }
 
-.entryList > .panel > .panel-heading {
+.entryList > .card > .card-header {
     font-size: 22px;
 }
 
@@ -162,6 +161,8 @@
 }
 
 
+
+
 /* Former entryModificationDate*/
 .entryList .entryRowCol0 {
     width: 40px;
@@ -201,26 +202,26 @@
     margin-left: 10px;
 }
 
-.entryList .panel-heading {
+.entryList .card-header {
     padding-top: 0;
 }
 
-.entryList .panel-heading .btn.btn-raised.btn-default {
+.entryList .card-header .btn.btn-raised.btn-secondary {
     background-color: #333;
 }
 
-.entryList .panel-heading .btn.btn-raised.btn-default {
+.entryList .card-header .btn.btn-raised.btn-secondary {
     background-color: #333;
 }
 
-.entryList .panel-heading .btn.btn-raised.btn-default:hover {
+.entryList .card-header .btn.btn-raised.btn-secondary:hover {
     background-color: rgba(51, 51, 51, 0.8);
 }
 
-.entryList .panel-heading .btn.btn-raised.btn-default,
-.entryList .panel-heading .btn.btn-raised.btn-success,
-.entryList .panel-heading .btn.btn-raised.btn-default:hover,
-.entryList .panel-heading .btn.btn-raised.btn-success:hover {
+.entryList .card-header .btn.btn-raised.btn-secondary,
+.entryList .card-header .btn.btn-raised.btn-success,
+.entryList .card-header .btn.btn-raised.btn-secondary:hover,
+.entryList .card-header .btn.btn-raised.btn-success:hover {
     color: rgba(255, 255, 255, 0.95);
 }
 
@@ -246,7 +247,7 @@
     font-weight: 700;
 }
 
-.popover-content {
+.popover-body {
     font-size: 14px;
 }
 
@@ -261,26 +262,8 @@
     display: block;
 }
 
-.entryPagination nav {
-    text-align: center;
-}
-
 .entryPagination .pagination {
     margin: 10px 5px;
-}
-
-.entryPagination .pagination > li {
-    cursor: pointer;
-}
-
-.entryPagination .pagination > a {
-    color: black;
-}
-
-.entryPagination .pagination > li > span {
-    background-color: white !important;
-    color: #808080;
-    cursor: default;
 }
 
 .searchBlock {
@@ -298,7 +281,11 @@
 
 .listSortLabel {
     font-size: 12px;
+        .form-check-input{
+            visibility: hidden;
+    }
 }
+
 
 .newlyCreated > tr > td {
     background-color: yellow;
@@ -402,6 +389,7 @@
     min-height: 54px;
     font-size: 14px;
     padding-right: 0;
+    justify-content: space-between;
 }
 
 .entryList .lowerBlock .form-control {
@@ -421,7 +409,16 @@
 }
 
 .escoList__headerContainer {
-    padding: 0;
+    //bmd hack
+    padding-left: 0;
+    .escoList__massOperations{
+        display: flex;
+        align-items: center;
+    }
+    .btn-raised{
+        margin-top: 0;
+        margin-left: 20px;
+    }
 }
 
 .escoList__headerContainer .form-group {
@@ -442,10 +439,10 @@
 .termsCollection .entryRow .entryRowCol1{
   display: block;
 }
-.termsList .entryName{
+/* .termsList .entryName{
   display: block;
-}
-.escoList__lowerBlockContainer .checkbox .checkboxLabel {
+} */
+.escoList__lowerBlockContainer .form-check-input .checkboxLabel {
     vertical-align: text-bottom;
     margin-left: 4px;
     color: #333;
@@ -508,4 +505,10 @@ background-color: transparent;
 
 .escoList .entryList .entryListRow.newRow .listRowSurface {
     background-color: yellow;
+}
+
+.escoList__sortBy{
+    input[type="radio"]{
+        visibility:hidden;
+    }
 }

@@ -1,3 +1,4 @@
+import Pagination from 'commons/components/common/Pagination';
 import registry from 'commons/registry';
 import uiUtil from 'commons/util/uiUtil';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
@@ -78,7 +79,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
           labelHeight: true,
           inHeader: true,
         }, DOMUtil.create('button', null, this.buttonContainer));
-        this.dropdownMenu.domNode.classList.add('pull-right');
+        this.dropdownMenu.domNode.classList.add('float-right');
         buttons.forEach(this.installMenuItem.bind(this));
       } else {
         buttons.forEach(this.installButton.bind(this));
@@ -235,8 +236,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     Object.keys(this.buttons).forEach((name) => {
       const params = this.buttons[name];
       if (params.params.nlsKey) {
-        params.label.innerHTML =
-          `&nbsp;${(specific && specific[params.params.nlsKey]) || generic[params.params.nlsKey] || ''}`;
+        const labelContent = (specific && specific[params.params.nlsKey]) || generic[params.params.nlsKey] || '';
+        params.label.innerHTML = labelContent.length > 0 ? `&nbsp;${labelContent}` : '';
       }
       const popoverOptions = uiUtil.getPopoverOptions();
       mesg = null;
@@ -249,7 +250,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         popoverOptions.content = mesg;
         jquery(params.element).popover(popoverOptions);
       } else {
-        jquery(params.element).popover('destroy');
+        jquery(params.element).popover('dispose');
         if (params.params.nlsKeyTitle) {
           params.element.setAttribute('title',
             (specific && specific[params.params.nlsKeyTitle]) ||
@@ -274,7 +275,8 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const el = DOMUtil.create('button', {
       type: 'button',
     }, this.buttonContainer, params.first === true);
-    DOMUtil.addClass(el, `pull-right btn btn-raised btn-${params.button}`);
+    DOMUtil.addClass(el, `float-right btn btn-raised btn-${params.button}`);
+
 
     const span = DOMUtil.create('span', { 'aria-hidden': true }, el);
     DOMUtil.addClass(span, `fas fa-${params.icon}`);
@@ -590,70 +592,18 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     return row;
   },
   _updatePagination() {
-    let li;
-    let a;
-    if (this._pageNodes) {
-      this._pageNodes.forEach((pageNode) => {
-        pageNode.parentNode.removeChild(pageNode);
-      });
-    }
-    this._pageNodes = [];
+    const currentPage = this.getCurrentPage() - 1;
+    const pageSize = this.entryList.getLimit();
+    const totalCount = this.getResultSize();
 
-    let i = 1;
-    const end = this.pageCount > this.currentPage + 3 ? this.currentPage + 3 : this.pageCount;
-    if (this.currentPage > 4) {
-      i = this.currentPage - 3;
-      li = DOMUtil.create('li', null, this.paginationList, this.paginationNextLi);
-      this._pageNodes.push(li);
-      a = DOMUtil.create('span', null, li);
-      a.innerHTML = '&hellip;';
-    }
-    for (; i <= end; i++) {
-      li = DOMUtil.create('li', null, this.paginationList, this.paginationNextLi);
-      this._pageNodes.push(li);
-      a = DOMUtil.create('a', null, li);
-      a.innerHTML = `${i}`;
-
-      if (i === this.currentPage) {
-        li.classList.add('active');
-      } else {
-        a.onclick = function (page, evt) {
-          evt.preventDefault();
-          this.showPage(page);
-        }.bind(this, i);
-      }
-    }
-    if (this.pageCount > this.currentPage + 3) {
-      li = DOMUtil.create('li', null, this.paginationList, this.paginationNextLi);
-      this._pageNodes.push(li);
-      a = DOMUtil.create('span', null, li);
-      a.innerHTML = '&hellip;';
-    }
-    if (this.currentPage === 1) {
-      this.paginationPreviousLi.classList.add('disabled');
-    } else {
-      this.paginationPreviousLi.classList.remove('disabled');
-    }
-
-    if (this.currentPage === this.pageCount) {
-      this.paginationPreviousLi.classList.remove('disabled');
-    } else {
-      this.paginationNextLi.classList.remove('disabled');
-    }
-
-    if (this.nlsGenericBundle) {
-      this.paginationPreviousA.setAttribute('title', this.nlsGenericBundle.listPreviousPage);
-      this.paginationNextA.setAttribute('title', this.nlsGenericBundle.listNextPage);
-    }
-  },
-  _clickPrevious(evt) {
-    evt.preventDefault();
-    this.showPage(this.currentPage - 1);
-  },
-
-  _clickNext(evt) {
-    evt.preventDefault();
-    this.showPage(this.currentPage + 1);
+    m.render(this.__pagination, m(Pagination, {
+      currentPage,
+      totalCount,
+      pageSize,
+      handleChangePage: (page) => {
+        this.showPage(page + 1);
+      },
+    }));
   },
   action_refresh() {
     this.searchTerm = this.searchTermNode.value || '';

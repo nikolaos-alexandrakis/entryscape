@@ -5,7 +5,7 @@
   "noRDF": "Kein Katalog gefunden. Sie werden nun an die Ansicht \"Katalogquelle\" weitergeleitet, wo Sie einen Katalog von einer Datei oder einem Link laden oder manuell eingeben können.",
   "noRDFProceed": "OK",
   "validationMessage": "Es {{PLURAL:${errors}|wurde ein Fehler|wurden ${errors} Fehler}} und {{PLURAL:${warnings}|eine Warnung|${warnings} Warnungen}} gefunden",
-  "mandatoryMissing": "Für die folgenden obligatorischen Top-Level Klassen wurden keine Instanzen gefunden: ",
+  "mandatoryMissing": "Für die folgenden verbindlichen Top-Level Klassen wurden keine Instanzen gefunden: ",
   "download": "Download",
   "upload": "Von Link oder Datei laden",
   "example": "Beispiel laden",

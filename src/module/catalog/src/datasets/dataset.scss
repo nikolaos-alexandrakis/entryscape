@@ -20,7 +20,7 @@
     background-color: lightblue !important;
 }
 
-.datasets > .panel > .panel-heading {
+.datasets > .card > .card-header {
     font-size: 22px;
 }
 
@@ -63,7 +63,7 @@ margin-right:2.5px !important;
     padding: 10px 12px;
 }
 
-.datasets div > entryRow__grid div.distributions div {
+.datasets div > .entryRow__grid div.distributions div {
     border-top-width: 0px;
 }
 
@@ -88,7 +88,7 @@ margin-right:2.5px !important;
     border-top-width: 0px;
 }
 
-.datasets .panel .alert {
+.datasets .card .alert {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
 }
@@ -212,9 +212,6 @@ div.errorreport {
     cursor: pointer;
     box-shadow: 0px 3px 6px -1px rgba(0,0,0,0.3);
     border: 3px solid transparent;
-}
-.datasetRow__content:focus{
-    border:3px solid $main-colour;
 }
 .dataset__icon{
     display: flex;

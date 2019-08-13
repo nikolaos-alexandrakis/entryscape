@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const path = require('path');
 const DojoWebpackPlugin = require('dojo-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -82,7 +82,7 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules\/(?!(rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
+          exclude: /node_modules\/(?!(bootstrap|bootstrap-material-design|rdfjson|rdforms|esi18n|entrystore-js|)\/).*/,
           use: [
             {
               loader: 'babel-loader',
@@ -253,7 +253,7 @@ module.exports = (env, argv) => {
     } else if (argv.mode === 'production') {
       config = merge(config, {
         optimization: {
-          minimizer: [new UglifyJsPlugin()],
+          minimizer: [new TerserPlugin()],
         },
         plugins: [
           new HtmlWebpackPlugin({  // Also generate a test.html

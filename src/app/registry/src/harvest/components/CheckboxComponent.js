@@ -11,11 +11,15 @@ export default {
   },
   view(vnode) {
     const {
-      type = 'togglebutton',
+      type = 'switch',
       label,
       tooltip,
       input,
     } = vnode.attrs;
+
+    if (input && !input.type) {
+      input.type = 'checkbox';
+    }
 
     return m('.form-group', [
       m(`div.${type}`, [

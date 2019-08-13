@@ -2,7 +2,7 @@
     margin-bottom: 20px;
 }
 
-.classReport .panel-title a {
+.classReport .card-title a {
     cursor: pointer;
     display: block;
 }
@@ -23,11 +23,11 @@
     color: royalblue;
 }
 
-.classReport .panel-title .problems>span {
+.classReport .card-title .problems>span {
     padding-left: 10px;
 }
 
-.classReport .panel-title .problems>span .fa {
+.classReport .card-title .problems>span .fas {
     padding-left: 5px;
 }
 
@@ -38,23 +38,26 @@
     text-align: center;
     vertical-align: middle;
 }
+.classReport tr:first-child td:first-child {
+    border: 0;
+}
 .classReport table th:first-child {
     width: 1px;
 }
 
-.classReport .panel-title .fa {
+.classReport .card-title .fas {
     margin-right: 7px;
 }
 
-.classReport .panel-title .collapsed .fa-chevron-down {
+.classReport .card-title .collapsed .fa-chevron-down {
     display: none;
 }
 
-.classReport .panel-title .collapsed .fa-chevron-up {
+.classReport .card-title .collapsed .fa-chevron-up {
     display: inline;
 }
 
-.classReport .panel-title .fa-chevron-up {
+.classReport .card-title .fa-chevron-up {
     display: none;
 }
 div.errorreport{
@@ -63,6 +66,18 @@ div.errorreport{
     border-left-style: dotted;
     border-left-color: white;
     padding-left: 12px;
+}
+
+.classReport .problems {
+  position: absolute;
+  right: 16px;
+}
+
+.classReport .problems span {
+  margin-left: 10px;
+}
+.classReport .problems .fas{
+  margin-left: 5px;
 }
 
 .sidebarMode .esreReport {

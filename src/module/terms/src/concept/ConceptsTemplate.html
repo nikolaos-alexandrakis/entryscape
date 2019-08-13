@@ -1,5 +1,5 @@
 <div class="row spaView concepts">
-    <div class="col-xs-12 col-sm-3 col-md-4 sidebar" data-dojo-attach-point="sidebar">
+    <div class="col-12 col-sm-3 col-md-4 sidebar" data-dojo-attach-point="sidebar">
         <div data-dojo-attach-point="_conceptTree" class="conceptTree"></div>
         <div class="alert alert-danger schemeErrors hidden" id="tree-error"
              style="padding-bottom: 20px;" data-dojo-attach-point="_treeError,nls">
@@ -11,8 +11,8 @@
         <div class="conceptsControlls addTerm">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label" style="font-size: 14px">
+                    <div class="form-group row">
+                        <label class="bmd-label-static" style="font-size: 14px">
                             <span data-dojo-attach-point="nls">selectedTermDesc</span>
                             <span data-dojo-attach-point="__selectedTerm"
                                   style="font-weight: 700;"></span>
@@ -22,8 +22,8 @@
                                    data-dojo-attach-point="nls,_termLabel"
                                    data-dojo-attach-event="keyup: _checkKey"/>
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"
+                            <span class="input-group-btn input-group-append">
+                                <button class="btn btn-secondary" type="button"
                                         data-dojo-attach-event="onclick:_newC" title="addTerm">
                                     <span data-dojo-attach-point="nls" class="screenreader__span" style="display:none">addTerm</span>
                                     <i class="fas fa-check" aria-hidden="true"></i>
@@ -35,22 +35,22 @@
             </div>
         </div>
     </div>
-    <div class="hidden-xs col-sm-9 col-md-8 conceptmain"
+    <div class="col-sm-9 col-md-8 conceptmain"
          data-dojo-attach-point="__conceptEditorMain">
         <div data-dojo-attach-point="__editorBlock" style="display:none">
             <div data-dojo-attach-point="_editor"></div>
 
             <div class="conceptsControlls">
-                <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group d-flex" role="group">
                     <button type="button" data-dojo-attach-point="_saveButton"
                             data-dojo-attach-event="onClick:_saveC"
-                            class="btn btn-raised btn-success btn-lg btn-block"></button>
+                            class="btn btn-raised btn-success btn-lg"></button>
                     <button type="button" data-dojo-attach-point="_revertButton"
                             data-dojo-attach-event="onClick:_revertC"
-                            class="btn btn-raised btn-default btn-lg btn-block"></button>
+                            class="btn btn-raised btn-secondary btn-lg"></button>
                     <button type="button" data-dojo-attach-point="_deleteButton"
                             data-dojo-attach-event="onClick:_deleteC"
-                            class="btn btn-raised btn-default btn-lg btn-block"></button>
+                            class="btn btn-raised btn-secondary btn-lg"></button>
                 </div>
             </div>
         </div>

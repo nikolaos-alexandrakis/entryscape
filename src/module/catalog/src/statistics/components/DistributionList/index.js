@@ -43,7 +43,7 @@ export default () => ({
               tabIndex="0"
               data-uri={item.uri}
               data-name={item.filename || item.name || item.subname}
-              className={`stats__row flex--sb ${item.uri === selected ? 'selected' : ''}`}>
+              className={`stats__row flex--sb `}>
               <div className="row__title--wrapper">
                 {
                   item.filename ?
@@ -54,7 +54,7 @@ export default () => ({
               </div>
               <div className="flex--sb row--right--wrapper">
                 <span
-                  className="row__text label" data-format={item.format}
+                  className="row__text label badge" data-format={item.format}
                   title={item.format}>{item.abbrevFormat || item.format}
                 </span>
                 <span className="row__text stat__count">{item.count}</span>

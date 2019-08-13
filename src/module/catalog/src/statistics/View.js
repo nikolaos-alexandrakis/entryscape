@@ -2,7 +2,7 @@ import escaStatistics from 'catalog/nls/escaStatistics.nls';
 import { getMultiDatasetChartData } from 'catalog/statistics/utils/chart';
 import { isCatalogPublished } from 'catalog/utils/catalog';
 import PlaceholderChart from 'commons/components/chart/Placeholder';
-import BarChart from 'commons/components/common/chart/TimeBarChart';
+import BarChart from 'commons/components/chart/Time';
 import Pagination from 'commons/components/common/Pagination';
 import SearchSelect from 'commons/components/common/select/SearchSelect';
 import registry from 'commons/registry';
@@ -246,11 +246,11 @@ export default declare(MithrilView, {
         return (
           <div>
             <div className="stats__title">
-              <h3>{escaStatisticsNLS.statsViewHeader}</h3>
+              <h4 className="display-4">{escaStatisticsNLS.statsViewHeader}</h4>
             </div>
             <section className="stats__wrapper">
-              <div className="chooser__wrapper">
-                <h4>{escaStatisticsNLS.statsViewTimeRange}</h4>
+              <div className="chooser__wrapper d-flex align-items-center">
+                <h5 style={{marginRight: 200}}>{escaStatisticsNLS.statsViewTimeRange}</h5>
                 <SearchSelect
                   options={timeRangesItems}
                   selectedOptions={[state.timeRanges.selected]}
@@ -258,7 +258,7 @@ export default declare(MithrilView, {
                 />
               </div>
               <div className="visualization__wrapper">
-                <h4>{escaStatisticsNLS.statsViewDistributionStats}</h4>
+                <h5>{escaStatisticsNLS.statsViewDistributionStats}</h5>
                 <div className="visualization__chart">
                   {hasData ?
                     <BarChart
@@ -269,7 +269,6 @@ export default declare(MithrilView, {
                 </div>
               </div>
               <div className="data__wrapper">
-
                 <div className="distributions__wrapper">
                   <div className="distributionList__tabs">
                     <Tabs items={tabs} selected={state.activeTab} onchangeTab={onchangeTab}/>

@@ -4,9 +4,9 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
 import declare from 'dojo/_base/declare';
 import { NLSMixin } from 'esi18n';
-import 'fuelux/js/loader';
 import jquery from 'jquery';
 import { template as renderTemplate } from 'lodash-es';
+import PubSub from 'pubsub-js';
 import DOMUtil from '../util/htmlUtil';
 import template from './AsyncHandlerTemplate.html';
 import './errors.css';
@@ -22,7 +22,7 @@ const UNAUTHORIZED = 2;
 const SIGNED_OUT = 3;
 const LOST_CONNECTION = 4;
 
-const extractProblem = function (err) {
+const extractProblem = (err) => {
   if (typeof err === 'object' && err.response && typeof err.response.status === 'number') {
     const status = err.response.status;
     const major = Math.floor(status / 100);
@@ -33,7 +33,8 @@ const extractProblem = function (err) {
       case 3:
         return GENERIC_PROBLEM;
       case 4:
-        return status === 401 ? UNAUTHORIZED : GENERIC_PROBLEM;
+        // 403 is a specific error when a user is disabled and the correct username/password combination was submitted
+        return status === 401 || status === 403 ? UNAUTHORIZED : GENERIC_PROBLEM;
       default:
     }
   }
@@ -55,10 +56,14 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.inherited('postCreate', arguments);
     this.promises = [];
 
-    // this.fadeIn = jquery(this.domNode).fadeTo(400, 1);
     document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(this.domNode);
     });
+
+    jquery(this.domNode).on('hidden.bs.modal', () => {
+      this.resetDialogAfterClose();
+    });
+
     this._ignoreNext = {};
     this._ignore = {};
   },
@@ -157,12 +162,17 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
 
   openDialog(manual = false) {
     this.manual = manual;
-    this.dialogOpen = true;
-    this.domNode.style.display = 'block';
-    jquery(this.domNode).fadeTo(400, 1);
-    if (!this.manual) {
-      this.updateDialog();
-    }
+    jquery(this.domNode).modal('show');
+    const subToken = PubSub.subscribe('hide.bs.modal', () => { // @todo check that this specific modal was hidden
+      PubSub.unsubscribe(subToken);
+      jquery(this.domNode).modal('hide');
+    });
+    jquery(this.domNode).on('shown.bs.modal', () => {
+      this.dialogOpen = true;
+      if (!this.manual) {
+        this.updateOrCloseDialog();
+      }
+    });
   },
 
   updateOrCloseDialog() {
@@ -199,24 +209,24 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
         this.renderDialog(userinfo.id === '_guest' ? SIGNED_OUT : GENERIC_PROBLEM);
       });
     } else {
-      //                this.renderDialog(SIGNED_OUT);
       this.renderDialog(rejectionReason);
     }
   },
 
   closeDialog() {
     if (this.dialogOpen) {
-      // jquery(this.fadeIn).stop();
-      this.domNode.style.display = 'none';
-      if (this._loader.firstChild) {
-        jquery(this._loader.firstChild).loader('destroy');
-      }
-      this.promises = [];
-      delete this.dialogOpen;
-      this.checkCountIdx = -1;
-      clearTimeout(this.checkCountdownTimeout);
+      jquery(this.domNode).modal('hide');
     }
-    this.messages.style.display = '';
+  },
+
+  resetDialogAfterClose() {
+    this._dataLoading.classList.remove('d-none');
+    this._dataError.classList.add('d-none');
+    this._messagesBlock.classList.add('d-none');
+    this.promises = [];
+    this.dialogOpen = false;
+    this.checkCountIdx = -1;
+    clearTimeout(this.checkCountdownTimeout);
     this.manual = false;
   },
 
@@ -226,29 +236,22 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   renderDialog(state) {
     if (state === INPROGRESS) {
-      jquery(this._loader.firstChild).loader('destroy');
-      jquery(DOMUtil.create('div', { class: 'loader' }, this._loader)).loader();
+      this._dataLoading.classList.remove('d-none');
+      this._dataError.classList.add('d-none');
     } else {
-      jquery(this._loader.firstChild).loader('destroy');
+      this._dataLoading.classList.add('d-none');
+      this._dataError.classList.remove('d-none');
     }
 
     switch (state) {
       case INPROGRESS:
-        this.domNode.classList.remove('reject1', 'reject2', 'reject3');
-        this.domNode.classList.add('inprogress');
         break;
       case GENERIC_PROBLEM:
-        this.domNode.classList.remove('inprogress', 'reject2', 'reject3');
-        this.domNode.classList.add('reject1');
         this.renderDetails();
         break;
       case SIGNED_OUT:
-        this.domNode.classList.remove('inprogress', 'reject1', 'reject3');
-        this.domNode.classList.add('reject2');
         break;
       case LOST_CONNECTION:
-        this.domNode.classList.remove('inprogress', 'reject1', 'reject2');
-        this.domNode.classList.add('reject3');
         this.checkConnection(true);
         break;
       default:
@@ -285,17 +288,17 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.hideDetails();
   },
   hideDetails() {
-    const showHideButtonEl = this.domNode.querySelector('.btn-default');
+    const showHideButtonEl = this.domNode.querySelector('.btn-secondary');
 
     showHideButtonEl.innerHTML = this.NLSLocalized0.showDetails;
-    this.messages.style.display = 'none';
+    this._messagesBlock.classList.add('d-none');
     this.detailsShowing = false;
   },
   showDetails() {
-    const showHideButtonEl = this.domNode.querySelector('.btn-default');
+    const showHideButtonEl = this.domNode.querySelector('.btn-secondary');
 
     showHideButtonEl.innerHTML = this.NLSLocalized0.hideDetails;
-    this.messages.style.display = 'block';
+    this._messagesBlock.classList.remove('d-none');
     this.detailsShowing = true;
   },
   toggleDetails() {
@@ -309,7 +312,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   signIn() {
     const signInDialog = registry.get('signInDialog');
     this.closeDialog();
-    this.domNode.style.display = 'none';
+    jquery(this.domNode).modal('hide');
     signInDialog.dialog.conditionalHide = function () {
       delete signInDialog.mainDialog.conditionalHide;
       signInDialog.dialog.hide();
@@ -329,6 +332,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     const es = registry.get('entrystore');
     const drawCounter = (seconds) => {
       // Not connected. Connecting in 4s... Try Now
+      this.connectionBlock.classList.remove('d-none');
       this.timeToCheck.innerHTML =
         renderTemplate(this.NLSLocalized0.notConnected)({ time: seconds });
     };

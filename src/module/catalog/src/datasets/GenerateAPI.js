@@ -1,20 +1,20 @@
-import m from 'mithril';
-import config from 'config';
-import registry from 'commons/registry';
-import stamp from 'dojo/date/stamp';
-import { i18n } from 'esi18n';
-import { promiseUtil, utils } from 'store';
-import { clone, cloneDeep, merge, template } from 'lodash-es';
+import escaApiProgressNLS from 'catalog/nls/escaApiProgress.nls';
+import escaFilesNLS from 'catalog/nls/escaFiles.nls';
 import Alert from 'commons/components/common/alert/Alert';
 import Button from 'commons/components/common/button/Button';
 import Row from 'commons/components/common/grid/Row';
 import TaskProgress from 'commons/progresstask/components/TaskProgress';
 import ProgressDialog from 'commons/progresstask/ProgressDialog';
-import escaFilesNLS from 'catalog/nls/escaFiles.nls';
-import escaApiProgressNLS from 'catalog/nls/escaApiProgress.nls';
+import registry from 'commons/registry';
+import config from 'config';
+import stamp from 'dojo/date/stamp';
+import { i18n } from 'esi18n';
+import { clone, cloneDeep, merge, template } from 'lodash-es';
+import m from 'mithril';
+import { promiseUtil, utils } from 'store';
 import pipelineUtil from './pipelineUtil';
-import { getDistributionFileRURIs, getDistributionFilesInfo } from './utils/distributionUtil';
 import apiUtil from './utils/apiUtil';
+import { getDistributionFileRURIs, getDistributionFilesInfo } from './utils/distributionUtil';
 
 /**
  * TODO move from here
@@ -130,7 +130,7 @@ export default class {
     }
     m.render(this.modalBody, m(TaskProgress, { tasks: getObjectValues(tasks) }));
     if (updateFooter) {
-      this.showFooterResult(errorMessage);
+      this.showFooterResult(errorMessage, 'danger');
     }
   }
 
@@ -179,7 +179,7 @@ export default class {
          * Inform the user that either or both parent dataset and catalog are not public. Activating the api will
          * make the data accessible via the API
          */
-        // eslint-disable-next-line
+          // eslint-disable-next-line
         const nonPublicParent = isDatasetPublic ? (isCatalogPublic ? 'dataset and catalog' : 'dataset') : 'catalog';
         const message = i18n.renderNLSTemplate(this.escaFiles.activateAPINotAllowedDatasetNotPublic, {
           parent: nonPublicParent,
@@ -309,15 +309,13 @@ export default class {
   async _createDistribution(pipelineResource) {
     // create new distribution for the newly created API
     await this.createDistributionForAPI(pipelineResource);
-    this.updateProgressDialogState({ fileprocess: { status: 'done' } });
-    this.showFooterResult();
 
     // update UI
     this.fileEntryURIs.push(this.distributionEntry.getResourceURI());
     this.onSuccess();
   }
 
-  createDistributionForAPI(pipelineResultEntryURI) {
+  async createDistributionForAPI(pipelineResultEntryURI) {
     if (!pipelineResultEntryURI || !this.dataset) {
       return new Promise((resolve, reject) =>
         reject(!pipelineResultEntryURI
@@ -325,15 +323,15 @@ export default class {
     }
     const datasetEntry = this.dataset;
     const self = this;
-    return registry.getEntryStore()
-      .getEntry(pipelineResultEntryURI)
-      .then(prEntry => createAPIDistribution(prEntry, self.distributionEntry)
-        .then(distEntry => utils.addRelation(
-          datasetEntry,
-          registry.get('namespaces').expand('dcat:distribution'),
-          distEntry,
-        )),
-      );
+    const prEntry = await registry.getEntryStore().getEntry(pipelineResultEntryURI);
+    const distEntry = await createAPIDistribution(prEntry, self.distributionEntry);
+    utils.addRelation(
+      datasetEntry,
+      registry.get('namespaces').expand('dcat:distribution'),
+      distEntry,
+    );
+
+    return Promise.resolve(true);
   }
 
   /**
@@ -353,18 +351,22 @@ export default class {
       pipelineResource.setTransformArguments(transformId, { action: 'create' });
       await pipelineResource.commit();
 
-      const esu = registry.get('entrystoreutil');
-      const fileEntry = await esu.getEntryByResourceURI(tempFileURIs[0]);
-
-      const pipelineResultURIs = await pipelineResource.execute(fileEntry, {});
+      // update UI, progress dialog
       this.updateProgressDialogState({
         init: { status: 'done' },
         fileprocess: { status: 'progress' },
       });
 
+      const esu = registry.get('entrystoreutil');
+      const fileEntry = await esu.getEntryByResourceURI(tempFileURIs[0]);
+      const pipelineResultURIs = await pipelineResource.execute(fileEntry, {});
+      const checkStatusMessage = await apiUtil.checkStatusOnRepeat(pipelineResultURIs[0]);
       tempFileURIs = tempFileURIs.slice(1); // remove first file entry
+
       if (tempFileURIs.length === 0) {
         this._createDistribution(pipelineResultURIs[0]);
+        this.updateProgressDialogState({ fileprocess: { status: 'done' } });
+        this.showFooterResult(checkStatusMessage, checkStatusMessage ? 'warning' : 'success');
       } else {
         /** @type {store/Entry} */
         const pipelineResultEntry = await registry.getEntryStore().getEntry(pipelineResultURIs[0]);
@@ -393,6 +395,11 @@ export default class {
          * createDistribution
          */
         this._createDistribution(pipelineResultURIs[0]);
+
+        this.updateProgressDialogState({ fileprocess: { status: 'done' } });
+        // @todo this is somehow problematic.
+        // It should get a checkStatusMessage from checkStatusOnRepeat from the _processFiles
+        this.showFooterResult();
       }
     } catch (err) {
       const message = this.escaApiProgress.apiProgressError;
@@ -442,7 +449,7 @@ export default class {
 
       // TODO explain
       const result = await pipelineResource.execute(fileEntry, {});
-      await apiUtil.checkStatusOnRepeat(result[0]);
+      const statusCheckMessage = await apiUtil.checkStatusOnRepeat(result[0]);
       tempFileURIs = tempFileURIs.slice(1); // remove first file entry
       if (tempFileURIs.length === 0) {
         this.updateProgressDialogState({ fileprocess: { status: 'done' } });
@@ -467,7 +474,7 @@ export default class {
       }
       // update distribution and UI
       await this.updateApiDistribution();
-      await this.showFooterResult();
+      this.showFooterResult(statusCheckMessage, statusCheckMessage ? 'warning' : 'success');
     } catch (err) {
       // TODO Error code here
       const errMessage = `${this.escaApiProgress.apiProgressError}
@@ -478,7 +485,8 @@ export default class {
       throw Error(err);
     }
   }
-  showFooterResult(message = null) {
+
+  showFooterResult(message = null, type = 'success') {
     const modalFooter = this.progressDialog.getModalFooter();
     const onclick = this.progressDialog.hide.bind(this.progressDialog);
     m.render(modalFooter, m(Row, {
@@ -489,21 +497,22 @@ export default class {
           m(Button, {
             element: 'button',
             type: message ? 'default' : 'primary',
-            classNames: ['pull-right', 'col-md-2'],
+            classNames: ['float-right', 'col-md-2'],
             text: message ?
               this.escaApiProgress.nlsProgressCancel : this.escaApiProgress.nlsProgressDone,
             onclick,
           }),
           m(Alert, {
             element: 'span',
-            type: message ? 'danger' : 'success',
-            classNames: ['pull-left', 'col-md-8'],
+            type,
+            classNames: ['float-left', 'col-md-8'],
             text: message || this.escaApiProgress.nlsProgressSuccess,
             children: null,
           })],
       }],
     }));
   }
+
   done() {
     this.progressDialog.hide();
   }

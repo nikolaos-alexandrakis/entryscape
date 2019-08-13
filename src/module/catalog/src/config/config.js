@@ -289,7 +289,7 @@ export default {
       includeFile: false,
       includeLink: false,
       inlineCreation: false,
-      faClass: 'diamond',
+      faClass: 'gem',
     },
     datasetIdea: {
       label: { en: 'Ideas' },
@@ -300,7 +300,7 @@ export default {
       includeFile: false,
       includeLink: false,
       inlineCreation: false,
-      faClass: 'lightbulb-o',
+      faClass: 'lightbulb',
     },
     datasetDocument: {
       label: { en: 'Document' },

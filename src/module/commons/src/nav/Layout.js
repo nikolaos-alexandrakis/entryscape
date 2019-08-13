@@ -204,7 +204,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         DOMUtil.addClass(a, 'bottom_footer_button btn btn-raised btn-link btn-sm');
 
         if (fButton.faIcon) {
-          DOMUtil.create('span', null, a).classList.add(`fa fa-${fButton.faIcon}`);
+          DOMUtil.create('span', null, a).classList.add(`fas fa-${fButton.faIcon}`);
         }
         a.setAttribute('title', title);
         DOMUtil.create('span', null, a).innerHTML = label;
@@ -448,7 +448,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     nvi.views.forEach((viewDef) => {
       const isSelected = viewDef.name === viewName;
 
-      const li = DOMUtil.create('li', null, this.controllerViewList);
+      const li = DOMUtil.create('li', {class:'nav-item'}, this.controllerViewList);
       if (isSelected) {
         li.classList.add('selected');
       }

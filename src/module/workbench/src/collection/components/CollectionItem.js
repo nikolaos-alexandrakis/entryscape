@@ -6,7 +6,7 @@ export default CollectionItem = {
     return m(`li.${bid}__listItem[role="presentation"].${activeCss}`, { key: id },
       m('a', { href },
         [
-          m('span.badge.pull-right', size),
+          m('span.badge.badge-pill.badge-primary.float-right', size),
           m(`span.${bid}_entityName`, m.trust(title)),
         ]));
   },

@@ -23,6 +23,6 @@ export default () => ({
     jquery(vnode.dom).selectize(settings);
   },
   view() {
-    return <input type='text'/>;
+    return <div className="form-group"><input type='text'/></div>;
   },
 });

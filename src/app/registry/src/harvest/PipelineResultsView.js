@@ -1,6 +1,5 @@
 import GroupComponent from 'commons/components/common/Group';
 import KeyValueListComponent from 'commons/components/common/keyvalue/KeyValueList';
-import PanelGroupComponent from 'commons/components/common/panel/PanelGroup';
 import TitleComponent from 'commons/components/common/Title';
 import registry from 'commons/registry';
 import config from 'config';
@@ -13,6 +12,7 @@ import m from 'mithril';
 import { utils } from 'rdforms';
 import esrePipelineResultListDialog from 'registry/nls/esrePipelineResultListDialog.nls';
 import { terms, types } from 'store';
+import HarvestList from './components/HarvestingList';
 import PipelineResult from './PipelineResult';
 import template from './PipelineResultsViewTemplate.html';
 
@@ -125,7 +125,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         externalLink: true,
         icon,
         popover,
-        classNames: ['btn-default'],
+        classNames: ['btn-secondary'],
       };
     }
 
@@ -140,10 +140,10 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         m(KeyValueListComponent, { data }),
       ],
     }),
-    contactText ? m('div', { class: `alert alert-info ${this.bid}__info` }, [
-      m('i', { class: `fas fa-info-circle fa-2x ${this.bid}__infoIcon` }),
-      m('span', {}, contactText),
-    ]) : null,
+      contactText ? m('div', { class: `alert alert-info ${this.bid}__info` }, [
+        m('i', { class: `fas fa-info-circle fa-2x ${this.bid}__infoIcon` }),
+        m('span', {}, contactText),
+      ]) : null,
     ]);
   },
 
@@ -203,10 +203,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         classNames: ['btn-raised', 'btn-success'],
       };
     }
-    m.render(this.__pipelineResultList, m(PanelGroupComponent, {
-      panels: pipeResults,
-      title,
-      button,
-    }));
+
+    m.render(this.__pipelineResultList,
+      m(HarvestList, {
+        cards: pipeResults,
+        title,
+        button,
+      }));
   },
 });
