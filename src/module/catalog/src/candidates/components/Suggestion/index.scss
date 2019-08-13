@@ -7,6 +7,10 @@
     // padding: 1rem;
   }
 
+  .subTitle {
+    width: 160px;
+  }
+
   .row {
     display: flex;
     width: 100%;
@@ -17,8 +21,8 @@
     text-align: right;
   }
 
-  .fa-cubes {
-    margin-right: 13px;
+  .fas.fa-cubes {
+    margin-right: 33px;
   }
 
   .remove {

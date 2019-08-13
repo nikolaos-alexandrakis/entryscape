@@ -174,7 +174,15 @@ export default (suggestion, wrapperFunction) => {
         return suggestion
           .getEntryInfo()
           .commit()
-          .then(onDone);
+          .then(() => {
+            const delayMillis = 2000;
+            const async = registry.get('asynchandler');
+            async.openDialog(true);
+            setTimeout(() => { // In order to avoid a slow solr re-index
+              async.closeDialog(true);
+              onDone();
+            }, delayMillis);
+          });
       }
 
       return Promise.resolve(null);
