@@ -83,6 +83,7 @@
     "nls-loader": "https://bitbucket.org/metasolutions/nls-loader#master",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "parallel-webpack": "^2.4.0",
     "pre-commit": "^1.2.2",
     "print-licenses": "https://bitbucket.org/metasolutions/print-licenses",
     "q": "^1.5.0",
@@ -106,6 +107,7 @@
     "lint"
   ],
   "scripts": {
+    "build:all": "parallel-webpack --config webpack.prod.js -no-stats",
     "build:suite": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite",
     "build:suite:nls": "webpack --config webpack.config.js --mode=production --display=errors-only --app=suite --nls-warnings=true",
     "build:registry": "webpack --config webpack.config.js --mode=production --display=errors-only --app=registry",
