@@ -1,15 +1,15 @@
 window.__entryscape_config = {
   block: 'config',
-  page_language: 'sv',
+  page_language: 'en',
   namespaces: {
     ecpo: 'http://publications.europa.eu/resource/authority/',
   },
-  named: { 'http://creativecommons.org/licenses/by/2.5/se/': { sv: 'Erkännande 2.5 Sverige (CC BY 2.5 SE)' },
-    'http://creativecommons.org/licenses/by/2.5/se': { sv: 'Erkännande 2.5 Sverige (CC BY 2.5 SE)' },
-    'http://www.creativecommons.se/om-cc/licenserna/': { sv: 'Någon CC licens' },
-    'https://creativecommons.org/publicdomain/mark/1.0/': { sv: 'Public Domain Mark 1.0' },
-    'https://opendatacommons.org/licenses/dbcl/1.0/': { sv: 'Database Contents License (DbCL) v1.0' },
-    'https://trafiklab.se/api/gtfs-sverige-2/licens': { sv: 'GTFS Sverige 2 - Licens' },
+  named: { 'http://creativecommons.org/licenses/by/2.5/se/': { en: 'Attribution 2.5 Sweden (CC BY 2.5 SE)' },
+    'http://creativecommons.org/licenses/by/2.5/se': { en: 'Attribution 2.5 Sverige (CC BY 2.5 SE)' },
+    'http://www.creativecommons.se/om-cc/licenserna/': { en: 'Some CC license' },
+    'https://creativecommons.org/publicdomain/mark/1.0/': { en: 'Public Domain Mark 1.0' },
+    'https://opendatacommons.org/licenses/dbcl/1.0/': { en: 'Database Contents License (DbCL) v1.0' },
+    'https://trafiklab.se/api/gtfs-sverige-2/licens': { en: 'GTFS Sweden 2 - License' },
     'https://trafiklab.se/api/oxyfi-realtidspositionering/licens': { sv: 'Oxyfi-Realtidspositionering - Licens' },
     'https://trafiklab.se/api/resrobot-reseplanerare/beskrivning/licens': { sv: 'ResRobot - Reseplanerare - Licens' },
     'https://trafiklab.se/api/resrobot-stolptidtabeller-2/licens': { sv: 'ResRobot - Stolptidtabeller 2 - Licens' },
@@ -26,7 +26,7 @@ window.__entryscape_config = {
     {
       type: 'search',
       name: 'org',
-      label: 'Tillhandahållande organisation',
+      label: 'Publisher',
       property: 'dcterms:publisher',
       nodetype: 'uri',
       rdftype: ['foaf:Agent', 'foaf:Organization', 'foaf:Person'],
@@ -35,7 +35,7 @@ window.__entryscape_config = {
     {
       type: 'search',
       name: 'cp',
-      label: 'Kontakt',
+      label: 'Contact point',
       property: 'dcat:contactPoint',
       nodetype: 'uri',
       rdftype: ['vcard:Kind', 'vcard:Organization', 'vcard:Individual'],
@@ -45,7 +45,7 @@ window.__entryscape_config = {
     {
       type: 'rdforms',
       name: 'theme',
-      label: 'Tema',
+      label: 'Theme',
       property: 'dcat:theme',
       nodetype: 'uri',
       templatesource: 'dcat:theme-isa',
@@ -53,7 +53,7 @@ window.__entryscape_config = {
     {
       type: 'facet',
       name: 'keyword',
-      label: 'Nyckelord',
+      label: 'Keyword',
       property: 'dcat:keyword',
       nodetype: 'literal',
       limit: 10,
@@ -61,14 +61,14 @@ window.__entryscape_config = {
     {
       type: 'facet',
       name: 'access',
-      label: 'Åtkomsträttigheter',
+      label: 'Access rights',
       property: 'dcterms:accessRights',
       nodetype: 'uri',
     },
     {
       type: 'facet',
       name: 'license',
-      label: 'Licenser',
+      label: 'License',
       property: 'dcterms:license',
       nodetype: 'uri',
       limit: 7,
@@ -91,24 +91,23 @@ window.__entryscape_config = {
       extends: 'list',
       relation: 'dcat:distribution',
       template: 'dcat:OnlyDistribution',
-      expandTooltip: 'Mer information',
-      unexpandTooltip: 'Mindre information',
+      expandTooltip: 'More information',
+      unexpandTooltip: 'Less information',
       listbody: '<div class="formats">{{body}}</div>',
-      listplaceholder: '<div class="alert alert-info" role="alert">Denna datamängd har inga dataresurser' +
-        ' angivna</div>',
-      listhead: '<h4>Dataresurser</h4>',
+      listplaceholder: '<div class="alert alert-info" role="alert">This dataset has no distributions</div>',
+      listhead: '<h4>Distributions</h4>',
       rowhead: '<div class="esbRowHead"><a href="{{prop "dcat:accessURL"}}" class="pull-right btn btn-sm btn-primary"' +
         ' role="button"' +
         ' target="_blank">' +
-        '<i class="fas fa-external-link-square-alt" aria-hidden="true"></i>&nbsp;Webbsida</a>' +
+        '<i class="fas fa-external-link-square-alt" aria-hidden="true"></i>&nbsp;Webpage</a>' +
         '{{#ifprop "dcat:downloadURL"}}' +
         '<a href="{{prop "dcat:downloadURL"}}" class="pull-right btn btn-sm btn-default" role="button" target="_blank">' +
-        '<i class="fas fa-download" aria-hidden="true"></i>&nbsp;Ladda ned</a>' +
+        '<i class="fas fa-download" aria-hidden="true"></i>&nbsp;Download</a>' +
         '{{/ifprop}}' +
         '<span class="label formatLabel label-success md5_{{prop "dcterms:format" render="md5"}}" ' +
         'title="{{prop "dcterms:format"}}">{{prop "dcterms:format" render="label"}}</span>' +
-        '<span class="resourceLabel">{{text fallback="<span class=\\\'distributionNoName\\\'>Ingen titel' +
-        ' given</span>"}}</span></div>',
+        '<span class="resourceLabel">{{text fallback="<span class=\\\'distributionNoName\\\'>No provided title' +
+        '</span>"}}</span></div>',
     },
     {
       block: 'datasetView',
@@ -116,10 +115,10 @@ window.__entryscape_config = {
       htemplate: '<h3>{{text}}</h3>' +
         '<div class="esbDescription">{{text content="${dcterms:description}"}}</div>' +
         '{{#ifprop "dcat:theme"}}' +
-        '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
+        '<h4>Theme: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
         '{{/ifprop}}' +
         '{{#distributionList}}{{/distributionList}}' +
-        '<h4>Ytterligare information</h4>\n' +
+        '<h4>Further information</h4>\n' +
         '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
         'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n',
     },
@@ -129,10 +128,10 @@ window.__entryscape_config = {
       htemplate: '<h3>{{text}}</h3>' +
       '<div class="esbDescription">{{text content="${dcterms:description}"}}</div>' +
       '{{#ifprop "dcat:theme"}}' +
-      '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
+      '<h4>Theme: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
       '{{/ifprop}}' +
       '{{#distributionList}}{{/distributionList}}' +
-      '<h4>Ytterligare information</h4>\n' +
+      '<h4>Further information</h4>\n' +
       '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
       'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n' +
       '{{showcaseList}}' +
@@ -145,16 +144,16 @@ window.__entryscape_config = {
       limit: '10',
       initsearch: true,
       dependencyproperties: 'dcterms:publisher',
-      listplaceholder: '<h4>Inga träffar</h4>',
+      listplaceholder: '<h4>No matches</h4>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
         '<h4>{{link namedclick="dataset"}}</h4>' +
         '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
         '{{#ifprop "dcat:theme"}}' +
-        '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
+        '<h4>Theme: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
         '{{/ifprop}}' +
         '{{#distributionList}}{{/distributionList}}' +
-        '<h4>Ytterligare information</h4>' +
+        '<h4>Further information</h4>' +
         '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset"' +
         ' filterpredicates="dcterms:title,dcterms:description,dcterms:publisher,dcat:theme"}}</div></div>',
     },
@@ -175,9 +174,9 @@ window.__entryscape_config = {
       rdftype: 'http://entryscape.com/terms/Idea',
       limit: '10',
       dependencyproperties: 'dcterms:source',
-      listplaceholder: '<h4>Inga idéer ännu</h4>',
+      listplaceholder: '<h4>No ideas yet</h4>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-      '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
+      '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Uses: </span><strong>{{link' +
       ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
       '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
@@ -190,7 +189,7 @@ window.__entryscape_config = {
       limit: '10',
       relationinverse: 'dcterms:source',
       rdftype: 'http://entryscape.com/terms/Idea',
-      listhead: '<br><h4>Idéer - förslag på användning</h4>',
+      listhead: '<br><h4>Ideas - suggestions for usage</h4>',
       listbody: '<div class="esbIndent">{{body}}</div>',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
         '<h4><strong>{{text}}</strong></h4>' +
@@ -203,11 +202,11 @@ window.__entryscape_config = {
       block: 'showcaseSearch',
       extends: 'searchList',
       rdftype: 'http://entryscape.com/terms/Result',
-      listplaceholder: '<h4>Inga showcases ännu</h4>',
+      listplaceholder: '<h4>No showcases yet</h4>',
       limit: '10',
       dependencyproperties: 'dcterms:source',
       rowhead: '<div class="esbRowHead esbRowHead--large">' +
-        '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Använder: </span><strong>{{link' +
+        '<span class="pull-right" style="margin:10px 10px 0px 0px"><span>Uses: </span><strong>{{link' +
         ' relation="dcterms:source" namedclick="dataset"}}</strong></span><h4><strong>{{text}}</strong></h4>' +
         '<div class="esbDescription">{{text content="${dcterms:description}"}}</div></div>',
       rowexpand: '<div class="esbRowExpand">' +
@@ -218,7 +217,7 @@ window.__entryscape_config = {
       block: 'showcaseList',
       extends: 'list',
       rdftype: 'http://entryscape.com/terms/Result',
-      listhead: '<br><h4>Showcases - känd användning</h4>',
+      listhead: '<br><h4>Showcases - known uses</h4>',
       limit: '10',
       relationinverse: 'dcterms:source',
       listbody: '<div class="esbIndent">{{body}}</div>',
