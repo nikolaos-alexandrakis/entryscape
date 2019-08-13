@@ -10,8 +10,6 @@ import declare from 'dojo/_base/declare';
 import ListView from '../utils/ListView';
 import CandidateRow from './CandidateRow';
 import UpgradeDialog from './UpgradeDialog';
-import PreparationsOverview from './views/Overview';
-import MithrilView from 'commons/view/MithrilView';
 
 const ns = registry.get('namespaces');
 
@@ -59,15 +57,6 @@ const CommentDialog2 = declare([CommentDialog], {
     this.footerButtonLabel = this.list.nlsSpecificBundle.commentFooterButton;
     this.localeChange();
   },
-});
-
-let viewExport;
-const preparationsView = declare(MithrilView, {
-  mainComponent: () => ({
-    view() {
-      return <PreparationsOverview />;
-    },
-  }),
 });
 
 const candidatesView = declare([ETBaseList], {
@@ -144,12 +133,4 @@ const candidatesView = declare([ETBaseList], {
   },
 });
 
-// const configured = 'candidates';
-const configured = 'preparations';
-if (configured === 'preparations') {
-  viewExport = preparationsView;
-} else {
-  viewExport = candidatesView;
-}
-
-export default viewExport;
+export default candidatesView;

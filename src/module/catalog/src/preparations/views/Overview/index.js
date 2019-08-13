@@ -6,7 +6,7 @@ import DOMUtil from 'commons/util/htmlUtil';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import SearchInput from 'commons/components/SearchInput';
 import Pagination from 'commons/components/common/Pagination';
-import Suggestion from 'catalog/candidates/components/Suggestion';
+import Suggestion from 'catalog/preparations/components/Suggestion';
 import bindActions from './actions';
 import './index.scss';
 

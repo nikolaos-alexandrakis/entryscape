@@ -3,6 +3,7 @@ import Cards from 'commons/gce/Cards';
 import Overview from 'catalog/overview/Overview';
 import FilesList from 'catalog/files/List';
 import CandidateList from 'catalog/candidates/CandidateList';
+import PreparationsView from 'catalog/preparations/PreparationsView';
 import DatasetList from 'catalog/datasets/List';
 import DatasetOverview from 'catalog/datasets/Overview';
 import Public from 'catalog/public/Public';
@@ -71,6 +72,21 @@ export default {
       route: '/catalog/:context/candidates',
       parent: 'catalog',
       module: 'catalog',
+      navbar: !config.get('catalog.includePreparations', false), // weather to show the statistics in the tabs or not
+    },
+    catalog__preparations: {
+      title: {
+        en: 'Preparations',
+        sv: 'Kandi&shy;dater',
+        da: 'Kandi&shy;dater',
+        de: 'Kandi&shy;daten',
+      },
+      class: PreparationsView,
+      faClass: 'tasks',
+      route: '/catalog/:context/preparations',
+      parent: 'catalog',
+      module: 'catalog',
+      navbar: config.get('catalog.includePreparations', false), // weather to show the statistics in the tabs or not
     },
     catalog__datasets: {
       class: DatasetList,
