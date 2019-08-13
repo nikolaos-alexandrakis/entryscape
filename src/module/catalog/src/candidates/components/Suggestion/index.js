@@ -40,8 +40,6 @@ export default (vnode) => {
       .find(entry.getResourceURI(), 'dcterms:references')
       .map(statement => statement.getValue());
 
-    console.log(datasetResourceURIs);
-
     if (datasetResourceURIs.length > 0) {
       registry.get('entrystore')
         .newSolrQuery()
@@ -49,7 +47,6 @@ export default (vnode) => {
         .resource(datasetResourceURIs)
         .getEntries()
         .then((datasets) => {
-          console.log(datasets);
           setState({ datasets });
         });
     }

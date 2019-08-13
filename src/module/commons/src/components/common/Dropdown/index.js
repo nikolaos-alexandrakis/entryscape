@@ -22,6 +22,7 @@ export default (vnode) => {
 
   const toggleDropdown = (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     // Push the change to the end of the event loop so the window click event
     // will be able to test isShowing correctly

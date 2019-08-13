@@ -7,7 +7,7 @@ export default () => ({
 
     return (
       <button
-        class={`btn btn-raised ${vnode.attrs.class}`}
+        class={`${vnode.attrs.class}`}
         onclick={onclick}
         title={title}
       >

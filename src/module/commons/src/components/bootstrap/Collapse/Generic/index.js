@@ -36,7 +36,8 @@ export default () => ({
       <div
         id={collapseId}
         className="collapse"
-        aria-labelledby={headerId}>
+        aria-labelledby={headerId}
+      >
         <div className="card-body">{vnode.children}</div>
       </div>
     </div>;

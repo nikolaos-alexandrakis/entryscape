@@ -176,7 +176,7 @@ export default (vnode) => {
 
       return (
         <main class="overview__wrapper">
-          <Button class="btn-link btn-sm  btn-back" onclick={actions.navigateToDatasets}>
+          <Button class="btn btn-raised btn-link btn-sm  btn-back" onclick={actions.navigateToDatasets}>
             <span class="fas fa-arrow-left"></span>
             {escaDataset.backTitle}
           </Button>
@@ -228,15 +228,15 @@ export default (vnode) => {
             </div>
 
             <div class="btn__wrapper">
-              <Button class="btn--edit btn-primary"
+              <Button class="btn btn-raised btn--edit btn-primary"
                 onclick={actions.openEditDialog}>
                 {escaDataset.editDatasetTitle}
               </Button>
-              <Button class="btn btn-default" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
-              <Button class="btn-default" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
-              <Button class="btn-default" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
+              <Button class="btn btn-raised btn btn-default" onclick={actions.openPreview}>{escaDataset.previewDatasetTitle}</Button>
+              <Button class="btn btn-raised btn-default" onclick={actions.downgrade}>{escaDataset.downgrade}</Button>
+              <Button class="btn btn-raised btn-default" onclick={actions.clone}>{escaDataset.cloneMenu}</Button>
               <Button
-                class={`btn-default ${isRemoveable ? '' : 'disabled'}`}
+                class={`btn btn-raised btn-default ${isRemoveable ? '' : 'disabled'}`}
                 title={isRemoveable ? '' : escaDataset.cannotRemoveDatasetPublishedTitle}
                 onclick={isRemoveable && removeDataset}
               >
