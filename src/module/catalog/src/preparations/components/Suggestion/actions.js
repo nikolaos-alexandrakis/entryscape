@@ -77,6 +77,11 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  /**
+   *
+   * @param {function} A callback for the edit dialog to call when it is complete
+   * @returns {undefined}
+   */
   const editComments = (onDone) => {
     const name = registry.get('rdfutils').getLabel(suggestion);
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
@@ -97,6 +102,12 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  /**
+   * Opens an SideDialog for editing
+   *
+   * @param {function} A callback for the edit dialog to call when it is complete
+   * @returns {undefined}
+   */
   const editSuggestion = (onDone) => {
     const editDialog = new EditSuggestionDialog({
       destroyOnHide: true,
@@ -108,6 +119,12 @@ export default (suggestion, wrapperFunction) => {
     editDialog.open({ row: { entry: suggestion }, onDone });
   };
 
+  /**
+   * Remove the Suggestion
+   *
+   * @param {function} A callback to call on successful completion
+   * @returns {P}
+   */
   const remove = (onSuccess = () => {}) => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     const dialogs = registry.get('dialogs');
@@ -122,6 +139,12 @@ export default (suggestion, wrapperFunction) => {
   };
 
   const createDatasetDialog = new CreateDatasetDialog();
+  /**
+   * Opens a SideDialog for creating a dataset that is attached to a Suggestion
+   *
+   * @param {function} A callback to call on completion
+   * @returns {undefined}
+   */
   const createDataset = (onDone = () => {}) => {
     createDatasetDialog.open({
       onDone: (datasetEntry) => {
@@ -136,6 +159,13 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  /**
+   * Removes the reference to an existing dataset from the Suggestion (does not remove the dataset)
+   *
+   * @param {string} The URI of the referenced dataset that should be removed
+   * @param {function} A callback to call on completion
+   * @returns {Promise}
+   */
   const removeDatasetReference = (datasetURI, onDone) => {
     const dialogs = registry.get('dialogs');
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
@@ -160,7 +190,7 @@ export default (suggestion, wrapperFunction) => {
    * @param {string} The new status in object position
    * @param {string} The string to display in the confirmation dialog
    * @param {function} A callback to call on completion
-   * @returns {undefined}
+   * @returns {Promise}
    */
   const changeStatus = (newStatus, message, onDone = () => {}) => {
     const dialogs = registry.get('dialogs');
@@ -189,11 +219,24 @@ export default (suggestion, wrapperFunction) => {
     });
   };
 
+  /**
+   * Change the status of a Suggestion to be archived
+   *
+   * @param {function} A callback to call on completion
+   * @returns {undefined}
+   */
   const archiveSuggestion = (onDone) => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     changeStatus('esterms:archived', escaPreparations.archiveSuggestion, onDone);
   };
 
+  /**
+   * Change the status of a Suggestion from archived to investigating
+   *
+   * @param {function} A callback to call on completion
+   *
+   * @returns {undefined}
+   */
   const unArchiveSuggestion = (onDone) => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     changeStatus('esterms:investigating', escaPreparations.unArchiveSuggestion, onDone);

@@ -12,13 +12,13 @@ import './index.scss';
 
 const ns = registry.get('namespaces');
 
-const getSearchObject = () => registry.get('entrystore')
+const getSolrQuery = () => registry.get('entrystore')
   .newSolrQuery()
   .rdfType('esterms:Suggestion')
   .context(registry.get('context'));
 
 const getFilteredEntries = (params = { status: 'esterms:investigating' }) => {
-  const qo = getSearchObject()
+  const qo = getSolrQuery()
     .status(ns.expand(params.status));
 
   if (params.sortOrder === 'title') {
@@ -36,10 +36,9 @@ const getFilteredEntries = (params = { status: 'esterms:investigating' }) => {
     }
   }
 
-  qo.limit(LIST_PAGE_SIZE_SMALL); // @scazan pre-fetch 3 pages worth
+  qo.limit(LIST_PAGE_SIZE_SMALL);
 
-  const list = registry.get('entrystore')
-    .createSearchList(qo);
+  const list = qo.list();
 
   return list;
 };
@@ -50,43 +49,47 @@ export default () => {
   const state = {
     suggestions: [],
     suggestionPage: 0,
-    totalSuggestions: 0,
+    totalSuggestions: null,
     archives: [],
     archivePage: 0,
-    totalArchives: 0,
+    totalArchives: null,
   };
 
   const setState = createSetState(state);
 
+  let suggestionSearchList = null;
   const getSuggestionEntries = (term = null) => {
-    const searchList = getFilteredEntries({
+    suggestionSearchList = !suggestionSearchList ? getFilteredEntries({
       term,
       status: 'esterms:investigating',
-    });
+    }) : suggestionSearchList;
 
-    searchList
+    suggestionSearchList
       .getEntries(state.suggestionPage)
       .then(suggestions => setState({
         suggestions,
-        totalSuggestions: searchList.getSize(),
+        totalSuggestions: suggestionSearchList.getSize(),
       }));
   };
 
+  let archiveSearchList = null;
   const getArchiveEntries = (term = null) => {
-    const searchList = getFilteredEntries({
+    archiveSearchList = !archiveSearchList ? getFilteredEntries({
       term,
       status: 'esterms:archived',
-    });
+    }) : archiveSearchList;
 
-    searchList
+    archiveSearchList
       .getEntries(state.archivePage)
       .then(archives => setState({
         archives,
-        totalArchives: searchList.getSize(),
+        totalArchives: archiveSearchList.getSize(),
       }));
   };
 
   const search = (term = null) => {
+    archiveSearchList = null;
+    suggestionSearchList = null;
     getArchiveEntries(term);
     getSuggestionEntries(term);
   };
@@ -158,6 +161,9 @@ export default () => {
               Suggestions
             </h1>
             <div class="list">
+              { (state.totalSuggestions == null) &&
+                <div class="placeholder"></div>
+              }
               { state.suggestions.map(suggestion => (
                 <Suggestion
                   key={suggestion.getId()}
@@ -171,6 +177,7 @@ export default () => {
                 pageSize={LIST_PAGE_SIZE_SMALL}
                 handleChangePage={paginateSuggestionList}
               />}
+              
             </div>
           </div>
           <div class="archive">
@@ -181,6 +188,9 @@ export default () => {
 
             <div class="suggestions">
               <div class="list">
+                { (state.totalArchives == null) &&
+                  <div class="placeholder"></div>
+                }
                 { state.archives.map(suggestion => (
                   <Suggestion
                     key={suggestion.getId()}
