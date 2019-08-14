@@ -45,7 +45,7 @@ const query = (qoParam, conf, term) => {
       props.forEach((prop) => {
         qo = qo.literalProperty(prop, `*${term}*`);
       });
-      qo = qo.disjuntiveProperties();
+      qo = qo.disjunctiveProperties();
     } else if (config.entrystore.defaultSolrQuery === 'all') {
       qo = qo.all(term);
     } else {
