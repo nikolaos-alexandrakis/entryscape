@@ -46,23 +46,42 @@ const getFilteredEntries = (params = { status: 'esterms:investigating' }) => {
 export default () => {
   const actions = bindActions(null, DOMUtil.preventBubbleWrapper);
 
-  const state = {
+  const defaultState = {
     suggestions: [],
     suggestionPage: 0,
+    suggestionSearchList: null,
     totalSuggestions: null,
     archives: [],
     archivePage: 0,
+    archiveSearchList: null,
     totalArchives: null,
   };
 
+  const state = { ...defaultState };
+
   const setState = createSetState(state);
 
-  let suggestionSearchList = null;
+  const getCachedSearchList = (term, name, type) => {
+    let searchList = null;
+
+    if (state[name] == null) {
+      searchList = getFilteredEntries({
+        term,
+        status: type,
+      });
+
+      const stateUpdateObject = {};
+      stateUpdateObject[name] = searchList;
+      setState(stateUpdateObject, true);
+    } else {
+      searchList = state[name];
+    }
+
+    return searchList;
+  };
+
   const getSuggestionEntries = (term = null) => {
-    suggestionSearchList = !suggestionSearchList ? getFilteredEntries({
-      term,
-      status: 'esterms:investigating',
-    }) : suggestionSearchList;
+    const suggestionSearchList = getCachedSearchList(term, 'suggestionSearchList', 'esterms:investigating');
 
     suggestionSearchList
       .getEntries(state.suggestionPage)
@@ -72,12 +91,8 @@ export default () => {
       }));
   };
 
-  let archiveSearchList = null;
   const getArchiveEntries = (term = null) => {
-    archiveSearchList = !archiveSearchList ? getFilteredEntries({
-      term,
-      status: 'esterms:archived',
-    }) : archiveSearchList;
+    const archiveSearchList = getCachedSearchList(term, 'archiveSearchList', 'esterms:archived');
 
     archiveSearchList
       .getEntries(state.archivePage)
@@ -88,14 +103,16 @@ export default () => {
   };
 
   const search = (term = null) => {
-    archiveSearchList = null;
-    suggestionSearchList = null;
+    setState({
+      archiveSearchList: null,
+      suggestionSearchList: null,
+    }, true);
     getArchiveEntries(term);
     getSuggestionEntries(term);
   };
 
   const reInitView = () => {
-    setState({ suggestions: [] });
+    setState(defaultState);
     getArchiveEntries(); // Needs to be handled somewhat manually due to solr index
     getSuggestionEntries();
   };
@@ -177,7 +194,6 @@ export default () => {
                 pageSize={LIST_PAGE_SIZE_SMALL}
                 handleChangePage={paginateSuggestionList}
               />}
-              
             </div>
           </div>
           <div class="archive">
