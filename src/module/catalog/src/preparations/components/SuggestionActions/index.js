@@ -17,6 +17,7 @@ export default (vnode) => {
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e);
+  const linkToDataset = e => actions.linkToDataset(e);
   const deleteSuggestion = e => actions.remove(e, updateParent);
   const createDataset = e => actions.createDataset(e, updateParent);
   const archiveSuggestion = e => actions.archiveSuggestion(e, updateParent);
@@ -38,7 +39,7 @@ export default (vnode) => {
           <Dropdown>
             {!isArchived && ([
               <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>,
-              <Button onclick={editSuggestion} class="fas fa-fw fa-link">{escaPreparations.linkDatasetMenu}</Button>,
+              <Button onclick={linkToDataset} class="fas fa-fw fa-link">{escaPreparations.linkDatasetMenu}</Button>,
               <Button onclick={createDataset} class="fas fa-fw fa-cubes">{escaPreparations.createDatasetMenu}</Button>,
             ])}
             <Button onclick={actions.editComments} class="fas fa-fw fa-comment">

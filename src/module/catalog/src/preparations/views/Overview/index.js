@@ -164,7 +164,12 @@ export default () => {
                   <span aria-hidden="true" class="fas fa-plus"></span>
                   <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
                 </button>
-                <button type="button" class="float-right btn btn-raised btn-secondary" title="Reload list">
+                <button
+                  type="button"
+                  class="float-right btn btn-raised btn-secondary"
+                  title="Reload list"
+                  onclick={reInitView}
+                >
                   <span aria-hidden="true" class="fas fa-sync"></span>
                   <span className="escoList__buttonLabel"></span>
                 </button>

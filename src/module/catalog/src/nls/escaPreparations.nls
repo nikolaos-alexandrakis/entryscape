@@ -19,6 +19,8 @@
     "unArchiveSuggestion": "Unarchive this Suggestion?",
     "deleteMenu": "Delete",
     "linkDatasetMenu": "Link to dataset",
+    "linkDatasetTitle": "Link to dataset",
+    "linkDatasetFooterButton": "Done",
     "removeLinkedDataset": "Remove the reference to this dataset?",
     "createDatasetMenu": "Create dataset",
     "listSearchPlaceholder": "Search for suggestions...",

@@ -1,5 +1,6 @@
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import ProgressDialog from 'commons/progress/ProgressDialog';
+import Preparations from 'catalog/preparations/views/Overview';
 import CommentDialog from 'commons/comments/CommentDialog';
 import typeIndex from 'commons/create/typeIndex';
 import { i18n } from 'esi18n';
@@ -8,6 +9,8 @@ import DOMUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
 import CreateDatasetDialog from 'catalog/datasets/DatasetCreateDialog';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
+
+import TitleDialog from 'commons/dialog/TitleDialog';
 
 export default (suggestion, wrapperFunction) => {
   // STUBBED DIALOGS
@@ -52,6 +55,16 @@ export default (suggestion, wrapperFunction) => {
     },
   });
 
+  const LinkToDatasetDialog = declare([TitleDialog.ContentComponent], {
+    nlsBundles: [{ escaPreparationsNLS }],
+    nlsHeaderTitle: 'linkDatasetTitle',
+    nlsFooterButtonLabel: 'linkDatasetFooterButton',
+    open() {
+      this.dialog.show();
+      const controllerComponent = { view: () => <Preparations/> };
+      this.show(controllerComponent);
+    },
+  });
   // END STUBBED DIALOGS
 
   /*
@@ -136,6 +149,11 @@ export default (suggestion, wrapperFunction) => {
 
         removeSuggestion(onSuccess);
       });
+  };
+
+  const linkToDataset = (onDone = () => {}) => {
+    const dialog = new LinkToDatasetDialog();
+    dialog.open();
   };
 
   const createDatasetDialog = new CreateDatasetDialog();
@@ -248,6 +266,7 @@ export default (suggestion, wrapperFunction) => {
     editChecklist,
     editComments,
     createDataset,
+    linkToDataset,
     removeDatasetReference,
     archiveSuggestion,
     unArchiveSuggestion,
