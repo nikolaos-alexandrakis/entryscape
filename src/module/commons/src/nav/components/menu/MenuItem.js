@@ -1,24 +1,35 @@
-import m from 'mithril';
 import { isExternalLink } from 'commons/util/util';
 
-export default {
-  view(vnode) {
-    const { item: { name, label, href, icon }, onclick, selected } = vnode.attrs;
+/**
+ * Gets called when an item is clicked. Calls a callback with the data-module value of that clicked item
+ *
+ * @param {function} callback
+ * @param {Event} e
+ */
+const callbackWrapper = (callback, e) => callback(e.currentTarget.dataset.module);
 
-    const attrs = Object.assign({
-      key: name,
-      onclick: m.withAttr('data-module', onclick),
-      'data-module': name,
-    }, selected ? { class: 'active' } : {});
+export default () => {
+  let onMenuItemClick;
+  return {
+    oninit(vnode) {
+      const { onclick } = vnode.attrs;
+      // this is stored in this context in order to avoid binding in every view
+      onMenuItemClick = callbackWrapper.bind(null, onclick);
+    },
+    view(vnode) {
+      const { item: { name, label, href, icon }, selected } = vnode.attrs;
 
-    return m('li', attrs,
-      [
-        m('a', Object.assign({ href }, selected ? { class: 'selected' } : {}), [
-          m(`i.fas.fa-${icon}`),
-          m('span.menu-title', label),
-          isExternalLink(href) ? m('span.fas.fa-external-link-alt') : null,
-        ]),
-      ],
-    );
-  },
+      return <li
+        key={name}
+        className={`${selected ? 'active' : ''}`}
+        onclick={onMenuItemClick}
+        data-module={name}>
+        <a href={href} className={`${selected ? 'active' : ''}`}>
+          <i className={`fas fa-${icon}`}/>
+          <span className={'menu-title'}>{label}</span>
+          {isExternalLink(href) ? <span className="fas fa-external-link-alt"/> : null}
+        </a>
+      </li>;
+    },
+  };
 };
