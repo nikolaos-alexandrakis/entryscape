@@ -42,7 +42,7 @@ export default (type, notify) => ({
     const inputPassword = {
       type: 'password',
       value: Password.password,
-      oninput: prevent(m.withAttr('value', Password.setPassword), notify),
+      oninput: prevent(evt => Password.setPassword(evt.currentTarget.value), notify),
       onchange: prevent(),
       onkeyup: prevent(),
       autocomplete: 'new-password',
@@ -52,7 +52,7 @@ export default (type, notify) => ({
     const inputConfirm = {
       type: 'password',
       value: Password.confirm,
-      oninput: prevent(m.withAttr('value', Password.setConfirm), notify),
+      oninput: prevent(evt => Password.setConfirm(evt.currentTarget.value), notify),
       onchange: prevent(),
       onkeyup: prevent(),
       autocomplete: 'new-password',

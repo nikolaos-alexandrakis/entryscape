@@ -158,7 +158,7 @@ export default () => {
             dirValueNode = m(`input.${bid}__value`, {
               value: Number.isNaN(directionValue) ? '' : directionValue,
               onclick: () => inputFocus(dirTemp),
-              onblur: m.withAttr('value', val => inputBlur(dirTemp, val)),
+              onblur: () => inputBlur(dirTemp, dirValueNode.dom.value),
               autofocus: state.lastClickedDir === dirTemp,
             });
           } else {

@@ -251,7 +251,7 @@ export default class {
           tooltip: this.bundle.changeOrganizationOwner,
           checked: this.isOwnOrg,
           disabled: !this.isOwnOrgEnabled,
-          callback: m.withAttr('checked', this.setOwnOrg),
+          callback: evt => this.setOwnOrg(evt.currentTarget.checked),
         }) : null,
         getFormGroupComponent({
           id: this.id,
@@ -259,7 +259,7 @@ export default class {
           label: this.bundle.cPTitle,
           help: this.bundle.cPTitlePlaceholder,
           value: this.values.title,
-          oninput: m.withAttr('value', this.setTitle),
+          oninput: evt => this.setTitle(evt.currentTarget.value),
         }),
         getFormGroupComponent({
           id: this.id,
@@ -267,7 +267,7 @@ export default class {
           label: this.bundle.cPDescription,
           help: this.bundle.cPDescPlaceholder,
           value: this.values.description,
-          oninput: m.withAttr('value', this.setDescription),
+          oninput: evt => this.setDescription(evt.currentTarget.value),
         }),
         this.canChangeOwner ? getFormGroupComponent({
           id: this.id,
@@ -276,7 +276,7 @@ export default class {
           label: this.bundle.cPUsernameLabel,
           help: this.bundle.cPUsernamePlaceholder,
           value: this.values.username,
-          oninput: m.withAttr('value', this.setUsername),
+          oninput: evt => this.setUsername(evt.currentTarget.value),
         }) : null,
         this.isPSIOrgEnabled ? getCheckboxComponent({
           id: this.id,
@@ -285,7 +285,7 @@ export default class {
           tooltip: this.bundle.changeOrganizationTitle,
           checked: this.isPSIOrg,
           disabled: !this.isPSIOrgEnabled,
-          callback: m.withAttr('checked', this.setPSIOrg),
+          callback: evt => this.setPSIOrg(evt.currentTarget.checked),
         }) : null,
         this.isPSIOrg ? getFormGroupComponent({
           id: this.id,
@@ -294,7 +294,7 @@ export default class {
           label: this.bundle.cpWebpage,
           help: this.bundle.cpWebpagePlaceholder,
           value: this.values.psi,
-          oninput: m.withAttr('value', this.setPsi),
+          oninput: evt => this.setPsi(evt.currentTarget.value),
         }) : null,
         this.isPSIOrg ? getFormGroupComponent({
           id: this.id,
@@ -311,7 +311,7 @@ export default class {
           label: this.bundle.cpOrgId,
           help: this.bundle.cpOrgIdPlaceholder,
           value: this.values.orgId,
-          oninput: m.withAttr('value', this.setOrgId),
+          oninput: evt => this.setOrgId(evt.currentTarget.value),
         }) : null,
       ],
     });
@@ -323,7 +323,7 @@ export default class {
       name: `${this.id}--pipelineType`,
       id: `${this.id}--pipelineRadio${recipe}`,
       checked: this.selectedRecipe === recipe,
-      onclick: m.withAttr('data-recipe', this.setSelectedRecipe),
+      onclick: evt => this.setSelectedRecipe(evt.currentTarget.dataset.recipe),
     }));
 
     return m(Fieldset, {
@@ -337,7 +337,7 @@ export default class {
           label: this.bundle.epUrl,
           help: this.bundle[`pipelineDescriptionType${this.selectedRecipe}`],
           value: 'sourceUrl' in this.values ? this.values.sourceUrl : false,
-          oninput: m.withAttr('value', this.setSourceUrl),
+          oninput: evt => this.setSourceUrl(evt.currentTarget.value),
         }),
       ],
     });

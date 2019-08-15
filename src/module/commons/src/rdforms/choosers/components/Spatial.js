@@ -161,11 +161,12 @@ const Spatial = (vnode) => {
             m('.rdformsLabel', {}, 'Ebene der geopolitischen Abdeckung'),
             m(Select, {
               value: currentPolLevel,
-              onchange: m.withAttr('value', (val) => {
+              onchange: (evt) => {
+                const val = evt.currentTarget.value;
                 graph.findAndRemove(null, levelPred);
                 graph.add(root, levelPred, val);
                 currentPolLevel = val;
-              }),
+              },
               options: [
                 { value: 'pgcl:international', label: 'Internationale Ebene' },
                 { value: 'pgcl:european', label: 'EU Ebene' },
