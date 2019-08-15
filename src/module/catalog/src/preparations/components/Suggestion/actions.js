@@ -1,6 +1,6 @@
 import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import ProgressDialog from 'commons/progress/ProgressDialog';
-import Preparations from 'catalog/preparations/views/Overview';
+import LinkToDataset from 'catalog/preparations/components/LinkToDataset';
 import CommentDialog from 'commons/comments/CommentDialog';
 import typeIndex from 'commons/create/typeIndex';
 import { i18n } from 'esi18n';
@@ -61,7 +61,7 @@ export default (suggestion, wrapperFunction) => {
     nlsFooterButtonLabel: 'linkDatasetFooterButton',
     open() {
       this.dialog.show();
-      const controllerComponent = { view: () => <Preparations/> };
+      const controllerComponent = { view: () => <LinkToDataset/> };
       this.show(controllerComponent);
     },
   });
