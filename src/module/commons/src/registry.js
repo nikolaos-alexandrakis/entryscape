@@ -16,7 +16,6 @@ const getSiteConfig = () => exports.get('siteConfig');
  */
 const getEntryStore = () => exports.get('entrystore');
 /**
- *
  * @return {store/EntryStoreUtil}
  */
 const getEntryStoreUtil = () => exports.get('entrystoreutil');
@@ -25,10 +24,13 @@ const getEntryStoreUtil = () => exports.get('entrystoreutil');
  */
 const getEntry = () => exports.get('entry');
 /**
- *
  * @return {store/Context}
  */
 const getContext = () => exports.get('context');
+/**
+ * @returns {rdfjson/namespaces}
+ */
+const getNamespaces = () => exports.get('namespaces');
 
 // App generic registry methods.
 const exports = {
@@ -88,6 +90,7 @@ const exports = {
   getEntryStoreUtil,
   getEntry,
   getContext,
+  getNamespaces,
 };
 
 export default exports;

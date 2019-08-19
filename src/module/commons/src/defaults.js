@@ -37,7 +37,7 @@ import Lookup from './types/Lookup';
 const jsonp = require('superagent-jsonp');
 
 /**
- * Adds the folloging to the registry:
+ * Adds the following to the registry:
  * entrystore      - an instance of store/EntryStore.
  * entry           - an instance of store/Entry, refers to the current entry in use
  * itemstore       - an instance of rdforms/template/ItemStore.

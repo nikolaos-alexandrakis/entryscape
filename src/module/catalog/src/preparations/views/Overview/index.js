@@ -1,46 +1,49 @@
-import { i18n } from 'esi18n';
-import registry from 'commons/registry';
-import config from 'config';
-import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
-import DOMUtil from 'commons/util/htmlUtil';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
-import SearchInput from 'commons/components/SearchInput';
-import Pagination from 'commons/components/common/Pagination';
 import Suggestion from 'catalog/preparations/components/Suggestion';
+import Pagination from 'commons/components/common/Pagination';
+import SearchInput from 'commons/components/SearchInput';
+import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
+import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
+import config from 'config';
+import { i18n } from 'esi18n';
 import bindActions from './actions';
 import './index.scss';
 
-const ns = registry.get('namespaces');
+/**
+ *
+ * @param {{ term: array, status: string, sortOrder: ''}} params
+ * @returns {store|SearchList}
+ */
+const getFilteredEntries = (params) => {
+  const { term = [], status = 'esterms:investigating', sortOrder = '' } = params;
+  const context = registry.getContext();
+  const namespaces = registry.getNamespaces();
 
-const getSolrQuery = () => registry.get('entrystore')
-  .newSolrQuery()
-  .rdfType('esterms:Suggestion')
-  .context(registry.get('context'));
+  const qo = registry.getEntryStore()
+    .newSolrQuery()
+    .rdfType('esterms:Suggestion')
+    .context(context)
+    .status(namespaces.expand(status));
 
-const getFilteredEntries = (params = { status: 'esterms:investigating' }) => {
-  const qo = getSolrQuery()
-    .status(ns.expand(params.status));
-
-  if (params.sortOrder === 'title') {
+  if (sortOrder === 'title') {
     const l = this.useNoLangSort ? 'nolang' : i18n.getLocale();
     qo.sort(`title.${l}+asc`);
   } else {
     qo.sort('modified+desc');
   }
 
-  if (params.term != null && params.term.length > 0) {
-    if (config.entrystore.defaultSolrQuery === 'all') {
-      qo.all(params.term);
+  if (Array.isArray(term) && term.length > 0) {
+    if (config.get('entrystore.defaultSolrQuery') === 'all') {
+      qo.all(term);
     } else {
-      qo.title(params.term);
+      qo.title(term);
     }
   }
 
   qo.limit(LIST_PAGE_SIZE_SMALL);
 
-  const list = qo.list();
-
-  return list;
+  return qo.list();
 };
 
 export default () => {
@@ -138,17 +141,14 @@ export default () => {
   };
 
   return {
-    oninit() {
-      reInitView();
-    },
+    oninit: reInitView,
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
       return (
-        <div class="preparationsOverview entryList searchVisible" >
+        <div class="preparationsOverview entryList searchVisible">
           <div class="row">
             <div class="listButtons row col">
-
               <SearchInput
                 onchangeSearch={search}
                 placeholder={escaPreparations.listSearchPlaceholder}
@@ -183,10 +183,10 @@ export default () => {
               Suggestions
             </h1>
             <div class="list">
-              { (state.totalSuggestions == null) &&
-                <div class="placeholder"></div>
+              {(state.totalSuggestions == null) &&
+              <div class="placeholder"></div>
               }
-              { state.suggestions.map(suggestion => (
+              {state.suggestions.map(suggestion => (
                 <Suggestion
                   key={suggestion.getId()}
                   entry={suggestion}
@@ -203,16 +203,16 @@ export default () => {
           </div>
           <div class="archive">
             <h1>
-              <span class="fas fa-file-archive"></span>
+              <span class="fas fa-file-archive" />
               Archive
             </h1>
 
             <div class="suggestions">
               <div class="list">
-                { (state.totalArchives == null) &&
-                  <div class="placeholder"></div>
+                {(state.totalArchives == null) &&
+                <div class="placeholder" />
                 }
-                { state.archives.map(suggestion => (
+                {state.archives.map(suggestion => (
                   <Suggestion
                     key={suggestion.getId()}
                     entry={suggestion}
@@ -227,9 +227,7 @@ export default () => {
                 />}
               </div>
             </div>
-
           </div>
-
         </div>
       );
     },
