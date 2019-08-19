@@ -1,6 +1,3 @@
-import escaStatistics from 'catalog/nls/escaStatistics.nls';
-import { i18n } from 'esi18n';
-
 export default () => {
   let handleSearchUpdate;
   return {

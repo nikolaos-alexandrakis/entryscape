@@ -1,21 +1,22 @@
-import config from 'config';
+import Collapsable from 'commons/components/bootstrap/Collapse/Generic';
 import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
-import { createSetState } from 'commons/util/util';
-import {
-  getTitle,
-  getModifiedDate,
-} from 'commons/util/metadata';
 import DOMUtil from 'commons/util/htmlUtil';
-import Collapsable from 'commons/components/bootstrap/Collapse/Generic';
+import { getModifiedDate, getTitle, } from 'commons/util/metadata';
+import { createSetState } from 'commons/util/util';
+import config from 'config';
+import m from 'mithril';
 import ProgressBar from '../ProgressBar';
-import SuggestionDataset from '../SuggestionDataset';
 import SuggestionActions from '../SuggestionActions';
+import SuggestionDataset from '../SuggestionDataset';
 import bindActions from './actions';
 import './index.scss';
 
 export default (vnode) => {
-  const { entry, updateParent = () => {} } = vnode.attrs;
+  const {
+    entry, updateParent = () => {
+    }
+  } = vnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const state = {
@@ -25,7 +26,18 @@ export default (vnode) => {
 
   const setState = createSetState(state);
 
-  const editChecklist = e => actions.editChecklist(e, () => m.redraw());
+  /**
+   *
+   * @param e
+   */
+  const editChecklist = () => actions.editChecklist(m.redraw);
+
+  /**
+   *
+   * @param e
+   * @param uri
+   * @return {Promise}
+   */
   const removeDatasetReference = (e, uri) => actions.removeDatasetReference(e, uri, () => {
     // @scazan We need to remove the dataset reference from the state as the solr index will not
     // be updated in time for a server refresh
@@ -52,8 +64,12 @@ export default (vnode) => {
     }
   };
 
+  /**
+   *
+   * @return {{noOfMandatory: number, noOfMandatoryCompleted: number, mandatoryChecklistComplete: boolean, percent: number}|{noOfMandatory: *, noOfMandatoryCompleted: *, mandatoryChecklistComplete: *, percent: *}}
+   */
   const getChecklistProgress = () => {
-    if (config.catalog && config.catalog.checklist) {
+    if (config.get('catalog.checklist')) {
       const checklistSteps = config.catalog.checklist;
       const completedChecklistSteps = [];
       const mandatoryChecklistSteps = [];
@@ -120,7 +136,7 @@ export default (vnode) => {
         .find(entry.getResourceURI(), 'dcterms:references').length > 0;
 
       return (
-        <div class={`suggestion d-flex`}>
+        <div class={'suggestion d-flex'}>
           <ProgressBar
             progressPercent={checklistPercent}
             incomplete={!checklistMandatoryComplete}
@@ -129,22 +145,16 @@ export default (vnode) => {
           <Collapsable
             title={title}
             subTitle={[
-              hasDatasets && <span class="fas fa-cubes"></span>,
+              hasDatasets && <span class="fas fa-cubes"/>,
               modificationDate.short,
-              <SuggestionActions entry={entry} updateParent={updateParent} />,
+              <SuggestionActions entry={entry} updateParent={updateParent}/>,
             ]}
             className="flex-fill"
             cardId={cardId}
             onclick={loadDatasets}
           >
-            {state.datasets.map(entry => (
-              <SuggestionDataset
-                entry={entry}
-                onRemove={removeDatasetReference}
-              />
-            ))}
+            {state.datasets.map(dataset => <SuggestionDataset entry={dataset} onRemove={removeDatasetReference}/>)}
           </Collapsable>
-
         </div>
       );
     },

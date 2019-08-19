@@ -27,6 +27,8 @@
     "emptyListWarning": "Suggestions that you create will appear here",
     "createSuggestionButton": "Create suggestion",
     "editSuggestionButton": "Save",
-    "editSuggestionHeader": "Edit Suggestion"
+    "editSuggestionHeader": "Edit Suggestion",
+    "suggestionListTitle": "Suggestions",
+    "archiveListTitle": "Archive"
   }
 }

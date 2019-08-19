@@ -12,11 +12,11 @@ import './index.scss';
 
 /**
  *
- * @param {{ term: array, status: string, sortOrder: ''}} params
+ * @param {{ term: string, status: string, sortOrder: ''|undefined}} params
  * @returns {store|SearchList}
  */
 const getFilteredEntries = (params) => {
-  const { term = [], status = 'esterms:investigating', sortOrder = '' } = params;
+  const { term = '', status = 'esterms:investigating', sortOrder = '' } = params;
   const context = registry.getContext();
   const namespaces = registry.getNamespaces();
 
@@ -33,7 +33,7 @@ const getFilteredEntries = (params) => {
     qo.sort('modified+desc');
   }
 
-  if (Array.isArray(term) && term.length > 0) {
+  if (term && term.length > 2) {
     if (config.get('entrystore.defaultSolrQuery') === 'all') {
       qo.all(term);
     } else {
@@ -64,8 +64,16 @@ export default () => {
 
   const setState = createSetState(state);
 
+  /**
+   *
+   * @param term
+   * @param {string} name
+   * @param {string} type
+   * @return {store|SearchList}
+   */
   const getCachedSearchList = (term, name, type) => {
-    let searchList = null;
+    /** * @type {store|SearchList} */
+    let searchList;
 
     if (state[name] == null) {
       searchList = getFilteredEntries({
@@ -83,26 +91,35 @@ export default () => {
     return searchList;
   };
 
-  const getSuggestionEntries = (term = null) => {
+  /**
+   *
+   * @param term
+   * @return {Promise<void>}
+   */
+  const getSuggestionEntries = async (term = null) => {
     const suggestionSearchList = getCachedSearchList(term, 'suggestionSearchList', 'esterms:investigating');
 
-    suggestionSearchList
-      .getEntries(state.suggestionPage)
-      .then(suggestions => setState({
-        suggestions,
-        totalSuggestions: suggestionSearchList.getSize(),
-      }));
+    const suggestions = await suggestionSearchList.getEntries(state.suggestionPage);
+
+    setState({
+      suggestions,
+      totalSuggestions: suggestionSearchList.getSize(),
+    });
   };
 
-  const getArchiveEntries = (term = null) => {
+  /**
+   *
+   * @param term
+   * @return {Promise<void>}
+   */
+  const getArchiveEntries = async (term = null) => {
     const archiveSearchList = getCachedSearchList(term, 'archiveSearchList', 'esterms:archived');
 
-    archiveSearchList
-      .getEntries(state.archivePage)
-      .then(archives => setState({
-        archives,
-        totalArchives: archiveSearchList.getSize(),
-      }));
+    const archives = await archiveSearchList.getEntries(state.archivePage);
+    setState({
+      archives,
+      totalArchives: archiveSearchList.getSize(),
+    });
   };
 
   const search = (term = null) => {
@@ -114,10 +131,15 @@ export default () => {
     getSuggestionEntries(term);
   };
 
+  const clearSearchField = () => {
+
+  }
+
   const reInitView = () => {
     setState(defaultState);
     getArchiveEntries(); // Needs to be handled somewhat manually due to solr index
     getSuggestionEntries();
+    clearSearchField();
   };
 
   const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({
@@ -161,7 +183,7 @@ export default () => {
                   title={escaPreparations.createSuggestionPopoverTitle}
                   onclick={createSuggestion}
                 >
-                  <span aria-hidden="true" class="fas fa-plus"></span>
+                  <span aria-hidden="true" class="fas fa-plus"/>
                   <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
                 </button>
                 <button
@@ -170,8 +192,8 @@ export default () => {
                   title="Reload list"
                   onclick={reInitView}
                 >
-                  <span aria-hidden="true" class="fas fa-sync"></span>
-                  <span className="escoList__buttonLabel"></span>
+                  <span aria-hidden="true" class="fas fa-sync"/>
+                  <span className="escoList__buttonLabel"/>
                 </button>
               </div>
             </div>
@@ -179,12 +201,12 @@ export default () => {
 
           <div class="suggestions">
             <h1>
-              <span class="fas fa-file-signature"></span>
-              Suggestions
+              <span class="fas fa-file-signature"/>
+              {escaPreparations.suggestionListTitle}
             </h1>
             <div class="list">
               {(state.totalSuggestions == null) &&
-              <div class="placeholder"></div>
+              <div class="placeholder"/>
               }
               {state.suggestions.map(suggestion => (
                 <Suggestion
@@ -203,14 +225,14 @@ export default () => {
           </div>
           <div class="archive">
             <h1>
-              <span class="fas fa-file-archive" />
-              Archive
+              <span class="fas fa-file-archive"/>
+              {escaPreparations.archiveListTitle}
             </h1>
 
             <div class="suggestions">
               <div class="list">
                 {(state.totalArchives == null) &&
-                <div class="placeholder" />
+                <div class="placeholder"/>
                 }
                 {state.archives.map(suggestion => (
                   <Suggestion

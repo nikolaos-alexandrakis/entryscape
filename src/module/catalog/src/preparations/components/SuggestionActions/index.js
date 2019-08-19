@@ -5,6 +5,7 @@ import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Dropdown from 'commons/components/common/Dropdown';
 import Button from 'commons/components/Button';
 import { i18n } from 'esi18n';
+import m from 'mithril';
 import bindActions from '../Suggestion/actions';
 
 /**
@@ -12,12 +13,13 @@ import bindActions from '../Suggestion/actions';
  *
  * @returns {Mithril.Component}
  */
-export default (vnode) => {
-  const { entry, updateParent = () => {} } = vnode.attrs;
+export default (initialVnode) => {
+  const { entry, updateParent = () => {} } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e);
   const linkToDataset = e => actions.linkToDataset(e);
+  const editChecklist = e => actions.editChecklist(e, m.redraw);
   const deleteSuggestion = e => actions.remove(e, updateParent);
   const createDataset = e => actions.createDataset(e, updateParent);
   const archiveSuggestion = e => actions.archiveSuggestion(e, updateParent);
@@ -41,6 +43,7 @@ export default (vnode) => {
               <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>,
               <Button onclick={linkToDataset} class="fas fa-fw fa-link">{escaPreparations.linkDatasetMenu}</Button>,
               <Button onclick={createDataset} class="fas fa-fw fa-cubes">{escaPreparations.createDatasetMenu}</Button>,
+              <Button onclick={editChecklist} class="fas fa-fw fa-cubes">{escaPreparations.progressMenu}</Button>,
             ])}
             <Button onclick={actions.editComments} class="fas fa-fw fa-comment">
               {escaPreparations.commentMenu}
