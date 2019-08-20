@@ -12,7 +12,7 @@ import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 
 import TitleDialog from 'commons/dialog/TitleDialog';
 
-export default (suggestion, wrapperFunction) => {
+export default (suggestionEntry, wrapperFunction) => {
   // STUBBED DIALOGS
   const EditSuggestionDialog = declare([RDFormsEditDialog], {
     maxWidth: 800,
@@ -61,7 +61,7 @@ export default (suggestion, wrapperFunction) => {
     nlsFooterButtonLabel: 'linkDatasetFooterButton',
     open() {
       this.dialog.show();
-      const controllerComponent = { view: () => <LinkToDataset/> };
+      const controllerComponent = { view: () => <LinkToDataset suggestionEntry={suggestionEntry}/> };
       this.show(controllerComponent);
     },
   });
@@ -72,45 +72,44 @@ export default (suggestion, wrapperFunction) => {
    its relation to dataset
    */
   const removeSuggestion = (onSuccess = () => {}, onError = () => {}) => {
-    suggestion
+    suggestionEntry
       .del()
       .then(onSuccess)
       .catch(onError);
   };
 
   // ACTIONS
-  const progressDialog = new ProgressDialog({ suggestion });
+  const progressDialog = new ProgressDialog({ suggestion: suggestionEntry });
   const editChecklist = (onDone) => {
     progressDialog.open({
       row: {
-        entry: suggestion,
+        entry: suggestionEntry,
       },
-      entry: suggestion,
+      entry: suggestionEntry,
       onDone,
     });
   };
 
   /**
-   *
-   * @param {function} A callback for the edit dialog to call when it is complete
+   * @param {function} onDone A callback for the edit dialog to call when it is complete
    * @returns {undefined}
    */
   const editComments = (onDone) => {
-    const name = registry.get('rdfutils').getLabel(suggestion);
+    const name = registry.get('rdfutils').getLabel(suggestionEntry);
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
     const commentsDialog = new CommentDialog({
-      suggestion,
+      suggestion: suggestionEntry,
       title: i18n.renderNLSTemplate(escaPreparations.commentHeader, { name }),
       footerButtonLabel: escaPreparations.commentFooterButton,
     });
 
     commentsDialog.open({
       row: {
-        entry: suggestion,
+        entry: suggestionEntry,
         renderCommentCount: () => {},
       },
-      entry: suggestion,
+      entry: suggestionEntry,
       onDone,
     });
   };
@@ -118,24 +117,24 @@ export default (suggestion, wrapperFunction) => {
   /**
    * Opens an SideDialog for editing
    *
-   * @param {function} A callback for the edit dialog to call when it is complete
+   * @param {function} onDone A callback for the edit dialog to call when it is complete
    * @returns {undefined}
    */
   const editSuggestion = (onDone) => {
     const editDialog = new EditSuggestionDialog({
       destroyOnHide: true,
       row: {
-        entry: suggestion,
+        entry: suggestionEntry,
       },
     }, DOMUtil.create('div'));
     // @scazan Some glue here to communicate with RDForms without a "row"
-    editDialog.open({ row: { entry: suggestion }, onDone });
+    editDialog.open({ row: { entry: suggestionEntry }, onDone });
   };
 
   /**
    * Remove the Suggestion
    *
-   * @param {function} A callback to call on successful completion
+   * @param {function} onSuccess A callback to call on successful completion
    * @returns {P}
    */
   const remove = (onSuccess = () => {}) => {
@@ -151,6 +150,9 @@ export default (suggestion, wrapperFunction) => {
       });
   };
 
+  /**
+   * @param onDone
+   */
   const linkToDataset = (onDone = () => {}) => {
     const dialog = new LinkToDatasetDialog();
     dialog.open();
@@ -160,17 +162,17 @@ export default (suggestion, wrapperFunction) => {
   /**
    * Opens a SideDialog for creating a dataset that is attached to a Suggestion
    *
-   * @param {function} A callback to call on completion
+   * @param {function} onDone A callback to call on completion
    * @returns {undefined}
    */
   const createDataset = (onDone = () => {}) => {
     createDatasetDialog.open({
       onDone: (datasetEntry) => {
-        suggestion
+        suggestionEntry
           .getMetadata()
-          .add(suggestion.getResourceURI(), 'dcterms:references', datasetEntry.getResourceURI());
+          .add(suggestionEntry.getResourceURI(), 'dcterms:references', datasetEntry.getResourceURI());
 
-        suggestion.commitMetadata();
+        suggestionEntry.commitMetadata();
 
         onDone();
       },
@@ -180,8 +182,8 @@ export default (suggestion, wrapperFunction) => {
   /**
    * Removes the reference to an existing dataset from the Suggestion (does not remove the dataset)
    *
-   * @param {string} The URI of the referenced dataset that should be removed
-   * @param {function} A callback to call on completion
+   * @param {string} datasetURI The URI of the referenced dataset that should be removed
+   * @param {function} onDone A callback to call on completion
    * @returns {Promise}
    */
   const removeDatasetReference = (datasetURI, onDone) => {
@@ -190,10 +192,10 @@ export default (suggestion, wrapperFunction) => {
 
     return dialogs.confirm(escaPreparations.removeLinkedDataset, null, null, (confirm) => {
       if (confirm) {
-        suggestion.getMetadata()
-          .findAndRemove(suggestion.getResourceURI(), 'dcterms:references', datasetURI);
+        suggestionEntry.getMetadata()
+          .findAndRemove(suggestionEntry.getResourceURI(), 'dcterms:references', datasetURI);
 
-        return suggestion
+        return suggestionEntry
           .commitMetadata()
           .then(onDone);
       }
@@ -205,9 +207,9 @@ export default (suggestion, wrapperFunction) => {
   /**
    * Change the 'store:status' on the EntryInfo of this suggestion
    *
-   * @param {string} The new status in object position
-   * @param {string} The string to display in the confirmation dialog
-   * @param {function} A callback to call on completion
+   * @param {string} newStatus The new status in object position
+   * @param {string} message The string to display in the confirmation dialog
+   * @param {function} onDone A callback to call on completion
    * @returns {Promise}
    */
   const changeStatus = (newStatus, message, onDone = () => {}) => {
@@ -215,11 +217,11 @@ export default (suggestion, wrapperFunction) => {
 
     return dialogs.confirm(message, null, null, (confirm) => {
       if (confirm) {
-        const entryInfo = suggestion.getEntryInfo().getGraph();
-        entryInfo.findAndRemove(suggestion.getURI(), 'store:status');
-        entryInfo.add(suggestion.getURI(), 'store:status', newStatus);
+        const entryInfo = suggestionEntry.getEntryInfo().getGraph();
+        entryInfo.findAndRemove(suggestionEntry.getURI(), 'store:status');
+        entryInfo.add(suggestionEntry.getURI(), 'store:status', newStatus);
 
-        return suggestion
+        return suggestionEntry
           .getEntryInfo()
           .commit()
           .then(() => {
@@ -240,7 +242,7 @@ export default (suggestion, wrapperFunction) => {
   /**
    * Change the status of a Suggestion to be archived
    *
-   * @param {function} A callback to call on completion
+   * @param {function} onDone A callback to call on completion
    * @returns {undefined}
    */
   const archiveSuggestion = (onDone) => {
@@ -251,7 +253,7 @@ export default (suggestion, wrapperFunction) => {
   /**
    * Change the status of a Suggestion from archived to investigating
    *
-   * @param {function} A callback to call on completion
+   * @param {function} onDone A callback to call on completion
    *
    * @returns {undefined}
    */

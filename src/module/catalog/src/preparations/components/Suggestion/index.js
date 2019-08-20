@@ -30,7 +30,7 @@ export default (vnode) => {
    *
    * @param e
    */
-  const editChecklist = () => actions.editChecklist(m.redraw);
+  const editChecklist = () => oneactions.editChecklist(m.redraw);
 
   /**
    *
