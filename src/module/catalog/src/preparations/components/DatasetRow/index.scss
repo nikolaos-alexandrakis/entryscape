@@ -1,4 +1,11 @@
 .linkSuggestionToDataset {
+  &:hover {
+    .datasetRow__action__icon {
+      color: green;
+      opacity: 1;
+    }
+  }
+
   .datasetRowBg {
     background-color: white;
     flex-wrap: wrap;
@@ -25,12 +32,10 @@
 
     .datasetRow__action__icon {
       font-size: 18px;
-      opacity: 0.4
+      opacity: 0.2
     }
 
-    .datasetRow__action__icon.active,
-    .datasetRow__action__icon:hover,
-    .datasetRowBg:hover .datasetRow__action__icon {
+    .datasetRow__action__icon.active {
       color: green;
       opacity: 1
     }

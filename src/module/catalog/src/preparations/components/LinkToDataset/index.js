@@ -1,17 +1,16 @@
-import SearchInput from "commons/components/SearchInput";
+import SearchInput from 'commons/components/SearchInput';
 import registry from 'commons/registry';
 import { createSetState } from 'commons/util/util';
-
 import DatasetRow from '../DatasetRow';
-// import './index.scss';
+import actions from './actions';
 
 /**
  *
  * @param entry
  */
-const getDatasetsLinkedWithSuggestion = (entry) => {
+const getDatasetsURILinkedWithSuggestion = (entry) => {
   const stmts = entry.getMetadata().find(entry.getResourceURI(), 'dcterms:references');
-  stmts.map(stmt => stmt.getValue());
+  return stmts.map(stmt => stmt.getValue());
 };
 
 export default (initialVnode) => {
@@ -21,28 +20,59 @@ export default (initialVnode) => {
     linkedDatasets: [],
   };
   const setState = createSetState(state);
-  const loadDatasets = async () => {
-    const context = registry.getContext();
-    const datasets = await registry.getEntryStore().newSolrQuery()
-      .rdfType('dcat:Dataset')
-      .context(context)
-      .getEntries();
 
-    // const linkedDatasets = getDatasetsLinkedWithSuggestion(entry);
+  /**
+   * Retrieves datasets entries in context and sets the state
+   *
+   * @return {Promise<void>}
+   */
+  const loadDatasets = async (refreshedEntry = null, searchToken = '') => {
+    const context = registry.getContext();
+
+    const query = registry.getEntryStore().newSolrQuery()
+      .rdfType('dcat:Dataset')
+      .context(context); // @todo is there a need to specify that they belong to a specific catalog?
+    if (searchToken && searchToken.length > 2) {
+      query.title(searchToken);
+    }
+    const datasets = await query.getEntries();
+
+    const linkedDatasetURIs = getDatasetsURILinkedWithSuggestion(refreshedEntry || entry);
+    const linkedDatasetEntries = datasets.filter(dataset => linkedDatasetURIs.includes(dataset.getResourceURI()));
+    const datasetEntries = datasets.filter(dataset => !linkedDatasetURIs.includes(dataset.getResourceURI()));
 
     setState({
-      datasets,
-      linkedDatasets: [],
+      datasets: datasetEntries,
+      linkedDatasets: linkedDatasetEntries,
     });
   };
 
+  const bindActions = actions(entry);
+
+  /**
+   * @param {string} datasetRURI
+   * @return {*}
+   */
+  const unlink = datasetRURI => bindActions.unlink(datasetRURI).then(loadDatasets);
+
+  /**
+   * @param {string} datasetRURI
+   * @return {*}
+   */
+  const link = datasetRURI => bindActions.link(datasetRURI).then(loadDatasets);
+
+  const search = token => loadDatasets(null, token);
+
   return {
-    oncreate: loadDatasets,
+    oncreate() {
+      loadDatasets();
+    },
     view(vnode) {
       return <div className="preparationsOverview entryList searchVisible">
         <div className="row mb-3">
           <div className="listButtons row col">
             <SearchInput
+              onchangeSearch={search}
               columnWidth="col"
               placeholder={'Search for datasets'}
             />
@@ -59,9 +89,22 @@ export default (initialVnode) => {
           </div>
         </div>
 
-
+        <div className="row">
+          <div className="col">
+            <div className="alert alert-primary" role="alert">
+              <i className="fas fa-info-circle"/>
+              A simple primary alert—check it out!
+            </div>
+          </div>
+        </div>
         <div className="list mb-3">
-          {state.datasets.map(dataset => <DatasetRow entry={dataset}/>)}
+          <div className="mb-4">
+            <h2>Linked datasets</h2>
+            {state.linkedDatasets.map(dataset =>
+              <DatasetRow key={dataset.getId()} entry={dataset} isLinked={true} onclick={unlink}/>)}
+          </div>
+          <h2>Datasets in catalog</h2>
+          <div>{state.datasets.map(dataset => <DatasetRow key={dataset.getId()} entry={dataset} onclick={link}/>)}</div>
         </div>
       </div>;
     },

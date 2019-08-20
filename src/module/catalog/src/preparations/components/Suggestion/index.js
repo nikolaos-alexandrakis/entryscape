@@ -153,7 +153,10 @@ export default (vnode) => {
             cardId={cardId}
             onclick={loadDatasets}
           >
-            {state.datasets.map(dataset => <SuggestionDataset entry={dataset} onRemove={removeDatasetReference}/>)}
+            {state.datasets.map(dataset => <SuggestionDataset
+              key={dataset.getId()}
+              entry={dataset}
+              onRemove={removeDatasetReference}/>)}
           </Collapsable>
         </div>
       );

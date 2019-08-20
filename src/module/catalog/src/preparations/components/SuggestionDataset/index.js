@@ -1,23 +1,19 @@
 import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
-import {
-  getModifiedDate,
-  getTitle,
-} from 'commons/util/metadata';
-import bindActions from './actions';
+import { getModifiedDate, getTitle } from 'commons/util/metadata';
 import './index.scss';
 
-export default (vnode) => {
-  const { entry, onRemove } = vnode.attrs;
-
-  const actions = bindActions(entry);
+export default (initialVnode) => {
+  const { entry, onRemove } = initialVnode.attrs;
 
   const siteManager = registry.get('siteManager');
 
   const removeDatasetReference = (e) => {
     const datasetURI = entry.getResourceURI();
 
-    onRemove && onRemove(e, datasetURI); // TODO: @scazan figure better way to do bubble wrapper
+    if (onRemove) {
+      onRemove(e, datasetURI); // TODO: @scazan figure better way to do bubble wrapper
+    }
   };
 
   return {
@@ -32,16 +28,16 @@ export default (vnode) => {
 
       return (
         <div>
-          <a class="suggestionChild d-flex align-items-center" href={linkToDataset}>
-            <p class="title flex-grow-1">
-              <span class="fas fa-cubes"></span>
-              <span class="text">{title}</span>
+          <a className="suggestionChild d-flex align-items-center" href={linkToDataset}>
+            <p className="title flex-grow-1">
+              <span className="fas fa-cubes"/>
+              <span className="text">{title}</span>
             </p>
-            <p class="date">{modificationDate.short}</p>
+            <p className="date">{modificationDate.short}</p>
             <div
               onclick={removeDatasetReference}
-              className="remove fas fa-times"
-            ></div>
+              className="remove fas fa-times">
+            </div>
           </a>
         </div>
       );

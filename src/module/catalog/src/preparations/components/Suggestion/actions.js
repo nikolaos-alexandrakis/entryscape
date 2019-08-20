@@ -1,16 +1,16 @@
-import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
-import ProgressDialog from 'commons/progress/ProgressDialog';
+import CreateDatasetDialog from 'catalog/datasets/DatasetCreateDialog';
+import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import LinkToDataset from 'catalog/preparations/components/LinkToDataset';
 import CommentDialog from 'commons/comments/CommentDialog';
 import typeIndex from 'commons/create/typeIndex';
-import { i18n } from 'esi18n';
+
+import TitleDialog from 'commons/dialog/TitleDialog';
+import ProgressDialog from 'commons/progress/ProgressDialog';
+import RDFormsEditDialog from 'commons/rdforms/RDFormsEditDialog';
 import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
 import declare from 'dojo/_base/declare';
-import CreateDatasetDialog from 'catalog/datasets/DatasetCreateDialog';
-import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
-
-import TitleDialog from 'commons/dialog/TitleDialog';
+import { i18n } from 'esi18n';
 
 export default (suggestionEntry, wrapperFunction) => {
   // STUBBED DIALOGS
@@ -61,7 +61,7 @@ export default (suggestionEntry, wrapperFunction) => {
     nlsFooterButtonLabel: 'linkDatasetFooterButton',
     open() {
       this.dialog.show();
-      const controllerComponent = { view: () => <LinkToDataset suggestionEntry={suggestionEntry}/> };
+      const controllerComponent = { view: () => <LinkToDataset entry={suggestionEntry}/> };
       this.show(controllerComponent);
     },
   });
@@ -71,7 +71,9 @@ export default (suggestionEntry, wrapperFunction) => {
    This deletes selected distribution and also deletes
    its relation to dataset
    */
-  const removeSuggestion = (onSuccess = () => {}, onError = () => {}) => {
+  const removeSuggestion = (onSuccess = () => {
+  }, onError = () => {
+  }) => {
     suggestionEntry
       .del()
       .then(onSuccess)
@@ -107,7 +109,8 @@ export default (suggestionEntry, wrapperFunction) => {
     commentsDialog.open({
       row: {
         entry: suggestionEntry,
-        renderCommentCount: () => {},
+        renderCommentCount: () => {
+        },
       },
       entry: suggestionEntry,
       onDone,
@@ -137,7 +140,8 @@ export default (suggestionEntry, wrapperFunction) => {
    * @param {function} onSuccess A callback to call on successful completion
    * @returns {P}
    */
-  const remove = (onSuccess = () => {}) => {
+  const remove = (onSuccess = () => {
+  }) => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     const dialogs = registry.get('dialogs');
     dialogs.confirm(escaPreparations.removeSuggestionQuestion,
@@ -153,7 +157,8 @@ export default (suggestionEntry, wrapperFunction) => {
   /**
    * @param onDone
    */
-  const linkToDataset = (onDone = () => {}) => {
+  const linkToDataset = (onDone = () => {
+  }) => {
     const dialog = new LinkToDatasetDialog();
     dialog.open();
   };
@@ -172,9 +177,7 @@ export default (suggestionEntry, wrapperFunction) => {
           .getMetadata()
           .add(suggestionEntry.getResourceURI(), 'dcterms:references', datasetEntry.getResourceURI());
 
-        suggestionEntry.commitMetadata();
-
-        onDone();
+        suggestionEntry.commitMetadata().then(onDone);
       },
     });
   };
@@ -187,20 +190,20 @@ export default (suggestionEntry, wrapperFunction) => {
    * @returns {Promise}
    */
   const removeDatasetReference = (datasetURI, onDone) => {
+    const suggestionRURI = suggestionEntry.getResourceURI();
+    const md = suggestionEntry.getMetadata();
     const dialogs = registry.get('dialogs');
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
 
-    return dialogs.confirm(escaPreparations.removeLinkedDataset, null, null, (confirm) => {
+    return dialogs.confirm(escaPreparations.removeLinkedDataset, null, null, async (confirm) => {
       if (confirm) {
-        suggestionEntry.getMetadata()
-          .findAndRemove(suggestionEntry.getResourceURI(), 'dcterms:references', datasetURI);
+        md.findAndRemove(suggestionRURI, 'dcterms:references', datasetURI);
 
-        return suggestionEntry
-          .commitMetadata()
-          .then(onDone);
+        await suggestionEntry.commitMetadata();
+        return onDone();
       }
 
-      return Promise.resolve(null);
+      return Promise.resolve();
     });
   };
 
@@ -212,7 +215,8 @@ export default (suggestionEntry, wrapperFunction) => {
    * @param {function} onDone A callback to call on completion
    * @returns {Promise}
    */
-  const changeStatus = (newStatus, message, onDone = () => {}) => {
+  const changeStatus = (newStatus, message, onDone = () => {
+  }) => {
     const dialogs = registry.get('dialogs');
 
     return dialogs.confirm(message, null, null, (confirm) => {
