@@ -1,8 +1,9 @@
 .linkSuggestionToDataset {
-  &:hover {
+  &:hover,
+  &:active {
     .datasetRow__action__icon {
       color: green;
-      opacity: 1;
+      opacity: 1 !important;
     }
   }
 

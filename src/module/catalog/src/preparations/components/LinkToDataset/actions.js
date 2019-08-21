@@ -37,7 +37,7 @@ export default (suggestionEntry) => {
       console.log(err);
     }
 
-    return suggestionEntry;
+    return ddsuggestionEntry;
   };
 
   return {
