@@ -1,14 +1,10 @@
-import Collapsable from 'commons/components/bootstrap/Collapse/Generic';
 import registry from 'commons/registry';
-import dateUtil from 'commons/util/dateUtil';
 import DOMUtil from 'commons/util/htmlUtil';
-import { getModifiedDate, getTitle, } from 'commons/util/metadata';
 import { createSetState } from 'commons/util/util';
 import config from 'config';
 import m from 'mithril';
 import ProgressBar from '../ProgressBar';
-import SuggestionActions from '../SuggestionActions';
-import SuggestionDataset from '../SuggestionDataset';
+import SuggestionRow from '../SuggestionRow';
 import bindActions from './actions';
 import './index.scss';
 
@@ -30,7 +26,7 @@ export default (vnode) => {
    *
    * @param e
    */
-  const editChecklist = () => oneactions.editChecklist(m.redraw);
+  const editChecklist = () => actions.editChecklist(m.redraw);
 
   /**
    *
@@ -126,38 +122,38 @@ export default (vnode) => {
 
   return {
     view() {
-      const title = getTitle(entry);
-      const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
       const checklistProgress = getChecklistProgress();
 
       const checklistPercent = checklistProgress.percent;
       const checklistMandatoryComplete = checklistProgress.mandatoryChecklistComplete;
-      const hasDatasets = entry.getMetadata()
-        .find(entry.getResourceURI(), 'dcterms:references').length > 0;
+
 
       return (
-        <div class={'suggestion d-flex'}>
+        <div className={'suggestionRow d-flex'}>
           <ProgressBar
+            className="listRowBg"
             progressPercent={checklistPercent}
             incomplete={!checklistMandatoryComplete}
             onclick={editChecklist}
           />
-          <Collapsable
-            title={title}
-            subTitle={[
-              hasDatasets && <span class="fas fa-cubes"/>,
-              modificationDate.short,
-              <SuggestionActions entry={entry} updateParent={updateParent}/>,
-            ]}
-            className="flex-fill"
-            cardId={cardId}
-            onclick={loadDatasets}
-          >
-            {state.datasets.map(dataset => <SuggestionDataset
-              key={dataset.getId()}
-              entry={dataset}
-              onRemove={removeDatasetReference}/>)}
-          </Collapsable>
+
+          <SuggestionRow entry={entry}/>
+          {/*<Collapsable*/}
+          {/*  title={title}*/}
+          {/*  subTitle={[*/}
+          {/*    hasDatasets && <span class="fas fa-cubes"/>,*/}
+          {/*    modificationDate.short,*/}
+          {/*    <SuggestionActions entry={entry} updateParent={updateParent}/>,*/}
+          {/*  ]}*/}
+          {/*  className="flex-fill listRowBg"*/}
+          {/*  cardId={cardId}*/}
+          {/*  onclick={loadDatasets}*/}
+          {/*>*/}
+          {/*  {state.datasets.map(dataset => <SuggestionDataset*/}
+          {/*    key={dataset.getId()}*/}
+          {/*    entry={dataset}*/}
+          {/*    onRemove={removeDatasetReference}/>)}*/}
+          {/*</Collapsable>*/}
         </div>
       );
     },

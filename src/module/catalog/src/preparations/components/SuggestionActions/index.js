@@ -1,9 +1,8 @@
-import DOMUtil from 'commons/util/htmlUtil';
-import registry from 'commons/registry';
-import escoListNLS from 'commons/nls/escoList.nls';
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Dropdown from 'commons/components/common/Dropdown';
-import Button from 'commons/components/Button';
+import escoListNLS from 'commons/nls/escoList.nls';
+import registry from 'commons/registry';
+import DOMUtil from 'commons/util/htmlUtil';
 import { i18n } from 'esi18n';
 import m from 'mithril';
 import bindActions from '../Suggestion/actions';
@@ -14,7 +13,9 @@ import bindActions from '../Suggestion/actions';
  * @returns {Mithril.Component}
  */
 export default (initialVnode) => {
-  const { entry, updateParent = () => {} } = initialVnode.attrs;
+  const {
+    entry, updateParent = () => {}
+  } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const editSuggestion = e => actions.editSuggestion(e);
@@ -37,31 +38,62 @@ export default (initialVnode) => {
       const escoList = i18n.getLocalization(escoListNLS);
 
       return (
-        <div class="suggestionActions icon--wrapper">
+        <div className="suggestionActions dropdownCog icon--wrapper">
           <Dropdown>
             {!isArchived && ([
-              <Button onclick={editSuggestion} class="fas fa-fw fa-pencil-alt">{escoList.editEntry}</Button>,
-              <Button onclick={linkToDataset} class="fas fa-fw fa-link">{escaPreparations.linkDatasetMenu}</Button>,
-              <Button onclick={createDataset} class="fas fa-fw fa-cubes">{escaPreparations.createDatasetMenu}</Button>,
-              <Button onclick={editChecklist} class="fas fa-fw fa-cubes">{escaPreparations.progressMenu}</Button>,
+              <li className="row__dropdownMenuItem" onclick={editSuggestion}>
+                <div>
+                  <i className="fas fa-fw fa-pencil-alt"/>
+                  <span>{escoList.editEntry}</span>
+                </div>
+              </li>,
+              <li className="row__dropdownMenuItem" onclick={linkToDataset}>
+                <div>
+                  <i className="fas fa-fw fa-link"/>
+                  <span>{escaPreparations.linkDatasetMenu}</span>
+                </div>
+              </li>,
+              <li className="row__dropdownMenuItem" onclick={createDataset}>
+                <div>
+                  <i className="fas fa-fw fa-cubes"/>
+                  <span>{escaPreparations.createDatasetMenu}</span>
+                </div>
+              </li>,
+              <li className="row__dropdownMenuItem" onclick={editChecklist}>
+                <div>
+                  <i className="fas fa-fw fa-cubes"/>
+                  <span>{escaPreparations.progressMenu}</span>
+                </div>
+              </li>,
             ])}
-            <Button onclick={actions.editComments} class="fas fa-fw fa-comment">
-              {escaPreparations.commentMenu}
-            </Button>
-
+            <li className="row__dropdownMenuItem" onclick={actions.editComments}>
+              <div>
+                <i className="fas fa-fw fa-comment"/>
+                <span>{escaPreparations.commentMenu}</span>
+              </div>
+            </li>
             {!isArchived && (
-              <Button onclick={archiveSuggestion} class="fas fa-fw fa-archive">
-                {escaPreparations.archiveMenu}
-              </Button>
+              <li className="row__dropdownMenuItem" onclick={archiveSuggestion}>
+                <div>
+                  <i className="fas fa-fw fa-archive"/>
+                  <span>{escaPreparations.archiveMenu}</span>
+                </div>
+              </li>
             )}
             {isArchived && (
-              <Button onclick={unArchiveSuggestion} class="fas fa-fw fa-file-import">
-                {escaPreparations.unArchiveMenu}
-              </Button>
+              <li className="row__dropdownMenuItem" onclick={unArchiveSuggestion}>
+                <div>
+                  <i className="fas fa-fw fa-file-import"/>
+                  <span>{escaPreparations.unArchiveMenu}</span>
+                </div>
+              </li>
             )}
-            <Button onclick={deleteSuggestion} class="fas fa-fw fa-times">
-              {escaPreparations.deleteMenu}
-            </Button>
+            <li className="row__dropdownMenuItem" onclick={deleteSuggestion}>
+              <div>
+                <i className="fas fa-fw fa-times"/>
+                <span>{escaPreparations.deleteMenu}</span>
+              </div>
+            </li>
           </Dropdown>
         </div>
       );

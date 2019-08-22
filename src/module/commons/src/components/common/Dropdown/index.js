@@ -1,4 +1,3 @@
-import m from 'mithril';
 import { createSetState } from 'commons/util/util';
 import './index.scss';
 
@@ -68,9 +67,9 @@ export default (vnode) => {
 
       return (
         <div className='ESDropdown'>
-          <button class="icons fas fa-cog" onclick={toggleDropdown} ></button>
-          <div class={`row__dropdownMenu ${showingDropdownClass}`}>
-            { children }
+          <button className="icons fas fa-cog" onclick={toggleDropdown}/>
+          <div className={`row__dropdownMenu ${showingDropdownClass}`}>
+            {children}
           </div>
         </div>
       );

@@ -2,13 +2,13 @@ import './index.scss';
 
 export default () => ({
   view(vnode) {
-    const { progressPercent = 0, incomplete = true, onclick } = vnode.attrs;
+    const { progressPercent = 0, incomplete = true, onclick, className = '' } = vnode.attrs;
 
     return (
-      <div class="progressBar" onclick={onclick}>
-        <div class="progress bar">
+      <div className={`progressBar ${className}`} onclick={onclick}>
+        <div className="progress bar">
           <div
-            class={`progress-bar ${incomplete && 'incomplete'}`}
+            className={`progress-bar ${incomplete && 'incomplete'}`}
             role="progressbar"
             aria-valuenow={progressPercent}
             aria-valuemin="0"

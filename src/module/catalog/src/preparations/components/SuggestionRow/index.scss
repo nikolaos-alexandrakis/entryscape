@@ -1,0 +1,53 @@
+@import '~commons/theme.scss';
+
+.suggestionRow {
+  margin-bottom: 20px;
+
+  .suggestionRow__main {
+    width: 100%;
+  }
+
+  .suggestionRow__name {
+    margin: 0 1em;
+    font-size: 14px;
+  }
+
+  .suggestionRow__actions {
+    margin: 0 1rem;
+
+    > span {
+      margin-left: 1rem;
+    }
+
+    .fas {
+      font-size: 1rem;
+    }
+
+    .dropdownCog {
+      .fas.fa-cog {
+        font-size: 1.4rem;
+      }
+
+      margin-left: 2rem;
+    }
+  }
+
+  //.row {
+  //  display: flex;
+  //  width: 100%;
+  //}
+  //
+  //.date {
+  //  width: 80px;
+  //  text-align: right;
+  //}
+  //
+  //.fas.fa-cubes {
+  //  margin-right: 33px;
+  //}
+  //
+  //.remove {
+  //  margin-left: 44px;
+  //  margin-right: 10px;
+  //}
+}

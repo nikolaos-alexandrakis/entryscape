@@ -7,6 +7,7 @@ import DOMUtil from 'commons/util/htmlUtil';
 import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import config from 'config';
 import { i18n } from 'esi18n';
+import ListPlaceholder from '../../components/ListPlaceholder';
 import bindActions from './actions';
 import './index.scss';
 
@@ -166,6 +167,7 @@ export default () => {
     oninit: reInitView,
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
+      const hasSuggestiions = state.suggestions && state.suggestions.length;
 
       return (
         <div class="preparationsOverview entryList searchVisible">
@@ -208,13 +210,13 @@ export default () => {
               {(state.totalSuggestions == null) &&
               <div class="placeholder"/>
               }
-              {state.suggestions.map(suggestion => (
+              {hasSuggestiions ? state.suggestions.map(suggestion => (
                 <Suggestion
                   key={suggestion.getId()}
                   entry={suggestion}
                   updateParent={reInitView}
                 />
-              ))}
+              )) : <ListPlaceholder label={'nada'} icon={'file-signature'}/>}
               {(state.totalSuggestions > LIST_PAGE_SIZE_SMALL) && <Pagination
                 currentPage={state.suggestionPage}
                 totalCount={state.totalSuggestions}

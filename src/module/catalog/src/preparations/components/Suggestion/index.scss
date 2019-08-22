@@ -1,32 +1,11 @@
-@import '~commons/theme.scss';
-
 .suggestion {
   display: flex;
-
-  .card-header {
-    // padding: 1rem;
-  }
 
   .subTitle {
     width: auto;
   }
 
-  .row {
-    display: flex;
+  .suggestionMain {
     width: 100%;
-  }
-
-  .date {
-    width: 80px;
-    text-align: right;
-  }
-
-  .fas.fa-cubes {
-    margin-right: 33px;
-  }
-
-  .remove {
-    margin-left: 44px;
-    margin-right: 10px;
   }
 }
