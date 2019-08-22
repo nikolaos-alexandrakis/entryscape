@@ -13,7 +13,7 @@ import './index.scss';
 export default (initialVnode) => {
   const {
     entry, updateParent = () => {
-    }
+    },
   } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
@@ -41,11 +41,14 @@ export default (initialVnode) => {
     // @scazan We need to remove the dataset reference from the state as the solr index will not
     // be updated in time for a server refresh
     const filteredDatasets = state.datasets.filter(dataset => dataset.getResourceURI() !== uri);
+    updateParent();
     setState({ datasets: filteredDatasets });
   });
 
-  const cardId = `suggestion${entry.getId()}`;
-
+  /**
+   *
+   * @return {Promise<[]>|*}
+   */
   const loadDatasets = () => {
     const datasetResourceURIs = entry.getMetadata()
       .find(entry.getResourceURI(), 'dcterms:references')
@@ -61,6 +64,8 @@ export default (initialVnode) => {
           setState({ datasets });
         });
     }
+
+    return Promise.resolve(state.datasets);
   };
 
   /**

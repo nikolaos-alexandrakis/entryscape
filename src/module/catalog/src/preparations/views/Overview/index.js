@@ -245,7 +245,7 @@ export default () => {
                     entry={suggestion}
                     updateParent={reInitView}
                   />
-                )) : <ListPlaceholder label={escaPreparations.archiveEmptyList} />}}
+                )) : <ListPlaceholder label={escaPreparations.archiveEmptyList} />}
                 {(state.totalArchives > LIST_PAGE_SIZE_SMALL) && <Pagination
                   currentPage={state.archivePage}
                   totalCount={state.totalArchives}

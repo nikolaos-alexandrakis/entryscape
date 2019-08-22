@@ -9,12 +9,11 @@ import bindActions from '../Suggestion/actions';
 
 /**
  * Renders a list of action buttons that can be applied to a Suggestion
- *
- * @returns {Mithril.Component}
  */
 export default (initialVnode) => {
   const {
-    entry, updateParent = () => {}
+    entry, updateParent = () => {
+    },
   } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
