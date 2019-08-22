@@ -167,7 +167,8 @@ export default () => {
     oninit: reInitView,
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
-      const hasSuggestiions = state.suggestions && state.suggestions.length;
+      const hasSuggestions = state.suggestions && state.suggestions.length;
+      const hasArchives = state.archives && state.archives.length;
 
       return (
         <div className="preparationsOverview searchVisible">
@@ -212,13 +213,13 @@ export default () => {
               {(state.totalSuggestions == null) &&
               <div className="placeholder"/>
               }
-              {hasSuggestiions ? state.suggestions.map(suggestion => (
+              {hasSuggestions ? state.suggestions.map(suggestion => (
                 <Suggestion
                   key={suggestion.getId()}
                   entry={suggestion}
                   updateParent={reInitView}
                 />
-              )) : <ListPlaceholder label={'nada'} icon={'file-signature'}/>}
+              )) : <ListPlaceholder label={escaPreparations.suggestionEmptyList} />}
               {(state.totalSuggestions > LIST_PAGE_SIZE_SMALL) && <Pagination
                 currentPage={state.suggestionPage}
                 totalCount={state.totalSuggestions}
@@ -238,13 +239,13 @@ export default () => {
                 {(state.totalArchives == null) &&
                 <div className="placeholder"/>
                 }
-                {state.archives.map(suggestion => (
+                {hasArchives ? state.archives.map(suggestion => (
                   <Suggestion
                     key={suggestion.getId()}
                     entry={suggestion}
                     updateParent={reInitView}
                   />
-                ))}
+                )) : <ListPlaceholder label={escaPreparations.archiveEmptyList} />}}
                 {(state.totalArchives > LIST_PAGE_SIZE_SMALL) && <Pagination
                   currentPage={state.archivePage}
                   totalCount={state.totalArchives}
