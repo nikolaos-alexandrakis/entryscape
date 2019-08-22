@@ -1,28 +1,53 @@
-@import '~commons/theme.scss';
+.suggestions {
+  .datasets {
+    > .datasetRow:first-child {
+      margin-top: 10px
+    }
+  }
+}
 
-.suggestion {
-  .suggestionChild {
+.suggestions .datasets {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .datasetRow {
     background: #E0DEDE;
     margin-bottom: 5px;
-    padding: 16px;
+    padding: 1rem 0;
     color: #333;
+    width: 75%;
+    height: 45px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.3);
+    border: 3px solid transparent;
+    transition: background-color 2.5s ease;
 
-    .title {
-      font-weight: bold;
-      .fa-cubes {
-        margin-right: 10px;
-        font-size: 24px;
-      }
-      .text {
-        bottom: 3px;
-        position: relative;
+    .datasetRow__name {
+      display: flex;
+      align-items: center;
+      margin: 0 1em;
+      font-size: 14px;
+
+      > * {
+        margin-right: 1rem;
       }
     }
 
-    .remove {
-      margin-left: 24px;
-      width: 33px;
-      text-align: center;
+    .datasetRow__actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 0 1rem;
+
+      > * {
+        margin-left: 1rem;
+      }
+
+      > *:last-child {
+        margin-left: 2rem;
+        width: 20px;
+      }
     }
   }
 }

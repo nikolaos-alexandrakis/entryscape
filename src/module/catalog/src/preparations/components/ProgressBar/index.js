@@ -6,7 +6,7 @@ export default () => ({
 
     return (
       <div className={`progressBar ${className}`} onclick={onclick}>
-        <div className="progress bar">
+        <div className="progress ">
           <div
             className={`progress-bar ${incomplete && 'incomplete'}`}
             role="progressbar"

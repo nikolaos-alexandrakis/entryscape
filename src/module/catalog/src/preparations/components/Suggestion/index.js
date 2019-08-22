@@ -2,17 +2,19 @@ import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
 import { createSetState } from 'commons/util/util';
 import config from 'config';
+import jquery from "jquery";
 import m from 'mithril';
 import ProgressBar from '../ProgressBar';
+import SuggestionDataset from '../SuggestionDataset';
 import SuggestionRow from '../SuggestionRow';
 import bindActions from './actions';
 import './index.scss';
 
-export default (vnode) => {
+export default (initialVnode) => {
   const {
     entry, updateParent = () => {
     }
-  } = vnode.attrs;
+  } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const state = {
@@ -26,7 +28,8 @@ export default (vnode) => {
    *
    * @param e
    */
-  const editChecklist = () => actions.editChecklist(m.redraw);
+  const editChecklist = e => actions.editChecklist(e, m.redraw);
+
 
   /**
    *
@@ -49,7 +52,7 @@ export default (vnode) => {
       .map(statement => statement.getValue());
 
     if (datasetResourceURIs.length > 0) {
-      registry.get('entrystore')
+      return registry.get('entrystore')
         .newSolrQuery()
         .rdfType('dcat:Dataset')
         .resource(datasetResourceURIs)
@@ -120,6 +123,14 @@ export default (vnode) => {
     };
   };
 
+  /**
+   *
+   * @return {*}
+   */
+  const collapseDatasetList = () => loadDatasets().then(() => {
+    jquery(initialVnode.dom.querySelector('.collapse')).collapse('toggle');
+  });
+
   return {
     view() {
       const checklistProgress = getChecklistProgress();
@@ -127,35 +138,27 @@ export default (vnode) => {
       const checklistPercent = checklistProgress.percent;
       const checklistMandatoryComplete = checklistProgress.mandatoryChecklistComplete;
 
-
-      return (
-        <div className={'suggestionRow d-flex'}>
-          <ProgressBar
-            className="listRowBg"
-            progressPercent={checklistPercent}
-            incomplete={!checklistMandatoryComplete}
-            onclick={editChecklist}
-          />
-
-          <SuggestionRow entry={entry}/>
-          {/*<Collapsable*/}
-          {/*  title={title}*/}
-          {/*  subTitle={[*/}
-          {/*    hasDatasets && <span class="fas fa-cubes"/>,*/}
-          {/*    modificationDate.short,*/}
-          {/*    <SuggestionActions entry={entry} updateParent={updateParent}/>,*/}
-          {/*  ]}*/}
-          {/*  className="flex-fill listRowBg"*/}
-          {/*  cardId={cardId}*/}
-          {/*  onclick={loadDatasets}*/}
-          {/*>*/}
-          {/*  {state.datasets.map(dataset => <SuggestionDataset*/}
-          {/*    key={dataset.getId()}*/}
-          {/*    entry={dataset}*/}
-          {/*    onRemove={removeDatasetReference}/>)}*/}
-          {/*</Collapsable>*/}
+      return <div>
+        <div className={'suggestionRow'}>
+          <div className="d-flex">
+            <ProgressBar
+              className="listRowBg"
+              progressPercent={checklistPercent}
+              incomplete={!checklistMandatoryComplete}
+              onclick={editChecklist}
+            />
+            <SuggestionRow entry={entry} onclick={collapseDatasetList}/>
+          </div>
+          <div className="collapse">
+            <div className="list datasets">
+              {state.datasets.map(dataset => <SuggestionDataset
+                key={dataset.getId()}
+                entry={dataset}
+                onRemove={removeDatasetReference}/>)}
+            </div>
+          </div>
         </div>
-      );
+      </div>;
     },
   };
 };

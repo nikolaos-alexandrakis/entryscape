@@ -1,17 +1,17 @@
 @import '~commons/theme.scss';
 
 .progressBar {
-  height: calc(16px + 16px + 16px + 3px);
+  display: flex;
+  align-items: center;
   padding: 18px;
   margin-right: 16px;
-
   background-color: #fff;
 
-  .bar {
+  .progress {
     width: 120px;
-    height: 16px;
-
+    height: 10px;
     overflow: hidden;
+    margin-bottom: initial;
 
     .progress-bar {
       &.incomplete {
@@ -19,5 +19,4 @@
       }
     }
   }
-
 }

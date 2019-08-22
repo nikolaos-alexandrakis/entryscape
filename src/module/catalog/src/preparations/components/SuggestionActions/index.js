@@ -61,7 +61,7 @@ export default (initialVnode) => {
               </li>,
               <li className="row__dropdownMenuItem" onclick={editChecklist}>
                 <div>
-                  <i className="fas fa-fw fa-cubes"/>
+                  <i className="fas fa-fw fa-check-square"/>
                   <span>{escaPreparations.progressMenu}</span>
                 </div>
               </li>,
