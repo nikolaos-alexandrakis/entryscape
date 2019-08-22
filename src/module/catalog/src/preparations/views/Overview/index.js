@@ -170,45 +170,47 @@ export default () => {
       const hasSuggestiions = state.suggestions && state.suggestions.length;
 
       return (
-        <div class="preparationsOverview entryList searchVisible">
-          <div class="row">
-            <div class="listButtons row col">
-              <SearchInput
-                onchangeSearch={search}
-                placeholder={escaPreparations.listSearchPlaceholder}
-                columnWidth="col"
-              />
-              <div class="col flex-row-reverse d-flex align-items-end">
-                <button
-                  type="button"
-                  class="float-right btn btn-raised btn-primary"
-                  title={escaPreparations.createSuggestionPopoverTitle}
-                  onclick={createSuggestion}
-                >
-                  <span aria-hidden="true" class="fas fa-plus"/>
-                  <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
-                </button>
-                <button
-                  type="button"
-                  class="float-right btn btn-raised btn-secondary"
-                  title="Reload list"
-                  onclick={reInitView}
-                >
-                  <span aria-hidden="true" class="fas fa-sync"/>
-                  <span className="escoList__buttonLabel"/>
-                </button>
+        <div className="preparationsOverview searchVisible">
+          <div className="row">
+            <div className="listButtons col">
+              <div className="row">
+                <SearchInput
+                  onchangeSearch={search}
+                  placeholder={escaPreparations.listSearchPlaceholder}
+                  columnWidth="col"
+                />
+                <div className="col flex-row-reverse d-flex align-items-end">
+                  <button
+                    type="button"
+                    className="float-right btn btn-raised btn-primary ml-2"
+                    title={escaPreparations.createSuggestionPopoverTitle}
+                    onclick={createSuggestion}
+                  >
+                    <span aria-hidden="true" className="fas fa-plus"/>
+                    <span className="escoList__buttonLabel">{escaPreparations.createSuggestion}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="float-right btn btn-raised btn-secondary ml-2"
+                    title="Reload list"
+                    onclick={reInitView}
+                  >
+                    <span aria-hidden="true" className="fas fa-sync"/>
+                    <span className="escoList__buttonLabel"/>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="suggestions">
+          <div className="suggestions">
             <h1>
-              <span class="fas fa-file-signature"/>
+              <span className="fas fa-file-signature"/>
               {escaPreparations.suggestionListTitle}
             </h1>
-            <div class="list">
+            <div className="list">
               {(state.totalSuggestions == null) &&
-              <div class="placeholder"/>
+              <div className="placeholder"/>
               }
               {hasSuggestiions ? state.suggestions.map(suggestion => (
                 <Suggestion
@@ -225,16 +227,16 @@ export default () => {
               />}
             </div>
           </div>
-          <div class="archive">
+          <div className="archive">
             <h1>
-              <span class="fas fa-file-archive"/>
+              <span className="fas fa-file-archive"/>
               {escaPreparations.archiveListTitle}
             </h1>
 
-            <div class="suggestions">
-              <div class="list">
+            <div className="suggestions">
+              <div className="list">
                 {(state.totalArchives == null) &&
-                <div class="placeholder"/>
+                <div className="placeholder"/>
                 }
                 {state.archives.map(suggestion => (
                   <Suggestion

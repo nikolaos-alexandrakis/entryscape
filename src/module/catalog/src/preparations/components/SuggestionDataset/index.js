@@ -38,7 +38,7 @@ export default (initialVnode) => {
       const title = getTitle(entry);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
 
-      return <div className="datasetRow d-flex align-items-center" onclick={openDatasetInfoDialog}>
+      return <div className="datasetRow" onclick={openDatasetInfoDialog}>
         <div className="datasetRow__name title flex-grow-1">
           <span className="fas fa-cubes"/>
           <span className="text">{title}</span>
