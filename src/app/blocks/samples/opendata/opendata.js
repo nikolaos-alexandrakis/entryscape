@@ -118,10 +118,13 @@ window.__entryscape_config = {
         '{{#ifprop "dcat:theme"}}' +
         '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
         '{{/ifprop}}' +
+        '{{#ifprop "dcat:keyword"}}' +
+        '<h4>Nyckelord:</h4><p>{{#eachprop "dcat:keyword" limit="10" expandbutton="Visa mer" unexpandbutton="Visa mindre"}}{{value}}{{separator}}{{/eachprop}}</p>' +
+        '{{/ifprop}}' +
         '{{#distributionList}}{{/distributionList}}' +
         '<h4>Ytterligare information</h4>\n' +
         '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
-        'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n',
+        'filterpredicates="dcterms:title,dcterms:description,dcat:theme,dcat:keyword"}}</div>\n',
     },
     {
       block: 'datasetViewAll',
@@ -131,10 +134,13 @@ window.__entryscape_config = {
       '{{#ifprop "dcat:theme"}}' +
       '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
       '{{/ifprop}}' +
+      '{{#ifprop "dcat:keyword"}}' +
+      '<h4>Nyckelord:</h4><p>{{#eachprop "dcat:keyword" limit="10" expandbutton="Visa mer" unexpandbutton="Visa mindre"}}{{value}}{{separator}}{{/eachprop}}</p>' +
+      '{{/ifprop}}' +
       '{{#distributionList}}{{/distributionList}}' +
       '<h4>Ytterligare information</h4>\n' +
       '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset" ' +
-      'filterpredicates="dcterms:title,dcterms:description,dcat:theme"}}</div>\n' +
+      'filterpredicates="dcterms:title,dcterms:description,dcat:theme,dcat:keyword"}}</div>\n' +
       '{{showcaseList}}' +
       '{{ideasList}}',
     },
@@ -153,10 +159,13 @@ window.__entryscape_config = {
         '{{#ifprop "dcat:theme"}}' +
         '<h4>Tema: {{#eachprop "dcat:theme"}}<span class="esbTag md5_{{md5}}">{{label}}</span>{{/eachprop}}</h4>' +
         '{{/ifprop}}' +
+        '{{#ifprop "dcat:keyword"}}' +
+        '<h4>Nyckelord:</h4><p>{{#eachprop "dcat:keyword" limit="10" expandbutton="Visa mer" unexpandbutton="Visa mindre"}}{{value}}{{separator}}{{/eachprop}}</p>' +
+        '{{/ifprop}}' +
         '{{#distributionList}}{{/distributionList}}' +
         '<h4>Ytterligare information</h4>' +
         '<div class="esbIndent">{{viewMetadata template="dcat:OnlyDataset"' +
-        ' filterpredicates="dcterms:title,dcterms:description,dcterms:publisher,dcat:theme"}}</div></div>',
+        ' filterpredicates="dcterms:title,dcterms:description,dcterms:publisher,dcat:theme,dcat:keyword"}}</div></div>',
     },
     {
       block: 'datasetSearch',
