@@ -594,7 +594,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
   },
   _updatePagination() {
     const currentPage = this.getCurrentPage() - 1;
-    const pageSize = this.entryList.getLimit();
+    const pageSize = parseInt(this.entryList.getLimit(), 10);
     const totalCount = this.getResultSize();
 
     m.render(this.__pagination, m(Pagination, {
