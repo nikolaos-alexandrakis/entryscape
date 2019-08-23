@@ -11,7 +11,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"/>
     <title>EntryScape</title>
-    <script src="/theme/local.js"></script>
+    <script src="/theme/local1.js"></script>
     <script defer>
         var paramsToMap = function (params, arr, seperator) {
             seperator = seperator || '&';
@@ -81,7 +81,7 @@
 
             var useLocalBuild = __entryscape_config.entryscape.localBuild;
             var app = __entryscape_config.entryscape.static.app;
-            var path = useLocalBuild ? '/dist' : __entryscape_config.entryscape.static.url;
+            var path = __entryscape_config.entryscape.static.url;
             var version = useLocalBuild ? '' : (__entryscape_config.entryscape.static.version || 'latest');
 
             /**
