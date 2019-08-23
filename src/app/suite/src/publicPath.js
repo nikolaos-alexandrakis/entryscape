@@ -8,5 +8,5 @@ const { url, app, version } = __entryscape_config.entryscape.static;
 if (debug) {
   __webpack_public_path__ = '/'; // eslint-disable-line
 } else {
-  __webpack_public_path__ = localBuild ? '/dist/' : `${url.endsWith('/') ? url : `${url}/`}${app}/${version}/`; // eslint-disable-line
+  __webpack_public_path__ = localBuild ? (url.endsWith('/') ? url : `${url}/`) : `${url.endsWith('/') ? url : `${url}/`}${app}/${version}/`; // eslint-disable-line
 }
