@@ -90,7 +90,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     if (this.rowButtonMenu === true ||
       (buttonPotentiallyInMenu > 1 && this.rowButtonMenu !== false)) {
       this.dropdownMenu = new DropdownMenu({}, DOMUtil.create('button', null, this.buttonsNode));
-      this.dropdownMenu.domNode.classList.add('pull-right');
+      this.dropdownMenu.domNode.classList.add('float-right');
       rowButtons.forEach(this.installMenuItem.bind(this));
     } else {
       rowButtons.forEach(this.installButton.bind(this));
@@ -142,7 +142,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
 
     let cls;
     if (params.iconType === 'fa') {
-      cls = `fa fa-fw fa-${params.icon}`;
+      cls = `fas fa-fw fa-${params.icon}`;
     } else { // Default is glyphicons
       cls = `glyphicon glyphicon-${params.icon}`;
     }

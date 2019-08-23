@@ -6,7 +6,7 @@ import _WidgetBase from 'dijit/_WidgetBase';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import templateString from './EntryTypeTemplate.html';
 import DOMUtil from '../util/htmlUtil';
-import './escoEntryType.css';
+import './escoEntryType.scss';
 
 export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   // noinspection JSUnusedGlobalSymbols

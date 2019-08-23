@@ -49,7 +49,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       // Placeholder value, just to separate from initial check for empty string
       maxWidth: 800,
     }, this._validateDialogNode);
-    this._validateDialog.closeLabel = this.NLSBundles.esreReport.closeValidationDialog;
+    this._validateDialog.closeLabel = this.NLSLocalized.esreReport.closeValidationDialog;
     this._validateDialog.validator.includeLevel = 'recommended';
     const tp = registry.onInit('itemstore').then((itemstore) => {
       const t2t = config.registry.type2template;
@@ -64,7 +64,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
   show() {
     this._graph = registry.get('clipboardGraph');
     if (this._graph == null || this._graph.isEmpty()) {
-      const bundle = this.NLSBundles.esreSource;
+      const bundle = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(bundle.noRDF, bundle.noRDFProceed).then(() => {
         registry.get('siteManager').render('toolkit__rdf__source');
       });
@@ -86,13 +86,23 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     const report = validate.graphReport(this._graph, this.type2template, this.mandatoryTypes);
     const type2resourceReports = regroup(report.resources, 'type');
     Object.keys(type2resourceReports).forEach((key) => {
-      ClassReport({
-        rdftype: key,
+      // ClassReport({
+        // rdftype: key,
+        // reports: type2resourceReports[key],
+        // validateDialog: this._validateDialog,
+        // graph: this._graph,
+        // template: this.type2template[key],
+      // }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
+
+
+      const reportContainer = htmlUtil.create('div', { class: 'instance' }, this._rdformsNode);
+      m.render(reportContainer, m(ClassReport, {
         reports: type2resourceReports[key],
-        validateDialog: this._validateDialog,
         graph: this._graph,
-        template: this.type2template[key],
-      }, htmlUtil.create('div', { class: 'instance' }, this._rdformsNode));
-    });
+        rdfTemplate: this.type2template[key],
+        rdfType: key,
+        validateDialog: this._validateDialog,
+      }));
+    }, this);
   },
 });

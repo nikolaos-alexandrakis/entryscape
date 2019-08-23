@@ -9,5 +9,7 @@
   "apiGenerationTask": "API wird erstellt",
   "nlsProgressCancel": "Abbrechen",
   "nlsProgressDone": "Fertig",
-  "nlsProgressSuccess": "Die API wurde erstellt"
+  "nlsProgressSuccess": "Die API wurde erstellt",
+  "apiFileProcessedOnlyAddition": "${number} von ${totalFiles} neu hinzugefügten Dateien wurden verarbeitet",
+  "apiProgressWarning": "Die API wird noch verarbeitet. Sie können diesen Dialog schließen und den Status der API später über den Info-Dialog kontrollieren."
 }

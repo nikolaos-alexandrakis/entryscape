@@ -87,7 +87,7 @@ export default declare([TitleDialog, ListDialogMixin, NLSMixin.Dijit], {
   },
 
   localeChange() {
-    // this.updateLocaleStrings(this.NLSBundle0);
+    // this.updateLocaleStrings(this.NLSLocalized0);
     this.updateLocaleStrings(this.NLSLocalized.escoList);
   },
   open(params) {

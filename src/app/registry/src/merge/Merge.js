@@ -8,7 +8,7 @@ import { NLSMixin } from 'esi18n';
 import esreMerge from 'registry/nls/esreMerge.nls';
 import esreSource from 'registry/nls/esreSource.nls';
 import CatalogDetect from './CatalogDetect';
-import './esreMerge.css';
+import './esreMerge.scss';
 import LoadDialog from './LoadDialog';
 import merge from './mergeScript';
 import template from './MergeTemplate.html';
@@ -43,7 +43,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
 
   addMergeCatalog() {
     if (registry.get('userInfo').id === '_guest') {
-      const b = this.NLSBundles.esreSource;
+      const b = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(b.signinRequirement, b.signinRequirementOk);
     } else {
       this.loadDialog.show(this.newMergeCatalog.bind(this));
@@ -86,7 +86,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
   show() {
     const graph = registry.get('clipboardGraph');
     if (graph == null || graph.isEmpty()) {
-      const bundle = this.NLSBundles.esreSource;
+      const bundle = this.NLSLocalized.esreSource;
       registry.get('dialogs').acknowledge(bundle.noRDF, bundle.noRDFProceed).then(() => {
         registry.get('siteManager').render('toolkit__rdf__source');
       });
@@ -97,6 +97,6 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit, PublicView
   },
   clearMergeCatalogs() {
     this.mergeCatalogsList.slice().forEach(cl => cl.destroy());
-    this.__mergeCatalogList = [];
+
   },
 });

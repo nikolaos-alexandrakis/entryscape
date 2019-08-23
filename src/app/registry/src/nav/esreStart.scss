@@ -1,0 +1,23 @@
+@import '~commons/theme.scss';
+
+.esreStart__banner {
+  margin-top: 2em;
+}
+
+.esreStart__banner .card {
+  padding: 48px 60px;
+  margin-bottom: 30px;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 2.1428571435;
+}
+
+.esreStart__banner .card p {
+  line-height: 1.4;
+}
+
+.esreStart__banner .btn.float-right {
+  margin-top: 7px;
+  margin-left: 10px;
+}
+

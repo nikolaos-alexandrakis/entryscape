@@ -3,6 +3,7 @@ import DistributionDialog from 'catalog/public/DistributionDialog';
 import RDFormsPresentDialog from 'commons/rdforms/RDFormsPresentDialog';
 import registry from 'commons/registry';
 import htmlUtil from 'commons/util/htmlUtil';
+import Lookup from 'commons/types/Lookup';
 import config from 'config';
 import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import _WidgetBase from 'dijit/_WidgetBase';
@@ -54,8 +55,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
     }
   },
 
-  showDataset(entry) {
-    // registry.get('itemstore', (itemstore) => {
+  async showDataset(entry) {
     if (entry) {
       const path = registry.getSiteManager().getViewPath('catalog__datasets__preview', {
         dataset: entry.getId(),
@@ -64,10 +64,9 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       this.directLink.href = path;
     }
 
-    const itemstore = registry.get('itemstore');
     this.entry = entry;
     const rdfutils = registry.get('rdfutils');
-    const datasetTemplate = itemstore.getItem(config.catalog.datasetTemplateId);
+    const datasetTemplate = await Lookup.getTemplate(entry);
     this.presenter.show({
       resource: entry.getResourceURI(),
       graph: entry.getMetadata(),
@@ -81,7 +80,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
 
     this.fetchDistributions(entry).then(this.showDistributions.bind(this));
     this.fetchResults(entry).then(this.showResults.bind(this));
-    // });
   },
 
   fetchCatalog(datasetEntry) {
@@ -128,17 +126,18 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const desc = md.findFirstValue(subj, 'http://purl.org/dc/terms/description');
         const access = md.findFirstValue(subj, 'http://www.w3.org/ns/dcat#accessURL');
         const label = title || desc || access;
-        const tr = htmlUtil.create('tr', null, this.distributions);
-        htmlUtil.create('td', { innerHTML: label }, tr);
-        const tdButtons = htmlUtil.create('td', null, tr);
-        const divWrapper = htmlUtil.create('div', { class: 'min-height-row' }, tdButtons);
-        htmlUtil.create('span', { class: 'badge' }, divWrapper);
-        htmlUtil.create('span', { class: 'fa fa-info-circle' }, divWrapper);
+
+
+        const tr = htmlUtil.create('div', {
+          class: 'list-group-item list-group-item-action d-flex justify-content-between flex-nowrap',
+        }, this.distributions);
+        htmlUtil.create('span', { innerHTML: label }, tr);
+        htmlUtil.create('i', { class: 'fas fa-info-circle' }, tr);
         const f = (ev) => {
           ev.stopPropagation();
           this.distributionInfoDialog.set('title', label);
 
-          this.distributionInfoDialog.open(distE);
+          this.distributionInfoDialog.open(distE, this.entry);
         };
         tr.addEventListener('click', f.bind(this));
       }
@@ -160,11 +159,12 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
         const desc = md.findFirstValue(subj, 'dcterms:description');
         const access = md.findFirstValue(subj, 'foaf:page');
         const label = title || desc || access;
-        const tr = htmlUtil.create('tr', null, this.results);
-        htmlUtil.create('td', { innerHTML: label }, tr);
-        const tdButtons = htmlUtil.create('td', null, tr);
-        const infoButton = htmlUtil.create('button', { class: 'btn btn-sm btn-default' }, tdButtons);
-        htmlUtil.create('span', { class: 'fa fa-info-circle' }, infoButton);
+
+        const tr = htmlUtil.create('div', {
+          class: 'list-group-item list-group-item-action d-flex justify-content-between flex-nowrap',
+        }, this.results);
+        htmlUtil.create('span', { innerHTML: label }, tr);
+        htmlUtil.create('i', { class: 'fas fa-info-circle' }, tr);
         const f = (ev) => {
           ev.stopPropagation();
           this.infoDialog.title = label;
@@ -174,7 +174,6 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
             resultE.getResourceURI(), resultE.getMetadata(), dataResultTemplate);
         };
 
-        infoButton.addEventListener('click', f.bind(this));
         tr.addEventListener('click', f.bind(this));
       }
     });

@@ -1,15 +1,15 @@
 <form data-dojo-attach-point="newCatalogForm" onsubmit="return false;">
-    <div class="form-group">
+    <div class="form-group row">
         <label for="${id}-catalog" data-dojo-attach-point="nls">createCatalogName</label>
         <input id="${id}-catalog" type="text" class="form-control" data-dojo-attach-point="nls,catalogName"
                placeholder="catalogNamePlaceholder"/>
     </div>
-    <div class="form-group">
+    <div class="form-group row">
         <label for="${id}-catalogDesc" data-dojo-attach-point="nls">createCatalogDesc</label>
         <textarea id="${id}-catalogDesc" type="text" class="form-control" data-dojo-attach-point="nls,catalogDesc"
                   placeholder="catalogDescPlaceholder"></textarea>
     </div>
-    <div class="form-group" data-dojo-attach-point="publisherNode">
+    <div class="form-group row" data-dojo-attach-point="publisherNode">
         <label for="${id}-agent" data-dojo-attach-point="nls">createAgentName</label>
         <input id="${id}-agent" type="text" class="form-control" data-dojo-attach-point="nls,agentName"
                placeholder="agentNamePlaceholder">

@@ -94,7 +94,7 @@ const EntryChooserList = declare([BaseList], {
   getEmptyListWarning() {
     if (this.binding != null) {
       const createLabel = this.binding.getItem().getLabel();
-      return i18n.renderNLSTemplate(this.NLSBundle1.errorMessage, { 1: createLabel });
+      return i18n.renderNLSTemplate(this.NLSLocalized1.errorMessage, { 1: createLabel });
     }
 
     return '';
@@ -112,8 +112,12 @@ const EntryChooserList = declare([BaseList], {
     const term = _params.term != null && _params.term.length > 0 ? _params.term : '';
     /** @type {store/EntryStore} */
     const es = registry.get('entrystore');
+    const item = this.binding.getItem();
+    const conf = typeIndex.getConfFromConstraints(item.getConstraints());
+    const searchProps = conf ? conf.searchProps : undefined;
+
     const qo = typeIndex.query(es.newSolrQuery(),
-      { constraints: this.binding.getItem().getConstraints() }, term);
+      { constraints: item.getConstraints(), searchProps }, term);
     restrictToContext(this.binding.getItem(), qo);
 
     if (_params.sortOrder === 'title') {
@@ -155,8 +159,8 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
     if (this.binding != null) {
       const createLabel = this.binding.getItem().getLabel();
       this.dialog.updateLocaleStringsExplicit(
-        i18n.renderNLSTemplate(this.NLSBundle1.searchForHeader, { 1: createLabel }),
-        i18n.renderNLSTemplate(this.NLSBundle1.createEntryType, { 1: createLabel }));
+        i18n.renderNLSTemplate(this.NLSLocalized1.searchForHeader, { 1: createLabel }),
+        i18n.renderNLSTemplate(this.NLSLocalized1.createEntryType, { 1: createLabel }));
     }
   },
   searchOption() {
@@ -238,7 +242,7 @@ const EntryChooser = declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, N
     const report = validate.bindingReport(this.editor.binding);
     if (report.errors.length > 0) {
       this.editor.report(report);
-      return this.NLSBundles.escoRdforms.missingMandatoryFields;
+      return this.NLSLocalized.escoRdforms.missingMandatoryFields;
     }
     if (!this._graph.isChanged()) {
       return undefined;
@@ -323,7 +327,10 @@ const ext = {
     const qo = es.newSolrQuery();
     restrictToContext(item, qo);
     const rdfutils = registry.get('rdfutils');
-    return typeIndex.query(qo, { constraints: item.getConstraints() }, term)
+    const conf = typeIndex.getConfFromConstraints(item.getConstraints());
+    const searchProps = conf ? conf.searchProps : undefined;
+
+    return typeIndex.query(qo, { constraints: item.getConstraints(), searchProps }, term)
       .limit(10).list().getEntries()
       .then(entries => entries.map(e => ({
         value: e.getResourceURI(),

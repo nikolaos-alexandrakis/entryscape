@@ -1,0 +1,66 @@
+.escoEntryType__inputBlocks {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.escoEntryType--fileLabelVisible .escoEntryType__inputBlocks,
+.escoEntryType--linkLabelVisible .escoEntryType__inputBlocks {
+    margin-top: -15px;
+}
+
+.escoEntryType__filePathInput[disabled] {
+    cursor: pointer;
+    background:none;
+    border-bottom: 1px solid lightgrey;
+}
+
+.escoEntryType__file {
+    margin-top: 28px;
+}
+
+.escoEntryType__fileUploadButton {
+    vertical-align:bottom;
+}
+.escoEntryType--linkLabelVisible .escoEntryType__optionBlock,
+.escoEntryType--fileLabelVisible .escoEntryType__optionBlock,
+.escoEntryType__linkLabel,
+.escoEntryType__fileLabel,
+.escoEntryType__linkBlock,
+.escoEntryType__fileBlock {
+    display: none;
+}
+
+
+.escoEntryType__linkLabel,
+.escoEntryType__fileLabel{
+    font-weight: bold;
+    color: #4f4f4f;
+}
+
+.escoEntryType--linkOption .escoEntryType__linkBlock,
+.escoEntryType--fileOption .escoEntryType__fileBlock,
+.escoEntryType--linkLabelVisible .escoEntryType__linkBlock,
+.escoEntryType--fileLabelVisible .escoEntryType__fileBlock,
+.escoEntryType--linkLabelVisible .escoEntryType__linkLabel,
+.escoEntryType--fileLabelVisible .escoEntryType__fileLabel {
+    display: block;
+}
+
+.escoEntryType--internalLink .escoEntryType__anyLinkInput,
+.escoEntryType__onlyInternalLink {
+    display: none;
+}
+
+.escoEntryType--internalLink .escoEntryType__onlyInternalLink {
+    display: block;
+    margin-top: 20px;
+}
+.escoEntryType__optionBlock{
+    input[type="radio"]{
+        display: none;
+    }
+}
+
+.escoEntryType__file > div{
+    width: 60%;
+}

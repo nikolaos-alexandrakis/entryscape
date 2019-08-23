@@ -5,13 +5,17 @@ import { i18n } from 'esi18n';
 import termsConfig from 'terms/config/config';
 import workbenchConfig from 'workbench/config/config';
 
+/**
+ * TODO @valentino remove as soon as you fix ES-710
+ */
+const isDev = __entryscape_config.entryscape.static.version === 'latest';
+
 const STATIC = {
-  URL: 'https://static.entryscape.com/',
+  URL: `https://static.${!isDev ? 'cdn.' : ''}entryscape.com/`, // always with a trailing slash
   APP: 'suite',
   VERSION: 'latest',
 };
-
-const ASSETS_URL = `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+const ASSETS_URL = __entryscape_config.entryscape.localBuild ? '/dist/assets/' : `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
 const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
 
 const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
@@ -91,13 +95,36 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
       { value: 'lt', label: { en: 'Lithuanian', lt: 'Lietuvių kalba', sv: 'litauiska', de: 'Litauisch' } },
       { value: 'lv', label: { en: 'Latvian', lv: 'Latviešu valoda', sv: 'lettiska', de: 'Lettisch' } },
       { value: 'mt', label: { en: 'Maltese', mt: 'Malti', sv: 'maltesiska', de: 'Maltesisch' } },
-      { value: 'nb', label: { en: 'Norwegian (bokmål)', nb: 'norsk bokmål', no: 'norsk bokmål', nn: 'norsk bokmål', sv: 'norska (bokmål)', de: 'Norwegisch (Buchsprache)' } },
+      {
+        value: 'nb',
+        label: {
+          en: 'Norwegian (bokmål)',
+          nb: 'norsk bokmål',
+          no: 'norsk bokmål',
+          nn: 'norsk bokmål',
+          sv: 'norska (bokmål)',
+          de: 'Norwegisch (Buchsprache)',
+        },
+      },
       { value: 'nl', label: { en: 'Dutch', nl: 'Nederlands', sv: 'nederländska', de: 'Niederländisch' } },
-      { value: 'nn', label: { en: 'Norwegian (nynorsk)', nb: 'norsk nynorsk', no: 'norsk nynorsk', nn: 'norsk nynorsk', sv: 'norska (nynorska)', de: 'Norwegisch (Neu)' } },
+      {
+        value: 'nn',
+        label: {
+          en: 'Norwegian (nynorsk)',
+          nb: 'norsk nynorsk',
+          no: 'norsk nynorsk',
+          nn: 'norsk nynorsk',
+          sv: 'norska (nynorska)',
+          de: 'Norwegisch (Neu)',
+        },
+      },
       { value: 'pl', label: { en: 'Polish', pl: 'Polski', sv: 'polska', de: 'Polnisch' } },
       { value: 'pt', label: { en: 'Portuguese', pt: 'Português', sv: 'portugisiska', de: 'Portugiesisch' } },
       { value: 'ro', label: { en: 'Romanian', ro: 'Română', sv: 'rumänska', de: 'Rumänisch' } },
-      { value: 'no', label: { en: 'Norwegian', no: 'norsk', nb: 'norsk', nn: 'norsk nynorsk', sv: 'norska', de: 'Norwegisch' } },
+      {
+        value: 'no',
+        label: { en: 'Norwegian', no: 'norsk', nb: 'norsk', nn: 'norsk nynorsk', sv: 'norska', de: 'Norwegisch' },
+      },
       { value: 'sk', label: { en: 'Slovak', sk: 'Slovenčina', sv: 'slovakiska', de: 'Slowakisch' } },
       { value: 'sl', label: { en: 'Slovenian', sl: 'Slovenščina', sv: 'slovenska', de: 'Slowenisch' } },
       { value: 'sv', label: { en: 'Swedish', sv: 'svenska', de: 'Schwedisch' } },
@@ -107,10 +134,10 @@ const config = merge(adminConfig, catalogConfig, termsConfig, workbenchConfig, {
 
 let bestlang;
 for (let i = 0; i < config.locale.supported.length; i++) {
-  const l = config.locale.supported[i].lang;
-  if (i18n.getLocale().indexOf(l) === 0) {
-    if (bestlang == null || bestlang.length < l.length) {
-      bestlang = l;
+  const supportedLang = config.locale.supported[i].lang;
+  if (i18n.getLocale().indexOf(supportedLang) === 0) {
+    if (bestlang == null || bestlang.length < supportedLang.length) {
+      bestlang = supportedLang;
     }
   }
 }

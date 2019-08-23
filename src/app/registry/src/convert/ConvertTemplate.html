@@ -1,7 +1,7 @@
 <div class='${bid}'>
     <h3 class="${bid}__convertHeader" data-dojo-attach-point="nls">convertHeader</h3>
-    <div class="panel panel-default">
-        <div class="panel-heading" data-dojo-attach-point="__toBeConverted"></div>
+    <div class="card">
+        <div class="card-header" data-dojo-attach-point="__toBeConverted"></div>
         <table class="table table-hover">
             <thead>
             <th data-dojo-attach-point="nls">onSubject</th>
@@ -12,9 +12,9 @@
             <tbody data-dojo-attach-point="__table">
             </tbody></table>
     </div>
-    <button type="button" class="btn btn-raised btn-success pull-right ${bid}__convert"
+    <button type="button" class="btn btn-raised btn-success float-right ${bid}__convert"
             data-dojo-attach-event="click:convert" data-dojo-attach-point="__convert">
-        <i class="fa fa-level-up"></i>
+        <i class="fas fa-level-up-alt"></i>
         <span data-dojo-attach-point="nls">convertButton</span>
     </button>
 </div>

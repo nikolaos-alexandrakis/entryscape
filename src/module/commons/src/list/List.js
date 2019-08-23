@@ -8,7 +8,7 @@ import ListView from './ListView';
 import EntryRow from './EntryRow';
 import ViewMixin from '../view/ViewMixin';
 import ListPlaceholder from '../placeholder/ListPlaceholder';
-import './list.css';
+import './list.scss';
 
 const orderByName = function (list, names) {
   const idx = {};
@@ -74,8 +74,8 @@ export default declare([_WidgetBase, ViewMixin], {
     if (this.includeRefreshButton) {
       this.registerListAction({
         name: 'refresh',
-        button: 'default',
-        icon: 'refresh',
+        button: 'secondary',
+        icon: 'sync',
         nlsKey: 'refreshButtonLabel',
         nlsKeyTitle: 'refreshTitle',
         noMenu: true,

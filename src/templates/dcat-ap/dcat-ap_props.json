@@ -1282,6 +1282,9 @@
         "min": 0,
         "pref": 0
       },
+      "cls": [
+        "cardgroup"
+      ],
       "items": [
         {
           "type": "text",
@@ -1298,7 +1301,7 @@
             "en": "Start date of the validity period of a dataset.",
             "de": "Startdatum des Gültigkeitszeitraumes eines Datensatzes."
           },
-          "datatype": "http://www.w3.org/2001/XMLSchema#date"
+          "datatype": ["http://www.w3.org/2001/XMLSchema#date", "http://www.w3.org/2001/XMLSchema#dateTime", "http://www.w3.org/2001/XMLSchema#gYear"]
         },
         {
           "type": "text",
@@ -1315,7 +1318,7 @@
             "en": "End date of the validity period of a dataset.",
             "de": "Enddatum des Gültigkeitszeitraumes eines Datensatzes."
           },
-          "datatype": "http://www.w3.org/2001/XMLSchema#date"
+          "datatype": ["http://www.w3.org/2001/XMLSchema#date", "http://www.w3.org/2001/XMLSchema#dateTime", "http://www.w3.org/2001/XMLSchema#gYear"]
         }
       ],
       "description": {
@@ -1632,10 +1635,12 @@
       "styles": [
         "disjoint"
       ],
+      "cls": [
+        "cardgroup"
+      ],
       "items": [
-        {
-          "id": "dcat:format-group_di_choices"
-        },
+        "dcat:format-group_di_choices",
+        "geodcat:dcterms:format-INSPIRE",
         {
           "type": "text",
           "property": "http://purl.org/dc/terms/format",
@@ -1655,7 +1660,8 @@
             "min": 0,
             "pref": 1,
             "max": 1
-          }
+          },
+          "pattern": "^\\w+\\/[-.\\w]+(?:\\+[-.\\w]+)?(\\s*;\\s*\\w+=\\w+)?$"
         }
       ]
     },
@@ -1675,46 +1681,37 @@
         {
           "value": "text/csv",
           "label": {
-            "en": "Comma Separated Values (.csv)"
+            "en": "CSV (.csv)"
           },
           "description": {
-            "en": "CSV is a simple spreadsheet format where rows are separeted by newlines and columns by commas , semicolon or some other special character."
+            "en": "CSV is a simple spreadsheet format where rows are separeted by newlines and columns by commas, semicolon or some other special character."
           }
         },
         {
-          "value": "application/x-shp",
+          "value": "text/csv+zip",
           "label": {
-            "en": "ESRI Shapefile (.zip containing .shp)"
+            "en": "CSV (.csv) in a zip"
           },
           "description": {
-            "en": "ESRI Shapefile developed by ESRI for ArcMap which is a multi-file GIS format that uses DBase files for the attribution and a prf file for the coordinate system."
+            "en": "A zip file containing csv files."
           }
         },
         {
-          "value": "application/geopackage+vnd.sqlite3",
+          "value": "application/xml",
           "label": {
-            "en": "GeoPackage (.gpkg)"
+            "en": "XML (.xml)"
           },
           "description": {
-            "en": "A GeoPackage (GPKG) is an open, non-proprietary, platform-independent and standards-based data format for geographic information system implemented as a SQLite database container."
+            "en": "Extensible Markup Language (XML) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. It is defined in the XML 1.0 Specification produced by the W3C."
           }
         },
         {
-          "value": "application/gml+xml",
+          "value": "application/xml+zip",
           "label": {
-            "en": "GML (.gml)"
+            "en": "XML (.xml) in a zip"
           },
           "description": {
-            "en": "Geography Markup Language (GML) is an international standard for exchange of geographical feature maintained by the Open Geospatial Consortium (OGC)."
-          }
-        },
-        {
-          "value": "text/html",
-          "label": {
-            "en": "HTML (.html)"
-          },
-          "description": {
-            "en": "HTML or HyperText Markup Language is the standard markup language used to create web pages."
+            "en": "A zip file containing xml files."
           }
         },
         {
@@ -1727,12 +1724,30 @@
           }
         },
         {
-          "value": "application/vnd.google-earth.kml+xml",
+          "value": "application/json+zip",
           "label": {
-            "en": "KML (.kml)"
+            "en": "JSON (.json) in a zip"
           },
           "description": {
-            "en": "Keyhole Markup Language (KML) is used to display geographic data in an Earth browser, such as Google Earth. KML is an international standard maintained by the Open Geospatial Consortium, Inc. (OGC)."
+            "en": "A zip file containing xml files."
+          }
+        },
+        {
+          "value": "application/zip",
+          "label": {
+            "en": "ZIP (.zip)"
+          },
+          "description": {
+            "en": ".ZIP is an archive file format that supports lossless data compression."
+          }
+        },
+        {
+          "value": "text/html",
+          "label": {
+            "en": "HTML (.html)"
+          },
+          "description": {
+            "en": "HTML or HyperText Markup Language is the standard markup language used to create web pages."
           }
         },
         {
@@ -1743,18 +1758,36 @@
           "description": {}
         },
         {
+          "value": "application/pdf",
+          "description": {
+            "en": "Portable Document Format (PDF) is a file format used to present documents encapsulating a complete description of a fixed-layout flat document, including the text, fonts, graphics, and other information needed to display it."
+          },
+          "label": {
+            "en": "PDF (.pdf)"
+          }
+        },
+        {
+          "value": "text/plain",
+          "label": {
+            "en": "Text (.txt)"
+          },
+          "description": {
+            "en": "Plain text file."
+          }
+        },
+        {
           "value": "application/n-triples",
           "label": {
-            "en": "N-Triples (.n3)"
+            "en": "RDF as N-Triples (.n3)"
           },
           "description": {
             "en": "A line-based syntax for an RDF graph."
           }
         },
         {
-          "value": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet ",
+          "value": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           "label": {
-            "en": "OOXML Spreadsheet (.xlsx)"
+            "en": "Microsoft Excel XML (.xlsx)"
           },
           "description": {
             "en": "Office Open XML Spreadsheet is a zipped, XML-based file format developed by Microsoft, standardized in ECMA-376 and later in ISO/IEC 29500."
@@ -1770,15 +1803,6 @@
           }
         },
         {
-          "value": "application/pdf",
-          "description": {
-            "en": "Portable Document Format (PDF) is a file format used to present documents encapsulating a complete description of a fixed-layout flat document, including the text, fonts, graphics, and other information needed to display it."
-          },
-          "label": {
-            "en": "PDF (.pdf)"
-          }
-        },
-        {
           "value": "application/rdf+xml",
           "label": {
             "en": "RDF/XML (.rdf)"
@@ -1790,46 +1814,19 @@
         {
           "value": "application/sparql-query",
           "label": {
-            "en": "SPARQL Query Language for RDF (API)"
+            "en": "RDF query (SPARQL)"
           },
           "description": {
             "en": "SPARQL (pronounced \"sparkle\", an acronym for SPARQL Protocol and RDF Query Language) is an RDF query language, that is, a query language for databases, able to retrieve and manipulate data stored in Resource Description Framework format."
           }
         },
         {
-          "value": "text/plain",
-          "label": {
-            "en": "Text (.txt)"
-          },
-          "description": {
-            "en": "Plain text file."
-          }
-        },
-        {
-          "value": "text/turtle; charset=utf-8",
+          "value": "text/turtle",
           "description": {
             "en": "Turtle is a syntax for RDF that allows an RDF graph to be completely written in a compact and natural text form, with abbreviations for common usage patterns and datatypes. "
           },
           "label": {
-            "en": "Turtle (.ttl)"
-          }
-        },
-        {
-          "value": "application/xml",
-          "label": {
-            "en": "XML data (.xml)"
-          },
-          "description": {
-            "en": "Extensible Markup Language (XML) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. It is defined in the XML 1.0 Specification produced by the W3C."
-          }
-        },
-        {
-          "value": "application/zip",
-          "label": {
-            "en": "ZIP (.zip)"
-          },
-          "description": {
-            "en": ".ZIP is an archive file format that supports lossless data compression."
+            "en": "RDF as Turtle (.ttl)"
           }
         }
       ],
@@ -1870,7 +1867,7 @@
         "de": "Die Größe der Distribution kann geschätzt werden wenn die genaue Größe nicht bekannt ist.",
         "sv": "Distributionens storleken kan uppskattas när den exakta storleken är okänd."
       },
-      "datatype": "http://www.w3.org/2001/XMLSchema#decimal"
+      "datatype": ["http://www.w3.org/2001/XMLSchema#date", "http://www.w3.org/2001/XMLSchema#dateTime", "http://www.w3.org/2001/XMLSchema#gYear"]
     },
     {
       "type": "text",
@@ -2735,6 +2732,9 @@
       "constraints": {
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "http://spdx.org/rdf/terms#Checksum"
       },
+      "cls": [
+        "cardgroup"
+      ],
       "items": [
         {
           "type": "text",
@@ -3813,7 +3813,7 @@
         "min": 0,
         "pref": 0
       },
-      "datatype": "http://www.w3.org/2001/XMLSchema#date"
+      "datatype": ["http://www.w3.org/2001/XMLSchema#date", "http://www.w3.org/2001/XMLSchema#dateTime", "http://www.w3.org/2001/XMLSchema#gYear"]
     },
     {
       "type": "text",
@@ -3831,6 +3831,7 @@
         "pref": 1,
         "max": 1
       },
+
       "extends": "dcat:dcterms:issued"
     },
     {
@@ -3882,7 +3883,8 @@
         "nb": "Modifiseringsdato",
         "da": "Senest opdateret",
         "de": "Änderungsdatum"
-      }
+      },
+      "datatype": ["http://www.w3.org/2001/XMLSchema#date", "http://www.w3.org/2001/XMLSchema#dateTime", "http://www.w3.org/2001/XMLSchema#gYear"]
     },
     {
       "type": "text",
@@ -4010,7 +4012,10 @@
         "da": "Reference til lisencen som distributioonen er gjort tilgængelig under. Bør angives som en URI, feks http://data.danmark.dk/nlod/dk/1.0",
         "de": "Diese Eigenschaft bezieht sich auf die Lizenz unter der die Distribution zur Verfügung gestellt wird.",
         "sv": "Den här egenskapen hänvisar till licensen enligt vilken distributionen görs tillgänglig."
-      }
+      },
+      "cls": [
+        "cardgroup"
+      ]
     },
     {
       "type": "group",
@@ -4029,7 +4034,10 @@
         "sv": "Rättigheter",
         "da": "Rettigheder",
         "de": "Rechteerklärung"
-      }
+      },
+      "cls": [
+        "cardgroup"
+      ]
     },
     {
       "type": "group",

@@ -1,0 +1,72 @@
+@import '~commons/theme.scss';
+
+
+.eswoBench {
+    height: 100%;
+}
+
+.eswoBench .escoList {
+    margin-top: 0;
+}
+
+.eswoBench .eswoBench__list {
+    padding: 0 10px;
+}
+
+.eswoBench__entityName {
+    word-break: break-all;
+}
+
+.eswoBench__listItem {
+    cursor: pointer;
+}
+
+.eswoBench__listItem a {
+    color: #333;
+    font-size: 14px;
+}
+
+.eswoBench__listItem.active a {
+    font-weight: bold;
+}
+.eswoBench__listItem.active a .badge{
+    background-color:white;
+    color:$main-colour;
+}
+.eswoBench__listItem a:hover {
+    color: #2e9aff;
+}
+
+.eswoBench__listItem.active {
+    cursor: default;
+}
+
+.sidebarMode .eswoBench__multiple {
+    margin-left: 0px;
+}
+
+.eswoBench .nav-pills > li.active > a,
+.eswoBench .nav-pills > li.active > a:focus,
+.eswoBench .nav-pills > li.active > a:hover {
+    background-color: $main-colour;
+    color:white;
+    border-radius: 0;
+}
+ .eswoBench__sideList{
+     flex-direction: column;
+ }
+ .eswoBench__multiple{
+     display: flex;
+ }
+
+@media (min-width: 768px) {
+    .eswoBench__multiple {
+        height: 100%;
+    }
+
+    .eswoBench__list {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}

@@ -60,7 +60,7 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     } else {
       el = DOMUtil.create('button', { type: 'button' }, this.buttonsFooter);
       el.classList.add('btn');
-      el.classList.add('btn-default');
+      el.classList.add('btn-secondary');
       el.innerHTML = params.buttonLabel;
     }
 

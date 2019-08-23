@@ -1,3 +1,4 @@
+import OverviewHeader from "commons/overview/components/OverviewHeader";
 import registry from 'commons/registry';
 import dateUtil from 'commons/util/dateUtil';
 import Overview from 'commons/overview/components/Overview';
@@ -54,7 +55,7 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
       const modificationDateFormats = dateUtil.getMultipleDateFormats(modificationDate);
       const creationDateFormats = dateUtil.getMultipleDateFormats(creationDate);
 
-      const b = this.NLSBundle0;
+      const b = this.NLSLocalized0;
 
       // basic info
       this.data.description = registry.get('localize')(rdfutils.getDescription(projectEntry));
@@ -89,7 +90,13 @@ export default declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, N
           value: creationDateFormats.short,
         });
 
-      m.render(document.querySelector('.workbenchOverview.escoList'), m(Overview, { data: this.data }));
+
+      m.render(document.querySelector('.workbenchOverview.escoList'),
+        m('div', [
+          m(OverviewHeader, { title: this.data.title, description: this.data.description }),
+          m(Overview, { data: this.data }),
+        ]),
+      );
     });
   },
 });

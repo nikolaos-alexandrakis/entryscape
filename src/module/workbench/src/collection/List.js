@@ -49,7 +49,7 @@ export default declare([BaseList], {
     this.registerListAction({
       name: 'editList',
       button: 'default',
-      icon: 'pencil',
+      icon: 'pencil-alt',
       iconType: 'fa',
       nlsKey: this.nlsEditEntryLabel,
     });
@@ -57,7 +57,7 @@ export default declare([BaseList], {
     this.registerListAction({
       name: 'removeList',
       button: 'warning',
-      icon: 'remove',
+      icon: 'times',
       iconType: 'fa',
       nlsKey: this.nlsRemoveEntryLabel,
     });

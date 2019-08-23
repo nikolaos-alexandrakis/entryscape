@@ -3,7 +3,6 @@ import { Presenter } from 'rdforms';
 import handlebars from 'blocks/boot/handlebars';
 import ExpandRow from 'commons/list/common/ExpandRow';
 import { namespaces } from 'rdfjson';
-import { escape } from 'lodash-es';
 import DOMUtil from 'commons/util/htmlUtil';
 
 export default declare([ExpandRow], {
@@ -24,7 +23,7 @@ export default declare([ExpandRow], {
   },
 
   getRenderNameHTML() {
-    const name = escape(this.getRenderName());
+    const name = this.getRenderName();
     const href = this.list.getRowClickLink(this);
     return href ? `<a href="${href}">${name}</a>` : name;
   },

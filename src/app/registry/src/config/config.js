@@ -3,22 +3,23 @@ import adminConfig from 'admin/config/config';
 import catalogConfig from 'catalog/config/config';
 import merge from 'commons/merge';
 import workbenchConfig from 'workbench/config/config';
+import { i18n } from 'esi18n';
 
+const isDev = __entryscape_config.entryscape.static.version === 'latest';
 const STATIC = {
-  URL: 'https://static.entryscape.com/',
+  URL: `https://static.${!isDev ? 'cdn.' : ''}entryscape.com/`, // always with a trailing slash
   APP: 'registry',
   VERSION: 'latest',
 };
-
-const ASSETS_URL = `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+const ASSETS_URL = __entryscape_config.entryscape.localBuild ? '/dist/assets/' : `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
 const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
 
-export default merge(adminConfig, catalogConfig, workbenchConfig, {
+const config = merge(adminConfig, catalogConfig, workbenchConfig, {
   entryscape: {
     static: {
-      url: 'https://static.entryscape.com/',
-      app: 'registry',
-      version: 'latest',
+      url: STATIC.URL,
+      app: STATIC.APP,
+      version: STATIC.VERSION,
     },
   },
   theme: {
@@ -36,17 +37,17 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
       header: {
         en: 'EntryScape Registry',
         sv: 'EntryScape Registry',
-        de: 'Register offener Verwaltungsdaten',
+        de: 'EntryScape Registry',
       },
       text: {
         en: 'EntryScape Registry is a supplement to an open data portal. Here are tools that are helpful for organizations that want to make available its open data.',
         sv: 'EntryScape Registry är ett komplement till en öppen dataportal. Här finns verktyg som är till hjälp för organisationer som vill tillgängliggöra sina öppna data.',
-        de: 'Hier finden Sie die Werkzeuge für Behörden, die Daten der öffentlichen Verwaltung zur Weiterverwendung durch Dritte bereitstellen wollen.',
+        de: 'EntryScape Registry ist eine Ergänzung zu einem Open Data Portal. Hier finden Sie die Werkzeuge für Behörden, die Daten der öffentlichen Verwaltung zur Weiterverwendung durch Dritte bereitstellen wollen.',
       },
       icon: '',
       details: {
         buttonLabel: { en: 'Get started', sv: 'Kom igång', de: 'Anfangen' },
-        header: { en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte Anleitung' },
+        header: { en: 'Getting started guide', sv: 'Kom-igång guide', de: 'Erste Schritte' },
         path: '/theme/assets/gettingstarted',
       },
     },
@@ -135,3 +136,21 @@ export default merge(adminConfig, catalogConfig, workbenchConfig, {
     },
   },
 }, __entryscape_config, window.__entryscape_config_dev || {});
+
+let bestlang;
+for (let i = 0; i < config.locale.supported.length; i++) {
+  const supportedLang = config.locale.supported[i].lang;
+  if (i18n.getLocale().indexOf(supportedLang) === 0) {
+    if (bestlang == null || bestlang.length < supportedLang.length) {
+      bestlang = supportedLang;
+    }
+  }
+}
+
+if (bestlang) {
+  i18n.setLocale(bestlang);
+} else {
+  i18n.setLocale(config.locale.fallback);
+}
+
+export default config;

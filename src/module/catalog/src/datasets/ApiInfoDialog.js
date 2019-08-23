@@ -1,14 +1,14 @@
+import escaDataset from 'catalog/nls/escaDataset.nls';
+import escaFiles from 'catalog/nls/escaFiles.nls';
 import TitleDialog from 'commons/dialog/TitleDialog';
 import htmlUtil from 'commons/util/htmlUtil';
-import { NLSMixin } from 'esi18n';
-import escaFiles from 'catalog/nls/escaFiles.nls';
-import escaDataset from 'catalog/nls/escaDataset.nls';
-import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import api from './utils/apiUtil';
-import pipelineUtil from './pipelineUtil';
+import declare from 'dojo/_base/declare';
+import { NLSMixin } from 'esi18n';
 import template from './ApiInfoDialogTemplate.html';
 import './escaApiInfo.css';
+import pipelineUtil from './pipelineUtil';
+import api from './utils/apiUtil';
 
 export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.Dijit], {
   bid: 'escaApiInfo',
@@ -43,33 +43,29 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     this.__aliasError.style.display = 'none';
     const aliasName = this.apiAlias.value;
     if (aliasName === '' || aliasName === this.currentAliasName) {
-      // domClass.add(this.saveButton, 'disabled');
       this.saveButton.setAttribute('disabled', true);
     } else {
       const alphanum = /^[0-9a-zA-Z]+$/;
       if (!aliasName.match(alphanum)) {
-        // domClass.add(this.saveButton, 'disabled');
         this.saveButton.setAttribute('disabled', true);
         this.__aliasError.style.display = '';
-        this.__aliasError.innerHTML = this.NLSBundles.escaDataset.invalidAliasName;
+        this.__aliasError.innerHTML = this.NLSLocalized.escaDataset.invalidAliasName;
         return;
       }
-      // domClass.remove(this.saveButton, 'disabled');
-      this.saveButton.setAttribute('disabled', false); // maybe remove the attribute completely?
+      this.saveButton.removeAttribute('disabled');
     }
   },
-
   saveAlias() {
     const aliasName = this.apiAlias.value;
     pipelineUtil.setAlias(this.etlEntry, aliasName).then(() => {
       this.currentAliasName = aliasName;
-      this.removeButton.setAttribute('disabled', false); // maybe remove the attribute completely?
+      this.removeButton.removeAttribute('disabled');
       this._setAliasNameInExternalMetadata(aliasName);
       this._updateExampleURL(aliasName);
     }, (err) => {
       if (err && err.response.status === 400) {
         this.__aliasError.style.display = '';
-        this.__aliasError.innerHTML = this.NLSBundles.escaDataset.duplicateAliasName;
+        this.__aliasError.innerHTML = this.NLSLocalized.escaDataset.duplicateAliasName;
       }
     });
   },
@@ -83,10 +79,12 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     });
   },
   localeChange() {
-    this.dialog.updateLocaleStrings(this.NLSBundles.escaDataset);
+    this.dialog.updateLocaleStrings(this.NLSLocalized.escaDataset);
   },
   open(params) {
+    /** @type store/Entry */
     this.etlEntry = params.etlEntry;
+    /** @type store/Entry */
     this.apiDistributionEntry = params.apiDistributionEntry;
     // this.datasetEntry = params.datasetEntry;
     // this.currentAliasName = 'test';
@@ -125,11 +123,11 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     const stmts = this.etlEntry.getCachedExternalMetadata().find(null, 'store:pipelineResultColumnName');
     const cols = stmts.map(stmt => stmt.getValue());
     if (cols.length === 0) {
-      this.apiStatus.innerHTML = this.NLSBundles.escaFiles.apiNotConnected;
+      this.apiStatus.innerHTML = this.NLSLocalized.escaFiles.apiNotConnected;
       this.apiInfo.style.display = 'none';
       this.__apiRefreshButton.style.display = '';
     } else {
-      this.apiStatus.innerHTML = this.NLSBundles.escaFiles.apiStatus_available;
+      this.apiStatus.innerHTML = this.NLSLocalized.escaFiles.apiStatus_available;
       this.__apiRefreshButton.style.display = 'none';
       this.apiStatus.style.color = 'green';
       this.apiInfo.style.display = '';
@@ -145,8 +143,7 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
         this._updateExampleURL();
       }
       if (this.currentAliasName) { // check for
-        // domClass.remove(this.removeButton, 'disabled');
-        this.removeButton.setAttribute('disabled', false);
+        this.removeButton.removeAttribute('disabled');
       }
       /*
       const exampleURL = `${this.etlEntry.getResourceURI()}?${cols[0]}=some_string_pattern`;
@@ -163,49 +160,38 @@ export default declare([TitleDialog.Content, _WidgetsInTemplateMixin, NLSMixin.D
     this.detectAPI();
   },
   _setAliasNameInExternalMetadata(aliasName) {
-    this.getAPIStatus(this.etlEntry).then((status) => {
+    this.getAPIStatus().then((status) => {
       if (status === 'available') {
         api.updateAliasInEntry(this.etlEntry, aliasName);
       }
     });
   },
-  detectAPI() {
+  async detectAPI() {
     this.__apiRefreshButton.style.display = 'none';
     this.apiInfo.style.display = '';
     this.apiStatus.style.color = 'black';
-    this.getAPIStatus(this.etlEntry)
-      .then((status) => {
-        const statusMessageKey = `apiStatus_${status}`;
-        this.apiStatus.innerHTML = this.NLSBundles.escaFiles[statusMessageKey];
-        switch (status) {
-          case 'error':
-            this.apiStatus.style.color = 'red';
-            this.apiInfo.style.display = 'none';
-            this.__apiRefreshButton.style.display = 'none';
-            break;
-          case 'available':
-            this.apiStatus.style.color = 'green';
-            this.apiInfo.style.display = '';
-            this._clearRows();
-            this._renderRows();
-            break;
-          default:
-            this.apiStatus.style.color = 'orange';
-            this.__apiRefreshButton.style.display = '';
-            this.apiInfo.style.display = 'none';
-        }
-      });
+    const status = await this.getAPIStatus();
+    const statusMessageKey = `apiStatus_${status}`;
+    this.apiStatus.innerHTML = this.NLSLocalized.escaFiles[statusMessageKey];
+    switch (status) {
+      case 'error':
+        this.apiStatus.style.color = 'red';
+        this.apiInfo.style.display = 'none';
+        this.__apiRefreshButton.style.display = 'none';
+        break;
+      case 'available':
+        this.apiStatus.style.color = 'green';
+        this.apiInfo.style.display = '';
+        this._clearRows();
+        this._renderRows();
+        break;
+      default:
+        this.apiStatus.style.color = 'orange';
+        this.__apiRefreshButton.style.display = '';
+        this.apiInfo.style.display = 'none';
+    }
   },
-  // TODO potential this is the same code as ./utils/apiUtil::syncStatus
-  getAPIStatus(etlEntry) {
-    etlEntry.setRefreshNeeded();
-    return etlEntry.refresh().then(() => {
-      const oldStatus = api.oldStatus(etlEntry);
-      if (oldStatus != null) {
-        return oldStatus;
-      }
-      return api.load(etlEntry).then(data => api.update(etlEntry, data).then(() =>
-        api.status(data)));
-    });
+  async getAPIStatus() {
+    return api.syncStatus(this.etlEntry.getURI(), true);
   },
 });

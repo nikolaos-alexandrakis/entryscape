@@ -41,10 +41,10 @@ export default (node, data) => {
     lock = false;
   };
   if (data.searchButton) {
-    const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn' });
+    const inputGroupButtonEl = DOMUtil.create('span', { class: 'input-group-btn input-group-append' });
     inputgroup.appendChild(inputGroupButtonEl);
-    const button = DOMUtil.create('button', { class: 'btn btn-default' }, inputGroupButtonEl);
-    DOMUtil.create('span', { 'aria-hidden': true, class: 'fa fa-search' }, button);
+    const button = DOMUtil.create('button', { class: 'btn btn-secondary' }, inputGroupButtonEl);
+    DOMUtil.create('span', { 'aria-hidden': true, class: 'fas fa-search' }, button);
     button.onclick = searchTriggered;
   }
   input.onkeyup = () => {

@@ -153,7 +153,7 @@ nodes = nodes.map((node) => {
 });
 
 const STATIC = {
-  URL: 'https://static.entryscape.com/',
+  URL: 'https://static.cdn.entryscape.com/',
   APP: 'suite',
   VERSION: 'latest',
 };

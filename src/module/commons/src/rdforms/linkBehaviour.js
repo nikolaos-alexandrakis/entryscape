@@ -42,7 +42,7 @@ system.attachLinkBehaviour = (node, binding) => {
   node.setAttribute('target', '_blank');
   DOMUtil.addClass(node, 'spaExplicitLink');
   DOMUtil.create('i', {
-    class: 'fa fa-external-link rdformsExternalLink',
+    class: 'fas fa-external-link-square-alt rdformsExternalLink',
     'aria-hidden': 'true',
   }, node);
 };
@@ -50,7 +50,7 @@ system.attachExternalLinkBehaviour = (node) => {
   node.setAttribute('target', '_blank');
   DOMUtil.addClass(node, 'spaExplicitLink');
   DOMUtil.create('i', {
-    class: 'fa fa-external-link rdformsExternalLink',
+    class: 'fas fa-external-link-square-alt rdformsExternalLink',
     'aria-hidden': 'true',
   }, node);
 };

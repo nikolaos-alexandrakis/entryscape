@@ -17,7 +17,7 @@ const htmlUtil = {
    *
    * @returns {Node}
    */
-  create(type, attributes, parent, before) {
+  create(type, attributes, parent, before = null) {
     const newDOMNode = document.createElement(type);
 
     if (attributes) {
@@ -63,6 +63,14 @@ const htmlUtil = {
     allClasses.forEach(clas => node.classList.remove(clas));
 
     return node;
+  },
+  preventBubbleWrapper(onClick) {
+    return (e, args) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const argsArray = Array.isArray(args) ? args : [args];
+      onClick && onClick.apply(null, argsArray);
+    }
   },
 };
 

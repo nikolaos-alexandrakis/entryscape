@@ -51,9 +51,9 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
   },
   validateComment() {
     if (this.__subjectInput.value.length === 0) {
-      this.setStatus(this.__subjectInputStatus, this.NLSBundle0.invalidSubject);
+      this.setStatus(this.__subjectInputStatus, this.NLSLocalized0.invalidSubject);
     } else if (this.__commentInput.value.length === 0) {
-      this.setStatus(this.__commentInputStatus, this.NLSBundle0.invalidComment);
+      this.setStatus(this.__commentInputStatus, this.NLSLocalized0.invalidComment);
     } else {
       this.setStatus(this.__subjectInputStatus);
       this.setStatus(this.__commentInputStatus);
@@ -94,10 +94,10 @@ export default declare([TitleDialog.ContentNLS, ListDialogMixin], {
     const comment = this.__commentInput.value;
 
     if (subj === '') {
-      return this.NLSBundle0.invalidSubject;
+      return this.NLSLocalized0.invalidSubject;
     }
     if (comment === '') {
-      return this.NLSBundle0.invalidComment;
+      return this.NLSLocalized0.invalidComment;
     }
 
     return comments.createReply(this.entry, subj, comment).then((commentEntry) => {

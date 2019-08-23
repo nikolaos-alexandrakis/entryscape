@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   extends: 'airbnb-base',
+  plugins: ['react'],
   settings: {
     'import/resolver': {
       webpack: { config: path.join(__dirname, 'webpack.config.js') },
@@ -11,6 +12,9 @@ module.exports = {
   parserOptions: {
     sourceType: 'module',
     allowImportExportEverywhere: true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   rules: {
     'import/no-amd': 'off',
@@ -27,5 +31,7 @@ module.exports = {
     'no-param-reassign': ['error', { 'props': false }],
     'import/extensions': ['error', { '.js': 'never' }],
     'max-len': ['error', { 'code': 120, "ignoreTrailingComments": true, "ignoreTemplateLiterals": true }],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
   }
 };

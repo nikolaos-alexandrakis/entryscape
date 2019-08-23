@@ -45,20 +45,18 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.updateLocaleStrings();
   },
   updateLocaleStrings() {
-    if (this.NLSBundle0) {
-      this.creationDateTitle = this.NLSBundle0.creationDateTitle;
+    if (this.NLSLocalized0) {
+      this.creationDateTitle = this.NLSLocalized0.creationDateTitle;
 
       const tStr = template(this.creationDateTitle)({ date: this.cDateFull });
 
       this.__dateInfo.setAttribute('title', tStr);
       if (this.noOfReplies > 0) {
-        this.__replies.style.display = '';
-        this.__replyIcon.style.display = '';
-        this.__replies.innerHTML = i18n.renderNLSTemplate(this.NLSBundle0.reply, this.noOfReplies);
+        this.__replyButton.classList.remove('d-none');
+        this.__replies.innerHTML = i18n.renderNLSTemplate(this.NLSLocalized0.reply, this.noOfReplies);
       } else {
-        this.__replies.style.display = 'none';
-        this.__replyIcon.style.display = 'none';
-        this.__editComment.setAttribute('disabled', false);
+        this.__replyButton.classList.add('d-none');
+        this.__editComment.removeAttribute('disabled');
       }
     }
   },
@@ -91,7 +89,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     this.noOfReplies = comments.getNrOfReplies(this.entry);
     if (this.noOfReplies <= 0) {
       // enable edit
-      this.__editComment.setAttribute('disabled', false);
+      this.__editComment.removeAttribute('disabled');
     }
     this.updateLocaleStrings();
   },
@@ -124,7 +122,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   deleteComment() {
     const dialogs = registry.get('dialogs');
-    const confirmMessage = i18n.renderNLSTemplate(this.NLSBundle0.removeComment, this.noOfReplies);
+    const confirmMessage = i18n.renderNLSTemplate(this.NLSLocalized0.removeComment, this.noOfReplies);
     dialogs.confirm(confirmMessage, null, null, (confirm) => {
       if (confirm) {
         comments.deleteCommentAndReplies(this.entry)
@@ -141,7 +139,7 @@ const CommentCls = declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     // enable editing and save
     this.__commentDisplay.style.display = 'none';
     this.__commentEditNode.style.display = '';
-    this.__commentInput.setAttribute('disabled', false);
+    this.__commentInput.removeAttribute('disabled');
     this.__commentEditButtons.style.display = '';
     focusUtil.focus(this.__commentInput);
   },

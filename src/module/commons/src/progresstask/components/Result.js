@@ -1,5 +1,6 @@
 import Row from 'commons/components/common/grid/Row';
 import m from 'mithril';
+import './Result.css';
 
 const Result = {
   bid: 'escoProgressTask',
@@ -9,13 +10,13 @@ const Result = {
       let resultIcon;
       switch (result.status) {
         case 'progress':
-          resultIcon = 'i.fa.fa-spinner.fa-spin';
+          resultIcon = 'i.fas.fa-spinner.fa-spin';
           break;
         case 'done':
-          resultIcon = 'i.fa.fa-check';
+          resultIcon = 'i.fas.fa-check.noAnimate';
           break;
         case 'failed':
-          resultIcon = 'i.fa.fa-ban';
+          resultIcon = 'i.fas.fa-ban';
           break;
         default:
           resultIcon = '';
@@ -24,7 +25,7 @@ const Result = {
       return m('li.list-group-item', {
         class: `${this.bid}__resultListRow`,
         key: result.id,
-      }, m('.row', [
+      }, m('.d-flex', [
         m('.col-md-1', m(resultIcon, { class: `${this.bid}__resultListRowIcon` })),
         m('.col-md-11', [
           m(Row,

@@ -7,5 +7,6 @@
   "onlyDcatLegend": "Enbart DCAT-AP ($1)",
   "neitherLegend": "Ingetdera ($1)",
   "datasetCount": "Antal datamängder",
-  "organizationCount": "Organisationer tillhandahåller datamängder"
+  "organizationCount": "Organisationer tillhandahåller datamängder",
+  "topOrganizations": "Organisationer med flest datamängder"
 }

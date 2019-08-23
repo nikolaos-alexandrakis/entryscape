@@ -60,7 +60,7 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
     });
     let text;
     let hasError;
-    const iconStatus = hasError ? { class: 'fa fa-exclamation-triangle' } : { class: 'fa fa-check-circle' };
+    const iconStatus = hasError ? { class: 'fas fa-exclamation-triangle' } : { class: 'fas fa-check-circle' };
 
     if (ca > 1) {
       hasError = true;

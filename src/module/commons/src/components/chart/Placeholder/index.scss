@@ -1,0 +1,18 @@
+.chart-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 500px;
+  min-width: 500px;
+
+  .placeholder__text {
+    position: absolute;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 18px;
+    color: #666;
+    margin-left: 20px;
+  }
+}

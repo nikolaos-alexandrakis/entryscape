@@ -31,9 +31,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       this.setImageClass(this.missingImageClass);
     }
     if (this.includeCreateButton) {
-      this.__placeholderButton.style.display = 'block';
+      this.__placeholderButton.style.display = 'flex';
     }
-    if (this.NLSBundle0) {
+    if (this.NLSLocalized0) {
       this.localeChange();
     }
   },
@@ -44,26 +44,26 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
       this.setText(text);
       this.setNlsForCButton(nlsObj);
     } else if (this.searchMode) {
-      this.setText(this.NLSBundle0.emptySearchMessage);
+      this.setText(this.NLSLocalized0.emptySearchMessage);
       this.setNlsForCButton({});
     } else {
       const name = this.getName();
       if (name) {
         nlsObj = [];
-        this.setText(i18n.renderNLSTemplate(this.NLSBundle0.emptyMessageWithName, { 1: name }));
+        this.setText(i18n.renderNLSTemplate(this.NLSLocalized0.emptyMessageWithName, { 1: name }));
         const buttonLabel = i18n.renderNLSTemplate(
-          this.NLSBundle0.createButtonWithName,
+          this.NLSLocalized0.createButtonWithName,
           { 1: name },
         );
         const buttonTitle = i18n.renderNLSTemplate(
-          this.NLSBundle0.createButtonTitleWithName,
+          this.NLSLocalized0.createButtonTitleWithName,
           { 1: name },
         );
         nlsObj.nlsKey = buttonLabel;
         nlsObj.nlsKeyTitle = buttonTitle;
         this.setNlsForCButton(nlsObj);
       } else {
-        this.setText(this.NLSBundle0.emptyMessage);
+        this.setText(this.NLSLocalized0.emptyMessage);
       }
     }
   },
@@ -80,9 +80,9 @@ export default declare([_WidgetBase, _TemplatedMixin, NLSMixin.Dijit], {
   },
   setImageClass(cls) {
     this.__placeholderImage.removeAttribute('class');
-    this.__placeholderImage.classList.add('fa');
+    this.__placeholderImage.classList.add('fas');
     this.__placeholderImage.classList.add('fa-5x');
-    this.__placeholderImage.classList.add('center-block');
+    this.__placeholderImage.classList.add('mx-auto');
     this.__placeholderImage.classList.add(`fa-${cls}`);
   },
   setText(text) { // pass localized message

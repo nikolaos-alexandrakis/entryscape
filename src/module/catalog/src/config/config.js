@@ -21,6 +21,8 @@ export default {
     includeShowcasesInDatasetMenu: true,
     includeIdeasInDatasetMenu: true,
     includeCandidates: true,
+    includeStatistics: true,
+    allowInternalDatasetPublish: false,
     checklist: [{
       name: 'noPrivacyIssues',
       shortLabel: {
@@ -287,7 +289,7 @@ export default {
       includeFile: false,
       includeLink: false,
       inlineCreation: false,
-      faClass: 'diamond',
+      faClass: 'gem',
     },
     datasetIdea: {
       label: { en: 'Ideas' },
@@ -298,7 +300,7 @@ export default {
       includeFile: false,
       includeLink: false,
       inlineCreation: false,
-      faClass: 'lightbulb-o',
+      faClass: 'lightbulb',
     },
     datasetDocument: {
       label: { en: 'Document' },
@@ -309,7 +311,7 @@ export default {
       includeFile: true,
       includeLink: true,
       inlineCreation: true,
-      faClass: 'lightbulb-o',
+      faClass: 'file',
     },
   },
   contexttypes: {

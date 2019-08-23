@@ -9,7 +9,7 @@ import _TemplatedMixin from 'dijit/_TemplatedMixin';
 import config from 'config';
 import DatasetSearch from './DatasetSearch';
 import template from './SearchTemplate.html';
-import './escaSearch.css';
+import './escaSearch.scss';
 
 
 export default declare([_WidgetBase, _TemplatedMixin], {
@@ -55,7 +55,12 @@ export default declare([_WidgetBase, _TemplatedMixin], {
     const context = registry.get('context');
     this.__catalogList.innerHTML = '';
 
-    this.domNode.classList.toggle(`${this.bid}--catalogs`, catalogs.length !== 0);
+    if (catalogs.length > 0) {
+      this.domNode.classList.add(`${this.bid}--catalogs`);
+    } else {
+      this.domNode.classList.remove(`${this.bid}--catalogs`);
+    }
+
     let catalog;
     if (catalogs.length === 1) {
       catalog = catalogs[0];
@@ -94,9 +99,9 @@ export default declare([_WidgetBase, _TemplatedMixin], {
         const p = Object.assign({}, params);
         p.context = catal.entry.getContext().getId();
         htmlUtil.create('a', {
-          class: 'list-group-item list-group-item-action',
+          class: 'list-group-item list-group-item-action flex-nowrap',
           href: site.getViewPath(this.datasetSearchView, p),
-          innerHTML: `<span class='badge'>${catal.nr}</span>${catal.label}`,
+          innerHTML: `${catal.label}<span class='badge badge-pill badge-primary'>${catal.nr}</span>`,
         }, this.__catalogList);
       });
       toggleDisplayNoneEmpty(this.__catalogControls);

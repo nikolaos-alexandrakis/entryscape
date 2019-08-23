@@ -166,8 +166,8 @@ export default declare([BaseList], {
         query.limit(config.entrystore.defaultSolrLimit);
       }
       if (params.sortOrder === 'title') {
-        const l = i18n.getLocale();
-        query.sort(`title.${l}+asc`);
+        const language = i18n.getLocale();
+        query.sort(`title.${language}+asc`);
       }
       this.listView.showEntryList(query.list());
     } else {

@@ -24,7 +24,7 @@ export default declare([EntryRow], {
       entries.reverse();
 
       DOMUtil.create('i', {
-        class: 'fa fa-sitemap escoConceptRow__icon',
+        class: 'fas fa-sitemap escoConceptRow__icon',
       }, self.divPath);
 
       entries.forEach((entry, i) => {
@@ -37,11 +37,11 @@ export default declare([EntryRow], {
         } else {
           spanEle = DOMUtil.create('span', { innerHTML: ` ${rdfutils.getLabel(entry)} ` }, self.divPath);
         }
-        if (i === 0 && length > 1) {
-          DOMUtil.create('i', { class: 'fa fa-angle-double-right' }, spanEle);
+        if (i === 0 && length >= 1) {
+          DOMUtil.create('i', { class: 'fas fa-angle-double-right' }, spanEle);
         }
-        if (i > 0 && i < length - 1) {
-          DOMUtil.create('i', { class: 'fa fa-angle-right' }, spanEle);
+        if (i > 0 && i <= length - 1) {
+          DOMUtil.create('i', { class: 'fas fa-angle-right' }, spanEle);
         }
       });
     });

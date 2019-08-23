@@ -2,7 +2,7 @@ import EntryRow from 'commons/list/EntryRow';
 import declare from 'dojo/_base/declare';
 import templateString from './HarvestingRowTemplate.html';
 
-const checkStr = "<i data-dojo-attach-point='statusNode' class='fa fa-check fa-lg'></i>";
+const checkStr = "<i data-dojo-attach-point='statusNode' class='fas fa-check fa-lg'></i>";
 
 export default declare([EntryRow], {
   templateString,

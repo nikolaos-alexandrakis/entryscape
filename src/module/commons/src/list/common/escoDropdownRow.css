@@ -1,12 +1,7 @@
 .escoDropdownRow__menu {
-    color: black;
  /*   margin: 10px;*/
-    padding: 10px 20px;
-}
-.escoDropdownRow__menu.btn-default.disabled {
-    /*background-color: white;*/
-    /*border-color: white;*/
-    /*padding-right: 23px;*/
+    padding: 10px 15px;
+    padding-right: 0;
 }
 .escoDropdownRow__menuIcon.fa-shield.escoDropdownRow__menuDisabled {
     padding-right: 18px;

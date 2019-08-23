@@ -8,6 +8,7 @@ import Permission from 'commons/nav/Permission';
 import Signin from 'commons/nav/Signin';
 
 import Site from 'commons/nav/Site';
+import config from 'config';
 import Convert from 'registry/convert/Convert';
 import HarvestList from 'registry/harvest/List';
 import PipelineResultsView from 'registry/harvest/PipelineResultsView';
@@ -17,11 +18,11 @@ import List from 'registry/present/List';
 import Source from 'registry/source/Source';
 import OtherStatus from 'registry/status/OtherStatus';
 import PSIStatus from 'registry/status/PSIStatus';
-import Visualization from 'registry/status/Visualization';
+import Visualization from 'registry/status/components/Visualization';
 import Report from 'registry/validate/Report';
 import workbenchSiteConfig from 'workbench/config/site';
 
-export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, {
+const siteConfigs = merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, {
   siteClass: Site,
   controlClass: Layout,
   signinView: 'signin',
@@ -212,4 +213,8 @@ export default merge(adminSiteConfig, catalogSiteConfig, workbenchSiteConfig, {
       module: 'toolkit',
     },
   },
-}, __entryscape_config.site || {});
+});
+
+config.site = siteConfigs;
+
+export default merge(siteConfigs, __entryscape_config.site || {});

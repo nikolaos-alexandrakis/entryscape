@@ -34,7 +34,7 @@ export default {
     return m(`${element}.btn`,
       { title: popover, class: classNames.join(' '), onclick, disabled, href, target }, [
         m(inner, text),
-        icon ? m('i', { class: ['fa', icon].join(' ') }) : null,
+        icon ? m('i', { class: ['fas', icon].join(' ') }) : null,
       ]);
   },
 };

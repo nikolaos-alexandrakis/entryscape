@@ -5,8 +5,8 @@
             <div class="modal-body" data-dojo-attach-point="confirmMessage">
                 <div data-dojo-attach-point="messageNode"></div>
                 <div class="input-group">
-                    <span class="input-group-btn">
-                        <span class="btn btn-default btn-file">
+                    <span class="input-group-btn input-group-append">
+                        <span class="btn btn-secondary btn-file">
                             Browse <input type="file" name="${id}_fileDialog"
                                           data-dojo-attach-point="fileInput">
                         </span>
@@ -17,11 +17,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dojo-attach-point="cancelLabelNode"
+                <button type="button" class="btn btn-secondary" data-dojo-attach-point="cancelLabelNode"
                         data-dojo-attach-event="onclick:cancel"></button>
                 <button type="button" class="btn btn-primary" data-dojo-attach-point="uploadNode"
                         data-dojo-attach-event="onclick:upload">
-                    <i data-dojo-attach-point="spinner" class="fa fa-spinner fa-spin" style="display:none;"></i>
+                    <i data-dojo-attach-point="spinner" class="fas fa-spinner fa-spin" style="display:none;"></i>
                     <span data-dojo-attach-point="uploadLabelNode"></span>
                 </button>
             </div>

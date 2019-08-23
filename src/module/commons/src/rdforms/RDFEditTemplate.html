@@ -1,15 +1,18 @@
 <div class="escoRDFEdit">
     <!-- Nav tabs -->
-    <ul class="nav nav-pills nav-justified" role="tablist">
-        <li role="presentation" class="active"
+    <div class="btn-group d-flex flex-row" role="tablist">
+        <div role="presentation" class="btn btn-secondary active"
             data-dojo-attach-point="rdfxmlTab"
             data-dojo-attach-event="click:rdfxmlClicked">
-            <a role="tab" data-toggle="tab">RDF/XML</a></li>
-        <li role="presentation"
+            <a role="tab" class="nav-link" data-toggle="tab">RDF/XML</a>
+        </div>
+        <div role="presentation"
+            class="btn btn-secondary"
             data-dojo-attach-point="rdfjsonTab"
             data-dojo-attach-event="click:rdfjsonClicked">
-            <a role="tab" data-toggle="tab">RDF/JSON</a></li>
-    </ul>
+            <a role="tab" class="nav-link" data-toggle="tab">RDF/JSON</a>
+        </div>
+    </div>
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" data-dojo-attach-point="rdfxmlTabContent">

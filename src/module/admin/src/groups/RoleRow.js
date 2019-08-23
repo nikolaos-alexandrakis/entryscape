@@ -8,7 +8,7 @@ export default declare([DropdownRow], {
     // register dropdownrow menuitems
     this.registerDropdownItem({
       name: 'manager',
-      icon: 'shield',
+      icon: 'shield-alt',
       iconType: 'fa',
       nlsKey: 'manager',
       nlsKeyTitle: 'managerTitle',

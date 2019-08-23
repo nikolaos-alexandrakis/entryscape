@@ -7,7 +7,7 @@
 .sidebar,
 .conceptmain {
     position: relative;
-    height: 100%;
+    height: calc(100% - 40px); /* height - footer */
     padding-left: 1em;
     padding-right: 1em;
     padding-top: 1em;
@@ -36,12 +36,14 @@
     bottom: 0;
     left: 0;
     height: 60px;
+    width: 100%;
 }
 
 .conceptsControlls .btn-group {
     width: 100%;
     height: 100%;
     margin: 0;
+    display: flex;
 }
 
 .conceptsControlls .btn-group .btn:disabled,
@@ -55,7 +57,7 @@
     width: 50%;
 }
 
-.conceptsControlls .btn-group .btn-default {
+.conceptsControlls .btn-group .btn-secondary {
     height: 100%;
     width: 25%;
 }
@@ -73,7 +75,7 @@
 }
 
 .conceptsControlls.addTerm > .row .form-group {
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 .conceptsControlls.addTerm input {
@@ -85,13 +87,22 @@
     font-size: 12px;
 }
 
-.conceptsControlls.addTerm button {
-}
-
 .leaveAlternatives button {
     float: right;
     margin-left: 5px;
 }
+.conceptsControlls .input-group-btn{
+    padding: 0;
+}
+.conceptsControlls .input-group-btn > button{
+    padding: 10px;
+}
+.conceptsControlls label.col-form-label{
+    margin-top:5px;
+}
+/* .conceptsControlls .input-group .form-control{
+    width: 100%;
+} */
 
 .conceptsControlls .cardinality {
     float: left;

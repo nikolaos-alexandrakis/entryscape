@@ -72,7 +72,7 @@ const GeonamesChooser = declare([_WidgetBase, _TemplatedMixin,
     this.lat.innerHTML = geoObj.lat;
     this.lng.innerHTML = geoObj.lng;
     this.subdivision.innerHTML =
-      i18n.renderNLSTemplate(this.NLSBundle0.geoNameSubdivision, { 1: geoObj.name });
+      i18n.renderNLSTemplate(this.NLSLocalized0.geoNameSubdivision, { 1: geoObj.name });
   },
 
   focusOn(geonameId) {
@@ -161,12 +161,16 @@ const ext = {
           }
           throw Error('Damn');
         }).then(onSuccess, () => {
-          obj.label = `Could not load name for geoname ID: ${value.substr(24, value.length - 25)}`;
+          obj.label = { en: obj.value };
           obj.mismatch = true; // TODO replace with something else
           onSuccess();
         });
       },
     };
+    if (registry.get('authorizedUser') == null) {
+      delete obj.load;
+      obj.label = { en: obj.value };
+    }
     return obj;
   },
   show(binding, onSelect) {

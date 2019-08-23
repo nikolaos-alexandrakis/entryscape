@@ -1,8 +1,13 @@
+import m from 'mithril';
 import PubSub from 'pubsub-js';
 import ConfigError from './ConfigError';
 
-const domNodeHide = (n) => { n.style.display = 'none'; };
-const domNodeShow = (n) => { n.style.display = ''; }; // TODO set to initial or block?
+const domNodeHide = (n) => {
+  n.style.display = 'none';
+};
+const domNodeShow = (n) => {
+  n.style.display = '';
+}; // TODO set to initial or block?
 
 /**
  * Base class for displaying a set of interchangable views.
@@ -379,23 +384,37 @@ export default class Site {
    * @return {*}
    */
   createView(viewDef) {
+    this.resetView(); // empty this.config.viewsNode
     const { class: ViewClass } = viewDef;
     if (viewDef.node == null) {
       // this.config.viewsNode should be a DOM node (?)
       viewDef.node = document.createElement('div');
       viewDef.node.setAttribute('class', 'spaView');
       domNodeHide(viewDef.node);
-      this.config.viewsNode.appendChild(viewDef.node);
+      this.attachViewToDom(viewDef);
     }
     viewDef.constructorParams = viewDef.constructorParams || {};
     Object.assign(viewDef.constructorParams, { _siteManager: this });
     const view = new ViewClass(viewDef.constructorParams, viewDef.node);
-    if (view.startup) view.startup();
+    if (view.startup) {
+      view.startup();
+    }
     if (view.domNode) { // In case a dijit uses a template and creates a new node.
       viewDef.node = view.domNode;
       domNodeHide(viewDef.node);
     }
     return view;
+  }
+
+  /**
+   *
+   */
+  resetView() {
+    m.mount(this.config.viewsNode, null);
+  }
+
+  attachViewToDom(viewDef) {
+    this.config.viewsNode.appendChild(viewDef.node);
   }
 
   createSiteController(SiteControllerClass, node) {
@@ -450,6 +469,7 @@ export default class Site {
     this._queue.push({ view, params, callback });
 
     if (this._queue.length === 1) {
+      this.resetView();
       this._process();
     }
   }

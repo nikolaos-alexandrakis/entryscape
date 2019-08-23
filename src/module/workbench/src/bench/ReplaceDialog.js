@@ -5,7 +5,6 @@ import ListDialogMixin from 'commons/list/common/ListDialogMixin';
 import eswoReplaceDialog from 'workbench/nls/eswoReplaceDialog.nls';
 import declare from 'dojo/_base/declare';
 import _WidgetsInTemplateMixin from 'dijit/_WidgetsInTemplateMixin';
-import aspect from 'dojo/aspect';
 import template from './ReplaceDialogTemplate.html';
 import './eswoReplaceDialog.css';
 
@@ -33,28 +32,26 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       valueChange,
     }, htmlUtil.create('div', null, this.__fileOrLink, true));
     const localeChangeFileOrLink = this.localeChange_fileOrLink.bind(this);
-    aspect.after(this.fileOrLink, 'localeChange', () => {
-      localeChangeFileOrLink();
-    });
     this.inherited(arguments);
+    localeChangeFileOrLink();
   },
   localeChange() {
     if (this.isFile) {
       this.__currentBlock.style.display = 'none';
-      this.dialog.titleNode.innerHTML = this.NLSBundle0.replaceFileHeader;
-      this.dialog.footerButtonLabelNode.innerHTML = this.NLSBundle0.replaceFileFooterButton;
+      this.dialog.titleNode.innerHTML = this.NLSLocalized0.replaceFileHeader;
+      this.dialog.footerButtonLabelNode.innerHTML = this.NLSLocalized0.replaceFileFooterButton;
     } else {
       this.__currentBlock.style.display = '';
-      this.__currentLabel.innerHTML = this.NLSBundle0.currentLink;
-      this.dialog.titleNode.innerHTML = this.NLSBundle0.replaceLinkHeader;
-      this.dialog.footerButtonLabelNode.innerHTML = this.NLSBundle0.replaceLinkFooterButton;
+      this.__currentLabel.innerHTML = this.NLSLocalized0.currentLink;
+      this.dialog.titleNode.innerHTML = this.NLSLocalized0.replaceLinkHeader;
+      this.dialog.footerButtonLabelNode.innerHTML = this.NLSLocalized0.replaceLinkFooterButton;
     }
   },
   localeChange_fileOrLink() {
     if (this.isFile) {
-      this.fileOrLink.__fileLabel.innerHTML = this.NLSBundle0.newFile;
+      this.fileOrLink.__fileLabel.innerHTML = this.NLSLocalized0.newFile;
     } else {
-      this.fileOrLink.__linkLabel.innerHTML = this.NLSBundle0.newLink;
+      this.fileOrLink.__linkLabel.innerHTML = this.NLSLocalized0.newLink;
     }
   },
 

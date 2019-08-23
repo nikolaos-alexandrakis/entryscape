@@ -51,7 +51,7 @@ const CreateDialog = declare(RDFormsEditDialog, {
     this._newDataset = nds;
     nds.getMetadata().add(
       nds.getResourceURI(), 'rdf:type', 'dcat:Dataset');
-    this.show(nds.getResourceURI(), nds.getMetadata(), this.list.getTemplate());
+    this.showEntry(nds);
   },
   doneAction(graph) {
     return this._newDataset.setMetadata(graph).commit().then((newEntry) => {
@@ -91,8 +91,8 @@ const EditDistributionDialog = declare([RDFormsEditDialog, ListDialogMixin], {
     }
     entry.setRefreshNeeded();
     entry.refresh().then(() => {
-      this.showEntry(
-        entry, this.list.getDistributionTemplate(), this.list.getTemplateLevel(entry));
+      this.showChildEntry(
+        entry, this.row.datasetRow.entry, this.list.getTemplateLevel(entry));
     });
   },
   doneAction(graph) {
@@ -130,11 +130,12 @@ const CloneDialog = declare([ListDialogMixin], {
     const confirmMessage = this.list.nlsSpecificBundle.cloneDatasetQuestion;
     dialogs.confirm(confirmMessage, null, null, (confirm) => {
       if (!confirm) {
-        return;
+        return undefined;
       }
       const nds = createEntry(null, 'dcat:Dataset');
       const nmd = datasetEntry.getMetadata().clone()
         .replaceURI(datasetEntry.getResourceURI(), nds.getResourceURI());
+
       return registry.get('getGroupWithHomeContext')(nds.getContext()).then((groupEntry) => {
         const ei = nds.getEntryInfo();
         const acl = ei.getACL(true);
@@ -162,6 +163,7 @@ const CloneDialog = declare([ListDialogMixin], {
     });
   },
 });
+
 export default declare([ETBaseList], {
   createAndRemoveDistributions: true,
   includeCreateButton: true,
@@ -176,7 +178,7 @@ export default declare([ETBaseList], {
   listViewClass: ListView,
   class: 'datasets',
   searchVisibleFromStart: false,
-  rowClickDialog: 'edit',
+  rowClickView: 'catalog__datasets__dataset',
   versionExcludeProperties: ['dcat:distribution'],
   rowActionNames: ['edit', 'versions', 'preview', 'downgrade', 'comment',
     'distributionCreate', 'showresults', 'showideas', 'clone',
@@ -219,7 +221,7 @@ export default declare([ETBaseList], {
       this.registerRowAction({
         name: 'downgrade',
         button: 'default',
-        icon: 'level-down',
+        icon: 'level-down-alt',
         iconType: 'fa',
         nlsKey: 'downgrade',
         nlsKeyTitle: 'downgradeTitle',
@@ -242,7 +244,7 @@ export default declare([ETBaseList], {
       this.registerRowAction({
         name: 'showresults',
         button: 'default',
-        icon: 'diamond',
+        icon: 'gem',
         iconType: 'fa',
         nlsKey: 'showresults',
         nlsKeyTitle: 'showresultsTitle',
@@ -264,7 +266,7 @@ export default declare([ETBaseList], {
       this.registerRowAction({
         name: 'showideas',
         button: 'default',
-        icon: 'lightbulb-o',
+        icon: 'lightbulb',
         iconType: 'fa',
         nlsKey: 'showideas',
         nlsKeyTitle: 'showideasTitle',
@@ -314,19 +316,12 @@ export default declare([ETBaseList], {
   },
 
   getTemplate() {
-    if (!this.template) {
+    return null;
+/*    if (!this.template) {
       this.template = registry.get('itemstore').getItem(
         config.catalog.datasetTemplateId);
     }
-    return this.template;
-  },
-
-  getDistributionTemplate() {
-    if (!this.dtemplate) {
-      this.dtemplate = registry.get('itemstore').getItem(
-        config.catalog.distributionTemplateId);
-    }
-    return this.dtemplate;
+    return this.template; */
   },
 
   getSearchObject() {

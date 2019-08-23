@@ -89,9 +89,9 @@ export default declare([EntryRow], {
 
   renderCol1() {
     if (this.entry.isUser()) {
-      this.col1Node.innerHTML = '<i class="fa fa-user fa-lg"></i>';
+      this.col1Node.innerHTML = '<i class="fas fa-user fa-lg"></i>';
     } else {
-      this.col1Node.innerHTML = '<i class="fa fa-users fa-lg"></i>';
+      this.col1Node.innerHTML = '<i class="fas fa-users fa-lg"></i>';
     }
   },
 
@@ -113,7 +113,7 @@ export default declare([EntryRow], {
       const list = this.list;
       const entryId = this.entry.getId();
       const wrapperNode = document.createElement('span');
-      wrapperNode.classList.add('dropdown', 'pull-right');
+      wrapperNode.classList.add('dropdown', 'float-right');
       this.col3Node.appendChild(wrapperNode);
 
       let currentRight = list.getRight(entryId);
@@ -126,6 +126,9 @@ export default declare([EntryRow], {
       const currentRightTitle = this.getNLSTitle(currentRight);
       const textNode = document.createElement('span');
       textNode.classList.add('principalRight');
+      textNode.classList.add('dropdown-toggle');
+      textNode.classList.add('text-wrap');
+      textNode.classList.add('small');
       textNode.setAttribute('data-toggle', 'dropdown');
       wrapperNode.appendChild(textNode);
 
@@ -137,9 +140,6 @@ export default declare([EntryRow], {
       if (this.list.readOnly) {
         return;
       }
-      const newSpan = document.createElement('span');
-      newSpan.classList.add('caret');
-      textNode.appendChild(newSpan);
 
       const ul = document.createElement('ul');
       ul.classList.add('dropdown-menu', 'dropdown-menu-right');
@@ -157,12 +157,14 @@ export default declare([EntryRow], {
           li = document.createElement('li');
           li.innerHTML = labelA;
           li.classList.add('extraRights', 'selectable');
+          li.classList.add('dropdown-item');
           li.setAttribute('title', title);
           ul.appendChild(li);
         } else {
           li = document.createElement('li');
           li.innerHTML = labelA;
           li.classList.add('selectable');
+          li.classList.add('dropdown-item');
           li.setAttribute('title', title);
           ul.appendChild(li);
         }

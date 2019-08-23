@@ -1,0 +1,86 @@
+@import '~commons/theme';
+
+@mixin button {
+    background-color: transparent;
+    border: 0;
+    font-size: $text-size;
+    color: white;
+    border-radius: 2px;
+    padding: 5px;
+    text-align: left;
+}
+
+.btn--primary {
+    @include button;
+    background-color: $main-colour;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom:15px;
+    &:hover{
+        background-color:$main-colour-hover;
+    }
+
+    &:focus {
+        border: solid 3px $main-colour;
+        padding: 2px;
+        background-clip: content-box; 
+        background-color:$main-colour;
+    }
+}
+
+.btn--show{
+    width: 120px;
+}
+.btn--secondary{
+    @include button;
+    color:$main-colour;
+    background-color:white;
+    border: 2px solid $main-colour;
+    text-transform: uppercase;
+    margin-bottom:15px;
+    box-shadow: none;
+    &:hover{
+        background-color:$main-colour;
+        color:white;
+
+    }
+}
+
+.btn.btn-raised.btn-primary,.btn.bmd-btn-fab.btn-primary{
+    background-color:$main-colour; //primary colour on Bootstrap 4
+    &:hover{
+        color: white;
+        background-color: $main-colour-hover !important;
+    }
+}
+
+.btn-back{
+    margin-bottom: 50px;
+    background-color:#EEEEEE;
+    span{
+        margin-right: 10px;
+    }
+}
+.btn.btn-link{
+    background-color:#EEEEEE;
+}
+.btn.bmd-btn-fab{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    margin: 0;
+    margin-bottom:5px;
+    line-height: 1;
+}
+
+
+.btn--publish {
+    @include button;
+    font-size: 28px;
+    color: #5cb85c;
+
+    &.fa-rotate-180 {
+        color: #d9534f;
+    }
+}

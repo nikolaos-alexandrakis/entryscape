@@ -81,7 +81,7 @@ export default class {
       id: this.formId,
     }, [
       m(Group, {
-        element: 'div.grid-container',
+        element: 'div',
         components: [
           this.getOrgDetailsFieldsetComponents(),
           this.getHarvesterDetailsFieldsetComponents(),
@@ -193,7 +193,7 @@ export default class {
   }
 
   validate(name, value = null) {
-    const origName = name.substring(name.lastIndexOf('-') + 1); // name = create--title
+    const origName = name.substring(name.lastIndexOf('--') + 2); // name = create--title
     const v = value || document.getElementById(`${this.id}--${origName}`).value;
     switch (origName) {
       case 'title':

@@ -169,7 +169,7 @@ export default declare([List], {
       first: true,
       name: 'export',
       button: 'default',
-      icon: 'arrow-circle-o-down',
+      icon: 'arrow-circle-down',
       iconType: 'fa',
       nlsKey: 'catalogExport',
       nlsKeyTitle: 'catalogExportTitle',
@@ -227,7 +227,11 @@ export default declare([List], {
   },
 
   getEmptyListWarning() {
-    return this.NLSBundle1.emptyListWarning;
+    if(this.includeCreateButton) {
+      return this.NLSLocalized1.emptyListWarning;
+    }
+
+    return this.NLSLocalized1.emptyListWithNoAccessWarning;
   },
 
   getTemplate() {

@@ -15,7 +15,7 @@
   "creationDateTitle": "Skördningsjobb skapat vid ${date}",
   "confirmRemovePipeline": "Ta bort skördningskällan och alla skördade data",
   "ownLabel": "Egen organisation",
-  "cPUsernameLabel": "Användarnamn",
+  "cPUsernameLabel": "Användarnamn av organisationens administratör",
   "cPUsernamePlaceholder": "Användarnamn, måste vara en giltig e-postadress; skapar en ny användare om e-postadressen inte finns registrerad ännu",
   "cpNotValidUsername": "Användarnamnet får inte vara tom",
   "changeOrganization": "Ändra PSI-status",

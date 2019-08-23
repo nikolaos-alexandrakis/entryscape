@@ -9,7 +9,7 @@ import TitleDialog from '../dialog/TitleDialog';
 import template from './ProgressDialogTemplate.html';
 import DOMUtil from '../util/htmlUtil';
 import ListDialogMixin from '../list/common/ListDialogMixin';
-import './escoProgress.css';
+import './escoProgress.scss';
 
 export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDialogMixin], {
   bid: 'escoProgress',
@@ -104,7 +104,7 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
     this.taskWidth = 100 / this.configuredTasks.length;
     this.configuredTasks.forEach((configuredTask) => {
       const div = DOMUtil.create('div', null, self.__progressNode);
-      DOMUtil.addClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
+      DOMUtil.addClass(div, 'progress-bar bg-warning escoProgress__taskIndicator escoProgress__progressBar');
       div.setAttribute('width', `${self.taskWidth}%`);
       div.innerHTML = configuredTask.shortLabel;
       self.tasks.push({
@@ -118,10 +118,10 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
   createCheckBoxes() {
     this.taskCheckBoxes = [];
     this.configuredTasks.forEach((configuredTask) => {
-      const divPanel = DOMUtil.create('div', null, this.__checkboxNode);
-      DOMUtil.addClass(divPanel, 'panel panel-default escoProgress__task');
-      const heading = DOMUtil.create('div', null, divPanel);
-      DOMUtil.addClass(heading, 'checkbox panel-heading escoProgress__taskHeading');
+      const divCard = DOMUtil.create('div', null, this.__checkboxNode);
+      DOMUtil.addClass(divCard, 'card escoProgress__task');
+      const heading = DOMUtil.create('div', null, divCard);
+      DOMUtil.addClass(heading, 'checkbox card-header escoProgress__taskHeading');
 
       const label = DOMUtil.create('label', null, heading);
       const input = DOMUtil.create('input', { type: 'checkbox' }, label);
@@ -130,13 +130,13 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       DOMUtil.addClass(task, 'escoProgress__taskLabel');
 
       if (configuredTask.description) {
-        const newDiv = DOMUtil.create('div', null, divPanel);
-        DOMUtil.addClass(newDiv, 'panel-body escoProgress__taskDescription');
+        const newDiv = DOMUtil.create('div', null, divCard);
+        DOMUtil.addClass(newDiv, 'card-body escoProgress__taskDescription');
         newDiv.innerHTML = configuredTask.description;
       }
       if (configuredTask.mandatory) {
         const mandatoryIndicator = DOMUtil.create('i', null, heading);
-        DOMUtil.addClass(mandatoryIndicator, 'pull-right fa fa-exclamation-circle escoProgress__mandatorytask');
+        DOMUtil.addClass(mandatoryIndicator, 'float-right fas fa-exclamation-circle escoProgress__mandatorytask');
         this.taskCheckBoxes.push({
           taskEl: input,
           taskNameEl: task,
@@ -172,11 +172,11 @@ export default declare([TitleDialog.ContentNLS, _WidgetsInTemplateMixin, ListDia
       const div = task.taskEl;
       /* eslint-disable max-len */
       if (this.noOfCompletedMandatoryTasks === this.manadatoryTasks.length) {
-        DOMUtil.removeClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
-        DOMUtil.addClass(div, 'progress-bar progress-bar-success escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.removeClass(div, 'progress-bar bg-warning escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.addClass(div, 'progress-bar bg-success escoProgress__taskIndicator escoProgress__progressBar');
       } else {
-        DOMUtil.removeClass(div, 'progress-bar progress-bar-success escoProgress__taskIndicator escoProgress__progressBar');
-        DOMUtil.addClass(div, 'progress-bar progress-bar-warning escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.removeClass(div, 'progress-bar bg-success escoProgress__taskIndicator escoProgress__progressBar');
+        DOMUtil.addClass(div, 'progress-bar bg-warning escoProgress__taskIndicator escoProgress__progressBar');
       }
       /* eslint-enable max-len */
     });

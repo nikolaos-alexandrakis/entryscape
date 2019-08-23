@@ -97,7 +97,7 @@
     padding-right: 5px;
 }
 
-.selectize-control.multi .selectize-input .fa-remove {
+.selectize-control.multi .selectize-input .fa-times {
     padding-left: 5px;
 }
 
@@ -156,7 +156,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.popover-content {
+.popover-body {
     font-size: small;
 }
 
@@ -219,7 +219,7 @@
     margin-right: 10px;
 }
 
-.esbRowHead>.pull-right.btn {
+.esbRowHead>.float-right.btn {
     margin-left: 10px;
 }
 

@@ -1,0 +1,29 @@
+@import '~commons/theme';
+
+.entryscape__view__list__bottom {
+  border-bottom: 1px solid #ededed;
+  display:flex;
+
+  a {
+    font-size: 14px;
+  }
+
+  a > i {
+    margin-right: 7px;
+  }
+
+  li {
+    padding-bottom: 6px;
+    margin-right: 20px;
+    margin-top:10px;
+    text-align: center;
+  }
+
+  li.selected {
+    border-bottom: 3px solid $main-colour;
+  }
+
+  li.selected a {
+    font-weight: bold;
+  }
+}

@@ -2,7 +2,7 @@ import registry from 'commons/registry';
 import { terms, types } from 'store';
 import EntryRow from 'commons/list/EntryRow';
 import ConfirmDialog from 'commons/dialog/ConfirmDialog';
-import { template } from 'lodash-es';
+import { template, escape } from 'lodash-es';
 import declare from 'dojo/_base/declare';
 
 export default declare([EntryRow], {
@@ -48,6 +48,15 @@ export default declare([EntryRow], {
 
     return this.inherited(arguments);
   },
+  getRenderNameHTML() {
+    const isUserDisabled = this.getIsUserDisabled();
+    const name = `${this.getRenderName()} ${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
+    const href = this.getRowClickLink() || this.list.getRowClickLink(this);
+    if (href) {
+      return `<a href="${href}">${name}</a>`;
+    }
+    return name;
+  },
   getRenderName() {
     const username = this.entry.getEntryInfo().getName() || (this.entry.getResource(true)
       && this.entry.getResource(true).getName());
@@ -57,8 +66,7 @@ export default declare([EntryRow], {
       return template(this.nlsSpecificBundle.unnamedUser)({ id: this.entry.getId() });
     }
 
-    const isUserDisabled = this.getIsUserDisabled();
-    return `${username}  -  ${name}${isUserDisabled ? this.getDisabledUserHtml() : ''}`;
+    return `${escape(username)}  -  ${escape(name)}`;
   },
   action_remove() {
     const entry = this.entry;
@@ -66,6 +74,7 @@ export default declare([EntryRow], {
     const dialogs = registry.get('dialogs');
     const bundle = this.nlsSpecificBundle;
     const name = this.getRenderName();
+
     let soleUserMsg = null;// fix for ESAD-5
     // Check if there are any solely owned non-homecontexts.
     es.newSolrQuery().graphType(types.GT_CONTEXT).admin(entry.getResourceURI()).limit(100)
@@ -158,6 +167,6 @@ export default declare([EntryRow], {
   },
   getDisabledUserHtml() {
     return `<i style="margin-left:10px"  rel="tooltip" title="${this.nlsSpecificBundle.userStatusDisabled}" 
-            class="fa fa-user-times"></i>`;
+            class="fas fa-user-times"></i>`;
   },
 });

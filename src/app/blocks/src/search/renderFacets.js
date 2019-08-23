@@ -16,7 +16,7 @@ class FacetBlock {
     this.bodyNode = DOMUtil.create('ul');
     this.domNode.appendChild(this.bodyNode);
     this.viewAllNode = DOMUtil.create('button',
-      { class: 'btn btn-default pull-right btn--facet',
+      { class: 'btn btn-secondary float-right btn--facet',
         innerHTML: 'visa alla' });
     this.viewAllNode.style.display = 'none';
     this.domNode.appendChild(this.viewAllNode);
@@ -97,7 +97,7 @@ class FacetBlock {
     if (selected) {
       const button = DOMUtil.create('button', { class: 'btn btn-small btn-link' });
       li.appendChild(button);
-      button.appendChild(DOMUtil.create('i', { class: 'fa fa-remove' }));
+      button.appendChild(DOMUtil.create('i', { class: 'fas fa-times' }));
 
       button.onclick = function (e) {
         e.stopPropagation();

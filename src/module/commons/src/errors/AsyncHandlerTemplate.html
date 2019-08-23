@@ -1,42 +1,66 @@
-<div class="spaAsync fuelux inprogress" role="dialog" style="display:none" >
-    <div class="spaAsyncUnderlay" data-dojo-attach-point="underlay"></div>
-    <div class="spaAsyncContent" data-dojo-attach-point="progress">
-        <div>
-            <div class="rejectIcon"><i class="fa fa-4x fa-exclamation-triangle"></i></div>
-            <div class="loaderContainer" data-dojo-attach-point="_loader"></div>
-            <div class="loading amessage" data-dojo-attach-point="nls">loading</div>
-            <div class="reject1 amessage" >
-                <div data-dojo-attach-point="nls">genericProblem</div>
-                <div class="buttonRow">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-default"
-                                data-dojo-attach-event="click:toggleDetails"
-                                data-dojo-attach-point="nls">showDetails,hideDetails</button>
-                        <button type="button" class="btn btn-primary"
-                                data-dojo-attach-event="click:closeDialog"
-                                data-dojo-attach-point="nls">closeDialog</button>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Data loading">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <!-- one of two icons, spinner or rejection icon-->
+                <div class="spaAsync">
+                    <div class="info" data-dojo-attach-point="_dataLoading">
+                        <div class="" data-dojo-attach-point="_spinner">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div data-dojo-attach-point="nls">loading</div>
+                        </div>
+                    </div>
+                    <div class="info d-none" data-dojo-attach-point="_dataError">
+                        <div class="rejectIcon" data-dojo-attach-point="_rejectionIcon">
+                            <i class="fas fa-exclamation-triangle fa-4x"></i>
+                        </div>
+                        <div data-dojo-attach-point="nls">genericProblem</div>
+                        <div class="buttonRow">
+                            <button type="button" class="btn btn-secondary"
+                                    data-dojo-attach-event="click:toggleDetails"
+                                    data-dojo-attach-point="nls">showDetails,hideDetails
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                    data-dojo-attach-event="click:closeDialog"
+                                    data-dojo-attach-point="nls">closeDialog
+                            </button>
+                        </div>
+                        <div class="d-none" data-dojo-attach-point="_messagesBlock">
+                            <div class="asyncMessages" data-dojo-attach-point="messages"></div>
+                        </div>
+                        <div class="d-flex row reject2 amessage justify-content-around align-items-center">
+                            <div class="d-none">
+                                <div data-dojo-attach-point="nls">signedOut</div>
+                                <div class="buttonRow">
+                                    <div class="float-right">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dojo-attach-event="click:closeDialogSignedOut"
+                                                data-dojo-attach-point="nls">closeDialog
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                data-dojo-attach-event="click:signIn"
+                                                data-dojo-attach-point="nls">signIn
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-none" data-dojo-attach-point="connectionBlock">
+                                <div class="d-flex row reject3 amessage justify-content-around align-items-center">
+                                    <span data-dojo-attach-point="timeToCheck"></span>
+                                    <button type="button" class="btn btn-link"
+                                            data-dojo-attach-event="click:checkConnection">
+                                        Check Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="reject2 amessage" data-dojo-attach-point="reject2">
-                <div data-dojo-attach-point="nls">signedOut</div>
-                <div class="buttonRow">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-default"
-                                data-dojo-attach-event="click:closeDialogSignedOut"
-                                data-dojo-attach-point="nls">closeDialog</button>
-                        <button type="button" class="btn btn-primary"
-                                data-dojo-attach-event="click:signIn"
-                                data-dojo-attach-point="nls">signIn</button>
-                    </div>
-                </div>
-
-            </div>
-            <div class="reject3 amessage" data-dojo-attach-point="reject3">
-                <span data-dojo-attach-point="timeToCheck"></span>
-                <button type="button" class="btn btn-link" data-dojo-attach-event="click:checkConnection">Check Now</button>
-            </div>
-            <div class="asyncMessages" data-dojo-attach-point="messages"></div>
         </div>
     </div>
 </div>

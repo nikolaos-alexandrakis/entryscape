@@ -34,7 +34,7 @@ export default declare([NLSMixin], {
   ],
   mergeProperties: [
     {
-      nls: 'mergeAdded', // access this.NLSBundle0.mandatoryMissing
+      nls: 'mergeAdded', // access this.NLSLocalized0.mandatoryMissing
       property: 'storepr:mergeAdded',
     },
     {
@@ -67,7 +67,7 @@ export default declare([NLSMixin], {
       modDate = '';
     }
 
-    return template(this.NLSBundle0.modifiedDateTitle)({ date: modDate });
+    return template(this.NLSLocalized0.modifiedDateTitle)({ date: modDate });
   },
   getTitle() {
     switch (this.entry.getEntryInfo().getStatus()) {
@@ -82,7 +82,7 @@ export default declare([NLSMixin], {
         if (typeof datasetCnt === 'number' && datasetCnt > 0) {
           return i18n.renderNLSTemplate(this.NLSLocalized0.titleDatasets, datasetCnt);
         }
-        return this.NLSBundle0.noDatasets;
+        return this.NLSLocalized0.noDatasets;
       }
     }
   },
@@ -95,43 +95,43 @@ export default declare([NLSMixin], {
     switch (this.entry.getEntryInfo().getStatus()) {
       case terms.status.InProgress:
       case terms.status.Pending:
-        return this.NLSBundle0.noData;
+        return this.NLSLocalized0.noData;
       default: {
         const md = this.entry.getMetadata();
 
         // psi data page status
         const psidataPage = md.findFirstValue(null, 'storepr:check');
-        body.data[this.NLSBundle0.psiDataPageStatus] = psidataPage ?
-          this.NLSBundle0.foundText : this.NLSBundle0.notFoundText;
+        body.data[this.NLSLocalized0.psiDataPageStatus] = psidataPage ?
+          this.NLSLocalized0.foundText : this.NLSLocalized0.notFoundText;
 
         // dcat source
         const dcatSource = md.findFirstValue(null, 'storepr:fetchSource') === 'true';
-        body.data[this.NLSBundle0.dcatStatus] = dcatSource ?
-          this.NLSBundle0.foundText : this.NLSBundle0.notFoundText;
+        body.data[this.NLSLocalized0.dcatStatus] = dcatSource ?
+          this.NLSLocalized0.foundText : this.NLSLocalized0.notFoundText;
 
         if (dcatSource) {
           const dcatRdf = md.findFirstValue(null, 'storepr:fetchRDF') === 'true';
           if (!dcatRdf) {
             const rdfError = md.findFirstValue(null, 'storepr:fetchRDFError');
             if (rdfError) {
-              body.data[this.NLSBundle0.dcatStatus] = this.NLSBundle0.invalidRDFStatus;
+              body.data[this.NLSLocalized0.dcatStatus] = this.NLSLocalized0.invalidRDFStatus;
               // TODO
               // domStyle.set(this.__rdfErrorRow, 'display', '');
               // domAttr.set(this.__rdfErrorMessage, 'innerHTML', rdfError);
             } else {
-              body.data[this.NLSBundle0.dcatStatus] = this.NLSBundle0.formatStatus;
+              body.data[this.NLSLocalized0.dcatStatus] = this.NLSLocalized0.formatStatus;
             }
             return body;
           }
 
           // add validation messages
           this.validationProperties.forEach((item) => {
-            const nlsString = this.NLSBundle0[item.nls];
+            const nlsString = this.NLSLocalized0[item.nls];
             body.validationResults[nlsString] =
               parseInt(md.findFirstValue(null, item.property) || 0, 10);
           });
           this.mergeProperties.forEach((item) => {
-            const nlsString = this.NLSBundle0[item.nls];
+            const nlsString = this.NLSLocalized0[item.nls];
             body.mergeResults[nlsString] =
               parseInt(md.findFirstValue(null, item.property) || 0, 10);
           });
@@ -141,7 +141,7 @@ export default declare([NLSMixin], {
             .some(name => body.validationResults[name] > 0);
         } else {
           // dont display anything
-          body.data[this.NLSBundle0.dcatStatus] = this.NLSBundle0.notFoundText;
+          body.data[this.NLSLocalized0.dcatStatus] = this.NLSLocalized0.notFoundText;
         }
 
         return body;
@@ -159,7 +159,7 @@ export default declare([NLSMixin], {
     return m(ButtonComponent, {
       text,
       onclick,
-      classNames: ['pull-right', 'btn-default'],
+      classNames: ['float-right', 'btn-secondary'],
       inner: 'small',
     });
   },
@@ -169,24 +169,24 @@ export default declare([NLSMixin], {
       const isEmptyObject = obj => Object.keys(obj).length === 0 && obj.constructor === Object;
 
       const mergeComponents = (!isEmptyObject(body.mergeResults)) ? [
-        this.getTitleComponent(this.NLSBundle0.mergeResult),
+        this.getTitleComponent(this.NLSLocalized0.mergeResult),
         this.getKeyValueComponent(body.mergeResults),
       ] : [];
 
       const validationComponents = (!isEmptyObject(body.validationResults)) ? [
-        this.getTitleComponent(this.NLSBundle0.validationResult),
+        this.getTitleComponent(this.NLSLocalized0.validationResult),
         this.getKeyValueComponent(body.validationResults),
       ] : [];
 
       const fileEntryURI = this.entry.getMetadata().findFirstValue(null, 'dcterms:source');
       if (fileEntryURI) {
         validationComponents.push(this.getButtonComponent({
-          text: this.NLSBundle0.validationReport,
+          text: this.NLSLocalized0.validationReport,
           onclick: this.validationReport.bind(this),
         }));
       }
       const components = [
-        this.getTitleComponent(this.NLSBundle0.harvestingResult),
+        this.getTitleComponent(this.NLSLocalized0.harvestingResult),
         this.getKeyValueComponent(body.data),
       ].concat(mergeComponents, validationComponents);
 

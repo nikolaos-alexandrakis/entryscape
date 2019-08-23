@@ -72,7 +72,7 @@ const CollectionRow = declare([EntryRow], {
   renderCol1() {
     const count = this.entry.getMetadata().find(this.entry.getResourceURI(), 'skos:member').length;
     $(this.domNode).addClass('termsCollection');
-    this.col1Node.innerHTML = `<span class="badge">${count}</span>`;
+    this.col1Node.innerHTML = `<span class=" badge-pill badge-primary">${count}</span>`;
     if (this.nlsSpecificBundle) {
       this.col1Node.setAttribute('title', i18n.renderNLSTemplate(this.nlsSpecificBundle.collectionMembers, count));
     }
@@ -90,7 +90,7 @@ const ExportDialog = declare([Export], {
   profile: 'skoscollection',
   open(params) {
     const name = registry.get('rdfutils').getLabel(params.row.entry);
-    this.title = i18n.renderNLSTemplate(this.NLSBundle0.exportHeaderLabel, { name });
+    this.title = i18n.renderNLSTemplate(this.NLSLocalized0.exportHeaderLabel, { name });
     this.localeChange();
     this.inherited(arguments);
   },
@@ -121,7 +121,7 @@ export default declare([ETBaseList], {
     this.registerRowAction({
       name: 'members',
       button: 'default',
-      icon: 'check-square-o',
+      icon: 'check-square',
       iconType: 'fa',
       nlsKey: 'manageMembers',
       nlsKeyTitle: 'manageMembersTitle',
@@ -131,7 +131,7 @@ export default declare([ETBaseList], {
       first: true,
       name: 'export',
       button: 'default',
-      icon: 'arrow-circle-o-down',
+      icon: 'arrow-circle-down',
       iconType: 'fa',
       nlsKey: 'collectionExportTitle',
     });

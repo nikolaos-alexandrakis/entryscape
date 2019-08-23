@@ -1,47 +1,47 @@
 <form class="signup" onsubmit="return false;">
-    <div class="form-group">
-        <label for="${id}-signupFirstname" data-dojo-attach-point="nls" class="control-label">firstName</label>
+    <div class="form-group row">
+        <label for="${id}-signupFirstname" data-dojo-attach-point="nls" class="col-form-label">firstName</label>
         <input id="${id}-signupFirstname" type="text" class="form-control"
                data-dojo-attach-point="nls,suFirstname" placeholder="firstnamePlaceholder" required
                pattern=".{2,}">
         <div class="text-danger" role="alert" style="display:none"
              data-dojo-attach-point="firstnameStatus"></div>
     </div>
-    <div class="form-group">
-        <label for="${id}-signupLastname" data-dojo-attach-point="nls" class="control-label">lastname</label>
+    <div class="form-group row">
+        <label for="${id}-signupLastname" data-dojo-attach-point="nls" class="col-form-label">lastname</label>
         <input id="${id}-signupLastname" type="text" class="form-control"
                data-dojo-attach-point="nls,suLastname" placeholder="lastnamePlaceholder" required>
     </div>
-    <div class="form-group" data-dojo-attach-point="nationalNumberNode" style="display: none">
-        <label for="${id}-nationalNumber" data-dojo-attach-point="nls" class="control-label">nationalNumber</label>
+    <div class="form-group row" data-dojo-attach-point="nationalNumberNode" style="display: none">
+        <label for="${id}-nationalNumber" data-dojo-attach-point="nls" class="col-form-label">nationalNumber</label>
         <input id="${id}-nationalNumber" type="text" class="form-control"
                data-dojo-attach-point="nls,nationalNumber" placeholder="naionalNumberPlaceholder">
         <div class="text-danger" role="alert" style="display:none"
              data-dojo-attach-point="nationalNumberStatus"></div>
     </div>
-    <div class="form-group">
-        <label for="${id}-signupUsername" data-dojo-attach-point="nls" class="control-label">email</label>
+    <div class="form-group row">
+        <label for="${id}-signupUsername" data-dojo-attach-point="nls" class="col-form-label">email</label>
         <input id="${id}-signupUsername" type="email" class="form-control"
                data-dojo-attach-point="nls,suUsername" placeholder="emailPlaceholder" required>
         <div class="text-danger" role="alert" style="display:none"
              data-dojo-attach-point="emailStatus"></div>
     </div>
     <div data-dojo-attach-point="passwordFormNode"></div>
-    <div class="form-group">
-        <div class="checkbox">
+    <div class="form-group row">
+        <div class="form-check checkbox">
             <label>
-                <input type="checkbox" required data-dojo-attach-point="nls,checkboxPUL">
+                <input type="checkbox" class="form-check-input" required data-dojo-attach-point="nls,checkboxPUL">
                 <div data-dojo-attach-point="nls" style="display: inline">confidentialityAgree</div>
             </label>
-            <i class="signup-info fa fa-info-circle" data-dojo-attach-event="onClick: showPULInfoDialog"
+            <i class="signup-info fas fa-info-circle" data-dojo-attach-event="onClick: showPULInfoDialog"
                data-dojo-attach-point="nls" title="confidentialityAgreeTitle"
                style="display: inline"></i>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group row">
         <div data-dojo-attach-point="recaptcha"></div>
     </div>
-    <div class="form-group">
+    <div class="form-group row">
         <div class="alert alert-danger" role="alert" style="display:none"
              data-dojo-attach-point="signupStatus"></div>
     </div>
