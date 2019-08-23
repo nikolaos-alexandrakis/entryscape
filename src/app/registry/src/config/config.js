@@ -11,7 +11,12 @@ const STATIC = {
   APP: 'registry',
   VERSION: 'latest',
 };
-const ASSETS_URL = __entryscape_config.entryscape.localBuild ? '/dist/assets/' : `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`;
+
+/**
+ * @see publicPath.js
+ * @type {string}
+ */
+const ASSETS_URL = __entryscape_config.entryscape.localBuild ? `${__webpack_public_path__}/assets/` : `${STATIC.URL}${STATIC.APP}/${STATIC.VERSION}/assets/`; // eslint-disable-line
 const LOGO_SVG_URL = `${ASSETS_URL}entryscape.svg`;
 
 const config = merge(adminConfig, catalogConfig, workbenchConfig, {
