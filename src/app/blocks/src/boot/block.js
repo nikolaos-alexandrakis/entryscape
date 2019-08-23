@@ -13,7 +13,7 @@ import renderFormatList from 'blocks/list/renderFormatList';
 import renderCatalogList from 'blocks/list/renderCatalogList';
 import renderList from 'blocks/list/renderList';
 import renderEntryLink from 'blocks/text/renderEntryLink';
-import renderEntryText from 'blocks/text/renderEntryText';
+import renderText from 'blocks/text/renderText';
 import renderTemplate from 'blocks/text/renderTemplate';
 import renderResults from 'blocks/search/renderResults';
 import renderCollectionText from 'blocks/text/renderCollectionText';
@@ -35,7 +35,7 @@ const block2function = {
   formatList: renderFormatList,
   catalogList: renderCatalogList,
   link: renderEntryLink,
-  text: renderEntryText,
+  text: renderText,
   template: renderTemplate,
   image: renderImage,
   slider: renderSlider,

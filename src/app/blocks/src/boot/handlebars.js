@@ -11,6 +11,7 @@ const idx = [];
 let counter = 0;
 let bodycomponentId;
 let group = {};
+let eachpropExpand = 0;
 
 ['rowhead', 'rowexpand', 'listempty', 'listhead', 'listbody', 'listplaceholder'].forEach((name) => {
   handlebars.registerHelper(name, (options) => {
@@ -73,14 +74,14 @@ let initializeHelpers = () => {
   });
   handlebars.registerHelper('eachprop', (prop, options) => {
     const subject = !options.hash.nested ? currentEntry.getResourceURI() : undefined;
-    const stmts = currentEntry.getMetadata().find(subject, prop);
+    let stmts = currentEntry.getMetadata().find(subject, prop);
     const val2choice = registry.get('itemstore_choices');
     const val2named = registry.get('blocks_named');
     const localize = registry.get('localize');
     const es = registry.get('entrystore');
     const rdfutils = registry.get('rdfutils');
-    const filterFunc = stmt => (!options.nodetype || stmt.getType() === options.nodetype);
-    const ret = stmts.filter(filterFunc).map((stmt) => {
+    const filterFunc = stmt => (!options.hash.nodetype || stmt.getType() === options.hash.nodetype);
+    const perStmt = (stmt, last) => {
       const val = stmt.getValue();
       const choice = val2choice[val];
       let label;
@@ -118,8 +119,39 @@ let initializeHelpers = () => {
         regexp,
         label: label || val,
         description: desc || '',
+        separator: last === true ? '' : options.hash.separator || ', ',
       });
-    });
+    };
+    let ret;
+    stmts = stmts.filter(filterFunc);
+    if (stmts.length > 1) {
+      if (options.hash.limit !== undefined && stmts.length > options.hash.limit) {
+        const firststmts = stmts.slice(0, options.hash.limit);
+        const firstLastStmt = firststmts.pop();
+        const reststmts = stmts.slice(options.hash.limit);
+        const lastStmt = reststmts.pop();
+        const expandid = `eachpropexpand_${eachpropExpand}`;
+        eachpropExpand += 1;
+        ret = [`<span id=${expandid} class="eachprop">`];
+        ret = ret.concat(firststmts.map(perStmt));
+        ret.push(perStmt(firstLastStmt, true));
+        ret.push(`<span class="eachprop__restseparator">${options.hash.separator || ', '}</span>`);
+        ret.push(`<span class="eachprop__ellipsis">${options.hash.expandellipsis || '…'}</span>`);
+        ret.push(`<button class="eachprop__expandbutton" onclick="document.getElementById('${expandid}').classList.add('eachprop--expanded');">${options.hash.expandbutton || 'Show more'}</button>`);
+        ret.push('<span class="eachprop__rest">');
+        ret = ret.concat(reststmts.map(perStmt));
+        ret.push(perStmt(lastStmt, true));
+        ret.push('</span>');
+        ret.push(`<button class="eachprop__unexpandbutton" onclick="document.getElementById('${expandid}').classList.remove('eachprop--expanded');">${options.hash.unexpandbutton || 'Show less'}</button>`);
+        ret.push('</span>');
+      } else {
+        const lastStmt = stmts.pop();
+        ret = stmts.map(perStmt);
+        ret.push(perStmt(lastStmt, true));
+      }
+    } else {
+      ret = stmts.map(perStmt, true);
+    }
     return ret.join('');
   });
   handlebars.registerHelper('resourceURI', () => currentEntry.getResourceURI());

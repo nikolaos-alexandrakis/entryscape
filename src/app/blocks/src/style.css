@@ -265,3 +265,26 @@
 .cleanRDForms .rdformsField>div {
     font-weight: bold;
 }
+
+/* Expand functionality of eachprop */
+.entryscape .eachprop .eachprop__restseparator,
+.entryscape .eachprop .eachprop__rest,
+.entryscape .eachprop .eachprop__unexpandbutton {
+    display: none;
+}
+
+.entryscape .eachprop.eachprop--expanded .eachprop__restseparator,
+.entryscape .eachprop.eachprop--expanded .eachprop__rest,
+.entryscape .eachprop.eachprop--expanded .eachprop__unexpandbutton {
+    display: inline;
+}
+
+.entryscape .eachprop.eachprop--expanded .eachprop__ellipsis,
+.entryscape .eachprop.eachprop--expanded .eachprop__expandbutton {
+    display: none;
+}
+
+.entryscape .eachprop .eachprop__expandbutton,
+.entryscape .eachprop .eachprop__unexpandbutton {
+    margin-left: 10px;
+}
