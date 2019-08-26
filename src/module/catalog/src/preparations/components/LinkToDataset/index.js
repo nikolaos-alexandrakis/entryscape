@@ -137,16 +137,17 @@ export default (initialVnode) => {
     oncreate: loadDatasets,
     view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
-      const listNames = ['linkedDatasets', 'datasets'] ;
+      const listNames = ['linkedDatasets', 'datasets'];
 
       const lists = listNames.map((listName) => {
         let list = null;
         if (state[listName].length) {
           const onclick = listName === 'datasets' ? link : unlink;
+          const isLinked = listName !== 'datasets';
           list = state[listName].map(dataset => <DatasetRow
             key={dataset.getId()}
             entry={dataset}
-            isLinked={true}
+            isLinked={isLinked}
             onclick={onclick}/>);
         } else {
           list = <ListPlaceholder label={escaPreparations.linkDatasetEmptyList}/>;
