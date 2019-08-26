@@ -17,7 +17,7 @@ import './index.scss';
  * @returns {store|SearchList}
  */
 const getFilteredEntries = (params) => {
-  const { term = '', status = 'esterms:investigating', sortOrder = '' } = params;
+  const { term = '', status = 'esterms:investigating' } = params;
   const context = registry.getContext();
   const namespaces = registry.getNamespaces();
 
@@ -26,13 +26,6 @@ const getFilteredEntries = (params) => {
     .rdfType('esterms:Suggestion')
     .context(context)
     .status(namespaces.expand(status));
-
-  if (sortOrder === 'title') {
-    const l = this.useNoLangSort ? 'nolang' : i18n.getLocale();
-    qo.sort(`title.${l}+asc`);
-  } else {
-    qo.sort('modified+desc');
-  }
 
   if (term && term.length > 2) {
     if (config.get('entrystore.defaultSolrQuery') === 'all') {
@@ -219,7 +212,7 @@ export default () => {
                   entry={suggestion}
                   updateParent={reInitView}
                 />
-              )) : <ListPlaceholder label={escaPreparations.suggestionEmptyList} />}
+              )) : <ListPlaceholder label={escaPreparations.suggestionEmptyList}/>}
               {(state.totalSuggestions > LIST_PAGE_SIZE_SMALL) && <Pagination
                 currentPage={state.suggestionPage}
                 totalCount={state.totalSuggestions}
@@ -245,7 +238,7 @@ export default () => {
                     entry={suggestion}
                     updateParent={reInitView}
                   />
-                )) : <ListPlaceholder label={escaPreparations.archiveEmptyList} />}
+                )) : <ListPlaceholder label={escaPreparations.archiveEmptyList}/>}
                 {(state.totalArchives > LIST_PAGE_SIZE_SMALL) && <Pagination
                   currentPage={state.archivePage}
                   totalCount={state.totalArchives}
