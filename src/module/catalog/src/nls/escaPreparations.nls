@@ -34,6 +34,8 @@
     "unlinkDatasetConfirmQuestion": "Are you sure you want unlink suggestion from this dataset?",
     "linkDatasetInfo": "You can link or unlink this suggestion to any of the datasets by simply clicking on them",
     "linkDatasetEmptyList": "There is no dataset that match this criteria",
+    "datasetsListHeading": "Datasets in catalog",
+    "linkedDatasetsListHeading": "Linked datasets",
     "suggestionEmptyList": "There is no suggestion to show",
     "archiveEmptyList": "There is no archive to show",
     "linkDatasetConfirm": "Yes",

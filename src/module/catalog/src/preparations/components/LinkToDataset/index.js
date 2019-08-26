@@ -1,7 +1,8 @@
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
+import Pagination from 'commons/components/common/Pagination';
 import SearchInput from 'commons/components/SearchInput';
 import registry from 'commons/registry';
-import { createSetState } from 'commons/util/util';
+import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
 import { i18n } from 'esi18n';
 import DatasetRow from '../DatasetRow';
 import ListPlaceholder from '../ListPlaceholder';
@@ -20,58 +21,151 @@ const getDatasetsURILinkedWithSuggestion = (entry) => {
 export default (initialVnode) => {
   const { entry } = initialVnode.attrs;
   const state = {
+    // not linked datasets
     datasets: [],
+    datasetsResultSize: null,
+    datasetsCurrentPage: 0,
+
+    // linked datasets
     linkedDatasets: [],
+    linkedDatasetsResultSize: null,
+    linkedDatasetsCurrentPage: 0,
   };
+
   const setState = createSetState(state);
 
   /**
    *
    * @param searchToken
-   * @return {Promise<void>}
+   * @return {store|SolrQuery}
    */
-  const loadDatasets = async (searchToken = '') => {
+  const getSolrQuery = (searchToken) => {
     const query = registry.getEntryStore().newSolrQuery()
       .rdfType('dcat:Dataset')
-      .context(registry.getContext()); // @todo is there a need to specify that they belong to a specific catalog?
+      .context(registry.getContext()) // @todo is there a need to specify that they belong to a specific catalog?
+      .limit(LIST_PAGE_SIZE_SMALL);
 
     // If there's more than 3 characters than trigger a search
     if (typeof searchToken === 'string' && searchToken.length > 2) {
       query.title(searchToken);
     }
 
-    const datasets = await query.getEntries();
+    return query;
+  };
+
+  /**
+   * Synchronously fetches a result set (@see store/SearchList) for two store/SolrQuery,
+   * one for datasets that referenced from the current entry and one for all the rest datasets in context that are not.
+   *
+   * If a search token is provided, that is also added to the query
+   *
+   * @param searchToken
+   * @return {Promise<void>}
+   */
+  const loadDatasets = async (searchToken = '') => {
+    let linkedDatasetSearchList = null;
+    let datasetSearchList = getSolrQuery(searchToken).list();
 
     const linkedDatasetURIs = getDatasetsURILinkedWithSuggestion(entry);
-    const linkedDatasetEntries = datasets.filter(dataset => linkedDatasetURIs.includes(dataset.getResourceURI()));
-    const datasetEntries = datasets.filter(dataset => !linkedDatasetURIs.includes(dataset.getResourceURI()));
+
+    if (linkedDatasetURIs.length !== 0) {
+      // linked datasets
+      linkedDatasetSearchList = getSolrQuery(searchToken).resource(linkedDatasetURIs, false).list();
+      datasetSearchList = getSolrQuery(searchToken).resource(linkedDatasetURIs, true).list();
+    }
+
+    const linkedDatasets = await
+      (linkedDatasetSearchList ? linkedDatasetSearchList.getEntries(state.linkedDatasetsCurrentPage) : []);
+    const linkedDatasetsSearchSize = linkedDatasetSearchList ? linkedDatasetSearchList.getSize() : 0;
+
+    const datasets = await datasetSearchList.getEntries(state.datasetsCurrentPage);
+    const datasetsSearchSize = datasetSearchList.getSize();
 
     setState({
-      datasets: datasetEntries,
-      linkedDatasets: linkedDatasetEntries,
+      datasets,
+      datasetsSearchSize,
+      linkedDatasets,
+      linkedDatasetsSearchSize,
     });
+  };
+
+  /**
+   *
+   * @param {string} newPage datasets|linkedDatasets
+   * @param listName
+   */
+  const paginateList = (newPage, listName) => {
+    const newState = {};
+    newState[listName] = newPage;
+    setState(newState);
+
+    loadDatasets();
   };
 
   const bindActions = actions(entry);
 
   /**
-   * @param {string} datasetRURI
-   * @return {*}
+   * Clear the current value
    */
-  const unlink = datasetRURI => bindActions.unlink(datasetRURI).then(loadDatasets);
+  const emptySearchField = () => {
+    const el = initialVnode.dom.querySelector('input');
+    el.value = '';
+  };
 
   /**
    * @param {string} datasetRURI
    * @return {*}
    */
-  const link = datasetRURI => bindActions.link(datasetRURI).then(loadDatasets);
+  const unlink = datasetRURI => bindActions.unlink(datasetRURI)
+    .then(loadDatasets)
+    .then(emptySearchField);
+
+  /**
+   * @param {string} datasetRURI
+   * @return {*}
+   */
+  const link = datasetRURI => bindActions.link(datasetRURI)
+    .then(loadDatasets)
+    .then(emptySearchField);
+
+  /**
+   * @return {Promise<void>}
+   */
+  const reload = () => loadDatasets().then(emptySearchField);
 
   return {
-    oncreate() {
-      loadDatasets();
-    },
-    view(vnode) {
+    oncreate: loadDatasets,
+    view() {
       const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
+      const listNames = ['linkedDatasets', 'datasets'] ;
+
+      const lists = listNames.map((listName) => {
+        let list = null;
+        if (state[listName].length) {
+          const onclick = listName === 'datasets' ? link : unlink;
+          list = state[listName].map(dataset => <DatasetRow
+            key={dataset.getId()}
+            entry={dataset}
+            isLinked={true}
+            onclick={onclick}/>);
+        } else {
+          list = <ListPlaceholder label={escaPreparations.linkDatasetEmptyList}/>;
+        }
+
+        let pagination = null;
+        if (state[`${listName}SearchSize`] && state[`${listName}SearchSize`] > LIST_PAGE_SIZE_SMALL) {
+          pagination = <Pagination
+            currentPage={state[`${listName}CurrentPage`]}
+            totalCount={state[`${listName}SearchSize`]}
+            pageSize={LIST_PAGE_SIZE_SMALL}
+            handleChangePage={newPage => paginateList(newPage, listName)}
+          />;
+        }
+
+        const listHeading = escaPreparations[`${listName}ListHeading`];
+        return { listHeading, list, pagination };
+      });
+
       return <div className="preparationsDatasetList">
         <div className="row">
           <div className="listButtons col">
@@ -86,7 +180,7 @@ export default (initialVnode) => {
                   type="button"
                   className="float-right btn btn-raised btn-secondary"
                   title="Reload list"
-                  onclick={loadDatasets}
+                  onclick={reload}
                 >
                   <span aria-hidden="true" className="fas fa-sync"/>
                 </button>
@@ -106,21 +200,12 @@ export default (initialVnode) => {
           </div>
         </div>
         <div className="lists">
-          <div className="mb-4">
-            <h5 className="listHeading">Linked datasets</h5>
+          {lists.map(({ listHeading, list, pagination }) => <div className="mb-4">
+            <h5 className="listHeading">{listHeading}</h5>
             <hr/>
-            {state.linkedDatasets.length ? state.linkedDatasets.map(dataset =>
-                <DatasetRow key={dataset.getId()} entry={dataset} isLinked={true} onclick={unlink}/>)
-              : <ListPlaceholder label={escaPreparations.linkDatasetEmptyList}/>
-            }
-          </div>
-          <div className="mb-4">
-            <h5 className="listHeading">Datasets in catalog</h5>
-            <hr/>
-            {state.datasets.length ? <div>{state.datasets.map(dataset =>
-              <DatasetRow key={dataset.getId()} entry={dataset} onclick={link}/>)}
-            </div> : <ListPlaceholder label={escaPreparations.linkDatasetEmptyList}/>}
-          </div>
+            {list}
+            {pagination}
+          </div>)}
         </div>
       </div>;
     },
