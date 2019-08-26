@@ -30,24 +30,24 @@ export default (initialVnode) => {
     linkedDatasets: [],
     linkedDatasetsResultSize: null,
     linkedDatasetsCurrentPage: 0,
+
+    searchToken: null,
   };
 
   const setState = createSetState(state);
 
   /**
-   *
-   * @param searchToken
    * @return {store|SolrQuery}
    */
-  const getSolrQuery = (searchToken) => {
+  const getSolrQuery = () => {
     const query = registry.getEntryStore().newSolrQuery()
       .rdfType('dcat:Dataset')
       .context(registry.getContext()) // @todo is there a need to specify that they belong to a specific catalog?
       .limit(LIST_PAGE_SIZE_SMALL);
 
     // If there's more than 3 characters than trigger a search
-    if (typeof searchToken === 'string' && searchToken.length > 2) {
-      query.title(searchToken);
+    if (typeof state.searchToken === 'string' && state.searchToken.length > 2) {
+      query.title(state.searchToken);
     }
 
     return query;
@@ -59,23 +59,22 @@ export default (initialVnode) => {
    *
    * If a search token is provided, that is also added to the query
    *
-   * @param searchToken
    * @return {Promise<void>}
    */
-  const loadDatasets = async (searchToken = '') => {
+  const loadDatasets = async () => {
     let linkedDatasetSearchList = null;
-    let datasetSearchList = getSolrQuery(searchToken).list();
+    let datasetSearchList = getSolrQuery().list();
 
     const linkedDatasetURIs = getDatasetsURILinkedWithSuggestion(entry);
 
     if (linkedDatasetURIs.length !== 0) {
       // linked datasets
-      linkedDatasetSearchList = getSolrQuery(searchToken).resource(linkedDatasetURIs, false).list();
-      datasetSearchList = getSolrQuery(searchToken).resource(linkedDatasetURIs, true).list();
+      linkedDatasetSearchList = getSolrQuery().resource(linkedDatasetURIs, false).list();
+      datasetSearchList = getSolrQuery().resource(linkedDatasetURIs, true).list();
     }
 
-    const linkedDatasets = await
-      (linkedDatasetSearchList ? linkedDatasetSearchList.getEntries(state.linkedDatasetsCurrentPage) : []);
+    const linkedDatasets = await (linkedDatasetSearchList ?
+      linkedDatasetSearchList.getEntries(state.linkedDatasetsCurrentPage) : []);
     const linkedDatasetsSearchSize = linkedDatasetSearchList ? linkedDatasetSearchList.getSize() : 0;
 
     const datasets = await datasetSearchList.getEntries(state.datasetsCurrentPage);
@@ -96,42 +95,84 @@ export default (initialVnode) => {
    */
   const paginateList = (newPage, listName) => {
     const newState = {};
-    newState[listName] = newPage;
+    newState[`${listName}CurrentPage`] = newPage;
     setState(newState);
 
-    loadDatasets();
+    return loadDatasets();
+  };
+
+  /**
+   * Clear the current search value
+   */
+  const resetSearchField = () => {
+    // keep the state of the dom at the dom and not in mithril
+    const el = initialVnode.dom.querySelector('input');
+    el.value = '';
+
+    setState({
+      searchToken: null,
+    });
+  };
+
+  /**
+   * Reset list pages
+   */
+  const resetPagination = () => {
+    setState({
+      datasetsCurrentPage: 0,
+      linkedDatasetsCurrentPage: 0,
+    });
+  };
+
+  /**
+   * Resets (the values of) the main components of the view, e.g pagination, search, etc..
+   *
+   * Returns a promise for convenience.
+   *
+   * @return {Promise<boolean>}
+   */
+  const reset = () => {
+    resetPagination();
+    resetSearchField();
+    return Promise.resolve(true);
   };
 
   const bindActions = actions(entry);
-
-  /**
-   * Clear the current value
-   */
-  const emptySearchField = () => {
-    const el = initialVnode.dom.querySelector('input');
-    el.value = '';
-  };
 
   /**
    * @param {string} datasetRURI
    * @return {*}
    */
   const unlink = datasetRURI => bindActions.unlink(datasetRURI)
-    .then(loadDatasets)
-    .then(emptySearchField);
+    .then(reset)
+    .then(loadDatasets);
+
 
   /**
    * @param {string} datasetRURI
    * @return {*}
    */
   const link = datasetRURI => bindActions.link(datasetRURI)
-    .then(loadDatasets)
-    .then(emptySearchField);
+    .then(reset)
+    .then(loadDatasets);
 
   /**
    * @return {Promise<void>}
    */
-  const reload = () => loadDatasets().then(emptySearchField);
+  const reload = () => reset().then(loadDatasets);
+
+  /**
+   *
+   * @param searchToken
+   * @return {Promise<void>}
+   */
+  const search = (searchToken) => {
+    resetPagination();
+    setState({
+      searchToken,
+    });
+    return loadDatasets();
+  };
 
   return {
     oncreate: loadDatasets,
@@ -172,7 +213,7 @@ export default (initialVnode) => {
           <div className="listButtons col">
             <div className="row">
               <SearchInput
-                onchangeSearch={loadDatasets}
+                onchangeSearch={search}
                 columnWidth="col"
                 placeholder={'Search for datasets'}
               />
