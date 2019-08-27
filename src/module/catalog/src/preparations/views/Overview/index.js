@@ -122,8 +122,11 @@ export default () => {
       archiveSearchList: null,
       suggestionSearchList: null,
     }, true);
-    getArchiveEntries(term);
-    getSuggestionEntries(term);
+
+    return Promise.all([
+      getArchiveEntries(term),
+      getSuggestionEntries(term),
+    ]);
   };
 
   const reInitView = () => {
@@ -133,10 +136,99 @@ export default () => {
     // clearSearchField();
   };
 
-  const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({
-    suggestions: [newSuggestion, ...state.suggestions],
-  }));
+  const createSuggestion = e => actions.createSuggestion(e, (newSuggestion) => {
+    setState({
+      suggestionPage: 0,
+    }, true);
+    addSuggestion(newSuggestion);
+  });
 
+  /**
+   *
+   * @param entry
+   * @param {store/SearchList} list
+
+   * @return {Promise<void>}
+   */
+  const addEntryToList = async (entry, list) => {
+    await list.addEntry(entry);
+    return list.getEntries(0);
+  };
+
+  /**
+   *
+   * @param entry
+   * @param {store/SearchList} list
+   * @return {Promise<void>}
+   */
+  const removeEntryFromList = async (entry, list, page) => {
+    await list.removeEntry(entry);
+    return list.getEntries(page);
+  };
+
+  /**
+   * @param suggestionEntry
+   * @return {Promise<void>}
+   */
+  const addSuggestion = async (suggestionEntry) => {
+    const suggestions = await addEntryToList(suggestionEntry, state.suggestionSearchList);
+    setState({
+      suggestions,
+      totalSuggestions: state.suggestionSearchList.getSize(),
+    });
+  };
+
+  /**
+   * @param archiveEntry
+   * @return {Promise<void>}
+   */
+  const addArchive = async (archiveEntry) => {
+    const archives = await addEntryToList(archiveEntry, state.archiveSearchList);
+    setState({
+      archives,
+      totalArchives: state.archiveSearchList.getSize(),
+    });
+  };
+
+  /**
+   *
+   * @param suggestionEntry
+   * @return {Promise<void>}
+   */
+  const removeSuggestion = async (suggestionEntry) => {
+    const suggestions = await removeEntryFromList(suggestionEntry, state.suggestionSearchList, state.suggestionPage);
+    setState({
+      suggestions,
+      totalSuggestions: state.suggestionSearchList.getSize(),
+    });
+  };
+
+  /**
+   *
+   * @param archiveEntry
+   * @return {Promise<void>}
+   */
+  const removeArchive = async (archiveEntry) => {
+    const archives = await removeEntryFromList(archiveEntry, state.archiveSearchList, state.archivePage);
+    setState({
+      archives,
+      totalArchives: state.archiveSearchList.getSize(),
+    });
+  };
+
+  const updateLists = async (suggestionEntry, action) => {
+    switch (action) {
+      case 'archive':
+        await removeSuggestion(suggestionEntry);
+        await addArchive(suggestionEntry);
+        break;
+      case 'unArchive':
+        await removeArchive(suggestionEntry);
+        await addSuggestion(suggestionEntry);
+        break;
+      default:
+    }
+  };
 
   /**
    *
@@ -207,6 +299,7 @@ export default () => {
                   key={suggestion.getId()}
                   entry={suggestion}
                   updateParent={reInitView}
+                  updateLists={updateLists}
                 />
               )) : <ListPlaceholder label={escaPreparations.suggestionEmptyList}/>}
               {(state.totalSuggestions > LIST_PAGE_SIZE_SMALL) && <Pagination
@@ -233,6 +326,7 @@ export default () => {
                     key={suggestion.getId()}
                     entry={suggestion}
                     updateParent={reInitView}
+                    updateLists={updateLists}
                   />
                 )) : <ListPlaceholder label={escaPreparations.archiveEmptyList}/>}
                 {(state.totalArchives > LIST_PAGE_SIZE_SMALL) && <Pagination

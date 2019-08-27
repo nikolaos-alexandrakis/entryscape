@@ -1,7 +1,7 @@
 import SuggestionActions from 'catalog/preparations/components/SuggestionActions';
 import dateUtil from 'commons/util/dateUtil';
 import { getModifiedDate, getTitle } from 'commons/util/metadata';
-import { createSetState } from "commons/util/util";
+import { createSetState } from 'commons/util/util';
 import './index.scss';
 
 export default (initialVnode) => {
@@ -20,7 +20,7 @@ export default (initialVnode) => {
   };
   return {
     view(vnode) {
-      const { entry, updateParent } = vnode.attrs;
+      const { entry, updateParent, updateLists } = vnode.attrs;
       const title = getTitle(entry);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
 
@@ -36,7 +36,10 @@ export default (initialVnode) => {
         <div className="suggestionRow__actions">
           {hasDatasets && <span className="fas fa-cubes"/>}
           <span className="date">{modificationDate.short}</span>
-          <SuggestionActions entry={entry} updateParent={updateParent}/>
+          <SuggestionActions
+            entry={entry}
+            updateParent={updateParent}
+            updateLists={updateLists}/>
         </div>
       </div>;
     },

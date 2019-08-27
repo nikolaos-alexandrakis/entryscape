@@ -12,7 +12,10 @@ import './index.scss';
 
 export default (initialVnode) => {
   const {
-    entry, updateParent = () => {
+    entry,
+    updateParent = () => {
+    },
+    updateLists = () => {
     },
   } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
@@ -152,7 +155,11 @@ export default (initialVnode) => {
               incomplete={!checklistMandatoryComplete}
               onclick={editChecklist}
             />
-            <SuggestionRow entry={entry} onclick={collapseDatasetList}/>
+            <SuggestionRow
+              entry={entry}
+              onclick={collapseDatasetList}
+              updateLists={updateLists}
+            />
           </div>
           <div className="collapse">
             <div className="list datasets">

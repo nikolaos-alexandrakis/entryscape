@@ -170,7 +170,8 @@ export default (suggestionEntry, wrapperFunction) => {
    * @param {function} onDone A callback to call on completion
    * @returns {undefined}
    */
-  const createDataset = (onDone = () => {}) => {
+  const createDataset = (onDone = () => {
+  }) => {
     createDatasetDialog.open({
       onDone: (datasetEntry) => {
         suggestionEntry
@@ -212,58 +213,43 @@ export default (suggestionEntry, wrapperFunction) => {
    *
    * @param {string} newStatus The new status in object position
    * @param {string} message The string to display in the confirmation dialog
-   * @param {function} onDone A callback to call on completion
-   * @returns {Promise}
+   * @returns {Promise<store/Entry|null>}
    */
-  const changeStatus = (newStatus, message, onDone = () => {
-  }) => {
+  const changeStatus = async (newStatus, message) => {
     const dialogs = registry.get('dialogs');
 
-    return dialogs.confirm(message, null, null, (confirm) => {
-      if (confirm) {
-        const entryInfo = suggestionEntry.getEntryInfo().getGraph();
-        entryInfo.findAndRemove(suggestionEntry.getURI(), 'store:status');
-        entryInfo.add(suggestionEntry.getURI(), 'store:status', newStatus);
+    const confirm = await dialogs.confirm(message, null, null);
+    if (confirm) {
+      const entryInfo = suggestionEntry.getEntryInfo().getGraph();
+      entryInfo.findAndRemove(suggestionEntry.getURI(), 'store:status');
+      entryInfo.add(suggestionEntry.getURI(), 'store:status', newStatus);
 
-        return suggestionEntry
-          .getEntryInfo()
-          .commit()
-          .then(() => {
-            const delayMillis = 2000;
-            const async = registry.get('asynchandler');
-            async.openDialog(true);
-            setTimeout(() => { // In order to avoid a slow solr re-index
-              async.closeDialog(true);
-              onDone();
-            }, delayMillis);
-          });
-      }
+      return suggestionEntry
+        .getEntryInfo()
+        .commit();
+    }
 
-      return Promise.resolve(null);
-    });
+    return Promise.resolve(null);
   };
 
   /**
    * Change the status of a Suggestion to be archived
    *
-   * @param {function} onDone A callback to call on completion
-   * @returns {undefined}
+   * @returns {Promise}
    */
-  const archiveSuggestion = (onDone) => {
+  const archiveSuggestion = () => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
-    changeStatus('esterms:archived', escaPreparations.archiveSuggestion, onDone);
+    return changeStatus('esterms:archived', escaPreparations.archiveSuggestion);
   };
 
   /**
    * Change the status of a Suggestion from archived to investigating
    *
-   * @param {function} onDone A callback to call on completion
-   *
-   * @returns {undefined}
+   * @returns {Promise}
    */
-  const unArchiveSuggestion = (onDone) => {
+  const unArchiveSuggestion = () => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
-    changeStatus('esterms:investigating', escaPreparations.unArchiveSuggestion, onDone);
+    return changeStatus('esterms:investigating', escaPreparations.unArchiveSuggestion);
   };
 
   const actions = {
