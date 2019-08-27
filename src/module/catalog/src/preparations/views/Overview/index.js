@@ -1,6 +1,7 @@
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Suggestion from 'catalog/preparations/components/Suggestion';
 import Pagination from 'commons/components/common/Pagination';
+import { paginationHandler } from 'commons/components/common/Pagination/util';
 import SearchInput from 'commons/components/SearchInput';
 import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
@@ -125,36 +126,31 @@ export default () => {
     getSuggestionEntries(term);
   };
 
-  const clearSearchField = () => {
-
-  }
-
   const reInitView = () => {
     setState(defaultState);
     getArchiveEntries(); // Needs to be handled somewhat manually due to solr index
     getSuggestionEntries();
-    clearSearchField();
+    // clearSearchField();
   };
 
   const createSuggestion = e => actions.createSuggestion(e, newSuggestion => setState({
     suggestions: [newSuggestion, ...state.suggestions],
   }));
 
-  const paginateArchiveList = (newPage) => {
-    setState({
-      archivePage: newPage,
-    });
 
-    getArchiveEntries();
-  };
+  /**
+   *
+   * @param page
+   * @return {*}
+   */
+  const paginateArchiveList = page => paginationHandler(page, 'archivePage', setState, getArchiveEntries);
 
-  const paginateSuggestionList = (newPage) => {
-    setState({
-      suggestionPage: newPage,
-    });
-
-    getSuggestionEntries();
-  };
+  /**
+   *
+   * @param page
+   * @return {*}
+   */
+  const paginateSuggestionList = page => paginationHandler(page, 'suggestionPage', setState, getSuggestionEntries);
 
   return {
     oninit: reInitView,

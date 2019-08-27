@@ -1,5 +1,6 @@
 import escaPreparationsNLS from 'catalog/nls/escaPreparations.nls';
 import Pagination from 'commons/components/common/Pagination';
+import { paginationHandler } from 'commons/components/common/Pagination/util';
 import SearchInput from 'commons/components/SearchInput';
 import registry from 'commons/registry';
 import { createSetState, LIST_PAGE_SIZE_SMALL } from 'commons/util/util';
@@ -90,16 +91,11 @@ export default (initialVnode) => {
 
   /**
    *
-   * @param {string} newPage datasets|linkedDatasets
-   * @param listName
+   * @param {string} page
+   * @param listName datasets|linkedDatasets
+   * @return {Promise<void>} returns loadDatasets()
    */
-  const paginateList = (newPage, listName) => {
-    const newState = {};
-    newState[`${listName}CurrentPage`] = newPage;
-    setState(newState);
-
-    return loadDatasets();
-  };
+  const paginateList = (page, listName) => paginationHandler(page, `${listName}CurrentPage`, setState, loadDatasets);
 
   /**
    * Clear the current search value
