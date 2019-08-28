@@ -67,19 +67,6 @@ export default (suggestionEntry, wrapperFunction) => {
   });
   // END STUBBED DIALOGS
 
-  /*
-   This deletes selected distribution and also deletes
-   its relation to dataset
-   */
-  const removeSuggestion = (onSuccess = () => {
-  }, onError = () => {
-  }) => {
-    suggestionEntry
-      .del()
-      .then(onSuccess)
-      .catch(onError);
-  };
-
   // ACTIONS
   const progressDialog = new ProgressDialog({ suggestion: suggestionEntry });
   const editChecklist = (onDone) => {
@@ -135,30 +122,31 @@ export default (suggestionEntry, wrapperFunction) => {
   };
 
   /**
-   * Remove the Suggestion
+   * Delete the Suggestion
    *
-   * @param {function} onSuccess A callback to call on successful completion
-   * @returns {P}
+   * @returns {Promise<boolean>}
    */
-  const remove = (onSuccess = () => {
-  }) => {
+  const deleteSuggestion = async () => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
     const dialogs = registry.get('dialogs');
-    dialogs.confirm(escaPreparations.removeSuggestionQuestion,
-      null, null, (confirm) => {
-        if (!confirm) {
-          return;
-        }
+    const confirm = await dialogs.confirm(escaPreparations.removeSuggestionQuestion, null, null);
+    if (!confirm) {
+      return null;
+    }
 
-        removeSuggestion(onSuccess);
-      });
+    try {
+      // when resolved this does not return anything,
+      // that's why we return true
+      await suggestionEntry.del();
+    } catch (err) {
+      return false;
+    }
+    return true;
   };
 
   /**
-   * @param onDone
    */
-  const linkToDataset = (onDone = () => {
-  }) => {
+  const linkToDataset = () => {
     const dialog = new LinkToDatasetDialog();
     dialog.open();
   };
@@ -253,7 +241,7 @@ export default (suggestionEntry, wrapperFunction) => {
   };
 
   const actions = {
-    remove,
+    deleteSuggestion,
     editSuggestion,
     editChecklist,
     editComments,

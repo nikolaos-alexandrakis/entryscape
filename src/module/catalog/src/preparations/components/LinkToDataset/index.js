@@ -48,7 +48,7 @@ export default (initialVnode) => {
 
     // If there's more than 3 characters than trigger a search
     if (typeof state.searchToken === 'string' && state.searchToken.length > 2) {
-      query.title(state.searchToken);
+   query.title(state.searchToken);
     }
 
     return query;
@@ -180,7 +180,7 @@ export default (initialVnode) => {
         let list = null;
         if (state[listName].length) {
           const onclick = listName === 'datasets' ? link : unlink;
-          const isLinked = listName !== 'datasets';
+          const isLinked = listName === 'linkedDatasets';
           list = state[listName].map(dataset => <DatasetRow
             key={dataset.getId()}
             entry={dataset}

@@ -10,10 +10,8 @@ export default (initialVnode) => {
    * @param {MouseEvent} e
    */
   const removeDatasetReference = (e) => {
-    const datasetURI = datasetEntry.getResourceURI();
-
     if (onRemove) {
-      onRemove(e, datasetURI); // TODO: @scazan figure better way to do bubble wrapper
+      onRemove(e, datasetEntry.getResourceURI()); // TODO: @scazan figure better way to do bubble wrapper
     }
   };
 

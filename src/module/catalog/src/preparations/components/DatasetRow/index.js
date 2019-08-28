@@ -13,13 +13,13 @@ export default (initialVnode) => {
   // is already linked with a suggestion.
   const onClickDataset = () => {
     const escaPreparations = i18n.getLocalization(escaPreparationsNLS);
-    const msg = isAlreadyLinked ?
-      escaPreparations.linkDatasetConfirmQuestion : escaPreparations.unlinkDatasetConfirmQuestion;
+    const msg = isAlreadyLinked ? escaPreparations.unlinkDatasetConfirmQuestion :
+      escaPreparations.linkDatasetConfirmQuestion;
 
     return registry.get('dialogs').confirm(
       msg,
-      escaPreparations.linkDatasetConfirm,
-      escaPreparations.linkSuggestionToDatasetCancel,
+      null,
+      null,
       (confirm) => {
         if (!confirm) {
           return Promise.reject();

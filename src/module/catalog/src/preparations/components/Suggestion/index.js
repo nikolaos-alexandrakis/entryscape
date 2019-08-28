@@ -2,7 +2,7 @@ import registry from 'commons/registry';
 import DOMUtil from 'commons/util/htmlUtil';
 import { createSetState } from 'commons/util/util';
 import config from 'config';
-import jquery from "jquery";
+import jquery from 'jquery';
 import m from 'mithril';
 import ProgressBar from '../ProgressBar';
 import SuggestionDataset from '../SuggestionDataset';
@@ -11,18 +11,11 @@ import bindActions from './actions';
 import './index.scss';
 
 export default (initialVnode) => {
-  const {
-    entry,
-    updateParent = () => {
-    },
-    updateLists = () => {
-    },
-  } = initialVnode.attrs;
+  const { entry, updateUpstream } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
 
   const state = {
     datasets: [],
-    requests: [],
   };
 
   const setState = createSetState(state);
@@ -33,7 +26,6 @@ export default (initialVnode) => {
    */
   const editChecklist = e => actions.editChecklist(e, m.redraw);
 
-
   /**
    *
    * @param e
@@ -43,10 +35,31 @@ export default (initialVnode) => {
   const removeDatasetReference = (e, uri) => actions.removeDatasetReference(e, uri, () => {
     // @scazan We need to remove the dataset reference from the state as the solr index will not
     // be updated in time for a server refresh
-    const filteredDatasets = state.datasets.filter(dataset => dataset.getResourceURI() !== uri);
-    updateParent();
-    setState({ datasets: filteredDatasets });
+    const datasets = state.datasets.filter(dataset => dataset.getResourceURI() !== uri);
+    setState({ datasets });
   });
+
+  /**
+   * @param datasetEntry
+   */
+  const addDatasetReference = (datasetEntry) => {
+    state.datasets.unshift(datasetEntry);
+    setState({
+      datasets: state.datasets, // just for re-rendering
+    });
+  };
+
+  const updateDatasetList = (updatedEntry, action) => {
+    switch (action) {
+      case 'add':
+        addDatasetReference(updatedEntry);
+        break;
+      case 'remove':
+        break;
+      default:
+        updateUpstream(updatedEntry, action);
+    }
+  };
 
   /**
    *
@@ -158,7 +171,7 @@ export default (initialVnode) => {
             <SuggestionRow
               entry={entry}
               onclick={collapseDatasetList}
-              updateLists={updateLists}
+              updateUpstream={updateDatasetList}
             />
           </div>
           <div className="collapse">

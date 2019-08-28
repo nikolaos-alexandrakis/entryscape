@@ -20,14 +20,15 @@ export default (initialVnode) => {
   };
   return {
     view(vnode) {
-      const { entry, updateParent, updateLists } = vnode.attrs;
+      const { entry, updateUpstream } = vnode.attrs;
       const title = getTitle(entry);
       const modificationDate = dateUtil.getMultipleDateFormats(getModifiedDate(entry));
 
       const hasDatasets = entry.getMetadata().find(entry.getResourceURI(), 'dcterms:references').length > 0;
+      const onclick = hasDatasets ? collapseDatasetList : null;
 
       return <div
-        onclick={collapseDatasetList}
+        onclick={onclick}
         className={'suggestionRow__main listRowBg'}>
         <div className="suggestionRow__name">
           {hasDatasets ? <span className={`fas fa-chevron-${state.isCollapsed ? 'down' : 'right'}`}/> : null}
@@ -38,8 +39,7 @@ export default (initialVnode) => {
           <span className="date">{modificationDate.short}</span>
           <SuggestionActions
             entry={entry}
-            updateParent={updateParent}
-            updateLists={updateLists}/>
+            updateUpstream={updateUpstream}/>
         </div>
       </div>;
     },

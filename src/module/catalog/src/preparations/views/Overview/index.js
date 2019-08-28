@@ -136,12 +136,6 @@ export default () => {
     // clearSearchField();
   };
 
-  const createSuggestion = e => actions.createSuggestion(e, (newSuggestion) => {
-    setState({
-      suggestionPage: 0,
-    }, true);
-    addSuggestion(newSuggestion);
-  });
 
   /**
    *
@@ -192,6 +186,17 @@ export default () => {
 
   /**
    *
+   * @param {MouseEvent} e
+   */
+  const createSuggestion = e => actions.createSuggestion(e, (newSuggestion) => {
+    setState({
+      suggestionPage: 0,
+    }, true);
+    return addSuggestion(newSuggestion);
+  });
+
+  /**
+   *
    * @param suggestionEntry
    * @return {Promise<void>}
    */
@@ -216,6 +221,12 @@ export default () => {
     });
   };
 
+  /**
+   *
+   * @param suggestionEntry
+   * @param action
+   * @return {Promise<void>}
+   */
   const updateLists = async (suggestionEntry, action) => {
     switch (action) {
       case 'archive':
@@ -225,6 +236,12 @@ export default () => {
       case 'unArchive':
         await removeArchive(suggestionEntry);
         await addSuggestion(suggestionEntry);
+        break;
+      case 'deleteSuggestion':
+        await removeSuggestion(suggestionEntry);
+        break;
+      case 'deleteArchive':
+        await removeArchive(suggestionEntry);
         break;
       default:
     }
@@ -291,15 +308,12 @@ export default () => {
               {escaPreparations.suggestionListTitle}
             </h1>
             <div className="list">
-              {(state.totalSuggestions == null) &&
-              <div className="placeholder"/>
-              }
+              {(state.totalSuggestions == null) && <div className="placeholder"/>}
               {hasSuggestions ? state.suggestions.map(suggestion => (
                 <Suggestion
                   key={suggestion.getId()}
                   entry={suggestion}
-                  updateParent={reInitView}
-                  updateLists={updateLists}
+                  updateUpstream={updateLists}
                 />
               )) : <ListPlaceholder label={escaPreparations.suggestionEmptyList}/>}
               {(state.totalSuggestions > LIST_PAGE_SIZE_SMALL) && <Pagination
@@ -318,15 +332,12 @@ export default () => {
 
             <div className="suggestions">
               <div className="list">
-                {(state.totalArchives == null) &&
-                <div className="placeholder"/>
-                }
+                {(state.totalArchives == null) && <div className="placeholder"/>}
                 {hasArchives ? state.archives.map(suggestion => (
                   <Suggestion
                     key={suggestion.getId()}
                     entry={suggestion}
-                    updateParent={reInitView}
-                    updateLists={updateLists}
+                    updateUpstream={updateLists}
                   />
                 )) : <ListPlaceholder label={escaPreparations.archiveEmptyList}/>}
                 {(state.totalArchives > LIST_PAGE_SIZE_SMALL) && <Pagination

@@ -37,8 +37,6 @@
     "datasetsListHeading": "Datasets in catalog",
     "linkedDatasetsListHeading": "Linked datasets",
     "suggestionEmptyList": "There is no suggestion to show",
-    "archiveEmptyList": "There is no archive to show",
-    "linkDatasetConfirm": "Yes",
-    "linkSuggestionToDatasetCancel": "Cancel"
+    "archiveEmptyList": "There is no archive to show"
   }
 }

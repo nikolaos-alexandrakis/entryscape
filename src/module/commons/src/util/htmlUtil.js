@@ -65,11 +65,13 @@ const htmlUtil = {
     return node;
   },
   preventBubbleWrapper(onClick) {
-    return (e, ...args) => {
+    return async (e, ...args) => {
       e.preventDefault();
       e.stopPropagation();
 
-      onClick && onClick.apply(null, args);
+      if (onClick) {
+        return onClick.apply(null, args);
+      }
     };
   },
 };

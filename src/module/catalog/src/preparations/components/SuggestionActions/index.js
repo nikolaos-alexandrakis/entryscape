@@ -11,40 +11,65 @@ import bindActions from '../Suggestion/actions';
  * Renders a list of action buttons that can be applied to a Suggestion
  */
 export default (initialVnode) => {
-  const {
-    entry, updateParent = () => {
-    },
-    updateLists = () => {
-    },
-  } = initialVnode.attrs;
+  const { entry, updateUpstream } = initialVnode.attrs;
   const actions = bindActions(entry, DOMUtil.preventBubbleWrapper);
-  const actionsUnbubbled = bindActions(entry);
 
-  const editSuggestion = e => actions.editSuggestion(e);
-  const linkToDataset = e => actions.linkToDataset(e);
+  const editSuggestion = e => actions.editSuggestion(e, m.redraw);
+  const linkToDataset = e => actions.linkToDataset(e, m.redraw);
   const editChecklist = e => actions.editChecklist(e, m.redraw);
-  const deleteSuggestion = e => actions.remove(e, updateParent);
-  const createDataset = e => actions.createDataset(e, updateParent);
-
-  const archiveSuggestion = async () => {
-    const success = await actionsUnbubbled.archiveSuggestion();
+  /**
+   *
+   * @param e
+   * @param isArchive
+   * @return {Promise<void>}
+   */
+  const deleteSuggestion = async (e, isArchive = false) => {
+    const success = await actions.deleteSuggestion(e);
     if (success) {
-      updateLists(entry, 'archive');
+      updateUpstream(entry, isArchive ? 'deleteArchive' : 'deleteSuggestion');
+    }
+  };
+  /**
+   *
+   * @param e
+   * @return {Promise<void>}
+   */
+  const deleteArchive = e => deleteSuggestion(e, true);
+
+  /**
+   *
+   * @param e
+   */
+  const createDataset = e => actions.createDataset(e, datasetEntry => updateUpstream(datasetEntry, 'add'));
+
+  /**
+   *
+   * @param e
+   * @return {Promise<void>}
+   */
+  const archiveSuggestion = async (e) => {
+    const success = await actions.archiveSuggestion(e);
+    if (success) {
+      updateUpstream(entry, 'archive');
     }
   };
 
+  /**
+   *
+   * @param e
+   * @return {Promise<void>}
+   */
   const unArchiveSuggestion = async (e) => {
-    const success = await actionsUnbubbled.unArchiveSuggestion(e);
+    const success = await actions.unArchiveSuggestion(e);
     if (success) {
-      updateLists(entry, 'unArchive');
+      updateUpstream(entry, 'unArchive');
     }
   };
 
-  const namespaces = registry.get('namespaces');
   const isArchived = entry
     .getEntryInfo()
     .getGraph()
-    .findFirstValue(entry.getURI(), 'store:status') === namespaces.expand('esterms:archived');
+    .findFirstValue(entry.getURI(), 'store:status') === registry.getNamespaces().expand('esterms:archived');
 
   return {
     view() {
@@ -102,7 +127,7 @@ export default (initialVnode) => {
                 </div>
               </li>
             )}
-            <li className="row__dropdownMenuItem" onclick={deleteSuggestion}>
+            <li className="row__dropdownMenuItem" onclick={isArchived ? deleteArchive : deleteSuggestion}>
               <div>
                 <i className="fas fa-fw fa-times"/>
                 <span>{escaPreparations.deleteMenu}</span>
